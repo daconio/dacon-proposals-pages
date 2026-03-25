@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>DAKER x DACON - 단국대학교 AI 대회 제안서</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+--p:#0053db;--pd:#0048c1;--op:#f8f7ff;
+--ob:#2a3439;--sf:#f7f9fb;--sl:#f0f4f7;--sw:#ffffff;
+--os:#2a3439;--osv:#566166;--ov:#a9b4b9;
+--sc:#d8e3fb;--osc:#475266;
+--w:#c2622d;--wb:rgba(194,98,45,0.06);--dk:#0f172a;
+--f:'Plus Jakarta Sans',-apple-system,sans-serif;
+--sa:0 8px 24px rgba(30,41,59,0.04);--gh:1px solid rgba(169,180,185,0.2);
+--rs:0.25rem;--rm:0.375rem;--rl:0.75rem;--rx:1rem;--rf:9999px;
+--sw2:1280px;--sh:720px;
+}
+html,body{width:100%;height:100%;background:var(--sl);font-family:var(--f);overflow:hidden;color:var(--os)}
+#viewport{position:fixed;inset:0;display:flex;align-items:center;justify-content:center}
+#stage{position:relative;width:var(--sw2);height:var(--sh);overflow:hidden;transform-origin:center center;border-radius:var(--rl);box-shadow:0 12px 48px rgba(30,41,59,0.1)}
+.slide{position:absolute;inset:0;background:var(--sf);display:flex;flex-direction:column;opacity:0;pointer-events:none;transition:opacity 0s}
+.slide.active{opacity:1;pointer-events:auto}
+.si{flex:1;display:flex;flex-direction:column;padding:64px 72px 52px;position:relative}
+.sh{position:absolute;top:0;left:0;right:0;padding:18px 32px;display:flex;justify-content:space-between;align-items:center;background:var(--sl)}
+.sh-l{font-size:.6875rem;font-weight:700;color:var(--osv);letter-spacing:.05em;text-transform:uppercase}
+.sf{position:absolute;bottom:0;left:0;right:0;padding:12px 32px;display:flex;justify-content:space-between;align-items:center;background:var(--sl)}
+.sf-logo{font-size:.875rem;font-weight:800;color:var(--p);letter-spacing:.04em}
+.sf-pg{font-size:.6875rem;color:var(--osv);font-weight:600}
+.sf-cr{font-size:.5625rem;color:var(--ov);letter-spacing:.03em;font-weight:600}
+.tag{display:inline-flex;align-items:center;gap:8px;font-size:.6875rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--p);margin-bottom:14px}
+.tag::before{content:'';width:24px;height:2.5px;background:var(--p);border-radius:2px}
+.tag-w{color:var(--w)}.tag-w::before{background:var(--w)}
+h2.st{font-size:2rem;font-weight:800;line-height:1.2;color:var(--os);letter-spacing:-.02em}
+.hl{color:var(--p)}.hl-w{color:var(--w)}
+.sub{margin-top:10px;font-size:.9375rem;color:var(--osv);line-height:1.7}
+.c{background:var(--sw);border-radius:var(--rl);padding:20px}
+.c-b{background:var(--sc)}.c-w{background:var(--wb)}.c-s{background:var(--sl)}
+.c-t{font-size:.9375rem;font-weight:700;color:var(--os);margin-bottom:6px}
+.c-d{font-size:.8125rem;color:var(--osv);line-height:1.65}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
+.g4{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:12px}
+.g5{display:grid;grid-template-columns:1fr 1fr 1fr 1fr 1fr;gap:10px}
+.ic{width:36px;height:36px;border-radius:var(--rm);display:flex;align-items:center;justify-content:center;font-size:.8125rem;font-weight:800;margin-bottom:12px;color:#fff;background:var(--p)}
+.ic-w{background:var(--w)}.ic-d{background:var(--dk)}
+.bd{display:inline-block;padding:3px 10px;border-radius:var(--rf);font-size:.6875rem;font-weight:700;background:var(--sc);color:var(--osc)}
+.bd-w{background:var(--wb);color:var(--w)}
+.tb{width:100%;border-collapse:collapse;font-size:.8125rem}
+.tb th{text-align:left;padding:9px 14px;background:var(--sl);color:var(--os);font-weight:700;font-size:.75rem}
+.tb td{padding:9px 14px;color:var(--osv)}
+.tb tr:nth-child(even) td{background:var(--sl)}
+.mx{text-align:center;padding:16px 10px;background:var(--sl);border-radius:var(--rl)}
+.mx .v{font-size:1.75rem;font-weight:800;line-height:1;color:var(--p)}
+.mx .l{font-size:.6875rem;color:var(--osv);margin-top:6px;font-weight:500}
+.slide-sec .si{justify-content:center;align-items:center;text-align:center;padding-top:60px}
+.slide-sec .sn{font-size:4.5rem;font-weight:800;color:rgba(0,83,219,.06);line-height:1;margin-bottom:8px}
+.slide-sec h2{font-size:2.625rem;font-weight:800;color:var(--os);letter-spacing:-.02em}
+.slide-sec .sd{font-size:1.0625rem;color:var(--osv);margin-top:10px}
+.slide-end .si{justify-content:center;align-items:center;text-align:center}
+.slide-end h1{font-size:3rem;font-weight:800;color:var(--os);line-height:1.15;letter-spacing:-.02em}
+.slide-end .end-sub{font-size:1.125rem;color:var(--osv);margin-top:14px}
+.slide-end .end-logo{font-size:2.625rem;font-weight:800;color:var(--p);letter-spacing:.06em;margin-bottom:36px}
+.tc{display:grid;grid-template-columns:1fr 1fr;gap:24px;flex:1}
+.cl{font-size:.8125rem;font-weight:700;color:var(--p);margin-bottom:10px}
+.cl-w{color:var(--w)}
+.fr{display:flex;align-items:center;gap:8px}
+.fa{font-size:18px;color:var(--ov);flex-shrink:0}
+.fb{flex:1;padding:14px 16px;background:var(--sl);border-radius:var(--rl);text-align:center}
+.fb-p{background:var(--sc)}.fb .fl{font-size:.75rem;color:var(--osv);font-weight:600}
+.fb .fd{font-size:.6875rem;color:var(--osv);margin-top:4px;line-height:1.4;opacity:.7}
+.ck{list-style:none;display:flex;flex-direction:column;gap:6px}
+.ck li{display:flex;align-items:flex-start;gap:10px;font-size:.8125rem;color:var(--osv);line-height:1.6}
+.ck li .i{flex-shrink:0;font-size:.8125rem;margin-top:2px;font-weight:700;color:var(--p)}
+.src{font-size:.5625rem;color:var(--ov);position:absolute;bottom:52px;left:72px;right:72px}
+[data-step]{opacity:0;transform:translateY(14px);transition:opacity .45s ease,transform .45s ease}
+[data-step].visible{opacity:1;transform:none}
+[data-step].pre-visible{opacity:1;transform:none;transition:none}
+.nav-btn{position:fixed;top:50%;transform:translateY(-50%);width:40px;height:40px;border-radius:50%;background:rgba(247,249,251,.85);border:none;color:var(--osv);cursor:pointer;z-index:100;display:flex;align-items:center;justify-content:center;font-size:18px;transition:all .2s;user-select:none;box-shadow:var(--sa);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px)}
+.nav-btn:hover{color:var(--p)}
+#nav-prev{left:12px}#nav-next{right:12px}
+#progress-bar{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--p),var(--pd));transition:width .4s ease;z-index:100}
+#key-hint{position:fixed;bottom:16px;left:50%;transform:translateX(-50%);color:var(--ov);font-size:.6875rem;z-index:100;opacity:.4}
+@media print {
+  html, body { background: #fff !important; overflow: visible !important; height: auto !important; width: auto !important; }
+  #viewport { position: static !important; display: block !important; height: auto !important; }
+  #stage { position: static !important; width: auto !important; height: auto !important; overflow: visible !important; transform: none !important; box-shadow: none !important; border-radius: 0 !important; }
+  .slide { position: relative !important; inset: auto !important; opacity: 1 !important; pointer-events: auto !important; display: flex !important; flex-direction: column !important; width: 1280px !important; height: 720px !important; page-break-after: always !important; break-after: page !important; page-break-inside: avoid !important; margin: 0 auto !important; }
+  .nav-btn, #progress-bar, #key-hint { display: none !important; }
+  [data-step] { opacity: 1 !important; transform: none !important; }
+}
+</style>
+</head>
+<body>
+<div id="viewport"><div id="stage">
+
+<!-- S1: COVER -->
+<section class="slide active" id="s1">
+  <div class="si" style="justify-content:center;align-items:flex-start;padding-left:88px;background:linear-gradient(135deg,var(--sf) 0%,var(--sc) 100%)">
+    <div style="position:absolute;top:22px;right:32px"><span style="display:inline-block;background:linear-gradient(135deg,var(--p),var(--pd));color:var(--op);padding:6px 18px;border-radius:var(--rf);font-size:.75rem;font-weight:600">2026.03</span></div>
+    <div data-step="1">
+      <span style="font-size:2rem;font-weight:800;color:var(--p);letter-spacing:.04em">DAKER</span>
+      <span style="font-size:1rem;color:var(--ov);margin:0 8px">+</span>
+      <span style="font-size:1.75rem;font-weight:800;color:var(--w);letter-spacing:.04em">DACON</span>
+    </div>
+    <h1 data-step="2" style="font-size:2.75rem;font-weight:800;line-height:1.15;letter-spacing:-.02em;color:var(--os);margin-top:14px">
+      단국대학교<br/><span style="color:var(--p)">AI 대회</span> 통합 제안서
+    </h1>
+    <p data-step="3" style="font-size:1.0625rem;color:var(--osv);margin-top:18px;line-height:1.7">
+      바이브코딩 AIX 대회 + 알고리즘 경진대회<br/>SW중심대학의 AI 교육 혁신을 가속합니다
+    </p>
+    <div data-step="4" style="display:flex;gap:10px;margin-top:28px">
+      <span style="padding:8px 18px;border-radius:var(--rf);background:var(--sc);font-size:.8125rem;font-weight:700;color:var(--osc)">DAKER 바이브코딩</span>
+      <span style="padding:8px 18px;border-radius:var(--rf);background:var(--wb);font-size:.8125rem;font-weight:700;color:var(--w)">DACON 알고리즘</span>
+    </div>
+    <div style="position:absolute;bottom:20px;right:32px;font-size:.5625rem;color:var(--ov)">COPYRIGHT 2026 DAKER &middot; DACON</div>
+  </div>
+</section>
+
+<!-- S2: 대학 AI 교육 현황 -->
+<section class="slide" id="s2">
+  <div class="sh"><span class="sh-l">I. MARKET CONTEXT</span></div>
+  <div class="si" style="padding-top:60px">
+    <div class="tag">UNIVERSITY AI EDUCATION</div>
+    <h2 class="st" data-step="1">대학 AI 교육, <span class="hl">전환점</span>에 서다</h2>
+    <p class="sub" data-step="2">SW중심대학 49개교 선정, 전교생 AI 교육 의무화 &mdash; "배우는 AI"에서 "만드는 AI"로</p>
+    <div class="g3" style="margin-top:16px">
+      <div class="c c-b" data-step="3">
+        <div style="font-size:.6875rem;font-weight:700;color:var(--osc);margin-bottom:6px;text-transform:uppercase;letter-spacing:.05em">전교생 AI 교육</div>
+        <div class="c-d" style="color:var(--osc)">
+          SW중심대학 <strong>49개교</strong> 전교생 AI&middot;SW 필수 교양<br/>
+          연간 <strong>3,000명+</strong> 이수 (단국대 기준)<br/>
+          비전공자도 에이전트 생성 가능 수준
+        </div>
+      </div>
+      <div class="c c-b" data-step="3">
+        <div style="font-size:.6875rem;font-weight:700;color:var(--osc);margin-bottom:6px;text-transform:uppercase;letter-spacing:.05em">바이브코딩 시대</div>
+        <div class="c-d" style="color:var(--osc)">
+          Collins 2025 <strong>올해의 단어</strong> 선정<br/>
+          비개발자의 <strong>63%</strong>가 바이브코딩 사용<br/>
+          <strong>4시간</strong> 만에 서비스 완성 (해커톤 실증)
+        </div>
+      </div>
+      <div class="c c-b" data-step="3">
+        <div style="font-size:.6875rem;font-weight:700;color:var(--osc);margin-bottom:6px;text-transform:uppercase;letter-spacing:.05em">경쟁의 변화</div>
+        <div class="c-d" style="color:var(--osc)">
+          알고리즘 정확도 &rarr; <strong>프로덕트 빌딩</strong><br/>
+          개인 경쟁 &rarr; <strong>팀 기반 협업</strong><br/>
+          코딩 능력 &rarr; <strong>문제 정의 + AI 활용</strong>
+        </div>
+      </div>
+    </div>
+    <div class="g4" style="margin-top:14px" data-step="4">
+      <div class="mx"><div class="v">49</div><div class="l">SW중심대학<br/>선정 (누적)</div></div>
+      <div class="mx"><div class="v" style="color:var(--w)">63%</div><div class="l">바이브코딩<br/>비개발자 비율</div></div>
+      <div class="mx"><div class="v">41%</div><div class="l">전 세계 코드 중<br/>AI 생성 비율</div></div>
+      <div class="mx"><div class="v" style="color:var(--w)">$12.8B</div><div class="l">AI 코딩 도구<br/>시장 규모 (2026)</div></div>
+    </div>
+    <div class="src">출처: 과기정통부 SW중심대학 (2025), GitHub (2025), Collins Dictionary (2025), 대한청년일보 (2026)</div>
+  </div>
+  <div class="sf"><span class="sf-logo">DAKER &middot; DACON</span><span class="sf-pg">2</span><span class="sf-cr">COPYRIGHT 2026</span></div>
+</section>
+
+<!-- S3: 바이브코딩 대회 현황 -->
+<section class="slide" id="s3">
+  <div class="sh"><span class="sh-l">I. VIBECODING LANDSCAPE</span></div>
+  <div class="si" style="padding-top:60px">
+    <div class="tag tag-w">COMPETITION TRENDS</div>
+    <h2 class="st" data-step="1">국내외 <span class="hl-w">바이브코딩 대회</span> 급증</h2>
+    <p class="sub" data-step="2">2025~2026년, 대학과 기업이 바이브코딩 해커톤을 잇달아 개최하고 있습니다</p>
+    <div class="tc" style="margin-top:16px">
+      <div data-step="3">
+        <div class="cl-w">국내 사례</div>
+        <div class="c" style="border:var(--gh);margin-bottom:8px;padding:16px">
+          <div class="c-t" style="font-size:.8125rem">한성대 &mdash; 바이브코딩 경진대회</div>
+          <div class="c-d" style="font-size:.75rem">SW중심대학사업단 주관. 챗봇 주제.<br/>2025.11 개최. <strong>비전공자 참여</strong> 확대.</div>
+        </div>
+        <div class="c" style="border:var(--gh);margin-bottom:8px;padding:16px">
+          <div class="c-t" style="font-size:.8125rem">한국열린사이버대 &mdash; 바이브코딩 해커톤</div>
+          <div class="c-d" style="font-size:.75rem">에이아이밋 공동 주관. <strong>참가자 대다수 비전공자</strong>.<br/>4시간 만에 서비스 완성. AI 대중화 실증.</div>
+        </div>
+        <div class="c" style="border:var(--gh);margin-bottom:8px;padding:16px">
+          <div class="c-t" style="font-size:.8125rem">조선대 SW중심대학 &mdash; 바이브코딩 프로그램</div>
+          <div class="c-d" style="font-size:.75rem">SW역량 강화 지원 프로그램으로 운영.<br/>학생 대상 AI 도구 실습 + 프로젝트.</div>
+        </div>
+        <div class="c" style="border:var(--gh);padding:16px">
+          <div class="c-t" style="font-size:.8125rem">Women in Vibe Coding &mdash; Global Buildathon</div>
+          <div class="c-d" style="font-size:.75rem">2026.03 서울 개최. Zero100 글로벌 대회.<br/>성별/전공 무관 참여. 국제 규모.</div>
+        </div>
+      </div>
+      <div data-step="4">
+        <div class="cl">글로벌 사례</div>
+        <div class="c" style="border:var(--gh);margin-bottom:8px;padding:16px">
+          <div class="c-t" style="font-size:.8125rem">Devpost &mdash; Vibe Code-a-thon</div>
+          <div class="c-d" style="font-size:.75rem">Lovable/Bolt/Replit 활용. <strong>코딩 경험 불필요</strong>.<br/>글로벌 온라인 해커톤. 누구나 참가.</div>
+        </div>
+        <div class="c" style="border:var(--gh);margin-bottom:8px;padding:16px">
+          <div class="c-t" style="font-size:.8125rem">vibecodinghackathon.com</div>
+          <div class="c-d" style="font-size:.75rem"><strong>"Home of Vibe Coding Hackathons"</strong><br/>바이브코딩 전용 해커톤 플랫폼 등장.</div>
+        </div>
+        <div class="c c-s" style="padding:16px">
+          <div style="font-size:.6875rem;font-weight:700;color:var(--os);margin-bottom:4px;text-transform:uppercase;letter-spacing:.05em">2026 주요 도구</div>
+          <div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap">
+            <span style="padding:4px 12px;border-radius:var(--rf);background:var(--sc);font-size:.6875rem;font-weight:600;color:var(--osc)">Cursor</span>
+            <span style="padding:4px 12px;border-radius:var(--rf);background:var(--sc);font-size:.6875rem;font-weight:600;color:var(--osc)">Lovable</span>
+            <span style="padding:4px 12px;border-radius:var(--rf);background:var(--sc);font-size:.6875rem;font-weight:600;color:var(--osc)">Bolt.new</span>
+            <span style="padding:4px 12px;border-radius:var(--rf);background:var(--sc);font-size:.6875rem;font-weight:600;color:var(--osc)">Replit</span>
+            <span style="padding:4px 12px;border-radius:var(--rf);background:var(--sc);font-size:.6875rem;font-weight:600;color:var(--osc)">Claude Code</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span class="sf-logo">DAKER &middot; DACON</span><span class="sf-pg">3</span><span class="sf-cr">COPYRIGHT 2026</span></div>
+</section>
+
+<!-- S4: 단국대 이해 -->
+<section class="slide" id="s4">
+  <div class="sh"><span class="sh-l">II. DANKOOK UNIVERSITY</span></div>
+  <div class="si" style="padding-top:60px">
+    <div class="tag">DANKOOK &middot; SW CENTER</div>
+    <h2 class="st" data-step="1">단국대학교 <span class="hl">SW중심대학</span></h2>
+    <p class="sub" data-step="2">2024년 선정, 6년간 110억원 &mdash; 'AI 캠퍼스' 조성으로 융합형 인재 양성</p>
+    <div class="g5" style="margin-top:16px">
+      <div class="mx" data-step="3"><div class="v">110억</div><div class="l">6년간<br/>사업비 (KRW)</div></div>
+      <div class="mx" data-step="3"><div class="v" style="color:var(--w)">3,000+</div><div class="l">연간 SW&middot;AI<br/>이수 학생 수</div></div>
+      <div class="mx" data-step="3"><div class="v">100+</div><div class="l">SW&middot;AI<br/>강좌 운영</div></div>
+      <div class="mx" data-step="3"><div class="v">19</div><div class="l">AI-PD 교수<br/>필수 교양 과정</div></div>
+      <div class="mx" data-step="3"><div class="v" style="color:var(--w)">4단계</div><div class="l">재능 사다리<br/>학위 과정</div></div>
+    </div>
+    <div class="g3" style="margin-top:14px">
+      <div class="c c-b" data-step="4">
+        <div style="font-size:.6875rem;font-weight:700;color:var(--osc);margin-bottom:6px;text-transform:uppercase;letter-spacing:.05em">AI 캠퍼스</div>
+        <div class="c-d" style="color:var(--osc)">전교생 대상 SW&middot;AI 필수 교양<br/><strong>「대학 SW&middot;AI입문」</strong> 필수 이수<br/>단과대별 AI-PD 교수 배치</div>
+      </div>
+      <div class="c c-b" data-step="4">
+        <div style="font-size:.6875rem;font-weight:700;color:var(--osc);margin-bottom:6px;text-transform:uppercase;letter-spacing:.05em">실무 교육</div>
+        <div class="c-d" style="color:var(--osc)"><strong>IDC SW아카데미</strong> 산업체 현장 교육<br/>자동차 포렌식, 반도체SW, 헬스케어<br/>리빙랩 기반 실무 인재 양성</div>
+      </div>
+      <div class="c c-b" data-step="4">
+        <div style="font-size:.6875rem;font-weight:700;color:var(--osc);margin-bottom:6px;text-transform:uppercase;letter-spacing:.05em">SW융합대학</div>
+        <div class="c-d" style="color:var(--osc)">소프트웨어학과 + 컴퓨터공학과<br/>AI융합대학 산하 전공 운영<br/>창의실습존 &middot; 코딩 &middot; 클라우드 &middot; 보안</div>
+      </div>
+    </div>
+    <div class="src">출처: 한국대학신문 (2025, 2026), SW중심대학협의회, 단국대 공식</div>
+  </div>
+  <div class="sf"><span class="sf-logo">DAKER &middot; DACON</span><span class="sf-pg">4</span><span class="sf-cr">COPYRIGHT 2026</span></div>
+</section>
+
+<!-- S5: SECTION - 제안 개요 -->
+<section class="slide slide-sec" id="s5">
+  <div class="sh"><span class="sh-l">III. PROPOSAL</span></div>
+  <div class="si">
+    <div class="sn" data-step="1">2in1</div>
+    <h2 data-step="2">2개 대회, 하나의 제안</h2>
+    <p class="sd" data-step="3">DAKER 바이브코딩 대회 + DACON 알고리즘 대회로<br/>단국대 SW중심대학의 AI 교육 성과를 실증합니다</p>
+  </div>
+  <div class="sf"><span class="sf-logo">DAKER &middot; DACON</span><span class="sf-pg">5</span><span class="sf-cr">COPYRIGHT 2026</span></div>
+</section>
+
+<!-- S6: 2개 대회 비교 -->
+<section class="slide" id="s6">
+  <div class="sh"><span class="sh-l">III. TWO COMPETITIONS</span></div>
+  <div class="si" style="padding-top:60px">
+    <div class="tag">DUAL TRACK</div>
+    <h2 class="st" data-step="1"><span class="hl">DAKER</span> + <span class="hl-w">DACON</span> 듀얼 트랙</h2>
+    <p class="sub" data-step="2">바이브코딩(프로덕트 빌딩)과 알고리즘(모델 경쟁) &mdash; 두 축으로 AI 역량을 입체 검증</p>
+    <div class="tc" style="margin-top:16px">
+      <div data-step="3">
+        <div class="cl">DAKER &mdash; 바이브코딩 AIX 대회</div>
+        <div class="c c-b" style="margin-bottom:10px">
+          <div class="c-t" style="color:var(--osc)">AI로 실제 소프트웨어를 만든다</div>
+          <div class="c-d" style="color:var(--osc)">
+            &bull; AI 도구(Cursor, Claude 등)로 <strong>실제 작동하는 웹앱</strong> 개발<br/>
+            &bull; <strong>비전공자도 참여 가능</strong> &mdash; 문제 정의 + AI 활용 역량 평가<br/>
+            &bull; 팀 기반 협업 (기획+개발+디자인)<br/>
+            &bull; 전문가 심사 70% + ELO 피어평가 30%
+          </div>
+        </div>
+        <div class="c c-s" style="padding:14px">
+          <div style="font-size:.6875rem;font-weight:700;color:var(--os);margin-bottom:4px;text-transform:uppercase;letter-spacing:.05em">대상</div>
+          <div class="c-d" style="font-size:.75rem"><strong>전교생</strong> (전공/비전공 모두)<br/>SW&middot;AI 교양 이수자 포함</div>
+        </div>
+      </div>
+      <div data-step="4">
+        <div class="cl-w">DACON &mdash; 알고리즘 경진대회</div>
+        <div class="c c-w" style="margin-bottom:10px">
+          <div class="c-t" style="color:var(--w)">AI 모델로 데이터를 분석한다</div>
+          <div class="c-d">
+            &bull; 데이터셋 기반 <strong>AI/ML 모델 경쟁</strong><br/>
+            &bull; 리더보드 실시간 순위 &mdash; <strong>정확도 기반</strong> 평가<br/>
+            &bull; 개인 또는 팀 참가<br/>
+            &bull; Public/Private 데이터셋 분리
+          </div>
+        </div>
+        <div class="c c-s" style="padding:14px">
+          <div style="font-size:.6875rem;font-weight:700;color:var(--os);margin-bottom:4px;text-transform:uppercase;letter-spacing:.05em">대상</div>
+          <div class="c-d" style="font-size:.75rem"><strong>SW&middot;AI 전공 학생</strong> 중심<br/>컴퓨터공학과, 소프트웨어학과, 데이터사이언스</div>
+        </div>
+      </div>
+    </div>
+    <div class="fr" style="margin-top:14px" data-step="5">
+      <div class="fb fb-p"><div class="fl" style="font-weight:700;color:var(--osc)">비전공 + 전공</div><div class="fd" style="color:var(--osc)">바이브코딩으로 전교생 참여</div></div>
+      <span class="fa">+</span>
+      <div class="fb" style="background:var(--wb)"><div class="fl" style="font-weight:700;color:var(--w)">전공 심화</div><div class="fd">알고리즘으로 전공 역량 검증</div></div>
+      <span class="fa">=</span>
+      <div class="fb" style="background:var(--sl)"><div class="fl" style="font-weight:700;color:var(--os)">SW중심대학 성과</div><div class="fd">AI 교육 실증 + 인재 발굴</div></div>
+    </div>
+  </div>
+  <div class="sf"><span class="sf-logo">DAKER &middot; DACON</span><span class="sf-pg">6</span><span class="sf-cr">COPYRIGHT 2026</span></div>
+</section>
+
+<!-- S7: DAKER 바이브코딩 상세 -->
+<section class="slide" id="s7">
+  <div class="sh"><span class="sh-l">IV. DAKER VIBECODING</span></div>
+  <div class="si" style="padding-top:60px">
+    <div class="tag">VIBECODING AIX</div>
+    <h2 class="st" data-step="1">DAKER <span class="hl">바이브코딩 AIX 대회</span></h2>
+    <p class="sub" data-step="2">AI 도구로 실제 작동하는 소프트웨어를 만드는 새로운 형태의 대회</p>
+    <div class="g3" style="margin-top:16px">
+      <div class="c" data-step="3" style="border:var(--gh)">
+        <div class="ic">01</div>
+        <div class="c-t">대회 구조</div>
+        <div class="c-d">
+          &bull; 온라인 2주 + 오프라인 데모데이<br/>
+          &bull; 3~5인 팀 구성 (학과 혼합 권장)<br/>
+          &bull; AI 도구 자유 선택<br/>
+          &bull; 단국대 브랜드 전용 페이지
+        </div>
+      </div>
+      <div class="c" data-step="3" style="border:var(--gh)">
+        <div class="ic" style="background:var(--w)">02</div>
+        <div class="c-t">과제 트랙 예시</div>
+        <div class="c-d">
+          &bull; <strong>캠퍼스 라이프</strong>: 학사 도우미, 수강 추천<br/>
+          &bull; <strong>지역 연계</strong>: 천안/용인 지역 서비스<br/>
+          &bull; <strong>산업 특화</strong>: 자동차/헬스케어/반도체<br/>
+          &bull; <strong>자유 주제</strong>: 사회 문제 해결 SW
+        </div>
+      </div>
+      <div class="c" data-step="3" style="border:var(--gh)">
+        <div class="ic" style="background:var(--dk)">03</div>
+        <div class="c-t">DAKER 플랫폼 지원</div>
+        <div class="c-d">
+          &bull; <strong>팀 빌딩</strong>: AI 기반 역할/스킬 매칭<br/>
+          &bull; <strong>War Room</strong>: 실시간 협업 편집<br/>
+          &bull; <strong>쇼케이스</strong>: MVP 갤러리 전시<br/>
+          &bull; <strong>ELO Arena</strong>: 블라인드 피어 평가
+        </div>
+      </div>
+    </div>
+    <div class="g4" style="margin-top:14px" data-step="4">
+      <div class="mx"><div class="v">3~5인</div><div class="l">팀 구성<br/>(학과 혼합)</div></div>
+      <div class="mx"><div class="v" style="color:var(--w)">2주+1일</div><div class="l">온라인 개발<br/>+ 데모데이</div></div>
+      <div class="mx"><div class="v">70:30</div><div class="l">전문가 심사<br/>+ ELO 투표</div></div>
+      <div class="mx"><div class="v" style="color:var(--w)">전교생</div><div class="l">참가 대상<br/>(비전공 포함)</div></div>
+    </div>
+  </div>
+  <div class="sf"><span class="sf-logo">DAKER</span><span class="sf-pg">7</span><span class="sf-cr">COPYRIGHT 2026</span></div>
+</section>
+
+<!-- S8: DACON 알고리즘 상세 -->
+<section class="slide" id="s8">
+  <div class="sh"><span class="sh-l">V. DACON ALGORITHM</span></div>
+  <div class="si" style="padding-top:60px">
+    <div class="tag tag-w">ALGORITHM COMPETITION</div>
+    <h2 class="st" data-step="1">DACON <span class="hl-w">알고리즘 경진대회</span></h2>
+    <p class="sub" data-step="2">14만+ 데이터 사이언티스트 커뮤니티 기반, 검증된 AI 모델 경쟁 플랫폼</p>
+    <div class="g3" style="margin-top:16px">
+      <div class="c" data-step="3" style="border:var(--gh)">
+        <div class="ic" style="background:var(--w)">01</div>
+        <div class="c-t">대회 구조</div>
+        <div class="c-d">
+          &bull; 온라인 4~6주 운영<br/>
+          &bull; 개인 또는 팀 (최대 5인)<br/>
+          &bull; 데이터셋 제공 &rarr; 모델 학습 &rarr; 제출<br/>
+          &bull; Public/Private 리더보드 분리
+        </div>
+      </div>
+      <div class="c" data-step="3" style="border:var(--gh)">
+        <div class="ic" style="background:var(--w)">02</div>
+        <div class="c-t">과제 예시</div>
+        <div class="c-d">
+          &bull; <strong>이미지 분류</strong>: 제조 불량 탐지<br/>
+          &bull; <strong>자연어 처리</strong>: 문서 자동 분류<br/>
+          &bull; <strong>시계열 예측</strong>: 수요/재고 예측<br/>
+          &bull; <strong>추천 시스템</strong>: 맞춤 콘텐츠 추천
+        </div>
+      </div>
+      <div class="c" data-step="3" style="border:var(--gh)">
+        <div class="ic" style="background:var(--w)">03</div>
+        <div class="c-t">DACON 플랫폼 지원</div>
+        <div class="c-d">
+          &bull; <strong>자동 채점</strong>: RMSE, F1, AUC 등<br/>
+          &bull; <strong>리더보드</strong>: 실시간 순위 업데이트<br/>
+          &bull; <strong>코드 공유</strong>: 베이스라인 노트북 제공<br/>
+          &bull; <strong>토론 게시판</strong>: 참가자 Q&A
+        </div>
+      </div>
+    </div>
+    <div class="g4" style="margin-top:14px" data-step="4">
+      <div class="mx"><div class="v" style="color:var(--w)">14만+</div><div class="l">데이콘 커뮤니티<br/>회원 수</div></div>
+      <div class="mx"><div class="v" style="color:var(--w)">500+</div><div class="l">누적 대회<br/>운영 경험</div></div>
+      <div class="mx"><div class="v" style="color:var(--w)">실시간</div><div class="l">리더보드<br/>자동 채점</div></div>
+      <div class="mx"><div class="v" style="color:var(--w)">4~6주</div><div class="l">대회 기간<br/>(온라인)</div></div>
+    </div>
+  </div>
+  <div class="sf"><span class="sf-logo">DACON</span><span class="sf-pg">8</span><span class="sf-cr">COPYRIGHT 2026</span></div>
+</section>
+
+<!-- S9: SW중심대학 성과 매핑 -->
+<section class="slide" id="s9">
+  <div class="sh"><span class="sh-l">VI. SW CENTER ALIGNMENT</span></div>
+  <div class="si" style="padding-top:60px">
+    <div class="tag">PERFORMANCE METRICS</div>
+    <h2 class="st" data-step="1">SW중심대학 <span class="hl">성과 지표</span> 매핑</h2>
+    <p class="sub" data-step="2">2개 대회가 SW중심대학 사업의 핵심 성과 지표에 직접 기여합니다</p>
+    <div data-step="3">
+      <table class="tb">
+        <thead><tr><th>SW중심대학 성과 지표</th><th>DAKER 바이브코딩</th><th>DACON 알고리즘</th><th>기여도</th></tr></thead>
+        <tbody>
+          <tr><td style="font-weight:600">비전공자 SW&middot;AI 교육 성과</td><td><span class="bd">전교생 참여 가능</span></td><td>&#8212;</td><td style="font-weight:700;color:var(--p)">핵심</td></tr>
+          <tr><td style="font-weight:600">SW&middot;AI 전공 역량 강화</td><td><span class="bd">프로덕트 빌딩</span></td><td><span class="bd-w" style="background:var(--wb);color:var(--w)">모델 정확도</span></td><td style="font-weight:700;color:var(--p)">핵심</td></tr>
+          <tr><td style="font-weight:600">산학 연계 &middot; 현장 실습</td><td><span class="bd">실무형 프로젝트</span></td><td><span class="bd-w" style="background:var(--wb);color:var(--w)">산업 데이터</span></td><td style="font-weight:700;color:var(--p)">핵심</td></tr>
+          <tr><td style="font-weight:600">경진대회 참가 &middot; 수상 실적</td><td><span class="bd">AIX 대회 수상</span></td><td><span class="bd-w" style="background:var(--wb);color:var(--w)">알고리즘 수상</span></td><td style="font-weight:700;color:var(--p)">핵심</td></tr>
+          <tr><td style="font-weight:600">팀 프로젝트 &middot; 협업 역량</td><td><span class="bd">팀 빌딩 시스템</span></td><td>팀 참가 지원</td><td style="color:var(--osv)">보조</td></tr>
+          <tr><td style="font-weight:600">AI 도구 활용 역량</td><td><span class="bd">Cursor, Claude 등</span></td><td><span class="bd-w" style="background:var(--wb);color:var(--w)">ML 프레임워크</span></td><td style="font-weight:700;color:var(--p)">핵심</td></tr>
+          <tr><td style="font-weight:600">포트폴리오 &middot; 취업 연계</td><td><span class="bd">쇼케이스 갤러리</span></td><td><span class="bd-w" style="background:var(--wb);color:var(--w)">수상 경력</span></td><td style="color:var(--osv)">보조</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="c c-b" data-step="4" style="margin-top:14px;padding:14px 20px">
+      <div style="font-size:.8125rem;color:var(--osc);line-height:1.7">
+        <strong>7개 성과 지표 중 5개가 "핵심" 기여</strong> &mdash; 2개 대회 동시 개최로 SW중심대학 사업 평가에서 가시적 성과를 확보합니다
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span class="sf-logo">DAKER &middot; DACON</span><span class="sf-pg">9</span><span class="sf-cr">COPYRIGHT 2026</span></div>
+</section>
+
+<!-- S10: 운영 로드맵 -->
+<section class="slide" id="s10">
+  <div class="sh"><span class="sh-l">VII. ROADMAP</span></div>
+  <div class="si" style="padding-top:60px">
+    <div class="tag">TIMELINE</div>
+    <h2 class="st" data-step="1">통합 운영 <span class="hl">로드맵</span></h2>
+    <p class="sub" data-step="2">학기 일정에 맞춘 2개 대회 순차 운영</p>
+    <div style="margin-top:18px" data-step="3">
+      <div style="display:grid;grid-template-columns:80px 1fr 1fr 1fr 1fr;gap:8px;margin-bottom:8px">
+        <div></div>
+        <div style="text-align:center;font-size:.75rem;font-weight:700;color:var(--osc);padding:6px;background:var(--sc);border-radius:var(--rm)">1개월차 (준비)</div>
+        <div style="text-align:center;font-size:.75rem;font-weight:700;color:var(--osc);padding:6px;background:var(--sc);border-radius:var(--rm)">2개월차 (대회 1)</div>
+        <div style="text-align:center;font-size:.75rem;font-weight:700;color:var(--w);padding:6px;background:var(--wb);border-radius:var(--rm)">3개월차 (대회 2)</div>
+        <div style="text-align:center;font-size:.75rem;font-weight:700;color:var(--os);padding:6px;background:var(--sl);border-radius:var(--rm)">4개월차 (성과)</div>
+      </div>
+      <div style="display:grid;grid-template-columns:80px 1fr 1fr 1fr 1fr;gap:8px;margin-bottom:6px">
+        <div style="font-size:.6875rem;font-weight:700;color:var(--p);display:flex;align-items:center">DAKER</div>
+        <div style="background:var(--sc);border-radius:var(--rm);padding:8px 12px"><div style="font-size:.75rem;font-weight:700;color:var(--osc)">페이지 세팅</div><div style="font-size:.6875rem;color:var(--osc);opacity:.7">브랜딩 &middot; 팀 구성</div></div>
+        <div style="background:var(--sc);border-radius:var(--rm);padding:8px 12px;grid-column:span 2"><div style="font-size:.75rem;font-weight:700;color:var(--osc)">바이브코딩 AIX 대회 (온라인 2주 + 데모데이)</div><div style="font-size:.6875rem;color:var(--osc);opacity:.7">팀 빌딩 &rarr; 개발 &rarr; 쇼케이스 &rarr; 심사 &rarr; 시상</div></div>
+        <div style="background:rgba(214,226,255,.4);border-radius:var(--rm);padding:8px 12px"><div style="font-size:.75rem;font-weight:600;color:var(--osc)">결과 리포트</div><div style="font-size:.6875rem;color:var(--osc);opacity:.7">쇼케이스 상시 공개</div></div>
+      </div>
+      <div style="display:grid;grid-template-columns:80px 1fr 1fr 1fr 1fr;gap:8px;margin-bottom:6px">
+        <div style="font-size:.6875rem;font-weight:700;color:var(--w);display:flex;align-items:center">DACON</div>
+        <div style="background:var(--wb);border-radius:var(--rm);padding:8px 12px"><div style="font-size:.75rem;font-weight:700;color:var(--w)">데이터셋 준비</div><div style="font-size:.6875rem;color:var(--w);opacity:.7">과제 설계 &middot; EDA</div></div>
+        <div></div>
+        <div style="background:var(--wb);border-radius:var(--rm);padding:8px 12px;grid-column:span 2"><div style="font-size:.75rem;font-weight:700;color:var(--w)">알고리즘 경진대회 (4~6주 온라인)</div><div style="font-size:.6875rem;color:var(--w);opacity:.7">리더보드 경쟁 &rarr; Private 채점 &rarr; 최종 순위 &rarr; 시상</div></div>
+      </div>
+      <div style="display:grid;grid-template-columns:80px 1fr 1fr 1fr 1fr;gap:8px">
+        <div style="font-size:.6875rem;font-weight:700;color:var(--osv);display:flex;align-items:center">단국대</div>
+        <div style="background:var(--sl);border-radius:var(--rm);padding:8px 12px"><div style="font-size:.75rem;font-weight:600;color:var(--osv)">과제 &middot; 홍보</div><div style="font-size:.6875rem;color:var(--osv);opacity:.7">주제 확정 &middot; 학생 모집</div></div>
+        <div style="background:var(--sl);border-radius:var(--rm);padding:8px 12px"><div style="font-size:.75rem;font-weight:600;color:var(--osv)">멘토 &middot; 중간점검</div><div style="font-size:.6875rem;color:var(--osv);opacity:.7">교수 멘토링</div></div>
+        <div style="background:var(--sl);border-radius:var(--rm);padding:8px 12px"><div style="font-size:.75rem;font-weight:600;color:var(--osv)">심사위원</div><div style="font-size:.6875rem;color:var(--osv);opacity:.7">교수 &middot; 산업체</div></div>
+        <div style="background:var(--sl);border-radius:var(--rm);padding:8px 12px"><div style="font-size:.75rem;font-weight:600;color:var(--osv)">성과 보고</div><div style="font-size:.6875rem;color:var(--osv);opacity:.7">SW중심대학 실적</div></div>
+      </div>
+    </div>
+    <div class="c c-s" data-step="4" style="margin-top:14px;padding:12px 18px">
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <div style="font-size:.8125rem;color:var(--osv)"><strong style="color:var(--p)">바이브코딩(전교생) &rarr; 알고리즘(전공 심화)</strong> 순서로 AI 역량이 단계적으로 축적됩니다</div>
+        <div style="font-size:.75rem;font-weight:700;color:var(--osv)">약 4개월</div>
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span class="sf-logo">DAKER &middot; DACON</span><span class="sf-pg">10</span><span class="sf-cr">COPYRIGHT 2026</span></div>
+</section>
+
+<!-- S11: 데이콘 플랫폼 실적 -->
+<section class="slide" id="s11">
+  <div class="sh"><span class="sh-l">VIII. PROVEN PLATFORM</span></div>
+  <div class="si" style="padding-top:60px">
+    <div class="tag tag-w">DACON TRACK RECORD</div>
+    <h2 class="st" data-step="1">데이콘, <span class="hl-w">숫자</span>로 증명합니다</h2>
+    <p class="sub" data-step="2">대한민국 최대 AI 경진대회 플랫폼 &mdash; 팩트 기반 실적</p>
+    <div class="g4" style="margin-top:20px">
+      <div class="mx" data-step="3" style="padding:24px 10px"><div class="v" style="font-size:2rem;color:var(--w)">25억+</div><div class="l" style="margin-top:8px">누적 상금<br/>(25억 1,072만원)</div></div>
+      <div class="mx" data-step="3" style="padding:24px 10px"><div class="v" style="font-size:2rem">1,030,142</div><div class="l" style="margin-top:8px">누적 제출 수<br/>(모델/결과물)</div></div>
+      <div class="mx" data-step="3" style="padding:24px 10px"><div class="v" style="font-size:2rem;color:var(--w)">236,666</div><div class="l" style="margin-top:8px">누적 팀 참여<br/>(팀 단위)</div></div>
+      <div class="mx" data-step="3" style="padding:24px 10px"><div class="v" style="font-size:2rem">14만+</div><div class="l" style="margin-top:8px">회원 수<br/>(데이터 사이언티스트)</div></div>
+    </div>
+    <div class="g2" style="margin-top:16px">
+      <div data-step="4">
+        <div class="cl-w">dacon.io &mdash; 대회 목록</div>
+        <div class="c c-s" style="padding:0;overflow:hidden;height:200px;position:relative">
+          <div style="background:var(--sw);padding:16px 20px;height:100%;display:flex;flex-direction:column;gap:10px">
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px"><div style="width:24px;height:24px;border-radius:var(--rm);background:var(--w);display:flex;align-items:center;justify-content:center;color:#fff;font-size:.6rem;font-weight:800">D</div><span style="font-size:.875rem;font-weight:700;color:var(--os)">dacon.io/competitions</span></div>
+            <div style="display:flex;gap:8px">
+              <div style="flex:1;background:var(--sl);border-radius:var(--rm);padding:12px">
+                <div style="width:100%;height:8px;background:var(--sc);border-radius:4px;margin-bottom:8px"></div>
+                <div style="font-size:.6875rem;font-weight:700;color:var(--os)">SW중심대학 AI 경진대회</div>
+                <div style="font-size:.5625rem;color:var(--osv);margin-top:4px">상금 500만원 &middot; D-14</div>
+                <div style="display:flex;gap:4px;margin-top:6px"><span style="font-size:.5rem;padding:2px 6px;background:var(--sc);border-radius:var(--rf);color:var(--osc)">NLP</span><span style="font-size:.5rem;padding:2px 6px;background:var(--sc);border-radius:var(--rf);color:var(--osc)">분류</span></div>
+              </div>
+              <div style="flex:1;background:var(--sl);border-radius:var(--rm);padding:12px">
+                <div style="width:100%;height:8px;background:var(--wb);border-radius:4px;margin-bottom:8px"></div>
+                <div style="font-size:.6875rem;font-weight:700;color:var(--os)">금융 AI Challenge 2026</div>
+                <div style="font-size:.5625rem;color:var(--osv);margin-top:4px">상금 3,300만원 &middot; 진행중</div>
+                <div style="display:flex;gap:4px;margin-top:6px"><span style="font-size:.5rem;padding:2px 6px;background:var(--wb);border-radius:var(--rf);color:var(--w)">금융</span><span style="font-size:.5rem;padding:2px 6px;background:var(--wb);border-radius:var(--rf);color:var(--w)">MVP</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-step="5">
+        <div class="cl">daker.ai &mdash; 해커톤 &middot; 팀 빌딩</div>
+        <div class="c c-s" style="padding:0;overflow:hidden;height:200px;position:relative">
+          <div style="background:var(--sw);padding:16px 20px;height:100%;display:flex;flex-direction:column;gap:10px">
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px"><div style="width:24px;height:24px;border-radius:var(--rm);background:var(--p);display:flex;align-items:center;justify-content:center;color:#fff;font-size:.6rem;font-weight:800">D</div><span style="font-size:.875rem;font-weight:700;color:var(--os)">daker.ai/hackathons</span></div>
+            <div style="display:flex;gap:8px">
+              <div style="flex:1;background:var(--sl);border-radius:var(--rm);padding:12px">
+                <div style="width:100%;height:8px;background:var(--sc);border-radius:4px;margin-bottom:8px"></div>
+                <div style="font-size:.6875rem;font-weight:700;color:var(--os)">바이브코딩 AIX 대회</div>
+                <div style="font-size:.5625rem;color:var(--osv);margin-top:4px">팀 빌딩 &middot; 쇼케이스 &middot; ELO</div>
+                <div style="display:flex;gap:4px;margin-top:6px"><span style="font-size:.5rem;padding:2px 6px;background:var(--sc);border-radius:var(--rf);color:var(--osc)">팀 12</span><span style="font-size:.5rem;padding:2px 6px;background:var(--sc);border-radius:var(--rf);color:var(--osc)">제출 8</span></div>
+              </div>
+              <div style="flex:1;background:var(--sl);border-radius:var(--rm);padding:12px">
+                <div style="width:100%;height:8px;background:var(--sc);border-radius:4px;margin-bottom:8px"></div>
+                <div style="font-size:.6875rem;font-weight:700;color:var(--os)">Expert 심사 포털</div>
+                <div style="font-size:.5625rem;color:var(--osv);margin-top:4px">6~7명 배정 &middot; 자동 집계</div>
+                <div style="display:flex;gap:4px;margin-top:6px"><span style="font-size:.5rem;padding:2px 6px;background:var(--sc);border-radius:var(--rf);color:var(--osc)">채점</span><span style="font-size:.5rem;padding:2px 6px;background:var(--sc);border-radius:var(--rf);color:var(--osc)">Excel</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="src">출처: dacon.io 공식 통계 (2026.03 기준)</div>
+  </div>
+  <div class="sf"><span class="sf-logo">DAKER &middot; DACON</span><span class="sf-pg">11</span><span class="sf-cr">COPYRIGHT 2026</span></div>
+</section>
+
+<!-- S12: Why Us -->
+<section class="slide" id="s12">
+  <div class="sh"><span class="sh-l">IX. WHY US</span></div>
+  <div class="si" style="padding-top:60px">
+    <div class="tag">PLATFORM ADVANTAGE</div>
+    <h2 class="st" data-step="1">왜 <span class="hl">DAKER + DACON</span>인가</h2>
+    <div class="g3" style="margin-top:16px">
+      <div class="c" data-step="2" style="border:var(--gh)">
+        <div class="ic">01</div>
+        <div class="c-t">올인원 플랫폼</div>
+        <div class="c-d">바이브코딩(DAKER) + 알고리즘(DACON)<br/><strong>하나의 파트너</strong>로 2개 대회 통합 운영<br/>팀 빌딩, 심사, 리더보드, 쇼케이스<br/>별도 시스템 구축 불필요</div>
+      </div>
+      <div class="c" data-step="2" style="border:var(--gh)">
+        <div class="ic" style="background:var(--w)">02</div>
+        <div class="c-t">14만+ 커뮤니티</div>
+        <div class="c-d">데이콘 <strong>14만 데이터 사이언티스트</strong><br/>누적 제출 <strong>103만건</strong> &middot; 팀 참여 <strong>23.6만</strong><br/>500+ 대회 운영 노하우<br/><strong>누적 상금 25억원+</strong></div>
+      </div>
+      <div class="c" data-step="2" style="border:var(--gh)">
+        <div class="ic" style="background:var(--dk)">03</div>
+        <div class="c-t">단국대 맞춤 브랜딩</div>
+        <div class="c-d">단국대 <strong>자체 브랜드로 대회 개최</strong><br/>커스텀 페이지, 전용 배너<br/>참가자 데이터 &middot; 결과 리포트<br/><strong>SW중심대학 성과 보고서</strong> 지원</div>
+      </div>
+    </div>
+    <div class="fr" style="margin-top:14px" data-step="3">
+      <div class="fb fb-p"><div class="fl" style="font-weight:700;color:var(--osc)">단국대가 할 일</div><div class="fd" style="color:var(--osc)">과제 설계 &middot; 홍보 &middot; 멘토링 &middot; 심사위원</div></div>
+      <span class="fa">&rarr;</span>
+      <div class="fb" style="background:var(--sc)"><div class="fl" style="font-weight:700;color:var(--osc)">DAKER + DACON</div><div class="fd" style="color:var(--osc)">플랫폼 &middot; 운영 &middot; CS &middot; 리포트 &middot; 인증서</div></div>
+    </div>
+  </div>
+  <div class="sf"><span class="sf-logo">DAKER &middot; DACON</span><span class="sf-pg">12</span><span class="sf-cr">COPYRIGHT 2026</span></div>
+</section>
+
+<!-- S13: ENDING -->
+<section class="slide slide-end" id="s13">
+  <div class="si" style="background:linear-gradient(135deg,var(--sf) 0%,var(--sc) 100%)">
+    <div class="end-logo" data-step="1">DAKER + DACON</div>
+    <h1 data-step="2">단국대학교 AI 대회,<br/><span style="color:var(--p)">함께 만들겠습니다</span></h1>
+    <p class="end-sub" data-step="3">바이브코딩으로 전교생을, 알고리즘으로 전공 역량을<br/>SW중심대학의 AI 교육 성과를 실증합니다</p>
+    <div data-step="4" style="margin-top:32px;display:flex;gap:14px">
+      <a href="https://daker.ai/public/surveys/dacon-ai-competition-host-custom-planning-survey/respond" target="_blank" style="padding:10px 24px;border-radius:var(--rm);background:linear-gradient(135deg,var(--p),var(--pd));color:var(--op);font-size:.875rem;font-weight:700;text-decoration:none">미팅 요청</a>
+      <a href="https://daker.ai" target="_blank" style="padding:10px 24px;border-radius:var(--rm);background:var(--sl);color:var(--osv);font-size:.875rem;font-weight:600;text-decoration:none">daker.ai</a>
+      <a href="https://dacon.io" target="_blank" style="padding:10px 24px;border-radius:var(--rm);background:var(--sl);color:var(--osv);font-size:.875rem;font-weight:600;text-decoration:none">dacon.io</a>
+    </div>
+  </div>
+  <div class="sf"><span class="sf-logo">DAKER &middot; DACON</span><span class="sf-pg"></span><span class="sf-cr">COPYRIGHT 2026 DAKER &middot; DACON</span></div>
+</section>
+
+</div></div>
+<button class="nav-btn" id="nav-prev">&#8249;</button>
+<button class="nav-btn" id="nav-next">&#8250;</button>
+<div id="progress-bar" style="width:0%"></div>
+<div id="key-hint">Arrow keys or click to navigate</div>
+<script>
+(function(){
+const slides=document.querySelectorAll('.slide'),total=slides.length;let cur=0;
+function maxStep(s){let m=0;s.querySelectorAll('[data-step]').forEach(e=>{const v=+e.dataset.step;if(v>m)m=v});return m}
+let step=0;
+function show(idx,dir){slides.forEach(s=>s.classList.remove('active'));slides[idx].classList.add('active');step=0;const els=slides[idx].querySelectorAll('[data-step]');els.forEach(e=>{e.classList.remove('visible','pre-visible')});if(dir==='back'){step=maxStep(slides[idx]);els.forEach(e=>e.classList.add('pre-visible'))}document.getElementById('progress-bar').style.width=((idx+1)/total*100)+'%'}
+function next(){const ms=maxStep(slides[cur]);if(step<ms){step++;slides[cur].querySelectorAll('[data-step]').forEach(e=>{if(+e.dataset.step<=step)e.classList.add('visible')});return}if(cur<total-1){cur++;show(cur,'fwd')}}
+function prev(){if(step>0){slides[cur].querySelectorAll('[data-step]').forEach(e=>{if(+e.dataset.step===step){e.classList.remove('visible','pre-visible')}});step--;return}if(cur>0){cur--;show(cur,'back')}}
+document.getElementById('nav-next').onclick=next;document.getElementById('nav-prev').onclick=prev;
+document.addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key===' '||e.key==='Enter')next();else if(e.key==='ArrowLeft'||e.key==='Backspace')prev()});
+let tx=0;document.addEventListener('touchstart',e=>{tx=e.changedTouches[0].screenX});document.addEventListener('touchend',e=>{const dx=e.changedTouches[0].screenX-tx;if(dx<-50)next();else if(dx>50)prev()});
+function fit(){const vw=window.innerWidth,vh=window.innerHeight;const s=Math.min(vw/1280,vh/720,1);document.getElementById('stage').style.transform='scale('+s+')'}
+window.addEventListener('resize',fit);fit();show(0,'fwd')
+slides[0].querySelectorAll('[data-step]').forEach(e => { e.classList.add('pre-visible'); });
+})();
+</script>
+</body>
+</html>
