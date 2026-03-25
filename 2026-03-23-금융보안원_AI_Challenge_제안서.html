@@ -873,8 +873,10 @@ h2.st { font-size: 2rem; font-weight: 800; line-height: 1.2; color: var(--on-sur
     document.getElementById('stage').style.transform = 'scale('+s+')';
   }
   window.addEventListener('resize', fit); fit();
-  show(0,'fwd');
+  // 첫 슬라이드: show() 호출 없이 직접 초기화 (pre-visible 제거 방지)
+  step = maxStep(slides[0]);
   slides[0].querySelectorAll('[data-step]').forEach(e => { e.classList.add('pre-visible'); });
+  document.getElementById('progress-bar').style.width = ((1)/total*100)+'%';
 })();
 </script>
 </body>
