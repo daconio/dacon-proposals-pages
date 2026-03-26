@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>DAKER - 온·오프라인 하이브리드 및 교육 연계형 해커톤 전략서</title>
+<meta property="og:title" content="DAKER - Edu-Hackathon 통합 운영 전략서" />
+<meta property="og:description" content="온라인의 확산력과 오프라인의 몰입도를 결합한 하이브리드 해커톤 + 학습과학 기반 교육 연계 솔루션" />
+<meta property="og:image" content="https://daker.ai/og-image.png" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="DAKER - Edu-Hackathon 통합 운영 전략서" />
+<meta name="twitter:description" content="온라인의 확산력과 오프라인의 몰입도를 결합한 하이브리드 해커톤 + 학습과학 기반 교육 연계 솔루션" />
+<meta name="twitter:image" content="https://daker.ai/og-image.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --primary: #0053db;
+  --primary-dim: #0048c1;
+  --on-primary: #f8f7ff;
+  --on-background: #2a3439;
+  --surface: #f7f9fb;
+  --surface-bright: #f7f9fb;
+  --surface-low: #f0f4f7;
+  --surface-lowest: #ffffff;
+  --on-surface: #2a3439;
+  --on-surface-variant: #566166;
+  --outline-variant: #a9b4b9;
+  --secondary-container: #d8e3fb;
+  --on-secondary-container: #475266;
+  --accent-warm: #c2622d;
+  --accent-warm-bg: rgba(194,98,45,0.06);
+  --accent-dark: #0f172a;
+
+  --font: 'Plus Jakarta Sans', -apple-system, sans-serif;
+  --shadow-ambient: 0 8px 24px rgba(30,41,59,0.04);
+  --ghost: 1px solid rgba(169,180,185,0.2);
+  --r-sm: 0.25rem; --r-md: 0.375rem; --r-lg: 0.75rem; --r-xl: 1rem; --r-full: 9999px;
+  --slide-w: 1280px; --slide-h: 720px;
+}
+
+html, body {
+  width: 100%; height: 100%;
+  background: var(--surface-low);
+  font-family: var(--font);
+  overflow: hidden; color: var(--on-surface);
+}
+
+#viewport { position: fixed; inset: 0; display: flex; align-items: center; justify-content: center; }
+#stage {
+  position: relative; width: var(--slide-w); height: var(--slide-h);
+  overflow: hidden; transform-origin: center center;
+  border-radius: var(--r-lg); box-shadow: 0 12px 48px rgba(30,41,59,0.1);
+}
+
+.slide {
+  position: absolute; inset: 0; background: var(--surface);
+  display: flex; flex-direction: column;
+  opacity: 0; pointer-events: none; transition: opacity 0s;
+}
+.slide.active { opacity: 1; pointer-events: auto; }
+
+.si { flex: 1; display: flex; flex-direction: column; padding: 64px 72px 52px; position: relative; }
+
+.sh { position: absolute; top: 0; left: 0; right: 0; padding: 18px 32px; display: flex; justify-content: space-between; align-items: center; background: var(--surface-low); }
+.sh-l { font-size: 0.6875rem; font-weight: 700; color: var(--on-surface-variant); letter-spacing: 0.05em; text-transform: uppercase; }
+
+.sf { position: absolute; bottom: 0; left: 0; right: 0; padding: 12px 32px; display: flex; justify-content: space-between; align-items: center; background: var(--surface-low); }
+.sf-logo { font-size: 0.875rem; font-weight: 800; color: var(--primary); letter-spacing: 0.04em; }
+.sf-pg { font-size: 0.6875rem; color: var(--on-surface-variant); font-weight: 600; }
+.sf-cr { font-size: 0.5625rem; color: var(--outline-variant); letter-spacing: 0.03em; font-weight: 600; }
+
+.tag { display: inline-flex; align-items: center; gap: 8px; font-size: 0.6875rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--primary); margin-bottom: 14px; }
+.tag::before { content: ''; width: 24px; height: 2.5px; background: var(--primary); border-radius: 2px; }
+.tag-w { color: var(--accent-warm); }
+.tag-w::before { background: var(--accent-warm); }
+
+h2.st { font-size: 2rem; font-weight: 800; line-height: 1.2; color: var(--on-surface); letter-spacing: -0.02em; }
+.hl { color: var(--primary); }
+.hl-w { color: var(--accent-warm); }
+.sub { margin-top: 10px; font-size: 0.9375rem; color: var(--on-surface-variant); line-height: 1.7; }
+
+.c { background: var(--surface-lowest); border-radius: var(--r-lg); padding: 20px; }
+.c-blue { background: var(--secondary-container); }
+.c-warm { background: var(--accent-warm-bg); }
+.c-surf { background: var(--surface-low); }
+.c-t { font-size: 0.9375rem; font-weight: 700; color: var(--on-surface); margin-bottom: 6px; }
+.c-d { font-size: 0.8125rem; color: var(--on-surface-variant); line-height: 1.65; }
+
+.g2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.g3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+.g4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 12px; }
+
+.ic { width: 36px; height: 36px; border-radius: var(--r-md); display: flex; align-items: center; justify-content: center; font-size: 0.8125rem; font-weight: 800; margin-bottom: 12px; color: #fff; background: var(--primary); }
+.ic-w { width: 36px; height: 36px; border-radius: var(--r-md); display: flex; align-items: center; justify-content: center; font-size: 0.8125rem; font-weight: 800; margin-bottom: 12px; color: #fff; background: var(--accent-warm); }
+.ic-d { width: 36px; height: 36px; border-radius: var(--r-md); display: flex; align-items: center; justify-content: center; font-size: 0.8125rem; font-weight: 800; margin-bottom: 12px; color: #fff; background: var(--accent-dark); }
+
+.bd { display: inline-block; padding: 3px 10px; border-radius: var(--r-full); font-size: 0.6875rem; font-weight: 700; background: var(--secondary-container); color: var(--on-secondary-container); }
+
+.mx { text-align: center; padding: 16px 10px; background: var(--surface-low); border-radius: var(--r-lg); }
+.mx .v { font-size: 1.75rem; font-weight: 800; line-height: 1; color: var(--primary); }
+.mx .l { font-size: 0.6875rem; color: var(--on-surface-variant); margin-top: 6px; font-weight: 500; }
+
+.slide-sec .si { justify-content: center; align-items: center; text-align: center; padding-top: 60px; }
+.slide-sec .sn { font-size: 4.5rem; font-weight: 800; color: rgba(0,83,219,0.06); line-height: 1; margin-bottom: 8px; }
+.slide-sec h2 { font-size: 2.625rem; font-weight: 800; color: var(--on-surface); letter-spacing: -0.02em; }
+.slide-sec .sd { font-size: 1.0625rem; color: var(--on-surface-variant); margin-top: 10px; }
+
+.slide-end .si { justify-content: center; align-items: center; text-align: center; }
+.slide-end h1 { font-size: 3rem; font-weight: 800; color: var(--on-surface); line-height: 1.15; letter-spacing: -0.02em; }
+.slide-end .end-sub { font-size: 1.125rem; color: var(--on-surface-variant); margin-top: 14px; }
+.slide-end .end-logo { font-size: 2.625rem; font-weight: 800; color: var(--primary); letter-spacing: 0.06em; margin-bottom: 36px; }
+
+.tc { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; flex: 1; }
+.cl { font-size: 0.8125rem; font-weight: 700; color: var(--primary); margin-bottom: 10px; }
+.cl-w { color: var(--accent-warm); }
+
+.fr { display: flex; align-items: center; gap: 8px; }
+.fa { font-size: 18px; color: var(--outline-variant); flex-shrink: 0; }
+.fb { flex: 1; padding: 14px 16px; background: var(--surface-low); border-radius: var(--r-lg); text-align: center; }
+.fb-p { background: var(--secondary-container); }
+.fb .fl { font-size: 0.75rem; color: var(--on-surface-variant); font-weight: 600; }
+.fb .fd { font-size: 0.6875rem; color: var(--on-surface-variant); margin-top: 4px; line-height: 1.4; opacity: 0.7; }
+
+.ck { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+.ck li { display: flex; align-items: flex-start; gap: 10px; font-size: 0.8125rem; color: var(--on-surface-variant); line-height: 1.6; }
+.ck li .i { flex-shrink: 0; font-size: 0.8125rem; margin-top: 2px; font-weight: 700; color: var(--primary); }
+
+[data-step] { opacity: 0; transform: translateY(14px); transition: opacity 0.45s ease, transform 0.45s ease; }
+[data-step].visible { opacity: 1; transform: none; }
+[data-step].pre-visible { opacity: 1; transform: none; transition: none; }
+
+.nav-btn {
+  position: fixed; top: 50%; transform: translateY(-50%);
+  width: 40px; height: 40px; border-radius: 50%;
+  background: rgba(247,249,251,0.85); border: none;
+  color: var(--on-surface-variant); cursor: pointer; z-index: 100;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px; transition: all 0.2s; user-select: none;
+  box-shadow: var(--shadow-ambient);
+  backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+}
+.nav-btn:hover { color: var(--primary); }
+#nav-prev { left: 12px; }
+#nav-next { right: 12px; }
+
+#progress-bar { position: fixed; top: 0; left: 0; height: 3px; background: linear-gradient(90deg, var(--primary), var(--primary-dim)); transition: width 0.4s ease; z-index: 100; }
+#key-hint { position: fixed; bottom: 16px; left: 50%; transform: translateX(-50%); color: var(--outline-variant); font-size: 0.6875rem; z-index: 100; opacity: 0.4; }
+
+@media print {
+  html, body { background: #fff !important; overflow: visible !important; height: auto !important; width: auto !important; }
+  #viewport { position: static !important; display: block !important; height: auto !important; }
+  #stage { position: static !important; width: auto !important; height: auto !important; overflow: visible !important; transform: none !important; box-shadow: none !important; border-radius: 0 !important; }
+  .slide { position: relative !important; inset: auto !important; opacity: 1 !important; pointer-events: auto !important; display: flex !important; flex-direction: column !important; width: 1280px !important; height: 720px !important; page-break-after: always !important; break-after: page !important; page-break-inside: avoid !important; margin: 0 auto !important; }
+  .nav-btn, #progress-bar, #key-hint { display: none !important; }
+  [data-step] { opacity: 1 !important; transform: none !important; }
+}
+</style>
+</head>
+<body>
+<div id="viewport">
+<div id="stage">
+
+<!-- ===== SLIDE 1: COVER ===== -->
+<section class="slide active" id="s1">
+  <div class="si" style="justify-content: center; align-items: flex-start; padding-left: 88px; background: linear-gradient(135deg, var(--surface) 0%, var(--secondary-container) 100%);">
+    <div style="position: absolute; top: 22px; right: 32px;">
+      <span style="display: inline-block; background: linear-gradient(135deg, var(--primary), var(--primary-dim)); color: var(--on-primary); padding: 6px 18px; border-radius: var(--r-full); font-size: 0.75rem; font-weight: 600;">2026.03</span>
+    </div>
+    <div class="pre-visible" data-step="1">
+      <span style="font-size: 2rem; font-weight: 800; color: var(--primary); letter-spacing: 0.04em;">DAKER</span>
+    </div>
+    <h1 class="pre-visible" data-step="2" style="font-size: 2.5rem; font-weight: 800; line-height: 1.15; letter-spacing: -0.02em; color: var(--on-surface); margin-top: 14px;">
+      온&middot;오프라인 하이브리드 및<br/>
+      <span style="color: var(--primary);">교육 연계형 해커톤</span> 전략서
+    </h1>
+    <p class="pre-visible" data-step="3" style="font-size: 1.0625rem; color: var(--on-surface-variant); margin-top: 18px; line-height: 1.7;">
+      온라인의 확산력과 오프라인의 몰입도를 결합한<br/>Edu-Hackathon 통합 운영 솔루션
+    </p>
+    <div class="pre-visible" data-step="4" style="display: flex; gap: 10px; margin-top: 28px;">
+      <span style="padding: 8px 18px; border-radius: var(--r-full); background: var(--secondary-container); font-size: 0.8125rem; font-weight: 700; color: var(--on-secondary-container);">하이브리드 운영</span>
+      <span style="padding: 8px 18px; border-radius: var(--r-full); background: var(--accent-warm-bg); font-size: 0.8125rem; font-weight: 700; color: var(--accent-warm);">PBL 교육 연계</span>
+      <span style="padding: 8px 18px; border-radius: var(--r-full); background: var(--surface-low); font-size: 0.8125rem; font-weight: 700; color: var(--on-surface-variant);">사후 관리</span>
+    </div>
+    <div style="position: absolute; bottom: 20px; right: 32px; font-size: 0.5625rem; color: var(--outline-variant);">COPYRIGHT 2026 DAKER. ALL RIGHTS RESERVED</div>
+  </div>
+</section>
+
+<!-- ===== SLIDE 2: OVERVIEW ===== -->
+<section class="slide" id="s2">
+  <div class="sh"><span class="sh-l">OVERVIEW</span></div>
+  <div class="si" style="padding-top: 60px;">
+    <div class="tag">STRATEGY OVERVIEW</div>
+    <h2 class="st" data-step="1">일회성 이벤트를 넘어, <span class="hl">완전한 성장 사이클</span>로</h2>
+    <p class="sub" data-step="2">학습과학 기반 교육과 실무 해커톤을 유기적으로 연계한 종합 인재 양성 솔루션</p>
+    <div class="fr" style="margin-top: 24px;" data-step="3">
+      <div class="fb fb-p">
+        <div class="fl" style="font-weight: 700; color: var(--on-secondary-container);">사전 교육</div>
+        <div class="fd" style="color: var(--on-secondary-container);">DASCHOOL 온라인 학습<br/>기본기 상향 평준화</div>
+      </div>
+      <span class="fa">&rarr;</span>
+      <div class="fb" style="background: var(--accent-warm-bg);">
+        <div class="fl" style="font-weight: 700; color: var(--accent-warm);">온라인 예선</div>
+        <div class="fd" style="color: var(--accent-warm);">대규모 참여<br/>리더보드 경쟁</div>
+      </div>
+      <span class="fa">&rarr;</span>
+      <div class="fb fb-p">
+        <div class="fl" style="font-weight: 700; color: var(--on-secondary-container);">오프라인 본선</div>
+        <div class="fd" style="color: var(--on-secondary-container);">집중 개발<br/>Live Dashboard</div>
+      </div>
+      <span class="fa">&rarr;</span>
+      <div class="fb" style="background: var(--accent-warm-bg);">
+        <div class="fl" style="font-weight: 700; color: var(--accent-warm);">사후 관리</div>
+        <div class="fd" style="color: var(--accent-warm);">역량 리포트<br/>채용 연계</div>
+      </div>
+    </div>
+    <div class="g3" style="margin-top: 20px;">
+      <div class="mx" data-step="4"><div class="v">3</div><div class="l">핵심 전략</div></div>
+      <div class="mx" data-step="4"><div class="v" style="color: var(--accent-warm);">2</div><div class="l">듀얼 트랙 시스템</div></div>
+      <div class="mx" data-step="4"><div class="v">360&deg;</div><div class="l">성장 라이프사이클</div></div>
+    </div>
+    <div class="c c-surf" data-step="5" style="margin-top: 14px; padding: 14px 20px;">
+      <div style="font-size: 0.8125rem; color: var(--on-surface-variant); line-height: 1.7; text-align: center;">
+        <strong style="color: var(--primary);">이론 학습</strong> &rarr; <strong style="color: var(--accent-warm);">실전 적용(해커톤)</strong> &rarr; <strong style="color: var(--primary);">평가 및 자산화</strong> &mdash; 완전한 성장 사이클 구축
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span class="sf-logo">DAKER</span><span class="sf-pg">2</span><span class="sf-cr">COPYRIGHT 2026 DAKER</span></div>
+</section>
+
+<!-- ===== SLIDE 3: SECTION - 전략 1 ===== -->
+<section class="slide slide-sec" id="s3">
+  <div class="sh"><span class="sh-l">I. HYBRID HACKATHON</span></div>
+  <div class="si">
+    <div class="sn" data-step="1">01</div>
+    <h2 data-step="2">온&middot;오프라인 하이브리드 해커톤</h2>
+    <p class="sd" data-step="3">확산과 몰입의 시너지 &mdash; Boom-up &times; Deep-dive</p>
+  </div>
+  <div class="sf"><span class="sf-logo">DAKER</span><span class="sf-pg">3</span><span class="sf-cr">COPYRIGHT 2026 DAKER</span></div>
+</section>
+
+<!-- ===== SLIDE 4: 온라인 예선 + 오프라인 본선 ===== -->
+<section class="slide" id="s4">
+  <div class="sh"><span class="sh-l">I. TWO-PHASE STRUCTURE</span></div>
+  <div class="si" style="padding-top: 60px;">
+    <div class="tag">HYBRID MODEL</div>
+    <h2 class="st" data-step="1"><span class="hl">온라인 확산력</span>과 <span class="hl-w">오프라인 몰입도</span>의 결합</h2>
+    <p class="sub" data-step="2">대규모 참여를 유도하고, 검증된 인재만 선발하여 집중 개발하는 2단계 구조</p>
+    <div class="tc" style="margin-top: 16px;">
+      <div data-step="3">
+        <div class="cl">1단계: 온라인 예선</div>
+        <div class="c c-blue" style="margin-bottom: 12px;">
+          <div class="c-t" style="color: var(--on-secondary-container);">대규모 참여 &amp; 경쟁 필터링</div>
+          <div class="c-d" style="color: var(--on-secondary-container);">
+            &bull; 시공간 제약 없이 <strong>전교생&middot;전 임직원&middot;대중</strong> 참여<br/>
+            &bull; 코드/프롬프트 제출 &rarr; <strong>실시간 자동 채점</strong><br/>
+            &bull; <strong>실시간 리더보드</strong>로 건전한 경쟁 유도<br/>
+            &bull; 자발적 모델 성능 향상 &amp; 학습 몰입도 극대화
+          </div>
+        </div>
+        <div class="c c-surf" style="padding: 14px;">
+          <div style="font-size: 0.75rem; font-weight: 700; color: var(--primary); margin-bottom: 4px;">DAKER 플랫폼 지원</div>
+          <div class="c-d">
+            &bull; 자동 채점 리더보드 시스템<br/>
+            &bull; 실시간 순위 변동 &amp; 알림<br/>
+            &bull; 참가자 통합 관리 대시보드
+          </div>
+        </div>
+      </div>
+      <div data-step="4">
+        <div class="cl-w">2단계: 오프라인 본선 &amp; 피날레</div>
+        <div class="c c-warm" style="margin-bottom: 12px; background: var(--accent-warm-bg);">
+          <div class="c-t" style="color: var(--accent-warm);">집중 개발 &amp; 네트워킹</div>
+          <div class="c-d" style="color: var(--accent-warm);">
+            &bull; 우수 인원 선발 &rarr; <strong>1박 2일 집중 해커톤</strong><br/>
+            &bull; <strong>Live Dashboard</strong>: 대형 스크린 팀별 실시간 순위<br/>
+            &bull; 역할 재분배 &amp; 토론 &rarr; <strong>실질적 협업 능력</strong> 배양<br/>
+            &bull; 통합 시상식 &amp; 멘토링으로 혁신 문화 전파
+          </div>
+        </div>
+        <div class="c c-surf" style="padding: 14px;">
+          <div style="font-size: 0.75rem; font-weight: 700; color: var(--accent-warm); margin-bottom: 4px;">현장 운영 지원</div>
+          <div class="c-d">
+            &bull; Live Dashboard 대형 스크린 연동<br/>
+            &bull; Expert 포털 심사 &amp; 자동 집계<br/>
+            &bull; 멘토 매칭 &amp; 팀 빌딩 시스템
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span class="sf-logo">DAKER</span><span class="sf-pg">4</span><span class="sf-cr">COPYRIGHT 2026 DAKER</span></div>
+</section>
+
+<!-- ===== SLIDE 5: SECTION - 전략 2 ===== -->
+<section class="slide slide-sec" id="s5">
+  <div class="sh"><span class="sh-l">II. EDU-HACKATHON</span></div>
+  <div class="si">
+    <div class="sn" data-step="1" style="color: rgba(194,98,45,0.06);">02</div>
+    <h2 data-step="2">교육과 해커톤의 유기적 연계</h2>
+    <p class="sd" data-step="3">PBL &amp; 듀얼 트랙 시스템으로 완전한 성장 라이프사이클 구축</p>
+  </div>
+  <div class="sf"><span class="sf-logo">DAKER</span><span class="sf-pg">5</span><span class="sf-cr">COPYRIGHT 2026 DAKER</span></div>
+</section>
+
+<!-- ===== SLIDE 6: 사전교육 + PBL ===== -->
+<section class="slide" id="s6">
+  <div class="sh"><span class="sh-l">II. PRE-EDUCATION &amp; PBL</span></div>
+  <div class="si" style="padding-top: 60px;">
+    <div class="tag tag-w">EDUCATION LINK</div>
+    <h2 class="st" data-step="1">사전 교육부터 <span class="hl-w">현업 데이터 기반 PBL</span>까지</h2>
+    <p class="sub" data-step="2">해커톤 전후로 실무 중심 교육(DASCHOOL)을 배치하여 즉각적인 ROI를 제공합니다</p>
+    <div class="g2" style="margin-top: 16px;">
+      <div class="c" data-step="3" style="border: var(--ghost);">
+        <div class="ic">E</div>
+        <div class="c-t">사전 온라인 교육</div>
+        <div style="font-size: 0.6875rem; font-weight: 600; color: var(--primary); margin-bottom: 6px;">기본기 상향 평준화</div>
+        <div class="c-d">
+          &bull; 참가자 전원 <strong>공통 기본 지식</strong> 체화<br/>
+          &bull; 인지심리학 <strong>'분산 학습'</strong> 원리 기반 설계<br/>
+          &bull; 주피터 랩 등 <strong>통합 UI</strong> 동적 학습 환경<br/>
+          &bull; AI 기술 &amp; 프롬프트 엔지니어링 기초
+        </div>
+      </div>
+      <div class="c" data-step="3" style="border: var(--ghost);">
+        <div class="ic-w">P</div>
+        <div class="c-t">현업 데이터 기반 PBL</div>
+        <div style="font-size: 0.6875rem; font-weight: 600; color: var(--accent-warm); margin-bottom: 6px;">Project-Based Learning</div>
+        <div class="c-d">
+          &bull; 실제 <strong>비즈니스 페인포인트</strong> 기반 과제<br/>
+          &bull; <strong>가명화된 현업 실무 데이터</strong> 활용<br/>
+          &bull; 행사 종료 후 <strong>즉시 현업 적용</strong> 가능한 프로토타입<br/>
+          &bull; 교육 투자 대비 <strong>즉각적 ROI</strong> 제공
+        </div>
+      </div>
+    </div>
+    <div class="c c-blue" data-step="4" style="margin-top: 14px; padding: 16px 20px;">
+      <div style="display: flex; align-items: center; gap: 20px;">
+        <div style="font-size: 0.75rem; font-weight: 700; color: var(--on-secondary-container); text-transform: uppercase; letter-spacing: 0.05em; white-space: nowrap;">성장 사이클</div>
+        <div style="flex: 1; display: flex; align-items: center; gap: 8px; justify-content: center;">
+          <span style="padding: 6px 14px; background: rgba(255,255,255,0.5); border-radius: var(--r-full); font-size: 0.75rem; font-weight: 700; color: var(--on-secondary-container);">이론 학습</span>
+          <span style="color: var(--on-secondary-container); font-size: 14px;">&rarr;</span>
+          <span style="padding: 6px 14px; background: rgba(255,255,255,0.5); border-radius: var(--r-full); font-size: 0.75rem; font-weight: 700; color: var(--on-secondary-container);">실전 적용 (해커톤)</span>
+          <span style="color: var(--on-secondary-container); font-size: 14px;">&rarr;</span>
+          <span style="padding: 6px 14px; background: rgba(255,255,255,0.5); border-radius: var(--r-full); font-size: 0.75rem; font-weight: 700; color: var(--on-secondary-container);">평가 &amp; 자산화</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span class="sf-logo">DAKER</span><span class="sf-pg">6</span><span class="sf-cr">COPYRIGHT 2026 DAKER</span></div>
+</section>
+
+<!-- ===== SLIDE 7: 듀얼 트랙 ===== -->
+<section class="slide" id="s7">
+  <div class="sh"><span class="sh-l">II. DUAL-TRACK SYSTEM</span></div>
+  <div class="si" style="padding-top: 60px;">
+    <div class="tag">DUAL TRACK</div>
+    <h2 class="st" data-step="1"><span class="hl">듀얼 트랙</span> 기반 실전 역량 검증</h2>
+    <p class="sub" data-step="2">정량 평가와 정성 평가를 병행하여 융합형 인재를 양성합니다</p>
+    <div class="tc" style="margin-top: 18px;">
+      <div data-step="3">
+        <div class="cl">Track 1. 이론/알고리즘 체화</div>
+        <div class="c c-blue" style="padding: 20px;">
+          <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 14px;">
+            <div class="ic" style="margin-bottom: 0; flex-shrink: 0;">T1</div>
+            <div>
+              <div style="font-size: 0.875rem; font-weight: 700; color: var(--on-secondary-container);">정량 평가</div>
+              <div style="font-size: 0.6875rem; color: var(--on-secondary-container); opacity: 0.8;">자동 채점 시스템</div>
+            </div>
+          </div>
+          <ul class="ck">
+            <li><span class="i" style="color: var(--on-secondary-container);">&#10003;</span> <span style="color: var(--on-secondary-container);">배운 이론 &amp; 코딩 역량 <strong>즉각 검증</strong></span></li>
+            <li><span class="i" style="color: var(--on-secondary-container);">&#10003;</span> <span style="color: var(--on-secondary-container);">자동 채점 &rarr; <strong>실시간 리더보드</strong> 반영</span></li>
+            <li><span class="i" style="color: var(--on-secondary-container);">&#10003;</span> <span style="color: var(--on-secondary-container);">객관적 <strong>정량 지표</strong> 기반 순위</span></li>
+            <li><span class="i" style="color: var(--on-secondary-container);">&#10003;</span> <span style="color: var(--on-secondary-container);">반복 제출로 <strong>점진적 성능 향상</strong></span></li>
+          </ul>
+        </div>
+      </div>
+      <div data-step="4">
+        <div class="cl-w">Track 2. AI 프로젝트/서비스 기획</div>
+        <div class="c" style="padding: 20px; background: var(--accent-warm-bg);">
+          <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 14px;">
+            <div class="ic-w" style="margin-bottom: 0; flex-shrink: 0;">T2</div>
+            <div>
+              <div style="font-size: 0.875rem; font-weight: 700; color: var(--accent-warm);">정성 평가</div>
+              <div style="font-size: 0.6875rem; color: var(--accent-warm); opacity: 0.8;">심사위원단 평가</div>
+            </div>
+          </div>
+          <ul class="ck">
+            <li><span class="i" style="color: var(--accent-warm);">&#10003;</span> <span style="color: var(--accent-warm);">현업 데이터 기반 <strong>실제 서비스</strong> 기획 &amp; 개발</span></li>
+            <li><span class="i" style="color: var(--accent-warm);">&#10003;</span> <span style="color: var(--accent-warm);">심사위원단 <strong>창의성&middot;논리성</strong> 정성 평가</span></li>
+            <li><span class="i" style="color: var(--accent-warm);">&#10003;</span> <span style="color: var(--accent-warm);"><strong>창의적 문제 해결 능력</strong> 검증</span></li>
+            <li><span class="i" style="color: var(--accent-warm);">&#10003;</span> <span style="color: var(--accent-warm);"><strong>융합형 인재</strong> 양성</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="c c-surf" data-step="5" style="margin-top: 14px; padding: 12px 18px;">
+      <div style="font-size: 0.8125rem; color: var(--on-surface-variant); text-align: center;">
+        <strong style="color: var(--primary);">Track 1 (정량)</strong> &times; <strong style="color: var(--accent-warm);">Track 2 (정성)</strong> 병행 &mdash; 알고리즘 역량과 서비스 기획력을 동시에 검증
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span class="sf-logo">DAKER</span><span class="sf-pg">7</span><span class="sf-cr">COPYRIGHT 2026 DAKER</span></div>
+</section>
+
+<!-- ===== SLIDE 8: SECTION - 시너지 & 사후관리 ===== -->
+<section class="slide slide-sec" id="s8">
+  <div class="sh"><span class="sh-l">III. POST-MANAGEMENT</span></div>
+  <div class="si">
+    <div class="sn" data-step="1">03</div>
+    <h2 data-step="2">시너지 극대화 및 사후 관리</h2>
+    <p class="sd" data-step="3">게이미피케이션, 역량 리포트, 채용 연계로 지속 성장 지원</p>
+  </div>
+  <div class="sf"><span class="sf-logo">DAKER</span><span class="sf-pg">8</span><span class="sf-cr">COPYRIGHT 2026 DAKER</span></div>
+</section>
+
+<!-- ===== SLIDE 9: 게이미피케이션 + 채용 연계 ===== -->
+<section class="slide" id="s9">
+  <div class="sh"><span class="sh-l">III. GAMIFICATION &amp; CAREER-LINK</span></div>
+  <div class="si" style="padding-top: 60px;">
+    <div class="tag tag-w">RETENTION &amp; GROWTH</div>
+    <h2 class="st" data-step="1"><span class="hl-w">다중 보상 루프</span>와 <span class="hl">채용 연계</span></h2>
+    <p class="sub" data-step="2">참가자의 이탈을 방지하고, 검증된 인재를 확보하는 사후 관리 시스템</p>
+    <div class="g2" style="margin-top: 16px;">
+      <div data-step="3">
+        <div class="cl-w">Multi-Reward Loop</div>
+        <div class="c" style="border: var(--ghost); margin-bottom: 12px;">
+          <div class="ic-w">XP</div>
+          <div class="c-t">게이미피케이션 보상 시스템</div>
+          <div class="c-d">
+            &bull; 학습 완주 &rarr; <strong>XP(경험치) &amp; 레벨</strong> 시스템<br/>
+            &bull; 해커톤 성과 &rarr; <strong>리더보드 &amp; ELO 랭킹</strong><br/>
+            &bull; 순위 하락해도 학습 완주 <strong>레벨업 보상</strong><br/>
+            &bull; <strong>이중 동기 부여</strong> &rarr; 중도 이탈 방지
+          </div>
+        </div>
+        <div class="c c-surf" style="padding: 14px;">
+          <div style="font-size: 0.8125rem; color: var(--on-surface-variant); line-height: 1.6;">
+            <strong style="color: var(--accent-warm);">학습 보상</strong> + <strong style="color: var(--primary);">경쟁 보상</strong>을 강하게 결합하여 장기적 참여 동기를 이중으로 확보합니다
+          </div>
+        </div>
+      </div>
+      <div data-step="4">
+        <div class="cl">Career-Link 채용 연계</div>
+        <div class="c" style="border: var(--ghost); margin-bottom: 12px;">
+          <div class="ic">C</div>
+          <div class="c-t">객관적 역량 증명 시스템</div>
+          <div class="c-d">
+            &bull; 코드 품질&middot;문제 해결 과정 종합 분석<br/>
+            &bull; <strong>역량 리포트(Skill Report)</strong> 발급<br/>
+            &bull; 고유 <strong>디지털 배지</strong> 인증<br/>
+            &bull; 플랫폼 <strong>갤러리(Showcase)</strong> 아카이빙
+          </div>
+        </div>
+        <div class="c c-blue" style="padding: 14px;">
+          <div style="font-size: 0.8125rem; color: var(--on-secondary-container); line-height: 1.6;">
+            검증된 포트폴리오를 <strong>우수 인재 채용 선별 지표</strong> 및 <strong>유망 인재풀 구축</strong>에 직접 활용
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span class="sf-logo">DAKER</span><span class="sf-pg">9</span><span class="sf-cr">COPYRIGHT 2026 DAKER</span></div>
+</section>
+
+<!-- ===== SLIDE 10: 전체 구조 요약 ===== -->
+<section class="slide" id="s10">
+  <div class="sh"><span class="sh-l">SUMMARY</span></div>
+  <div class="si" style="padding-top: 60px;">
+    <div class="tag">FULL PICTURE</div>
+    <h2 class="st" data-step="1">Edu-Hackathon <span class="hl">통합 운영 구조</span></h2>
+    <p class="sub" data-step="2">3대 전략이 유기적으로 연결되어 완전한 인재 양성 사이클을 구축합니다</p>
+    <div class="g3" style="margin-top: 18px;">
+      <div class="c c-blue" data-step="3" style="padding: 18px;">
+        <div style="font-size: 0.625rem; font-weight: 700; color: var(--on-secondary-container); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 10px;">STRATEGY 1</div>
+        <div class="c-t" style="color: var(--on-secondary-container); font-size: 0.875rem;">하이브리드 해커톤</div>
+        <div class="c-d" style="color: var(--on-secondary-container); margin-top: 8px;">
+          &bull; 온라인 예선: 대규모 확산<br/>
+          &bull; 오프라인 본선: 집중 몰입<br/>
+          &bull; Live Dashboard 운영<br/>
+          &bull; 실시간 리더보드
+        </div>
+      </div>
+      <div class="c" data-step="3" style="padding: 18px; background: var(--accent-warm-bg);">
+        <div style="font-size: 0.625rem; font-weight: 700; color: var(--accent-warm); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 10px;">STRATEGY 2</div>
+        <div class="c-t" style="color: var(--accent-warm); font-size: 0.875rem;">교육 연계 (PBL)</div>
+        <div class="c-d" style="color: var(--accent-warm); margin-top: 8px;">
+          &bull; 사전 교육: 기본기 평준화<br/>
+          &bull; 현업 데이터 기반 PBL<br/>
+          &bull; 듀얼 트랙: 정량+정성<br/>
+          &bull; 즉각적 ROI
+        </div>
+      </div>
+      <div class="c c-surf" data-step="3" style="padding: 18px;">
+        <div style="font-size: 0.625rem; font-weight: 700; color: var(--on-surface); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 10px;">STRATEGY 3</div>
+        <div class="c-t" style="font-size: 0.875rem;">사후 관리 시스템</div>
+        <div class="c-d" style="margin-top: 8px;">
+          &bull; 게이미피케이션: XP &amp; ELO<br/>
+          &bull; 역량 리포트 &amp; 배지<br/>
+          &bull; 갤러리 쇼케이스<br/>
+          &bull; 채용 연계 Career-Link
+        </div>
+      </div>
+    </div>
+    <div class="fr" style="margin-top: 16px;" data-step="4">
+      <div class="fb fb-p">
+        <div class="fl" style="font-weight: 700; color: var(--on-secondary-container);">주최 기관이 할 일</div>
+        <div class="fd" style="color: var(--on-secondary-container);">과제 설계 &middot; 현업 데이터 제공 &middot; 심사</div>
+      </div>
+      <span class="fa">&rarr;</span>
+      <div class="fb fb-p">
+        <div class="fl" style="font-weight: 700; color: var(--on-secondary-container);">DAKER가 할 일</div>
+        <div class="fd" style="color: var(--on-secondary-container);">플랫폼 &middot; 교육 &middot; 운영 &middot; 홍보 &middot; 리포트 &middot; 채용 연계</div>
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span class="sf-logo">DAKER</span><span class="sf-pg">10</span><span class="sf-cr">COPYRIGHT 2026 DAKER</span></div>
+</section>
+
+<!-- ===== SLIDE 11: ENDING ===== -->
+<section class="slide slide-end" id="s11">
+  <div class="si" style="background: linear-gradient(135deg, var(--surface) 0%, var(--secondary-container) 100%);">
+    <div class="end-logo" data-step="1">DAKER</div>
+    <h1 data-step="2">
+      교육과 해커톤의 완전한 결합,<br/>
+      <span style="color: var(--primary);">DAKER</span>와 함께
+    </h1>
+    <p class="end-sub" data-step="3">
+      하이브리드 운영 &middot; PBL 교육 연계 &middot; 사후 관리 시스템<br/>
+      인재 양성과 혁신 문화 확산을 플랫폼으로 지원합니다
+    </p>
+    <div data-step="4" style="margin-top: 32px; display: flex; gap: 14px;">
+      <a href="https://daker.ai/public/surveys/dacon-ai-competition-host-custom-planning-survey/respond" target="_blank" style="padding: 10px 24px; border-radius: var(--r-md); background: linear-gradient(135deg, var(--primary), var(--primary-dim)); color: var(--on-primary); font-size: 0.875rem; font-weight: 700; text-decoration: none;">미팅 요청</a>
+      <a href="https://daker.ai" target="_blank" style="padding: 10px 24px; border-radius: var(--r-md); background: var(--surface-low); color: var(--on-surface-variant); font-size: 0.875rem; font-weight: 600; text-decoration: none;">daker.ai</a>
+      <a href="https://dacon.io" target="_blank" style="padding: 10px 24px; border-radius: var(--r-md); background: var(--surface-low); color: var(--on-surface-variant); font-size: 0.875rem; font-weight: 600; text-decoration: none;">dacon.io</a>
+    </div>
+  </div>
+  <div class="sf"><span class="sf-logo">DAKER</span><span class="sf-pg"></span><span class="sf-cr">COPYRIGHT 2026 DAKER. ALL RIGHTS RESERVED</span></div>
+</section>
+
+</div></div>
+
+<button class="nav-btn" id="nav-prev">&#8249;</button>
+<button class="nav-btn" id="nav-next">&#8250;</button>
+<div id="progress-bar" style="width: 0%;"></div>
+<div id="key-hint">Arrow keys or click to navigate</div>
+
+<script>
+(function(){
+  const slides = document.querySelectorAll('.slide');
+  const total = slides.length;
+  let cur = 0;
+  function maxStep(s){ let m=0; s.querySelectorAll('[data-step]').forEach(e=>{const v=+e.dataset.step; if(v>m)m=v;}); return m; }
+  let step = 0;
+  function show(idx, dir){
+    slides.forEach(s => s.classList.remove('active'));
+    slides[idx].classList.add('active');
+    step = 0;
+    const els = slides[idx].querySelectorAll('[data-step]');
+    els.forEach(e => { e.classList.remove('visible','pre-visible'); });
+    if(dir === 'back'){
+      step = maxStep(slides[idx]);
+      els.forEach(e => e.classList.add('pre-visible'));
+    }
+    document.getElementById('progress-bar').style.width = ((idx+1)/total*100)+'%';
+  }
+  function next(){
+    const ms = maxStep(slides[cur]);
+    if(step < ms){
+      step++;
+      slides[cur].querySelectorAll('[data-step]').forEach(e=>{
+        if(+e.dataset.step <= step) e.classList.add('visible');
+      });
+      return;
+    }
+    if(cur < total-1){ cur++; show(cur,'fwd'); }
+  }
+  function prev(){
+    if(step > 0){
+      slides[cur].querySelectorAll('[data-step]').forEach(e=>{
+        if(+e.dataset.step === step) { e.classList.remove('visible','pre-visible'); }
+      });
+      step--;
+      return;
+    }
+    if(cur > 0){ cur--; show(cur,'back'); }
+  }
+  document.getElementById('nav-next').onclick = next;
+  document.getElementById('nav-prev').onclick = prev;
+  document.addEventListener('keydown', e => {
+    if(e.key==='ArrowRight'||e.key===' '||e.key==='Enter') next();
+    else if(e.key==='ArrowLeft'||e.key==='Backspace') prev();
+  });
+  let tx=0;
+  document.addEventListener('touchstart', e=>{ tx=e.changedTouches[0].screenX; });
+  document.addEventListener('touchend', e=>{
+    const dx = e.changedTouches[0].screenX - tx;
+    if(dx < -50) next(); else if(dx > 50) prev();
+  });
+  function fit(){
+    const vw=window.innerWidth, vh=window.innerHeight;
+    const s = Math.min(vw/1280, vh/720, 1);
+    document.getElementById('stage').style.transform = 'scale('+s+')';
+  }
+  window.addEventListener('resize', fit); fit();
+  step = maxStep(slides[0]);
+  slides[0].querySelectorAll('[data-step]').forEach(e => { e.classList.add('pre-visible'); });
+  document.getElementById('progress-bar').style.width = ((1)/total*100)+'%';
+})();
+</script>
+</body>
+</html>
