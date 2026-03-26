@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>DAKER - 제안서 & 슬라이드</title>
+<meta property="og:title" content="DAKER - 제안서 & 슬라이드" />
+<meta property="og:description" content="DAKER 플랫폼 제안서 및 슬라이드 프레젠테이션 모음" />
+<meta property="og:image" content="https://daker.ai/og-image.png" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary_large_image" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --primary: #0053db;
+  --on-primary: #f8f7ff;
+  --surface: #f7f9fb;
+  --surface-low: #f0f4f7;
+  --on-surface: #2a3439;
+  --on-surface-variant: #566166;
+  --outline-variant: #a9b4b9;
+  --secondary-container: #d8e3fb;
+  --accent-warm: #c2622d;
+  --font: 'Plus Jakarta Sans', -apple-system, sans-serif;
+}
+html, body { min-height: 100vh; background: var(--surface-low); font-family: var(--font); color: var(--on-surface); }
+
+.header {
+  background: linear-gradient(135deg, var(--surface) 0%, var(--secondary-container) 100%);
+  padding: 64px 0 48px;
+  text-align: center;
+}
+.header h1 { font-size: 2.5rem; font-weight: 800; letter-spacing: 0.04em; color: var(--primary); }
+.header p { font-size: 1.0625rem; color: var(--on-surface-variant); margin-top: 10px; }
+
+.container { max-width: 900px; margin: 0 auto; padding: 40px 24px 80px; }
+
+.section-title {
+  font-size: 0.75rem; font-weight: 700; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--primary); margin-bottom: 16px;
+  display: flex; align-items: center; gap: 10px;
+}
+.section-title::before { content: ''; width: 24px; height: 2.5px; background: var(--primary); border-radius: 2px; }
+
+.card-grid { display: grid; grid-template-columns: 1fr; gap: 12px; margin-bottom: 40px; }
+
+.card {
+  display: flex; align-items: center; gap: 20px;
+  background: #fff; border-radius: 12px; padding: 20px 24px;
+  text-decoration: none; color: inherit;
+  transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 2px 8px rgba(30,41,59,0.04);
+}
+.card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(30,41,59,0.08); }
+
+.card-icon {
+  width: 44px; height: 44px; border-radius: 10px; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.25rem; font-weight: 800; color: #fff;
+}
+.card-icon.blue { background: var(--primary); }
+.card-icon.warm { background: var(--accent-warm); }
+.card-icon.dark { background: #0f172a; }
+
+.card-body { flex: 1; min-width: 0; }
+.card-title { font-size: 0.9375rem; font-weight: 700; color: var(--on-surface); }
+.card-date { font-size: 0.75rem; color: var(--outline-variant); margin-top: 3px; }
+.card-badge {
+  display: inline-block; padding: 3px 10px; border-radius: 9999px;
+  font-size: 0.6875rem; font-weight: 700; margin-left: auto; flex-shrink: 0;
+}
+.badge-proposal { background: var(--secondary-container); color: #475266; }
+.badge-slide { background: rgba(194,98,45,0.08); color: var(--accent-warm); }
+.badge-new { background: #dcfce7; color: #166534; }
+
+.footer { text-align: center; padding: 24px; font-size: 0.6875rem; color: var(--outline-variant); }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>DAKER</h1>
+  <p>제안서 & 슬라이드 프레젠테이션</p>
+</div>
+
+<div class="container">
+
+  <div class="section-title">제안서</div>
+  <div class="card-grid">
+    <a class="card" href="2026-03-26-DAKER_AI_Challenge_플랫폼_소개.html">
+      <div class="card-icon blue">D</div>
+      <div class="card-body">
+        <div class="card-title">DAKER AI Challenge 플랫폼 소개</div>
+        <div class="card-date">2026.03.26</div>
+      </div>
+      <span class="card-badge badge-new">NEW</span>
+    </a>
+    <a class="card" href="2026-03-23-금융보안원_AI_Challenge_제안서.html">
+      <div class="card-icon blue">F</div>
+      <div class="card-body">
+        <div class="card-title">금융보안원 AI Challenge 제안서</div>
+        <div class="card-date">2026.03.23</div>
+      </div>
+      <span class="card-badge badge-proposal">제안서</span>
+    </a>
+    <a class="card" href="2026-03-23-단국대학교_AI대회_제안서.html">
+      <div class="card-icon warm">D</div>
+      <div class="card-body">
+        <div class="card-title">단국대학교 AI대회 제안서</div>
+        <div class="card-date">2026.03.23</div>
+      </div>
+      <span class="card-badge badge-proposal">제안서</span>
+    </a>
+    <a class="card" href="2026-03-23-대동그룹_AI혁신_파트너십_제안서.html">
+      <div class="card-icon dark">대</div>
+      <div class="card-body">
+        <div class="card-title">대동그룹 AI혁신 파트너십 제안서</div>
+        <div class="card-date">2026.03.23</div>
+      </div>
+      <span class="card-badge badge-proposal">제안서</span>
+    </a>
+  </div>
+
+  <div class="section-title">슬라이드</div>
+  <div class="card-grid">
+    <a class="card" href="2026-03-25-데이콘_바이브코딩_15인_글로벌조직도.html">
+      <div class="card-icon warm">V</div>
+      <div class="card-body">
+        <div class="card-title">데이콘 바이브코딩 15인 글로벌조직도</div>
+        <div class="card-date">2026.03.25</div>
+      </div>
+      <span class="card-badge badge-slide">슬라이드</span>
+    </a>
+    <a class="card" href="2026-03-23-DAKER_바이브코딩_미래방향성_슬라이드.html">
+      <div class="card-icon blue">V</div>
+      <div class="card-body">
+        <div class="card-title">DAKER 바이브코딩 미래방향성</div>
+        <div class="card-date">2026.03.23</div>
+      </div>
+      <span class="card-badge badge-slide">슬라이드</span>
+    </a>
+    <a class="card" href="2026-03-23-DAKER_FDE_기획_슬라이드.html">
+      <div class="card-icon dark">F</div>
+      <div class="card-body">
+        <div class="card-title">DAKER FDE 기획</div>
+        <div class="card-date">2026.03.23</div>
+      </div>
+      <span class="card-badge badge-slide">슬라이드</span>
+    </a>
+    <a class="card" href="2026-03-22-DAKER_관리자_매뉴얼_슬라이드.html">
+      <div class="card-icon warm">M</div>
+      <div class="card-body">
+        <div class="card-title">DAKER 관리자 매뉴얼</div>
+        <div class="card-date">2026.03.22</div>
+      </div>
+      <span class="card-badge badge-slide">슬라이드</span>
+    </a>
+  </div>
+
+</div>
+
+<div class="footer">COPYRIGHT 2026 DAKER. ALL RIGHTS RESERVED</div>
+
+</body>
+</html>
