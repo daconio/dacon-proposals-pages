@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>DAKER x AICT — 제조산업 Vibe 코딩 경진대회 설계</title>
+<meta property="og:title" content="DAKER x AICT — 제조산업 Vibe 코딩 경진대회" />
+<meta property="og:description" content="경기도형 제조 혁신을 위한 2가지 경진대회: 바이브 코딩 + 알고리즘 듀얼 트랙" />
+<meta property="og:image" content="https://daker.ai/og-image.png" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary_large_image" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --primary:#0053db;--primary-dim:#0048c1;--on-primary:#f8f7ff;
+  --surface:#f7f9fb;--surface-low:#f0f4f7;--surface-lowest:#fff;
+  --on-surface:#2a3439;--on-surface-variant:#566166;--outline-variant:#a9b4b9;
+  --secondary-container:#d8e3fb;--on-secondary-container:#475266;
+  --accent-warm:#c2622d;--accent-warm-bg:rgba(194,98,45,.06);
+  --accent-dark:#0f172a;
+  --font:'Plus Jakarta Sans',-apple-system,sans-serif;
+  --ghost:1px solid rgba(169,180,185,.2);
+  --r-sm:.25rem;--r-md:.375rem;--r-lg:.75rem;--r-xl:1rem;--r-full:9999px;
+  --slide-w:1280px;--slide-h:720px;
+}
+html,body{width:100%;height:100%;background:var(--surface-low);font-family:var(--font);overflow:hidden;color:var(--on-surface)}
+#viewport{position:fixed;inset:0;display:flex;align-items:center;justify-content:center}
+#stage{position:relative;width:var(--slide-w);height:var(--slide-h);overflow:hidden;transform-origin:center center;border-radius:var(--r-lg);box-shadow:0 12px 48px rgba(30,41,59,.1)}
+.slide{position:absolute;inset:0;background:var(--surface);display:flex;flex-direction:column;opacity:0;pointer-events:none;transition:opacity 0s}
+.slide.active{opacity:1;pointer-events:auto}
+.si{flex:1;display:flex;flex-direction:column;padding:64px 72px 52px;position:relative}
+.sh{position:absolute;top:0;left:0;right:0;padding:18px 32px;display:flex;justify-content:space-between;align-items:center;background:var(--surface-low)}
+.sh-l{font-size:.6875rem;font-weight:700;color:var(--on-surface-variant);letter-spacing:.05em;text-transform:uppercase}
+.sf{position:absolute;bottom:0;left:0;right:0;padding:12px 32px;display:flex;justify-content:space-between;align-items:center;background:var(--surface-low)}
+.sf-logo{font-size:.875rem;font-weight:800;color:var(--primary);letter-spacing:.04em}
+.sf-pg{font-size:.6875rem;color:var(--on-surface-variant);font-weight:600}
+.sf-cr{font-size:.5625rem;color:var(--outline-variant);letter-spacing:.03em;font-weight:600}
+.tag{display:inline-flex;align-items:center;gap:8px;font-size:.6875rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--primary);margin-bottom:14px}
+.tag::before{content:'';width:24px;height:2.5px;background:var(--primary);border-radius:2px}
+.tag-w{color:var(--accent-warm)}.tag-w::before{background:var(--accent-warm)}
+h2.st{font-size:2rem;font-weight:800;line-height:1.2;color:var(--on-surface);letter-spacing:-.02em}
+.hl{color:var(--primary)}.hl-w{color:var(--accent-warm)}
+.sub{margin-top:10px;font-size:.9375rem;color:var(--on-surface-variant);line-height:1.7}
+.c{background:var(--surface-lowest);border-radius:var(--r-lg);padding:20px}
+.c-blue{background:var(--secondary-container)}.c-warm{background:var(--accent-warm-bg)}.c-surf{background:var(--surface-low)}
+.c-t{font-size:.9375rem;font-weight:700;color:var(--on-surface);margin-bottom:6px}
+.c-d{font-size:.8125rem;color:var(--on-surface-variant);line-height:1.65}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
+.g4{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:12px}
+.ic{width:36px;height:36px;border-radius:var(--r-md);display:flex;align-items:center;justify-content:center;font-size:.8125rem;font-weight:800;margin-bottom:12px;color:#fff;background:var(--primary)}
+.ic-w{width:36px;height:36px;border-radius:var(--r-md);display:flex;align-items:center;justify-content:center;font-size:.8125rem;font-weight:800;margin-bottom:12px;color:#fff;background:var(--accent-warm)}
+.ic-d{width:36px;height:36px;border-radius:var(--r-md);display:flex;align-items:center;justify-content:center;font-size:.8125rem;font-weight:800;margin-bottom:12px;color:#fff;background:var(--accent-dark)}
+.mx{text-align:center;padding:16px 10px;background:var(--surface-low);border-radius:var(--r-lg)}
+.mx .v{font-size:1.75rem;font-weight:800;line-height:1;color:var(--primary)}
+.mx .l{font-size:.6875rem;color:var(--on-surface-variant);margin-top:6px;font-weight:500}
+.tc{display:grid;grid-template-columns:1fr 1fr;gap:24px;flex:1}
+.cl{font-size:.8125rem;font-weight:700;color:var(--primary);margin-bottom:10px}
+.cl-w{font-size:.8125rem;font-weight:700;color:var(--accent-warm);margin-bottom:10px}
+.fr{display:flex;align-items:center;gap:8px}
+.fa{font-size:18px;color:var(--outline-variant);flex-shrink:0}
+.fb{flex:1;padding:14px 16px;background:var(--surface-low);border-radius:var(--r-lg);text-align:center}
+.fb-p{background:var(--secondary-container)}.fb .fl{font-size:.75rem;color:var(--on-surface-variant);font-weight:600}
+.fb .fd{font-size:.6875rem;color:var(--on-surface-variant);margin-top:4px;line-height:1.4;opacity:.7}
+.ck{list-style:none;display:flex;flex-direction:column;gap:6px}
+.ck li{display:flex;align-items:flex-start;gap:10px;font-size:.8125rem;color:var(--on-surface-variant);line-height:1.6}
+.ck li .i{flex-shrink:0;font-size:.8125rem;margin-top:2px;font-weight:700;color:var(--primary)}
+.slide-sec .si{justify-content:center;align-items:center;text-align:center;padding-top:60px}
+.slide-sec .sn{font-size:4.5rem;font-weight:800;color:rgba(0,83,219,.06);line-height:1;margin-bottom:8px}
+.slide-sec h2{font-size:2.625rem;font-weight:800;color:var(--on-surface);letter-spacing:-.02em}
+.slide-sec .sd{font-size:1.0625rem;color:var(--on-surface-variant);margin-top:10px}
+.slide-end .si{justify-content:center;align-items:center;text-align:center}
+.slide-end h1{font-size:3rem;font-weight:800;color:var(--on-surface);line-height:1.15;letter-spacing:-.02em}
+.slide-end .end-sub{font-size:1.125rem;color:var(--on-surface-variant);margin-top:14px}
+.slide-end .end-logo{font-size:2.625rem;font-weight:800;color:var(--primary);letter-spacing:.06em;margin-bottom:36px}
+.tb{width:100%;border-collapse:collapse;font-size:.75rem}
+.tb th{background:var(--surface-low);padding:10px 14px;text-align:left;font-weight:700;color:var(--on-surface);border-bottom:2px solid var(--secondary-container)}
+.tb td{padding:10px 14px;border-bottom:var(--ghost);color:var(--on-surface-variant);line-height:1.5}
+.tb tr:last-child td{border-bottom:none}
+[data-step]{opacity:0;transform:translateY(14px);transition:opacity .45s ease,transform .45s ease}
+[data-step].visible{opacity:1;transform:none}
+[data-step].pre-visible{opacity:1;transform:none;transition:none}
+.nav-btn{position:fixed;top:50%;transform:translateY(-50%);width:40px;height:40px;border-radius:50%;background:rgba(247,249,251,.85);border:none;color:var(--on-surface-variant);cursor:pointer;z-index:100;display:flex;align-items:center;justify-content:center;font-size:18px;transition:all .2s;user-select:none;box-shadow:0 8px 24px rgba(30,41,59,.04);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px)}
+.nav-btn:hover{color:var(--primary)}
+#nav-prev{left:12px}#nav-next{right:12px}
+#progress-bar{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--primary),var(--primary-dim));transition:width .4s ease;z-index:100}
+#key-hint{position:fixed;bottom:16px;left:50%;transform:translateX(-50%);color:var(--outline-variant);font-size:.6875rem;z-index:100;opacity:.4}
+@media print{
+  html,body{background:#fff!important;overflow:visible!important;height:auto!important;width:auto!important}
+  #viewport{position:static!important;display:block!important;height:auto!important}
+  #stage{position:static!important;width:auto!important;height:auto!important;overflow:visible!important;transform:none!important;box-shadow:none!important;border-radius:0!important}
+  .slide{position:relative!important;inset:auto!important;opacity:1!important;pointer-events:auto!important;display:flex!important;flex-direction:column!important;width:1280px!important;height:720px!important;page-break-after:always!important;break-after:page!important;margin:0 auto!important}
+  .nav-btn,#progress-bar,#key-hint{display:none!important}
+  [data-step]{opacity:1!important;transform:none!important}
+}
+</style>
+</head>
+<body>
+<div id="viewport">
+<div id="stage">
+
+<!-- ===== SLIDE 1: COVER ===== -->
+<section class="slide active" id="s1">
+  <div class="si" style="justify-content:center;align-items:flex-start;padding-left:88px;background:linear-gradient(135deg,var(--surface) 0%,var(--secondary-container) 100%)">
+    <div style="position:absolute;top:22px;right:32px">
+      <span style="display:inline-block;background:linear-gradient(135deg,var(--primary),var(--primary-dim));color:var(--on-primary);padding:6px 18px;border-radius:var(--r-full);font-size:.75rem;font-weight:600">2026.01</span>
+    </div>
+    <div class="pre-visible" data-step="1">
+      <span style="font-size:1.5rem;font-weight:800;color:var(--primary);letter-spacing:.04em">DAKER</span>
+      <span style="font-size:1rem;color:var(--outline-variant);margin-left:8px;font-weight:600">&times;</span>
+      <span style="font-size:1.5rem;font-weight:800;color:var(--accent-dark);letter-spacing:.04em;margin-left:8px">AICT</span>
+    </div>
+    <h1 class="pre-visible" data-step="2" style="font-size:2.5rem;font-weight:800;line-height:1.15;letter-spacing:-.02em;color:var(--on-surface);margin-top:14px">
+      경기도형 제조 혁신을 위한<br/>
+      <span style="color:var(--primary)">2가지 경진대회</span> 설계
+    </h1>
+    <p class="pre-visible" data-step="3" style="font-size:1.0625rem;color:var(--on-surface-variant);margin-top:18px;line-height:1.7">
+      바이브 코딩의 혁신 속도 &times; 알고리즘의 정밀한 신뢰성<br/>
+      &ldquo;스마트 제조를 위한 AI-코딩 챌린지&rdquo;
+    </p>
+    <div class="pre-visible" data-step="4" style="display:flex;gap:10px;margin-top:28px">
+      <span style="padding:8px 18px;border-radius:var(--r-full);background:var(--secondary-container);font-size:.8125rem;font-weight:700;color:var(--on-secondary-container)">Vibe Coding</span>
+      <span style="padding:8px 18px;border-radius:var(--r-full);background:var(--accent-warm-bg);font-size:.8125rem;font-weight:700;color:var(--accent-warm)">Algorithm</span>
+      <span style="padding:8px 18px;border-radius:var(--r-full);background:var(--surface-low);font-size:.8125rem;font-weight:700;color:var(--on-surface-variant)">제조 혁신</span>
+    </div>
+    <div style="position:absolute;bottom:20px;left:88px;font-size:.75rem;color:var(--on-surface-variant)">차세대융합기술원(AICT) &times; 데이콘(DACON)</div>
+    <div style="position:absolute;bottom:20px;right:32px;font-size:.5625rem;color:var(--outline-variant)">COPYRIGHT 2026 DAKER</div>
+  </div>
+</section>
+
+<!-- ===== SLIDE 2: WHY ===== -->
+<section class="slide" id="s2">
+  <div class="sh"><span class="sh-l">BACKGROUND</span></div>
+  <div class="si" style="padding-top:60px">
+    <div class="tag">WHY NOW</div>
+    <h2 class="st" data-step="1">제조업 패러다임 변화와 <span class="hl">소프트웨어 개발 방법론</span>의 필요성</h2>
+    <p class="sub" data-step="2">IT &times; OT 융합 시대, 경기도 제조 생태계에 새로운 코딩 역량이 필요합니다</p>
+    <div class="g3" style="margin-top:20px">
+      <div class="mx" data-step="3"><div class="v">IT&times;OT</div><div class="l">정보기술 &times; 운영기술 결합</div></div>
+      <div class="mx" data-step="3"><div class="v" style="color:var(--accent-warm)">SDM</div><div class="l">Software-Defined Manufacturing</div></div>
+      <div class="mx" data-step="3"><div class="v">DX</div><div class="l">디지털 전환 가속화</div></div>
+    </div>
+    <div class="g2" style="margin-top:16px">
+      <div class="c c-blue" data-step="4" style="padding:18px">
+        <div class="c-t" style="color:var(--on-secondary-container)">경기도 제조 생태계</div>
+        <div class="c-d" style="color:var(--on-secondary-container)">
+          &bull; 삼성전자, SK하이닉스 등 <strong>글로벌 앵커 기업</strong><br/>
+          &bull; <strong>수천 개 협력사</strong>가 형성하는 생태계<br/>
+          &bull; 데이터 중심 제조로의 전환 요구 치열
+        </div>
+      </div>
+      <div class="c" data-step="4" style="background:var(--accent-warm-bg);padding:18px">
+        <div class="c-t" style="color:var(--accent-warm)">AICT의 역할</div>
+        <div class="c-d" style="color:var(--accent-warm)">
+          &bull; 현장의 <strong>도메인 지식을 코드로</strong> 변환하는 바이브 코딩<br/>
+          &bull; 시스템의 <strong>신뢰성과 효율성</strong>을 담보하는 알고리즘<br/>
+          &bull; 핵심 역량 발굴을 위한 <strong>경진대회</strong> 기획
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span class="sf-logo">DAKER</span><span class="sf-pg">2</span><span class="sf-cr">COPYRIGHT 2026 DAKER</span></div>
+</section>
+
+<!-- ===== SLIDE 3: SECTION ===== -->
+<section class="slide slide-sec" id="s3">
+  <div class="sh"><span class="sh-l">DUAL TRACK</span></div>
+  <div class="si">
+    <div class="sn" data-step="1">01</div>
+    <h2 data-step="2">2가지 대회 모드</h2>
+    <p class="sd" data-step="3">바이브 코딩 &times; 알고리즘 &mdash; 서로 다른 페인 포인트를 해결하는 듀얼 트랙</p>
+  </div>
+  <div class="sf"><span class="sf-logo">DAKER</span><span class="sf-pg">3</span><span class="sf-cr">COPYRIGHT 2026 DAKER</span></div>
+</section>
+
+<!-- ===== SLIDE 4: VIBE CODING vs ALGORITHM ===== -->
+<section class="slide" id="s4">
+  <div class="sh"><span class="sh-l">I. DUAL-TRACK COMPARISON</span></div>
+  <div class="si" style="padding-top:60px">
+    <div class="tag">TWO MODES</div>
+    <h2 class="st" data-step="1"><span class="hl">Vibe Coding</span>의 속도 &times; <span class="hl-w">Algorithm</span>의 정밀도</h2>
+    <div class="tc" style="margin-top:16px">
+      <div data-step="2">
+        <div class="cl">Vibe Coding &mdash; "의도 기반의 신속한 혁신"</div>
+        <div class="c c-blue" style="padding:18px;margin-bottom:10px">
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">
+            <div class="ic" style="margin-bottom:0;flex-shrink:0">V</div>
+            <div><div style="font-size:.875rem;font-weight:700;color:var(--on-secondary-container)">개발 장벽 완화</div><div style="font-size:.6875rem;color:var(--on-secondary-container);opacity:.8">Democratization</div></div>
+          </div>
+          <ul class="ck">
+            <li><span class="i" style="color:var(--on-secondary-container)">&#10003;</span><span style="color:var(--on-secondary-container)">아이디어 &rarr; <strong>즉시 MVP</strong> 개발</span></li>
+            <li><span class="i" style="color:var(--on-secondary-container)">&#10003;</span><span style="color:var(--on-secondary-container)">현장 엔지니어가 직접 만드는 <strong>자동화 툴</strong></span></li>
+            <li><span class="i" style="color:var(--on-secondary-container)">&#10003;</span><span style="color:var(--on-secondary-container)"><strong>프로토타이핑 속도</strong> 극대화</span></li>
+          </ul>
+        </div>
+        <div class="c c-surf" style="padding:12px 16px">
+          <div style="font-size:.6875rem;font-weight:700;color:var(--primary);margin-bottom:4px">주요 도구</div>
+          <div class="c-d">Claude Code, Antigravity, Cursor, Windsurf, Copilot</div>
+        </div>
+      </div>
+      <div data-step="3">
+        <div class="cl-w">Algorithm &mdash; "정밀도와 신뢰성"</div>
+        <div class="c" style="background:var(--accent-warm-bg);padding:18px;margin-bottom:10px">
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">
+            <div class="ic-w" style="margin-bottom:0;flex-shrink:0">A</div>
+            <div><div style="font-size:.875rem;font-weight:700;color:var(--accent-warm)">정밀한 제어력</div><div style="font-size:.6875rem;color:var(--accent-warm);opacity:.8">Precision & Reliability</div></div>
+          </div>
+          <ul class="ck">
+            <li><span class="i" style="color:var(--accent-warm)">&#10003;</span><span style="color:var(--accent-warm)">최적 로직 설계 &amp; <strong>복잡도 최적화</strong></span></li>
+            <li><span class="i" style="color:var(--accent-warm)">&#10003;</span><span style="color:var(--accent-warm)">오류 용납 불가 &rarr; <strong>고신뢰성 시스템</strong></span></li>
+            <li><span class="i" style="color:var(--accent-warm)">&#10003;</span><span style="color:var(--accent-warm)">시스템 <strong>확장성 &amp; 안정성</strong> 보장</span></li>
+          </ul>
+        </div>
+        <div class="c c-surf" style="padding:12px 16px">
+          <div style="font-size:.6875rem;font-weight:700;color:var(--accent-warm);margin-bottom:4px">주요 도구</div>
+          <div class="c-d">Python 기반 전통적 프로그래밍</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span class="sf-logo">DAKER</span><span class="sf-pg">4</span><span class="sf-cr">COPYRIGHT 2026 DAKER</span></div>
+</section>
+
+<!-- ===== SLIDE 5: 비교 테이블 ===== -->
+<section class="slide" id="s5">
+  <div class="sh"><span class="sh-l">I. MODE COMPARISON TABLE</span></div>
+  <div class="si" style="padding-top:60px">
+    <div class="tag">COMPARISON</div>
+    <h2 class="st" data-step="1">개발 모드별 <span class="hl">비교 분석</span></h2>
+    <p class="sub" data-step="2">각 모드의 강점과 위험 요소를 이해하고, 과제에 맞는 최적 트랙을 선택합니다</p>
+    <div data-step="3" style="margin-top:20px;flex:1">
+      <table class="tb">
+        <thead><tr><th style="width:16%">비교 항목</th><th style="width:42%;color:var(--primary)">바이브 코딩 (Vibe Coding)</th><th style="width:42%;color:var(--accent-warm)">알고리즘 (Algorithm)</th></tr></thead>
+        <tbody>
+          <tr><td style="font-weight:600">핵심 역량</td><td>맥락 관리 및 의도 설계</td><td>논리적 아키텍처 및 구현 능력</td></tr>
+          <tr><td style="font-weight:600">주요 도구</td><td>Claude Code, Cursor, Windsurf, Copilot</td><td>Python</td></tr>
+          <tr><td style="font-weight:600">적합 과제</td><td>신규 서비스 MVP, 시각화 대시보드</td><td>경로 최적화, 실시간 제어 로직</td></tr>
+          <tr><td style="font-weight:600">강점</td><td style="color:var(--primary);font-weight:600">압도적인 개발 속도</td><td style="color:var(--accent-warm);font-weight:600">높은 안정성 및 실행 효율성</td></tr>
+          <tr><td style="font-weight:600">위험 요소</td><td>논리 오류 및 유지보수 난해성</td><td>높은 기술 진입 장벽 및 긴 주기</td></tr>
+          <tr><td style="font-weight:600">참가 대상</td><td>제조 현장 엔지니어, 예비 창업자, 도메인 전문가</td><td>SW 개발자, 컴퓨터공학 전공자, 데이터 사이언티스트</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="sf"><span class="sf-logo">DAKER</span><span class="sf-pg">5</span><span class="sf-cr">COPYRIGHT 2026 DAKER</span></div>
+</section>
+
+<!-- ===== SLIDE 6: SECTION - 경진대회 주제 ===== -->
+<section class="slide slide-sec" id="s6">
+  <div class="sh"><span class="sh-l">CHALLENGE THEMES</span></div>
+  <div class="si">
+    <div class="sn" data-step="1" style="color:rgba(194,98,45,.06)">02</div>
+    <h2 data-step="2">&ldquo;스마트 제조를 위한 AI-코딩 챌린지&rdquo;</h2>
+    <p class="sd" data-step="3">경기도의 핵심 제조 과제를 해결하는 2가지 주제</p>
+  </div>
+  <div class="sf"><span class="sf-logo">DAKER</span><span class="sf-pg">6</span><span class="sf-cr">COPYRIGHT 2026 DAKER</span></div>
+</section>
+
+<!-- ===== SLIDE 7: 주제 1 & 2 ===== -->
+<section class="slide" id="s7">
+  <div class="sh"><span class="sh-l">II. CHALLENGE THEMES</span></div>
+  <div class="si" style="padding-top:60px">
+    <div class="tag tag-w">THEMES</div>
+    <h2 class="st" data-step="1">제조 현장의 <span class="hl-w">핵심 과제</span>를 듀얼 트랙으로 해결</h2>
+    <div class="tc" style="margin-top:16px">
+      <div data-step="2">
+        <div class="cl">[주제 1] 제조 공정 실시간 설비 모니터링</div>
+        <div class="c" style="border:var(--ghost);margin-bottom:10px;padding:18px">
+          <div style="display:flex;gap:10px;margin-bottom:12px">
+            <span style="padding:4px 10px;border-radius:var(--r-full);background:var(--secondary-container);font-size:.6875rem;font-weight:700;color:var(--on-secondary-container)">Algorithm</span>
+          </div>
+          <div class="c-d">
+            저사양 엣지 컴퓨터에서 동작하는 고효율 <strong>FFT(고속 푸리에 변환)</strong> 및 <strong>이상 징후 감지</strong> 알고리즘 개발
+          </div>
+        </div>
+        <div class="c" style="border:var(--ghost);padding:18px">
+          <div style="display:flex;gap:10px;margin-bottom:12px">
+            <span style="padding:4px 10px;border-radius:var(--r-full);background:var(--accent-warm-bg);font-size:.6875rem;font-weight:700;color:var(--accent-warm)">Vibe Coding</span>
+          </div>
+          <div class="c-d">
+            감지된 이상 데이터를 관리자에게 <strong>실시간 알림</strong>하고 <strong>시각화하는 웹 대시보드</strong> 신속 구축
+          </div>
+        </div>
+      </div>
+      <div data-step="3">
+        <div class="cl-w">[주제 2] 제조 공정 데이터 기반 품질 예측 및 분석</div>
+        <div class="c" style="border:var(--ghost);margin-bottom:10px;padding:18px">
+          <div style="display:flex;gap:10px;margin-bottom:12px">
+            <span style="padding:4px 10px;border-radius:var(--r-full);background:var(--secondary-container);font-size:.6875rem;font-weight:700;color:var(--on-secondary-container)">Algorithm</span>
+          </div>
+          <div class="c-d">
+            비정형 생산 일지에서 핵심 <strong>불량 원인을 예측</strong>하는 모델 구축
+          </div>
+        </div>
+        <div class="c" style="border:var(--ghost);padding:18px">
+          <div style="display:flex;gap:10px;margin-bottom:12px">
+            <span style="padding:4px 10px;border-radius:var(--r-full);background:var(--accent-warm-bg);font-size:.6875rem;font-weight:700;color:var(--accent-warm)">Vibe Coding</span>
+          </div>
+          <div class="c-d">
+            과거 품질 데이터로 향후 <strong>불량률을 예측 &amp; 시뮬레이션</strong>하는 프로토타입 앱 개발
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span class="sf-logo">DAKER</span><span class="sf-pg">7</span><span class="sf-cr">COPYRIGHT 2026 DAKER</span></div>
+</section>
+
+<!-- ===== SLIDE 8: SECTION - 운영 & 평가 ===== -->
+<section class="slide slide-sec" id="s8">
+  <div class="sh"><span class="sh-l">OPERATION &amp; EVALUATION</span></div>
+  <div class="si">
+    <div class="sn" data-step="1">03</div>
+    <h2 data-step="2">운영 프레임워크 및 평가 체계</h2>
+    <p class="sd" data-step="3">참가자 타겟팅, 차별화된 평가 지표, 연계 성장 지원</p>
+  </div>
+  <div class="sf"><span class="sf-logo">DAKER</span><span class="sf-pg">8</span><span class="sf-cr">COPYRIGHT 2026 DAKER</span></div>
+</section>
+
+<!-- ===== SLIDE 9: 평가 체계 ===== -->
+<section class="slide" id="s9">
+  <div class="sh"><span class="sh-l">III. EVALUATION FRAMEWORK</span></div>
+  <div class="si" style="padding-top:60px">
+    <div class="tag">EVALUATION</div>
+    <h2 class="st" data-step="1">트랙별 <span class="hl">차별화된 평가 지표</span></h2>
+    <p class="sub" data-step="2">공통 지표로 비즈니스 가치를 검증하고, 트랙별 특화 지표로 전문성을 평가합니다</p>
+    <div class="g3" style="margin-top:16px">
+      <div class="c c-surf" data-step="3" style="padding:18px">
+        <div class="ic-d" style="margin-bottom:10px">C</div>
+        <div class="c-t">공통 지표</div>
+        <ul class="ck" style="margin-top:8px">
+          <li><span class="i" style="color:var(--accent-dark)">&#10003;</span>현장 문제 해결 가능성</li>
+          <li><span class="i" style="color:var(--accent-dark)">&#10003;</span>창의성</li>
+          <li><span class="i" style="color:var(--accent-dark)">&#10003;</span>비즈니스 가치</li>
+        </ul>
+      </div>
+      <div class="c c-blue" data-step="4" style="padding:18px">
+        <div class="ic" style="margin-bottom:10px">A</div>
+        <div class="c-t" style="color:var(--on-secondary-container)">알고리즘 특화</div>
+        <ul class="ck" style="margin-top:8px">
+          <li><span class="i" style="color:var(--on-secondary-container)">&#10003;</span><span style="color:var(--on-secondary-container)">모델 정확도</span></li>
+          <li><span class="i" style="color:var(--on-secondary-container)">&#10003;</span><span style="color:var(--on-secondary-container)">설명력</span></li>
+          <li><span class="i" style="color:var(--on-secondary-container)">&#10003;</span><span style="color:var(--on-secondary-container)">테스트 케이스 통과율</span></li>
+        </ul>
+      </div>
+      <div class="c" data-step="5" style="background:var(--accent-warm-bg);padding:18px">
+        <div class="ic-w" style="margin-bottom:10px">V</div>
+        <div class="c-t" style="color:var(--accent-warm)">바이브 코딩 특화</div>
+        <ul class="ck" style="margin-top:8px">
+          <li><span class="i" style="color:var(--accent-warm)">&#10003;</span><span style="color:var(--accent-warm)">의도 구현 정확성 (Intent Accuracy)</span></li>
+          <li><span class="i" style="color:var(--accent-warm)">&#10003;</span><span style="color:var(--accent-warm)">AI 협업 과정의 논리성</span></li>
+          <li><span class="i" style="color:var(--accent-warm)">&#10003;</span><span style="color:var(--accent-warm)">개발 생산성</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="g2" style="margin-top:14px">
+      <div class="c" data-step="6" style="border:var(--ghost);padding:16px">
+        <div style="font-size:.75rem;font-weight:700;color:var(--primary);margin-bottom:6px">알고리즘 참가 대상</div>
+        <div class="c-d">SW 개발자, 컴퓨터공학 전공자, 데이터 사이언티스트 중심</div>
+      </div>
+      <div class="c" data-step="6" style="border:var(--ghost);padding:16px">
+        <div style="font-size:.75rem;font-weight:700;color:var(--accent-warm);margin-bottom:6px">바이브 코딩 참가 대상</div>
+        <div class="c-d">제조 현장 엔지니어, 예비 창업자, 도메인 전문가 중심</div>
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span class="sf-logo">DAKER</span><span class="sf-pg">9</span><span class="sf-cr">COPYRIGHT 2026 DAKER</span></div>
+</section>
+
+<!-- ===== SLIDE 10: 연계 성장 & 브랜딩 ===== -->
+<section class="slide" id="s10">
+  <div class="sh"><span class="sh-l">III. GROWTH &amp; BRANDING</span></div>
+  <div class="si" style="padding-top:60px">
+    <div class="tag tag-w">BEYOND THE EVENT</div>
+    <h2 class="st" data-step="1">연계 성장 지원 &amp; <span class="hl-w">경진대회 브랜딩</span></h2>
+    <p class="sub" data-step="2">대회를 넘어 경기도 제조 혁신의 새로운 표준 플랫폼으로</p>
+    <div class="g2" style="margin-top:18px">
+      <div data-step="3">
+        <div class="cl">연계 성장 지원</div>
+        <div class="c c-blue" style="padding:18px;margin-bottom:10px">
+          <div class="ic" style="margin-bottom:10px">S</div>
+          <div class="c-t" style="color:var(--on-secondary-container)">창업 인큐베이팅</div>
+          <div class="c-d" style="color:var(--on-secondary-container)">
+            우수 팀에게 <strong>AICT 내 창업 공간 입주</strong> 및<br/>
+            서울대 교수진 <strong>멘토링</strong> 기회 부여
+          </div>
+        </div>
+        <div class="c" style="background:var(--accent-warm-bg);padding:18px">
+          <div class="ic-w" style="margin-bottom:10px">P</div>
+          <div class="c-t" style="color:var(--accent-warm)">산업 현장 PoC</div>
+          <div class="c-d" style="color:var(--accent-warm)">
+            경기도 내 <strong>스마트 공장 지원 사업</strong>(오픈그라운드 등)과<br/>
+            연계하여 <strong>실제 공장 도입</strong> 추진
+          </div>
+        </div>
+      </div>
+      <div data-step="4">
+        <div class="cl-w">경진대회 브랜딩</div>
+        <div class="c" style="border:var(--ghost);padding:20px">
+          <div class="c-t" style="font-size:1rem">경기도 제조 혁신의 새로운 표준</div>
+          <div class="c-d" style="margin-top:10px;line-height:1.75">
+            이번 경진대회는 단순히 코딩 실력을 겨루는 자리가 아닙니다.<br/><br/>
+            <strong style="color:var(--primary)">전통적 논리(알고리즘)</strong>와 <strong style="color:var(--accent-warm)">AI 협업(바이브 코딩)</strong> 등<br/>
+            미래 핵심 역량을 제조 산업에 수혈하는 <strong>혁신 플랫폼</strong>입니다.<br/><br/>
+            바이브 코딩으로 <strong>혁신의 속도</strong>를 높이고,<br/>
+            알고리즘으로 <strong>기반을 공고히</strong> 하며,<br/>
+            프롬프트를 통해 <strong>AI의 잠재력</strong>을 완성합니다.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span class="sf-logo">DAKER</span><span class="sf-pg">10</span><span class="sf-cr">COPYRIGHT 2026 DAKER</span></div>
+</section>
+
+<!-- ===== SLIDE 11: ENDING ===== -->
+<section class="slide slide-end" id="s11">
+  <div class="si" style="background:linear-gradient(135deg,var(--surface) 0%,var(--secondary-container) 100%)">
+    <div class="end-logo" data-step="1">DAKER &times; AICT</div>
+    <h1 data-step="2">
+      경기도 제조 기업의<br/>
+      <span style="color:var(--primary)">디지털 전환(DX)</span>을 함께
+    </h1>
+    <p class="end-sub" data-step="3">
+      바이브 코딩의 혁신 속도 &times; 알고리즘의 정밀한 신뢰성<br/>
+      글로벌 경쟁력을 확보하는 이정표
+    </p>
+    <div data-step="4" style="margin-top:32px;display:flex;gap:14px">
+      <a href="https://daker.ai/public/surveys/dacon-ai-competition-host-custom-planning-survey/respond" target="_blank" style="padding:10px 24px;border-radius:var(--r-md);background:linear-gradient(135deg,var(--primary),var(--primary-dim));color:var(--on-primary);font-size:.875rem;font-weight:700;text-decoration:none">미팅 요청</a>
+      <a href="https://daker.ai" target="_blank" style="padding:10px 24px;border-radius:var(--r-md);background:var(--surface-low);color:var(--on-surface-variant);font-size:.875rem;font-weight:600;text-decoration:none">daker.ai</a>
+      <a href="https://dacon.io" target="_blank" style="padding:10px 24px;border-radius:var(--r-md);background:var(--surface-low);color:var(--on-surface-variant);font-size:.875rem;font-weight:600;text-decoration:none">dacon.io</a>
+    </div>
+  </div>
+  <div class="sf"><span class="sf-logo">DAKER</span><span class="sf-pg"></span><span class="sf-cr">COPYRIGHT 2026 DAKER. ALL RIGHTS RESERVED</span></div>
+</section>
+
+</div></div>
+
+<button class="nav-btn" id="nav-prev">&#8249;</button>
+<button class="nav-btn" id="nav-next">&#8250;</button>
+<div id="progress-bar" style="width:0%"></div>
+<div id="key-hint">Arrow keys or click to navigate</div>
+
+<script>
+(function(){
+  const slides=document.querySelectorAll('.slide'),total=slides.length;let cur=0;
+  function maxStep(s){let m=0;s.querySelectorAll('[data-step]').forEach(e=>{const v=+e.dataset.step;if(v>m)m=v});return m}
+  let step=0;
+  function show(idx,dir){
+    slides.forEach(s=>s.classList.remove('active'));slides[idx].classList.add('active');step=0;
+    const els=slides[idx].querySelectorAll('[data-step]');els.forEach(e=>{e.classList.remove('visible','pre-visible')});
+    if(dir==='back'){step=maxStep(slides[idx]);els.forEach(e=>e.classList.add('pre-visible'))}
+    document.getElementById('progress-bar').style.width=((idx+1)/total*100)+'%';
+  }
+  function next(){const ms=maxStep(slides[cur]);if(step<ms){step++;slides[cur].querySelectorAll('[data-step]').forEach(e=>{if(+e.dataset.step<=step)e.classList.add('visible')});return}if(cur<total-1){cur++;show(cur,'fwd')}}
+  function prev(){if(step>0){slides[cur].querySelectorAll('[data-step]').forEach(e=>{if(+e.dataset.step===step)e.classList.remove('visible','pre-visible')});step--;return}if(cur>0){cur--;show(cur,'back')}}
+  document.getElementById('nav-next').onclick=next;document.getElementById('nav-prev').onclick=prev;
+  document.addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key===' '||e.key==='Enter')next();else if(e.key==='ArrowLeft'||e.key==='Backspace')prev()});
+  let tx=0;document.addEventListener('touchstart',e=>{tx=e.changedTouches[0].screenX});
+  document.addEventListener('touchend',e=>{const dx=e.changedTouches[0].screenX-tx;if(dx<-50)next();else if(dx>50)prev()});
+  function fit(){const vw=window.innerWidth,vh=window.innerHeight,s=Math.min(vw/1280,vh/720,1);document.getElementById('stage').style.transform='scale('+s+')'}
+  window.addEventListener('resize',fit);fit();
+  step=maxStep(slides[0]);slides[0].querySelectorAll('[data-step]').forEach(e=>{e.classList.add('pre-visible')});
+  document.getElementById('progress-bar').style.width=((1)/total*100)+'%';
+})();
+</script>
+</body>
+</html>
