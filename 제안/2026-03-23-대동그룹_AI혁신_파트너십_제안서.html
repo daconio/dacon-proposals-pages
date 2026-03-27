@@ -1,0 +1,1479 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>DAKER x 대동그룹 - AI 혁신 파트너십 제안서</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  /* Core Brand — The High-End Hackathon Experience */
+  --primary: #004ac6;
+  --on-primary: #ffffff;
+  --primary-container: #d6e2ff;
+  --on-primary-container: #001849;
+  --secondary: #006c49;
+  --on-secondary: #ffffff;
+  --secondary-container: #6ffab8;
+  --on-secondary-container: #002113;
+  --tertiary: #982669;
+  --on-tertiary: #ffffff;
+  --tertiary-container: #ffd8e8;
+  --on-tertiary-container: #3e0024;
+
+  /* Surface Hierarchy */
+  --surface: #faf8ff;
+  --on-surface: #1b1b21;
+  --surface-container-lowest: #ffffff;
+  --surface-container-low: #f4f2fc;
+  --surface-container: #eeedf6;
+  --surface-container-high: #e8e7f0;
+  --surface-container-highest: #e3e1ea;
+  --surface-variant: #e4e1ec;
+  --on-surface-variant: #47464f;
+
+  /* Outline */
+  --outline: #777680;
+  --outline-variant: #c7c5d0;
+
+  /* Semantic aliases */
+  --text-primary: #1b1b21;
+  --text-secondary: #47464f;
+  --text-muted: #777680;
+
+  /* Shadows — Ambient only */
+  --shadow-ambient: 0 8px 32px rgba(27,27,33,0.06);
+  --shadow-soft: 0 4px 16px rgba(27,27,33,0.04);
+  --shadow-stage: 0 12px 48px rgba(27,27,33,0.12);
+  --ghost-border: 1px solid rgba(199,197,208,0.15);
+
+  /* Radius — no sharp corners */
+  --radius-sm: 0.5rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.5rem;
+
+  /* Fonts */
+  --font-display: 'Plus Jakarta Sans', -apple-system, sans-serif;
+  --font-body: 'Manrope', -apple-system, sans-serif;
+
+  --slide-w: 1280px;
+  --slide-h: 720px;
+}
+
+html, body {
+  width: 100%; height: 100%;
+  background: var(--surface-container);
+  font-family: var(--font-body);
+  overflow: hidden;
+  color: var(--on-surface);
+}
+
+#viewport {
+  position: fixed; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+}
+#stage {
+  position: relative;
+  width: var(--slide-w);
+  height: var(--slide-h);
+  overflow: hidden;
+  transform-origin: center center;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-stage);
+}
+
+.slide {
+  position: absolute; inset: 0;
+  background: var(--surface);
+  display: flex; flex-direction: column;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0s;
+}
+.slide.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.slide-inner {
+  flex: 1;
+  display: flex; flex-direction: column;
+  padding: 64px 72px 52px;
+  position: relative;
+}
+
+/* ── Section Header (no line — tonal shift) ── */
+.section-header {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  padding: 20px 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--surface-container-low);
+}
+.section-header-label {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  font-family: var(--font-body);
+}
+
+/* ── Footer (tonal, no line) ── */
+.footer-zone {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  padding: 14px 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--surface-container-low);
+}
+.page-number {
+  font-size: 0.6875rem;
+  color: var(--text-muted);
+  font-weight: 600;
+  font-family: var(--font-body);
+}
+.copyright-footer {
+  font-size: 0.625rem;
+  color: var(--outline-variant);
+  letter-spacing: 0.03em;
+  font-weight: 600;
+}
+.daker-logo-text {
+  font-size: 0.875rem;
+  font-weight: 800;
+  color: var(--primary);
+  letter-spacing: 0.04em;
+  font-family: var(--font-display);
+}
+
+/* ── Tag (section label) ── */
+.tag {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 0.6875rem; font-weight: 700;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--primary);
+  margin-bottom: 16px;
+  font-family: var(--font-body);
+}
+.tag::before {
+  content: ''; display: block;
+  width: 24px; height: 2.5px;
+  background: var(--primary);
+  border-radius: 2px;
+}
+.tag-s { color: var(--secondary); }
+.tag-s::before { background: var(--secondary); }
+.tag-t { color: var(--tertiary); }
+.tag-t::before { background: var(--tertiary); }
+
+/* ── Titles ── */
+h2.slide-title {
+  font-size: 2rem; font-weight: 800;
+  line-height: 1.2;
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
+  font-family: var(--font-display);
+}
+.hl-p { color: var(--primary); }
+.hl-s { color: var(--secondary); }
+.hl-t { color: var(--tertiary); }
+.sub-text {
+  margin-top: 10px;
+  font-size: 0.9375rem; color: var(--text-secondary);
+  line-height: 1.7; font-weight: 400;
+}
+
+/* ── Card (No-Line: tonal layering only) ── */
+.card {
+  background: var(--surface-container-lowest);
+  border-radius: var(--radius-md);
+  padding: 20px;
+  /* No border — tonal shift defines containment */
+}
+.card-p {
+  background: var(--primary-container);
+}
+.card-s {
+  background: var(--secondary-container);
+}
+.card-t {
+  background: var(--tertiary-container);
+}
+.card-surface {
+  background: var(--surface-container-low);
+}
+.card-ghost {
+  background: var(--surface-container-lowest);
+  border: var(--ghost-border);
+}
+.card-title {
+  font-size: 0.9375rem; font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 6px;
+  font-family: var(--font-display);
+}
+.card-desc {
+  font-size: 0.8125rem; color: var(--text-secondary);
+  line-height: 1.65;
+}
+
+/* ── Grid ── */
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+.grid-4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 12px; }
+.grid-5 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr 1fr; gap: 10px; }
+
+/* ── Icon Circle ── */
+.icon-circle {
+  width: 36px; height: 36px;
+  border-radius: var(--radius-sm);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.8125rem; font-weight: 800;
+  margin-bottom: 12px;
+  color: #fff;
+  font-family: var(--font-display);
+}
+.icon-circle-p { background: var(--primary); }
+.icon-circle-s { background: var(--secondary); }
+.icon-circle-t { background: var(--tertiary); }
+
+/* ── Badge (label-md style) ── */
+.badge {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: var(--radius-sm);
+  font-size: 0.6875rem; font-weight: 700;
+  letter-spacing: 0.04em;
+  font-family: var(--font-body);
+}
+.badge-p { background: var(--primary-container); color: var(--on-primary-container); }
+.badge-s { background: var(--secondary-container); color: var(--on-secondary-container); }
+.badge-t { background: var(--tertiary-container); color: var(--on-tertiary-container); }
+
+/* ── Check List ── */
+.check-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+.check-list li {
+  display: flex; align-items: flex-start; gap: 10px;
+  font-size: 0.8125rem; color: var(--text-secondary); line-height: 1.6;
+}
+.check-list li .icon {
+  flex-shrink: 0; font-size: 0.8125rem; margin-top: 2px; font-weight: 700;
+}
+
+/* ── Flow ── */
+.flow-row {
+  display: flex; align-items: center; gap: 8px;
+}
+.flow-arrow {
+  font-size: 18px; color: var(--outline-variant);
+  flex-shrink: 0;
+}
+.flow-box {
+  flex: 1;
+  padding: 14px 16px;
+  background: var(--surface-container-low);
+  border-radius: var(--radius-md);
+  text-align: center;
+}
+.flow-box-p { background: var(--primary-container); }
+.flow-box-s { background: var(--secondary-container); }
+.flow-box-t { background: var(--tertiary-container); }
+.flow-box .label {
+  font-size: 0.75rem; color: var(--text-secondary);
+  margin-top: 2px; font-weight: 600;
+  font-family: var(--font-display);
+}
+.flow-box .desc {
+  font-size: 0.6875rem; color: var(--text-muted);
+  margin-top: 4px; line-height: 1.4;
+}
+
+/* ── Table (no explicit borders — tonal rows) ── */
+.info-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.8125rem;
+}
+.info-table th {
+  text-align: left;
+  padding: 9px 14px;
+  background: var(--surface-container);
+  color: var(--text-primary);
+  font-weight: 700;
+  font-size: 0.75rem;
+  font-family: var(--font-display);
+  border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+}
+.info-table td {
+  padding: 9px 14px;
+  color: var(--text-secondary);
+}
+.info-table tr:nth-child(even) td {
+  background: var(--surface-container-low);
+}
+
+/* ── Metric Box ── */
+.metric-box {
+  text-align: center;
+  padding: 16px 10px;
+  background: var(--surface-container-low);
+  border-radius: var(--radius-md);
+}
+.metric-box .val {
+  font-size: 1.75rem; font-weight: 800;
+  line-height: 1;
+  font-family: var(--font-display);
+}
+.metric-box .lbl {
+  font-size: 0.6875rem; color: var(--text-muted);
+  margin-top: 6px; font-weight: 500;
+}
+
+/* ── Section Divider ── */
+.slide-section .slide-inner {
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding-top: 60px;
+}
+.slide-section .section-num {
+  font-size: 4.5rem; font-weight: 800;
+  color: rgba(0,74,198,0.06);
+  line-height: 1;
+  margin-bottom: 8px;
+  font-family: var(--font-display);
+}
+.slide-section h2 {
+  font-size: 2.625rem; font-weight: 800;
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
+  font-family: var(--font-display);
+}
+.slide-section .section-desc {
+  font-size: 1.0625rem; color: var(--text-secondary);
+  margin-top: 10px; font-weight: 400;
+}
+
+/* ── Ending ── */
+.slide-ending .slide-inner {
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+.slide-ending h1 {
+  font-size: 3rem; font-weight: 800;
+  color: var(--text-primary);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  font-family: var(--font-display);
+}
+.slide-ending .end-sub {
+  font-size: 1.125rem; color: var(--text-secondary);
+  margin-top: 14px;
+}
+.slide-ending .end-logo-text {
+  font-size: 2.625rem;
+  font-weight: 800;
+  color: var(--primary);
+  letter-spacing: 0.06em;
+  margin-bottom: 36px;
+  font-family: var(--font-display);
+}
+
+/* ── Two-column ── */
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  flex: 1;
+}
+.col-label {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: var(--primary);
+  margin-bottom: 10px;
+  font-family: var(--font-display);
+}
+.col-label-s { color: var(--secondary); }
+.col-label-t { color: var(--tertiary); }
+
+/* ── Source note ── */
+.source-note {
+  font-size: 0.625rem;
+  color: var(--outline-variant);
+  position: absolute;
+  bottom: 52px;
+  left: 72px;
+  right: 72px;
+}
+
+/* ── Fragment animation ── */
+[data-step] {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 0.45s ease, transform 0.45s ease;
+}
+[data-step].visible {
+  opacity: 1;
+  transform: none;
+}
+[data-step].pre-visible {
+  opacity: 1;
+  transform: none;
+  transition: none;
+}
+
+/* ── Nav ── */
+.nav-btn {
+  position: fixed; top: 50%; transform: translateY(-50%);
+  width: 40px; height: 40px; border-radius: 50%;
+  background: rgba(250,248,255,0.85);
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer; z-index: 100;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px;
+  transition: all 0.2s;
+  user-select: none;
+  box-shadow: var(--shadow-ambient);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+}
+.nav-btn:hover {
+  color: var(--primary);
+  box-shadow: var(--shadow-soft);
+}
+#nav-prev { left: 12px; }
+#nav-next { right: 12px; }
+
+#progress-bar {
+  position: fixed; top: 0; left: 0; height: 3px;
+  background: linear-gradient(90deg, var(--primary), var(--secondary));
+  transition: width 0.4s ease;
+  z-index: 100;
+}
+#key-hint {
+  position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
+  color: var(--outline-variant); font-size: 0.6875rem;
+  z-index: 100; opacity: 0.5;
+  letter-spacing: 0.02em;
+  font-family: var(--font-body);
+}
+
+/* ── Print ── */
+@page { size: 338.67mm 190.5mm landscape; margin: 0; }
+@media print {
+  html, body { background: #fff !important; overflow: visible !important; height: auto !important; width: auto !important; margin: 0 !important; padding: 0 !important; }
+  #viewport { position: static !important; display: block !important; height: auto !important; }
+  #stage { position: static !important; width: auto !important; height: auto !important; overflow: visible !important; transform: none !important; box-shadow: none !important; border-radius: 0 !important; }
+  .slide { position: relative !important; inset: auto !important; opacity: 1 !important; pointer-events: auto !important; display: flex !important; flex-direction: column !important; width: 338.67mm !important; height: 190.5mm !important; page-break-after: always !important; break-after: page !important; page-break-inside: avoid !important; margin: 0 !important; padding: 48px 56px !important; box-sizing: border-box !important; }
+  .nav-btn, #progress-bar, #key-hint { display: none !important; }
+  [data-step] { opacity: 1 !important; transform: none !important; }
+}
+</style>
+</head>
+<body>
+
+<div id="viewport">
+<div id="stage">
+
+<!-- ==================== SLIDE 1: COVER ==================== -->
+<section class="slide active" id="slide-1">
+  <div class="slide-inner" style="justify-content: center; align-items: flex-start; padding-left: 88px; background: linear-gradient(135deg, var(--surface) 0%, var(--primary-container) 100%);">
+    <div style="position: absolute; top: 22px; right: 32px;">
+      <span style="display: inline-block; background: linear-gradient(135deg, var(--primary), var(--secondary)); color: var(--on-primary); padding: 6px 18px; border-radius: 9999px; font-size: 0.75rem; font-weight: 600; font-family: var(--font-body);">2026.03.23</span>
+    </div>
+    <div data-step="1">
+      <span style="font-size: 2rem; font-weight: 800; color: var(--primary); letter-spacing: 0.04em; font-family: var(--font-display);">DAKER</span>
+      <span style="font-size: 1.125rem; color: var(--outline-variant); margin: 0 12px;">&times;</span>
+      <span style="font-size: 1.75rem; font-weight: 800; color: var(--text-primary); letter-spacing: -0.01em; font-family: var(--font-display);">대동그룹</span>
+    </div>
+    <h1 data-step="2" style="font-size: 2.75rem; font-weight: 800; line-height: 1.15; letter-spacing: -0.02em; color: var(--text-primary); margin-top: 14px; font-family: var(--font-display);">
+      AI 혁신 파트너십<br/>
+      <span style="color: var(--primary);">통합 제안서</span>
+    </h1>
+    <p data-step="3" style="font-size: 1.0625rem; color: var(--text-secondary); font-weight: 400; margin-top: 18px; line-height: 1.7;">
+      수요 예측 경진대회 &middot; AI 프롬프톤 &middot; M365 Copilot 교육<br/>그리고 바이브코딩 경진대회까지 &mdash; 대동의 AX 전환을 가속합니다
+    </p>
+    <div data-step="4" style="display: flex; gap: 10px; margin-top: 28px; flex-wrap: wrap;">
+      <span style="padding: 8px 18px; border-radius: var(--radius-sm); background: var(--primary-container); font-size: 0.8125rem; font-weight: 700; color: var(--on-primary-container); font-family: var(--font-display);">수요 예측 대회</span>
+      <span style="padding: 8px 18px; border-radius: var(--radius-sm); background: var(--secondary-container); font-size: 0.8125rem; font-weight: 700; color: var(--on-secondary-container); font-family: var(--font-display);">AI 프롬프톤</span>
+      <span style="padding: 8px 18px; border-radius: var(--radius-sm); background: var(--tertiary-container); font-size: 0.8125rem; font-weight: 700; color: var(--on-tertiary-container); font-family: var(--font-display);">M365 교육</span>
+      <span style="padding: 8px 18px; border-radius: var(--radius-sm); background: var(--surface-container-high); font-size: 0.8125rem; font-weight: 700; color: var(--text-primary); font-family: var(--font-display);">바이브코딩 대회</span>
+    </div>
+    <div style="position: absolute; bottom: 20px; right: 32px; font-size: 0.625rem; color: var(--outline-variant);">COPYRIGHT 2026 DAKER. ALL RIGHTS RESERVED</div>
+  </div>
+</section>
+
+<!-- ==================== SLIDE 2: 대동그룹 이해 ==================== -->
+<section class="slide" id="slide-2">
+  <div class="section-header">
+    <span class="section-header-label">I. DAEDONG GROUP</span>
+  </div>
+  <div class="slide-inner" style="padding-top: 60px;">
+    <div class="tag">DAEDONG GROUP</div>
+    <h2 class="slide-title" data-step="1">대한민국 <span class="hl-p">No.1</span> 농기계 기업</h2>
+    <p class="sub-text" data-step="2">1947년 창업, 79년의 역사 &mdash; 글로벌 스마트 농업 리더로 도약 중</p>
+    <div class="grid-5" style="margin-top: 18px;">
+      <div class="metric-box" data-step="3">
+        <div class="val" style="color: var(--primary);">1.43조</div>
+        <div class="lbl">2024 연간 매출<br/>(KRW)</div>
+      </div>
+      <div class="metric-box" data-step="3">
+        <div class="val" style="color: var(--secondary);">8.7%</div>
+        <div class="lbl">북미 트랙터<br/>시장 점유율</div>
+      </div>
+      <div class="metric-box" data-step="3">
+        <div class="val" style="color: var(--tertiary);">1,276+</div>
+        <div class="lbl">임직원 수<br/>(본사 기준)</div>
+      </div>
+      <div class="metric-box" data-step="3">
+        <div class="val" style="color: var(--primary);">79년</div>
+        <div class="lbl">기업 역사<br/>(1947~)</div>
+      </div>
+      <div class="metric-box" data-step="3">
+        <div class="val" style="color: var(--tertiary);">L4</div>
+        <div class="lbl">자율주행 AI<br/>트랙터 상용화</div>
+      </div>
+    </div>
+    <div class="grid-3" style="margin-top: 14px;">
+      <div class="card card-p" data-step="4">
+        <div style="font-size: 0.75rem; font-weight: 700; color: var(--on-primary-container); margin-bottom: 6px; font-family: var(--font-display);">핵심 사업</div>
+        <div class="card-desc" style="color: var(--on-primary-container); opacity: 0.8;">
+          <strong>KIOTI</strong> 브랜드 글로벌 트랙터 판매<br/>
+          콤바인, 이앙기, 엔진, UTV 제조<br/>
+          전국 대리점 네트워크 운영
+        </div>
+      </div>
+      <div class="card card-s" data-step="4">
+        <div style="font-size: 0.75rem; font-weight: 700; color: var(--on-secondary-container); margin-bottom: 6px; font-family: var(--font-display);">AI &middot; 로보틱스</div>
+        <div class="card-desc" style="color: var(--on-secondary-container); opacity: 0.8;">
+          <strong>대동에이아이랩</strong> ('24.05 설립)<br/>
+          <strong>대동로보틱스</strong> ('24.11 설립)<br/>
+          자율주행 AI, 작업 AI, 재배 AI
+        </div>
+      </div>
+      <div class="card card-surface" data-step="4">
+        <div style="font-size: 0.75rem; font-weight: 700; color: var(--text-primary); margin-bottom: 6px; font-family: var(--font-display);">디지털 전환</div>
+        <div class="card-desc">
+          '25.12 전사 <strong>M365 Copilot</strong> 도입<br/>
+          2026 <strong>"AI&middot;로보틱스 전환 원년"</strong> 선언<br/>
+          BI &middot; PI &middot; WI 혁신 프레임워크
+        </div>
+      </div>
+    </div>
+    <div class="source-note">출처: 대동 공식 사이트, 서울경제, 한국경제 (2026.01)</div>
+  </div>
+  <div class="footer-zone">
+    <span class="daker-logo-text">DAKER</span>
+    <span class="page-number">2</span>
+    <span class="copyright-footer">COPYRIGHT 2026 DAKER</span>
+  </div>
+</section>
+
+<!-- ==================== SLIDE 3: 대동 AX 비전 ==================== -->
+<section class="slide" id="slide-3">
+  <div class="section-header">
+    <span class="section-header-label">I. STRATEGIC ALIGNMENT</span>
+  </div>
+  <div class="slide-inner" style="padding-top: 60px;">
+    <div class="tag tag-s">STRATEGIC ALIGNMENT</div>
+    <h2 class="slide-title" data-step="1">대동의 <span class="hl-s">AX 전환</span>과 DAKER의 역할</h2>
+    <p class="sub-text" data-step="2">김준식 회장의 2026 신년사 &mdash; "AI&middot;로보틱스 기업 전환 원년"에 맞춘 맞춤 제안</p>
+    <div class="two-col" style="margin-top: 18px;">
+      <div data-step="3">
+        <div class="col-label">대동의 3대 혁신 축</div>
+        <div class="card card-s" style="margin-bottom: 10px;">
+          <div class="card-title" style="color: var(--on-secondary-container);">BI &mdash; Business Innovation</div>
+          <div class="card-desc" style="color: var(--on-secondary-container); opacity: 0.8;">AI/로보틱스 기반 <strong>비즈니스 모델 혁신</strong><br/>수요 예측, 재고 최적화, 스마트 SCM</div>
+        </div>
+        <div class="card card-p" style="margin-bottom: 10px;">
+          <div class="card-title" style="color: var(--on-primary-container);">PI &mdash; Process Innovation</div>
+          <div class="card-desc" style="color: var(--on-primary-container); opacity: 0.8;"><strong>운영 프로세스 전면 혁신</strong><br/>M365 Copilot 기반 업무 자동화</div>
+        </div>
+        <div class="card card-t">
+          <div class="card-title" style="color: var(--on-tertiary-container);">WI &mdash; Work Innovation</div>
+          <div class="card-desc" style="color: var(--on-tertiary-container); opacity: 0.8;"><strong>개인 AI 에이전트</strong> 확대<br/>전 임직원 AI 활용 역량 강화</div>
+        </div>
+      </div>
+      <div data-step="4">
+        <div class="col-label col-label-t">DAKER 제안 &rarr; 혁신 축 매핑</div>
+        <table class="info-table">
+          <thead><tr><th>DAKER 제안</th><th>혁신 축</th><th>기대 효과</th></tr></thead>
+          <tbody>
+            <tr><td style="font-weight: 600;">수요 예측 경진대회</td><td><span class="badge badge-s">BI</span></td><td>부품 재고 최적화 모델 확보</td></tr>
+            <tr><td style="font-weight: 600;">AI 프롬프톤</td><td><span class="badge badge-p">PI</span> <span class="badge badge-t">WI</span></td><td>Copilot 실무 적용도 극대화</td></tr>
+            <tr><td style="font-weight: 600;">M365 교육</td><td><span class="badge badge-t">WI</span></td><td>전 임직원 AI 역량 레벨업</td></tr>
+            <tr><td style="font-weight: 600;">바이브코딩 대회</td><td><span class="badge badge-s">BI</span> <span class="badge badge-p">PI</span></td><td>AI 기반 업무 도구 자체 개발</td></tr>
+          </tbody>
+        </table>
+        <div class="card card-surface" style="margin-top: 12px; padding: 14px 18px;">
+          <div style="font-size: 0.8125rem; color: var(--text-secondary); line-height: 1.7;">
+            4개 프로그램이 <strong>BI&middot;PI&middot;WI 3개 축을 모두 커버</strong>하여<br/>대동의 AX 전환을 체계적으로 가속합니다.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="footer-zone">
+    <span class="daker-logo-text">DAKER</span>
+    <span class="page-number">3</span>
+    <span class="copyright-footer">COPYRIGHT 2026 DAKER</span>
+  </div>
+</section>
+
+<!-- ==================== SLIDE 4: SECTION - 수요 예측 ==================== -->
+<section class="slide slide-section" id="slide-4">
+  <div class="section-header">
+    <span class="section-header-label">II. DEMAND FORECASTING</span>
+  </div>
+  <div class="slide-inner">
+    <div class="section-num" data-step="1">01</div>
+    <h2 data-step="2">수요 예측 경진대회</h2>
+    <p class="section-desc" data-step="3">트랙터 부품 수요 예측 모델로 전국 대리점 재고를 최적화합니다</p>
+  </div>
+  <div class="footer-zone">
+    <span class="daker-logo-text">DAKER</span>
+    <span class="page-number">4</span>
+    <span class="copyright-footer">COPYRIGHT 2026 DAKER</span>
+  </div>
+</section>
+
+<!-- ==================== SLIDE 5: 수요 예측 경진대회 개요 ==================== -->
+<section class="slide" id="slide-5">
+  <div class="section-header">
+    <span class="section-header-label">II. COMPETITION DESIGN</span>
+  </div>
+  <div class="slide-inner" style="padding-top: 60px;">
+    <div class="tag">COMPETITION DESIGN</div>
+    <h2 class="slide-title" data-step="1">부품 수요 예측 <span class="hl-p">경진대회</span> 설계</h2>
+    <p class="sub-text" data-step="2">4년치 Daily 판매 이력 기반, 전국 대리점 부품 재고 최적화 AI 모델 개발</p>
+    <div class="two-col" style="margin-top: 16px;">
+      <div data-step="3">
+        <div class="col-label">대회 핵심 정보</div>
+        <table class="info-table">
+          <thead><tr><th>항목</th><th>내용</th></tr></thead>
+          <tbody>
+            <tr><td style="font-weight: 600;">대회명</td><td>대동 트랙터 부품 수요 예측 챌린지</td></tr>
+            <tr><td style="font-weight: 600;">주제</td><td>부품별 월간/주간 수요량 예측</td></tr>
+            <tr><td style="font-weight: 600;">데이터</td><td>4년치 Daily 부품 판매 이력</td></tr>
+            <tr><td style="font-weight: 600;">평가 지표</td><td>RMSE / MAPE / 비즈니스 KPI</td></tr>
+            <tr><td style="font-weight: 600;">참가 형태</td><td>개인 또는 팀 (최대 5인)</td></tr>
+            <tr><td style="font-weight: 600;">기간</td><td>4~6주 (예선 + 본선)</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div data-step="4">
+        <div class="col-label col-label-s">기대 효과</div>
+        <div class="card card-s" style="margin-bottom: 10px;">
+          <div class="card-title" style="color: var(--on-secondary-container);">재고 비용 절감</div>
+          <div class="card-desc" style="color: var(--on-secondary-container); opacity: 0.8;">과잉 재고 <strong>15~30% 절감</strong> 가능<br/>품절률 최소화로 대리점 서비스 향상</div>
+        </div>
+        <div class="card card-p" style="margin-bottom: 10px;">
+          <div class="card-title" style="color: var(--on-primary-container);">다양한 모델 확보</div>
+          <div class="card-desc" style="color: var(--on-primary-container); opacity: 0.8;">수백 개 팀의 접근법 중 <strong>Top N 모델 앙상블</strong><br/>단일 모델 대비 정확도 향상</div>
+        </div>
+        <div class="card card-surface">
+          <div class="card-title">AI 인재 발굴</div>
+          <div class="card-desc">우수 참가자 <strong>채용 연계</strong> 가능<br/>대동 AI Lab 인재 파이프라인 구축</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="footer-zone">
+    <span class="daker-logo-text">DAKER</span>
+    <span class="page-number">5</span>
+    <span class="copyright-footer">COPYRIGHT 2026 DAKER</span>
+  </div>
+</section>
+
+<!-- ==================== SLIDE 6: 데이터셋 & 절차 ==================== -->
+<section class="slide" id="slide-6">
+  <div class="section-header">
+    <span class="section-header-label">II. DATASET &middot; PROCESS</span>
+  </div>
+  <div class="slide-inner" style="padding-top: 60px;">
+    <div class="tag tag-t">DATASET & PROCESS</div>
+    <h2 class="slide-title" data-step="1">데이터셋 <span class="hl-t">정의</span> 및 운영 절차</h2>
+    <div class="two-col" style="margin-top: 14px;">
+      <div data-step="2">
+        <div class="col-label col-label-t">필요 데이터셋 구성</div>
+        <table class="info-table" style="font-size: 0.75rem;">
+          <thead><tr><th>데이터셋</th><th>컬럼 예시</th><th>비고</th></tr></thead>
+          <tbody>
+            <tr><td style="font-weight: 600;">부품 판매 이력</td><td>날짜, 부품코드, 대리점ID, 판매수량</td><td>4년 Daily</td></tr>
+            <tr><td style="font-weight: 600;">부품 마스터</td><td>부품코드, 카테고리, 단가, 리드타임</td><td>정적 데이터</td></tr>
+            <tr><td style="font-weight: 600;">대리점 정보</td><td>대리점ID, 지역, 규모, 장비보유수</td><td>익명화</td></tr>
+            <tr><td style="font-weight: 600;">계절/외부 변수</td><td>농번기, 기온, 강수량, 공휴일</td><td>공개 데이터</td></tr>
+            <tr><td style="font-weight: 600;">프로모션 이력</td><td>캠페인 기간, 할인율, 대상 부품</td><td>선택 제공</td></tr>
+          </tbody>
+        </table>
+        <div class="card card-t" style="margin-top: 10px; padding: 14px;">
+          <div style="font-size: 0.6875rem; font-weight: 700; color: var(--on-tertiary-container); margin-bottom: 4px; font-family: var(--font-display); text-transform: uppercase; letter-spacing: 0.05em;">데이터 보안 원칙</div>
+          <div class="card-desc" style="font-size: 0.75rem; color: var(--on-tertiary-container); opacity: 0.8;">
+            &bull; 대리점/고객 정보 완전 익명화<br/>
+            &bull; NDA 체결 후 데이터 제공<br/>
+            &bull; 대회 종료 후 참가자 데이터 삭제
+          </div>
+        </div>
+      </div>
+      <div data-step="3">
+        <div class="col-label">운영 4단계 프로세스</div>
+        <div class="card card-p" style="margin-bottom: 8px; padding: 14px 18px;">
+          <div style="display: flex; align-items: center; gap: 12px;">
+            <div class="icon-circle icon-circle-p" style="margin-bottom: 0; flex-shrink: 0;">01</div>
+            <div>
+              <div class="card-title" style="font-size: 0.8125rem; margin-bottom: 2px; color: var(--on-primary-container);">사전 준비 (2~3주)</div>
+              <div class="card-desc" style="font-size: 0.75rem; color: var(--on-primary-container); opacity: 0.8;">데이터 정제 &middot; 익명화 &middot; EDA 문서 작성<br/>평가 지표 확정 &middot; 베이스라인 모델 수립</div>
+            </div>
+          </div>
+        </div>
+        <div class="card card-s" style="margin-bottom: 8px; padding: 14px 18px;">
+          <div style="display: flex; align-items: center; gap: 12px;">
+            <div class="icon-circle icon-circle-s" style="margin-bottom: 0; flex-shrink: 0;">02</div>
+            <div>
+              <div class="card-title" style="font-size: 0.8125rem; margin-bottom: 2px; color: var(--on-secondary-container);">예선 (3~4주)</div>
+              <div class="card-desc" style="font-size: 0.75rem; color: var(--on-secondary-container); opacity: 0.8;">온라인 리더보드 경쟁<br/>Public/Private 데이터셋 분리 &middot; 중간 멘토링</div>
+            </div>
+          </div>
+        </div>
+        <div class="card card-t" style="margin-bottom: 8px; padding: 14px 18px;">
+          <div style="display: flex; align-items: center; gap: 12px;">
+            <div class="icon-circle icon-circle-t" style="margin-bottom: 0; flex-shrink: 0;">03</div>
+            <div>
+              <div class="card-title" style="font-size: 0.8125rem; margin-bottom: 2px; color: var(--on-tertiary-container);">본선 (1~2주)</div>
+              <div class="card-desc" style="font-size: 0.75rem; color: var(--on-tertiary-container); opacity: 0.8;">Top 10팀 발표 심사<br/>비즈니스 적용 가능성 + 모델 성능 종합 평가</div>
+            </div>
+          </div>
+        </div>
+        <div class="card card-surface" style="padding: 14px 18px;">
+          <div style="display: flex; align-items: center; gap: 12px;">
+            <div class="icon-circle" style="margin-bottom: 0; flex-shrink: 0; background: var(--on-surface-variant); color: #fff;">04</div>
+            <div>
+              <div class="card-title" style="font-size: 0.8125rem; margin-bottom: 2px;">사후 (2주)</div>
+              <div class="card-desc" style="font-size: 0.75rem;">수상 모델 기술 이전 &middot; 결과 보고서<br/>우수 인재 채용 연계 &middot; 사내 적용 컨설팅</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="footer-zone">
+    <span class="daker-logo-text">DAKER</span>
+    <span class="page-number">6</span>
+    <span class="copyright-footer">COPYRIGHT 2026 DAKER</span>
+  </div>
+</section>
+
+<!-- ==================== SLIDE 7: SECTION - AI 프롬프톤 ==================== -->
+<section class="slide slide-section" id="slide-7">
+  <div class="section-header">
+    <span class="section-header-label">III. AI PROMPTHON</span>
+  </div>
+  <div class="slide-inner">
+    <div class="section-num" data-step="1" style="color: rgba(0,108,73,0.06);">02</div>
+    <h2 data-step="2">사내 AI 프롬프톤</h2>
+    <p class="section-desc" data-step="3">600명 임직원이 참여하는 M365 Copilot 활용 해커톤</p>
+  </div>
+  <div class="footer-zone">
+    <span class="daker-logo-text">DAKER</span>
+    <span class="page-number">7</span>
+    <span class="copyright-footer">COPYRIGHT 2026 DAKER</span>
+  </div>
+</section>
+
+<!-- ==================== SLIDE 8: AI 프롬프톤 상세 ==================== -->
+<section class="slide" id="slide-8">
+  <div class="section-header">
+    <span class="section-header-label">III. PROMPTHON DESIGN</span>
+  </div>
+  <div class="slide-inner" style="padding-top: 60px;">
+    <div class="tag tag-s">PROMPTHON</div>
+    <h2 class="slide-title" data-step="1">대동 AI 프롬프톤 <span class="hl-s">운영 설계</span></h2>
+    <p class="sub-text" data-step="2">창녕 연수원에서 600명이 참여하는 오프라인 M365 Copilot 해커톤</p>
+    <div class="two-col" style="margin-top: 14px;">
+      <div data-step="3">
+        <div class="col-label col-label-s">대회 운영 개요</div>
+        <table class="info-table">
+          <thead><tr><th>항목</th><th>내용</th></tr></thead>
+          <tbody>
+            <tr><td style="font-weight: 600;">참가 대상</td><td>대동그룹 임직원 <strong>600명</strong></td></tr>
+            <tr><td style="font-weight: 600;">장소</td><td>대동 창녕 연수원</td></tr>
+            <tr><td style="font-weight: 600;">형태</td><td>오프라인 1일 해커톤</td></tr>
+            <tr><td style="font-weight: 600;">팀 구성</td><td>5~6인 1팀 (약 100~120팀)</td></tr>
+            <tr><td style="font-weight: 600;">도구</td><td>M365 Copilot + Copilot Studio</td></tr>
+            <tr><td style="font-weight: 600;">트랙</td><td>부서별 실무 과제 3~5개 트랙</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div data-step="4">
+        <div class="col-label">트랙 예시 (부서별)</div>
+        <div class="card card-s" style="margin-bottom: 8px; padding: 14px;">
+          <div class="card-title" style="font-size: 0.8125rem; color: var(--on-secondary-container);">Track 1. 영업/대리점 지원</div>
+          <div class="card-desc" style="font-size: 0.75rem; color: var(--on-secondary-container); opacity: 0.8;">Copilot으로 고객 문의 자동 분류 에이전트 구축<br/>대리점 재고 현황 리포트 자동 생성</div>
+        </div>
+        <div class="card card-p" style="margin-bottom: 8px; padding: 14px;">
+          <div class="card-title" style="font-size: 0.8125rem; color: var(--on-primary-container);">Track 2. 제조/생산</div>
+          <div class="card-desc" style="font-size: 0.75rem; color: var(--on-primary-container); opacity: 0.8;">생산 라인 이상 감지 알림 에이전트<br/>품질 검사 보고서 자동 요약</div>
+        </div>
+        <div class="card card-t" style="margin-bottom: 8px; padding: 14px;">
+          <div class="card-title" style="font-size: 0.8125rem; color: var(--on-tertiary-container);">Track 3. 경영지원/HR</div>
+          <div class="card-desc" style="font-size: 0.75rem; color: var(--on-tertiary-container); opacity: 0.8;">회의록 자동 작성 &middot; 액션아이템 추출<br/>인사 규정 Q&A 챗봇 구축</div>
+        </div>
+        <div class="card card-surface" style="padding: 14px;">
+          <div class="card-title" style="font-size: 0.8125rem;">Track 4. R&D/기술</div>
+          <div class="card-desc" style="font-size: 0.75rem;">특허 문서 분석 에이전트<br/>기술 매뉴얼 검색 &middot; 번역 자동화</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="footer-zone">
+    <span class="daker-logo-text">DAKER</span>
+    <span class="page-number">8</span>
+    <span class="copyright-footer">COPYRIGHT 2026 DAKER</span>
+  </div>
+</section>
+
+<!-- ==================== SLIDE 9: 프롬프톤 타임라인 ==================== -->
+<section class="slide" id="slide-9">
+  <div class="section-header">
+    <span class="section-header-label">III. TIMELINE</span>
+  </div>
+  <div class="slide-inner" style="padding-top: 60px;">
+    <div class="tag tag-s">TIMELINE</div>
+    <h2 class="slide-title" data-step="1">프롬프톤 <span class="hl-s">1일 타임라인</span></h2>
+    <p class="sub-text" data-step="2">DAKER 플랫폼 기반 실시간 리더보드, 팀 협업, 심사까지 원스톱 운영</p>
+    <div class="grid-2" style="margin-top: 16px;">
+      <div data-step="3">
+        <div class="col-label col-label-s">당일 일정 (8시간)</div>
+        <table class="info-table" style="font-size: 0.75rem;">
+          <thead><tr><th>시간</th><th>내용</th><th>비고</th></tr></thead>
+          <tbody>
+            <tr><td style="font-weight: 600;">09:00~09:30</td><td>개회식 &middot; 룰 설명</td><td>전체</td></tr>
+            <tr><td style="font-weight: 600;">09:30~10:00</td><td>팀 빌딩 &middot; 과제 선택</td><td>DAKER 팀 매칭</td></tr>
+            <tr><td style="font-weight: 600;">10:00~12:00</td><td>해커톤 오전 세션</td><td>멘토 순회</td></tr>
+            <tr><td style="font-weight: 600;">12:00~13:00</td><td>점심 &middot; 네트워킹</td><td></td></tr>
+            <tr><td style="font-weight: 600;">13:00~16:00</td><td>해커톤 오후 세션</td><td>중간 발표</td></tr>
+            <tr><td style="font-weight: 600;">16:00~17:00</td><td>팀별 발표 &middot; 데모</td><td>5분/팀</td></tr>
+            <tr><td style="font-weight: 600;">17:00~17:30</td><td>심사 &middot; 시상식</td><td>전문가 심사</td></tr>
+            <tr><td style="font-weight: 600;">17:30~18:00</td><td>클로징 &middot; 피드백</td><td>설문 수합</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div data-step="4">
+        <div class="col-label">DAKER 플랫폼 지원 기능</div>
+        <div class="grid-2" style="gap: 8px;">
+          <div class="card card-s" style="padding: 14px;">
+            <div class="card-title" style="font-size: 0.8125rem; color: var(--on-secondary-container);">팀 매칭</div>
+            <div class="card-desc" style="font-size: 0.75rem; color: var(--on-secondary-container); opacity: 0.8;">AI 기반 역할/스킬 매칭<br/>최대 1,000명 일괄 등록</div>
+          </div>
+          <div class="card card-p" style="padding: 14px;">
+            <div class="card-title" style="font-size: 0.8125rem; color: var(--on-primary-container);">실시간 리더보드</div>
+            <div class="card-desc" style="font-size: 0.75rem; color: var(--on-primary-container); opacity: 0.8;">팀별 진행 상황 실시간 공유<br/>점수 자동 집계</div>
+          </div>
+          <div class="card card-t" style="padding: 14px;">
+            <div class="card-title" style="font-size: 0.8125rem; color: var(--on-tertiary-container);">전문가 심사</div>
+            <div class="card-desc" style="font-size: 0.75rem; color: var(--on-tertiary-container); opacity: 0.8;">엑셀 기반 채점 시스템<br/>다수 심사위원 배정</div>
+          </div>
+          <div class="card card-surface" style="padding: 14px;">
+            <div class="card-title" style="font-size: 0.8125rem;">결과 리포트</div>
+            <div class="card-desc" style="font-size: 0.75rem;">참가자 데이터 분석<br/>인증서 자동 발급</div>
+          </div>
+        </div>
+        <div class="card card-s" style="margin-top: 10px; padding: 14px;">
+          <div style="font-size: 0.75rem; color: var(--on-secondary-container); line-height: 1.6; opacity: 0.85;">
+            <strong>ELO 1v1 Arena</strong> &mdash; 팀 간 결과물 블라인드 평가로 공정성 확보. 참가자 직접 투표로 몰입도 극대화.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="footer-zone">
+    <span class="daker-logo-text">DAKER</span>
+    <span class="page-number">9</span>
+    <span class="copyright-footer">COPYRIGHT 2026 DAKER</span>
+  </div>
+</section>
+
+<!-- ==================== SLIDE 10: SECTION - M365 교육 ==================== -->
+<section class="slide slide-section" id="slide-10">
+  <div class="section-header">
+    <span class="section-header-label">IV. AI EDUCATION</span>
+  </div>
+  <div class="slide-inner">
+    <div class="section-num" data-step="1" style="color: rgba(152,38,105,0.06);">03</div>
+    <h2 data-step="2">사내 AI 교육</h2>
+    <p class="section-desc" data-step="3">M365 Copilot &middot; Copilot Studio 중급/고급 교육 커리큘럼</p>
+  </div>
+  <div class="footer-zone">
+    <span class="daker-logo-text">DAKER</span>
+    <span class="page-number">10</span>
+    <span class="copyright-footer">COPYRIGHT 2026 DAKER</span>
+  </div>
+</section>
+
+<!-- ==================== SLIDE 11: 교육 커리큘럼 ==================== -->
+<section class="slide" id="slide-11">
+  <div class="section-header">
+    <span class="section-header-label">IV. CURRICULUM</span>
+  </div>
+  <div class="slide-inner" style="padding-top: 60px;">
+    <div class="tag tag-t">CURRICULUM</div>
+    <h2 class="slide-title" data-step="1">해커톤 연계 <span class="hl-t">교육 커리큘럼</span></h2>
+    <p class="sub-text" data-step="2">기초 교육 완료 ('25.12~'26.01) 기반, 중급/고급으로 연결하는 3단계 설계</p>
+    <div class="grid-3" style="margin-top: 14px;">
+      <div class="card card-surface" data-step="3" style="padding: 18px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+          <span class="badge" style="background: var(--surface-container-high); color: var(--text-muted);">완료</span>
+          <span style="font-size: 0.6875rem; color: var(--text-muted);">'25.12~'26.01</span>
+        </div>
+        <div class="card-title">Level 1. 기초</div>
+        <div class="card-desc">
+          <strong>이미 완료된 교육</strong><br/><br/>
+          &bull; M365 Copilot 기본 기능 이해<br/>
+          &bull; Word/Excel/PPT 내 Copilot 활용<br/>
+          &bull; 간단한 에이전트 생성<br/>
+          &bull; 프롬프트 기본 원리
+        </div>
+        <div style="margin-top: 10px; padding: 8px 12px; background: var(--surface-container); border-radius: var(--radius-sm); font-size: 0.75rem; color: var(--text-muted);">
+          현재 임직원 수준: 기본 에이전트 생성 가능
+        </div>
+      </div>
+      <div class="card card-p" data-step="4" style="padding: 18px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+          <span class="badge badge-p">제안</span>
+          <span style="font-size: 0.6875rem; color: var(--on-primary-container);">2일 과정</span>
+        </div>
+        <div class="card-title" style="color: var(--on-primary-container);">Level 2. 중급</div>
+        <div class="card-desc" style="color: var(--on-primary-container); opacity: 0.8;">
+          <strong>실무 프로세스 자동화</strong><br/><br/>
+          &bull; Copilot Studio 고급 플로우 설계<br/>
+          &bull; 다중 데이터 소스 연결 에이전트<br/>
+          &bull; Power Automate 연동 시나리오<br/>
+          &bull; 부서별 맞춤 프롬프트 템플릿<br/>
+          &bull; Teams 연동 챗봇 구축<br/><br/>
+          <span style="font-size: 0.6875rem; font-weight: 600;">실습: 부서 업무 자동화 에이전트 1개 구축</span>
+        </div>
+      </div>
+      <div class="card card-s" data-step="5" style="padding: 18px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+          <span class="badge badge-s">제안</span>
+          <span style="font-size: 0.6875rem; color: var(--on-secondary-container);">1일 과정</span>
+        </div>
+        <div class="card-title" style="color: var(--on-secondary-container);">Level 3. 고급</div>
+        <div class="card-desc" style="color: var(--on-secondary-container); opacity: 0.8;">
+          <strong>AI 에이전트 오케스트레이션</strong><br/><br/>
+          &bull; 멀티 에이전트 연동 설계<br/>
+          &bull; Azure AI 서비스 연결<br/>
+          &bull; API 연동 고급 시나리오<br/>
+          &bull; 보안 &middot; 거버넌스 설계<br/>
+          &bull; ROI 측정 프레임워크<br/><br/>
+          <span style="font-size: 0.6875rem; font-weight: 600;">실습: 크로스 부서 워크플로우 에이전트</span>
+        </div>
+      </div>
+    </div>
+    <div class="flow-row" style="margin-top: 12px;" data-step="6">
+      <div class="flow-box">
+        <div class="label" style="font-weight: 700; color: var(--text-muted);">L1 기초 (완료)</div>
+        <div class="desc">에이전트 생성 가능</div>
+      </div>
+      <span class="flow-arrow">&rarr;</span>
+      <div class="flow-box flow-box-p">
+        <div class="label" style="font-weight: 700; color: var(--on-primary-container);">L2 중급 (교육)</div>
+        <div class="desc" style="color: var(--on-primary-container); opacity: 0.7;">실무 자동화 구축</div>
+      </div>
+      <span class="flow-arrow">&rarr;</span>
+      <div class="flow-box flow-box-s">
+        <div class="label" style="font-weight: 700; color: var(--on-secondary-container);">프롬프톤 (해커톤)</div>
+        <div class="desc" style="color: var(--on-secondary-container); opacity: 0.7;">실전 적용 &middot; 경쟁</div>
+      </div>
+      <span class="flow-arrow">&rarr;</span>
+      <div class="flow-box flow-box-t">
+        <div class="label" style="font-weight: 700; color: var(--on-tertiary-container);">L3 고급 (심화)</div>
+        <div class="desc" style="color: var(--on-tertiary-container); opacity: 0.7;">에이전트 오케스트레이션</div>
+      </div>
+    </div>
+  </div>
+  <div class="footer-zone">
+    <span class="daker-logo-text">DAKER</span>
+    <span class="page-number">11</span>
+    <span class="copyright-footer">COPYRIGHT 2026 DAKER</span>
+  </div>
+</section>
+
+<!-- ==================== SLIDE 12: SECTION - 바이브코딩 ==================== -->
+<section class="slide slide-section" id="slide-12">
+  <div class="section-header">
+    <span class="section-header-label">V. VIBE CODING</span>
+  </div>
+  <div class="slide-inner" style="background: linear-gradient(135deg, var(--surface) 0%, var(--tertiary-container) 100%);">
+    <div class="section-num" data-step="1" style="color: rgba(152,38,105,0.08);">NEW</div>
+    <h2 data-step="2">바이브코딩 경진대회</h2>
+    <p class="section-desc" data-step="3">DAKER의 추가 제안 &mdash; AI로 실제 작동하는 소프트웨어를 만드는 새로운 경쟁</p>
+  </div>
+  <div class="footer-zone">
+    <span class="daker-logo-text">DAKER</span>
+    <span class="page-number">12</span>
+    <span class="copyright-footer">COPYRIGHT 2026 DAKER</span>
+  </div>
+</section>
+
+<!-- ==================== SLIDE 13: 바이브코딩 WHY ==================== -->
+<section class="slide" id="slide-13">
+  <div class="section-header">
+    <span class="section-header-label">V. WHY VIBECODING</span>
+  </div>
+  <div class="slide-inner" style="padding-top: 60px;">
+    <div class="tag tag-t">NEW PROPOSAL</div>
+    <h2 class="slide-title" data-step="1">왜 대동에 <span class="hl-t">바이브코딩 대회</span>가 필요한가</h2>
+    <p class="sub-text" data-step="2">AI가 코드를 쓰는 시대, 비개발자도 소프트웨어를 만들 수 있습니다</p>
+    <div class="grid-3" style="margin-top: 16px;">
+      <div class="card card-t" data-step="3">
+        <div class="icon-circle icon-circle-t">01</div>
+        <div class="card-title" style="color: var(--on-tertiary-container);">AX 전환 가속</div>
+        <div class="card-desc" style="color: var(--on-tertiary-container); opacity: 0.8;">
+          대동의 WI(Work Innovation) 전략과 <strong>완벽 부합</strong>.<br/>
+          임직원이 직접 업무 도구를 AI로 만들어<br/>
+          <strong>자체 혁신 역량</strong>을 내재화합니다.
+        </div>
+      </div>
+      <div class="card card-p" data-step="3">
+        <div class="icon-circle icon-circle-p">02</div>
+        <div class="card-title" style="color: var(--on-primary-container);">진입장벽 해소</div>
+        <div class="card-desc" style="color: var(--on-primary-container); opacity: 0.8;">
+          바이브코딩은 <strong>코딩 경험이 없어도</strong> 참여 가능.<br/>
+          제조, 영업, 경영지원 등<br/>
+          <strong>전 부서 임직원</strong>이 경쟁에 참여합니다.
+        </div>
+      </div>
+      <div class="card card-s" data-step="3">
+        <div class="icon-circle icon-circle-s">03</div>
+        <div class="card-title" style="color: var(--on-secondary-container);">실전 결과물 확보</div>
+        <div class="card-desc" style="color: var(--on-secondary-container); opacity: 0.8;">
+          대회 결과물이 <strong>실제 업무 도구</strong>로 활용 가능.<br/>
+          재고 대시보드, 품질 분석 앱 등<br/>
+          <strong>즉시 적용</strong> 가능한 프로토타입 확보.
+        </div>
+      </div>
+    </div>
+    <div class="grid-4" style="margin-top: 14px;" data-step="4">
+      <div class="metric-box">
+        <div class="val" style="color: var(--tertiary);">63%</div>
+        <div class="lbl">바이브코딩 사용자 중<br/>비개발자 비율</div>
+      </div>
+      <div class="metric-box">
+        <div class="val" style="color: var(--primary);">87%</div>
+        <div class="lbl">Fortune 500<br/>도입률</div>
+      </div>
+      <div class="metric-box">
+        <div class="val" style="color: var(--secondary);">55%</div>
+        <div class="lbl">AI 활용 시<br/>작업 속도 향상</div>
+      </div>
+      <div class="metric-box">
+        <div class="val" style="color: var(--tertiary);">Collins</div>
+        <div class="lbl">2025 올해의<br/>단어 선정</div>
+      </div>
+    </div>
+    <div class="source-note">출처: GitHub (2025), Second Talent (2026), Collins Dictionary (2025)</div>
+  </div>
+  <div class="footer-zone">
+    <span class="daker-logo-text">DAKER</span>
+    <span class="page-number">13</span>
+    <span class="copyright-footer">COPYRIGHT 2026 DAKER</span>
+  </div>
+</section>
+
+<!-- ==================== SLIDE 14: 바이브코딩 대회 설계 ==================== -->
+<section class="slide" id="slide-14">
+  <div class="section-header">
+    <span class="section-header-label">V. AIX COMPETITION</span>
+  </div>
+  <div class="slide-inner" style="padding-top: 60px;">
+    <div class="tag tag-t">COMPETITION DESIGN</div>
+    <h2 class="slide-title" data-step="1">대동 바이브코딩 <span class="hl-t">AIX 대회</span> 설계안</h2>
+    <p class="sub-text" data-step="2">DAKER 플랫폼 위에서 팀 기반 바이브코딩으로 실무 소프트웨어를 만드는 대회</p>
+    <div class="two-col" style="margin-top: 14px;">
+      <div data-step="3">
+        <div class="col-label col-label-t">대회 구조</div>
+        <table class="info-table">
+          <thead><tr><th>항목</th><th>내용</th></tr></thead>
+          <tbody>
+            <tr><td style="font-weight: 600;">대회명</td><td>대동 AIX 바이브코딩 챌린지</td></tr>
+            <tr><td style="font-weight: 600;">형태</td><td>온/오프라인 하이브리드 해커톤</td></tr>
+            <tr><td style="font-weight: 600;">기간</td><td>온라인 2주 + 오프라인 1일</td></tr>
+            <tr><td style="font-weight: 600;">팀 구성</td><td>3~5인 (부서 혼합 권장)</td></tr>
+            <tr><td style="font-weight: 600;">AI 도구</td><td>Claude, Cursor, Copilot 등 자유</td></tr>
+            <tr><td style="font-weight: 600;">평가</td><td>전문가 심사 70% + ELO 투표 30%</td></tr>
+          </tbody>
+        </table>
+        <div class="card card-t" style="margin-top: 10px; padding: 14px;">
+          <div style="font-size: 0.6875rem; font-weight: 700; color: var(--on-tertiary-container); margin-bottom: 4px; font-family: var(--font-display); text-transform: uppercase; letter-spacing: 0.05em;">평가 기준</div>
+          <div class="card-desc" style="font-size: 0.75rem; color: var(--on-tertiary-container); opacity: 0.8;">
+            &bull; 문제 정의 &middot; 기획력 (30%)<br/>
+            &bull; AI 활용 능력 &middot; 프로세스 (30%)<br/>
+            &bull; 결과물 완성도 &middot; 실용성 (40%)
+          </div>
+        </div>
+      </div>
+      <div data-step="4">
+        <div class="col-label col-label-s">추천 과제 트랙</div>
+        <div class="card card-t" style="margin-bottom: 8px; padding: 14px;">
+          <div class="card-title" style="font-size: 0.8125rem; color: var(--on-tertiary-container);">Track A. 대리점 운영 혁신</div>
+          <div class="card-desc" style="font-size: 0.75rem; color: var(--on-tertiary-container); opacity: 0.8;">재고 현황 대시보드, 고객 응대 챗봇,<br/>부품 주문 자동화 도구를 AI로 직접 개발</div>
+        </div>
+        <div class="card card-p" style="margin-bottom: 8px; padding: 14px;">
+          <div class="card-title" style="font-size: 0.8125rem; color: var(--on-primary-container);">Track B. 스마트 농업 서비스</div>
+          <div class="card-desc" style="font-size: 0.75rem; color: var(--on-primary-container); opacity: 0.8;">농작물 생육 모니터링, 장비 유지보수 예측,<br/>농가 맞춤 추천 앱을 바이브코딩으로 구현</div>
+        </div>
+        <div class="card card-s" style="margin-bottom: 8px; padding: 14px;">
+          <div class="card-title" style="font-size: 0.8125rem; color: var(--on-secondary-container);">Track C. 사내 업무 자동화</div>
+          <div class="card-desc" style="font-size: 0.75rem; color: var(--on-secondary-container); opacity: 0.8;">ERP 데이터 시각화, 보고서 자동 생성,<br/>사내 지식 검색 도구 개발</div>
+        </div>
+        <div class="card card-surface" style="padding: 14px;">
+          <div class="card-title" style="font-size: 0.8125rem;">Track D. 자유 과제</div>
+          <div class="card-desc" style="font-size: 0.75rem;">대동의 비즈니스 가치를 높이는<br/>자유 주제 소프트웨어 개발</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="footer-zone">
+    <span class="daker-logo-text">DAKER</span>
+    <span class="page-number">14</span>
+    <span class="copyright-footer">COPYRIGHT 2026 DAKER</span>
+  </div>
+</section>
+
+<!-- ==================== SLIDE 15: 통합 로드맵 ==================== -->
+<section class="slide" id="slide-15">
+  <div class="section-header">
+    <span class="section-header-label">VI. INTEGRATED ROADMAP</span>
+  </div>
+  <div class="slide-inner" style="padding-top: 60px;">
+    <div class="tag">INTEGRATED ROADMAP</div>
+    <h2 class="slide-title" data-step="1">통합 실행 <span class="hl-p">로드맵</span></h2>
+    <p class="sub-text" data-step="2">4개 프로그램을 연계하여 대동의 AX 전환을 단계적으로 실행합니다</p>
+    <div style="margin-top: 18px;" data-step="3">
+      <div style="display: grid; grid-template-columns: 60px 1fr 1fr 1fr 1fr; gap: 8px; margin-bottom: 8px;">
+        <div></div>
+        <div style="text-align: center; font-size: 0.75rem; font-weight: 700; color: var(--on-primary-container); padding: 6px; background: var(--primary-container); border-radius: var(--radius-sm); font-family: var(--font-display);">Phase 1 (1개월)</div>
+        <div style="text-align: center; font-size: 0.75rem; font-weight: 700; color: var(--on-secondary-container); padding: 6px; background: var(--secondary-container); border-radius: var(--radius-sm); font-family: var(--font-display);">Phase 2 (1개월)</div>
+        <div style="text-align: center; font-size: 0.75rem; font-weight: 700; color: var(--on-tertiary-container); padding: 6px; background: var(--tertiary-container); border-radius: var(--radius-sm); font-family: var(--font-display);">Phase 3 (1개월)</div>
+        <div style="text-align: center; font-size: 0.75rem; font-weight: 700; color: var(--text-primary); padding: 6px; background: var(--surface-container-high); border-radius: var(--radius-sm); font-family: var(--font-display);">Phase 4 (1개월)</div>
+      </div>
+      <!-- Row 1: 교육 -->
+      <div style="display: grid; grid-template-columns: 60px 1fr 1fr 1fr 1fr; gap: 8px; margin-bottom: 6px;">
+        <div style="font-size: 0.6875rem; font-weight: 700; color: var(--tertiary); display: flex; align-items: center; font-family: var(--font-display);">교육</div>
+        <div style="background: var(--tertiary-container); border-radius: var(--radius-sm); padding: 8px 12px; grid-column: span 2;">
+          <div style="font-size: 0.75rem; font-weight: 700; color: var(--on-tertiary-container); font-family: var(--font-display);">M365 Copilot 중급 교육</div>
+          <div style="font-size: 0.6875rem; color: var(--on-tertiary-container); opacity: 0.7;">Copilot Studio &middot; 에이전트 설계 &middot; 실습</div>
+        </div>
+        <div style="background: rgba(255,216,232,0.5); border-radius: var(--radius-sm); padding: 8px 12px; grid-column: span 2;">
+          <div style="font-size: 0.75rem; font-weight: 700; color: var(--on-tertiary-container); font-family: var(--font-display);">M365 Copilot 고급 교육</div>
+          <div style="font-size: 0.6875rem; color: var(--on-tertiary-container); opacity: 0.7;">멀티 에이전트 &middot; API 연동 &middot; 거버넌스</div>
+        </div>
+      </div>
+      <!-- Row 2: 프롬프톤 -->
+      <div style="display: grid; grid-template-columns: 60px 1fr 1fr 1fr 1fr; gap: 8px; margin-bottom: 6px;">
+        <div style="font-size: 0.6875rem; font-weight: 700; color: var(--secondary); display: flex; align-items: center; font-family: var(--font-display);">프롬프톤</div>
+        <div style="background: rgba(111,250,184,0.3); border-radius: var(--radius-sm); padding: 8px 12px;">
+          <div style="font-size: 0.75rem; font-weight: 700; color: var(--on-secondary-container); font-family: var(--font-display);">사전 준비</div>
+          <div style="font-size: 0.6875rem; color: var(--on-secondary-container); opacity: 0.7;">과제 설계 &middot; 환경 구성</div>
+        </div>
+        <div style="background: var(--secondary-container); border-radius: var(--radius-sm); padding: 8px 12px;">
+          <div style="font-size: 0.75rem; font-weight: 700; color: var(--on-secondary-container); font-family: var(--font-display);">프롬프톤 개최</div>
+          <div style="font-size: 0.6875rem; color: var(--on-secondary-container); opacity: 0.7;">창녕 연수원 1일 해커톤</div>
+        </div>
+        <div style="background: rgba(111,250,184,0.2); border-radius: var(--radius-sm); padding: 8px 12px;">
+          <div style="font-size: 0.75rem; font-weight: 600; color: var(--text-muted); font-family: var(--font-display);">결과 분석</div>
+          <div style="font-size: 0.6875rem; color: var(--text-muted);">우수 사례 사내 전파</div>
+        </div>
+        <div></div>
+      </div>
+      <!-- Row 3: 수요 예측 -->
+      <div style="display: grid; grid-template-columns: 60px 1fr 1fr 1fr 1fr; gap: 8px; margin-bottom: 6px;">
+        <div style="font-size: 0.6875rem; font-weight: 700; color: var(--primary); display: flex; align-items: center; font-family: var(--font-display);">수요예측</div>
+        <div style="background: rgba(214,226,255,0.5); border-radius: var(--radius-sm); padding: 8px 12px;">
+          <div style="font-size: 0.75rem; font-weight: 700; color: var(--on-primary-container); font-family: var(--font-display);">데이터 준비</div>
+          <div style="font-size: 0.6875rem; color: var(--on-primary-container); opacity: 0.7;">정제 &middot; 익명화 &middot; EDA</div>
+        </div>
+        <div style="background: var(--primary-container); border-radius: var(--radius-sm); padding: 8px 12px; grid-column: span 2;">
+          <div style="font-size: 0.75rem; font-weight: 700; color: var(--on-primary-container); font-family: var(--font-display);">경진대회 운영 (예선 + 본선)</div>
+          <div style="font-size: 0.6875rem; color: var(--on-primary-container); opacity: 0.7;">온라인 리더보드 &middot; 멘토링 &middot; 발표 심사</div>
+        </div>
+        <div style="background: rgba(214,226,255,0.4); border-radius: var(--radius-sm); padding: 8px 12px;">
+          <div style="font-size: 0.75rem; font-weight: 600; color: var(--on-primary-container); font-family: var(--font-display);">기술 이전</div>
+          <div style="font-size: 0.6875rem; color: var(--on-primary-container); opacity: 0.7;">모델 적용 &middot; 인재 연계</div>
+        </div>
+      </div>
+      <!-- Row 4: 바이브코딩 -->
+      <div style="display: grid; grid-template-columns: 60px 1fr 1fr 1fr 1fr; gap: 8px;">
+        <div style="font-size: 0.6875rem; font-weight: 700; color: var(--tertiary); display: flex; align-items: center; font-family: var(--font-display);">바이브코딩</div>
+        <div></div>
+        <div style="background: rgba(255,216,232,0.4); border-radius: var(--radius-sm); padding: 8px 12px;">
+          <div style="font-size: 0.75rem; font-weight: 700; color: var(--on-tertiary-container); font-family: var(--font-display);">사전 교육</div>
+          <div style="font-size: 0.6875rem; color: var(--on-tertiary-container); opacity: 0.7;">바이브코딩 기초 워크숍</div>
+        </div>
+        <div style="background: var(--tertiary-container); border-radius: var(--radius-sm); padding: 8px 12px; grid-column: span 2;">
+          <div style="font-size: 0.75rem; font-weight: 700; color: var(--on-tertiary-container); font-family: var(--font-display);">AIX 바이브코딩 대회</div>
+          <div style="font-size: 0.6875rem; color: var(--on-tertiary-container); opacity: 0.7;">팀 빌딩 &middot; 프로덕트 개발 &middot; 쇼케이스 &middot; 시상</div>
+        </div>
+      </div>
+    </div>
+    <div class="card card-surface" data-step="4" style="margin-top: 14px; padding: 12px 18px;">
+      <div style="display: flex; justify-content: space-between; align-items: center;">
+        <div style="font-size: 0.8125rem; color: var(--text-secondary);">
+          <strong style="color: var(--primary);">교육 &rarr; 프롬프톤 &rarr; 수요예측 &rarr; 바이브코딩</strong> 순서로 AI 역량이 단계적으로 축적됩니다
+        </div>
+        <div style="font-size: 0.75rem; font-weight: 700; color: var(--text-muted); font-family: var(--font-display);">총 약 4개월</div>
+      </div>
+    </div>
+  </div>
+  <div class="footer-zone">
+    <span class="daker-logo-text">DAKER</span>
+    <span class="page-number">15</span>
+    <span class="copyright-footer">COPYRIGHT 2026 DAKER</span>
+  </div>
+</section>
+
+<!-- ==================== SLIDE 16: 데이콘 플랫폼 실적 ==================== -->
+<section class="slide" id="slide-16">
+  <div class="section-header">
+    <span class="section-header-label">VII. PROVEN PLATFORM</span>
+  </div>
+  <div class="slide-inner" style="padding-top: 60px;">
+    <div class="tag" style="color: var(--tertiary);">DACON TRACK RECORD</div>
+    <h2 class="slide-title" data-step="1">데이콘, <span style="color: var(--tertiary);">숫자</span>로 증명합니다</h2>
+    <p class="sub-text" data-step="2">대한민국 최대 AI 경진대회 플랫폼 &mdash; 팩트 기반 실적</p>
+    <div class="grid-4" style="margin-top: 20px;">
+      <div class="metric-box" data-step="3" style="padding: 24px 10px;"><div class="val" style="font-size: 2rem; color: var(--tertiary);">25억+</div><div class="lbl" style="margin-top: 8px;">누적 상금<br/>(25억 1,072만원)</div></div>
+      <div class="metric-box" data-step="3" style="padding: 24px 10px;"><div class="val" style="font-size: 2rem; color: var(--primary);">1,030,142</div><div class="lbl" style="margin-top: 8px;">누적 제출 수<br/>(모델/결과물)</div></div>
+      <div class="metric-box" data-step="3" style="padding: 24px 10px;"><div class="val" style="font-size: 2rem; color: var(--tertiary);">236,666</div><div class="lbl" style="margin-top: 8px;">누적 팀 참여<br/>(팀 단위)</div></div>
+      <div class="metric-box" data-step="3" style="padding: 24px 10px;"><div class="val" style="font-size: 2rem; color: var(--primary);">14만+</div><div class="lbl" style="margin-top: 8px;">회원 수<br/>(데이터 사이언티스트)</div></div>
+    </div>
+    <div class="grid-2" style="margin-top: 16px;">
+      <div data-step="4">
+        <div style="font-size: 0.8125rem; font-weight: 700; color: var(--tertiary); margin-bottom: 10px;">dacon.io &mdash; 대회 목록</div>
+        <div class="card card-surface" style="padding: 0; overflow: hidden; height: 190px;">
+          <div style="padding: 16px 20px; height: 100%; display: flex; flex-direction: column; gap: 10px;">
+            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 4px;"><div style="width: 24px; height: 24px; border-radius: 6px; background: var(--tertiary); display: flex; align-items: center; justify-content: center; color: #fff; font-size: .6rem; font-weight: 800;">D</div><span style="font-size: .875rem; font-weight: 700; color: var(--text-primary);">dacon.io/competitions</span></div>
+            <div style="display: flex; gap: 8px;">
+              <div style="flex: 1; background: var(--surface-container-low); border-radius: 8px; padding: 12px;"><div style="width: 100%; height: 8px; background: var(--secondary-container); border-radius: 4px; margin-bottom: 8px;"></div><div style="font-size: .6875rem; font-weight: 700; color: var(--text-primary);">대동 부품 수요 예측</div><div style="font-size: .5625rem; color: var(--on-surface-variant); margin-top: 4px;">리더보드 &middot; 자동 채점</div></div>
+              <div style="flex: 1; background: var(--surface-container-low); border-radius: 8px; padding: 12px;"><div style="width: 100%; height: 8px; background: var(--tertiary-container); border-radius: 4px; margin-bottom: 8px;"></div><div style="font-size: .6875rem; font-weight: 700; color: var(--text-primary);">스마트 농업 AI</div><div style="font-size: .5625rem; color: var(--on-surface-variant); margin-top: 4px;">시계열 예측 &middot; 모델</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-step="5">
+        <div style="font-size: 0.8125rem; font-weight: 700; color: var(--primary); margin-bottom: 10px;">daker.ai &mdash; 해커톤 &middot; 팀 빌딩</div>
+        <div class="card card-surface" style="padding: 0; overflow: hidden; height: 190px;">
+          <div style="padding: 16px 20px; height: 100%; display: flex; flex-direction: column; gap: 10px;">
+            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 4px;"><div style="width: 24px; height: 24px; border-radius: 6px; background: var(--primary); display: flex; align-items: center; justify-content: center; color: #fff; font-size: .6rem; font-weight: 800;">D</div><span style="font-size: .875rem; font-weight: 700; color: var(--text-primary);">daker.ai/hackathons</span></div>
+            <div style="display: flex; gap: 8px;">
+              <div style="flex: 1; background: var(--surface-container-low); border-radius: 8px; padding: 12px;"><div style="width: 100%; height: 8px; background: var(--primary-container); border-radius: 4px; margin-bottom: 8px;"></div><div style="font-size: .6875rem; font-weight: 700; color: var(--text-primary);">바이브코딩 AIX</div><div style="font-size: .5625rem; color: var(--on-surface-variant); margin-top: 4px;">팀 빌딩 &middot; 쇼케이스</div></div>
+              <div style="flex: 1; background: var(--surface-container-low); border-radius: 8px; padding: 12px;"><div style="width: 100%; height: 8px; background: var(--primary-container); border-radius: 4px; margin-bottom: 8px;"></div><div style="font-size: .6875rem; font-weight: 700; color: var(--text-primary);">AI 프롬프톤</div><div style="font-size: .5625rem; color: var(--on-surface-variant); margin-top: 4px;">ELO 평가 &middot; Expert 심사</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="source-note">출처: dacon.io 공식 통계 (2026.03 기준)</div>
+  </div>
+  <div class="footer-zone">
+    <span class="daker-logo-text">DAKER</span>
+    <span class="page-number">16</span>
+    <span class="copyright-footer">COPYRIGHT 2026 DAKER</span>
+  </div>
+</section>
+
+<!-- ==================== SLIDE 17: WHY DAKER ==================== -->
+<section class="slide" id="slide-17">
+  <div class="section-header">
+    <span class="section-header-label">VII. WHY DAKER</span>
+  </div>
+  <div class="slide-inner" style="padding-top: 60px;">
+    <div class="tag">PLATFORM ADVANTAGE</div>
+    <h2 class="slide-title" data-step="1">왜 <span class="hl-p">DAKER</span>인가</h2>
+    <p class="sub-text" data-step="2">경진대회 + 해커톤 + 교육을 하나의 플랫폼에서 통합 운영합니다</p>
+    <div class="grid-3" style="margin-top: 16px;">
+      <div class="card card-p" data-step="3">
+        <div class="icon-circle icon-circle-p">01</div>
+        <div class="card-title" style="color: var(--on-primary-container);">올인원 플랫폼</div>
+        <div class="card-desc" style="color: var(--on-primary-container); opacity: 0.8;">
+          해커톤 운영, 팀 빌딩, 리더보드,<br/>
+          심사, 학습, 커뮤니티까지<br/>
+          <strong>단일 플랫폼</strong>에서 모두 지원.<br/>
+          별도 도구 도입 불필요.
+        </div>
+      </div>
+      <div class="card card-s" data-step="3">
+        <div class="icon-circle icon-circle-s">02</div>
+        <div class="card-title" style="color: var(--on-secondary-container);">데이콘 경쟁 커뮤니티</div>
+        <div class="card-desc" style="color: var(--on-secondary-container); opacity: 0.8;">
+          <strong>14만+ 데이터 사이언티스트</strong> 커뮤니티.<br/>
+          누적 제출 <strong>103만건</strong> &middot; 팀 참여 <strong>23.6만</strong><br/>
+          누적 상금 <strong>25억원+</strong><br/>
+          500+ 대회 운영 노하우.
+        </div>
+      </div>
+      <div class="card card-surface" data-step="3">
+        <div class="icon-circle" style="background: var(--on-surface-variant); color: #fff; margin-bottom: 12px;">03</div>
+        <div class="card-title">맞춤 브랜딩</div>
+        <div class="card-desc">
+          대동그룹 <strong>자체 브랜드로 대회 개최</strong>.<br/>
+          커스텀 배너, 전용 페이지 구성.<br/>
+          참가자 데이터 &middot; 결과 분석 리포트<br/>
+          대동에 완전 귀속.
+        </div>
+      </div>
+    </div>
+    <div class="grid-4" style="margin-top: 14px;" data-step="4">
+      <div class="metric-box">
+        <div class="val" style="color: var(--primary);">600+</div>
+        <div class="lbl">사내 참가자<br/>지원 규모</div>
+      </div>
+      <div class="metric-box">
+        <div class="val" style="color: var(--secondary);">14만+</div>
+        <div class="lbl">데이콘 외부<br/>전문가 풀</div>
+      </div>
+      <div class="metric-box">
+        <div class="val" style="color: var(--tertiary);">500+</div>
+        <div class="lbl">경진대회<br/>운영 경험</div>
+      </div>
+      <div class="metric-box">
+        <div class="val" style="color: var(--primary);">1주</div>
+        <div class="lbl">최소 대회<br/>준비 기간</div>
+      </div>
+    </div>
+    <div class="flow-row" style="margin-top: 14px;" data-step="5">
+      <div class="flow-box flow-box-p">
+        <div class="label" style="font-weight: 700; color: var(--on-primary-container);">대동이 할 일</div>
+        <div class="desc" style="color: var(--on-primary-container); opacity: 0.7;">주제 선정 &middot; 데이터 제공 &middot; 심사위원</div>
+      </div>
+      <span class="flow-arrow">&rarr;</span>
+      <div class="flow-box flow-box-s">
+        <div class="label" style="font-weight: 700; color: var(--on-secondary-container);">DAKER가 할 일</div>
+        <div class="desc" style="color: var(--on-secondary-container); opacity: 0.7;">플랫폼 &middot; 운영 &middot; 참가 관리 &middot; 리포트</div>
+      </div>
+    </div>
+  </div>
+  <div class="footer-zone">
+    <span class="daker-logo-text">DAKER</span>
+    <span class="page-number">17</span>
+    <span class="copyright-footer">COPYRIGHT 2026 DAKER</span>
+  </div>
+</section>
+
+<!-- ==================== SLIDE 18: ENDING ==================== -->
+<section class="slide slide-ending" id="slide-18">
+  <div class="slide-inner" style="background: linear-gradient(135deg, var(--surface) 0%, var(--primary-container) 100%);">
+    <div class="end-logo-text" data-step="1">DAKER</div>
+    <h1 data-step="2">
+      대동의 AI 전환,<br/>
+      <span style="color: var(--primary);">DAKER</span>와 함께
+    </h1>
+    <p class="end-sub" data-step="3">
+      수요 예측 &middot; AI 프롬프톤 &middot; M365 교육 &middot; 바이브코딩<br/>
+      4개 프로그램으로 BI &middot; PI &middot; WI 혁신을 통합 지원합니다
+    </p>
+    <div data-step="4" style="margin-top: 32px; display: flex; gap: 14px;">
+      <a href="https://daker.ai/public/surveys/dacon-ai-competition-host-custom-planning-survey/respond" target="_blank" style="padding: 10px 24px; border-radius: var(--radius-md); background: var(--primary); color: var(--on-primary); font-size: 0.875rem; font-weight: 700; font-family: var(--font-display); text-decoration: none;">문의하기</a>
+      <a href="https://daker.ai" target="_blank" style="padding: 10px 24px; border-radius: var(--radius-md); background: var(--surface-container-low); color: var(--text-secondary); font-size: 0.875rem; font-weight: 600; font-family: var(--font-display); text-decoration: none;">daker.ai</a>
+      <a href="https://dacon.io" target="_blank" style="padding: 10px 24px; border-radius: var(--radius-md); background: var(--surface-container-low); color: var(--text-secondary); font-size: 0.875rem; font-weight: 600; font-family: var(--font-display); text-decoration: none;">dacon.io</a>
+    </div>
+  </div>
+  <div class="footer-zone">
+    <span class="daker-logo-text">DAKER</span>
+    <span class="page-number"></span>
+    <span class="copyright-footer">COPYRIGHT 2026 DAKER. ALL RIGHTS RESERVED</span>
+  </div>
+</section>
+
+</div><!-- #stage -->
+</div><!-- #viewport -->
+
+<button class="nav-btn" id="nav-prev">&#8249;</button>
+<button class="nav-btn" id="nav-next">&#8250;</button>
+<div id="progress-bar" style="width: 0%;"></div>
+<div id="key-hint">Arrow keys or click to navigate</div>
+
+<script>
+(function(){
+  const slides = document.querySelectorAll('.slide');
+  const total  = slides.length;
+  let cur = 0;
+
+  function maxStep(s){ let m=0; s.querySelectorAll('[data-step]').forEach(e=>{const v=+e.dataset.step; if(v>m)m=v;}); return m; }
+  let step = 0;
+
+  function show(idx, dir){
+    slides.forEach(s => s.classList.remove('active'));
+    slides[idx].classList.add('active');
+    step = 0;
+    const els = slides[idx].querySelectorAll('[data-step]');
+    els.forEach(e => { e.classList.remove('visible','pre-visible'); });
+    if(dir === 'back'){
+      step = maxStep(slides[idx]);
+      els.forEach(e => e.classList.add('pre-visible'));
+    }
+    document.getElementById('progress-bar').style.width = ((idx+1)/total*100)+'%';
+  }
+
+  function next(){
+    const ms = maxStep(slides[cur]);
+    if(step < ms){
+      step++;
+      slides[cur].querySelectorAll('[data-step]').forEach(e=>{
+        if(+e.dataset.step <= step) e.classList.add('visible');
+      });
+      return;
+    }
+    if(cur < total-1){ cur++; show(cur,'fwd'); }
+  }
+  function prev(){
+    if(step > 0){
+      slides[cur].querySelectorAll('[data-step]').forEach(e=>{
+        if(+e.dataset.step === step) { e.classList.remove('visible','pre-visible'); }
+      });
+      step--;
+      return;
+    }
+    if(cur > 0){ cur--; show(cur,'back'); }
+  }
+
+  document.getElementById('nav-next').onclick = next;
+  document.getElementById('nav-prev').onclick = prev;
+  document.addEventListener('keydown', e => {
+    if(e.key==='ArrowRight'||e.key===' '||e.key==='Enter') next();
+    else if(e.key==='ArrowLeft'||e.key==='Backspace') prev();
+  });
+
+  let tx=0;
+  document.addEventListener('touchstart', e=>{ tx=e.changedTouches[0].screenX; });
+  document.addEventListener('touchend', e=>{
+    const dx = e.changedTouches[0].screenX - tx;
+    if(dx < -50) next(); else if(dx > 50) prev();
+  });
+
+  function fit(){
+    const vw=window.innerWidth, vh=window.innerHeight;
+    const s = Math.min(vw/1280, vh/720, 1);
+    document.getElementById('stage').style.transform = 'scale('+s+')';
+  }
+  window.addEventListener('resize', fit); fit();
+  show(0,'fwd');
+  slides[0].querySelectorAll('[data-step]').forEach(e => { e.classList.add('pre-visible'); });
+})();
+</script>
+
+</body>
+</html>

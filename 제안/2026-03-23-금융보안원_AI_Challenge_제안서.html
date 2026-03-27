@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>DAKER x 금융보안원 - 2026 금융 AI Challenge 제안서</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --primary: #0053db;
+  --primary-dim: #0048c1;
+  --on-primary: #f8f7ff;
+  --on-background: #2a3439;
+  --surface: #f7f9fb;
+  --surface-bright: #f7f9fb;
+  --surface-low: #f0f4f7;
+  --surface-lowest: #ffffff;
+  --on-surface: #2a3439;
+  --on-surface-variant: #566166;
+  --outline-variant: #a9b4b9;
+  --secondary-container: #d8e3fb;
+  --on-secondary-container: #475266;
+  --accent-warm: #c2622d;
+  --accent-warm-bg: rgba(194,98,45,0.06);
+  --accent-dark: #0f172a;
+
+  --font: 'Plus Jakarta Sans', -apple-system, sans-serif;
+  --shadow-ambient: 0 8px 24px rgba(30,41,59,0.04);
+  --ghost: 1px solid rgba(169,180,185,0.2);
+  --r-sm: 0.25rem; --r-md: 0.375rem; --r-lg: 0.75rem; --r-xl: 1rem; --r-full: 9999px;
+  --slide-w: 1280px; --slide-h: 720px;
+}
+
+html, body {
+  width: 100%; height: 100%;
+  background: var(--surface-low);
+  font-family: var(--font);
+  overflow: hidden; color: var(--on-surface);
+}
+
+#viewport { position: fixed; inset: 0; display: flex; align-items: center; justify-content: center; }
+#stage {
+  position: relative; width: var(--slide-w); height: var(--slide-h);
+  overflow: hidden; transform-origin: center center;
+  border-radius: var(--r-lg); box-shadow: 0 12px 48px rgba(30,41,59,0.1);
+}
+
+.slide {
+  position: absolute; inset: 0; background: var(--surface);
+  display: flex; flex-direction: column;
+  opacity: 0; pointer-events: none; transition: opacity 0s;
+}
+.slide.active { opacity: 1; pointer-events: auto; }
+
+.si { flex: 1; display: flex; flex-direction: column; padding: 64px 72px 52px; position: relative; }
+
+/* Header — tonal, no line */
+.sh { position: absolute; top: 0; left: 0; right: 0; padding: 18px 32px; display: flex; justify-content: space-between; align-items: center; background: var(--surface-low); }
+.sh-l { font-size: 0.6875rem; font-weight: 700; color: var(--on-surface-variant); letter-spacing: 0.05em; text-transform: uppercase; }
+
+/* Footer — tonal */
+.sf { position: absolute; bottom: 0; left: 0; right: 0; padding: 12px 32px; display: flex; justify-content: space-between; align-items: center; background: var(--surface-low); }
+.sf-logo { font-size: 0.875rem; font-weight: 800; color: var(--primary); letter-spacing: 0.04em; }
+.sf-pg { font-size: 0.6875rem; color: var(--on-surface-variant); font-weight: 600; }
+.sf-cr { font-size: 0.5625rem; color: var(--outline-variant); letter-spacing: 0.03em; font-weight: 600; }
+
+/* Tag */
+.tag { display: inline-flex; align-items: center; gap: 8px; font-size: 0.6875rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--primary); margin-bottom: 14px; }
+.tag::before { content: ''; width: 24px; height: 2.5px; background: var(--primary); border-radius: 2px; }
+.tag-w { color: var(--accent-warm); }
+.tag-w::before { background: var(--accent-warm); }
+
+/* Titles */
+h2.st { font-size: 2rem; font-weight: 800; line-height: 1.2; color: var(--on-surface); letter-spacing: -0.02em; }
+.hl { color: var(--primary); }
+.hl-w { color: var(--accent-warm); }
+.sub { margin-top: 10px; font-size: 0.9375rem; color: var(--on-surface-variant); line-height: 1.7; }
+
+/* Card — No-Line: tonal layering */
+.c { background: var(--surface-lowest); border-radius: var(--r-lg); padding: 20px; }
+.c-blue { background: var(--secondary-container); }
+.c-warm { background: var(--accent-warm-bg); }
+.c-surf { background: var(--surface-low); }
+.c-t { font-size: 0.9375rem; font-weight: 700; color: var(--on-surface); margin-bottom: 6px; }
+.c-d { font-size: 0.8125rem; color: var(--on-surface-variant); line-height: 1.65; }
+
+/* Grid */
+.g2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.g3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+.g4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 12px; }
+.g5 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr 1fr; gap: 10px; }
+
+/* Icon */
+.ic { width: 36px; height: 36px; border-radius: var(--r-md); display: flex; align-items: center; justify-content: center; font-size: 0.8125rem; font-weight: 800; margin-bottom: 12px; color: #fff; background: var(--primary); }
+.ic-w { background: var(--accent-warm); }
+.ic-d { background: var(--accent-dark); }
+
+/* Badge */
+.bd { display: inline-block; padding: 3px 10px; border-radius: var(--r-full); font-size: 0.6875rem; font-weight: 700; background: var(--secondary-container); color: var(--on-secondary-container); }
+
+/* Table */
+.tb { width: 100%; border-collapse: collapse; font-size: 0.8125rem; }
+.tb th { text-align: left; padding: 9px 14px; background: var(--surface-low); color: var(--on-surface); font-weight: 700; font-size: 0.75rem; }
+.tb td { padding: 9px 14px; color: var(--on-surface-variant); }
+.tb tr:nth-child(even) td { background: var(--surface-low); }
+
+/* Metric */
+.mx { text-align: center; padding: 16px 10px; background: var(--surface-low); border-radius: var(--r-lg); }
+.mx .v { font-size: 1.75rem; font-weight: 800; line-height: 1; color: var(--primary); }
+.mx .l { font-size: 0.6875rem; color: var(--on-surface-variant); margin-top: 6px; font-weight: 500; }
+
+/* Section Divider */
+.slide-sec .si { justify-content: center; align-items: center; text-align: center; padding-top: 60px; }
+.slide-sec .sn { font-size: 4.5rem; font-weight: 800; color: rgba(0,83,219,0.06); line-height: 1; margin-bottom: 8px; }
+.slide-sec h2 { font-size: 2.625rem; font-weight: 800; color: var(--on-surface); letter-spacing: -0.02em; }
+.slide-sec .sd { font-size: 1.0625rem; color: var(--on-surface-variant); margin-top: 10px; }
+
+/* Ending */
+.slide-end .si { justify-content: center; align-items: center; text-align: center; }
+.slide-end h1 { font-size: 3rem; font-weight: 800; color: var(--on-surface); line-height: 1.15; letter-spacing: -0.02em; }
+.slide-end .end-sub { font-size: 1.125rem; color: var(--on-surface-variant); margin-top: 14px; }
+.slide-end .end-logo { font-size: 2.625rem; font-weight: 800; color: var(--primary); letter-spacing: 0.06em; margin-bottom: 36px; }
+
+/* Two-col */
+.tc { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; flex: 1; }
+.cl { font-size: 0.8125rem; font-weight: 700; color: var(--primary); margin-bottom: 10px; }
+.cl-w { color: var(--accent-warm); }
+
+/* Flow */
+.fr { display: flex; align-items: center; gap: 8px; }
+.fa { font-size: 18px; color: var(--outline-variant); flex-shrink: 0; }
+.fb { flex: 1; padding: 14px 16px; background: var(--surface-low); border-radius: var(--r-lg); text-align: center; }
+.fb-p { background: var(--secondary-container); }
+.fb .fl { font-size: 0.75rem; color: var(--on-surface-variant); font-weight: 600; }
+.fb .fd { font-size: 0.6875rem; color: var(--on-surface-variant); margin-top: 4px; line-height: 1.4; opacity: 0.7; }
+
+/* Check list */
+.ck { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+.ck li { display: flex; align-items: flex-start; gap: 10px; font-size: 0.8125rem; color: var(--on-surface-variant); line-height: 1.6; }
+.ck li .i { flex-shrink: 0; font-size: 0.8125rem; margin-top: 2px; font-weight: 700; color: var(--primary); }
+
+/* Source */
+.src { font-size: 0.5625rem; color: var(--outline-variant); position: absolute; bottom: 52px; left: 72px; right: 72px; }
+
+/* Fragment */
+[data-step] { opacity: 0; transform: translateY(14px); transition: opacity 0.45s ease, transform 0.45s ease; }
+[data-step].visible { opacity: 1; transform: none; }
+[data-step].pre-visible { opacity: 1; transform: none; transition: none; }
+
+/* Nav */
+.nav-btn {
+  position: fixed; top: 50%; transform: translateY(-50%);
+  width: 40px; height: 40px; border-radius: 50%;
+  background: rgba(247,249,251,0.85); border: none;
+  color: var(--on-surface-variant); cursor: pointer; z-index: 100;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px; transition: all 0.2s; user-select: none;
+  box-shadow: var(--shadow-ambient);
+  backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+}
+.nav-btn:hover { color: var(--primary); }
+#nav-prev { left: 12px; }
+#nav-next { right: 12px; }
+
+#progress-bar { position: fixed; top: 0; left: 0; height: 3px; background: linear-gradient(90deg, var(--primary), var(--primary-dim)); transition: width 0.4s ease; z-index: 100; }
+#key-hint { position: fixed; bottom: 16px; left: 50%; transform: translateX(-50%); color: var(--outline-variant); font-size: 0.6875rem; z-index: 100; opacity: 0.4; }
+
+@page { size: 338.67mm 190.5mm landscape; margin: 0; }
+@media print {
+  html, body { background: #fff !important; overflow: visible !important; height: auto !important; width: auto !important; margin: 0 !important; padding: 0 !important; }
+  #viewport { position: static !important; display: block !important; height: auto !important; }
+  #stage { position: static !important; width: auto !important; height: auto !important; overflow: visible !important; transform: none !important; box-shadow: none !important; border-radius: 0 !important; }
+  .slide { position: relative !important; inset: auto !important; opacity: 1 !important; pointer-events: auto !important; display: flex !important; flex-direction: column !important; width: 338.67mm !important; height: 190.5mm !important; page-break-after: always !important; break-after: page !important; page-break-inside: avoid !important; margin: 0 !important; padding: 48px 56px !important; box-sizing: border-box !important; }
+  .nav-btn, #progress-bar, #key-hint { display: none !important; }
+  [data-step] { opacity: 1 !important; transform: none !important; }
+}
+</style>
+</head>
+<body>
+<div id="viewport">
+<div id="stage">
+
+<!-- ===== SLIDE 1: COVER ===== -->
+<section class="slide active" id="s1">
+  <div class="si" style="justify-content: center; align-items: flex-start; padding-left: 88px; background: linear-gradient(135deg, var(--surface) 0%, var(--secondary-container) 100%);">
+    <div style="position: absolute; top: 22px; right: 32px;">
+      <span style="display: inline-block; background: linear-gradient(135deg, var(--primary), var(--primary-dim)); color: var(--on-primary); padding: 6px 18px; border-radius: var(--r-full); font-size: 0.75rem; font-weight: 600;">2026.03</span>
+    </div>
+    <div class="pre-visible" data-step="1">
+      <span style="font-size: 2rem; font-weight: 800; color: var(--primary); letter-spacing: 0.04em;">DAKER</span>
+      <span style="font-size: 1.125rem; color: var(--outline-variant); margin: 0 12px;">&times;</span>
+      <span style="font-size: 1.5rem; font-weight: 800; color: var(--on-surface); letter-spacing: -0.01em;">금융보안원</span>
+    </div>
+    <h1 class="pre-visible" data-step="2" style="font-size: 2.75rem; font-weight: 800; line-height: 1.15; letter-spacing: -0.02em; color: var(--on-surface); margin-top: 14px;">
+      2026 금융 AI Challenge<br/>
+      <span style="color: var(--primary);">플랫폼 운영 제안서</span>
+    </h1>
+    <p class="pre-visible" data-step="3" style="font-size: 1.0625rem; color: var(--on-surface-variant); margin-top: 18px; line-height: 1.7;">
+      작년 알고리즘 경쟁에서 올해 MVP 공모전으로 &mdash;<br/>DAKER 플랫폼으로 차별화된 대회를 운영합니다
+    </p>
+    <div class="pre-visible" data-step="4" style="display: flex; gap: 10px; margin-top: 28px;">
+      <span style="padding: 8px 18px; border-radius: var(--r-full); background: var(--secondary-container); font-size: 0.8125rem; font-weight: 700; color: var(--on-secondary-container);">플랫폼 운영</span>
+      <span style="padding: 8px 18px; border-radius: var(--r-full); background: var(--accent-warm-bg); font-size: 0.8125rem; font-weight: 700; color: var(--accent-warm);">차별화 전략</span>
+      <span style="padding: 8px 18px; border-radius: var(--r-full); background: var(--surface-low); font-size: 0.8125rem; font-weight: 700; color: var(--on-surface-variant);">비용 안내</span>
+    </div>
+    <div style="position: absolute; bottom: 20px; right: 32px; font-size: 0.5625rem; color: var(--outline-variant);">COPYRIGHT 2026 DAKER. ALL RIGHTS RESERVED</div>
+  </div>
+</section>
+
+<!-- ===== SLIDE 2: 금융보안원 & 2025 회고 ===== -->
+<section class="slide" id="s2">
+  <div class="sh"><span class="sh-l">I. CONTEXT</span></div>
+  <div class="si" style="padding-top: 60px;">
+    <div class="tag">2025 REVIEW</div>
+    <h2 class="st" data-step="1">2025 금융 AI Challenge <span class="hl">성과 회고</span></h2>
+    <p class="sub" data-step="2">역대 최대 규모 &mdash; 금융위 후원, 5개 금융사 공동 개최, 데이콘 플랫폼 운영</p>
+    <div class="g5" style="margin-top: 16px;">
+      <div class="mx" data-step="3"><div class="v">951</div><div class="l">참가 팀 수</div></div>
+      <div class="mx" data-step="3"><div class="v">1,249</div><div class="l">총 참가자</div></div>
+      <div class="mx" data-step="3"><div class="v" style="color: var(--accent-warm);">3,300</div><div class="l">총 상금 (만원)</div></div>
+      <div class="mx" data-step="3"><div class="v">2</div><div class="l">트랙 (공모+모델)</div></div>
+      <div class="mx" data-step="3"><div class="v">5</div><div class="l">공동 개최 금융사</div></div>
+    </div>
+    <div class="g2" style="margin-top: 14px;">
+      <div class="c c-blue" data-step="4">
+        <div style="font-size: 0.6875rem; font-weight: 700; color: var(--on-secondary-container); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.05em;">대상 &mdash; 금융위원장상</div>
+        <div class="c-d" style="color: var(--on-secondary-container);">
+          우리은행 <strong>'AIgency'</strong> &mdash; 소상공인 AI 위기관리 금융 솔루션 <strong>'SIGNAL'</strong><br/>기획서 + 시범 서비스 구현으로 MVP 실증 선도
+        </div>
+      </div>
+      <div class="c c-surf" data-step="4">
+        <div style="font-size: 0.6875rem; font-weight: 700; color: var(--on-surface); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.05em;">최우수상 &mdash; 금융보안원장상</div>
+        <div class="c-d">
+          인하대 <strong>'뛰어'</strong> &mdash; 국내 KT '믿음' 모델 활용<br/>외산 모델을 제치고 <strong>국산 AI 모델로 수상</strong>
+        </div>
+      </div>
+    </div>
+    <div class="c c-surf" data-step="5" style="margin-top: 12px; padding: 14px 20px;">
+      <div style="font-size: 0.8125rem; color: var(--on-surface-variant); line-height: 1.7;">
+        <strong style="color: var(--primary);">데이콘(DACON)</strong>이 알고리즘 모델 경쟁 트랙의 플랫폼을 운영 &mdash; 올해는 <strong>DAKER</strong> 플랫폼으로 MVP 공모전 전체를 지원합니다
+      </div>
+    </div>
+    <div class="src">출처: 보안뉴스 (2025.11), 데일리시큐 (2025.11), 한국금융신문 (2025.11)</div>
+  </div>
+  <div class="sf"><span class="sf-logo">DAKER</span><span class="sf-pg">2</span><span class="sf-cr">COPYRIGHT 2026 DAKER</span></div>
+</section>
+
+<!-- ===== SLIDE 3: 올해 변경점 ===== -->
+<section class="slide" id="s3">
+  <div class="sh"><span class="sh-l">I. 2026 CHANGES</span></div>
+  <div class="si" style="padding-top: 60px;">
+    <div class="tag tag-w">KEY CHANGES</div>
+    <h2 class="st" data-step="1">2026년 대회, <span class="hl-w">무엇이 달라지나</span></h2>
+    <p class="sub" data-step="2">알고리즘 경쟁 &rarr; 아이디어 공모 단일 트랙 + MVP 제출 의무화</p>
+    <div class="tc" style="margin-top: 16px;">
+      <div data-step="3">
+        <div class="cl-w">AS-IS: 2025</div>
+        <div class="c c-surf" style="margin-bottom: 10px;">
+          <div class="c-t" style="color: var(--on-surface-variant); opacity: 0.7;">2개 트랙 병행</div>
+          <div class="c-d">아이디어 공모전 + AI 모델 경쟁<br/>알고리즘 정확도 중심 평가</div>
+        </div>
+        <div class="c c-surf" style="margin-bottom: 10px;">
+          <div class="c-t" style="color: var(--on-surface-variant); opacity: 0.7;">기획서 중심</div>
+          <div class="c-d">기획서 + 발표 자료 제출<br/>실제 구현물은 선택 사항</div>
+        </div>
+        <div class="c c-surf">
+          <div class="c-t" style="color: var(--on-surface-variant); opacity: 0.7;">개인 참가 가능</div>
+          <div class="c-d">팀/개인 자유 참가<br/>협업 검증 부재</div>
+        </div>
+      </div>
+      <div data-step="4">
+        <div class="cl">TO-BE: 2026</div>
+        <div class="c c-blue" style="margin-bottom: 10px;">
+          <div class="c-t" style="color: var(--on-secondary-container);">단일 트랙 &mdash; 서비스 개발 공모</div>
+          <div class="c-d" style="color: var(--on-secondary-container);">금융소비자 편의 + 업무 효율 극대화<br/><strong>실증 중심</strong> 평가 체계</div>
+        </div>
+        <div class="c c-blue" style="margin-bottom: 10px;">
+          <div class="c-t" style="color: var(--on-secondary-container);">MVP 제출 의무화</div>
+          <div class="c-d" style="color: var(--on-secondary-container);">기획서 + <strong>실제 작동하는 웹페이지</strong> 필수<br/>아이디어를 넘어 실증까지 검증</div>
+        </div>
+        <div class="c c-blue">
+          <div class="c-t" style="color: var(--on-secondary-container);">팀 기반 참여 권장</div>
+          <div class="c-d" style="color: var(--on-secondary-container);">기획 + 개발 + 디자인 역할 분담<br/>DAKER 팀 빌딩/협업 시스템 활용</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span class="sf-logo">DAKER</span><span class="sf-pg">3</span><span class="sf-cr">COPYRIGHT 2026 DAKER</span></div>
+</section>
+
+<!-- ===== SLIDE 4: SECTION - 플랫폼 이점 ===== -->
+<section class="slide slide-sec" id="s4">
+  <div class="sh"><span class="sh-l">II. PLATFORM</span></div>
+  <div class="si">
+    <div class="sn" data-step="1">01</div>
+    <h2 data-step="2">플랫폼 활용의 이점</h2>
+    <p class="sd" data-step="3">금융보안원 요건에 DAKER가 제공하는 구체적 우위</p>
+  </div>
+  <div class="sf"><span class="sf-logo">DAKER</span><span class="sf-pg">4</span><span class="sf-cr">COPYRIGHT 2026 DAKER</span></div>
+</section>
+
+<!-- ===== SLIDE 5: 플랫폼 요건 매핑 ===== -->
+<section class="slide" id="s5">
+  <div class="sh"><span class="sh-l">II. REQUIREMENTS MAPPING</span></div>
+  <div class="si" style="padding-top: 60px;">
+    <div class="tag">PLATFORM FIT</div>
+    <h2 class="st" data-step="1">운영 요건 <span class="hl">100% 매핑</span></h2>
+    <p class="sub" data-step="2">금융보안원이 요청한 4가지 플랫폼 요건을 DAKER가 모두 지원합니다</p>
+    <div class="g2" style="margin-top: 16px;">
+      <div class="c" data-step="3" style="border: var(--ghost);">
+        <div class="ic">01</div>
+        <div class="c-t">공모전 접수 &middot; 서류 관리</div>
+        <div class="c-d">
+          &bull; 개인정보처리동의서 <strong>전자 서명</strong> 수집<br/>
+          &bull; 결과물 활용 동의 등 <strong>다단계 동의</strong> 체크<br/>
+          &bull; 기획서(PDF) + MVP URL <strong>통합 제출</strong><br/>
+          &bull; 제출 현황 실시간 대시보드
+        </div>
+      </div>
+      <div class="c" data-step="3" style="border: var(--ghost);">
+        <div class="ic">02</div>
+        <div class="c-t">MVP 리다이렉팅 페이지</div>
+        <div class="c-d">
+          &bull; 참가팀 구현물(웹페이지) <strong>쇼케이스 갤러리</strong><br/>
+          &bull; 외부 URL 리다이렉트 + <strong>스크린샷 프리뷰</strong><br/>
+          &bull; 심사위원/일반 공개 <strong>접근 권한 분리</strong><br/>
+          &bull; 좋아요 &middot; 댓글 등 커뮤니티 피드백
+        </div>
+      </div>
+      <div class="c" data-step="4" style="border: var(--ghost);">
+        <div class="ic-w" style="width:36px;height:36px;border-radius:var(--r-md);display:flex;align-items:center;justify-content:center;font-size:0.8125rem;font-weight:800;margin-bottom:12px;color:#fff;background:var(--accent-warm);">03</div>
+        <div class="c-t">심사위원 전용 채점 화면</div>
+        <div class="c-d">
+          &bull; <strong>6~7명 심사위원</strong> 개별 배정 &middot; 권한 관리<br/>
+          &bull; 엑셀 기반 채점표 <strong>자동 생성</strong><br/>
+          &bull; 심사 기준별 가중치 &middot; 점수 <strong>자동 집계</strong><br/>
+          &bull; 심사 진행률 실시간 모니터링
+        </div>
+      </div>
+      <div class="c" data-step="4" style="border: var(--ghost);">
+        <div class="ic-d" style="width:36px;height:36px;border-radius:var(--r-md);display:flex;align-items:center;justify-content:center;font-size:0.8125rem;font-weight:800;margin-bottom:12px;color:#fff;background:var(--accent-dark);">04</div>
+        <div class="c-t">Q&A 게시판 &middot; CS 관리</div>
+        <div class="c-d">
+          &bull; 대회 전용 <strong>커뮤니티 게시판</strong> (카테고리별)<br/>
+          &bull; 운영진 답변 &middot; 공지 <strong>고정 기능</strong><br/>
+          &bull; 이미지/파일 첨부 &middot; 멘션 지원<br/>
+          &bull; CS 인입 현황 <strong>관리자 대시보드</strong>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span class="sf-logo">DAKER</span><span class="sf-pg">5</span><span class="sf-cr">COPYRIGHT 2026 DAKER</span></div>
+</section>
+
+<!-- ===== SLIDE 6: 자체운영 vs DAKER ===== -->
+<section class="slide" id="s6">
+  <div class="sh"><span class="sh-l">II. COMPARISON</span></div>
+  <div class="si" style="padding-top: 60px;">
+    <div class="tag">ADVANTAGE</div>
+    <h2 class="st" data-step="1">자체 운영 대비 <span class="hl">DAKER의 우위</span></h2>
+    <div class="tc" style="margin-top: 16px;">
+      <div data-step="2">
+        <div class="cl-w">자체 운영 시</div>
+        <table class="tb">
+          <thead><tr><th>항목</th><th>예상 이슈</th></tr></thead>
+          <tbody>
+            <tr><td style="font-weight:600;">접수 시스템</td><td>구글폼/이메일 접수 &rarr; 수작업 취합</td></tr>
+            <tr><td style="font-weight:600;">MVP 전시</td><td>URL 목록 엑셀 관리 &rarr; 심사 혼선</td></tr>
+            <tr><td style="font-weight:600;">심사</td><td>엑셀 채점표 배포 &rarr; 수거 &rarr; 집계</td></tr>
+            <tr><td style="font-weight:600;">Q&A</td><td>이메일 CS &rarr; 응답 지연</td></tr>
+            <tr><td style="font-weight:600;">홍보</td><td>자체 채널 한정 &rarr; 참가자 유입 제한</td></tr>
+            <tr><td style="font-weight:600;">개발 기간</td><td>2~3개월 시스템 구축 필요</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div data-step="3">
+        <div class="cl">DAKER 플랫폼</div>
+        <table class="tb">
+          <thead><tr><th>항목</th><th>제공 기능</th></tr></thead>
+          <tbody>
+            <tr><td style="font-weight:600;">접수 시스템</td><td><strong>동의서 전자서명 + 자동 검증</strong></td></tr>
+            <tr><td style="font-weight:600;">MVP 전시</td><td><strong>쇼케이스 갤러리 + URL 프리뷰</strong></td></tr>
+            <tr><td style="font-weight:600;">심사</td><td><strong>Expert 포털 자동 배정 + 집계</strong></td></tr>
+            <tr><td style="font-weight:600;">Q&A</td><td><strong>실시간 게시판 + 관리자 대시보드</strong></td></tr>
+            <tr><td style="font-weight:600;">홍보</td><td><strong>14만+ 데이콘 커뮤니티 노출</strong></td></tr>
+            <tr><td style="font-weight:600;">개발 기간</td><td><strong>즉시 사용 가능 (1주 세팅)</strong></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span class="sf-logo">DAKER</span><span class="sf-pg">6</span><span class="sf-cr">COPYRIGHT 2026 DAKER</span></div>
+</section>
+
+<!-- ===== SLIDE 7: SECTION - 차별화 ===== -->
+<section class="slide slide-sec" id="s7">
+  <div class="sh"><span class="sh-l">III. DIFFERENTIATION</span></div>
+  <div class="si">
+    <div class="sn" data-step="1" style="color: rgba(194,98,45,0.06);">02</div>
+    <h2 data-step="2">대회 차별화 방안</h2>
+    <p class="sd" data-step="3">MVP 제출 의무화를 넘어, 참가자 유입과 결과물 품질을 높이는 전략</p>
+  </div>
+  <div class="sf"><span class="sf-logo">DAKER</span><span class="sf-pg">7</span><span class="sf-cr">COPYRIGHT 2026 DAKER</span></div>
+</section>
+
+<!-- ===== SLIDE 8: 바이브코딩 + 차별화 ===== -->
+<section class="slide" id="s8">
+  <div class="sh"><span class="sh-l">III. VIBECODING STRATEGY</span></div>
+  <div class="si" style="padding-top: 60px;">
+    <div class="tag tag-w">DIFFERENTIATION</div>
+    <h2 class="st" data-step="1"><span class="hl-w">바이브코딩</span>으로 MVP 품질을 끌어올립니다</h2>
+    <p class="sub" data-step="2">AI가 코드를 쓰는 시대 &mdash; 비개발 금융인도 실제 작동하는 서비스를 만들 수 있습니다</p>
+    <div class="g3" style="margin-top: 16px;">
+      <div class="c" data-step="3" style="border: var(--ghost);">
+        <div class="ic-w" style="width:36px;height:36px;border-radius:var(--r-md);display:flex;align-items:center;justify-content:center;font-size:0.8125rem;font-weight:800;margin-bottom:12px;color:#fff;background:var(--accent-warm);">A</div>
+        <div class="c-t">바이브코딩 부트캠프</div>
+        <div class="c-d">
+          대회 전 <strong>1일 온라인 워크숍</strong> 제공<br/>
+          Claude 등 AI 도구 실습<br/>
+          금융 서비스 프로토타이핑 체험<br/>
+          <strong>비개발자도 MVP 구현 가능</strong>
+        </div>
+      </div>
+      <div class="c" data-step="3" style="border: var(--ghost);">
+        <div class="ic">B</div>
+        <div class="c-t">ELO 1v1 피어 평가</div>
+        <div class="c-d">
+          참가팀 MVP를 <strong>블라인드 1:1 비교</strong><br/>
+          참가자 전원이 심사에 참여<br/>
+          전문가 심사 70% + ELO 30% 결합<br/>
+          <strong>공정성 + 참여 몰입도</strong> 극대화
+        </div>
+      </div>
+      <div class="c" data-step="3" style="border: var(--ghost);">
+        <div class="ic-d" style="width:36px;height:36px;border-radius:var(--r-md);display:flex;align-items:center;justify-content:center;font-size:0.8125rem;font-weight:800;margin-bottom:12px;color:#fff;background:var(--accent-dark);">C</div>
+        <div class="c-t">MVP 쇼케이스 갤러리</div>
+        <div class="c-d">
+          전 참가작 <strong>공개 갤러리</strong> 운영<br/>
+          일반인 투표 &middot; 좋아요 &middot; 댓글<br/>
+          금융사 관계자 <strong>직접 체험</strong> 가능<br/>
+          <strong>대회 후에도 포트폴리오</strong>로 활용
+        </div>
+      </div>
+    </div>
+    <div class="g4" style="margin-top: 14px;" data-step="4">
+      <div class="mx"><div class="v" style="color: var(--accent-warm);">63%</div><div class="l">바이브코딩 사용자 중<br/>비개발자 비율</div></div>
+      <div class="mx"><div class="v">87%</div><div class="l">Fortune 500<br/>도입률</div></div>
+      <div class="mx"><div class="v" style="color: var(--accent-warm);">55%</div><div class="l">AI 활용 시<br/>작업 속도 향상</div></div>
+      <div class="mx"><div class="v">Collins</div><div class="l">2025 올해의<br/>단어 선정</div></div>
+    </div>
+  </div>
+  <div class="sf"><span class="sf-logo">DAKER</span><span class="sf-pg">8</span><span class="sf-cr">COPYRIGHT 2026 DAKER</span></div>
+</section>
+
+<!-- ===== SLIDE 9: SECTION - 트렌드 ===== -->
+<section class="slide slide-sec" id="s9">
+  <div class="sh"><span class="sh-l">IV. TREND</span></div>
+  <div class="si">
+    <div class="sn" data-step="1">03</div>
+    <h2 data-step="2">트렌드 반영 방안</h2>
+    <p class="sd" data-step="3">자율형 AI Agent, 소버린 AI 등 최신 트렌드를 대회에 융합하는 전략</p>
+  </div>
+  <div class="sf"><span class="sf-logo">DAKER</span><span class="sf-pg">9</span><span class="sf-cr">COPYRIGHT 2026 DAKER</span></div>
+</section>
+
+<!-- ===== SLIDE 10: AI Agent 트렌드 ===== -->
+<section class="slide" id="s10">
+  <div class="sh"><span class="sh-l">IV. AI AGENT TREND</span></div>
+  <div class="si" style="padding-top: 60px;">
+    <div class="tag">TREND APPLICATION</div>
+    <h2 class="st" data-step="1"><span class="hl">AI Agent 시대</span>에 맞는 대회 설계</h2>
+    <p class="sub" data-step="2">금융보안원 2026 전략 &mdash; AI 전담 조직 2배 확대, AI First 정책 도입과 연계</p>
+    <div class="tc" style="margin-top: 16px;">
+      <div data-step="3">
+        <div class="cl">대회 과제 트랙 제안</div>
+        <div class="c c-blue" style="margin-bottom: 10px;">
+          <div class="c-t" style="color: var(--on-secondary-container);">가능안 A. AI 에이전트 금융 서비스</div>
+          <div class="c-d" style="color: var(--on-secondary-container);">
+            자율형 AI Agent가 <strong>고객 자산을 분석</strong>하고<br/>
+            최적 금융 상품을 추천하는 서비스 MVP<br/>
+            <span style="font-size: 0.6875rem; opacity: 0.7;">Claude, GPT, Gemini 등 자유</span>
+          </div>
+        </div>
+        <div class="c c-blue" style="margin-bottom: 10px;">
+          <div class="c-t" style="color: var(--on-secondary-container);">가능안 B. 금융 보안 AI</div>
+          <div class="c-d" style="color: var(--on-secondary-container);">
+            이상 거래 탐지, 피싱 방지, 보이스피싱 차단 등<br/>
+            <strong>금융 보안 강화</strong> AI 서비스 MVP<br/>
+            <span style="font-size: 0.6875rem; opacity: 0.7;">금융보안원 핵심 미션과 직결</span>
+          </div>
+        </div>
+        <div class="c c-surf">
+          <div class="c-t">가능안 C. 소버린 AI 활용</div>
+          <div class="c-d">
+            국내 개발 AI 모델(LG Exa-one, KT 믿음 등) 활용<br/>
+            <strong>데이터 주권</strong> 확보 금융 서비스<br/>
+            <span style="font-size: 0.6875rem; opacity: 0.7;">2025 최우수상 수상 트렌드 계승</span>
+          </div>
+        </div>
+      </div>
+      <div data-step="4">
+        <div class="cl-w">트렌드 & 금융보안원 전략 연계</div>
+        <table class="tb" style="font-size: 0.75rem;">
+          <thead><tr><th>트렌드</th><th>대회 적용</th><th>FSI 전략</th></tr></thead>
+          <tbody>
+            <tr><td style="font-weight:600;">자율형 AI Agent</td><td>제안안 A 과제 주제</td><td>AI First 정책</td></tr>
+            <tr><td style="font-weight:600;">AI 보안 위협</td><td>제안안 B 보안 AI</td><td>레드티밍 확대</td></tr>
+            <tr><td style="font-weight:600;">소버린 AI</td><td>제안안 C 국산 모델 활용</td><td>AI 신뢰성 강화</td></tr>
+            <tr><td style="font-weight:600;">바이브코딩</td><td>비개발자 참여 확대</td><td>AI 대중화</td></tr>
+            <tr><td style="font-weight:600;">MVP 실증</td><td>전 트랙 필수</td><td>혁신금융서비스</td></tr>
+          </tbody>
+        </table>
+        <div class="c c-surf" style="margin-top: 12px; padding: 14px;">
+          <div style="font-size: 0.75rem; color: var(--on-surface-variant); line-height: 1.6;">
+            <strong style="color: var(--primary);">박상원 원장</strong>: "2026년은 AI 기반 금융서비스가 폭발적으로 증가할 것. 안전하고 신뢰할 수 있는 AI 활용을 선도하겠다."
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="src">출처: 일간NTN (2026.01), 데일리시큐 (2025.12), SK AX 인사이트 (2026)</div>
+  </div>
+  <div class="sf"><span class="sf-logo">DAKER</span><span class="sf-pg">10</span><span class="sf-cr">COPYRIGHT 2026 DAKER</span></div>
+</section>
+
+<!-- ===== SLIDE 11: 운영 일정 ===== -->
+<section class="slide" id="s11">
+  <div class="sh"><span class="sh-l">V. TIMELINE</span></div>
+  <div class="si" style="padding-top: 60px;">
+    <div class="tag">OPERATION PLAN</div>
+    <h2 class="st" data-step="1">통합 운영 <span class="hl">일정표</span></h2>
+    <p class="sub" data-step="2">금융보안원 일정(안)에 DAKER 운영 지원을 매핑합니다</p>
+    <div style="margin-top: 18px;" data-step="3">
+      <div style="display: grid; grid-template-columns: 80px 1fr 1fr 1fr 1fr; gap: 8px; margin-bottom: 8px;">
+        <div></div>
+        <div style="text-align: center; font-size: 0.75rem; font-weight: 700; color: var(--on-secondary-container); padding: 6px; background: var(--secondary-container); border-radius: var(--r-md);">5월 (사전준비)</div>
+        <div style="text-align: center; font-size: 0.75rem; font-weight: 700; color: var(--accent-warm); padding: 6px; background: var(--accent-warm-bg); border-radius: var(--r-md);">6월 (홍보)</div>
+        <div style="text-align: center; font-size: 0.75rem; font-weight: 700; color: var(--on-secondary-container); padding: 6px; background: var(--secondary-container); border-radius: var(--r-md);">6~7월 (접수)</div>
+        <div style="text-align: center; font-size: 0.75rem; font-weight: 700; color: var(--on-surface); padding: 6px; background: var(--surface-low); border-radius: var(--r-md);">7월말 (심사)</div>
+      </div>
+      <div style="display: grid; grid-template-columns: 80px 1fr 1fr 1fr 1fr; gap: 8px; margin-bottom: 6px;">
+        <div style="font-size: 0.6875rem; font-weight: 700; color: var(--primary); display: flex; align-items: center;">플랫폼</div>
+        <div style="background: var(--secondary-container); border-radius: var(--r-md); padding: 8px 12px;">
+          <div style="font-size: 0.75rem; font-weight: 700; color: var(--on-secondary-container);">대회 페이지 세팅</div>
+          <div style="font-size: 0.6875rem; color: var(--on-secondary-container); opacity: 0.7;">브랜딩 &middot; 제출 양식</div>
+        </div>
+        <div style="background: rgba(214,226,255,0.5); border-radius: var(--r-md); padding: 8px 12px;">
+          <div style="font-size: 0.75rem; font-weight: 700; color: var(--on-secondary-container);">홍보 페이지 오픈</div>
+          <div style="font-size: 0.6875rem; color: var(--on-secondary-container); opacity: 0.7;">배너 &middot; 참가 안내</div>
+        </div>
+        <div style="background: var(--secondary-container); border-radius: var(--r-md); padding: 8px 12px;">
+          <div style="font-size: 0.75rem; font-weight: 700; color: var(--on-secondary-container);">접수 &middot; 제출 운영</div>
+          <div style="font-size: 0.6875rem; color: var(--on-secondary-container); opacity: 0.7;">Q&A &middot; CS &middot; 멘토링</div>
+        </div>
+        <div style="background: rgba(214,226,255,0.4); border-radius: var(--r-md); padding: 8px 12px;">
+          <div style="font-size: 0.75rem; font-weight: 700; color: var(--on-secondary-container);">심사 포털 운영</div>
+          <div style="font-size: 0.6875rem; color: var(--on-secondary-container); opacity: 0.7;">Expert 채점 &middot; 집계</div>
+        </div>
+      </div>
+      <div style="display: grid; grid-template-columns: 80px 1fr 1fr 1fr 1fr; gap: 8px; margin-bottom: 6px;">
+        <div style="font-size: 0.6875rem; font-weight: 700; color: var(--accent-warm); display: flex; align-items: center;">차별화</div>
+        <div></div>
+        <div style="background: var(--accent-warm-bg); border-radius: var(--r-md); padding: 8px 12px;">
+          <div style="font-size: 0.75rem; font-weight: 700; color: var(--accent-warm);">바이브코딩 워크숍</div>
+          <div style="font-size: 0.6875rem; color: var(--accent-warm); opacity: 0.7;">1일 온라인 부트캠프</div>
+        </div>
+        <div style="background: var(--accent-warm-bg); border-radius: var(--r-md); padding: 8px 12px; grid-column: span 2;">
+          <div style="font-size: 0.75rem; font-weight: 700; color: var(--accent-warm);">ELO 피어 평가 + 쇼케이스 갤러리</div>
+          <div style="font-size: 0.6875rem; color: var(--accent-warm); opacity: 0.7;">접수 마감 후 블라인드 투표 &middot; 전문가 심사 병행</div>
+        </div>
+      </div>
+      <div style="display: grid; grid-template-columns: 80px 1fr 1fr 1fr 1fr; gap: 8px;">
+        <div style="font-size: 0.6875rem; font-weight: 700; color: var(--on-surface-variant); display: flex; align-items: center;">금융보안원</div>
+        <div style="background: var(--surface-low); border-radius: var(--r-md); padding: 8px 12px;">
+          <div style="font-size: 0.75rem; font-weight: 600; color: var(--on-surface-variant);">과제 설계</div>
+          <div style="font-size: 0.6875rem; color: var(--on-surface-variant); opacity: 0.7;">주제 &middot; 평가기준 확정</div>
+        </div>
+        <div style="background: var(--surface-low); border-radius: var(--r-md); padding: 8px 12px;">
+          <div style="font-size: 0.75rem; font-weight: 600; color: var(--on-surface-variant);">홍보 소재 제공</div>
+          <div style="font-size: 0.6875rem; color: var(--on-surface-variant); opacity: 0.7;">포스터 &middot; 배너 소재</div>
+        </div>
+        <div style="background: var(--surface-low); border-radius: var(--r-md); padding: 8px 12px;">
+          <div style="font-size: 0.75rem; font-weight: 600; color: var(--on-surface-variant);">중간 모니터링</div>
+          <div style="font-size: 0.6875rem; color: var(--on-surface-variant); opacity: 0.7;">진행 현황 보고</div>
+        </div>
+        <div style="background: var(--surface-low); border-radius: var(--r-md); padding: 8px 12px;">
+          <div style="font-size: 0.75rem; font-weight: 600; color: var(--on-surface-variant);">심사위원 지정</div>
+          <div style="font-size: 0.6875rem; color: var(--on-surface-variant); opacity: 0.7;">6~7명 배정 &middot; 시상</div>
+        </div>
+      </div>
+    </div>
+    <div class="c c-surf" data-step="4" style="margin-top: 14px; padding: 12px 18px;">
+      <div style="display: flex; justify-content: space-between; align-items: center;">
+        <div style="font-size: 0.8125rem; color: var(--on-surface-variant);">
+          <strong style="color: var(--primary);">5월 세팅 &rarr; 6월 홍보 &rarr; 6~7월 접수 &rarr; 7월말 심사</strong> &mdash; DAKER가 전 과정을 지원합니다
+        </div>
+        <div style="font-size: 0.75rem; font-weight: 700; color: var(--on-surface-variant);">약 3개월</div>
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span class="sf-logo">DAKER</span><span class="sf-pg">11</span><span class="sf-cr">COPYRIGHT 2026 DAKER</span></div>
+</section>
+
+<!-- ===== SLIDE 12: SECTION - 비용 ===== -->
+<section class="slide slide-sec" id="s12">
+  <div class="sh"><span class="sh-l">VI. COST</span></div>
+  <div class="si">
+    <div class="sn" data-step="1">04</div>
+    <h2 data-step="2">예상 비용 안내</h2>
+    <p class="sd" data-step="3"></p>
+  </div>
+  <div class="sf"><span class="sf-logo">DAKER</span><span class="sf-pg">12</span><span class="sf-cr">COPYRIGHT 2026 DAKER</span></div>
+</section>
+
+<!-- ===== SLIDE 13: 비용 구조 ===== -->
+<section class="slide" id="s13">
+  <div class="sh"><span class="sh-l">VI. COST STRUCTURE</span></div>
+  <div class="si" style="padding-top: 60px;">
+    <div class="tag">PRICING</div>
+    <h2 class="st" data-step="1">기본 + 옵션 <span class="hl">비용 구조</span></h2>
+    <p class="sub" data-step="2">필수 기능 기본 패키지 + 차별화 요소 선택 추가</p>
+    <div class="tc" style="margin-top: 16px;">
+      <div data-step="3">
+        <div class="cl">기본 패키지 (필수1)</div>
+        <div class="c c-blue" style="padding: 14px;">
+          <div style="font-size: 0.625rem; font-weight: 700; color: var(--on-secondary-container); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.05em;">BASIC PACKAGE 1</div>
+          <ul class="ck" style="gap: 3px;">
+            <li><span class="i" style="color: var(--on-secondary-container);">&#10003;</span> <span style="color: var(--on-secondary-container); font-size: 0.75rem;">대회 페이지 세팅 &middot; 브랜딩 &middot; 참가자 모집</span></li>
+            <li><span class="i" style="color: var(--on-secondary-container);">&#10003;</span> <span style="color: var(--on-secondary-container); font-size: 0.75rem;">접수 &middot; 동의서 &middot; 제출 시스템</span></li>
+            <li><span class="i" style="color: var(--on-secondary-container);">&#10003;</span> <span style="color: var(--on-secondary-container); font-size: 0.75rem;">팀 빌딩 및 매칭 시스템</span></li>
+            <li><span class="i" style="color: var(--on-secondary-container);">&#10003;</span> <span style="color: var(--on-secondary-container); font-size: 0.75rem;">1차 심사 (데이콘 1명 + 외부 심사위원 2명)</span></li>
+            <li><span class="i" style="color: var(--on-secondary-container);">&#10003;</span> <span style="color: var(--on-secondary-container); font-size: 0.75rem;">2차 심사 Expert 포털 (금융보안원 3명 + 외부 2명)</span></li>
+            <li><span class="i" style="color: var(--on-secondary-container);">&#10003;</span> <span style="color: var(--on-secondary-container); font-size: 0.75rem;">Q&A 커뮤니티 게시판</span></li>
+            <li><span class="i" style="color: var(--on-secondary-container);">&#10003;</span> <span style="color: var(--on-secondary-container); font-size: 0.75rem;">5일/24시간 CS 관리 (긴급시 120분내 응답)</span></li>
+            <li><span class="i" style="color: var(--on-secondary-container);">&#10003;</span> <span style="color: var(--on-secondary-container); font-size: 0.75rem;">데이콘/데이커 홍보 노출 14만명+@</span></li>
+            <li><span class="i" style="color: var(--on-secondary-container);">&#10003;</span> <span style="color: var(--on-secondary-container); font-size: 0.75rem;">결과 리포트 &middot; 인증서 발급</span></li>
+            <li><span class="i" style="color: var(--on-secondary-container);">&#10003;</span> <span style="color: var(--on-secondary-container); font-size: 0.75rem;">ELO 피어 평가 &middot; 블라인드 1v1 투표</span></li>
+            <li><span class="i" style="color: var(--on-secondary-container);">&#10003;</span> <span style="color: var(--on-secondary-container); font-size: 0.75rem;">MVP 쇼케이스 갤러리 &middot; 공개 전시</span></li>
+            <li><span class="i" style="color: var(--on-secondary-container);">&#10003;</span> <span style="color: var(--on-secondary-container); font-size: 0.75rem;">홍보 디자인 &middot; 포스터 &middot; 배너 &middot; SNS 소재</span></li>
+            <li><span class="i" style="color: var(--on-secondary-container);">&#10003;</span> <span style="color: var(--on-secondary-container); font-size: 0.75rem;">오프라인 홍보 주요대학 20개 &middot; 포스터</span></li>
+          </ul>
+        </div>
+      </div>
+      <div data-step="4">
+        <div class="cl">기본 패키지 (필수2)</div>
+        <div class="c c-blue" style="padding: 14px; margin-bottom: 10px;">
+          <div style="font-size: 0.625rem; font-weight: 700; color: var(--on-secondary-container); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.05em;">BASIC PACKAGE 2</div>
+          <ul class="ck" style="gap: 3px;">
+            <li><span class="i" style="color: var(--on-secondary-container);">&#10003;</span> <span style="color: var(--on-secondary-container); font-size: 0.75rem;">수상자 커뮤니케이션</span></li>
+            <li><span class="i" style="color: var(--on-secondary-container);">&#10003;</span> <span style="color: var(--on-secondary-container); font-size: 0.75rem;">수상자별 상금 지급 프로세스 대행</span></li>
+            <li><span class="i" style="color: var(--on-secondary-container);">&#10003;</span> <span style="color: var(--on-secondary-container); font-size: 0.75rem;">대회 종료 후 페이지 유지</span></li>
+            <li><span class="i" style="color: var(--on-secondary-container);">&#10003;</span> <span style="color: var(--on-secondary-container); font-size: 0.75rem;">바이브코딩 &middot; 프롬프트 학습 교재 10개</span></li>
+          </ul>
+        </div>
+        <div class="cl-w">추가 옵션 (선택)</div>
+        <table class="tb" style="font-size: 0.6875rem;">
+          <thead><tr><th>옵션 항목</th><th>내용</th><th>효과</th></tr></thead>
+          <tbody>
+            <tr><td style="font-weight:600;">바이브코딩 워크숍</td><td>1일 온라인 부트캠프</td><td>MVP 품질 향상</td></tr>
+            <tr><td style="font-weight:600;">온라인 멘토링</td><td>전문가 멘토 배정</td><td>결과물 완성도</td></tr>
+            <tr><td style="font-weight:600;">시상식 운영</td><td>시상식 기획</td><td>행사 완성도</td></tr>
+          </tbody>
+        </table>
+        <div class="c c-surf" style="padding: 10px; text-align: center; margin-top: 10px;">
+          <div style="font-size: 0.75rem; color: var(--on-surface-variant);">세부 금액은 별도 미팅에서 안내드립니다</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span class="sf-logo">DAKER</span><span class="sf-pg">13</span><span class="sf-cr">COPYRIGHT 2026 DAKER</span></div>
+</section>
+
+<!-- ===== SLIDE 14: 데이콘 플랫폼 실적 ===== -->
+<section class="slide" id="s14">
+  <div class="sh"><span class="sh-l">VII. PROVEN PLATFORM</span></div>
+  <div class="si" style="padding-top: 60px;">
+    <div class="tag" style="color:var(--accent-warm)">DACON TRACK RECORD</div>
+    <h2 class="st" data-step="1">데이콘, <span style="color:var(--accent-warm)">숫자</span>로 증명합니다</h2>
+    <p class="sub" data-step="2">대한민국 최대 AI 경진대회 플랫폼 &mdash; 팩트 기반 실적</p>
+    <div class="g5" style="margin-top: 20px;">
+      <div class="mx" data-step="3" style="padding:24px 10px"><div class="v" style="font-size:2rem;color:var(--accent-warm)">25억+</div><div class="l" style="margin-top:8px">누적 상금</div></div>
+      <div class="mx" data-step="3" style="padding:24px 10px"><div class="v" style="font-size:2rem;color:var(--primary)">1백만 건+</div><div class="l" style="margin-top:8px">누적 제출 수</div></div>
+      <div class="mx" data-step="3" style="padding:24px 10px"><div class="v" style="font-size:2rem;color:var(--accent-warm)">23만 팀+</div><div class="l" style="margin-top:8px">누적 팀 참여</div></div>
+      <div class="mx" data-step="3" style="padding:24px 10px"><div class="v" style="font-size:2rem;color:var(--primary)">54천 명+</div><div class="l" style="margin-top:8px">누적 학습 참여<br/>(31만 분+)</div></div>
+      <div class="mx" data-step="3" style="padding:24px 10px"><div class="v" style="font-size:2rem;color:var(--accent-warm)">14만+</div><div class="l" style="margin-top:8px">회원 수<br/>(AI전문가)</div></div>
+    </div>
+    <div class="g2" style="margin-top: 16px;">
+      <div data-step="4">
+        <div style="font-size:.8125rem;font-weight:700;color:var(--accent-warm);margin-bottom:10px">dacon.io &mdash; 대회 목록</div>
+        <div style="background:var(--surface-container-lowest);border-radius:var(--r-lg);padding:0;overflow:hidden;height:200px">
+          <div style="padding:16px 20px;height:100%;display:flex;flex-direction:column;gap:10px">
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px"><div style="width:24px;height:24px;border-radius:var(--r-md);background:var(--accent-warm);display:flex;align-items:center;justify-content:center;color:#fff;font-size:.6rem;font-weight:800">D</div><span style="font-size:.875rem;font-weight:700;color:var(--on-surface)">dacon.io/competitions</span></div>
+            <div style="display:flex;gap:8px">
+              <div style="flex:1;background:var(--surface-container-low);border-radius:var(--r-md);padding:12px">
+                <div style="width:100%;height:8px;background:var(--secondary-container);border-radius:4px;margin-bottom:8px"></div>
+                <div style="font-size:.6875rem;font-weight:700;color:var(--on-surface)">금융 AI Challenge 2026</div>
+                <div style="font-size:.5625rem;color:var(--on-surface-variant);margin-top:4px">상금 3,300만원 &middot; MVP 공모</div>
+              </div>
+              <div style="flex:1;background:var(--surface-container-low);border-radius:var(--r-md);padding:12px">
+                <div style="width:100%;height:8px;background:rgba(194,98,45,0.1);border-radius:4px;margin-bottom:8px"></div>
+                <div style="font-size:.6875rem;font-weight:700;color:var(--on-surface)">보안 AI 모델 경쟁</div>
+                <div style="font-size:.5625rem;color:var(--on-surface-variant);margin-top:4px">리더보드 &middot; 자동 채점</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-step="5">
+        <div style="font-size:.8125rem;font-weight:700;color:var(--primary);margin-bottom:10px">daker.ai &mdash; 해커톤 &middot; 팀 빌딩</div>
+        <div style="background:var(--surface-container-lowest);border-radius:var(--r-lg);padding:0;overflow:hidden;height:200px">
+          <div style="padding:16px 20px;height:100%;display:flex;flex-direction:column;gap:10px">
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px"><div style="width:24px;height:24px;border-radius:var(--r-md);background:var(--primary);display:flex;align-items:center;justify-content:center;color:#fff;font-size:.6rem;font-weight:800">D</div><span style="font-size:.875rem;font-weight:700;color:var(--on-surface)">daker.ai/hackathons</span></div>
+            <div style="display:flex;gap:8px">
+              <div style="flex:1;background:var(--surface-container-low);border-radius:var(--r-md);padding:12px">
+                <div style="width:100%;height:8px;background:var(--secondary-container);border-radius:4px;margin-bottom:8px"></div>
+                <div style="font-size:.6875rem;font-weight:700;color:var(--on-surface)">MVP 쇼케이스 갤러리</div>
+                <div style="font-size:.5625rem;color:var(--on-surface-variant);margin-top:4px">URL 리다이렉트 &middot; 프리뷰</div>
+              </div>
+              <div style="flex:1;background:var(--surface-container-low);border-radius:var(--r-md);padding:12px">
+                <div style="width:100%;height:8px;background:var(--secondary-container);border-radius:4px;margin-bottom:8px"></div>
+                <div style="font-size:.6875rem;font-weight:700;color:var(--on-surface)">Expert 심사 포털</div>
+                <div style="font-size:.5625rem;color:var(--on-surface-variant);margin-top:4px">6~7명 배정 &middot; 자동 집계</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="src">출처: dacon.io 공식 통계 (2026.03 기준)</div>
+  </div>
+  <div class="sf"><span class="sf-logo">DAKER</span><span class="sf-pg">14</span><span class="sf-cr">COPYRIGHT 2026 DAKER</span></div>
+</section>
+
+<!-- ===== SLIDE 15: Why DAKER ===== -->
+<section class="slide" id="s15">
+  <div class="sh"><span class="sh-l">VII. WHY DAKER</span></div>
+  <div class="si" style="padding-top: 60px;">
+    <div class="tag">WHY US</div>
+    <h2 class="st" data-step="1">왜 <span class="hl">DAKER</span>인가</h2>
+    <p class="sub" data-step="2">2025 금융 AI Challenge 운영 경험 + 올해 MVP 공모에 최적화된 플랫폼</p>
+    <div class="g3" style="margin-top: 16px;">
+      <div class="c" data-step="3" style="border: var(--ghost);">
+        <div class="ic">01</div>
+        <div class="c-t">검증된 파트너</div>
+        <div class="c-d">
+          2025 금융 AI Challenge <strong>공식 운영</strong><br/>
+          951팀 3,000명 <strong>대규모 대회 경험</strong><br/>
+          AI서비스 개발 경진대회 및 공모전 다수 경험 100건<br/>
+          삼성 엘지 대기업 등 <strong>500+ 경진대회</strong> 운영 노하우
+        </div>
+      </div>
+      <div class="c" data-step="3" style="border: var(--ghost);">
+        <div class="ic-w" style="width:36px;height:36px;border-radius:var(--r-md);display:flex;align-items:center;justify-content:center;font-size:0.8125rem;font-weight:800;margin-bottom:12px;color:#fff;background:var(--accent-warm);">02</div>
+        <div class="c-t">MVP 공모 최적화</div>
+        <div class="c-d">
+          <strong>쇼케이스 갤러리</strong>로 구현물 전시<br/>
+          바이브코딩으로 <strong>비개발자 참여</strong> 확대<br/>
+          ELO 평가로 <strong>공정한 심사</strong><br/>
+          팀 빌딩 &middot; 협업 도구 내장
+        </div>
+      </div>
+      <div class="c" data-step="3" style="border: var(--ghost);">
+        <div class="ic-d" style="width:36px;height:36px;border-radius:var(--r-md);display:flex;align-items:center;justify-content:center;font-size:0.8125rem;font-weight:800;margin-bottom:12px;color:#fff;background:var(--accent-dark);">03</div>
+        <div class="c-t">14만+ 커뮤니티</div>
+        <div class="c-d">
+          데이콘 <strong>14만 데이터 사이언티스트</strong><br/>
+          누적 제출 <strong>103만건</strong> &middot; 팀 참여 <strong>23.6만</strong><br/>
+          누적 상금 <strong>25억원+</strong><br/>
+          <strong>우수 인재 채용 연계</strong> 가능
+        </div>
+      </div>
+    </div>
+    <div class="fr" style="margin-top: 14px;" data-step="4">
+      <div class="fb fb-p">
+        <div class="fl" style="font-weight: 700; color: var(--on-secondary-container);">금융보안원이 할 일</div>
+        <div class="fd" style="color: var(--on-secondary-container);">과제 설계 &middot; 심사위원 &middot; 시상</div>
+      </div>
+      <span class="fa">&rarr;</span>
+      <div class="fb fb-p">
+        <div class="fl" style="font-weight: 700; color: var(--on-secondary-container);">DAKER가 할 일</div>
+        <div class="fd" style="color: var(--on-secondary-container);">과제 설계 조율 &middot; 플랫폼 &middot; 운영 &middot; 홍보 &middot; CS &middot; 리포트</div>
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span class="sf-logo">DAKER</span><span class="sf-pg">15</span><span class="sf-cr">COPYRIGHT 2026 DAKER</span></div>
+</section>
+
+<!-- ===== SLIDE 16: ENDING ===== -->
+<section class="slide slide-end" id="s16">
+  <div class="si" style="background: linear-gradient(135deg, var(--surface) 0%, var(--secondary-container) 100%);">
+    <div class="end-logo" data-step="1">DAKER</div>
+    <h1 data-step="2">
+      2026 금융 AI Challenge,<br/>
+      <span style="color: var(--primary);">DAKER</span>와 함께
+    </h1>
+    <p class="end-sub" data-step="3">
+      검증된 파트너 &middot; MVP 공모 최적화 &middot; 14만 커뮤니티<br/>
+      금융보안원의 AI 혁신을 플랫폼으로 지원합니다
+    </p>
+    <div data-step="4" style="margin-top: 32px; display: flex; gap: 14px;">
+      <a href="https://daker.ai/public/surveys/dacon-ai-competition-host-custom-planning-survey/respond" target="_blank" style="padding: 10px 24px; border-radius: var(--r-md); background: linear-gradient(135deg, var(--primary), var(--primary-dim)); color: var(--on-primary); font-size: 0.875rem; font-weight: 700; text-decoration: none;">미팅 요청</a>
+      <a href="https://daker.ai" target="_blank" style="padding: 10px 24px; border-radius: var(--r-md); background: var(--surface-low); color: var(--on-surface-variant); font-size: 0.875rem; font-weight: 600; text-decoration: none;">daker.ai</a>
+      <a href="https://dacon.io" target="_blank" style="padding: 10px 24px; border-radius: var(--r-md); background: var(--surface-low); color: var(--on-surface-variant); font-size: 0.875rem; font-weight: 600; text-decoration: none;">dacon.io</a>
+    </div>
+  </div>
+  <div class="sf"><span class="sf-logo">DAKER</span><span class="sf-pg"></span><span class="sf-cr">COPYRIGHT 2026 DAKER. ALL RIGHTS RESERVED</span></div>
+</section>
+
+</div></div>
+
+<button class="nav-btn" id="nav-prev">&#8249;</button>
+<button class="nav-btn" id="nav-next">&#8250;</button>
+<div id="progress-bar" style="width: 0%;"></div>
+<div id="key-hint">Arrow keys or click to navigate</div>
+
+<script>
+(function(){
+  const slides = document.querySelectorAll('.slide');
+  const total = slides.length;
+  let cur = 0;
+  function maxStep(s){ let m=0; s.querySelectorAll('[data-step]').forEach(e=>{const v=+e.dataset.step; if(v>m)m=v;}); return m; }
+  let step = 0;
+  function show(idx, dir){
+    slides.forEach(s => s.classList.remove('active'));
+    slides[idx].classList.add('active');
+    step = 0;
+    const els = slides[idx].querySelectorAll('[data-step]');
+    els.forEach(e => { e.classList.remove('visible','pre-visible'); });
+    if(dir === 'back'){
+      step = maxStep(slides[idx]);
+      els.forEach(e => e.classList.add('pre-visible'));
+    }
+    document.getElementById('progress-bar').style.width = ((idx+1)/total*100)+'%';
+  }
+  function next(){
+    const ms = maxStep(slides[cur]);
+    if(step < ms){
+      step++;
+      slides[cur].querySelectorAll('[data-step]').forEach(e=>{
+        if(+e.dataset.step <= step) e.classList.add('visible');
+      });
+      return;
+    }
+    if(cur < total-1){ cur++; show(cur,'fwd'); }
+  }
+  function prev(){
+    if(step > 0){
+      slides[cur].querySelectorAll('[data-step]').forEach(e=>{
+        if(+e.dataset.step === step) { e.classList.remove('visible','pre-visible'); }
+      });
+      step--;
+      return;
+    }
+    if(cur > 0){ cur--; show(cur,'back'); }
+  }
+  document.getElementById('nav-next').onclick = next;
+  document.getElementById('nav-prev').onclick = prev;
+  document.addEventListener('keydown', e => {
+    if(e.key==='ArrowRight'||e.key===' '||e.key==='Enter') next();
+    else if(e.key==='ArrowLeft'||e.key==='Backspace') prev();
+  });
+  let tx=0;
+  document.addEventListener('touchstart', e=>{ tx=e.changedTouches[0].screenX; });
+  document.addEventListener('touchend', e=>{
+    const dx = e.changedTouches[0].screenX - tx;
+    if(dx < -50) next(); else if(dx > 50) prev();
+  });
+  function fit(){
+    const vw=window.innerWidth, vh=window.innerHeight;
+    const s = Math.min(vw/1280, vh/720, 1);
+    document.getElementById('stage').style.transform = 'scale('+s+')';
+  }
+  window.addEventListener('resize', fit); fit();
+  // 첫 슬라이드: show() 호출 없이 직접 초기화 (pre-visible 제거 방지)
+  step = maxStep(slides[0]);
+  slides[0].querySelectorAll('[data-step]').forEach(e => { e.classList.add('pre-visible'); });
+  document.getElementById('progress-bar').style.width = ((1)/total*100)+'%';
+})();
+</script>
+</body>
+</html>
