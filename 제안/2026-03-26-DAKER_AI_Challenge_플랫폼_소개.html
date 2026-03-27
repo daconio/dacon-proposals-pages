@@ -178,12 +178,12 @@ h2.st { font-size: 2rem; font-weight: 800; line-height: 1.2; color: var(--on-sur
 #progress-bar { position: fixed; top: 0; left: 0; height: 3px; background: linear-gradient(90deg, var(--primary), var(--primary-dim)); transition: width 0.4s ease; z-index: 100; }
 #key-hint { position: fixed; bottom: 16px; left: 50%; transform: translateX(-50%); color: var(--outline-variant); font-size: 0.6875rem; z-index: 100; opacity: 0.4; }
 
-@page { size: 338.67mm 190.5mm landscape; margin: 0; }
+@page { size: landscape; margin: 0; }
 @media print {
   html, body { background: #fff !important; overflow: visible !important; height: auto !important; width: auto !important; margin: 0 !important; padding: 0 !important; }
   #viewport { position: static !important; display: block !important; height: auto !important; }
   #stage { position: static !important; width: auto !important; height: auto !important; overflow: visible !important; transform: none !important; box-shadow: none !important; border-radius: 0 !important; }
-  .slide { position: relative !important; inset: auto !important; opacity: 1 !important; pointer-events: auto !important; display: flex !important; flex-direction: column !important; width: 338.67mm !important; height: 190.5mm !important; page-break-after: always !important; break-after: page !important; page-break-inside: avoid !important; margin: 0 !important; }
+  .slide { position: relative !important; inset: auto !important; opacity: 1 !important; pointer-events: auto !important; display: flex !important; flex-direction: column !important; width: 100vw !important; height: 100vh !important; page-break-after: always !important; break-after: page !important; page-break-inside: avoid !important; margin: 0 !important; overflow: hidden !important; }
   .nav-btn, #progress-bar, #key-hint { display: none !important; }
   [data-step] { opacity: 1 !important; transform: none !important; }
 }
