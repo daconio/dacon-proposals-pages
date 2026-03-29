@@ -1,0 +1,955 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>단국대학교 x DAKER - 바이브코딩 AIX 해커톤 제안서</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --primary: #3B5EDB;
+  --primary-dim: #3454c5;
+  --on-primary: #f8f7ff;
+  --on-background: #2a3439;
+  --surface: #f7f9fb;
+  --surface-bright: #f7f9fb;
+  --surface-low: #f0f4f7;
+  --surface-lowest: #ffffff;
+  --on-surface: #2a3439;
+  --on-surface-variant: #566166;
+  --outline-variant: #a9b4b9;
+  --secondary-container: #dce4fb;
+  --on-secondary-container: #3d4a66;
+  --accent-warm: #c2622d;
+  --accent-warm-bg: rgba(194,98,45,0.06);
+  --accent-dark: #0f172a;
+  --green: #10b981;
+  --green-bg: rgba(16,185,129,0.06);
+  --font: 'Plus Jakarta Sans', -apple-system, sans-serif;
+  --shadow-ambient: 0 8px 24px rgba(42,52,57,0.05);
+  --ghost: 1px solid rgba(169,180,185,0.18);
+  --r-sm: 0.25rem; --r-md: 0.375rem; --r-lg: 0.75rem; --r-xl: 1rem; --r-full: 9999px;
+  --slide-w: 1280px; --slide-h: 720px;
+}
+
+html, body {
+  width: 100%; height: 100%;
+  background: #d6d9de;
+  font-family: var(--font);
+  overflow: hidden; color: var(--on-surface);
+}
+
+#viewport { position: fixed; inset: 0; display: flex; align-items: center; justify-content: center; }
+#stage {
+  position: relative; width: var(--slide-w); height: var(--slide-h);
+  overflow: hidden; transform-origin: center center;
+  border-radius: var(--r-lg); box-shadow: 0 12px 48px rgba(42,52,57,0.12);
+}
+
+.slide {
+  position: absolute; inset: 0; background: var(--surface);
+  display: flex; flex-direction: column;
+  opacity: 0; pointer-events: none; transition: opacity 0s;
+}
+.slide.active { opacity: 1; pointer-events: auto; }
+
+.si { flex: 1; display: flex; flex-direction: column; padding: 64px 72px 52px; position: relative; }
+
+/* Header */
+.sh { position: absolute; top: 0; left: 0; right: 0; padding: 18px 32px; display: flex; justify-content: space-between; align-items: center; background: var(--surface-low); }
+.sh-l { font-size: 0.6875rem; font-weight: 700; color: var(--on-surface-variant); letter-spacing: 0.05em; text-transform: uppercase; }
+
+/* Footer */
+.sf { position: absolute; bottom: 0; left: 0; right: 0; padding: 12px 32px; display: flex; justify-content: space-between; align-items: center; background: var(--surface-low); }
+.sf-logo { font-size: 0.875rem; font-weight: 800; color: var(--primary); letter-spacing: 0.04em; }
+.sf-pg { font-size: 0.6875rem; color: var(--on-surface-variant); font-weight: 600; }
+.sf-cr { font-size: 0.5625rem; color: var(--outline-variant); letter-spacing: 0.03em; font-weight: 600; }
+
+/* Tag */
+.tag { display: inline-flex; align-items: center; gap: 8px; font-size: 0.6875rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--primary); margin-bottom: 14px; }
+.tag::before { content: ''; width: 24px; height: 2.5px; background: var(--primary); border-radius: 2px; }
+.tag-w { color: var(--accent-warm); }
+.tag-w::before { background: var(--accent-warm); }
+.tag-g { color: var(--green); }
+.tag-g::before { background: var(--green); }
+
+/* Titles */
+h2.st { font-size: 2rem; font-weight: 800; line-height: 1.2; color: var(--on-surface); letter-spacing: -0.02em; }
+.hl { color: var(--primary); }
+.hl-w { color: var(--accent-warm); }
+.hl-g { color: var(--green); }
+.sub { margin-top: 10px; font-size: 0.9375rem; color: var(--on-surface-variant); line-height: 1.7; }
+
+/* Card */
+.c { background: var(--surface-lowest); border-radius: var(--r-lg); padding: 20px; }
+.c-blue { background: var(--secondary-container); }
+.c-warm { background: var(--accent-warm-bg); }
+.c-surf { background: var(--surface-low); }
+.c-green { background: var(--green-bg); }
+.c-t { font-size: 0.9375rem; font-weight: 700; color: var(--on-surface); margin-bottom: 6px; }
+.c-d { font-size: 0.8125rem; color: var(--on-surface-variant); line-height: 1.65; }
+
+/* Grid */
+.g2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.g3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+.g4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 12px; }
+.g5 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr 1fr; gap: 10px; }
+
+/* Icon */
+.ic { width: 36px; height: 36px; border-radius: var(--r-md); display: flex; align-items: center; justify-content: center; font-size: 0.8125rem; font-weight: 800; margin-bottom: 12px; color: #fff; background: var(--primary); }
+.ic-w { background: var(--accent-warm); }
+.ic-d { background: var(--accent-dark); }
+.ic-g { background: var(--green); }
+
+/* Badge */
+.bd { display: inline-block; padding: 3px 10px; border-radius: var(--r-full); font-size: 0.6875rem; font-weight: 700; background: var(--secondary-container); color: var(--on-secondary-container); }
+.bd-w { background: var(--accent-warm-bg); color: var(--accent-warm); }
+.bd-g { background: var(--green-bg); color: var(--green); }
+
+/* Table */
+.tb { width: 100%; border-collapse: collapse; font-size: 0.8125rem; }
+.tb th { text-align: left; padding: 10px 14px; background: var(--surface-low); color: var(--on-surface); font-weight: 700; font-size: 0.75rem; }
+.tb td { padding: 10px 14px; color: var(--on-surface-variant); }
+.tb tr:nth-child(even) td { background: var(--surface-low); }
+.tb .row-hl td { background: var(--secondary-container); color: var(--on-secondary-container); font-weight: 600; }
+
+/* Metric */
+.mx { text-align: center; padding: 16px 10px; background: var(--surface-low); border-radius: var(--r-lg); }
+.mx .v { font-size: 1.75rem; font-weight: 800; line-height: 1; color: var(--primary); }
+.mx .l { font-size: 0.6875rem; color: var(--on-surface-variant); margin-top: 6px; font-weight: 500; }
+
+/* Section Divider */
+.slide-sec .si { justify-content: center; align-items: center; text-align: center; padding-top: 60px; }
+.slide-sec .sn { font-size: 4.5rem; font-weight: 800; color: rgba(59,94,219,0.06); line-height: 1; margin-bottom: 8px; }
+.slide-sec h2 { font-size: 2.625rem; font-weight: 800; color: var(--on-surface); letter-spacing: -0.02em; }
+.slide-sec .sd { font-size: 1.0625rem; color: var(--on-surface-variant); margin-top: 10px; }
+
+/* Ending */
+.slide-end .si { justify-content: center; align-items: center; text-align: center; }
+.slide-end h1 { font-size: 3rem; font-weight: 800; color: var(--on-surface); line-height: 1.15; letter-spacing: -0.02em; }
+.slide-end .end-sub { font-size: 1.125rem; color: var(--on-surface-variant); margin-top: 14px; }
+.slide-end .end-logo { font-size: 2.625rem; font-weight: 800; color: var(--primary); letter-spacing: 0.06em; margin-bottom: 36px; }
+
+/* Two-col */
+.tc { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; flex: 1; }
+.cl { font-size: 0.8125rem; font-weight: 700; color: var(--primary); margin-bottom: 10px; }
+.cl-w { color: var(--accent-warm); }
+
+/* Flow */
+.fr { display: flex; align-items: center; gap: 8px; }
+.fa { font-size: 18px; color: var(--outline-variant); flex-shrink: 0; }
+.fb { flex: 1; padding: 14px 16px; background: var(--surface-low); border-radius: var(--r-lg); text-align: center; }
+.fb-p { background: var(--secondary-container); }
+.fb .fl { font-size: 0.75rem; color: var(--on-surface-variant); font-weight: 600; }
+.fb .fd { font-size: 0.6875rem; color: var(--on-surface-variant); margin-top: 4px; line-height: 1.4; opacity: 0.7; }
+
+/* Timeline */
+.tl { display: flex; align-items: stretch; gap: 0; margin-top: 12px; }
+.tl-item { flex: 1; position: relative; padding: 14px 12px 12px; text-align: center; }
+.tl-item::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: var(--surface-low); border-radius: 2px; }
+.tl-item.active::before { background: var(--primary); }
+.tl-dt { font-size: 0.625rem; font-weight: 700; color: var(--primary); margin-bottom: 4px; letter-spacing: 0.02em; }
+.tl-tt { font-size: 0.75rem; font-weight: 700; color: var(--on-surface); margin-bottom: 2px; }
+.tl-dd { font-size: 0.625rem; color: var(--on-surface-variant); line-height: 1.4; }
+
+/* Check list */
+.ck { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+.ck li { display: flex; align-items: flex-start; gap: 10px; font-size: 0.8125rem; color: var(--on-surface-variant); line-height: 1.6; }
+.ck li .i { flex-shrink: 0; font-size: 0.8125rem; margin-top: 2px; font-weight: 700; color: var(--primary); }
+
+/* Step list */
+.sl { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+.sl li { display: flex; align-items: flex-start; gap: 12px; font-size: 0.8125rem; color: var(--on-surface-variant); line-height: 1.6; }
+.sl li .sn2 { flex-shrink: 0; width: 24px; height: 24px; border-radius: 50%; background: var(--primary); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 0.6875rem; font-weight: 800; margin-top: 1px; }
+
+/* Quote */
+.qt { border-left: 3px solid var(--primary); padding: 16px 20px; background: var(--surface-low); border-radius: 0 var(--r-lg) var(--r-lg) 0; font-size: 0.875rem; color: var(--on-surface); line-height: 1.7; font-style: italic; }
+
+/* Fragment */
+[data-step] { opacity: 0; transform: translateY(14px); transition: opacity 0.45s ease, transform 0.45s ease; }
+[data-step].visible { opacity: 1; transform: none; }
+[data-step].pre-visible { opacity: 1; transform: none; transition: none; }
+
+/* Nav */
+.nav-btn {
+  position: fixed; top: 50%; transform: translateY(-50%);
+  width: 40px; height: 40px; border-radius: 50%;
+  background: rgba(247,249,251,0.85); border: none;
+  color: var(--on-surface-variant); cursor: pointer; z-index: 100;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px; transition: all 0.2s; user-select: none;
+  box-shadow: var(--shadow-ambient);
+  backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+}
+.nav-btn:hover { color: var(--primary); }
+#nav-prev { left: 12px; }
+#nav-next { right: 12px; }
+
+#progress-bar { position: fixed; top: 0; left: 0; height: 3px; background: linear-gradient(90deg, var(--primary), var(--accent-warm)); transition: width 0.4s ease; z-index: 100; }
+#key-hint { position: fixed; bottom: 16px; left: 50%; transform: translateX(-50%); color: var(--outline-variant); font-size: 0.6875rem; z-index: 100; opacity: 0.4; }
+
+@page { size: landscape; margin: 0; }
+@media print {
+  html, body { background: #fff !important; overflow: visible !important; height: auto !important; width: auto !important; margin: 0 !important; padding: 0 !important; }
+  #viewport { position: static !important; display: block !important; height: auto !important; }
+  #stage { position: static !important; width: auto !important; height: auto !important; overflow: visible !important; transform: none !important; box-shadow: none !important; border-radius: 0 !important; }
+  .slide { position: relative !important; inset: auto !important; opacity: 1 !important; pointer-events: auto !important; display: flex !important; flex-direction: column !important; width: 100vw !important; height: 100vh !important; page-break-after: always !important; break-after: page !important; page-break-inside: avoid !important; margin: 0 !important; overflow: hidden !important; }
+  .nav-btn, #progress-bar, #key-hint { display: none !important; }
+  [data-step] { opacity: 1 !important; transform: none !important; }
+}
+</style>
+</head>
+<body>
+<div id="viewport">
+<div id="stage">
+
+<!-- ===== SLIDE 1: COVER ===== -->
+<section class="slide active" id="s1">
+  <div class="si" style="justify-content: center; align-items: flex-start; padding-left: 88px; background: linear-gradient(135deg, var(--surface) 0%, var(--secondary-container) 100%);">
+    <div style="position: absolute; top: 22px; right: 32px;">
+      <span style="display: inline-block; background: linear-gradient(135deg, var(--primary), var(--accent-warm)); color: var(--on-primary); padding: 6px 18px; border-radius: var(--r-full); font-size: 0.75rem; font-weight: 600;">2026.03</span>
+    </div>
+    <div class="pre-visible" data-step="1">
+      <span style="font-size: 1.5rem; font-weight: 800; color: var(--primary); letter-spacing: 0.06em;">단국대학교</span>
+    </div>
+    <h1 class="pre-visible" data-step="2" style="font-size: 2.5rem; font-weight: 900; line-height: 1.15; letter-spacing: -0.02em; color: var(--on-surface); margin-top: 14px;">
+      바이브코딩 AIX 해커톤<br/>
+      <span style="color: var(--primary);">제안서</span>
+    </h1>
+    <p class="pre-visible" data-step="3" style="font-size: 1.0625rem; color: var(--on-surface-variant); margin-top: 18px; line-height: 1.7;">
+      SW중심대학 전교생 AI 경험 &mdash; 팀 기반 바이브코딩으로<br/>
+      AI 도구를 활용하여 실제 소프트웨어를 만듭니다.
+    </p>
+    <div class="pre-visible" data-step="4" style="display: flex; gap: 10px; margin-top: 28px;">
+      <span style="padding: 8px 18px; border-radius: var(--r-full); background: var(--secondary-container); font-size: 0.8125rem; font-weight: 700; color: var(--on-secondary-container);">전교생 참여</span>
+      <span style="padding: 8px 18px; border-radius: var(--r-full); background: var(--accent-warm-bg); font-size: 0.8125rem; font-weight: 700; color: var(--accent-warm);">8주 운영</span>
+      <span style="padding: 8px 18px; border-radius: var(--r-full); background: var(--green-bg); font-size: 0.8125rem; font-weight: 700; color: var(--green);">SW중심대학 성과 연계</span>
+    </div>
+    <div style="position: absolute; bottom: 20px; right: 32px; font-size: 0.5625rem; color: var(--outline-variant);">단국대학교 &middot; DAKER &middot; AIX HACKATHON &middot; 2026</div>
+  </div>
+</section>
+
+<!-- ===== SLIDE 2: 바이브코딩이란 ===== -->
+<section class="slide" id="s2">
+  <div class="sh"><span class="sh-l">I. BACKGROUND</span></div>
+  <div class="si" style="padding-top: 60px;">
+    <div class="tag">WHY VIBECODING</div>
+    <h2 class="st" data-step="1">AI가 코드를 쓰는 시대,<br/><span class="hl">경쟁의 기준</span>이 바뀌고 있습니다</h2>
+    <p class="sub" data-step="2">바이브코딩(Vibecoding)은 AI와 대화하며 소프트웨어를 만드는 새로운 개발 방식입니다.<br/>SW중심대학으로서 전교생의 AI 활용 역량을 실증할 최적의 기회입니다.</p>
+
+    <div class="g3" style="margin-top: 24px;">
+      <div class="c" data-step="3">
+        <div class="ic">01</div>
+        <div class="c-t">문제 해결 중심</div>
+        <div class="c-d">코드 문법이 아닌 문제를 정의하고 해결하는 능력을 평가합니다</div>
+      </div>
+      <div class="c" data-step="4">
+        <div class="ic ic-w">02</div>
+        <div class="c-t">AI 활용 역량</div>
+        <div class="c-d">AI를 도구로 활용하여 빠르게 프로토타입을 만들고 검증합니다</div>
+      </div>
+      <div class="c" data-step="5">
+        <div class="ic ic-g">03</div>
+        <div class="c-t">진입 장벽 해소</div>
+        <div class="c-d">비전공자도 참여 가능 &rarr; 더 다양한 인재풀을 확보할 수 있습니다</div>
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span class="sf-logo">DAKER</span><span class="sf-pg">2</span><span class="sf-cr">단국대학교 AIX Hackathon</span></div>
+</section>
+
+<!-- ===== SLIDE 3: 기존 해커톤 vs 바이브코딩 해커톤 ===== -->
+<section class="slide" id="s3">
+  <div class="sh"><span class="sh-l">I. BACKGROUND</span></div>
+  <div class="si" style="padding-top: 60px;">
+    <div class="tag">COMPARISON</div>
+    <h2 class="st" data-step="1">기존 해커톤 vs <span class="hl">바이브코딩 해커톤</span></h2>
+
+    <div class="tc" style="margin-top: 20px;">
+      <div data-step="2">
+        <div class="cl" style="color: var(--on-surface-variant);">기존 해커톤</div>
+        <div class="c c-surf" style="height: calc(100% - 28px);">
+          <ul class="ck">
+            <li><span class="i" style="color: var(--outline-variant);">&mdash;</span>코딩 중심 &mdash; 프로그래밍 언어 숙련도가 핵심</li>
+            <li><span class="i" style="color: var(--outline-variant);">&mdash;</span>개발자만 참여 가능</li>
+            <li><span class="i" style="color: var(--outline-variant);">&mdash;</span>진입 장벽이 높아 참가자 모집 어려움</li>
+            <li><span class="i" style="color: var(--outline-variant);">&mdash;</span>평균 완주율 약 40%</li>
+            <li><span class="i" style="color: var(--outline-variant);">&mdash;</span>결과물의 완성도 편차 큼</li>
+          </ul>
+        </div>
+      </div>
+      <div data-step="3">
+        <div class="cl">바이브코딩 해커톤</div>
+        <div class="c c-blue" style="height: calc(100% - 28px);">
+          <ul class="ck">
+            <li><span class="i">&#10003;</span>문제 해결 중심 &mdash; 아이디어와 전략이 핵심</li>
+            <li><span class="i">&#10003;</span>전 직군 참여 가능 (기획자, 디자이너, 마케터 등)</li>
+            <li><span class="i">&#10003;</span>AI 도구 활용으로 진입 장벽 해소</li>
+            <li><span class="i">&#10003;</span>평균 완주율 약 85%</li>
+            <li><span class="i">&#10003;</span>AI가 구현을 보조하여 결과물 품질 균일</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="c c-warm" data-step="4" style="margin-top: 14px; text-align: center; padding: 14px 20px;">
+      <span style="font-size: 0.875rem; font-weight: 700; color: var(--accent-warm);">핵심 전환:</span>
+      <span style="font-size: 0.8125rem; color: var(--on-surface-variant); margin-left: 8px;">"코드를 얼마나 잘 짜는가" &rarr; "문제를 얼마나 잘 정의하고 해결하는가" &mdash; SW중심대학 교육 성과의 새로운 지표</span>
+    </div>
+  </div>
+  <div class="sf"><span class="sf-logo">DAKER</span><span class="sf-pg">3</span><span class="sf-cr">단국대학교 AIX Hackathon</span></div>
+</section>
+
+<!-- ===== SLIDE 4: SECTION — 핵심 제안 ===== -->
+<section class="slide slide-sec" id="s4">
+  <div class="si">
+    <div class="sn" data-step="1">01</div>
+    <h2 data-step="1">핵심 제안</h2>
+    <p class="sd" data-step="2">주최측이 직접 바이브코딩 AIX 대회를 개최하는 방법</p>
+  </div>
+  <div class="sf"><span class="sf-logo">DAKER</span><span class="sf-pg">4</span><span class="sf-cr">단국대학교 AIX Hackathon</span></div>
+</section>
+
+<!-- ===== SLIDE 5: 주최측이 직접 개최하는 대회 ===== -->
+<section class="slide" id="s5">
+  <div class="sh"><span class="sh-l">II. CORE PROPOSAL</span></div>
+  <div class="si" style="padding-top: 60px;">
+    <div class="tag">AIX COMPETITION</div>
+    <h2 class="st" data-step="1">주최측이 직접 개최하는<br/><span class="hl">바이브코딩 AIX 대회</span></h2>
+
+    <div class="tc" style="margin-top: 20px;">
+      <div data-step="2">
+        <div class="cl-w cl">주최측이 할 수 있는 것</div>
+        <div class="c c-warm">
+          <ul class="ck">
+            <li><span class="i" style="color: var(--accent-warm);">&#10003;</span>대회 주제 및 과제 직접 설계</li>
+            <li><span class="i" style="color: var(--accent-warm);">&#10003;</span>참가 대상 및 일정 자유롭게 설정</li>
+            <li><span class="i" style="color: var(--accent-warm);">&#10003;</span>평가 기준 및 심사위원 직접 구성</li>
+            <li><span class="i" style="color: var(--accent-warm);">&#10003;</span>기업/기관 브랜드 적용</li>
+            <li><span class="i" style="color: var(--accent-warm);">&#10003;</span>참가자 데이터 및 결과 분석 리포트</li>
+          </ul>
+        </div>
+      </div>
+      <div data-step="3">
+        <div class="cl">플랫폼이 제공하는 것</div>
+        <div class="c c-blue">
+          <ul class="ck">
+            <li><span class="i">&#10003;</span>대회 등록 &middot; 참가 접수 시스템</li>
+            <li><span class="i">&#10003;</span>팀 구성 및 매칭 기능</li>
+            <li><span class="i">&#10003;</span>과제 제출 &middot; 채점 자동화</li>
+            <li><span class="i">&#10003;</span>실시간 리더보드</li>
+            <li><span class="i">&#10003;</span>커뮤니티 &middot; 토론 게시판</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span class="sf-logo">DAKER</span><span class="sf-pg">5</span><span class="sf-cr">단국대학교 AIX Hackathon</span></div>
+</section>
+
+<!-- ===== SLIDE 6: 대회 운영 4단계 프로세스 ===== -->
+<section class="slide" id="s6">
+  <div class="sh"><span class="sh-l">II. CORE PROPOSAL</span></div>
+  <div class="si" style="padding-top: 60px;">
+    <div class="tag">PROCESS</div>
+    <h2 class="st" data-step="1">대회 운영 <span class="hl">8주 타임라인</span></h2>
+
+    <div style="display: flex; align-items: center; gap: 4px; margin-top: 24px;" data-step="2">
+      <div class="fb fb-p" style="flex: 1;">
+        <div class="fl" style="font-weight: 800; color: var(--primary);">W1</div>
+        <div class="fl">기획</div>
+        <div class="fd">주제 &middot; 트랙 확정</div>
+      </div>
+      <span class="fa">&rarr;</span>
+      <div class="fb" style="flex: 1;">
+        <div class="fl" style="font-weight: 800; color: var(--primary);">W2</div>
+        <div class="fl">홍보/모집</div>
+        <div class="fd">접수 &middot; 참가자 모집</div>
+      </div>
+      <span class="fa">&rarr;</span>
+      <div class="fb" style="flex: 1.5;">
+        <div class="fl" style="font-weight: 800; color: var(--primary);">W3~W4</div>
+        <div class="fl">팀빌딩+사전교육</div>
+        <div class="fd">팀 매칭 &middot; AI 도구 교육</div>
+      </div>
+      <span class="fa">&rarr;</span>
+      <div class="fb fb-p" style="flex: 1.5;">
+        <div class="fl" style="font-weight: 800; color: var(--primary);">W5~W6</div>
+        <div class="fl">바이브코딩</div>
+        <div class="fd">과제 수행 &middot; 멘토링</div>
+      </div>
+      <span class="fa">&rarr;</span>
+      <div class="fb" style="flex: 1;">
+        <div class="fl" style="font-weight: 800; color: var(--primary);">W7</div>
+        <div class="fl">제출+심사</div>
+        <div class="fd">결과물 제출 &middot; 평가</div>
+      </div>
+      <span class="fa">&rarr;</span>
+      <div class="fb fb-p" style="flex: 1;">
+        <div class="fl" style="font-weight: 800; color: var(--primary);">W8</div>
+        <div class="fl">데모데이+시상</div>
+        <div class="fd">발표 &middot; 시상식</div>
+      </div>
+    </div>
+
+    <div class="g4" style="margin-top: 28px;" data-step="3">
+      <div class="mx">
+        <div class="v">8주</div>
+        <div class="l">전체 일정</div>
+      </div>
+      <div class="mx">
+        <div class="v" style="color: var(--accent-warm);">3~5인</div>
+        <div class="l">팀 구성</div>
+      </div>
+      <div class="mx">
+        <div class="v" style="color: var(--green);">혼합</div>
+        <div class="l">학과 혼합 권장</div>
+      </div>
+      <div class="mx">
+        <div class="v">전교생</div>
+        <div class="l">참가 대상</div>
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span class="sf-logo">DAKER</span><span class="sf-pg">6</span><span class="sf-cr">단국대학교 AIX Hackathon</span></div>
+</section>
+
+<!-- ===== SLIDE 7: SECTION — 팀 중심 참여 ===== -->
+<section class="slide slide-sec" id="s7">
+  <div class="si">
+    <div class="sn" data-step="1">02</div>
+    <h2 data-step="1">팀 중심 참여</h2>
+    <p class="sd" data-step="2">팀이 중심이 되어 대회와 학습에 참가하는 구조</p>
+  </div>
+  <div class="sf"><span class="sf-logo">DAKER</span><span class="sf-pg">7</span><span class="sf-cr">단국대학교 AIX Hackathon</span></div>
+</section>
+
+<!-- ===== SLIDE 8: 팀이 중심이 되어 참가 ===== -->
+<section class="slide" id="s8">
+  <div class="sh"><span class="sh-l">III. TEAM-BASED</span></div>
+  <div class="si" style="padding-top: 60px;">
+    <div class="tag">TEAM-BASED</div>
+    <h2 class="st" data-step="1">팀이 중심이 되어<br/><span class="hl">대회와 학습에 참가</span>합니다</h2>
+
+    <div class="tc" style="margin-top: 20px;">
+      <div data-step="2">
+        <div class="cl">팀 기반 대회 참여</div>
+        <div class="c" style="margin-bottom: 12px;">
+          <div class="c-t">해커톤</div>
+          <div class="c-d">팀 단위 바이브코딩 대회 &mdash; 제한 시간 내 MVP 개발</div>
+        </div>
+        <div class="c" style="margin-bottom: 12px;">
+          <div class="c-t">AI 챌린지</div>
+          <div class="c-d">팀 단위 AI 활용 문제 해결 대회</div>
+        </div>
+        <div class="c">
+          <div class="c-t">프로젝트 공모전</div>
+          <div class="c-d">장기 프로젝트 기반 팀 경쟁</div>
+        </div>
+      </div>
+      <div data-step="3">
+        <div class="cl-w cl">팀 참여 구조</div>
+        <div class="c c-surf" style="margin-bottom: 16px;">
+          <ul class="sl">
+            <li>
+              <span class="sn2">1</span>
+              <div><strong>팀 구성</strong> &mdash; 3~5명, 학과 혼합 권장<br/><span style="font-size: 0.75rem; color: var(--outline-variant);">단국대 전교생 대상 &mdash; 기획자, 개발자, 디자이너 등</span></div>
+            </li>
+            <li>
+              <span class="sn2">2</span>
+              <div><strong>역할 배정</strong> &mdash; 팀 내 역할 분담 및 과제 할당<br/><span style="font-size: 0.75rem; color: var(--outline-variant);">프롬프터, 빌더, 리뷰어, 발표자</span></div>
+            </li>
+            <li>
+              <span class="sn2">3</span>
+              <div><strong>협업 수행</strong> &mdash; 실시간 협업 도구로 과제 진행<br/><span style="font-size: 0.75rem; color: var(--outline-variant);">작전실, 공동 편집, 리더보드 확인</span></div>
+            </li>
+          </ul>
+        </div>
+        <div class="cl-w cl" style="color: var(--green);">팀 기반 학습</div>
+        <div class="c c-green">
+          <ul class="ck">
+            <li><span class="i" style="color: var(--green);">&#10003;</span>원정대 &mdash; 팀 단위 미션 수행 학습</li>
+            <li><span class="i" style="color: var(--green);">&#10003;</span>스터디 &mdash; 주제별 팀 학습 그룹</li>
+            <li><span class="i" style="color: var(--green);">&#10003;</span>미션 기반 학습 &mdash; 단계별 미션 클리어</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span class="sf-logo">DAKER</span><span class="sf-pg">8</span><span class="sf-cr">단국대학교 AIX Hackathon</span></div>
+</section>
+
+<!-- ===== SLIDE 9: 팀 중심 참여의 차별점 ===== -->
+<section class="slide" id="s9">
+  <div class="sh"><span class="sh-l">III. TEAM-BASED</span></div>
+  <div class="si" style="padding-top: 60px;">
+    <div class="tag tag-w">BENEFITS</div>
+    <h2 class="st" data-step="1">팀 중심 참여의 <span class="hl-w">차별점</span></h2>
+
+    <div class="tc" style="margin-top: 18px;">
+      <div data-step="2">
+        <div class="cl">주최측 혜택</div>
+        <div class="c">
+          <ul class="ck">
+            <li><span class="i">&#10003;</span><strong>참가율 향상 3배</strong> &mdash; 비전공자까지 참여 범위 확대</li>
+            <li><span class="i">&#10003;</span><strong>완주율 상승 70%</strong> &mdash; 팀 구조가 포기율을 대폭 감소</li>
+            <li><span class="i">&#10003;</span><strong>결과물 품질</strong> &mdash; 다양한 역할이 결과물의 깊이를 높임</li>
+            <li><span class="i">&#10003;</span><strong>커뮤니티 형성</strong> &mdash; 대회 이후에도 이어지는 관계망</li>
+          </ul>
+        </div>
+      </div>
+      <div data-step="3">
+        <div class="cl-w cl">참가자 혜택</div>
+        <div class="c c-warm">
+          <ul class="ck">
+            <li><span class="i" style="color: var(--accent-warm);">&#10003;</span><strong>실무형 경험</strong> &mdash; 실제 프로젝트와 유사한 팀 경험</li>
+            <li><span class="i" style="color: var(--accent-warm);">&#10003;</span><strong>역할 기반 성장</strong> &mdash; 자신의 강점을 살린 역할 수행</li>
+            <li><span class="i" style="color: var(--accent-warm);">&#10003;</span><strong>포트폴리오</strong> &mdash; 팀 프로젝트 결과물을 경력에 활용</li>
+            <li><span class="i" style="color: var(--accent-warm);">&#10003;</span><strong>네트워킹</strong> &mdash; 다양한 분야의 팀원과 교류</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="g4" style="margin-top: 18px;" data-step="4">
+      <div class="mx">
+        <div class="v">3x</div>
+        <div class="l">참가자 확보율</div>
+      </div>
+      <div class="mx">
+        <div class="v" style="color: var(--accent-warm);">85%</div>
+        <div class="l">평균 완주율</div>
+      </div>
+      <div class="mx">
+        <div class="v" style="color: var(--green);">92%</div>
+        <div class="l">참가자 만족도</div>
+      </div>
+      <div class="mx">
+        <div class="v">4.8</div>
+        <div class="l">재참여 의향</div>
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span class="sf-logo">DAKER</span><span class="sf-pg">9</span><span class="sf-cr">단국대학교 AIX Hackathon</span></div>
+</section>
+
+<!-- ===== SLIDE 10: SECTION — 팀 협업 도구 ===== -->
+<section class="slide slide-sec" id="s10">
+  <div class="si">
+    <div class="sn" data-step="1">03</div>
+    <h2 data-step="1">팀 협업 도구</h2>
+    <p class="sd" data-step="2">팀이 최고의 성과를 낼 수 있도록 필요한 모든 도구를 제공합니다</p>
+  </div>
+  <div class="sf"><span class="sf-logo">DAKER</span><span class="sf-pg">10</span><span class="sf-cr">단국대학교 AIX Hackathon</span></div>
+</section>
+
+<!-- ===== SLIDE 11: 팀 도구 일람 ===== -->
+<section class="slide" id="s11">
+  <div class="sh"><span class="sh-l">IV. TEAM TOOLS</span></div>
+  <div class="si" style="padding-top: 60px;">
+    <div class="tag">TEAM TOOLS</div>
+    <h2 class="st" data-step="1">팀에게 필요한 모든 도구를<br/><span class="hl">하나의 플랫폼</span>에서</h2>
+
+    <div class="g3" style="margin-top: 20px;">
+      <div class="c" data-step="2">
+        <div class="ic">A</div>
+        <div class="c-t">팀 커뮤니케이션</div>
+        <div class="c-d">팀 게시판, 토론, 공지 &mdash; 팀 내 소통 채널을 하나로 통합</div>
+      </div>
+      <div class="c" data-step="3">
+        <div class="ic ic-w">B</div>
+        <div class="c-t">과제 관리</div>
+        <div class="c-d">과제 제출, 진행 추적, 이력 관리 &mdash; 팀 과제를 체계적으로</div>
+      </div>
+      <div class="c" data-step="4">
+        <div class="ic ic-g">C</div>
+        <div class="c-t">성과 대시보드</div>
+        <div class="c-d">리더보드, 기여도, 통계 &mdash; 팀과 개인의 성과를 시각화</div>
+      </div>
+      <div class="c" data-step="5">
+        <div class="ic ic-d">D</div>
+        <div class="c-t">GitHub 연동</div>
+        <div class="c-d">코드 저장소 연결, 커밋 히스토리 추적, PR 기반 협업</div>
+      </div>
+      <div class="c" data-step="6">
+        <div class="ic">E</div>
+        <div class="c-t">업적 시스템</div>
+        <div class="c-d">배지, 포인트, 레벨 &mdash; 참여 동기를 높이는 게이미피케이션</div>
+      </div>
+      <div class="c" data-step="7">
+        <div class="ic ic-w">F</div>
+        <div class="c-t">파일 공유</div>
+        <div class="c-d">팀 내 파일 업로드, 공유, 버전 관리 &mdash; 산출물을 한 곳에서</div>
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span class="sf-logo">DAKER</span><span class="sf-pg">11</span><span class="sf-cr">단국대학교 AIX Hackathon</span></div>
+</section>
+
+<!-- ===== SLIDE 12: 작전실(War Room) ===== -->
+<section class="slide" id="s12">
+  <div class="sh"><span class="sh-l">IV. TEAM TOOLS</span></div>
+  <div class="si" style="padding-top: 60px;">
+    <div class="tag tag-w">WAR ROOM</div>
+    <h2 class="st" data-step="1">작전실(War Room) &mdash;<br/><span class="hl-w">실시간 협업</span> 환경</h2>
+
+    <div class="g2" style="margin-top: 22px;">
+      <div class="c c-warm" data-step="2" style="display: flex; flex-direction: column; gap: 14px;">
+        <div>
+          <div class="ic ic-w">A</div>
+          <div class="c-t">주최자 맞춤형 100% 미러링</div>
+          <div class="c-d">주최측 브랜드와 디자인을 그대로 반영한 대회 페이지 &mdash; 참가자에게 일관된 브랜드 경험을 제공</div>
+        </div>
+        <div>
+          <div class="ic ic-w">B</div>
+          <div class="c-t">Yjs WebSocket 기반 실시간 공동 편집</div>
+          <div class="c-d">여러 팀원이 동시에 같은 문서를 편집 &mdash; 충돌 없이 실시간으로 병합되는 CRDT 기술 기반</div>
+        </div>
+      </div>
+      <div class="c c-blue" data-step="3" style="display: flex; flex-direction: column; gap: 14px;">
+        <div>
+          <div class="ic">C</div>
+          <div class="c-t">멀티 커서 트래킹</div>
+          <div class="c-d">팀원의 편집 위치와 작업 상태를 실시간으로 확인 &mdash; 누가 어디를 작업하는지 한눈에 파악</div>
+        </div>
+        <div>
+          <div class="ic">D</div>
+          <div class="c-t">상태 배지 시스템</div>
+          <div class="c-d">
+            <span class="bd" style="margin-right: 4px;">미작성</span>
+            <span class="bd bd-w" style="margin-right: 4px;">작성 중</span>
+            <span class="bd bd-g">최종제출 완료</span>
+            <br/><span style="margin-top: 6px; display: inline-block;">팀별 진행 상태를 시각적으로 표시</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span class="sf-logo">DAKER</span><span class="sf-pg">12</span><span class="sf-cr">단국대학교 AIX Hackathon</span></div>
+</section>
+
+<!-- ===== SLIDE 13: SECTION — 대회 유형 및 트랙 ===== -->
+<section class="slide slide-sec" id="s13">
+  <div class="si">
+    <div class="sn" data-step="1">04</div>
+    <h2 data-step="1">대회 유형 및 트랙</h2>
+    <p class="sd" data-step="2">목적에 맞는 다양한 트랙을 선택하여 대회를 구성합니다</p>
+  </div>
+  <div class="sf"><span class="sf-logo">DAKER</span><span class="sf-pg">13</span><span class="sf-cr">단국대학교 AIX Hackathon</span></div>
+</section>
+
+<!-- ===== SLIDE 14: 4가지 트랙 구성 ===== -->
+<section class="slide" id="s14">
+  <div class="sh"><span class="sh-l">V. TRACKS</span></div>
+  <div class="si" style="padding-top: 60px;">
+    <div class="tag">TRACKS</div>
+    <h2 class="st" data-step="1"><span class="hl">단국대 맞춤 4트랙</span> 구성</h2>
+    <p class="sub" data-step="1">단국대학교의 특성과 SW중심대학 목표에 맞춰 트랙을 구성합니다.</p>
+
+    <div class="g4" style="margin-top: 22px; flex: 1;">
+      <div class="c" data-step="2" style="display: flex; flex-direction: column;">
+        <div class="ic">A</div>
+        <div class="c-t">캠퍼스 라이프</div>
+        <div class="c-d" style="flex: 1;">학사 도우미, 수강 추천, 동아리 매칭 &mdash; 캠퍼스 생활을 혁신하는 서비스 개발</div>
+        <div style="margin-top: 10px;"><span class="bd">학생 생활</span></div>
+      </div>
+      <div class="c" data-step="3" style="display: flex; flex-direction: column;">
+        <div class="ic ic-w">B</div>
+        <div class="c-t">지역 연계</div>
+        <div class="c-d" style="flex: 1;">천안/용인 지역 서비스 &mdash; 지역사회 문제를 AI 기술로 해결하는 프로젝트</div>
+        <div style="margin-top: 10px;"><span class="bd bd-w">천안/용인</span></div>
+      </div>
+      <div class="c" data-step="4" style="display: flex; flex-direction: column;">
+        <div class="ic ic-g">C</div>
+        <div class="c-t">산업 특화</div>
+        <div class="c-d" style="flex: 1;">자동차/헬스케어/반도체 &mdash; IDC SW아카데미 연계 산업 도메인 AI 솔루션</div>
+        <div style="margin-top: 10px;"><span class="bd bd-g">IDC 연계</span></div>
+      </div>
+      <div class="c" data-step="5" style="display: flex; flex-direction: column;">
+        <div class="ic ic-d">D</div>
+        <div class="c-t">자유 주제</div>
+        <div class="c-d" style="flex: 1;">사회 문제 해결 SW &mdash; 참가팀이 자유롭게 주제를 선정하여 AI로 해결</div>
+        <div style="margin-top: 10px;"><span class="bd">사회 혁신</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span class="sf-logo">DAKER</span><span class="sf-pg">14</span><span class="sf-cr">단국대학교 AIX Hackathon</span></div>
+</section>
+
+<!-- ===== SLIDE 15: 평가 체계 ===== -->
+<section class="slide" id="s15">
+  <div class="sh"><span class="sh-l">V. TRACKS</span></div>
+  <div class="si" style="padding-top: 60px;">
+    <div class="tag tag-w">EVALUATION</div>
+    <h2 class="st" data-step="1">평가 체계</h2>
+
+    <div class="tc" style="margin-top: 18px;">
+      <div data-step="2">
+        <div class="cl">평가 기준 (가중치)</div>
+        <table class="tb">
+          <thead><tr><th>항목</th><th>비중</th><th>핵심 내용</th></tr></thead>
+          <tbody>
+            <tr><td style="font-weight: 700;">혁신성</td><td><strong style="color: var(--primary);">30%</strong></td><td>아이디어의 독창성과 차별성</td></tr>
+            <tr><td style="font-weight: 700;">완성도</td><td><strong style="color: var(--primary);">25%</strong></td><td>결과물의 동작 수준과 품질</td></tr>
+            <tr><td style="font-weight: 700;">사용자경험</td><td><strong style="color: var(--accent-warm);">20%</strong></td><td>UI/UX 설계와 사용성</td></tr>
+            <tr><td style="font-weight: 700;">발표</td><td><strong style="color: var(--accent-warm);">15%</strong></td><td>프레젠테이션과 전달력</td></tr>
+            <tr><td style="font-weight: 700;">기술활용</td><td><strong style="color: var(--green);">10%</strong></td><td>AI 도구 활용의 적절성</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div data-step="3">
+        <div class="cl-w cl">심사 프로세스</div>
+        <div class="c c-surf" style="margin-bottom: 12px;">
+          <ul class="sl">
+            <li>
+              <span class="sn2">1</span>
+              <div><strong>예선 (온라인)</strong><br/><span style="font-size: 0.75rem; color: var(--outline-variant);">제출물 기반 1차 평가 &mdash; 상위 팀 선발</span></div>
+            </li>
+            <li>
+              <span class="sn2">2</span>
+              <div><strong>중간점검</strong><br/><span style="font-size: 0.75rem; color: var(--outline-variant);">멘토 피드백 &middot; 방향 조정 &middot; 보완</span></div>
+            </li>
+            <li>
+              <span class="sn2" style="background: var(--accent-warm);">3</span>
+              <div><strong>본선 (오프라인)</strong><br/><span style="font-size: 0.75rem; color: var(--outline-variant);">발표 + 라이브 데모 &mdash; 심사위원 대면 평가</span></div>
+            </li>
+            <li>
+              <span class="sn2" style="background: var(--green);">4</span>
+              <div><strong>시상</strong><br/><span style="font-size: 0.75rem; color: var(--outline-variant);">수상팀 발표, 시상식, 네트워킹</span></div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span class="sf-logo">DAKER</span><span class="sf-pg">15</span><span class="sf-cr">단국대학교 AIX Hackathon</span></div>
+</section>
+
+<!-- ===== SLIDE 16: 기대 효과 ===== -->
+<section class="slide" id="s16">
+  <div class="sh"><span class="sh-l">VI. EXPECTED OUTCOMES</span></div>
+  <div class="si" style="padding-top: 60px;">
+    <div class="tag tag-g">OUTCOMES</div>
+    <h2 class="st" data-step="1">기대 효과</h2>
+
+    <div class="g3" style="margin-top: 18px;">
+      <div class="c c-blue" data-step="2">
+        <div class="ic">01</div>
+        <div class="c-t">Innovation</div>
+        <div class="c-d">AI 시대에 걸맞은 혁신적인 대회 개최로 조직의 기술 리더십을 강화하고, 실무에 적용 가능한 프로토타입을 확보합니다</div>
+      </div>
+      <div class="c c-warm" data-step="3">
+        <div class="ic ic-w">02</div>
+        <div class="c-t">Brand</div>
+        <div class="c-d">바이브코딩 대회를 통해 기업/기관의 혁신 이미지를 제고하고, AI 인재 채용 브랜드로서의 입지를 확보합니다</div>
+      </div>
+      <div class="c c-green" data-step="4">
+        <div class="ic ic-g">03</div>
+        <div class="c-t">People</div>
+        <div class="c-d">다양한 배경의 인재를 발굴하고, 팀 기반 경험을 통해 조직 내부의 협업 문화를 활성화합니다</div>
+      </div>
+    </div>
+
+    <div data-step="5" style="margin-top: 16px;">
+      <table class="tb">
+        <thead><tr><th>구분</th><th>KPI</th><th>목표</th><th>측정 방법</th></tr></thead>
+        <tbody>
+          <tr><td style="font-weight: 700;">참여</td><td>참가 팀 수</td><td>50+ 팀</td><td>접수 데이터</td></tr>
+          <tr><td style="font-weight: 700;">완주</td><td>완주율</td><td>85%+</td><td>제출 현황</td></tr>
+          <tr><td style="font-weight: 700;">만족</td><td>참가자 만족도</td><td>4.5/5.0</td><td>설문조사</td></tr>
+          <tr><td style="font-weight: 700;">확산</td><td>미디어 노출</td><td>10건+</td><td>보도 자료</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="sf"><span class="sf-logo">DAKER</span><span class="sf-pg">16</span><span class="sf-cr">단국대학교 AIX Hackathon</span></div>
+</section>
+
+<!-- ===== SLIDE 17: 성공 사례 ===== -->
+<section class="slide" id="s17">
+  <div class="sh"><span class="sh-l">VII. REFERENCES</span></div>
+  <div class="si" style="padding-top: 60px;">
+    <div class="tag tag-g">REFERENCES</div>
+    <h2 class="st" data-step="1">성공 사례</h2>
+
+    <div class="g4" style="margin-top: 22px; flex: 1;">
+      <div class="c c-blue" data-step="2" style="display: flex; flex-direction: column;">
+        <div class="ic">01</div>
+        <div class="c-t">SeSAC 바이브코딩 해커톤</div>
+        <div class="c-d" style="flex: 1;">서울경제진흥원 주관 바이브코딩 해커톤 &mdash; 비전공자 포함 다양한 참가자가 AI 도구로 서비스를 개발</div>
+        <div style="margin-top: 10px;"><span class="bd">923명 참가</span></div>
+      </div>
+      <div class="c c-warm" data-step="3" style="display: flex; flex-direction: column;">
+        <div class="ic ic-w">02</div>
+        <div class="c-t">KT K intelligence</div>
+        <div class="c-d" style="flex: 1;">KT 사내 AI 경진대회 &mdash; 전 임직원 대상 AI 활용 업무 혁신 아이디어 대회</div>
+        <div style="margin-top: 10px;"><span class="bd bd-w">1,658명 참가</span></div>
+      </div>
+      <div class="c" data-step="4" style="display: flex; flex-direction: column;">
+        <div class="ic ic-d">03</div>
+        <div class="c-t">금융보안원 AI 경진대회</div>
+        <div class="c-d" style="flex: 1;">금융보안원 주관 AI 보안 경진대회 &mdash; 금융 분야 AI 활용 역량 강화</div>
+        <div style="margin-top: 10px;"><span class="bd">금융 AI</span></div>
+      </div>
+      <div class="c c-green" data-step="5" style="display: flex; flex-direction: column;">
+        <div class="ic ic-g">04</div>
+        <div class="c-t">LG AI 해커톤</div>
+        <div class="c-d" style="flex: 1;">LG 그룹 AI 해커톤 &mdash; 전사 임직원 대상 AI 기반 업무 혁신 프로젝트</div>
+        <div style="margin-top: 10px;"><span class="bd bd-g">전사 혁신</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span class="sf-logo">DAKER</span><span class="sf-pg">17</span><span class="sf-cr">단국대학교 AIX Hackathon</span></div>
+</section>
+
+<!-- ===== SLIDE 18: 다음 단계 ===== -->
+<section class="slide" id="s18">
+  <div class="sh"><span class="sh-l">IX. NEXT STEPS</span></div>
+  <div class="si" style="padding-top: 60px;">
+    <div class="tag">NEXT STEPS</div>
+    <h2 class="st" data-step="1">다음 단계</h2>
+    <p class="sub" data-step="1">단국대학교 맞춤 해커톤 개최까지 4단계로 진행됩니다.</p>
+
+    <div class="g4" style="margin-top: 24px;">
+      <div class="c c-blue" data-step="2" style="text-align: center;">
+        <div style="width: 48px; height: 48px; border-radius: 50%; background: var(--primary); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 1.125rem; font-weight: 800; margin: 0 auto 12px;">1</div>
+        <div class="c-t">미팅 요청</div>
+        <div class="c-d">대회 범위 및 일정을<br/>함께 확인합니다</div>
+      </div>
+      <div class="c" data-step="3" style="text-align: center;">
+        <div style="width: 48px; height: 48px; border-radius: 50%; background: var(--accent-warm); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 1.125rem; font-weight: 800; margin: 0 auto 12px;">2</div>
+        <div class="c-t">과제 설계</div>
+        <div class="c-d">단국대 교수진과<br/>트랙/주제를 확정합니다</div>
+      </div>
+      <div class="c" data-step="4" style="text-align: center;">
+        <div style="width: 48px; height: 48px; border-radius: 50%; background: var(--green); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 1.125rem; font-weight: 800; margin: 0 auto 12px;">3</div>
+        <div class="c-t">플랫폼 세팅</div>
+        <div class="c-d">단국대 브랜딩 적용,<br/>참가 접수를 오픈합니다</div>
+      </div>
+      <div class="c c-blue" data-step="5" style="text-align: center;">
+        <div style="width: 48px; height: 48px; border-radius: 50%; background: var(--primary); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 1.125rem; font-weight: 800; margin: 0 auto 12px;">4</div>
+        <div class="c-t">대회 운영</div>
+        <div class="c-d">8주 진행 후<br/>결과 리포트를 제출합니다</div>
+      </div>
+    </div>
+
+    <div class="fr" style="margin-top: 24px;" data-step="6">
+      <div class="fb fb-p">
+        <div class="fl" style="font-weight: 700;">미팅 요청</div>
+      </div>
+      <span class="fa">&rarr;</span>
+      <div class="fb">
+        <div class="fl" style="font-weight: 700;">과제 설계</div>
+      </div>
+      <span class="fa">&rarr;</span>
+      <div class="fb">
+        <div class="fl" style="font-weight: 700;">플랫폼 세팅</div>
+      </div>
+      <span class="fa">&rarr;</span>
+      <div class="fb fb-p">
+        <div class="fl" style="font-weight: 700;">대회 운영</div>
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span class="sf-logo">DAKER</span><span class="sf-pg">18</span><span class="sf-cr">단국대학교 AIX Hackathon</span></div>
+</section>
+
+<!-- ===== SLIDE 19: ENDING ===== -->
+<section class="slide slide-end" id="s19">
+  <div class="si" style="background: linear-gradient(135deg, var(--surface) 0%, var(--secondary-container) 100%);">
+    <div class="end-logo" data-step="1">DAKER &middot; DACON</div>
+    <h1 data-step="2">단국대학교 바이브코딩 해커톤</h1>
+    <p class="end-sub" data-step="3">SW중심대학의 AI 교육 성과를 실증합니다</p>
+    <div data-step="4" style="margin-top: 36px; display: flex; flex-direction: column; gap: 6px; font-size: 0.875rem; color: var(--on-surface-variant);">
+      <span>데이콘(DACON) &nbsp;|&nbsp; 김국진 대표</span>
+      <span>edgar@dacon.io &nbsp;|&nbsp; 010-6338-1041</span>
+    </div>
+  </div>
+  <div class="sf"><span class="sf-logo">DAKER</span><span class="sf-pg">19</span><span class="sf-cr">단국대학교 AIX Hackathon</span></div>
+</section>
+
+</div><!-- /stage -->
+</div><!-- /viewport -->
+
+<div id="progress-bar"></div>
+<button class="nav-btn" id="nav-prev">&#8592;</button>
+<button class="nav-btn" id="nav-next">&#8594;</button>
+<div id="key-hint">Arrow keys or swipe to navigate</div>
+
+<script>
+(function(){
+  const slides = document.querySelectorAll('.slide');
+  const total = slides.length;
+  let cur = 0, step = 0;
+  function maxStep(s){ let m=0; s.querySelectorAll('[data-step]').forEach(e=>{ const v=+e.dataset.step; if(v>m) m=v; }); return m; }
+  function show(idx, dir){
+    if(idx<0||idx>=total) return;
+    cur = idx;
+    slides.forEach(s=>s.classList.remove('active'));
+    slides[idx].classList.add('active');
+    step = 0;
+    const els = slides[idx].querySelectorAll('[data-step]');
+    els.forEach(e => { e.classList.remove('visible','pre-visible'); });
+    if(dir === 'back'){
+      step = maxStep(slides[idx]);
+      els.forEach(e => e.classList.add('pre-visible'));
+    }
+    document.getElementById('progress-bar').style.width = ((idx+1)/total*100)+'%';
+    location.hash = '#'+(idx+1);
+  }
+  function next(){
+    const ms = maxStep(slides[cur]);
+    if(step < ms){
+      step++;
+      slides[cur].querySelectorAll('[data-step]').forEach(e=>{
+        if(+e.dataset.step <= step) e.classList.add('visible');
+      });
+      return;
+    }
+    if(cur < total-1){ cur++; show(cur,'fwd'); }
+  }
+  function prev(){
+    if(step > 0){
+      slides[cur].querySelectorAll('[data-step]').forEach(e=>{
+        if(+e.dataset.step === step) { e.classList.remove('visible','pre-visible'); }
+      });
+      step--;
+      return;
+    }
+    if(cur > 0){ cur--; show(cur,'back'); }
+  }
+  document.getElementById('nav-next').onclick = next;
+  document.getElementById('nav-prev').onclick = prev;
+  document.addEventListener('keydown', e => {
+    if(e.key==='ArrowRight'||e.key===' '||e.key==='Enter') next();
+    else if(e.key==='ArrowLeft'||e.key==='Backspace') prev();
+  });
+  let tx=0;
+  document.addEventListener('touchstart', e=>{ tx=e.changedTouches[0].screenX; });
+  document.addEventListener('touchend', e=>{
+    const dx = e.changedTouches[0].screenX - tx;
+    if(dx < -50) next(); else if(dx > 50) prev();
+  });
+  function fit(){
+    const vw=window.innerWidth, vh=window.innerHeight;
+    const s = Math.min(vw/1280, vh/720, 1);
+    document.getElementById('stage').style.transform = 'scale('+s+')';
+  }
+  window.addEventListener('resize', fit); fit();
+  // Hash routing
+  if(location.hash){
+    const h = parseInt(location.hash.replace('#',''));
+    if(h>0 && h<=total){ show(h-1,'fwd'); step=maxStep(slides[h-1]); slides[h-1].querySelectorAll('[data-step]').forEach(e=>e.classList.add('pre-visible')); }
+  } else {
+    step = maxStep(slides[0]);
+    slides[0].querySelectorAll('[data-step]').forEach(e => { e.classList.add('pre-visible'); });
+    document.getElementById('progress-bar').style.width = ((1)/total*100)+'%';
+  }
+})();
+</script>
+</body>
+</html>
