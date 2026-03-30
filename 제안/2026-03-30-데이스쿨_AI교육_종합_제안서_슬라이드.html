@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>데이스쿨 AI 교육 종합 제안서</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --primary: #0053db;
+  --primary-dim: #0048c1;
+  --on-primary: #f8f7ff;
+  --on-background: #2a3439;
+  --surface: #f7f9fb;
+  --surface-bright: #f7f9fb;
+  --surface-low: #f0f4f7;
+  --surface-lowest: #ffffff;
+  --on-surface: #2a3439;
+  --on-surface-variant: #566166;
+  --outline-variant: #a9b4b9;
+  --secondary-container: #d8e3fb;
+  --on-secondary-container: #475266;
+  --accent-warm: #c2622d;
+  --accent-warm-bg: rgba(194,98,45,0.06);
+  --accent-dark: #0f172a;
+  --green: #10b981;
+  --green-bg: rgba(16,185,129,0.06);
+  --font: 'Plus Jakarta Sans', -apple-system, sans-serif;
+  --shadow-ambient: 0 8px 24px rgba(30,41,59,0.04);
+  --ghost: 1px solid rgba(169,180,185,0.2);
+  --r-sm: 0.25rem; --r-md: 0.375rem; --r-lg: 0.75rem; --r-xl: 1rem; --r-full: 9999px;
+  --slide-w: 1280px; --slide-h: 720px;
+}
+
+html, body { width: 100%; height: 100%; background: #e2e8f0; font-family: var(--font); overflow: hidden; color: var(--on-surface); }
+#viewport { position: fixed; inset: 0; display: flex; align-items: center; justify-content: center; }
+#stage { position: relative; width: var(--slide-w); height: var(--slide-h); overflow: hidden; transform-origin: center center; border-radius: var(--r-lg); box-shadow: 0 12px 48px rgba(30,41,59,0.1); }
+.slide { position: absolute; inset: 0; background: var(--surface); display: flex; flex-direction: column; opacity: 0; pointer-events: none; transition: opacity 0s; }
+.slide.active { opacity: 1; pointer-events: auto; }
+.si { flex: 1; display: flex; flex-direction: column; padding: 64px 72px 52px; position: relative; }
+.sh { position: absolute; top: 0; left: 0; right: 0; padding: 18px 32px; display: flex; justify-content: space-between; align-items: center; background: var(--surface-low); }
+.sh-l { font-size: 0.6875rem; font-weight: 700; color: var(--on-surface-variant); letter-spacing: 0.05em; text-transform: uppercase; }
+.sf { position: absolute; bottom: 0; left: 0; right: 0; padding: 12px 32px; display: flex; justify-content: space-between; align-items: center; background: var(--surface-low); }
+.sf-logo { font-size: 0.875rem; font-weight: 800; color: var(--primary); letter-spacing: 0.04em; }
+.sf-pg { font-size: 0.6875rem; color: var(--on-surface-variant); font-weight: 600; }
+.sf-cr { font-size: 0.5625rem; color: var(--outline-variant); letter-spacing: 0.03em; font-weight: 600; }
+.tag { display: inline-flex; align-items: center; gap: 8px; font-size: 0.6875rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--primary); margin-bottom: 14px; }
+.tag::before { content: ''; width: 24px; height: 2.5px; background: var(--primary); border-radius: 2px; }
+.tag-w { color: var(--accent-warm); }
+.tag-w::before { background: var(--accent-warm); }
+.tag-g { color: var(--green); }
+.tag-g::before { background: var(--green); }
+h2.st { font-size: 2rem; font-weight: 800; line-height: 1.2; color: var(--on-surface); letter-spacing: -0.02em; }
+.hl { color: var(--primary); }
+.hl-w { color: var(--accent-warm); }
+.hl-g { color: var(--green); }
+.sub { margin-top: 10px; font-size: 0.9375rem; color: var(--on-surface-variant); line-height: 1.7; }
+.c { background: var(--surface-lowest); border-radius: var(--r-lg); padding: 20px; }
+.c-blue { background: var(--secondary-container); }
+.c-warm { background: var(--accent-warm-bg); }
+.c-surf { background: var(--surface-low); }
+.c-green { background: var(--green-bg); }
+.c-t { font-size: 0.9375rem; font-weight: 700; color: var(--on-surface); margin-bottom: 6px; }
+.c-d { font-size: 0.8125rem; color: var(--on-surface-variant); line-height: 1.65; }
+.g2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.g3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+.g4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 12px; }
+.g5 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr 1fr; gap: 10px; }
+.ic { width: 36px; height: 36px; border-radius: var(--r-md); display: flex; align-items: center; justify-content: center; font-size: 0.8125rem; font-weight: 800; margin-bottom: 12px; color: #fff; background: var(--primary); }
+.ic-w { background: var(--accent-warm); }
+.ic-d { background: var(--accent-dark); }
+.ic-g { background: var(--green); }
+.bd { display: inline-block; padding: 3px 10px; border-radius: var(--r-full); font-size: 0.6875rem; font-weight: 700; background: var(--secondary-container); color: var(--on-secondary-container); }
+.bd-w { background: var(--accent-warm-bg); color: var(--accent-warm); }
+.bd-g { background: var(--green-bg); color: var(--green); }
+.tb { width: 100%; border-collapse: collapse; font-size: 0.9375rem; }
+.tb th { text-align: left; padding: 12px 14px; background: var(--surface-low); color: var(--on-surface); font-weight: 700; font-size: 0.8125rem; }
+.tb td { padding: 12px 14px; color: var(--on-surface-variant); }
+.tb tr:nth-child(even) td { background: var(--surface-low); }
+.tb .row-hl td { background: var(--secondary-container); color: var(--on-secondary-container); font-weight: 600; }
+.mx { text-align: center; padding: 16px 10px; background: var(--surface-low); border-radius: var(--r-lg); }
+.mx .v { font-size: 1.75rem; font-weight: 800; line-height: 1; color: var(--primary); }
+.mx .l { font-size: 0.6875rem; color: var(--on-surface-variant); margin-top: 6px; font-weight: 500; }
+.slide-sec .si { justify-content: center; align-items: center; text-align: center; padding-top: 60px; }
+.slide-sec .sn { font-size: 4.5rem; font-weight: 800; color: rgba(0,83,219,0.06); line-height: 1; margin-bottom: 8px; }
+.slide-sec h2 { font-size: 2.625rem; font-weight: 800; color: var(--on-surface); letter-spacing: -0.02em; }
+.slide-sec .sd { font-size: 1.0625rem; color: var(--on-surface-variant); margin-top: 10px; }
+.slide-end .si { justify-content: center; align-items: center; text-align: center; }
+.slide-end h1 { font-size: 3rem; font-weight: 800; color: var(--on-surface); line-height: 1.15; letter-spacing: -0.02em; }
+.slide-end .end-sub { font-size: 1.125rem; color: var(--on-surface-variant); margin-top: 14px; }
+.slide-end .end-logo { font-size: 2.625rem; font-weight: 800; color: var(--primary); letter-spacing: 0.06em; margin-bottom: 36px; }
+.tc { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; flex: 1; }
+.cl { font-size: 0.8125rem; font-weight: 700; color: var(--primary); margin-bottom: 10px; }
+.cl-w { color: var(--accent-warm); }
+.fr { display: flex; align-items: center; gap: 8px; }
+.fa { font-size: 18px; color: var(--outline-variant); flex-shrink: 0; }
+.fb { flex: 1; padding: 14px 16px; background: var(--surface-low); border-radius: var(--r-lg); text-align: center; }
+.fb-p { background: var(--secondary-container); }
+.fb .fl { font-size: 0.75rem; color: var(--on-surface-variant); font-weight: 600; }
+.fb .fd { font-size: 0.6875rem; color: var(--on-surface-variant); margin-top: 4px; line-height: 1.4; opacity: 0.7; }
+.ck { list-style: none; }
+.ck li { position: relative; padding-left: 24px; font-size: 0.8125rem; color: var(--on-surface-variant); line-height: 2; }
+.ck li::before { content: '\2713'; position: absolute; left: 0; color: var(--primary); font-weight: 700; }
+
+/* Nav */
+.nav-btn { position: absolute; top: 50%; transform: translateY(-50%); width: 36px; height: 72px; border-radius: var(--r-md); background: rgba(0,0,0,0.03); border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 1rem; color: var(--outline-variant); z-index: 10; transition: background 0.15s; }
+.nav-btn:hover { background: rgba(0,0,0,0.07); }
+#nav-prev { left: 8px; }
+#nav-next { right: 8px; }
+#progress-bar { position: fixed; bottom: 0; left: 0; height: 3px; background: var(--primary); transition: width 0.3s; z-index: 100; }
+
+/* Cover */
+.slide-cover .si { justify-content: center; padding: 80px 72px; }
+.slide-cover .cover-logo { font-size: 1.75rem; font-weight: 800; color: var(--primary); letter-spacing: 0.06em; margin-bottom: 24px; }
+.slide-cover h1 { font-size: 2.75rem; font-weight: 800; line-height: 1.15; letter-spacing: -0.02em; }
+.slide-cover .cover-sub { font-size: 1.125rem; color: var(--on-surface-variant); margin-top: 16px; }
+.slide-cover .cover-date { font-size: 0.875rem; color: var(--outline-variant); margin-top: 32px; font-weight: 600; }
+.slide-cover .cover-badge { position: absolute; top: 24px; right: 32px; padding: 6px 16px; border-radius: var(--r-full); background: rgba(194,98,45,0.08); color: var(--accent-warm); font-size: 0.6875rem; font-weight: 700; }
+
+/* TOC */
+.toc-list { list-style: none; margin-top: 32px; }
+.toc-list li { display: flex; align-items: center; gap: 16px; padding: 18px 0; border-bottom: var(--ghost); font-size: 1.125rem; font-weight: 600; color: var(--on-surface); }
+.toc-num { font-size: 1.5rem; font-weight: 800; color: var(--primary); width: 40px; text-align: center; }
+.toc-sub { font-size: 0.8125rem; color: var(--on-surface-variant); font-weight: 400; margin-left: auto; }
+
+/* Timeline */
+.tl-item { display: flex; gap: 12px; align-items: flex-start; margin-bottom: 10px; }
+.tl-year { font-size: 0.75rem; font-weight: 800; color: var(--primary); min-width: 40px; padding-top: 2px; }
+.tl-content { font-size: 0.75rem; color: var(--on-surface-variant); line-height: 1.5; }
+
+/* Gantt-like table */
+.gantt-cell { height: 8px; border-radius: 4px; }
+.gantt-blue { background: var(--primary); }
+.gantt-warm { background: var(--accent-warm); }
+.gantt-green { background: var(--green); }
+
+/* data-step */
+[data-step] { opacity: 0; transform: translateY(12px); }
+[data-step].visible { opacity: 1; transform: translateY(0); transition: opacity 0.35s, transform 0.35s; }
+
+/* Print */
+@media print {
+  body { background: #fff; overflow: visible; }
+  #viewport { position: static; display: block; }
+  #stage { transform: none !important; width: 100vw; height: auto; box-shadow: none; border-radius: 0; }
+  .slide { position: relative; opacity: 1; pointer-events: auto; page-break-after: always; width: 100vw; height: 100vh; }
+  .nav-btn, #progress-bar { display: none; }
+  @page { size: landscape; margin: 0; }
+}
+</style>
+</head>
+<body>
+<div id="viewport">
+<div id="stage">
+
+<!-- ==================== SLIDE 1: COVER ==================== -->
+<div class="slide slide-cover active">
+  <div class="cover-badge">Strictly Confidential</div>
+  <div class="si">
+    <div class="cover-logo">DACON DASCHOOL</div>
+    <h1>[고객사명] 맞춤형<br>AI 교육 프로그램 운영 제안</h1>
+    <div class="cover-sub">[고객사명] x DACON DASCHOOL AI 인력양성을 위한 교육</div>
+    <div class="cover-date">2026.XX</div>
+  </div>
+  <div class="sf">
+    <span class="sf-logo">DACON</span>
+    <span class="sf-cr">COPYRIGHT 2026 DACON INC. ALL RIGHTS RESERVED.</span>
+  </div>
+</div>
+
+<!-- ==================== SLIDE 2: TOC ==================== -->
+<div class="slide">
+  <div class="sh"><span class="sh-l">Table of Contents</span></div>
+  <div class="si">
+    <div class="tag">CONTENTS</div>
+    <h2 class="st">목차</h2>
+    <ul class="toc-list">
+      <li><span class="toc-num">I</span>제안 개요 및 이해<span class="toc-sub">제안 배경 및 목적 / 제안사 일반 현황</span></li>
+      <li><span class="toc-num">II</span>사업 수행 전략 및 기획 부문<span class="toc-sub">사업 추진 전략 및 접근 방법</span></li>
+      <li><span class="toc-num">III</span>과업 부문별 상세 운영 계획<span class="toc-sub">교육운영 / 플랫폼 구축 / 학습자 유지</span></li>
+      <li><span class="toc-num">IV</span>사업 관리 및 지원 부문<span class="toc-sub">추진 일정 및 사업 관리</span></li>
+    </ul>
+  </div>
+  <div class="sf">
+    <span class="sf-logo">DACON</span>
+    <span class="sf-pg">2 / 20</span>
+    <span class="sf-cr">COPYRIGHT 2026 DACON INC. ALL RIGHTS RESERVED.</span>
+  </div>
+</div>
+
+<!-- ==================== SLIDE 3: SECTION I ==================== -->
+<div class="slide slide-sec">
+  <div class="si">
+    <div class="sn">I</div>
+    <h2>제안 개요 및 이해</h2>
+    <div class="sd">1. 제안 배경 및 목적 &nbsp;/&nbsp; 2. 제안사 일반 현황</div>
+  </div>
+  <div class="sf">
+    <span class="sf-logo">DACON</span>
+    <span class="sf-pg">3 / 20</span>
+    <span class="sf-cr">COPYRIGHT 2026 DACON INC. ALL RIGHTS RESERVED.</span>
+  </div>
+</div>
+
+<!-- ==================== SLIDE 4: 제안 개요 및 목적 ==================== -->
+<div class="slide">
+  <div class="sh"><span class="sh-l">I. 제안 개요 및 이해</span></div>
+  <div class="si">
+    <div class="tag">PROPOSAL OVERVIEW</div>
+    <h2 class="st">학습과학(Learning Science) 기반의<br><span class="hl">검증된 AI 교육 플랫폼</span>으로 실질적 성과를 창출합니다</h2>
+    <div style="margin-top:28px;" class="g3">
+      <div class="c" data-step>
+        <div class="ic">01</div>
+        <div class="c-t">학습과학 기반 AIX 교육 혁신</div>
+        <div class="bd" style="margin-bottom:10px;">Educational Efficiency</div>
+        <div class="c-d">분산 학습(Spaced Learning)과 분산 연습(Distributed Practice) 이론을 적용하여 학습 효율을 극대화하는 교재 및 커리큘럼을 설계합니다.</div>
+      </div>
+      <div class="c" data-step>
+        <div class="ic ic-w">02</div>
+        <div class="c-t">현업 데이터 기반 실전 역량 확보</div>
+        <div class="bd bd-w" style="margin-bottom:10px;">Practice-Oriented</div>
+        <div class="c-d">실제 현업 데이터와 비즈니스 문제를 활용한 프로젝트 중심 학습으로, 교육과 실무 사이의 간극을 해소합니다.</div>
+      </div>
+      <div class="c" data-step>
+        <div class="ic ic-g">03</div>
+        <div class="c-t">데이터 기반 인재 관리 및 취업 연계</div>
+        <div class="bd bd-g" style="margin-bottom:10px;">Career-Link</div>
+        <div class="c-d">학습 데이터를 기반으로 개인별 역량을 정량 분석하고, 인증 체계와 커리어 브랜딩을 통해 취업 경쟁력을 강화합니다.</div>
+      </div>
+    </div>
+  </div>
+  <div class="sf">
+    <span class="sf-logo">DACON</span>
+    <span class="sf-pg">4 / 20</span>
+    <span class="sf-cr">COPYRIGHT 2026 DACON INC. ALL RIGHTS RESERVED.</span>
+  </div>
+</div>
+
+<!-- ==================== SLIDE 5: 제안사 현황 — 연혁 ==================== -->
+<div class="slide">
+  <div class="sh"><span class="sh-l">I. 제안 개요 및 이해</span></div>
+  <div class="si">
+    <div class="tag">ABOUT US</div>
+    <h2 class="st">지난 <span class="hl">7년간 LG, 삼성, TOSS</span> 등<br>선도 기업과 혁신적인 AI 경진대회를 설계하고 운영</h2>
+    <div class="tc" style="margin-top:24px;">
+      <div>
+        <div class="c c-surf" style="margin-bottom:12px;">
+          <div class="c-t">주식회사 데이콘</div>
+          <div class="c-d">
+            소재지: 서울특별시 강남구<br>
+            설립일: 2018년 8월<br>
+            대표이사: 김국진
+          </div>
+        </div>
+        <div class="c c-blue">
+          <div class="c-t">주요 마일스톤</div>
+          <ul class="ck">
+            <li>국내 최대 AI 경진대회 플랫폼 구축</li>
+            <li>누적 14만+ 회원 보유</li>
+            <li>150개+ 기업/기관 파트너십</li>
+            <li>500회+ 경진대회 운영</li>
+            <li>데이스쿨 AI 교육 플랫폼 출시</li>
+          </ul>
+        </div>
+      </div>
+      <div>
+        <div class="c-t" style="margin-bottom:12px;">연도별 주요 고객사</div>
+        <div class="tl-item" data-step><span class="tl-year">2020</span><span class="tl-content">LG AI Research, 현대자동차, 서울시</span></div>
+        <div class="tl-item" data-step><span class="tl-year">2021</span><span class="tl-content">삼성전자, KB금융그룹, 한국투자증권</span></div>
+        <div class="tl-item" data-step><span class="tl-year">2022</span><span class="tl-content">TOSS, 네이버, SK텔레콤, 금융보안원</span></div>
+        <div class="tl-item" data-step><span class="tl-year">2023</span><span class="tl-content">삼성디스플레이, GS E&R, JB금융그룹</span></div>
+        <div class="tl-item" data-step><span class="tl-year">2024</span><span class="tl-content">미래에셋증권, 대동그룹, 단국대학교</span></div>
+        <div class="tl-item" data-step><span class="tl-year">2025</span><span class="tl-content">차세대융합기술원, 삼척시, 중앙대학교</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="sf">
+    <span class="sf-logo">DACON</span>
+    <span class="sf-pg">5 / 20</span>
+    <span class="sf-cr">COPYRIGHT 2026 DACON INC. ALL RIGHTS RESERVED.</span>
+  </div>
+</div>
+
+<!-- ==================== SLIDE 6: 올인원 플랫폼 ==================== -->
+<div class="slide">
+  <div class="sh"><span class="sh-l">I. 제안 개요 및 이해</span></div>
+  <div class="si">
+    <div class="tag">PLATFORM</div>
+    <h2 class="st">AI 실무 전 과정이 통합된 국내 유일의<br><span class="hl">올인원 플랫폼</span></h2>
+    <div class="g3" style="margin-top:28px;">
+      <div class="c c-blue" data-step>
+        <div class="ic">D</div>
+        <div class="c-t">DACON</div>
+        <div class="bd" style="margin-bottom:10px;">Competition Platform</div>
+        <div class="c-d">국내 최대 AI 경진대회 플랫폼. 14만+ 회원이 활동하는 데이터 사이언스 커뮤니티로, 기업과 인재를 연결하는 허브 역할을 수행합니다.</div>
+      </div>
+      <div class="c c-warm" data-step>
+        <div class="ic ic-w">D</div>
+        <div class="c-t">DAKER</div>
+        <div class="bd bd-w" style="margin-bottom:10px;">Enterprise Platform</div>
+        <div class="c-d">기업 맞춤형 AI 경진대회 및 해커톤 운영 플랫폼. 보안 환경에서의 데이터 분석, 실시간 리더보드, 자동 채점 시스템을 제공합니다.</div>
+      </div>
+      <div class="c c-green" data-step>
+        <div class="ic ic-g">D</div>
+        <div class="c-t">DASCHOOL</div>
+        <div class="bd bd-g" style="margin-bottom:10px;">Education Platform</div>
+        <div class="c-d">학습과학 기반 AI 교육 플랫폼. 분산 학습 교재, 코딩 실습, 해커톤, 인증까지 교육의 전 과정을 올인원으로 지원합니다.</div>
+      </div>
+    </div>
+  </div>
+  <div class="sf">
+    <span class="sf-logo">DACON</span>
+    <span class="sf-pg">6 / 20</span>
+    <span class="sf-cr">COPYRIGHT 2026 DACON INC. ALL RIGHTS RESERVED.</span>
+  </div>
+</div>
+
+<!-- ==================== SLIDE 7: 조직 ==================== -->
+<div class="slide">
+  <div class="sh"><span class="sh-l">I. 제안 개요 및 이해</span></div>
+  <div class="si">
+    <div class="tag">TEAM</div>
+    <h2 class="st">각 분야에서 <span class="hl">10년 이상의 실무 경험</span>을 가진<br>전문가들로 구성</h2>
+    <div class="g3" style="margin-top:24px;">
+      <div class="c" data-step>
+        <div class="ic">DS</div>
+        <div class="c-t">데이터사이언스팀</div>
+        <div class="bd" style="margin-bottom:10px;">6명</div>
+        <ul class="ck">
+          <li>AI/ML 교육 커리큘럼 설계</li>
+          <li>경진대회 문제 출제 및 검수</li>
+          <li>교재 개발 및 품질 관리</li>
+          <li>학습 데이터 분석</li>
+        </ul>
+      </div>
+      <div class="c" data-step>
+        <div class="ic ic-d">DE</div>
+        <div class="c-t">플랫폼 개발팀</div>
+        <div class="bd" style="margin-bottom:10px;">7명</div>
+        <ul class="ck">
+          <li>DACON/DAKER/DASCHOOL 개발</li>
+          <li>자동 채점 시스템 운영</li>
+          <li>클라우드 인프라 관리</li>
+          <li>보안 및 데이터 파이프라인</li>
+        </ul>
+      </div>
+      <div class="c" data-step>
+        <div class="ic ic-w">BZ</div>
+        <div class="c-t">행정 사업팀</div>
+        <div class="bd bd-w" style="margin-bottom:10px;">2명</div>
+        <ul class="ck">
+          <li>고객 커뮤니케이션</li>
+          <li>사업 기획 및 제안</li>
+          <li>계약 및 행정 관리</li>
+          <li>CS 운영 지원</li>
+        </ul>
+      </div>
+    </div>
+    <div class="c c-blue" style="margin-top:16px; text-align:center; padding:14px;">
+      <span style="font-size:0.875rem; font-weight:700; color:var(--primary);">AI 교육 설계 및 운영 개발 인력 100%</span>
+    </div>
+  </div>
+  <div class="sf">
+    <span class="sf-logo">DACON</span>
+    <span class="sf-pg">7 / 20</span>
+    <span class="sf-cr">COPYRIGHT 2026 DACON INC. ALL RIGHTS RESERVED.</span>
+  </div>
+</div>
+
+<!-- ==================== SLIDE 8: 팩트 체크 ==================== -->
+<div class="slide">
+  <div class="sh"><span class="sh-l">I. 제안 개요 및 이해</span></div>
+  <div class="si">
+    <div class="tag">FACT CHECK</div>
+    <h2 class="st"><span class="hl">150개 기업</span>이 선택한 AI 실전 파트너, 데이콘</h2>
+    <div class="g3" style="margin-top:24px;">
+      <div class="mx" data-step><div class="v">14만+</div><div class="l">누적 회원 수</div></div>
+      <div class="mx" data-step><div class="v">500+</div><div class="l">누적 대회 수</div></div>
+      <div class="mx" data-step><div class="v">103만+</div><div class="l">코드 제출 건수</div></div>
+      <div class="mx" data-step><div class="v">150+</div><div class="l">고객사</div></div>
+      <div class="mx" data-step><div class="v">7.6만</div><div class="l">월간 활성 이용자(MAU)</div></div>
+      <div class="mx" data-step><div class="v">200+</div><div class="l">AI 교재</div></div>
+    </div>
+    <div style="margin-top:20px;">
+      <div class="c-t" style="margin-bottom:10px;">주요 고객사</div>
+      <div class="g4" style="gap:8px;">
+        <div class="c c-surf" style="padding:10px; text-align:center;"><span class="c-d">대기업</span><br><span style="font-size:0.75rem; color:var(--on-surface-variant);">LG, 삼성, 현대, SK</span></div>
+        <div class="c c-surf" style="padding:10px; text-align:center;"><span class="c-d">금융</span><br><span style="font-size:0.75rem; color:var(--on-surface-variant);">KB, 미래에셋, JB금융</span></div>
+        <div class="c c-surf" style="padding:10px; text-align:center;"><span class="c-d">IT/플랫폼</span><br><span style="font-size:0.75rem; color:var(--on-surface-variant);">TOSS, 네이버, 카카오</span></div>
+        <div class="c c-surf" style="padding:10px; text-align:center;"><span class="c-d">공공/교육</span><br><span style="font-size:0.75rem; color:var(--on-surface-variant);">금융보안원, 단국대, 중앙대</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="sf">
+    <span class="sf-logo">DACON</span>
+    <span class="sf-pg">8 / 20</span>
+    <span class="sf-cr">COPYRIGHT 2026 DACON INC. ALL RIGHTS RESERVED.</span>
+  </div>
+</div>
+
+<!-- ==================== SLIDE 9: SECTION II ==================== -->
+<div class="slide slide-sec">
+  <div class="si">
+    <div class="sn">II</div>
+    <h2>사업 수행 전략 및 기획 부문</h2>
+    <div class="sd">1. 사업 추진 전략 및 접근 방법</div>
+  </div>
+  <div class="sf">
+    <span class="sf-logo">DACON</span>
+    <span class="sf-pg">9 / 20</span>
+    <span class="sf-cr">COPYRIGHT 2026 DACON INC. ALL RIGHTS RESERVED.</span>
+  </div>
+</div>
+
+<!-- ==================== SLIDE 10: 데이스쿨 서비스 소개 ==================== -->
+<div class="slide">
+  <div class="sh"><span class="sh-l">II. 사업 수행 전략</span></div>
+  <div class="si">
+    <div class="tag">DASCHOOL</div>
+    <h2 class="st"><span class="hl">학습과학</span> 기반으로 제작된<br>분산 학습 및 분산 연습 교재</h2>
+    <div class="g3" style="margin-top:24px;">
+      <div class="c" data-step>
+        <div class="ic">01</div>
+        <div class="c-t">교재</div>
+        <div class="bd" style="margin-bottom:10px;">Textbook</div>
+        <ul class="ck">
+          <li>이론/코딩 분산학습 구조</li>
+          <li>AI 로드맵 기반 단계별 설계</li>
+          <li>Split-View 이론+코딩 통합 환경</li>
+          <li>자동 채점 및 즉시 피드백</li>
+        </ul>
+      </div>
+      <div class="c" data-step>
+        <div class="ic ic-w">02</div>
+        <div class="c-t">트랙</div>
+        <div class="bd bd-w" style="margin-bottom:10px;">Track</div>
+        <ul class="ck">
+          <li>과정평가 + 결과평가 듀얼 구조</li>
+          <li>교재학습 &rarr; 시험 &rarr; 해커톤 흐름</li>
+          <li>단계별 역량 검증 체계</li>
+          <li>배지 및 인증서 자동 발급</li>
+        </ul>
+      </div>
+      <div class="c" data-step>
+        <div class="ic ic-g">03</div>
+        <div class="c-t">교재 저작</div>
+        <div class="bd bd-g" style="margin-bottom:10px;">Authoring</div>
+        <ul class="ck">
+          <li>현업 데이터 기반 문제 설계</li>
+          <li>경진대회 인증 담당자 참여</li>
+          <li>실무 프로젝트 기반 교재</li>
+          <li>고객 맞춤형 콘텐츠 제작</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="sf">
+    <span class="sf-logo">DACON</span>
+    <span class="sf-pg">10 / 20</span>
+    <span class="sf-cr">COPYRIGHT 2026 DACON INC. ALL RIGHTS RESERVED.</span>
+  </div>
+</div>
+
+<!-- ==================== SLIDE 11: 3대 교육 전략 ==================== -->
+<div class="slide">
+  <div class="sh"><span class="sh-l">II. 사업 수행 전략</span></div>
+  <div class="si">
+    <div class="tag tag-w">STRATEGY</div>
+    <h2 class="st"><span class="hl">3대 목표</span> 달성을 위한<br>차별화된 데이스쿨 운영 전략</h2>
+    <div class="g3" style="margin-top:24px;">
+      <div class="c c-blue" data-step>
+        <div class="ic">S1</div>
+        <div class="c-t">전략 1: 전공 특화 & 융합형 데이터 학습</div>
+        <div class="c-d" style="margin-top:8px;">학과별 전공 데이터를 활용한 맞춤형 커리큘럼으로, 전공 지식과 AI 기술의 융합 역량을 극대화합니다. 비전공자도 쉽게 접근할 수 있는 단계별 진입 경로를 제공합니다.</div>
+      </div>
+      <div class="c c-warm" data-step>
+        <div class="ic ic-w">S2</div>
+        <div class="c-t">전략 2: 듀얼 트랙(Dual-Track) 기반 실전 역량 검증</div>
+        <div class="c-d" style="margin-top:8px;">교재 학습(과정 평가)과 해커톤(결과 평가)을 병행하는 듀얼 트랙 구조로, 이론과 실전 역량을 동시에 검증합니다. 실시간 리더보드로 경쟁 동기를 부여합니다.</div>
+      </div>
+      <div class="c c-green" data-step>
+        <div class="ic ic-g">S3</div>
+        <div class="c-t">전략 3: 단계별 역량 인증과 커리어 브랜딩</div>
+        <div class="c-d" style="margin-top:8px;">학습 완료 시 단계별 배지와 인증서를 발급하여 역량을 공식적으로 증명합니다. 데이콘 커뮤니티 내 포트폴리오와 연계하여 커리어 경쟁력을 강화합니다.</div>
+      </div>
+    </div>
+  </div>
+  <div class="sf">
+    <span class="sf-logo">DACON</span>
+    <span class="sf-pg">11 / 20</span>
+    <span class="sf-cr">COPYRIGHT 2026 DACON INC. ALL RIGHTS RESERVED.</span>
+  </div>
+</div>
+
+<!-- ==================== SLIDE 12: SECTION III ==================== -->
+<div class="slide slide-sec">
+  <div class="si">
+    <div class="sn">III</div>
+    <h2>과업 부문별 상세 운영 계획</h2>
+    <div class="sd">1. 교육운영 관리 계획 &nbsp;/&nbsp; 2. 플랫폼 구축 및 기술 운영 방안 &nbsp;/&nbsp; 3. 학습자 유지 전략</div>
+  </div>
+  <div class="sf">
+    <span class="sf-logo">DACON</span>
+    <span class="sf-pg">12 / 20</span>
+    <span class="sf-cr">COPYRIGHT 2026 DACON INC. ALL RIGHTS RESERVED.</span>
+  </div>
+</div>
+
+<!-- ==================== SLIDE 13: 교육운영 관리 계획 ==================== -->
+<div class="slide">
+  <div class="sh"><span class="sh-l">III. 과업 부문별 상세 운영</span></div>
+  <div class="si">
+    <div class="tag">EDUCATION MANAGEMENT</div>
+    <h2 class="st">커리큘럼 설계부터 인증까지<br><span class="hl">올인원(All-in-One)</span> 교육 플랫폼</h2>
+    <div class="fr" style="margin-top:24px; margin-bottom:20px;">
+      <div class="fb fb-p"><div class="fl">STEP 1. 설계</div><div class="fd">요구분석 &rarr; 커리큘럼</div></div>
+      <div class="fa">&rarr;</div>
+      <div class="fb fb-p"><div class="fl">STEP 2. 운영</div><div class="fd">교재학습 &rarr; 실습 &rarr; 해커톤</div></div>
+      <div class="fa">&rarr;</div>
+      <div class="fb fb-p"><div class="fl">STEP 3. 평가</div><div class="fd">성취도 분석 &rarr; 인증</div></div>
+    </div>
+    <div class="g3">
+      <div class="c c-surf" data-step>
+        <div class="c-t">요구분석 및 설계</div>
+        <div class="c-d">기관 니즈 파악, 학습자 수준 진단, 맞춤 커리큘럼 설계</div>
+      </div>
+      <div class="c c-surf" data-step>
+        <div class="c-t">교재 및 콘텐츠 개발</div>
+        <div class="c-d">현업 데이터 기반 교재 저작, Split-View 실습 환경 구축</div>
+      </div>
+      <div class="c c-surf" data-step>
+        <div class="c-t">학습자 모집 및 안내</div>
+        <div class="c-d">모집 공고, 신청 접수, OT 운영, 학습 가이드 제공</div>
+      </div>
+      <div class="c c-surf" data-step>
+        <div class="c-t">온라인 교재 학습</div>
+        <div class="c-d">분산 학습 교재, 자동 채점, 진도 관리, 질의 응답</div>
+      </div>
+      <div class="c c-surf" data-step>
+        <div class="c-t">해커톤 및 실전 평가</div>
+        <div class="c-d">실시간 리더보드, 코드 제출, 동료 경쟁 기반 결과 평가</div>
+      </div>
+      <div class="c c-surf" data-step>
+        <div class="c-t">성취도 분석 및 인증</div>
+        <div class="c-d">과정/결과 평가 종합, 배지 발급, 수료증 발행</div>
+      </div>
+      <div class="c c-surf" data-step>
+        <div class="c-t">CS 및 학습 지원</div>
+        <div class="c-d">전담 매니저 배정, 실시간 질의 응답, 기술 이슈 대응</div>
+      </div>
+      <div class="c c-surf" data-step>
+        <div class="c-t">운영 리포트</div>
+        <div class="c-d">주간/월간 운영 현황 리포트, 학습 참여율 분석</div>
+      </div>
+      <div class="c c-surf" data-step>
+        <div class="c-t">사후 관리</div>
+        <div class="c-d">만족도 조사, 개선 사항 도출, 후속 교육 연계 제안</div>
+      </div>
+    </div>
+  </div>
+  <div class="sf">
+    <span class="sf-logo">DACON</span>
+    <span class="sf-pg">13 / 20</span>
+    <span class="sf-cr">COPYRIGHT 2026 DACON INC. ALL RIGHTS RESERVED.</span>
+  </div>
+</div>
+
+<!-- ==================== SLIDE 14: LMS 상세 ==================== -->
+<div class="slide">
+  <div class="sh"><span class="sh-l">III. 과업 부문별 상세 운영</span></div>
+  <div class="si">
+    <div class="tag">PLATFORM DETAIL</div>
+    <h2 class="st">실시간 코드 채점, 동료 경쟁, 현업 문제 해결 —<br><span class="hl">'살아있는 AIX 실습실'</span></h2>
+    <div style="margin-top:20px;">
+      <table class="tb" style="font-size:0.8125rem;">
+        <thead>
+          <tr><th style="width:20%;">영역</th><th style="width:40%;">핵심 역량</th><th style="width:40%;">세부 내용</th></tr>
+        </thead>
+        <tbody>
+          <tr data-step><td style="font-weight:700;">교육 설계</td><td>학습과학 기반 커리큘럼</td><td>분산 학습/연습 이론 적용, 단계별 난이도 설계</td></tr>
+          <tr data-step><td style="font-weight:700;">콘텐츠 설계</td><td>현업 데이터 기반 교재</td><td>실무 데이터셋, Split-View 이론+코딩 통합</td></tr>
+          <tr data-step><td style="font-weight:700;">교육 운영</td><td>실시간 학습 관리</td><td>진도 추적, 자동 채점, 리더보드, Q&A</td></tr>
+          <tr data-step><td style="font-weight:700;">성취 검증</td><td>듀얼 트랙 평가</td><td>과정 평가(교재) + 결과 평가(해커톤) 종합</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="g2" style="margin-top:20px;">
+      <div class="c c-blue" data-step>
+        <div class="c-t">학습 실적</div>
+        <div class="g3" style="margin-top:10px;">
+          <div class="mx"><div class="v">98%</div><div class="l">플랫폼 가동률</div></div>
+          <div class="mx"><div class="v">4.7</div><div class="l">교육 만족도(5점)</div></div>
+          <div class="mx"><div class="v">92%</div><div class="l">평균 수료율</div></div>
+        </div>
+      </div>
+      <div class="c c-surf" data-step>
+        <div class="c-t">안정적 플랫폼 제공</div>
+        <div class="g3" style="margin-top:10px;">
+          <div class="mx"><div class="v">99.9%</div><div class="l">서비스 안정성</div></div>
+          <div class="mx"><div class="v">500+</div><div class="l">동시접속 지원</div></div>
+          <div class="mx"><div class="v">24/7</div><div class="l">모니터링</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="sf">
+    <span class="sf-logo">DACON</span>
+    <span class="sf-pg">14 / 20</span>
+    <span class="sf-cr">COPYRIGHT 2026 DACON INC. ALL RIGHTS RESERVED.</span>
+  </div>
+</div>
+
+<!-- ==================== SLIDE 15: 플랫폼 기술 운영 ==================== -->
+<div class="slide">
+  <div class="sh"><span class="sh-l">III. 과업 부문별 상세 운영</span></div>
+  <div class="si">
+    <div class="tag tag-w">TECHNOLOGY</div>
+    <h2 class="st"><span class="hl">4단계의 정밀한 교육 프로세스</span>를<br>제공합니다</h2>
+    <div class="g4" style="margin-top:28px;">
+      <div class="c" data-step>
+        <div class="ic">01</div>
+        <div class="c-t">설계</div>
+        <div class="c-d" style="margin-top:8px;">
+          <strong>전문성:</strong> 학습과학 연구진 참여<br><br>
+          <strong>핵심:</strong> 기관 맞춤 커리큘럼 설계, 수준별 트랙 구성, 현업 데이터 확보
+        </div>
+      </div>
+      <div class="c" data-step>
+        <div class="ic ic-w">02</div>
+        <div class="c-t">모집</div>
+        <div class="c-d" style="margin-top:8px;">
+          <strong>전문성:</strong> 14만 커뮤니티 네트워크<br><br>
+          <strong>핵심:</strong> 모집 공고, 사전 설문, 수준 진단 테스트, OT 운영
+        </div>
+      </div>
+      <div class="c" data-step>
+        <div class="ic ic-d">03</div>
+        <div class="c-t">학습 플랫폼 운영</div>
+        <div class="c-d" style="margin-top:8px;">
+          <strong>전문성:</strong> 자체 LMS 플랫폼<br><br>
+          <strong>핵심:</strong> 교재 학습, 코드 자동채점, 진도 관리, 리더보드
+        </div>
+      </div>
+      <div class="c" data-step>
+        <div class="ic ic-g">04</div>
+        <div class="c-t">평가</div>
+        <div class="c-d" style="margin-top:8px;">
+          <strong>전문성:</strong> 500+ 대회 평가 노하우<br><br>
+          <strong>핵심:</strong> 해커톤 운영, 성취도 분석, 배지/인증서 발급
+        </div>
+      </div>
+    </div>
+    <div class="fr" style="margin-top:20px;" data-step>
+      <div class="fb"><div class="fl">STEP 1</div><div class="fd">설계</div></div>
+      <div class="fa">&rarr;</div>
+      <div class="fb"><div class="fl">STEP 2</div><div class="fd">모집</div></div>
+      <div class="fa">&rarr;</div>
+      <div class="fb fb-p"><div class="fl">STEP 3</div><div class="fd">학습 플랫폼 운영</div></div>
+      <div class="fa">&rarr;</div>
+      <div class="fb"><div class="fl">STEP 4</div><div class="fd">평가</div></div>
+    </div>
+  </div>
+  <div class="sf">
+    <span class="sf-logo">DACON</span>
+    <span class="sf-pg">15 / 20</span>
+    <span class="sf-cr">COPYRIGHT 2026 DACON INC. ALL RIGHTS RESERVED.</span>
+  </div>
+</div>
+
+<!-- ==================== SLIDE 16: LMS 기능 상세 ==================== -->
+<div class="slide">
+  <div class="sh"><span class="sh-l">III. 과업 부문별 상세 운영</span></div>
+  <div class="si">
+    <div class="tag">LMS FEATURES</div>
+    <h2 class="st">교육 과정 개설에 필요한 <span class="hl">모든 프로세스</span>를<br>통합 제공</h2>
+    <div class="g3" style="margin-top:24px;">
+      <div class="c" data-step>
+        <div class="ic">01</div>
+        <div class="c-t">교육 포털 및 운영 규정</div>
+        <div class="c-d" style="margin-top:6px;">전용 교육 포털 페이지 구축, 학습 규정 및 가이드라인 안내, 공지사항 및 FAQ 관리</div>
+      </div>
+      <div class="c" data-step>
+        <div class="ic ic-w">02</div>
+        <div class="c-t">실습 데이터 및 기술 지원</div>
+        <div class="c-d" style="margin-top:6px;">현업 데이터 가공 및 제공, 클라우드 실습 환경, GPU 서버 지원, 기술 문의 대응</div>
+      </div>
+      <div class="c" data-step>
+        <div class="ic ic-d">03</div>
+        <div class="c-t">트랙별 맞춤 학습 관리</div>
+        <div class="c-d" style="margin-top:6px;">수준별 트랙 배정, 진도율 대시보드, 학습 알림 발송, 미참여자 독려</div>
+      </div>
+      <div class="c" data-step>
+        <div class="ic ic-g">04</div>
+        <div class="c-t">AI 기반 성취도 검증</div>
+        <div class="c-d" style="margin-top:6px;">자동 채점 시스템, 코드 유사도 검사, 과정/결과 평가 이원화, 종합 성취 분석</div>
+      </div>
+      <div class="c" data-step>
+        <div class="ic">05</div>
+        <div class="c-t">제출물 검증</div>
+        <div class="c-d" style="margin-top:6px;">코드 표절 검사, 결과물 무결성 검증, 실행 환경 재현, 심사 기준 표준화</div>
+      </div>
+      <div class="c" data-step>
+        <div class="ic ic-w">06</div>
+        <div class="c-t">오프라인 블렌디드 러닝</div>
+        <div class="c-d" style="margin-top:6px;">현장 실습 병행 운영, 멘토링 세션, 오프라인 해커톤, 네트워킹 행사 지원</div>
+      </div>
+    </div>
+  </div>
+  <div class="sf">
+    <span class="sf-logo">DACON</span>
+    <span class="sf-pg">16 / 20</span>
+    <span class="sf-cr">COPYRIGHT 2026 DACON INC. ALL RIGHTS RESERVED.</span>
+  </div>
+</div>
+
+<!-- ==================== SLIDE 17: Gamification ==================== -->
+<div class="slide">
+  <div class="sh"><span class="sh-l">III. 과업 부문별 상세 운영</span></div>
+  <div class="si">
+    <div class="tag tag-g">ENGAGEMENT</div>
+    <h2 class="st">지속적인 <span class="hl">동기부여</span>를 위한<br>Gamification 전략</h2>
+    <div class="g4" style="margin-top:28px;">
+      <div class="c" data-step>
+        <div class="ic">01</div>
+        <div class="c-t">학습 교재</div>
+        <div class="bd" style="margin-bottom:8px;">Split-View</div>
+        <div class="c-d">이론과 코딩을 하나의 화면에서 동시에 학습하는 통합 환경. 즉시 코드를 실행하고 결과를 확인하여 몰입도를 높입니다.</div>
+      </div>
+      <div class="c" data-step>
+        <div class="ic ic-w">02</div>
+        <div class="c-t">학습 교재 완료</div>
+        <div class="bd bd-w" style="margin-bottom:8px;">Stage Clear</div>
+        <div class="c-d">스테이지별 완료 팝업으로 성취감을 제공합니다. 단계를 넘길 때마다 시각적 보상으로 학습 지속성을 유지합니다.</div>
+      </div>
+      <div class="c" data-step>
+        <div class="ic ic-d">03</div>
+        <div class="c-t">해커톤 리더보드</div>
+        <div class="bd" style="margin-bottom:8px;">Competition</div>
+        <div class="c-d">실시간 리더보드를 통한 동료 경쟁. 순위 변동 알림, 제출 횟수 제한 등 경쟁 요소로 참여를 촉진합니다.</div>
+      </div>
+      <div class="c" data-step>
+        <div class="ic ic-g">04</div>
+        <div class="c-t">트랙 결과</div>
+        <div class="bd bd-g" style="margin-bottom:8px;">Certification</div>
+        <div class="c-d">트랙 완료 시 디지털 배지와 인증서를 자동 발급합니다. 단계별 배지 수집으로 성취 욕구를 자극합니다.</div>
+      </div>
+    </div>
+  </div>
+  <div class="sf">
+    <span class="sf-logo">DACON</span>
+    <span class="sf-pg">17 / 20</span>
+    <span class="sf-cr">COPYRIGHT 2026 DACON INC. ALL RIGHTS RESERVED.</span>
+  </div>
+</div>
+
+<!-- ==================== SLIDE 18: SECTION IV ==================== -->
+<div class="slide slide-sec">
+  <div class="si">
+    <div class="sn">IV</div>
+    <h2>사업 관리 및 지원 부문</h2>
+    <div class="sd">추진 일정 및 사업 관리</div>
+  </div>
+  <div class="sf">
+    <span class="sf-logo">DACON</span>
+    <span class="sf-pg">18 / 20</span>
+    <span class="sf-cr">COPYRIGHT 2026 DACON INC. ALL RIGHTS RESERVED.</span>
+  </div>
+</div>
+
+<!-- ==================== SLIDE 19: 추진 일정 ==================== -->
+<div class="slide">
+  <div class="sh"><span class="sh-l">IV. 사업 관리 및 지원</span></div>
+  <div class="si">
+    <div class="tag">PROJECT MANAGEMENT</div>
+    <h2 class="st">체계적인 프로세스에 입각한<br><span class="hl">주별 계획</span>을 수립합니다</h2>
+    <div style="margin-top:20px; overflow:auto;">
+      <table class="tb" style="font-size:0.75rem;">
+        <thead>
+          <tr>
+            <th style="width:22%;">단계</th>
+            <th style="width:13%;">W1</th>
+            <th style="width:13%;">W2</th>
+            <th style="width:13%;">W3</th>
+            <th style="width:13%;">W4</th>
+            <th style="width:13%;">W5</th>
+            <th style="width:13%;">W6</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr data-step>
+            <td style="font-weight:700;">사전 기획 및 설계</td>
+            <td><div class="gantt-cell gantt-blue"></div></td>
+            <td><div class="gantt-cell gantt-blue"></div></td>
+            <td></td><td></td><td></td><td></td>
+          </tr>
+          <tr data-step>
+            <td style="font-weight:700;">콘텐츠 개발</td>
+            <td></td>
+            <td><div class="gantt-cell gantt-warm"></div></td>
+            <td><div class="gantt-cell gantt-warm"></div></td>
+            <td></td><td></td><td></td>
+          </tr>
+          <tr data-step>
+            <td style="font-weight:700;">학습자 모집 및 OT</td>
+            <td></td><td></td>
+            <td><div class="gantt-cell gantt-green"></div></td>
+            <td></td><td></td><td></td>
+          </tr>
+          <tr data-step>
+            <td style="font-weight:700;">교재 학습 운영</td>
+            <td></td><td></td><td></td>
+            <td><div class="gantt-cell gantt-blue"></div></td>
+            <td><div class="gantt-cell gantt-blue"></div></td>
+            <td></td>
+          </tr>
+          <tr data-step>
+            <td style="font-weight:700;">해커톤 및 결과 평가</td>
+            <td></td><td></td><td></td><td></td>
+            <td><div class="gantt-cell gantt-warm"></div></td>
+            <td><div class="gantt-cell gantt-warm"></div></td>
+          </tr>
+          <tr data-step>
+            <td style="font-weight:700;">인증 및 사후 관리</td>
+            <td></td><td></td><td></td><td></td><td></td>
+            <td><div class="gantt-cell gantt-green"></div></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="c c-blue" style="margin-top:16px; padding:16px 20px;" data-step>
+      <div class="c-t">CS 지원 체계</div>
+      <div class="g3" style="margin-top:10px;">
+        <div class="c-d"><strong>전담 매니저:</strong> 프로젝트별 전담 PM 배정, 주간 미팅 진행</div>
+        <div class="c-d"><strong>기술 지원:</strong> 평일 09:00~18:00 실시간 대응, 긴급 이슈 즉시 처리</div>
+        <div class="c-d"><strong>운영 리포트:</strong> 주간/월간 학습 현황, 참여율, 성취도 리포트 제공</div>
+      </div>
+    </div>
+  </div>
+  <div class="sf">
+    <span class="sf-logo">DACON</span>
+    <span class="sf-pg">19 / 20</span>
+    <span class="sf-cr">COPYRIGHT 2026 DACON INC. ALL RIGHTS RESERVED.</span>
+  </div>
+</div>
+
+<!-- ==================== SLIDE 20: ENDING ==================== -->
+<div class="slide slide-end">
+  <div class="si">
+    <div class="end-logo">DACON</div>
+    <h1>데이콘은 귀 기관의 AI 인재 확보 및<br>기술 경쟁력 강화를 위한<br>최적의 파트너가 되겠습니다.</h1>
+    <div class="end-sub">dacon@dacon.io</div>
+    <div style="margin-top:32px; font-size:0.875rem; font-weight:700; color:var(--on-surface-variant);">DACON | DASCHOOL</div>
+  </div>
+  <div class="sf">
+    <span class="sf-logo">DACON</span>
+    <span class="sf-pg">20 / 20</span>
+    <span class="sf-cr">COPYRIGHT 2026 DACON INC. ALL RIGHTS RESERVED.</span>
+  </div>
+</div>
+
+<!-- Nav buttons -->
+<button class="nav-btn" id="nav-prev" onclick="show(C-1,-1)">&lsaquo;</button>
+<button class="nav-btn" id="nav-next" onclick="show(C+1,1)">&rsaquo;</button>
+</div><!-- /stage -->
+</div><!-- /viewport -->
+
+<div id="progress-bar"></div>
+
+<script>
+const SS=document.querySelectorAll('.slide'), T=SS.length;
+let C=0, stepI=0;
+
+function show(n,d){
+  if(n<0||n>=T)return;
+  const s=SS[n], steps=s.querySelectorAll('[data-step]');
+  if(d>0&&n===C&&stepI<steps.length){ steps[stepI].classList.add('visible'); stepI++; return; }
+  if(d<0&&n===C&&stepI>0){ stepI--; steps[stepI].classList.remove('visible'); return; }
+  SS[C].classList.remove('active');
+  C=n; stepI=0;
+  steps.forEach(e=>e.classList.remove('visible'));
+  SS[C].classList.add('active');
+  document.getElementById('progress-bar').style.width=(C/(T-1)*100)+'%';
+  history.replaceState(null,null,'#slide-'+(C+1));
+}
+
+function fit(){
+  const s=document.getElementById('stage'),
+    sc=Math.min(innerWidth/1280,innerHeight/720);
+  s.style.transform='scale('+sc+')';
+}
+window.addEventListener('resize',fit); fit();
+
+document.addEventListener('keydown',e=>{
+  if(e.key==='ArrowRight'||e.key===' '||e.key==='PageDown') show(C+1,1);
+  else if(e.key==='ArrowLeft'||e.key==='PageUp') show(C-1,-1);
+  else if(e.key==='Home') show(0,0);
+  else if(e.key==='End') show(T-1,0);
+  else if(e.key==='f'||e.key==='F') document.documentElement.requestFullscreen?.();
+});
+
+let tx=0;
+document.addEventListener('touchstart',e=>{tx=e.touches[0].clientX;});
+document.addEventListener('touchend',e=>{const d=e.changedTouches[0].clientX-tx; if(d<-40)show(C+1,1); else if(d>40)show(C-1,-1);});
+
+const h=location.hash.match(/slide-(\d+)/);
+if(h) show(parseInt(h[1])-1,0);
+
+SS[0].classList.add('active');
+</script>
+</body>
+</html>
