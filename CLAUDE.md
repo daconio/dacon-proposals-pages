@@ -27,6 +27,11 @@ All HTML presentations are **single-file, self-contained slide decks** (no exter
 - **Design tokens**: CSS custom properties on `:root` (`--primary`, `--surface`, `--accent-warm`, etc.) following a Material-inspired tonal palette
 - **Utility classes**: Short class names for layout (`g2`-`g5` grids, `tc` two-column, `fr` flow row), cards (`c`, `c-blue`, `c-warm`), metrics (`mx`), tags (`tag`), badges (`bd`), tables (`tb`), checklists (`ck`)
 
+## Proposal Rules
+
+- **견적/예산/비용 섹션 작성 금지**: 제안서(md, html, pdf)에 견적서, 예산 구성, 비용 안내, 패키지 가격 등 금액이 포함된 섹션을 절대 포함하지 않는다. 견적은 별도 문서(스프레드시트 등)로 관리한다.
+- **스킬 리포트 언급 금지**: 제안서에 "스킬 리포트", "스킬 리포트 기반 채용 연계" 등의 문구를 포함하지 않는다.
+
 ## Language
 
 All document content is in **Korean**. Commit messages are in English.
