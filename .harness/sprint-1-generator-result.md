@@ -1,42 +1,70 @@
-# Sprint 1 — Generator Result
+# Sprint 1 — Generator Result (GS E&R HTML Slide Sync)
 
 ## Status: COMPLETE
 
 ## Deliverable
 
-- **File**: `제안/2026-03-29-단국대학교_SW중심대학_사전대회_제안서.md`
-- **Commit**: `5f0bdd8`
+- **File**: `제안/2026-03-27-GS_E&R_AI경진대회_제안서_슬라이드.html`
+- **Commit**: `9f93129`
 
-## Contract Verification
+## Tasks Completed
 
-| ID | 검증 항목 | 결과 | 비고 |
-|----|---------|------|------|
-| CR-01 | 파일 존재 | PASS | 파일 생성 완료 |
-| CR-02 | 슬라이드 수 | PASS | `---` 구분자 14개 → 15 섹션 (범위 14~16 이내) |
-| CR-03 | 포지셔닝 | PASS | 표지에 "SW중심대학 경진대회 사전 연습 대회 제안서" 포함 |
-| CR-04 | 교수 대상 | PASS | "교수" 키워드 7회 등장, 제안 대상 명시 |
-| CR-05 | 7월 타임라인 | PASS | 4월, 5월, 6월, 7월 모두 타임라인 섹션에 존재 |
-| CR-06 | 예산 구조 | PASS | Basic/Standard/Premium 패키지 + 금액 포함 |
-| CR-07 | 성과 지표 매핑 | PASS | SW중심대학 평가 항목 7개 × DAKER/DACON 기여도 테이블 |
-| CR-08 | 역할 분담 | PASS | 단국대 vs DAKER+DACON 역할 분담표 존재 |
-| CR-09 | 타교 사례 | PASS | 한성대, 조선대, 한국열린사이버대 3건 |
-| CR-10 | 데이콘 실적 | PASS | 누적 상금 25억+, 회원 수 14만+ 포함 |
-| CR-11 | 파일명 미참조 | PASS | 구 파일명 문자열 0건 |
+| Task | Description | Status |
+|------|-------------|--------|
+| 1-1 | s3 Option A table: added 대회 유형, 상금 규모 rows; fixed 참가 대상 to 자격조건 | Done |
+| 1-2 | Created new s3b (Option B detail with DACON+DAKER); renamed old s3b to s3c | Done |
+| 1-3 | s3c comparison table: fixed Option B duration to 8주 | Done |
+| 1-4 | s5 performance table: 10 customers with corrected numbers (SAMSUNG 5,000+, LG 20,000+, TOSS 2,500+, energy sector clients) | Done |
+| 1-5 | s6 success factor cards: added 수상인증서/수료증 and 서류 전형 면제 text | Done |
+| 1-6 | s8 references: added 4 latest reference cards (토스, Samsung, SW마에스트로, 수원시) | Done |
+| 1-7 | s9 simplified; created s9b (Option A/B timeline tables) and s9c (contact + next steps) | Done |
+| 1-8 | Slide footers renumbered 2-15 (s1 cover has no footer) | Done |
+| 1-9 | JS navigation verified: show() uses querySelectorAll('.slide') dynamically | Done |
+
+## Contract Verification (CR)
+
+| ID | Check | Result |
+|----|-------|--------|
+| CR-01 | File exists | PASS |
+| CR-02 | 15 slide sections | PASS (15) |
+| CR-03 | s3 has 대회 유형 and 상금 규모 | PASS |
+| CR-04 | s3b exists with "AI Hackathon 2026" | PASS |
+| CR-05 | s3b contains "DAKER" in 운영 row | PASS |
+| CR-06 | s3c contains "8주" | PASS |
+| CR-07 | s5 tbody has 10 tr tags | PASS (10) |
+| CR-08 | s5 contains "5,000" | PASS |
+| CR-09 | s5 contains "20,000" | PASS |
+| CR-10 | s5 contains 한국에너지기술연구원/한국수자원공사 | PASS |
+| CR-11 | s8 contains "SW마에스트로" and "수원시" | PASS |
+| CR-12 | s9b exists with "W1~W2" | PASS |
+| CR-13 | s9c exists with "이근민" and "kmlee@gswind.com" | PASS |
+| CR-14 | 14 sf-pg elements, includes "15" | PASS |
+| CR-15 | 83 data-step elements (>= 30) | PASS |
+| CR-16 | No external resources beyond Google Fonts | PASS |
+| CR-17 | @page rule and break-after:page present | PASS |
+| CR-18 | show() with querySelectorAll('.slide') | PASS |
 
 ## Slide Structure (15 slides)
 
-1. COVER — SW중심대학 경진대회 사전 연습 대회 제안서
-2. CONTEXT — SW중심대학 경진대회란
-3. PROBLEM — 왜 사전 연습이 필요한가
-4. LANDSCAPE — 사전 연습 대회 타교 사례
-5. DANKOOK — 단국대 SW중심대학 현황
-6. PROPOSAL — 단국대만의 사전 대회 제안 (섹션 구분)
-7. DUAL TRACK — DAKER + DACON 듀얼 트랙
-8. VIBE TRACK — DAKER 바이브코딩 AIX 대회
-9. ALGO TRACK — DACON 알고리즘 경진대회
-10. ALIGNMENT — SW중심대학 성과 지표 매핑
-11. TIMELINE — 7월 개최 타임라인
-12. BUDGET — 예산 및 비용 구조
-13. EXPECTED — 기대효과 및 KPI
-14. PLATFORM — 데이콘 플랫폼 실적
-15. ENDING — 함께 준비합시다
+| # | ID | Title |
+|---|-----|-------|
+| 1 | s1 | COVER |
+| 2 | s2 | 제안 배경 & 핵심 목표 |
+| 3 | s3 | Option A 대회 개요 |
+| 4 | s3b | Option B 대회 개요 (NEW) |
+| 5 | s3c | Option A vs B 비교 |
+| 6 | s4 | 대회 주제 후보(안) |
+| 7 | s5 | 데이콘 수행 역량 |
+| 8 | s6 | 운영 프로세스 타임라인 |
+| 9 | s6b | 1박 2일 해커톤 일정 |
+| 10 | s7 | 기대 효과 KPI |
+| 11 | s8 | 성공 벤치마킹 |
+| 12 | s9 | 파트너십 & 역할 분담 |
+| 13 | s9b | 추진 일정 상세 (NEW) |
+| 14 | s9c | 담당자 & 다음 단계 (NEW) |
+| 15 | s10 | ENDING |
+
+## Notes
+
+- s5 table uses smaller font/padding (font-size:.7rem, padding:4px 8px) to fit 10 rows
+- PDF regeneration deferred to Sprint 2
