@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>NIA 빅데이터 분석 정책수립지원 — 데이콘 제안서</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+--p:#0053db;--pd:#0048c1;--op:#f8f7ff;
+--sf:#f7f9fb;--sl:#f0f4f7;--sw:#ffffff;
+--os:#2a3439;--osv:#566166;--ov:#a9b4b9;
+--sc:#d8e3fb;--osc:#475266;
+--w:#c2622d;--wb:rgba(194,98,45,.06);
+--g:#10b981;--gb:rgba(16,185,129,.06);
+--dk:#0f172a;
+--f:'Plus Jakarta Sans',-apple-system,sans-serif;
+--gh:1px solid rgba(169,180,185,.2);
+--rs:.25rem;--rm:.375rem;--rl:.75rem;--rx:1rem;--rf:9999px;
+--slide-w:960px;--slide-h:1358px;
+}
+html,body{width:100%;height:100%;background:var(--sl);font-family:var(--f);overflow:hidden;color:var(--os)}
+#viewport{position:fixed;inset:0;display:flex;align-items:center;justify-content:center}
+#stage{position:relative;width:960px;height:1358px;overflow:hidden;transform-origin:center center;border-radius:var(--rl);box-shadow:0 12px 48px rgba(30,41,59,.1)}
+.slide{position:absolute;inset:0;background:var(--sf);display:flex;flex-direction:column;opacity:0;pointer-events:none;transition:opacity 0s}
+.slide.active{opacity:1;pointer-events:auto}
+.si{flex:1;display:flex;flex-direction:column;padding:56px 48px 40px;position:relative}
+.sh{position:absolute;top:0;left:0;right:0;padding:14px 32px;display:flex;justify-content:space-between;align-items:center;background:var(--sl);z-index:2}
+.sh-l{font-size:.625rem;font-weight:700;color:var(--osv);letter-spacing:.05em;text-transform:uppercase}
+.sf{position:absolute;bottom:0;left:0;right:0;padding:10px 32px;display:flex;justify-content:space-between;align-items:center;background:var(--sl);z-index:2}
+.sf-logo{font-size:.8125rem;font-weight:800;letter-spacing:.04em}
+.sf-pg{font-size:.625rem;color:var(--osv);font-weight:600}
+.sf-cr{font-size:.5rem;color:var(--ov);letter-spacing:.03em;font-weight:600}
+.tag{display:inline-flex;align-items:center;gap:8px;font-size:.625rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--p);margin-bottom:10px}
+.tag::before{content:'';width:20px;height:2.5px;background:var(--p);border-radius:2px}
+.tag-w{color:var(--w)}.tag-w::before{background:var(--w)}
+.tag-g{color:var(--g)}.tag-g::before{background:var(--g)}
+h2.st{font-size:1.625rem;font-weight:800;line-height:1.2;color:var(--os);letter-spacing:-.02em}
+.st-sub{font-size:1.375rem;font-weight:800;line-height:1.2;color:var(--os);letter-spacing:-.02em}
+.hl{color:var(--p)}.hl-w{color:var(--w)}.hl-g{color:var(--g)}
+.sub{margin-top:8px;font-size:.875rem;color:var(--osv);line-height:1.6}
+.c{background:var(--sw);border-radius:var(--rl);padding:16px}
+.c-b{background:var(--sc)}.c-w{background:var(--wb)}.c-s{background:var(--sl)}.c-g{background:var(--gb)}
+.c-t{font-size:.875rem;font-weight:700;color:var(--os);margin-bottom:4px}
+.c-d{font-size:.75rem;color:var(--osv);line-height:1.55}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+.g4{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:8px}
+.g5{display:grid;grid-template-columns:1fr 1fr 1fr 1fr 1fr;gap:8px}
+.ic{width:32px;height:32px;border-radius:var(--rm);display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:800;margin-bottom:8px;color:#fff;background:var(--p)}
+.ic-w{background:var(--w)}.ic-d{background:var(--dk)}.ic-g{background:var(--g)}
+.mx{text-align:center;padding:12px 8px;background:var(--sl);border-radius:var(--rl)}
+.mx .v{font-size:1.5rem;font-weight:800;line-height:1;color:var(--p)}
+.mx .l{font-size:.625rem;color:var(--osv);margin-top:4px;font-weight:500}
+.tb{width:100%;border-collapse:collapse;font-size:.8125rem}
+.tb th{text-align:left;padding:7px 10px;background:var(--sl);color:var(--os);font-weight:700;font-size:.75rem}
+.tb td{padding:7px 10px;color:var(--osv);font-size:.75rem}
+.tb tr:nth-child(even) td{background:rgba(240,244,247,.5)}
+.tb-s{font-size:.6875rem}
+.tb-s th{padding:5px 8px;font-size:.5625rem}
+.tb-s td{padding:5px 8px;font-size:.625rem}
+.tc{display:grid;grid-template-columns:1fr 1fr;gap:16px;flex:1}
+.bd{display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:var(--rf);font-size:.625rem;font-weight:600;background:var(--sc);color:var(--osc)}
+.bd-w{background:var(--wb);color:var(--w)}
+.bd-g{background:var(--gb);color:var(--g)}
+.fr{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.ck{list-style:none;padding:0}
+.ck li{position:relative;padding:3px 0 3px 20px;font-size:.75rem;color:var(--osv);line-height:1.5}
+.ck li::before{content:'';position:absolute;left:0;top:8px;width:12px;height:12px;border-radius:3px;border:2px solid var(--p)}
+.ck li.done::before{background:var(--p);border-color:var(--p)}
+.ck li.done::after{content:'';position:absolute;left:3px;top:11px;width:6px;height:4px;border-left:2px solid #fff;border-bottom:2px solid #fff;transform:rotate(-45deg)}
+.divider{border:none;border-top:1px solid #e2e8f0;margin:20px 0}
+.slide-sec .si{justify-content:center;align-items:center;text-align:center}
+.slide-sec .sn{font-size:5rem;font-weight:900;color:var(--p);opacity:.08;line-height:1}
+.slide-sec .sd{font-size:1rem;color:var(--osv);margin-top:10px}
+.slide-end .si{justify-content:center;align-items:center;text-align:center}
+.slide-end h1{font-size:2.5rem;font-weight:800;color:var(--os);line-height:1.15;letter-spacing:-.02em}
+.slide-end .end-sub{font-size:1rem;color:var(--osv);margin-top:12px}
+.slide-end .end-logo{font-size:2.25rem;font-weight:800;color:var(--p);letter-spacing:.06em;margin-bottom:32px}
+.flow{display:flex;align-items:center;gap:0;flex-wrap:wrap}
+.flow-item{flex:1;min-width:0;text-align:center;padding:10px 8px;background:var(--sw);border-radius:var(--rl);font-size:.75rem;font-weight:600;color:var(--os)}
+.flow-arrow{width:24px;text-align:center;color:var(--ov);font-size:.875rem;flex-shrink:0}
+.flow-item small{display:block;font-size:.625rem;font-weight:400;color:var(--osv);margin-top:3px}
+.tl{position:relative;padding-left:24px}
+.tl::before{content:'';position:absolute;left:7px;top:0;bottom:0;width:2px;background:var(--sc)}
+.tl-item{position:relative;margin-bottom:10px}
+.tl-item::before{content:'';position:absolute;left:-21px;top:5px;width:10px;height:10px;border-radius:50%;background:var(--p);border:2px solid var(--sc)}
+.tl-y{font-size:.75rem;font-weight:800;color:var(--p)}
+.tl-d{font-size:.6875rem;color:var(--osv);line-height:1.5;margin-top:2px}
+[data-step]{opacity:0;transform:translateY(12px);transition:opacity .4s ease,transform .4s ease}
+[data-step].visible{opacity:1;transform:none}
+[data-step].pre-visible{opacity:1;transform:none;transition:none}
+.nav-btn{position:fixed;top:50%;transform:translateY(-50%);width:36px;height:36px;border-radius:50%;background:rgba(247,249,251,.85);border:none;color:var(--osv);cursor:pointer;z-index:100;display:flex;align-items:center;justify-content:center;font-size:16px;transition:all .2s;user-select:none;box-shadow:0 8px 24px rgba(30,41,59,.04);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px)}
+.nav-btn:hover{color:var(--p)}
+#nav-prev{left:12px}#nav-next{right:12px}
+#progress-bar{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--p),var(--pd));transition:width .4s ease;z-index:100}
+#key-hint{position:fixed;bottom:16px;left:50%;transform:translateX(-50%);color:var(--ov);font-size:.625rem;z-index:100;opacity:.4}
+@page{size:portrait;margin:0}
+@media print{html,body{background:#fff!important;overflow:visible!important;height:auto!important;width:auto!important;margin:0!important;padding:0!important}#viewport{position:static!important;display:block!important;height:auto!important}#stage{position:static!important;width:auto!important;height:auto!important;overflow:visible!important;transform:none!important;box-shadow:none!important;border-radius:0!important}.slide{position:relative!important;inset:auto!important;opacity:1!important;pointer-events:auto!important;display:flex!important;flex-direction:column!important;width:100vw!important;height:100vh!important;page-break-after:always!important;break-after:page!important;page-break-inside:avoid!important;margin:0!important;overflow:hidden!important}.nav-btn,#progress-bar,#key-hint{display:none!important}[data-step]{opacity:1!important;transform:none!important}}
+</style>
+</head>
+<body>
+<div id="viewport"><div id="stage">
+
+<!-- S1: 표지 (단독) -->
+<section class="slide active" id="s1">
+  <div class="si" style="justify-content:center;align-items:center;text-align:center;background:linear-gradient(160deg,var(--sf) 0%,var(--sc) 100%)">
+    <div style="position:absolute;top:28px;left:48px">
+      <span style="display:inline-block;padding:5px 14px;border-radius:var(--rf);background:var(--sc);font-size:.6875rem;font-weight:700;color:var(--osc);letter-spacing:.06em">01</span>
+      <span style="margin-left:8px;font-size:.75rem;font-weight:600;color:var(--osv)">I. 제안사 일반현황</span>
+    </div>
+    <div data-step="1" style="margin-bottom:20px">
+      <div style="width:72px;height:72px;border-radius:18px;background:linear-gradient(135deg,var(--p),var(--pd));display:inline-flex;align-items:center;justify-content:center;margin-bottom:24px">
+        <span style="font-size:1.375rem;font-weight:900;color:var(--op);letter-spacing:.04em">DC</span>
+      </div>
+    </div>
+    <h1 data-step="2" style="font-size:3.25rem;font-weight:900;letter-spacing:-.02em;color:var(--os);line-height:1.1">데이콘</h1>
+    <p data-step="3" style="font-size:1rem;color:var(--osv);margin-top:16px;line-height:1.7">국내 최대 AI 경진대회 플랫폼</p>
+    <div data-step="4" style="margin-top:40px;padding-top:28px;border-top:1px solid rgba(169,180,185,.2)">
+      <span style="font-size:.8125rem;font-weight:700;color:var(--os)">데이콘(주)</span>
+      <span style="margin:0 10px;color:var(--ov)">|</span>
+      <span style="font-size:.75rem;color:var(--osv)">NIA 2025 빅데이터 분석 정책수립지원 사업</span>
+    </div>
+    <div style="position:absolute;bottom:20px;right:48px;font-size:.5rem;color:var(--ov)">COPYRIGHT 2025 DACON</div>
+  </div>
+</section>
+
+<!-- S2: 컨소시엄 특장점 + 회사 현황/연혁 (2콘텐츠) -->
+<section class="slide" id="s2">
+  <div class="sh"><span class="sh-l">I. 제안사 일반현황 > 1.1 제안컨소시엄의 특장점</span></div>
+  <div class="si" style="padding-top:48px">
+    <!-- 상단: 컨소시엄 특장점 -->
+    <div class="tag">CONSORTIUM</div>
+    <h2 class="st" data-step="1">핵심 역량을 보유한 전문사와 <span class="hl">빅데이터 분석 인사이트 도출</span></h2>
+    <div class="g3" style="margin-top:16px">
+      <div class="c c-b" data-step="2">
+        <div class="ic">01</div>
+        <div class="c-t" style="color:var(--osc)">빅데이터 분석사업을 다수 수행한 전문인력</div>
+        <div class="c-d" style="color:var(--osc)">AI 경진대회 280여회 운영 경험과 데이터 분석 전문 역량을 보유한 핵심 인력 투입</div>
+      </div>
+      <div class="c c-w" data-step="2">
+        <div class="ic ic-w">02</div>
+        <div class="c-t">세부 분석과제별 전문기업 구성</div>
+        <div class="c-d">분석 과제의 도메인 특성에 맞춘 전문기업 컨소시엄으로 최적의 분석 인사이트 확보</div>
+      </div>
+      <div class="c c-g" data-step="2">
+        <div class="ic ic-g">03</div>
+        <div class="c-t">공공사업 수행 및 관리의 풍부한 경험</div>
+        <div class="c-d">NIA, 과기정통부 등 다수의 공공사업 수행 경험을 기반으로 체계적 프로젝트 관리</div>
+      </div>
+    </div>
+
+    <hr class="divider">
+
+    <!-- 하단: 회사 현황/연혁 -->
+    <div class="tag tag-w">ABOUT DACON</div>
+    <div class="st-sub" data-step="3">지난 <span class="hl">7년간 LG, 삼성, TOSS</span> 등 선도 기업과 AI 경진대회 설계</div>
+    <div class="g2" style="margin-top:12px;align-items:start">
+      <div data-step="4">
+        <table class="tb">
+          <tr><td style="font-weight:700;width:35%">회사명</td><td><strong>데이콘(주)</strong></td></tr>
+          <tr><td style="font-weight:700">대표자</td><td>김 국 진</td></tr>
+          <tr><td style="font-weight:700">사업분야</td><td>AI 경진대회 플랫폼, AI 교육, 빅데이터 컨설팅</td></tr>
+          <tr><td style="font-weight:700">설립</td><td>2018년 5월</td></tr>
+          <tr><td style="font-weight:700">종사기간</td><td>2018.05 ~ 2025.07 (7년 2개월)</td></tr>
+        </table>
+      </div>
+      <div data-step="5" class="tl" style="margin-top:2px">
+        <div class="tl-item"><div class="tl-y">2025</div><div class="tl-d">삼성전자 리서치 AI 챌린지, LG Aimers 6기<br/>회원 12만명, 상금 20억원+</div></div>
+        <div class="tl-item"><div class="tl-y">2024</div><div class="tl-d">삼성SAIT, LG AI연구원, NH투자증권, 금융보안원</div></div>
+        <div class="tl-item"><div class="tl-y">2023</div><div class="tl-d">B2C 온라인 AI교육 런칭, 기업 채용 경진대회</div></div>
+        <div class="tl-item"><div class="tl-y">2022</div><div class="tl-d">기업부설연구소 설립</div></div>
+        <div class="tl-item"><div class="tl-y">2019</div><div class="tl-d">데이콘 플랫폼 서비스 시작</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span class="sf-logo" style="color:var(--p)">DACON</span><span class="sf-pg">2</span><span class="sf-cr">COPYRIGHT 2025</span></div>
+</section>
+
+<!-- S3: 매출액 + 조직 (2콘텐츠) -->
+<section class="slide" id="s3">
+  <div class="sh"><span class="sh-l">I. 제안사 일반현황 > 1.5.2 매출액 / 2.4 조직</span></div>
+  <div class="si" style="padding-top:48px">
+    <!-- 상단: 매출액 -->
+    <div class="tag">FINANCIAL</div>
+    <h2 class="st" data-step="1">최근 3년간 부문별 <span class="hl">매출액</span></h2>
+    <div class="g3" style="margin-top:14px">
+      <div class="mx" data-step="2"><div class="v">11.7억</div><div class="l">2022년</div></div>
+      <div class="mx" data-step="2"><div class="v">14.1억</div><div class="l">2023년</div></div>
+      <div class="mx" data-step="2"><div class="v">11.6억</div><div class="l">2024년</div></div>
+    </div>
+    <div data-step="3" style="margin-top:10px;text-align:center;font-size:.6875rem;color:var(--osv)">신용평가 BB- (코리아크레딧뷰로 2024.08)</div>
+
+    <hr class="divider">
+
+    <!-- 하단: 조직 -->
+    <div class="tag tag-w">ORGANIZATION</div>
+    <div class="st-sub" data-step="4">총 <span class="hl">15명</span> 전문가 조직 (2025년 7월 기준)</div>
+    <div class="g3" style="margin-top:12px">
+      <div class="c c-b" data-step="5">
+        <div class="ic">DS</div>
+        <div class="c-t" style="color:var(--osc)">Data Science실</div>
+        <div class="c-d" style="color:var(--osc)">AI 경진대회 설계/운영<br/>AI 교육 프로그램 기획</div>
+      </div>
+      <div class="c c-w" data-step="5">
+        <div class="ic ic-w">PL</div>
+        <div class="c-t">플랫폼실</div>
+        <div class="c-d">플랫폼 개발/운영<br/>기획/디자인</div>
+      </div>
+      <div class="c c-g" data-step="5">
+        <div class="ic ic-g">GI</div>
+        <div class="c-t">GIS 연구소 + 인사행정</div>
+        <div class="c-d">공간정보 연구<br/>인사/행정/재무</div>
+      </div>
+    </div>
+    <div data-step="6" style="margin-top:10px;display:flex;gap:10px;justify-content:center">
+      <span class="bd">특급 5명</span>
+      <span class="bd bd-w">중급 1명</span>
+      <span class="bd bd-g">초급 9명</span>
+    </div>
+  </div>
+  <div class="sf"><span class="sf-logo" style="color:var(--p)">DACON</span><span class="sf-pg">3</span><span class="sf-cr">COPYRIGHT 2025</span></div>
+</section>
+
+<!-- S4: 투입인력 (단독) -->
+<section class="slide" id="s4">
+  <div class="sh"><span class="sh-l">I. 제안사 일반현황 > 2.3 투입인력</span></div>
+  <div class="si" style="padding-top:48px">
+    <div class="tag">PROJECT TEAM</div>
+    <h2 class="st" data-step="1">데이콘 투입인력 <span class="hl">총 5명</span> (핵심인력 3명)</h2>
+    <table class="tb" style="margin-top:14px" data-step="2">
+      <thead>
+        <tr><th>구분</th><th>성명</th><th>직위</th><th>담당업무</th><th>경력</th><th>투입률</th><th>등급</th><th>핵심</th></tr>
+      </thead>
+      <tbody>
+        <tr><td style="font-weight:600">사업관리자</td><td>김기민</td><td>팀장</td><td>PM</td><td>3년3개월</td><td>100%</td><td>특급</td><td style="color:var(--p);font-weight:700">O</td></tr>
+        <tr><td style="font-weight:600">실무책임자</td><td>장서연</td><td>매니저</td><td>사업운영</td><td>3년10개월</td><td>100%</td><td>초급</td><td style="color:var(--p);font-weight:700">O</td></tr>
+        <tr><td style="font-weight:600">실무자</td><td>박수웅</td><td>매니저</td><td>대회설계</td><td>1년6개월</td><td>100%</td><td>초급</td><td style="color:var(--p);font-weight:700">O</td></tr>
+        <tr><td style="font-weight:600">실무자</td><td>박서희</td><td>매니저</td><td>대회운영</td><td>10개월</td><td>70%</td><td>초급</td><td></td></tr>
+        <tr><td style="font-weight:600">실무자</td><td>김영태</td><td>매니저</td><td>대회운영</td><td>2년6개월</td><td>70%</td><td>초급</td><td></td></tr>
+      </tbody>
+    </table>
+
+    <hr class="divider">
+
+    <div class="tag tag-w" data-step="3">PM HIGHLIGHTS</div>
+    <div class="st-sub">PM 김기민 <span class="hl">주요 프로젝트 경력</span></div>
+    <table class="tb" style="margin-top:10px" data-step="4">
+      <thead>
+        <tr><th>프로젝트명</th><th>기간</th><th>발주처</th><th>역할</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>K-water AI 경진대회</td><td>2024.11~12</td><td>한국수자원공사</td><td>PM</td></tr>
+        <tr><td>물가예측모형 국민참여대회</td><td>2024.10~12</td><td>디지털플랫폼정부위원회</td><td>PM</td></tr>
+        <tr><td>농산물가격예측 AI 경진대회</td><td>2024.09~12</td><td>한국농수산식품유통공사</td><td>PM</td></tr>
+        <tr><td>Samsung AI Challenge</td><td>2024.08~10</td><td>삼성전자</td><td>PM</td></tr>
+        <tr><td>FSI AIxData Challenge</td><td>2024.05~09</td><td>금융보안원</td><td>PM</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="sf"><span class="sf-logo" style="color:var(--p)">DACON</span><span class="sf-pg">4</span><span class="sf-cr">COPYRIGHT 2025</span></div>
+</section>
+
+<!-- S5: 사업실적 1/2 (단독) -->
+<section class="slide" id="s5">
+  <div class="sh"><span class="sh-l">I. 제안사 일반현황 > 5.1 사업실적 1/2</span></div>
+  <div class="si" style="padding-top:48px">
+    <div class="tag">TRACK RECORD 1/2</div>
+    <h2 class="st" data-step="1">데이콘 주요사업 실적 — <span class="hl">플랫폼 기반 AI 경진대회 32건+</span></h2>
+    <table class="tb-s tb" style="margin-top:12px" data-step="2">
+      <thead>
+        <tr><th style="width:5%">No</th><th>사업명</th><th style="width:18%">기간</th><th style="width:22%">발주처</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>1</td><td>K-water AI 경진대회</td><td>2024.11~12</td><td>한국수자원공사</td></tr>
+        <tr><td>2</td><td>물가예측모형 국민참여대회</td><td>2024.10~12</td><td>디지털플랫폼정부위원회</td></tr>
+        <tr><td>3</td><td>농산물가격예측 AI 경진대회</td><td>2024.09~12</td><td>한국농수산식품유통공사</td></tr>
+        <tr><td>4</td><td>자동차 데이터분석 경진대회</td><td>2024.09~11</td><td>대구디지털혁신진흥원</td></tr>
+        <tr><td>5</td><td>헬스케어 데이터 경진대회</td><td>2024.08~11</td><td>연세대학교</td></tr>
+        <tr><td>6</td><td>현대NGV AI 경진대회</td><td>2024.08~10</td><td>현대엔지비</td></tr>
+        <tr><td>7</td><td>Samsung AI Challenge</td><td>2024.08~10</td><td>삼성전자</td></tr>
+        <tr><td>8</td><td>AI 신약개발 데이터 경진대회</td><td>2024.07~11</td><td>한국제약바이오협회</td></tr>
+        <tr><td>9</td><td>대구 빅데이터 분석 경진대회</td><td>2024.05~12</td><td>대구디지털혁신진흥원</td></tr>
+        <tr><td>10</td><td>FSI AIxData Challenge</td><td>2024.05~09</td><td>금융보안원</td></tr>
+        <tr><td>11</td><td>대구 공공데이터 창업경진대회</td><td>2024.04~08</td><td>대구디지털혁신진흥원</td></tr>
+        <tr><td>12</td><td>SW중심대학 디지털 경진대회</td><td>2024.03~08</td><td>SW중심대학협의회</td></tr>
+        <tr><td>13</td><td>자동차산업 데이터분석</td><td>2023.11~12</td><td>대구디지털혁신진흥원</td></tr>
+        <tr><td>14</td><td>HD현대 AI Challenge</td><td>2023.09~11</td><td>HD한국조선해양</td></tr>
+        <tr><td>15</td><td>KRX 알고리즘 경진대회</td><td>2023.06~10</td><td>한국거래소</td></tr>
+        <tr><td>16</td><td>Samsung AI/CE Challenge</td><td>2023.08~10</td><td>삼성전자</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="sf"><span class="sf-logo" style="color:var(--p)">DACON</span><span class="sf-pg">5</span><span class="sf-cr">COPYRIGHT 2025</span></div>
+</section>
+
+<!-- S6: 사업실적 2/2 + 유사사업 (2콘텐츠) -->
+<section class="slide" id="s6">
+  <div class="sh"><span class="sh-l">I. 제안사 일반현황 > 5.1 사업실적 2/2 / 5.2 유사사업</span></div>
+  <div class="si" style="padding-top:48px">
+    <!-- 상단: 실적 17~32 -->
+    <div class="tag">TRACK RECORD 2/2</div>
+    <table class="tb-s tb" style="margin-top:4px" data-step="1">
+      <thead>
+        <tr><th style="width:5%">No</th><th>사업명</th><th style="width:18%">기간</th><th style="width:22%">발주처</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>17</td><td>NH투자증권 데이터 경진대회</td><td>2023.06~09</td><td>NH투자증권</td></tr>
+        <tr><td>18</td><td>한국제약바이오 AI 경진대회</td><td>2023.05~10</td><td>한국제약바이오협회</td></tr>
+        <tr><td>19</td><td>현대자동차 AI 경진대회</td><td>2023.03~05</td><td>현대자동차</td></tr>
+        <tr><td>20</td><td>SW중심대학 디지털 경진대회</td><td>2023.03~08</td><td>SW중심대학협의회</td></tr>
+        <tr><td>21</td><td>신한AI 경진대회</td><td>2022.10~12</td><td>신한금융그룹</td></tr>
+        <tr><td>22</td><td>LG Aimers 3기</td><td>2023.01~03</td><td>LG AI연구원</td></tr>
+        <tr><td>23</td><td>LG Aimers 2기</td><td>2022.08~10</td><td>LG AI연구원</td></tr>
+        <tr><td>24</td><td>LG Aimers 1기</td><td>2022.01~03</td><td>LG AI연구원</td></tr>
+        <tr><td>25</td><td>교원그룹 AI 경진대회</td><td>2022.09~11</td><td>교원그룹</td></tr>
+        <tr><td>26</td><td>제주 빅데이터 경진대회</td><td>2022.06~10</td><td>제주특별자치도</td></tr>
+        <tr><td>27</td><td>HD현대 AI Challenge</td><td>2022.08~10</td><td>HD한국조선해양</td></tr>
+        <tr><td>28</td><td>한국관광공사 데이터 경진대회</td><td>2022.05~08</td><td>한국관광공사</td></tr>
+        <tr><td>29</td><td>Samsung AI Challenge</td><td>2022.08~10</td><td>삼성전자</td></tr>
+        <tr><td>30</td><td>한국수력원자력 AI 경진대회</td><td>2022.04~07</td><td>한국수력원자력</td></tr>
+        <tr><td>31</td><td>KRX 알고리즘 경진대회</td><td>2022.05~08</td><td>한국거래소</td></tr>
+        <tr><td>32</td><td>현대자동차 AI 경진대회</td><td>2021.10~12</td><td>현대자동차</td></tr>
+      </tbody>
+    </table>
+
+    <hr class="divider">
+
+    <!-- 하단: 유사사업 경험 -->
+    <div class="tag tag-w" data-step="2">SIMILAR PROJECTS</div>
+    <div class="st-sub">5.2 유사사업 경험 요약</div>
+    <div class="g2" style="margin-top:10px">
+      <div class="c c-b" data-step="3">
+        <div class="c-t" style="color:var(--osc)">시공간 정보 기반 ELCO 예측</div>
+        <div class="c-d" style="color:var(--osc)">시공간 정보를 활용한 전력 소비량 예측 AI 모델 개발 대회</div>
+        <div style="margin-top:8px"><span class="bd" style="font-size:.5625rem">참가자 2,334명</span></div>
+      </div>
+      <div class="c c-w" data-step="3">
+        <div class="c-t">제주도 교통량 예측</div>
+        <div class="c-d">제주도 도로 교통량 예측 AI 모델 개발 경진대회</div>
+        <div style="margin-top:8px"><span class="bd bd-w" style="font-size:.5625rem">1,400명 / 700팀</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span class="sf-logo" style="color:var(--p)">DACON</span><span class="sf-pg">6</span><span class="sf-cr">COPYRIGHT 2025</span></div>
+</section>
+
+<!-- S7: 섹션 구분자 — II 사업 추진전략 (단독) -->
+<section class="slide slide-sec" id="s7">
+  <div class="si">
+    <div class="sn" data-step="1">II</div>
+    <h2 class="st" data-step="2" style="margin-top:16px;font-size:2rem">사업 추진전략</h2>
+    <div class="sd" data-step="3">대규모 AI 경진대회 운영 노하우 기반의 체계적 추진전략</div>
+  </div>
+  <div class="sf"><span class="sf-logo" style="color:var(--p)">DACON</span><span class="sf-pg">7</span><span class="sf-cr">COPYRIGHT 2025</span></div>
+</section>
+
+<!-- S8: 추진전략 + 모델 제출 시스템 (2콘텐츠) -->
+<section class="slide" id="s8">
+  <div class="sh"><span class="sh-l">II. 사업 추진전략 > 2.2 세부 추진전략</span></div>
+  <div class="si" style="padding-top:48px">
+    <!-- 상단: 추진전략 -->
+    <div class="tag">STRATEGY</div>
+    <h2 class="st" data-step="1">대규모 AI경진대회 위험요소 예측 및 <span class="hl">선제적 대응</span></h2>
+    <div class="g4" style="margin-top:14px">
+      <div class="mx" data-step="2"><div class="v">12만</div><div class="l">회원</div></div>
+      <div class="mx" data-step="2"><div class="v">280</div><div class="l">대회</div></div>
+      <div class="mx" data-step="2"><div class="v">831,108</div><div class="l">제출</div></div>
+      <div class="mx" data-step="2"><div class="v">20억+</div><div class="l">상금</div></div>
+    </div>
+    <div class="sub" data-step="3">국내 최대 AI 경진대회 플랫폼 운영 경험을 바탕으로, 대규모 참가자 관리 / 시스템 안정성 / 공정성 확보에 대한 선제적 대응 역량을 보유하고 있습니다.</div>
+
+    <hr class="divider">
+
+    <!-- 하단: 모델 제출 시스템 -->
+    <div class="tag tag-w" data-step="4">SUBMISSION SYSTEM</div>
+    <div class="st-sub">공정한 환경에서 성능과 효율성 <span class="hl">통합 평가</span></div>
+    <div class="flow" style="margin-top:12px" data-step="5">
+      <div class="flow-item">모델 제출<small>참가자가 모델 업로드</small></div>
+      <div class="flow-arrow">&#8594;</div>
+      <div class="flow-item">클라우드 평가<small>동일 환경에서 실행</small></div>
+      <div class="flow-arrow">&#8594;</div>
+      <div class="flow-item">성능 결과 공개<small>리더보드 반영</small></div>
+    </div>
+    <div class="g3" style="margin-top:12px">
+      <div class="c c-b" data-step="6">
+        <div class="c-t" style="color:var(--osc)">실제 환경 구현</div>
+        <div class="c-d" style="color:var(--osc)">클라우드 환경에서 동일한 하드웨어 리소스로 모델 실행</div>
+      </div>
+      <div class="c c-w" data-step="6">
+        <div class="c-t">모델 성능 보장</div>
+        <div class="c-d">추론 시간, 메모리 사용량 등 효율성 지표 함께 평가</div>
+      </div>
+      <div class="c c-g" data-step="6">
+        <div class="c-t">공정한 경쟁 조성</div>
+        <div class="c-d">외부 데이터 차단, 동일 조건 보장으로 순수 모델 성능 비교</div>
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span class="sf-logo" style="color:var(--p)">DACON</span><span class="sf-pg">8</span><span class="sf-cr">COPYRIGHT 2025</span></div>
+</section>
+
+<!-- S9: 섹션 구분자 — III 기술 및 기능 (단독) -->
+<section class="slide slide-sec" id="s9">
+  <div class="si">
+    <div class="sn" data-step="1">III</div>
+    <h2 class="st" data-step="2" style="margin-top:16px;font-size:2rem">기술 및 기능</h2>
+    <div class="sd" data-step="3">AI 경진대회 전 과정 기술 역량 및 플랫폼 기능</div>
+  </div>
+  <div class="sf"><span class="sf-logo" style="color:var(--p)">DACON</span><span class="sf-pg">9</span><span class="sf-cr">COPYRIGHT 2025</span></div>
+</section>
+
+<!-- S10: 대회 설계 + 대회 페이지 (2콘텐츠) -->
+<section class="slide" id="s10">
+  <div class="sh"><span class="sh-l">III. 기술 및 기능 > 1.2.1 문제정의 및 대회 설계</span></div>
+  <div class="si" style="padding-top:48px">
+    <!-- 상단: 대회 설계 -->
+    <div class="tag">COMPETITION DESIGN</div>
+    <h2 class="st" data-step="1">문제정의부터 테스트까지 <span class="hl">체계적 대회 설계</span></h2>
+    <div class="flow" style="margin-top:14px" data-step="2">
+      <div class="flow-item">문제정의<small>도메인 분석</small></div>
+      <div class="flow-arrow">&#8594;</div>
+      <div class="flow-item">데이터 정제<small>품질 검증</small></div>
+      <div class="flow-arrow">&#8594;</div>
+      <div class="flow-item">평가산식 개발<small>메트릭 설계</small></div>
+      <div class="flow-arrow">&#8594;</div>
+      <div class="flow-item">베이스라인<small>기준 모델</small></div>
+      <div class="flow-arrow">&#8594;</div>
+      <div class="flow-item">제출 테스트<small>검증 완료</small></div>
+    </div>
+    <div class="sub" data-step="3">발주처의 분석 과제를 깊이 이해하고, 참가자가 효과적으로 문제를 풀 수 있도록 데이터 정제, 평가 지표 설계, 베이스라인 코드 개발까지 전 과정을 체계적으로 수행합니다.</div>
+
+    <hr class="divider">
+
+    <!-- 하단: 대회 페이지 + 리더보드 -->
+    <div class="tag tag-w" data-step="4">PLATFORM FEATURES</div>
+    <div class="st-sub">대회 페이지, 데이터 제공, <span class="hl">실시간 리더보드</span></div>
+    <div class="g3" style="margin-top:12px">
+      <div class="c c-b" data-step="5">
+        <div class="ic">01</div>
+        <div class="c-t" style="color:var(--osc)">대회 안내</div>
+        <div class="c-d" style="color:var(--osc)">대회 배경, 평가 기준, 참가 방법 등 상세 안내 페이지 제공. 참가자 Q&A 게시판 운영.</div>
+      </div>
+      <div class="c c-w" data-step="5">
+        <div class="ic ic-w">02</div>
+        <div class="c-t">데이터 제공</div>
+        <div class="c-d">보안 처리된 학습/테스트 데이터 다운로드. 데이터 설명서, 샘플 제출 파일 제공.</div>
+      </div>
+      <div class="c c-g" data-step="5">
+        <div class="ic ic-g">03</div>
+        <div class="c-t">실시간 리더보드</div>
+        <div class="c-d">Public/Private 이중 리더보드로 과적합 방지. 실시간 순위 업데이트.</div>
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span class="sf-logo" style="color:var(--p)">DACON</span><span class="sf-pg">10</span><span class="sf-cr">COPYRIGHT 2025</span></div>
+</section>
+
+<!-- S11: 참가자 모집 + 운영 (2콘텐츠) -->
+<section class="slide" id="s11">
+  <div class="sh"><span class="sh-l">III. 기술 및 기능 > 1.2.2 참가자 모집 / 1.2.3 운영</span></div>
+  <div class="si" style="padding-top:48px">
+    <!-- 상단: 참가자 모집 -->
+    <div class="tag">RECRUITMENT</div>
+    <h2 class="st" data-step="1">경진대회 <span class="hl">참가자 모집</span> 역량</h2>
+    <div class="g4" style="margin-top:14px">
+      <div class="mx" data-step="2"><div class="v">21만</div><div class="l">참가 팀</div></div>
+      <div class="mx" data-step="2"><div class="v">83만</div><div class="l">코드 제출</div></div>
+      <div class="mx" data-step="2"><div class="v">56만</div><div class="l">월 방문</div></div>
+      <div class="mx" data-step="2"><div class="v">1천+</div><div class="l">대회당 참가</div></div>
+    </div>
+    <div class="sub" data-step="3">20~30대 AI/데이터 전문 인력 중심의 커뮤니티. 대학생, 대학원생, 현업 개발자 등 다양한 참가자 풀을 보유하고 있습니다.</div>
+
+    <hr class="divider">
+
+    <!-- 하단: 플랫폼 활용 운영 -->
+    <div class="tag tag-w" data-step="4">OPERATIONS</div>
+    <div class="st-sub">1.2.3 플랫폼 활용 <span class="hl">체계적 운영</span></div>
+    <div class="g3" style="margin-top:12px">
+      <div class="c c-b" data-step="5">
+        <div class="ic">QA</div>
+        <div class="c-t" style="color:var(--osc)">Q&A 지원</div>
+        <div class="c-d" style="color:var(--osc)">플랫폼 내 질의응답 게시판 운영. 데이터/평가 관련 문의 24시간 내 응답.</div>
+      </div>
+      <div class="c c-w" data-step="5">
+        <div class="ic ic-w">TM</div>
+        <div class="c-t">팀 관리 시스템</div>
+        <div class="c-d">팀 구성/해체, 팀원 초대, 팀 제출 관리 등 팀 단위 참가 기능 지원.</div>
+      </div>
+      <div class="c c-g" data-step="5">
+        <div class="ic ic-g">CH</div>
+        <div class="c-t">실시간 소통채널</div>
+        <div class="c-d">공지사항, 대회 일정 변경, 긴급 안내 등 실시간 알림 및 소통 채널 운영.</div>
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span class="sf-logo" style="color:var(--p)">DACON</span><span class="sf-pg">11</span><span class="sf-cr">COPYRIGHT 2025</span></div>
+</section>
+
+<!-- S12: 부정행위 탐지 + 해커톤 경험 (2콘텐츠) -->
+<section class="slide" id="s12">
+  <div class="sh"><span class="sh-l">III. 기술 및 기능 > FDS / 해커톤</span></div>
+  <div class="si" style="padding-top:48px">
+    <!-- 상단: FDS 부정행위 탐지 -->
+    <div class="tag">FRAUD DETECTION</div>
+    <h2 class="st" data-step="1"><span class="hl">FDS</span> 부정행위 탐지 시스템</h2>
+    <div class="g3" style="margin-top:14px">
+      <div class="c c-b" data-step="2">
+        <div class="ic">01</div>
+        <div class="c-t" style="color:var(--osc)">기술기반 표절검증</div>
+        <div class="c-d" style="color:var(--osc)">코드 유사도 분석 알고리즘으로 참가자 간 표절 자동 탐지. 코드 구조/패턴 비교.</div>
+      </div>
+      <div class="c c-w" data-step="2">
+        <div class="ic ic-w">02</div>
+        <div class="c-t">제출 모니터링</div>
+        <div class="c-d">비정상 제출 패턴 실시간 모니터링. 급격한 점수 변동, 동일 IP 다중 계정 감지.</div>
+      </div>
+      <div class="c c-g" data-step="2">
+        <div class="ic ic-g">03</div>
+        <div class="c-t">내부 코드 검증</div>
+        <div class="c-d">최종 수상 후보 코드 전수 검사. 외부 데이터 사용, 하드코딩 여부 확인.</div>
+      </div>
+    </div>
+
+    <hr class="divider">
+
+    <!-- 하단: 해커톤 경험 -->
+    <div class="tag tag-w" data-step="3">HACKATHON</div>
+    <div class="st-sub">오프라인 <span class="hl">해커톤 운영</span> 경험</div>
+    <div class="g2" style="margin-top:12px">
+      <div class="c c-b" data-step="4">
+        <div class="c-t" style="color:var(--osc)">2024 새싹 해커톤</div>
+        <div class="c-d" style="color:var(--osc)">DDP(동대문디자인플라자)에서 150명 규모 오프라인 해커톤 운영. 멘토링, 중간 발표, 최종 평가까지 전 과정 관리.</div>
+        <div style="margin-top:6px"><span class="bd" style="font-size:.5625rem">DDP / 150명</span></div>
+      </div>
+      <div class="c c-w" data-step="4">
+        <div class="c-t">2023~2025 LG Aimers</div>
+        <div class="c-d">LG 인화원에서 100팀 규모 해커톤 3회 연속 운영. 팀 빌딩, 멘토 매칭, 시상식까지 종합 운영.</div>
+        <div style="margin-top:6px"><span class="bd bd-w" style="font-size:.5625rem">LG인화원 / 100팀 x 3회</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span class="sf-logo" style="color:var(--p)">DACON</span><span class="sf-pg">12</span><span class="sf-cr">COPYRIGHT 2025</span></div>
+</section>
+
+<!-- S13: 산출물 평가 + 시상식 (2콘텐츠) -->
+<section class="slide" id="s13">
+  <div class="sh"><span class="sh-l">III. 기술 및 기능 > 1.2.4 산출물 평가 / 1.2.5 시상식</span></div>
+  <div class="si" style="padding-top:48px">
+    <!-- 상단: 산출물 평가 -->
+    <div class="tag">EVALUATION</div>
+    <h2 class="st" data-step="1">1.2.4 산출물 평가 및 <span class="hl">검증</span></h2>
+    <div class="flow" style="margin-top:14px" data-step="2">
+      <div class="flow-item">모델 제출<small>코드+모델 파일</small></div>
+      <div class="flow-arrow">&#8594;</div>
+      <div class="flow-item">파일 확인<small>형식 검증</small></div>
+      <div class="flow-arrow">&#8594;</div>
+      <div class="flow-item">채점 등록<small>평가 큐 진입</small></div>
+      <div class="flow-arrow">&#8594;</div>
+      <div class="flow-item">클라우드 평가<small>동일 환경 실행</small></div>
+      <div class="flow-arrow">&#8594;</div>
+      <div class="flow-item">리더보드<small>결과 공개</small></div>
+    </div>
+    <div class="sub" data-step="3">분석결과보고서 의무 제출을 통해 모델의 해석 가능성과 실제 활용 가능성을 검증합니다. 코드 재현성 확인까지 수행하여 결과의 신뢰성을 보장합니다.</div>
+
+    <hr class="divider">
+
+    <!-- 하단: 시상식 -->
+    <div class="tag tag-w" data-step="4">AWARDS CEREMONY</div>
+    <div class="st-sub">1.2.5 오프라인 발표평가 + <span class="hl">시상식</span> 운영</div>
+    <div class="g2" style="margin-top:12px">
+      <div class="c c-b" data-step="5">
+        <div class="c-t" style="color:var(--osc)">오프라인 발표평가</div>
+        <div class="c-d" style="color:var(--osc)">최종 수상 후보 팀의 분석 결과 발표. 전문가 심사위원단 구성, 모델 설명력/활용 가능성/혁신성 종합 평가.</div>
+      </div>
+      <div class="c c-w" data-step="5">
+        <div class="c-t">시상식 운영</div>
+        <div class="c-d">발주처와 협력하여 시상식 기획/운영. 수상 증서, 상금 수여, 우수 모델 시연, 네트워킹 세션 포함.</div>
+      </div>
+    </div>
+    <div class="c" data-step="6" style="margin-top:10px;border:var(--gh);padding:12px 16px">
+      <div style="font-size:.75rem;color:var(--osv);line-height:1.6"><strong>결과물 관리</strong>: 수상 모델 코드/보고서 아카이빙, 발주처 인계, 후속 활용 방안 제시까지 체계적으로 관리합니다.</div>
+    </div>
+  </div>
+  <div class="sf"><span class="sf-logo" style="color:var(--p)">DACON</span><span class="sf-pg">13</span><span class="sf-cr">COPYRIGHT 2025</span></div>
+</section>
+
+<!-- S14: 일정표 + 데이터 요구사항 (2콘텐츠) -->
+<section class="slide" id="s14">
+  <div class="sh"><span class="sh-l">III. 기술 및 기능 > 1.2.6 일정표 / 2.9 데이터</span></div>
+  <div class="si" style="padding-top:48px">
+    <!-- 상단: 일정표 -->
+    <div class="tag">SCHEDULE</div>
+    <h2 class="st" data-step="1">1.2.6 사업 추진 <span class="hl">일정표</span> (2025.8 ~ 2026.1)</h2>
+    <table class="tb-s tb" style="margin-top:10px" data-step="2">
+      <thead>
+        <tr><th style="width:28%">단계</th><th>8월</th><th>9월</th><th>10월</th><th>11월</th><th>12월</th><th>1월</th></tr>
+      </thead>
+      <tbody>
+        <tr><td style="font-weight:600">사업 기획/설계</td><td style="background:var(--sc)"></td><td style="background:var(--sc)"></td><td></td><td></td><td></td><td></td></tr>
+        <tr><td style="font-weight:600">데이터 수집/정제</td><td style="background:var(--sc)"></td><td style="background:var(--sc)"></td><td style="background:var(--sc)"></td><td></td><td></td><td></td></tr>
+        <tr><td style="font-weight:600">대회 설계/개발</td><td></td><td style="background:var(--sc)"></td><td style="background:var(--sc)"></td><td></td><td></td><td></td></tr>
+        <tr><td style="font-weight:600">대회 운영</td><td></td><td></td><td style="background:var(--sc)"></td><td style="background:var(--sc)"></td><td style="background:var(--sc)"></td><td></td></tr>
+        <tr><td style="font-weight:600">평가/시상</td><td></td><td></td><td></td><td></td><td style="background:var(--sc)"></td><td style="background:var(--sc)"></td></tr>
+        <tr><td style="font-weight:600">결과보고</td><td></td><td></td><td></td><td></td><td></td><td style="background:var(--sc)"></td></tr>
+      </tbody>
+    </table>
+
+    <hr class="divider">
+
+    <!-- 하단: 데이터 요구사항 -->
+    <div class="tag tag-w" data-step="3">DATA REQUIREMENTS</div>
+    <div class="st-sub">2.9 데이터 요구사항 — <span class="hl">8건</span> 데이터 수집</div>
+    <table class="tb-s tb" style="margin-top:10px" data-step="4">
+      <thead>
+        <tr><th style="width:5%">No</th><th>데이터명</th><th>내용</th><th style="width:18%">출처</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>1</td><td>운전적성검사</td><td>적성검사 결과 데이터</td><td>도로교통공단</td></tr>
+        <tr><td>2</td><td>기본정보</td><td>운전자 기본 속성 정보</td><td>도로교통공단</td></tr>
+        <tr><td>3</td><td>사고이력</td><td>교통사고 이력 데이터</td><td>도로교통공단</td></tr>
+        <tr><td>4</td><td>행정처분</td><td>운전면허 행정처분 이력</td><td>도로교통공단</td></tr>
+        <tr><td>5</td><td>기상</td><td>기상 관측 데이터</td><td>기상청</td></tr>
+        <tr><td>6</td><td>도로</td><td>도로 시설/환경 정보</td><td>국토교통부</td></tr>
+        <tr><td>7</td><td>교통량</td><td>구간별 교통량 데이터</td><td>한국도로공사</td></tr>
+        <tr><td>8</td><td>위험도</td><td>구간별 사고 위험도 지표</td><td>도로교통공단</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="sf"><span class="sf-logo" style="color:var(--p)">DACON</span><span class="sf-pg">14</span><span class="sf-cr">COPYRIGHT 2025</span></div>
+</section>
+
+<!-- S15: 분석/모델링 + 분석모델 검증 (2콘텐츠) -->
+<section class="slide" id="s15">
+  <div class="sh"><span class="sh-l">III. 기술 및 기능 > 2.9.3 분석/모델링 / 2.9.4 검증</span></div>
+  <div class="si" style="padding-top:48px">
+    <!-- 상단: 데이터 분석 및 모델링 -->
+    <div class="tag">DATA ANALYSIS</div>
+    <h2 class="st" data-step="1">2.9.3 데이터 분석 및 <span class="hl">모델링</span></h2>
+    <div class="flow" style="margin-top:14px" data-step="2">
+      <div class="flow-item">전처리<small>결측/이상치 처리</small></div>
+      <div class="flow-arrow">&#8594;</div>
+      <div class="flow-item">통합/구조화<small>멀티소스 병합</small></div>
+      <div class="flow-arrow">&#8594;</div>
+      <div class="flow-item">분석<small>탐색적 분석</small></div>
+      <div class="flow-arrow">&#8594;</div>
+      <div class="flow-item">평가/검증<small>교차 검증</small></div>
+      <div class="flow-arrow">&#8594;</div>
+      <div class="flow-item">외부자문<small>전문가 리뷰</small></div>
+    </div>
+    <div class="sub" data-step="3">8건의 데이터를 통합/정제하고, 탐색적 데이터 분석을 통해 주요 변수와 패턴을 도출합니다. 다양한 머신러닝/딥러닝 모델을 적용하고 교차 검증으로 일반화 성능을 확보합니다.</div>
+
+    <hr class="divider">
+
+    <!-- 하단: 분석모델 검증 -->
+    <div class="tag tag-w" data-step="4">MODEL VERIFICATION</div>
+    <div class="st-sub">2.9.4 분석모델 <span class="hl">검증</span> 프로세스</div>
+    <div class="flow" style="margin-top:12px" data-step="5">
+      <div class="flow-item">대회 데이터<small>정제 데이터셋</small></div>
+      <div class="flow-arrow">&#8594;</div>
+      <div class="flow-item">모델 개발<small>참가자 모델링</small></div>
+      <div class="flow-arrow">&#8594;</div>
+      <div class="flow-item">제출<small>모델+코드</small></div>
+      <div class="flow-arrow">&#8594;</div>
+      <div class="flow-item">클라우드 평가<small>동일 환경</small></div>
+      <div class="flow-arrow">&#8594;</div>
+      <div class="flow-item">최종 우수모델<small>Top-K 선정</small></div>
+    </div>
+    <div class="g2" style="margin-top:12px">
+      <div class="c c-b" data-step="6">
+        <div class="c-t" style="color:var(--osc)">정량 평가</div>
+        <div class="c-d" style="color:var(--osc)">리더보드 기반 자동 채점. Public/Private 분리로 과적합 방지. 추론 속도/메모리 등 효율성 지표 함께 평가.</div>
+      </div>
+      <div class="c c-w" data-step="6">
+        <div class="c-t">정성 평가</div>
+        <div class="c-d">분석보고서 리뷰, 코드 재현성 확인, 전문가 심사위원 발표평가를 통한 종합 검증.</div>
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span class="sf-logo" style="color:var(--p)">DACON</span><span class="sf-pg">15</span><span class="sf-cr">COPYRIGHT 2025</span></div>
+</section>
+
+<!-- S16: 제약사항 + 자문위원 (2콘텐츠) -->
+<section class="slide" id="s16">
+  <div class="sh"><span class="sh-l">III. 기술 및 기능 > 3.1.9 제약사항 / 검증 자문위원</span></div>
+  <div class="si" style="padding-top:48px">
+    <!-- 상단: 제약사항 및 해결방안 -->
+    <div class="tag">CONSTRAINTS</div>
+    <h2 class="st" data-step="1">3.1.9 제약사항 및 <span class="hl">해결방안</span></h2>
+    <div class="g2" style="margin-top:14px">
+      <div class="c c-b" data-step="2">
+        <div class="ic">01</div>
+        <div class="c-t" style="color:var(--osc)">멀티소스 데이터 통합</div>
+        <div class="c-d" style="color:var(--osc)">8건의 이질적 데이터를 통합하는 과정에서 형식/스케일/결측값 차이 발생. 표준화 파이프라인 구축 및 도메인 전문가 자문으로 해결.</div>
+      </div>
+      <div class="c c-w" data-step="2">
+        <div class="ic ic-w">02</div>
+        <div class="c-t">모델 제출 시스템</div>
+        <div class="c-d">대규모 모델 동시 제출 시 서버 부하 이슈. 클라우드 자동 스케일링 및 큐 기반 순차 평가 시스템으로 안정적 운영.</div>
+      </div>
+    </div>
+
+    <hr class="divider">
+
+    <!-- 하단: 검증 자문위원 -->
+    <div class="tag tag-w" data-step="3">ADVISORY BOARD</div>
+    <div class="st-sub">검증 자문위원 <span class="hl">15명</span></div>
+    <table class="tb-s tb" style="margin-top:10px" data-step="4">
+      <thead>
+        <tr><th style="width:5%">No</th><th style="width:25%">소속</th><th>전공/분야</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>1</td><td>광운대학교</td><td>컴퓨터공학</td></tr>
+        <tr><td>2</td><td>경희대학교</td><td>데이터사이언스</td></tr>
+        <tr><td>3</td><td>국민대학교</td><td>AI/빅데이터</td></tr>
+        <tr><td>4</td><td>국민대학교</td><td>소프트웨어공학</td></tr>
+        <tr><td>5</td><td>서울시립대학교</td><td>통계학</td></tr>
+        <tr><td>6</td><td>서울시립대학교</td><td>도시공학</td></tr>
+        <tr><td>7</td><td>성균관대학교</td><td>AI/머신러닝</td></tr>
+        <tr><td>8</td><td>성균관대학교</td><td>데이터사이언스</td></tr>
+        <tr><td>9</td><td>성균관대학교</td><td>컴퓨터공학</td></tr>
+        <tr><td>10</td><td>성균관대학교</td><td>산업공학</td></tr>
+        <tr><td>11</td><td>세종대학교</td><td>소프트웨어공학</td></tr>
+        <tr><td>12</td><td>수원대학교</td><td>빅데이터</td></tr>
+        <tr><td>13</td><td>수원대학교</td><td>통계학</td></tr>
+        <tr><td>14</td><td>수원대학교</td><td>컴퓨터공학</td></tr>
+        <tr><td>15</td><td>인하대학교</td><td>AI/딥러닝</td></tr>
+      </tbody>
+    </table>
+    <div style="margin-top:16px;font-size:0.875rem;color:#566166;text-align:center;">김국진 &nbsp;|&nbsp; edgar@dacon.io &nbsp;|&nbsp; 010-6338-1041</div>
+  </div>
+  <div class="sf"><span class="sf-logo" style="color:var(--p)">DACON</span><span class="sf-pg">16</span><span class="sf-cr">COPYRIGHT 2025</span></div>
+</section>
+
+</div></div>
+
+<button class="nav-btn" id="nav-prev" aria-label="Previous">&#8592;</button>
+<button class="nav-btn" id="nav-next" aria-label="Next">&#8594;</button>
+<div id="progress-bar"></div>
+<div id="key-hint">Arrow keys / Swipe to navigate</div>
+
+<script>
+(function(){
+const slides=document.querySelectorAll('.slide');
+const total=slides.length;
+let cur=0,maxStep=[];
+
+slides.forEach((s,i)=>{
+  const steps=s.querySelectorAll('[data-step]');
+  let mx=0;
+  steps.forEach(el=>{const v=parseInt(el.dataset.step);if(v>mx)mx=v});
+  maxStep[i]=mx;
+});
+
+let stepIdx=[];
+slides.forEach(()=>stepIdx.push(0));
+
+function applySteps(idx,upTo){
+  const s=slides[idx];
+  s.querySelectorAll('[data-step]').forEach(el=>{
+    const v=parseInt(el.dataset.step);
+    if(v<=upTo){el.classList.add('pre-visible');el.classList.remove('visible')}
+    else{el.classList.remove('pre-visible','visible')}
+  });
+}
+
+function show(idx,dir){
+  if(idx<0||idx>=total)return;
+  slides[cur].classList.remove('active');
+  cur=idx;
+  slides[cur].classList.add('active');
+  if(dir>=0){stepIdx[cur]=0;revealNext(cur)}
+  else{stepIdx[cur]=maxStep[cur];applySteps(cur,maxStep[cur])}
+  document.getElementById('progress-bar').style.width=(cur/(total-1)*100)+'%';
+}
+
+function revealNext(idx){
+  const s=slides[idx];
+  const next=stepIdx[idx]+1;
+  if(next>maxStep[idx])return false;
+  stepIdx[idx]=next;
+  s.querySelectorAll('[data-step]').forEach(el=>{
+    const v=parseInt(el.dataset.step);
+    if(v===next){el.classList.add('visible');el.classList.remove('pre-visible')}
+    else if(v<next){el.classList.add('pre-visible');el.classList.remove('visible')}
+  });
+  return true;
+}
+
+function next(){if(!revealNext(cur))show(cur+1,1)}
+function prev(){if(stepIdx[cur]>1){stepIdx[cur]--;applySteps(cur,stepIdx[cur])}else show(cur-1,-1)}
+
+document.addEventListener('keydown',e=>{
+  if(e.key==='ArrowRight'||e.key==='ArrowDown'||e.key===' ')next();
+  if(e.key==='ArrowLeft'||e.key==='ArrowUp')prev();
+});
+
+document.getElementById('nav-next').addEventListener('click',next);
+document.getElementById('nav-prev').addEventListener('click',prev);
+
+let tx=0;
+document.addEventListener('touchstart',e=>{tx=e.touches[0].clientX},{passive:true});
+document.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-tx;if(Math.abs(dx)>40){dx<0?next():prev()}},{passive:true});
+
+function resize(){
+  const vw=window.innerWidth,vh=window.innerHeight;
+  const sw=960,sh=1358;
+  const scale=Math.min(vw/sw,vh/sh,.95);
+  document.getElementById('stage').style.transform='scale('+scale+')';
+}
+window.addEventListener('resize',resize);
+resize();
+show(0,1);
+})();
+</script>
+</body>
+</html>
