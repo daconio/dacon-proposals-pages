@@ -1,219 +1,263 @@
-# Sprints — GS E&R AI 경진대회 제안서 HTML 슬라이드 동기화
+# Sprint Plan — daker.ai × dacon.io 단계별 통합
 
-## Sprint 1 — HTML 슬라이드 수정 (MD → HTML 동기화)
-
-### Goal
-
-`제안/2026-03-27-GS_E&R_AI경진대회_제안서_슬라이드.html` 을 MD 소스 기준으로 수정하여 모든 Gap을 해소한다. 12슬라이드 → 15슬라이드로 확장한다.
-
-### 변경 범위 요약
-
-총 7가지 Gap (product-spec.md 참조):
-
-| Gap | 대상 슬라이드 | 작업 유형 |
-|-----|-------------|---------|
-| Gap 1 | s3 (Option A) | 수정 — 누락 행 추가, 참가 대상 수정 |
-| Gap 2 | s3b (신규 Option B 상세) + 기존 s3b → s3c로 이동 | 신규 슬라이드 삽입 + 수정 |
-| Gap 3 | s5 (데이콘 역량) | 수정 — 실적 테이블 10개 항목, 수치 교정 |
-| Gap 4 | s6 (운영 프로세스) | 수정 — 하단 카드 텍스트 보완 |
-| Gap 5 | s8 (벤치마킹) | 수정 — 최신 레퍼런스 4건 추가 |
-| Gap 6 | s9 → s9 + s9b(신규) + s9c(신규) | 수정 + 신규 2개 슬라이드 |
-| 슬라이드 번호 | 전체 footer `sf-pg` | 수정 — 1~15 재번호 매기기 |
-
-### 세부 작업 명세
-
-#### Task 1-1: s3 수정 — Option A 테이블 완성
-
-파일: `제안/2026-03-27-GS_E&R_AI경진대회_제안서_슬라이드.html`
-
-s3 슬라이드의 `<table class="tb">` 내 다음 행 추가 (기존 행 사이에 삽입):
-- `진행 기간` 행 바로 위에 `대회 유형` 행: 알고리즘 경진대회 (모델 개발)
-- `채용 연계` 행 바로 위에 `상금 규모` 행: 1,000만원 ~ 3,000만원
-- `참가 대상` 행: "비공개, Private" → "대학(원)생 (자격조건)"
-
-#### Task 1-2: s3b 신규 생성 — Option B 상세 슬라이드
-
-기존 `<section class="slide" id="s3b">` 앞에 새 Option B 상세 슬라이드를 삽입.
-새 슬라이드 id: `s3b`, 기존 s3b의 id를 `s3c`로 변경.
-
-신규 s3b 내용:
-- 헤더: `II-B. OPTION B OVERVIEW`
-- 태그: `OPTION B`
-- 제목: `GS E&R <span class="hl-w">AI Hackathon</span> 2026`
-- 부제: `온라인 예선 + 1박 2일 오프라인 해커톤 — LG Aimers 방식`
-- 좌측 컬럼: Option B 상세 테이블 (8항목)
-  - 대회명(안): GS E&R AI Hackathon 2026
-  - 주최: GS E&R
-  - 운영: 데이콘(DACON, dacon.io) + 데이커(DAKER, daker.ai)
-  - 참가 대상: 대학(원)생 (비공개, Private)
-  - 대회 형식: 온라인 예선 (리더보드) → 1박 2일 오프라인 해커톤
-  - 대회 유형: 알고리즘 경진대회 + 오프라인 집중 해커톤
-  - 진행 기간: 총 8주 (온라인 예선 4주 + 준비 2주 + 본선 1박 2일)
-  - 상금 규모: 1,000만원 ~ 3,000만원
-  - 데이터: GS E&R 보유 정제 데이터 활용
-  - 채용 연계: 수상자 채용 연계 + 해커톤 현장 면담
-- 우측 컬럼: Option B 핵심 특징 카드 3개 (20~30팀 본선, 현장 집중 개발, 채용 담당자 직접 관찰)
-
-#### Task 1-3: s3c (기존 s3b) 수정 — 비교표 Option B 데이터 교정
-
-기존 s3b(→ s3c로 변경) 내 Option B 테이블 수정:
-- `기간` 행: "총 11주 (본선 1박 2일)" → "총 8주 (온라인 예선 4주 + 본선 1박 2일)"
-- 운영 행 없는 경우 확인 (비교표이므로 운영 항목은 없음 — 유지)
-
-#### Task 1-4: s5 수정 — 수행 실적 테이블 교정
-
-실적 테이블 전체를 MD 기준 10개 항목으로 교체:
-
-| 고객사 | 대회명 | 규모 |
-|--------|--------|------|
-| SAMSUNG | 2025 Samsung AI Challenge | 5,000+ (누적) |
-| KB금융그룹 | KB AI Challenge | 2,000+ |
-| LG | LG 오프라인 해커톤 | 20,000+ (누적) |
-| KT | KT K intelligence | 1,500+ |
-| TOSS | 토스 NEXT ML | 2,500+ |
-| 한국에너지기술연구원 | AI Challenge | 2,200+ |
-| 한국수자원공사 | AI 경진대회 | 1,800+ |
-| HD현대 | AI 경진대회 | 1,500+ |
-| 한국전력공사 | AI 경진대회 | 1,200+ |
-| 한국가스공사 | AI 경진대회 | 1,000+ |
-
-좌측 핵심 역량 카드에 항목 추가:
-- `8가지 대회 유형`: DACON(알고리즘 특화) + DAKER(바이브코딩·서비스개발·프롬프트 특화)
-- `채용 연계 시스템`: 참가자 역량 분석 및 채용 연계 지원
-
-#### Task 1-5: s6 수정 — 성공 요소 카드 텍스트 보완
-
-s6 하단 3개 카드 텍스트 보완:
-- `동기 부여` 카드: "디지털 수상인증서 및 참가 수료증 발급" 문구 추가
-- `채용 파이프라인` 카드: "서류 전형 면제, 가산점 부여 등 실질적 채용 혜택" 문구 추가
-
-#### Task 1-6: s8 수정 — 최신 레퍼런스 추가
-
-s8 슬라이드 하단에 "최신 레퍼런스" 섹션 추가 (data-step=5):
-- 토스 NEXT ML — 금융 데이터 기반 ML 경진대회
-- 2025 Samsung AI Challenge — 반도체 데이터 분석 대규모 대회
-- SW마에스트로 프롬프톤 — 과기정통부 주관 AI 프롬프톤
-- 수원시 정책 아이디어 — 지자체 AI서비스/아이디어 공모전
-
-가로 4열 `g4` 그리드 카드 형식으로 표현.
-
-#### Task 1-7: s9 수정 + s9b/s9c 신규 생성
-
-**s9 수정**: 기존 역할 분담 슬라이드에서 "추진 일정(안)" 단축 표시 제거 (s9b로 분리되므로). 대신 역할 분담에 집중.
-
-**s9b 신규** — 추진 일정 상세:
-- id: `s9b`
-- 헤더: `IX-B. TIMELINE`
-- 제목: 추진 일정(안)
-- 좌측: Option A 5단계 테이블
-
-| 단계 | 기간 | 내용 |
-|------|------|------|
-| 1. 기획 및 준비 | W1~W2 (2주) | 주제 확정, 데이터 검증, 대회 설계 |
-| 2. 홍보 및 모집 | W3~W4 (2주) | 대회 페이지 개설, 타겟 대학 홍보 |
-| 3. 온라인 예선 | W5~W8 (4주) | 리더보드 기반 알고리즘 경쟁 |
-| 4. 코드 검증 | W9~W10 (2주) | 상위 팀 코드 검증, 본선 선발 |
-| 5. 오프라인 본선/시상 | W11 (1일) | 발표 심사, 시상식, 채용 연계 |
-
-- 우측: Option B 5단계 테이블
-
-| 단계 | 기간 | 내용 |
-|------|------|------|
-| 1. 기획 및 준비 | W1~W2 (2주) | 주제 확정, 데이터 검증, 심화 과제 설계 |
-| 2. 홍보 및 모집 | W3~W4 (2주) | 대회 페이지 개설, 타겟 대학 홍보 |
-| 3. 온라인 예선 | W5~W8 (4주) | 리더보드 기반 알고리즘 경쟁 |
-| 4. 본선 준비 | W9~W10 (2주) | 코드 검증, 장소·숙박 확정, 본선 과제 준비 |
-| 5. 1박 2일 해커톤 | W11 (1박 2일) | 현장 집중 개발, 발표 심사, 시상식, 채용 면담 |
-
-**s9c 신규** — 담당자 & 다음 단계:
-- id: `s9c`
-- 헤더: `IX-C. NEXT STEPS`
-- 제목: 다음 단계
-- 담당자 정보 카드: 이근민 / kmlee@gswind.com / 010-9708-8781
-- CTA 카드: "대회 형식 확정 → 킥오프 미팅 일정 조율 → 데이터 준비 시작"
-- 데이콘 파트너십 신뢰 문구 (MD §9 "왜 데이콘인가" 요약)
-
-#### Task 1-8: 슬라이드 번호 재부여
-
-전체 슬라이드 footer `sf-pg` 텍스트를 1~15 순서로 재부여:
-s1=1, s2=2, s3=3, s3b=4, s3c=5, s4=6, s5=7, s6=8, s6b=9, s7=10, s8=11, s9=12, s9b=13, s9c=14, s10=15
-
-s10(ending) sf-pg는 빈 문자열 유지 가능.
-
-#### Task 1-9: JS 슬라이드 배열 확인
-
-`show()` 함수는 DOM querySelectorAll('.slide')로 동적 수집하므로 슬라이드 추가만으로 동작. 단, `fit()` 함수와 초기화 코드 변경 불필요.
-
-### Contract (CR — Content Review)
-
-| ID | 검증 항목 | 합격 기준 |
-|----|---------|---------|
-| CR-01 | 파일 존재 | `제안/2026-03-27-GS_E&R_AI경진대회_제안서_슬라이드.html` 이 존재한다 |
-| CR-02 | 슬라이드 수 | `<section class="slide` 태그가 정확히 15개이다 |
-| CR-03 | Option A 테이블 완전성 | s3 슬라이드에 "대회 유형" 및 "상금 규모" 행이 존재한다 |
-| CR-04 | Option B 신규 슬라이드 | id="s3b" 슬라이드가 존재하며 "AI Hackathon 2026" 텍스트를 포함한다 |
-| CR-05 | Option B 운영 행 | s3b(신규)에 "DAKER" 문자열이 포함된 운영 항목이 있다 |
-| CR-06 | Option B 기간 수정 | id="s3c" 슬라이드(기존 s3b)에 "8주" 문자열이 포함된다 |
-| CR-07 | 수행 실적 10개 | s5 슬라이드의 실적 테이블 tbody에 `<tr>` 태그가 10개이다 |
-| CR-08 | 실적 수치 SAMSUNG | s5에 "5,000" 또는 "5000" 문자열이 포함된다 |
-| CR-09 | 실적 수치 LG | s5에 "20,000" 또는 "20000" 문자열이 포함된다 |
-| CR-10 | 에너지 고객사 | s5에 "한국에너지기술연구원" 또는 "한국수자원공사" 문자열이 포함된다 |
-| CR-11 | 레퍼런스 섹션 | s8 슬라이드에 "SW마에스트로" 또는 "수원시" 문자열이 포함된다 |
-| CR-12 | 추진 일정 슬라이드 | id="s9b" 슬라이드가 존재하며 "W1~W2" 문자열을 포함한다 |
-| CR-13 | 담당자 슬라이드 | id="s9c" 슬라이드가 존재하며 "이근민" 및 "kmlee@gswind.com" 문자열을 포함한다 |
-| CR-14 | 슬라이드 번호 | `sf-pg` 클래스 요소가 14개 이상이며 "15" 숫자가 포함된다 |
-| CR-15 | data-step 애니메이션 | `data-step` 속성을 가진 요소가 30개 이상 존재한다 |
-| CR-16 | 단일 파일 | 외부 리소스 참조가 Google Fonts URL 외에 없다 |
-| CR-17 | 인쇄 CSS | `@page` 규칙과 `break-after: page` 또는 `page-break-after: always` 가 존재한다 |
-| CR-18 | JS 네비게이션 | `show(` 함수가 `<script>` 블록에 존재하며 `querySelectorAll('.slide')` 로 슬라이드를 동적 수집한다 |
-
-### Contract (RV — Render Verification)
-
-| ID | 검증 항목 | 합격 기준 |
-|----|---------|---------|
-| RV-01 | 초기 로드 | 브라우저에서 열면 첫 슬라이드(COVER, id=s1)가 표시된다 |
-| RV-02 | 슬라이드 전환 | `→` 키로 s1부터 s15까지 순서대로 이동 가능하다 |
-| RV-03 | s3b Option B | s3b 슬라이드에 "DACON + DAKER" 운영 항목이 보인다 |
-| RV-04 | s5 실적 테이블 | s5에 10개 고객사 행이 렌더링되며 SAMSUNG "5,000+"가 보인다 |
-| RV-05 | s9b 타임라인 | s9b에 Option A / Option B 두 일정 테이블이 나란히 보인다 |
-| RV-06 | s9c 담당자 | s9c에 이근민, kmlee@gswind.com 정보가 보인다 |
-| RV-07 | 진행바 | 슬라이드 이동 시 `#progress-bar` 너비가 1/15씩 증가한다 |
-| RV-08 | 스케일링 | 창 크기 변경 시 슬라이드가 1280×720 비율을 유지하며 스케일된다 |
+Total Sprints: 6
 
 ---
 
-## Sprint 2 — PDF 재생성
+## Sprint 1: 브랜드 진입점 및 가시적 연결 (Cross-linking)
 
-### Goal
+### Scope
 
-Sprint 1 완료 후 Puppeteer 스크립트로 PDF를 재생성한다.
+두 플랫폼을 코드 수준에서 건드리지 않고 가시적 진입점(메뉴 링크, CTA 버튼, 공지 배너)으로 먼저 연결한다. dacon.io GNB에 "팀 빌딩" 메뉴를, daker.ai 랜딩에 "대회 참가" CTA를 추가하고, 브랜드 토큰(색상·폰트 가이드라인)을 문서화한다. 사용자는 이 단계 이후 두 서비스를 별도 탭 없이 하나의 생태계로 인식할 수 있다.
 
-### Tasks
+**Deliverables:**
+- dacon.io GNB에 "팀 빌딩 (daker.ai)" 메뉴 링크 추가 (Vue.js 컴포넌트 수정)
+- daker.ai 랜딩 페이지에 "대회 참가하기 →" CTA 버튼 (dacon.io 대회 목록 링크)
+- 브랜드 통합 가이드라인 문서 (`.harness/brand-guide.md` 또는 내부 노션 페이지)
+- dacon.io 공지 배너: "daker.ai 팀 빌딩 서비스 오픈 안내"
+- 두 서비스 공통 OG 메타태그 포맷 정의
 
-1. Puppeteer 스크립트 확인: 레포지토리 내 PDF 생성 스크립트 위치 파악
-2. 스크립트 실행: `제안/2026-03-27-GS_E&R_AI경진대회_제안서_슬라이드.html` → `제안/2026-03-27-GS_E&R_AI경진대회_제안서_슬라이드.pdf`
-3. PDF 페이지 수 확인: 15페이지 (슬라이드 수와 일치)
+### Contract
 
-### Contract (CR — Content Review)
+#### Code Review Criteria
 
-| ID | 검증 항목 | 합격 기준 |
-|----|---------|---------|
-| CR-20 | PDF 존재 | `제안/2026-03-27-GS_E&R_AI경진대회_제안서_슬라이드.pdf` 파일이 존재하며 0바이트가 아니다 |
-| CR-21 | PDF 수정일 | PDF 파일의 수정일이 Sprint 1 완료 시각 이후이다 |
+| # | 항목 | 설명 |
+|---|------|------|
+| CR-1.1 | dacon.io GNB 메뉴 항목 추가 | dacon.io GNB Vue 컴포넌트 파일에 `daker.ai` 또는 `팀 빌딩`을 포함하는 `<a>` 또는 `<router-link>` 태그가 존재한다 |
+| CR-1.2 | daker.ai 랜딩 CTA 버튼 | daker.ai React 컴포넌트에 `dacon.io` 도메인으로 향하는 링크 버튼이 존재하며 텍스트에 "대회" 또는 "참가"가 포함된다 |
+| CR-1.3 | Feature Flag 적용 | dacon.io GNB 신규 메뉴 항목은 환경변수 또는 Feature Flag 조건부로 렌더링된다 (`process.env` 또는 `import.meta.env` 기반) |
+| CR-1.4 | 브랜드 가이드 문서 존재 | `--primary`, `--accent` 등 CSS 커스텀 프로퍼티 또는 색상 hex 코드가 정의된 브랜드 통합 문서가 존재한다 |
+| CR-1.5 | OG 메타태그 포맷 | 양측 HTML `<head>`에 `og:site_name`, `og:title`, `og:description`, `og:image` 태그가 존재하며 포맷이 통일되어 있다 |
+
+#### Runtime Verification Criteria
+
+| # | 항목 | 확인 방법 |
+|---|------|----------|
+| RV-1.1 | dacon.io GNB 팀 빌딩 링크 노출 | dacon.io 스테이징 환경 접속 → GNB에 "팀 빌딩" 또는 "daker.ai" 텍스트 메뉴가 보이며 클릭 시 daker.ai 도메인으로 이동한다 |
+| RV-1.2 | daker.ai 대회 참가 CTA | daker.ai 랜딩 접속 → "대회 참가" CTA 클릭 시 dacon.io/competitions (또는 대회 목록) 페이지로 이동한다 |
+| RV-1.3 | Feature Flag off 시 메뉴 미노출 | Feature Flag를 off로 설정한 환경에서 dacon.io GNB에 daker.ai 메뉴가 노출되지 않는다 |
+
+### Dependencies
+- 없음 (첫 스프린트 — 기존 코드베이스 접근권만 필요)
 
 ---
 
-## 실행 순서
+## Sprint 2: 계정 통합 — dacon.io OAuth 공급자 구축
 
-```
-Sprint 1 (HTML 수정) → Sprint 2 (PDF 재생성)
-```
+### Scope
 
-Sprint 2는 Sprint 1의 모든 CR 항목 통과 후 시작.
+dacon.io를 OAuth 2.0 인증 공급자로 확장하여 daker.ai 사용자가 "dacon 계정으로 로그인"할 수 있도록 한다. dacon.io 백엔드에 OAuth 인증 서버 엔드포인트(`/oauth/authorize`, `/oauth/token`, `/oauth/userinfo`)를 추가하고, daker.ai React 앱에 소셜 로그인 버튼을 구현한다. 기존 daker.ai 전용 계정은 이메일 기반 계정 연결 플로우로 마이그레이션 옵션을 제공한다.
 
-## 참조 파일
+**Deliverables:**
+- dacon.io OAuth 2.0 인증 서버 엔드포인트 3개 (`/oauth/authorize`, `/oauth/token`, `/oauth/userinfo`)
+- daker.ai "dacon 계정으로 로그인" 버튼 및 OAuth 클라이언트 구현
+- 계정 연결/마이그레이션 UI 플로우 (daker.ai 마이페이지 내)
+- JWT 토큰 공유 방식 명세 문서 (만료 시간, 갱신 전략 포함)
+- 테스트 계정 세트 (단위 테스트용 Mock OAuth 서버 포함)
 
-- MD 소스 (source of truth): `제안/2026-03-27-GS_E&R_AI경진대회_제안서.md`
-- HTML 수정 대상: `제안/2026-03-27-GS_E&R_AI경진대회_제안서_슬라이드.html`
-- PDF 출력: `제안/2026-03-27-GS_E&R_AI경진대회_제안서_슬라이드.pdf`
-- 스펙: `.harness/product-spec.md`
+### Contract
+
+#### Code Review Criteria
+
+| # | 항목 | 설명 |
+|---|------|------|
+| CR-2.1 | OAuth 엔드포인트 존재 | dacon.io 백엔드 라우터에 `/oauth/authorize`, `/oauth/token`, `/oauth/userinfo` 경로가 정의되어 있다 |
+| CR-2.2 | PKCE 지원 | `/oauth/authorize` 핸들러가 `code_challenge`와 `code_challenge_method` 파라미터를 수신하고 검증하는 로직을 포함한다 |
+| CR-2.3 | JWT 만료 설정 | dacon.io가 발급하는 JWT의 `exp` 클레임이 최대 3600(1시간) 이하로 설정된다 |
+| CR-2.4 | daker.ai OAuth 클라이언트 | daker.ai React 앱에 OAuth authorization code flow를 처리하는 함수 또는 훅이 존재한다 (state 파라미터 CSRF 방지 포함) |
+| CR-2.5 | 계정 연결 UI | daker.ai 마이페이지에 "dacon 계정 연결" 또는 "dacon 계정으로 전환" 버튼 컴포넌트가 존재한다 |
+| CR-2.6 | 에러 처리 | OAuth 실패(사용자 거부, 토큰 만료, 서버 오류) 시 사용자에게 한국어 에러 메시지를 표시하는 로직이 존재한다 |
+
+#### Runtime Verification Criteria
+
+| # | 항목 | 확인 방법 |
+|---|------|----------|
+| RV-2.1 | 로그인 플로우 완료 | daker.ai에서 "dacon 계정으로 로그인" 클릭 → dacon.io 로그인 페이지로 리다이렉트 → dacon 계정 인증 완료 → daker.ai로 리다이렉트되며 로그인 상태가 유지된다 |
+| RV-2.2 | userinfo 응답 | `GET /oauth/userinfo` (Authorization: Bearer {token})에 유효한 토큰을 전달하면 HTTP 200과 `{ id, email, nickname }` 이상의 JSON 객체를 반환한다 (curl 또는 테스트로 확인) |
+| RV-2.3 | 토큰 만료 처리 | 만료된 JWT로 daker.ai API 호출 시 HTTP 401을 반환하고, 클라이언트가 자동으로 토큰 갱신 또는 재로그인 플로우를 트리거한다 |
+| RV-2.4 | 기존 daker.ai 계정 연결 | 기존 daker.ai 계정으로 로그인한 사용자가 마이페이지에서 dacon 계정 연결 버튼을 클릭하여 연결 완료 후, 이후 로그인 시 dacon 계정으로도 동일 프로필에 접근 가능하다 |
+
+### Dependencies
+- Sprint 1 완료 (브랜드 진입점 확보 후 인증 통합 진행)
+- dacon.io 백엔드 소스코드 접근 권한 및 배포 파이프라인 권한
+
+---
+
+## Sprint 3: 대회 데이터 API 연동 — dacon.io → daker.ai
+
+### Scope
+
+dacon.io의 대회 데이터를 daker.ai 팀 빌딩 기능과 연결하는 API 계층을 구축한다. dacon.io는 현재 진행 중인 대회 목록·상세 정보를 제공하는 공개 API 엔드포인트를 추가하고, daker.ai는 팀 빌딩 생성 시 dacon.io 대회를 선택·연결할 수 있도록 UI를 수정한다. dacon.io 대회 상세 페이지에는 연결된 팀 수가 표시된다.
+
+**Deliverables:**
+- dacon.io 대회 목록 API: `GET /api/v1/competitions?status=active` (페이지네이션, 필터 지원)
+- dacon.io 대회 상세 API: `GET /api/v1/competitions/{id}` (팀 수 포함)
+- daker.ai 팀 빌딩 생성 폼에 "참가 대회 선택" 드롭다운 (dacon.io API 기반)
+- dacon.io 대회 상세 페이지 "연결된 팀" 카운트 위젯
+- API Rate Limiting 및 Circuit Breaker 설정
+
+### Contract
+
+#### Code Review Criteria
+
+| # | 항목 | 설명 |
+|---|------|------|
+| CR-3.1 | 대회 목록 API 엔드포인트 존재 | dacon.io 백엔드에 `GET /api/v1/competitions` 라우트가 정의되어 있으며 `status` 쿼리 파라미터를 처리한다 |
+| CR-3.2 | 응답 스키마 정의 | 대회 목록 API 응답이 `{ id, title, status, deadline, participantCount }` 이상의 필드를 포함하는 배열을 반환한다 |
+| CR-3.3 | daker.ai 대회 선택 컴포넌트 | daker.ai 팀 빌딩 생성 폼에 `competitionId` 필드를 처리하는 컴포넌트 또는 훅이 존재하고, dacon.io API를 호출하여 옵션을 채운다 |
+| CR-3.4 | Circuit Breaker 또는 Fallback | daker.ai의 dacon.io API 호출 코드에 타임아웃(최대 5초) 또는 에러 시 Fallback(빈 목록 표시) 처리가 존재한다 |
+| CR-3.5 | Rate Limiting 설정 | dacon.io API 라우터 또는 미들웨어에 IP 또는 토큰 기반 Rate Limiting 설정이 존재한다 (분당 60회 이하) |
+| CR-3.6 | 팀 수 위젯 | dacon.io 대회 상세 Vue 컴포넌트에 daker.ai 연결 팀 수를 표시하는 UI 요소가 존재한다 |
+
+#### Runtime Verification Criteria
+
+| # | 항목 | 확인 방법 |
+|---|------|----------|
+| RV-3.1 | 대회 목록 API 응답 | `curl https://dacon.io/api/v1/competitions?status=active` 실행 시 HTTP 200과 대회 배열 JSON을 반환한다 |
+| RV-3.2 | daker.ai 팀 빌딩 대회 선택 | daker.ai 팀 빌딩 생성 화면에서 "참가 대회" 드롭다운을 열면 dacon.io 현재 진행 중인 대회 목록이 나타난다 |
+| RV-3.3 | 대회 연결 후 dacon.io 반영 | daker.ai에서 특정 dacon.io 대회(ID 기준)와 팀을 연결한 후, dacon.io 해당 대회 상세 페이지에서 "연결된 팀" 카운트가 1 이상으로 증가한다 |
+| RV-3.4 | Circuit Breaker 동작 | dacon.io API 서버를 임시 중단했을 때 daker.ai 팀 빌딩 화면이 에러 없이 "대회 정보를 불러올 수 없습니다" 메시지를 표시하고 정상 동작한다 |
+
+### Dependencies
+- Sprint 2 완료 (인증된 API 호출을 위해 SSO 토큰 필요)
+
+---
+
+## Sprint 4: UX 통합 — Cross-navigation 및 공통 헤더
+
+### Scope
+
+두 플랫폼 간 사용자 이동 경험을 매끄럽게 만드는 UX 통합을 수행한다. dacon.io 대회 상세 페이지에 "팀 구하기 (daker.ai)" 버튼을, daker.ai 팀 빌딩 완료 후 "대회 제출하기 (dacon.io)" 딥링크를 추가한다. 공통 헤더 스타일 가이드 또는 Web Component를 제작하고, dacon.io 마이페이지에 daker.ai 팀 참여 이력을 노출한다.
+
+**Deliverables:**
+- dacon.io 대회 상세 페이지 내 "팀 구하기" 버튼 (daker.ai 팀 빌딩 생성 딥링크)
+- daker.ai 팀 빌딩 완료 화면 내 "대회 제출하기" 버튼 (dacon.io 제출 페이지 딥링크)
+- 공통 헤더 Web Component 또는 공유 CSS 가이드 (독립 배포 가능)
+- dacon.io 마이페이지 "내 팀 (daker.ai)" 섹션 (팀명, 대회명, 참여 날짜 표시)
+- 모바일 반응형 Cross-navigation CTA 검증
+
+### Contract
+
+#### Code Review Criteria
+
+| # | 항목 | 설명 |
+|---|------|------|
+| CR-4.1 | 팀 구하기 버튼 | dacon.io 대회 상세 Vue 컴포넌트에 `daker.ai`로 향하는 "팀 구하기" 버튼이 존재하며, 대회 ID를 쿼리 파라미터로 전달한다 (`?competitionId={id}`) |
+| CR-4.2 | 대회 제출하기 딥링크 | daker.ai 팀 빌딩 완료 컴포넌트에 `dacon.io/competitions/{id}/submit`으로 향하는 링크 버튼이 존재한다 |
+| CR-4.3 | 공통 헤더 컴포넌트 격리 | 공통 헤더가 Web Component(`<dacon-header>`) 또는 독립 iframe embed 방식으로 구현되어 React와 Vue.js 양쪽에서 사용 가능하다 |
+| CR-4.4 | 마이페이지 팀 이력 컴포넌트 | dacon.io 마이페이지에 `dakerTeams` 또는 유사한 데이터를 daker.ai API에서 불러와 렌더링하는 Vue 컴포넌트 또는 섹션이 존재한다 |
+| CR-4.5 | 모바일 반응형 | "팀 구하기" 및 "대회 제출하기" 버튼이 max-width 768px 이하에서도 적절한 크기와 터치 타겟(최소 44×44px)을 가진다 |
+
+#### Runtime Verification Criteria
+
+| # | 항목 | 확인 방법 |
+|---|------|----------|
+| RV-4.1 | 팀 구하기 딥링크 | dacon.io 대회 상세 페이지에서 "팀 구하기" 클릭 → daker.ai 팀 빌딩 생성 페이지로 이동하며 URL에 `?competitionId={id}` 파라미터가 포함된다 |
+| RV-4.2 | 대회 제출하기 딥링크 | daker.ai 팀 빌딩 완료 화면에서 "대회 제출하기" 클릭 → dacon.io 해당 대회 제출 페이지로 이동한다 |
+| RV-4.3 | 마이페이지 팀 이력 노출 | daker.ai 팀에 참여한 dacon.io 사용자의 마이페이지에서 "내 팀 (daker.ai)" 섹션이 나타나며 팀명과 연결된 대회명이 표시된다 |
+
+### Dependencies
+- Sprint 2 완료 (마이페이지 팀 이력을 인증된 API로 가져오기 위해)
+- Sprint 3 완료 (대회 ID 기반 딥링크 생성을 위해)
+
+---
+
+## Sprint 5: 데이터 심화 통합 — 통합 프로필 및 알림
+
+### Scope
+
+두 플랫폼의 사용자 데이터를 통합하여 하나의 일관된 프로필과 알림 경험을 제공한다. dacon 티어(Tier) + daker 협업 점수가 통합된 프로필 카드를 구현하고, 대회 수상 시 daker.ai 팀 배지를 자동 부여하는 파이프라인을 구축한다. 통합 알림 시스템(대회 마감, 팀 초대, 리더보드 변동)과 GTM 기반 크로스 플랫폼 Analytics 이벤트 스키마를 완성한다.
+
+**Deliverables:**
+- 통합 사용자 프로필 API: `GET /api/v1/users/{id}/profile` (dacon 티어 + daker 활동 점수 통합)
+- dacon.io 수상 이벤트 Webhook → daker.ai 팀 배지 자동 부여 파이프라인
+- 통합 알림 서비스 (In-app 알림 + 이메일): 대회 마감 D-3, 팀 초대, 리더보드 Top3 진입
+- GTM 크로스 플랫폼 이벤트 스키마 정의 및 태그 배포 (양측 공통 `user_id` 기반 추적)
+- 통합 검색 결과: dacon.io 검색에 daker.ai 팀 결과 포함 (탭 또는 섹션 분리)
+
+### Contract
+
+#### Code Review Criteria
+
+| # | 항목 | 설명 |
+|---|------|------|
+| CR-5.1 | 통합 프로필 API | `/api/v1/users/{id}/profile` 엔드포인트가 `{ daconTier, daconPoints, dakerActivityScore, dakerTeamCount }` 이상의 필드를 반환하는 로직이 존재한다 |
+| CR-5.2 | 수상 Webhook 핸들러 | dacon.io에 수상 이벤트 Webhook을 발송하는 코드가 존재하고, daker.ai에 해당 Webhook을 수신하여 팀 배지를 부여하는 핸들러가 존재한다 |
+| CR-5.3 | 알림 서비스 분리 | 알림 발송 로직이 별도 서비스 모듈 또는 큐(Queue) 기반으로 분리되어 있어 메인 API 응답 지연에 영향을 주지 않는다 |
+| CR-5.4 | GTM 이벤트 태그 | 양측 코드베이스에서 GTM `dataLayer.push({ event: '...', user_id: '...' })` 형태의 이벤트 발송 코드가 존재하며 `user_id` 필드가 통일된 포맷을 사용한다 |
+| CR-5.5 | 통합 검색 결과 | dacon.io 검색 API 또는 검색 결과 컴포넌트가 daker.ai 팀 검색 결과를 포함하는 로직 또는 UI 섹션을 갖는다 |
+
+#### Runtime Verification Criteria
+
+| # | 항목 | 확인 방법 |
+|---|------|----------|
+| RV-5.1 | 통합 프로필 API 응답 | `GET /api/v1/users/{id}/profile` 호출 시 HTTP 200과 dacon 티어 + daker 활동 점수가 포함된 JSON을 반환한다 |
+| RV-5.2 | 수상 배지 자동 부여 | dacon.io 테스트 환경에서 대회 수상 처리(관리자) 후 해당 사용자의 daker.ai 팀 페이지에 수상 배지가 자동으로 나타난다 (최대 5분 이내) |
+| RV-5.3 | 알림 발송 | 대회 마감 D-3 시 등록된 참가자에게 알림(In-app 또는 이메일)이 발송되는 것을 테스트 계정으로 확인한다 |
+| RV-5.4 | 크로스 플랫폼 Analytics | GTM Preview 모드에서 dacon.io → daker.ai 이동 시 동일 `user_id`로 이벤트가 양측에서 발생하는 것을 확인한다 |
+
+### Dependencies
+- Sprint 3 완료 (대회 데이터 API가 Webhook 발송의 기반)
+- Sprint 4 완료 (통합 프로필을 표시할 UX 레이어 완성 후)
+
+---
+
+## Sprint 6: 관리 통합 — 어드민 콘솔 및 운영 프로세스
+
+### Scope
+
+두 플랫폼의 운영 관리를 통합하는 어드민 콘솔과 공통 운영 프로세스를 구축한다. 통합 어드민에서 사용자, 대회, 팀을 단일 뷰로 조회·관리하고, 주최사 대시보드에 팀 빌딩 현황을 통합 표시한다. 공유 어뷰징 대응 시스템, 단일 헬프센터, 공통 SLA 문서를 완성한다.
+
+**Deliverables:**
+- 통합 어드민 콘솔 화면: 사용자/대회/팀 통합 검색 및 조회
+- 주최사(대회 운영자) 대시보드 — 팀 빌딩 현황 위젯 추가
+- 공유 블랙리스트 API (스팸/어뷰징 계정 공동 차단)
+- 통합 헬프센터 URL (dacon.io/help 로 일원화) 및 FAQ 콘텐츠 이관
+- 통합 SLA 및 장애 대응 RunBook 문서
+
+### Contract
+
+#### Code Review Criteria
+
+| # | 항목 | 설명 |
+|---|------|------|
+| CR-6.1 | 통합 어드민 사용자 검색 | 어드민 콘솔에서 이메일 또는 닉네임으로 검색 시 dacon.io 계정 정보와 daker.ai 팀 참여 이력을 함께 조회하는 API 또는 뷰가 존재한다 |
+| CR-6.2 | 주최사 팀 빌딩 위젯 | 주최사 대시보드 Vue 컴포넌트에 해당 대회에 연결된 daker.ai 팀 수 및 목록을 표시하는 섹션이 존재한다 |
+| CR-6.3 | 블랙리스트 API | `POST /api/v1/admin/blacklist` 엔드포인트가 존재하며, 해당 계정을 dacon.io와 daker.ai 양측에서 차단하는 로직이 포함된다 (트랜잭션 또는 이벤트 기반) |
+| CR-6.4 | 헬프센터 리다이렉트 | daker.ai `/help` 또는 `/support` 경로가 dacon.io 통합 헬프센터 URL로 301 리다이렉트된다 |
+| CR-6.5 | SLA 문서 존재 | 장애 등급 정의, 대응 시간 목표(P0: 30분, P1: 2시간, P2: 24시간), 담당자 에스컬레이션 경로가 명시된 RunBook 문서가 존재한다 |
+
+#### Runtime Verification Criteria
+
+| # | 항목 | 확인 방법 |
+|---|------|----------|
+| RV-6.1 | 어드민 통합 검색 | 어드민 콘솔에서 테스트 계정 이메일 검색 시 dacon 계정 정보(티어, 대회 참여 이력)와 daker.ai 팀 목록이 단일 화면에 표시된다 |
+| RV-6.2 | 블랙리스트 차단 동작 | `POST /api/v1/admin/blacklist { userId: '...' }` 호출 후 해당 사용자로 dacon.io와 daker.ai 양측 로그인 시도 시 모두 접근이 거부된다 |
+| RV-6.3 | 헬프센터 리다이렉트 | `curl -I https://daker.ai/help` 실행 시 HTTP 301과 `Location: https://dacon.io/help` 헤더를 반환한다 |
+| RV-6.4 | 주최사 팀 현황 표시 | 주최사 계정으로 dacon.io 대시보드 접속 시 운영 중인 대회에 연결된 daker.ai 팀 수가 올바르게 표시된다 |
+
+### Dependencies
+- Sprint 5 완료 (통합 사용자 데이터 구조 완성 후 어드민 통합 가능)
+- Sprint 2 완료 (SSO 기반 어드민 계정 통합 필요)
+
+---
+
+## 전체 타임라인 요약
+
+| 스프린트 | 내용 | 선행 조건 | 예상 기간 |
+|---------|------|----------|---------|
+| Sprint 1 | 브랜드 진입점 및 Cross-linking | 없음 | 1~2주 |
+| Sprint 2 | OAuth SSO 계정 통합 | Sprint 1 | 3~4주 |
+| Sprint 3 | 대회 데이터 API 연동 | Sprint 2 | 2~3주 |
+| Sprint 4 | UX Cross-navigation 및 공통 헤더 | Sprint 2, 3 | 2~3주 |
+| Sprint 5 | 통합 프로필·알림·Analytics | Sprint 3, 4 | 3~4주 |
+| Sprint 6 | 어드민 통합 및 운영 프로세스 | Sprint 2, 5 | 2~3주 |
+
+**총 예상 기간**: 약 13~19주 (병렬 작업 가능 시 단축 가능)
+
+## 통합 원칙 재확인
+
+1. 각 스프린트는 독립적으로 롤백 가능 (Feature Flag 기반)
+2. dacon.io가 마스터 데이터 소스, daker.ai는 소비자
+3. 사용자 데이터 마이그레이션 시 이중 저장 → 검증 → 구 레코드 삭제 순서 준수
+4. 모든 API는 버전 관리 (`/api/v1/`) — 통합 이후에도 하위 호환 유지

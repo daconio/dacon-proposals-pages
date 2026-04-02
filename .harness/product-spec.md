@@ -1,132 +1,101 @@
-# Product Spec — GS E&R AI 경진대회 제안서 HTML 슬라이드 동기화
+# Product Specification — daker.ai × dacon.io 단계별 통합 계획
 
-## 목적 (Goal)
+## Overview
 
-MD 소스(`.md`)와 HTML 슬라이드(`.html`) 사이의 콘텐츠 불일치를 해소한다. MD가 **단일 진실 원천(source of truth)**이며, HTML 슬라이드는 MD의 모든 섹션과 데이터를 정확히 반영해야 한다. 수정 완료 후 Puppeteer로 PDF를 재생성한다.
+daker.ai(클로드 코드 기반 차세대 AI 협업·빌딩 플랫폼)와 dacon.io(기존 인간 개발자 운영 AI·데이터 사이언스 경진대회 플랫폼)를 단계적으로 통합한다. 목표는 두 플랫폼의 사용자 베이스, 기능, 브랜드를 하나의 통합된 에코시스템으로 합쳐 AI 대회 참가자(dacon.io)와 AI 협업 팀 빌더(daker.ai)가 동일한 플랫폼 위에서 활동하도록 하는 것이다. 최종 상태는 dacon.io가 대회 운영의 허브, daker.ai가 협업·바이브코딩 레이어로 역할 분담된 단일 플랫폼이다.
 
-## 산출물 (Deliverables)
+---
 
-| 파일 | 경로 |
-|------|------|
-| HTML 슬라이드 (수정) | `제안/2026-03-27-GS_E&R_AI경진대회_제안서_슬라이드.html` |
-| PDF (재생성) | `제안/2026-03-27-GS_E&R_AI경진대회_제안서_슬라이드.pdf` |
+## Tech Stack
 
-## 현재 상태 분석 (Diff Summary)
+### daker.ai (신규·클로드 코드 기반)
+- **Frontend**: React + Vite — SPA 구조
+- **실시간 협업**: y-websocket (CRDT 기반 실시간 공동 편집)
+- **Analytics**: Google Analytics 4
+- **디자인**: 다크모드 지원, 커스텀 CSS 토큰
 
-### HTML 슬라이드 현황 (12슬라이드)
+### dacon.io (기존·인간 개발자 운영)
+- **Frontend**: Vue.js + Vuetify — SPA 구조
+- **CSS**: Tailwind CSS
+- **UI 컴포넌트**: Swiper (배너·캐러셀)
+- **Analytics**: Google Analytics 4, GTM (Google Tag Manager), Hotjar
+- **주요 기능**: 경진대회 관리, 리더보드, 뱃지/티어 시스템, 채용 연계, 스폰서 노출
+- **콘텐츠 영역**: 메인 배너, 공식 경진대회, 카테고리별 대회, 인터뷰, 스폰서, 채용
 
-| Slide ID | 현재 제목 | MD 대응 섹션 |
-|----------|----------|------------|
-| s1 | COVER | 표지 |
-| s2 | 제안 배경 & 핵심 목표 | §1 |
-| s3 | Option A 대회 개요 | §2 Option A |
-| s3b | Option A vs B 비교표 | §2 비교표 |
-| s4 | 대회 주제 후보(안) | §3 |
-| s5 | 데이콘 수행 역량 | §4 |
-| s6 | 운영 프로세스 타임라인 | §5 Phase 1-5 |
-| s6b | 1박 2일 해커톤 일정 | §5 Option B Day1/Day2 |
-| s7 | 기대 효과 KPI | §7 |
-| s8 | 성공 벤치마킹 | §8 |
-| s9 | 파트너십 & 역할 분담 | §9 |
-| s10 | ENDING | - |
+### 공통 인프라 (통합 목표)
+- **인증**: 통합 SSO (Single Sign-On) — dacon.io 계정으로 daker.ai 로그인
+- **API**: RESTful API Gateway — dacon.io 대회 데이터를 daker.ai 팀 빌딩에 공급
+- **CDN**: 정적 자산 공유
+- **모니터링**: 통합 Analytics 이벤트 스키마
 
-### MD에는 있으나 HTML에 없거나 부정확한 내용 (7가지 Gap)
+---
 
-#### Gap 1: s3 — Option A 테이블 불완전
-- **누락**: `대회 유형` 행 (알고리즘 경진대회 (모델 개발))
-- **누락**: `상금 규모` 행 (1,000만원 ~ 3,000만원)
-- **오류**: `참가 대상` — HTML은 "비공개, Private" 표기, MD는 "자격조건" 명시
+## Features
 
-#### Gap 2: s3b — Option B 테이블 불완전
-- **누락**: `대회명(안)` 행 (GS E&R AI Hackathon 2026)
-- **오류**: `운영` 행 — HTML에 DAKER 누락 (MD: "데이콘(DACON) + 데이커(DAKER)")
-- **누락**: `상금 규모` 행 (1,000만원 ~ 3,000만원)
-- **오류**: `기간` 행 — HTML은 "총 11주", MD는 "총 8주 (온라인 예선 4주 + 준비 2주 + 본선 1박 2일)"
+### Phase 1 — 브랜드 및 진입점 통합
+- [ ] daker.ai 공식 페이지에 dacon.io 링크 및 "대회 참가하기" CTA 배치
+- [ ] dacon.io 메인/GNB에 "팀 빌딩(daker.ai)" 메뉴 항목 추가
+- [ ] 두 서비스 공통 로고·색상 가이드라인(브랜드 토큰) 정의
+- [ ] 공유 소셜 메타태그(OG, Twitter Card) 포맷 통일
+- [ ] 사용자 대상 공개 통합 로드맵 페이지 (dacon.io/roadmap 또는 공지)
 
-#### Gap 3: s5 — 수행 실적 테이블 데이터 오류
-- **오류**: SAMSUNG 규모 `3,000+` → `5,000+` (누적)
-- **오류**: LG 규모 `3,000+` → `20,000+` (누적)
-- **오류**: TOSS 규모 `1,000+` → `2,500+`
-- **오류/교체**: 고객사 목록 — 금융보안원, NH투자증권 대신 MD 기준 10개 항목으로 교체:
-  - 한국에너지기술연구원 (AI Challenge, 2,200+)
-  - 한국수자원공사 (AI 경진대회, 1,800+)
-  - HD현대 (AI 경진대회, 1,500+)
-  - 한국전력공사 (AI 경진대회, 1,200+)
-  - 한국가스공사 (AI 경진대회, 1,000+)
-- **누락**: 핵심 역량 항목 중 `8가지 대회 유형` 및 `채용 연계 시스템` 미표시
+### Phase 2 — 계정 및 인증 통합
+- [ ] dacon.io 계정 시스템을 daker.ai 로그인 공급자(OAuth 2.0)로 등록
+- [ ] daker.ai에서 "dacon 계정으로 로그인" 버튼 구현
+- [ ] 기존 daker.ai 전용 계정 → dacon 계정 마이그레이션 플로우
+- [ ] JWT 또는 세션 토큰 공유 방식 설계 및 구현
+- [ ] 로그인 상태 dacon.io ↔ daker.ai 간 동기화 (SSO)
+- [ ] 계정 병합 시 프로필(닉네임, 아바타, 티어) 승계 규칙 정의
 
-#### Gap 4: §6 핵심 성공 요소 — 독립 슬라이드 없음
-- MD §6에는 `공정한 평가`, `확실한 동기 부여`, `채용 연계 (Recruiting Pipeline)` 3가지 세부 항목이 있음
-- 현재 HTML은 s6 타임라인 슬라이드 하단에 3카드로 축약됨 — 이는 허용 (레이아웃 효율 우선)
-- **단, 동기 부여 항목에 "디지털 수상인증서 및 참가 수료증 발급" 누락** → s6 카드에 추가
-- **채용 연계 항목 "서류 전형 면제, 가산점 부여" 누락** → s6 카드에 추가
+### Phase 3 — 대회 데이터 API 연동
+- [ ] dacon.io 대회 목록 API 엔드포인트 (공개 or 인증 기반) 설계
+- [ ] daker.ai 팀 빌딩 화면에서 dacon.io 현재 진행 중인 대회 리스트 표시
+- [ ] 팀 빌딩 생성 시 "참가 대회" 선택 → dacon.io 대회 ID 연결
+- [ ] 대회별 팀 현황(팀 수, 참가자 수)을 dacon.io 대회 상세 페이지에 반영
+- [ ] Webhook 또는 폴링 방식으로 dacon.io 대회 상태 변경 시 daker.ai 팀에 알림
+- [ ] daker.ai 팀 활동 로그(제출 횟수, 협업 시간) → dacon.io 리더보드 보조 지표 연동 (선택)
 
-#### Gap 5: §8 벤치마킹 — 최신 레퍼런스 4건 누락
-- MD §8 "최신 레퍼런스":
-  - 토스 NEXT ML: 금융 데이터 기반 ML 경진대회
-  - 2025 Samsung AI Challenge: 반도체 데이터 분석 대규모 대회
-  - SW마에스트로 프롬프톤: 과기정통부 주관 AI 프롬프톤
-  - 수원시 정책 아이디어: 지자체 AI서비스/아이디어 공모전
-- s8 슬라이드에 레퍼런스 섹션 추가 필요
+### Phase 4 — UX 통합 (Cross-navigation)
+- [ ] dacon.io 대회 상세 페이지에 "팀 구하기 (daker.ai)" 버튼 삽입
+- [ ] daker.ai 팀 빌딩 완료 후 "대회 제출하기 (dacon.io)" 딥링크 버튼
+- [ ] 공통 헤더/GNB 컴포넌트 또는 스타일 가이드 (독립 배포 가능한 웹 컴포넌트로 제공)
+- [ ] dacon.io 마이페이지에 daker.ai 팀 참여 이력 표시
+- [ ] 모바일 반응형 통합 진입점 (dacon.io 모바일 → daker.ai 팀 빌딩)
 
-#### Gap 6: §9 파트너십 — 추진 일정 상세표 및 담당자 누락
-- **누락**: Option A 5단계 일정표 (W1~2, W3~4, W5~8, W9~10, W11)
-- **누락**: Option B 5단계 일정표 (W1~2, W3~4, W5~8, W9~10, W11 1박2일)
-- **누락**: 담당자 정보 (이근민, kmlee@gswind.com, 010-9708-8781)
-- 현재 s9는 역할 분담만 있고 일정표·담당자가 없음
+### Phase 5 — 데이터 및 기능 심화 통합
+- [ ] 통합 사용자 프로필 (dacon 티어 + daker 협업 활동 점수 통합 표시)
+- [ ] 대회 결과(수상) → daker.ai 팀 배지 자동 부여
+- [ ] daker.ai 실시간 협업 코드(y-websocket)를 dacon.io 대회 제출 파이프라인과 연결
+- [ ] 통합 알림 시스템 (대회 마감, 팀 초대, 리더보드 변동)
+- [ ] 통합 검색: dacon.io 검색창에서 "팀" 검색 시 daker.ai 팀 결과 포함
+- [ ] 사용자 행동 통합 Analytics 이벤트 스키마 (GTM 기반 크로스 플랫폼 추적)
 
-#### Gap 7: s3b — Option B 전용 상세 슬라이드 없음 (§2 Option B 표)
-- MD §2 Option B에 별도 상세 테이블이 있음 (8개 항목)
-- 현재 s3b는 A/B 비교표만 있고 Option B 단독 상세 표 없음
-- **허용**: s3b의 A/B 비교표가 Option B 내용을 충분히 커버하므로 별도 슬라이드 불필요 — 단 Option B 테이블 행 누락 수정(Gap 2)으로 해결
+### Phase 6 — 관리 및 운영 통합
+- [ ] 어드민 콘솔에서 두 플랫폼 사용자/대회/팀 통합 조회
+- [ ] 대회 운영자(주최사) 대시보드에 팀 빌딩 현황 통합 표시
+- [ ] 스팸·어뷰징 공동 대응 (공유 블랙리스트)
+- [ ] 통합 고객 지원 채널 (단일 헬프센터)
+- [ ] SLA 및 장애 대응 공통 프로세스 정의
 
-## 슬라이드 구성 목표 (15슬라이드)
+---
 
-현재 12슬라이드 → 15슬라이드로 확장. 새 슬라이드 3개 추가:
+## Non-Functional Requirements
 
-| Slide ID | 제목 | 상태 |
-|----------|------|------|
-| s1 | COVER | 유지 |
-| s2 | 제안 배경 & 핵심 목표 | 유지 |
-| s3 | Option A 대회 개요 | **수정** (Gap 1) |
-| s3b | Option B 대회 개요 (신규) | **신규** — Option B 상세 테이블 |
-| s3c | Option A vs B 비교 | 기존 s3b 승계 + **수정** (Gap 2) |
-| s4 | 대회 주제 후보(안) | 유지 |
-| s5 | 데이콘 수행 역량 | **수정** (Gap 3) |
-| s6 | 운영 프로세스 Phase 1-5 | **수정** (Gap 4 동기부여·채용 카드) |
-| s6b | 1박 2일 해커톤 일정 | 유지 |
-| s7 | 기대 효과 KPI | 유지 |
-| s8 | 성공 벤치마킹 | **수정** (Gap 5 레퍼런스 추가) |
-| s9 | 파트너십 & 역할 분담 | **수정** (Gap 6 일정표 추가) |
-| s9b | 추진 일정 상세 (신규) | **신규** — Option A/B 5단계 일정표 |
-| s9c | 담당자 & 다음 단계 (신규) | **신규** — 담당자 정보 + CTA |
-| s10 | ENDING | 유지 |
+- **가용성**: 통합 작업 중 dacon.io 서비스 다운타임 0 — Blue/Green 또는 Feature Flag 방식으로 무중단 배포
+- **성능**: API 연동 추가로 인한 dacon.io 메인 페이지 LCP(Largest Contentful Paint) 증가 200ms 이하
+- **보안**: SSO 구현 시 OAuth 2.0 + PKCE 표준 준수; JWT 만료 시간 최대 1시간
+- **호환성**: React(daker.ai) ↔ Vue.js(dacon.io) 간 공유 컴포넌트는 Web Components 또는 iframe embed 방식으로 격리
+- **확장성**: API Gateway 계층을 통해 양측 독립 배포 가능성 유지 — 어느 한쪽 서비스 장애가 다른 쪽으로 전파되지 않도록 Circuit Breaker 패턴 적용
+- **데이터 정합성**: 계정 마이그레이션 시 데이터 손실 0 — 이중 저장 후 검증 완료 시 구 레코드 삭제
+- **CLAUDE.md 제약**: 제안서·슬라이드 내 견적/비용 섹션 없음; "스킬 리포트" 언급 없음
+- **문서 언어**: 모든 산출 문서는 한국어; 커밋 메시지는 영어
 
-## 기술 스펙
+---
 
-### HTML 슬라이드 아키텍처 (기존과 동일)
-- 단일 `.html` 파일, 외부 의존성 없음 (Google Fonts만 허용)
-- `#viewport > #stage`: 1280×720px 고정, `transform: scale()` viewport 적응
-- `.slide` 시스템: `.slide.active` 클래스로 가시성 제어
-- `[data-step]` 프래그먼트 애니메이션 (pre-visible → visible)
-- `#progress-bar`, `#nav-prev`, `#nav-next`, `#key-hint`
-- 인쇄 CSS: `@page { size: landscape; }` + `break-after: page`
+## 통합 원칙 (Guiding Principles)
 
-### CSS 토큰 (기존 변수명 그대로 사용)
-`--p`, `--pd`, `--op`, `--sf`, `--sl`, `--sw`, `--os`, `--osv`, `--ov`, `--sc`, `--osc`, `--w`, `--wb`, `--g`, `--gb`, `--dk`, `--f`, `--gh`, `--rs`, `--rm`, `--rl`, `--rx`, `--rf`
-
-### 유틸리티 클래스
-`g2`, `g3`, `g4`, `g5`, `tc`, `c`, `c-b`, `c-w`, `c-s`, `c-g`, `c-t`, `c-d`, `ic`, `mx`, `tb`, `tag`, `sh`, `sf`, `sf-logo`, `sf-pg`, `sf-cr`
-
-### PDF 생성
-Puppeteer Node.js 스크립트로 HTML → PDF 변환. 슬라이드 수정 후 동일 스크립트 재실행.
-
-## 콘텐츠 언어
-
-모든 슬라이드 텍스트는 **한국어**. 영문은 섹션 태그(sh-l), 브랜드명(DACON, DAKER), 기술 용어에만 사용.
-
-## 제약 사항 (CLAUDE.md 기준)
-
-- 예산 섹션 없음 (Budget/견적 슬라이드 추가 금지)
-- Skill Report 언급 없음
-- 커밋 메시지는 영어
+1. **Non-disruptive**: dacon.io 기존 사용자 경험을 해치지 않으면서 점진적으로 통합
+2. **Feature-flagged**: 모든 통합 기능은 Feature Flag로 on/off 가능하게 구현
+3. **API-first**: UI 통합 전 API 계층 통합 선행
+4. **Single source of truth**: 계정·대회 데이터는 dacon.io가 마스터, daker.ai는 소비자
+5. **Reversible**: 각 통합 단계는 롤백 가능하도록 설계
