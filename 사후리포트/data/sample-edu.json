@@ -1,0 +1,311 @@
+{
+  "eventType": "education",
+  "event": {
+    "eventName": "2026 단국대학교 바이브코딩 집중 부트캠프",
+    "client": "단국대학교 SW중심대학사업단",
+    "operator": "DAKER (데이커)",
+    "startDate": "2026-02-19",
+    "endDate": "2026-02-23",
+    "location": "단국대학교 죽전캠퍼스 혜당관 4층 소프트웨어교육실",
+    "coverSubtitle": "생성형 AI와 함께하는 5일 몰입형 학습 프로그램",
+    "coverAccent": "warm"
+  },
+  "overview": {
+    "purpose": "SW 전공 학부생이 Claude와 Cursor를 활용한 바이브코딩 워크플로를 체득하고, 개인 프로젝트를 5일 내 완성하는 집중 학습 부트캠프",
+    "goals": [
+      "AI 페어 프로그래밍 기본기(프롬프트 구성·컨텍스트 설계) 체득",
+      "개인 프로젝트 주제 선정부터 배포까지 전 과정 경험",
+      "팀 회고와 코드 리뷰 문화에 대한 실제 경험 축적",
+      "수료 후 자기주도 학습을 이어갈 수 있는 포트폴리오 확보"
+    ],
+    "scheduleSummary": "2026년 2월 19일(목) ~ 23일(월) 5일간 총 40시간 집중 과정",
+    "keyMetrics": [
+      { "label": "총 수강생", "value": "24", "unit": "명" },
+      { "label": "학습 팀", "value": "4", "unit": "팀" },
+      { "label": "운영 일수", "value": "5", "unit": "일" },
+      { "label": "수료율", "value": "96", "unit": "%" }
+    ]
+  },
+  "stats": {
+    "totalParticipants": 24,
+    "totalTeams": 4,
+    "completionRate": 96,
+    "engagementRate": 92,
+    "organizationBreakdown": [
+      { "organization": "컴퓨터공학과", "count": 10 },
+      { "organization": "소프트웨어학과", "count": 6 },
+      { "organization": "모바일시스템공학과", "count": 4 },
+      { "organization": "AI융합학부", "count": 4 }
+    ]
+  },
+  "timeline": [
+    {
+      "date": "2026-02-19",
+      "time": "10:00~12:00",
+      "label": "오리엔테이션 & AI 도구 셋업",
+      "description": "Claude Code, Cursor, Git 환경 구성과 학습 규칙 안내",
+      "icon": "flag"
+    },
+    {
+      "date": "2026-02-19",
+      "time": "13:00~18:00",
+      "label": "프롬프트 기초 워크숍",
+      "description": "역할·맥락·예시 기반 프롬프트 설계 실습, 라이브 코딩 시연",
+      "icon": "sparkles"
+    },
+    {
+      "date": "2026-02-20",
+      "time": "10:00~18:00",
+      "label": "프로젝트 주제 탐색 및 설계",
+      "description": "개인 주제 브레인스토밍, AI와 함께하는 요구사항 정리, 팀 피어 리뷰",
+      "icon": "target"
+    },
+    {
+      "date": "2026-02-21",
+      "time": "10:00~18:00",
+      "label": "구현 집중 DAY 1",
+      "description": "AI 페어로 MVP 구현, 중간 체크포인트 시연",
+      "icon": "hammer"
+    },
+    {
+      "date": "2026-02-22",
+      "time": "10:00~18:00",
+      "label": "구현 집중 DAY 2 & 코드 리뷰",
+      "description": "Claude를 활용한 리팩터링 실습, 팀 코드 리뷰 세션",
+      "icon": "gear"
+    },
+    {
+      "date": "2026-02-23",
+      "time": "10:00~14:00",
+      "label": "배포 및 데모 준비",
+      "description": "정적 호스팅 배포, 데모 시나리오 작성, 최종 리허설",
+      "icon": "rocket"
+    },
+    {
+      "date": "2026-02-23",
+      "time": "14:00~16:30",
+      "label": "최종 데모 데이",
+      "description": "수강생 개인별 3분 데모 + 팀 공동 회고",
+      "icon": "mic"
+    },
+    {
+      "date": "2026-02-23",
+      "time": "16:30~18:00",
+      "label": "수료식 및 후속 학습 안내",
+      "description": "수료증 수여, 포트폴리오 가이드, 후속 학습 커뮤니티 초대",
+      "icon": "trophy"
+    }
+  ],
+  "teams": [
+    {
+      "id": "E1",
+      "name": "바이브러너",
+      "rank": 1,
+      "score": 91.2,
+      "highlight": "주제 선정부터 배포까지 전 구간에서 AI 워크플로를 가장 잘 체화한 팀",
+      "award": "우수 학습팀",
+      "members": [
+        { "name": "이지호", "role": "팀장", "organization": "컴퓨터공학과" },
+        { "name": "박지민", "role": "학습 도우미", "organization": "소프트웨어학과" },
+        { "name": "최서윤", "role": "학습자", "organization": "AI융합학부" },
+        { "name": "김민성", "role": "학습자", "organization": "모바일시스템공학과" },
+        { "name": "윤하람", "role": "학습자", "organization": "컴퓨터공학과" },
+        { "name": "장예린", "role": "학습자", "organization": "소프트웨어학과" }
+      ],
+      "output": {
+        "title": "학습자 주도 바이브코딩 6종 프로젝트",
+        "summary": "팀원 6명이 각자의 관심사(일정 관리, 독서 기록, 면접 준비 등)를 주제로 개인 프로젝트를 5일 내 배포 완료",
+        "tech": ["Claude", "Next.js", "Vercel"]
+      }
+    },
+    {
+      "id": "E2",
+      "name": "프롬프트랩",
+      "rank": 2,
+      "score": 87.4,
+      "highlight": "프롬프트 버전 관리 방식을 팀 공용 표준으로 정착시킨 사례",
+      "award": "성장 학습팀",
+      "members": [
+        { "name": "강한결", "role": "팀장", "organization": "소프트웨어학과" },
+        { "name": "문지우", "role": "학습 도우미", "organization": "컴퓨터공학과" },
+        { "name": "오채원", "role": "학습자", "organization": "AI융합학부" },
+        { "name": "정다빈", "role": "학습자", "organization": "모바일시스템공학과" },
+        { "name": "한서준", "role": "학습자", "organization": "컴퓨터공학과" },
+        { "name": "서하영", "role": "학습자", "organization": "소프트웨어학과" }
+      ],
+      "output": {
+        "title": "팀 공용 프롬프트 자산 라이브러리",
+        "summary": "팀원 전원이 작성한 프롬프트를 카테고리별로 정리하고 리뷰 절차를 거쳐 재사용 가능한 자산으로 축적",
+        "tech": ["Claude", "GitHub", "Markdown"]
+      }
+    },
+    {
+      "id": "E3",
+      "name": "코드키즈",
+      "rank": 3,
+      "score": 83.6,
+      "highlight": "전원이 처음 접하는 풀스택 프레임워크로 완주",
+      "award": "도전 학습팀",
+      "members": [
+        { "name": "백채은", "role": "팀장", "organization": "AI융합학부" },
+        { "name": "임도현", "role": "학습 도우미", "organization": "컴퓨터공학과" },
+        { "name": "신지유", "role": "학습자", "organization": "컴퓨터공학과" },
+        { "name": "황준서", "role": "학습자", "organization": "소프트웨어학과" },
+        { "name": "남예진", "role": "학습자", "organization": "모바일시스템공학과" },
+        { "name": "진현우", "role": "학습자", "organization": "소프트웨어학과" }
+      ],
+      "output": {
+        "title": "처음 해보는 Next.js 포트폴리오",
+        "summary": "프레임워크 경험이 없는 팀원들이 AI 도움으로 개인 포트폴리오 사이트를 완성하고 배포",
+        "tech": ["Claude", "Next.js", "Tailwind"]
+      }
+    },
+    {
+      "id": "E4",
+      "name": "아이디어팩토리",
+      "rank": 4,
+      "score": 80.1,
+      "highlight": "주제 피벗을 두 번 거치면서도 결과물 완성도를 지켜낸 팀",
+      "award": "회고 우수팀",
+      "members": [
+        { "name": "고다은", "role": "팀장", "organization": "컴퓨터공학과" },
+        { "name": "조유찬", "role": "학습 도우미", "organization": "소프트웨어학과" },
+        { "name": "도예나", "role": "학습자", "organization": "AI융합학부" },
+        { "name": "양준호", "role": "학습자", "organization": "모바일시스템공학과" },
+        { "name": "허서율", "role": "학습자", "organization": "컴퓨터공학과" },
+        { "name": "류지안", "role": "학습자", "organization": "소프트웨어학과" }
+      ],
+      "output": {
+        "title": "주제 피벗 회고 기록 사이트",
+        "summary": "학습 과정에서 두 차례 피벗한 의사결정을 회고 문서로 남기고, 이를 정적 사이트로 공개",
+        "tech": ["Claude", "Astro", "GitHub Pages"]
+      }
+    }
+  ],
+  "participants": [
+    { "name": "이지호", "team": "E1", "role": "팀장", "organization": "컴퓨터공학과" },
+    { "name": "박지민", "team": "E1", "role": "학습 도우미", "organization": "소프트웨어학과" },
+    { "name": "최서윤", "team": "E1", "role": "학습자", "organization": "AI융합학부" },
+    { "name": "김민성", "team": "E1", "role": "학습자", "organization": "모바일시스템공학과" },
+    { "name": "윤하람", "team": "E1", "role": "학습자", "organization": "컴퓨터공학과" },
+    { "name": "장예린", "team": "E1", "role": "학습자", "organization": "소프트웨어학과" },
+    { "name": "강한결", "team": "E2", "role": "팀장", "organization": "소프트웨어학과" },
+    { "name": "문지우", "team": "E2", "role": "학습 도우미", "organization": "컴퓨터공학과" },
+    { "name": "오채원", "team": "E2", "role": "학습자", "organization": "AI융합학부" },
+    { "name": "정다빈", "team": "E2", "role": "학습자", "organization": "모바일시스템공학과" },
+    { "name": "한서준", "team": "E2", "role": "학습자", "organization": "컴퓨터공학과" },
+    { "name": "서하영", "team": "E2", "role": "학습자", "organization": "소프트웨어학과" },
+    { "name": "백채은", "team": "E3", "role": "팀장", "organization": "AI융합학부" },
+    { "name": "임도현", "team": "E3", "role": "학습 도우미", "organization": "컴퓨터공학과" },
+    { "name": "신지유", "team": "E3", "role": "학습자", "organization": "컴퓨터공학과" },
+    { "name": "황준서", "team": "E3", "role": "학습자", "organization": "소프트웨어학과" },
+    { "name": "남예진", "team": "E3", "role": "학습자", "organization": "모바일시스템공학과" },
+    { "name": "진현우", "team": "E3", "role": "학습자", "organization": "소프트웨어학과" },
+    { "name": "고다은", "team": "E4", "role": "팀장", "organization": "컴퓨터공학과" },
+    { "name": "조유찬", "team": "E4", "role": "학습 도우미", "organization": "소프트웨어학과" },
+    { "name": "도예나", "team": "E4", "role": "학습자", "organization": "AI융합학부" },
+    { "name": "양준호", "team": "E4", "role": "학습자", "organization": "모바일시스템공학과" },
+    { "name": "허서율", "team": "E4", "role": "학습자", "organization": "컴퓨터공학과" },
+    { "name": "류지안", "team": "E4", "role": "학습자", "organization": "소프트웨어학과" }
+  ],
+  "highlights": [
+    {
+      "teamId": "E1",
+      "award": "우수 학습팀",
+      "title": "학습자 주도 6종 개인 프로젝트",
+      "description": "팀원 각자가 관심 주제로 Next.js 기반 개인 사이트를 5일 내 Vercel에 배포 완료. 모든 팀원이 데모데이에서 자신만의 포트폴리오 URL을 보여줬다."
+    },
+    {
+      "teamId": "E2",
+      "award": "성장 학습팀",
+      "title": "팀 공용 프롬프트 라이브러리",
+      "description": "작성·리뷰·재사용 사이클을 팀 단위로 경험하고, 학습 종료 후에도 GitHub에서 이어 관리할 수 있도록 문서화."
+    },
+    {
+      "teamId": "E3",
+      "award": "도전 학습팀",
+      "title": "처음 쓰는 프레임워크로 완주",
+      "description": "입문자만으로 구성된 팀이 AI 페어링으로 Next.js 학습 곡선을 극복하고 전원이 배포까지 도달."
+    }
+  ],
+  "evaluation": {
+    "criteria": [
+      {
+        "criterion": "학습 몰입도",
+        "weight": 0.25,
+        "maxScore": 100,
+        "teamScores": [
+          { "teamId": "E1", "score": 94 },
+          { "teamId": "E2", "score": 90 },
+          { "teamId": "E3", "score": 85 },
+          { "teamId": "E4", "score": 82 }
+        ]
+      },
+      {
+        "criterion": "프로젝트 완성도",
+        "weight": 0.3,
+        "maxScore": 100,
+        "teamScores": [
+          { "teamId": "E1", "score": 92 },
+          { "teamId": "E2", "score": 88 },
+          { "teamId": "E3", "score": 84 },
+          { "teamId": "E4", "score": 80 }
+        ]
+      },
+      {
+        "criterion": "AI 도구 활용 능숙도",
+        "weight": 0.25,
+        "maxScore": 100,
+        "teamScores": [
+          { "teamId": "E1", "score": 90 },
+          { "teamId": "E2", "score": 88 },
+          { "teamId": "E3", "score": 83 },
+          { "teamId": "E4", "score": 78 }
+        ]
+      },
+      {
+        "criterion": "팀 회고와 공유",
+        "weight": 0.2,
+        "maxScore": 100,
+        "teamScores": [
+          { "teamId": "E1", "score": 89 },
+          { "teamId": "E2", "score": 84 },
+          { "teamId": "E3", "score": 82 },
+          { "teamId": "E4", "score": 80 }
+        ]
+      }
+    ]
+  },
+  "retrospective": [
+    {
+      "category": "성과",
+      "content": "수강생 24명 중 23명이 개인 프로젝트 배포까지 완료(수료율 96%)하였으며, 전원이 AI 페어 프로그래밍 경험을 포트폴리오로 확보했다.",
+      "owner": "교육 총괄"
+    },
+    {
+      "category": "성과",
+      "content": "프롬프트 버전 관리와 코드 리뷰를 학습 일정에 녹여 낸 결과, 수료 후에도 팀 단위 학습 모임이 자발적으로 이어졌다.",
+      "owner": "이도윤"
+    },
+    {
+      "category": "개선",
+      "content": "1일차 도구 셋업에서 예상보다 30% 긴 시간이 소요되어, 사전 안내 매뉴얼을 더 구체화할 필요가 있다.",
+      "owner": "운영 조교"
+    },
+    {
+      "category": "개선",
+      "content": "주제 피벗을 경험한 팀의 멘토 상담 기회가 부족했으며, 2일차에 주제 재검토 슬롯을 정식 세션으로 편성해야 한다.",
+      "owner": "학습 코치"
+    },
+    {
+      "category": "제안",
+      "content": "부트캠프 이후 월 1회 동문 리뷰 세션을 운영해 수료생의 프로젝트가 꾸준히 성장하도록 지원하자.",
+      "owner": "DAKER"
+    },
+    {
+      "category": "제안",
+      "content": "다음 차수부터 팀 간 코드 리뷰를 정식 평가 지표로 편입해 협업 경험을 심화하자.",
+      "owner": "단국대 SW중심사업단"
+    }
+  ]
+}

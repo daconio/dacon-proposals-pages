@@ -1,0 +1,343 @@
+{
+  "eventType": "hackathon",
+  "event": {
+    "eventName": "2026 금융보안원 AI 바이브코딩 해커톤",
+    "client": "금융보안원",
+    "operator": "DAKER (데이커)",
+    "startDate": "2026-03-14",
+    "endDate": "2026-03-15",
+    "location": "금융보안원 통합보안관제센터 8층 대강당",
+    "coverSubtitle": "금융권 보안 실무자를 위한 생성형 AI 실전 빌딩 2일 과정",
+    "coverAccent": "primary"
+  },
+  "overview": {
+    "purpose": "금융보안원 실무진이 생성형 AI 도구(Claude, Cursor)를 활용하여 자체 보안 업무를 자동화하는 프로토타입을 2일간 완성하는 몰입형 해커톤",
+    "goals": [
+      "바이브코딩(Vibe Coding) 방법론을 실제 업무 도메인에 적용",
+      "팀 단위 협업으로 데모 가능한 수준의 프로토타입 도출",
+      "사내 AI 활용 우수 사례 발굴 및 전사 공유 자산 확보",
+      "실무자 주도의 지속 가능한 AI 문화 정착 기반 마련"
+    ],
+    "scheduleSummary": "2026년 3월 14일(토) 09:00 ~ 3월 15일(일) 18:00, 총 2일 12세션 운영",
+    "keyMetrics": [
+      { "label": "총 참가자", "value": "32", "unit": "명" },
+      { "label": "참여 팀", "value": "5", "unit": "팀" },
+      { "label": "운영 일수", "value": "2", "unit": "일" },
+      { "label": "완주율", "value": "100", "unit": "%" }
+    ]
+  },
+  "stats": {
+    "totalParticipants": 32,
+    "totalTeams": 5,
+    "completionRate": 100,
+    "engagementRate": 96,
+    "organizationBreakdown": [
+      { "organization": "금융보안원 침해대응본부", "count": 9 },
+      { "organization": "금융보안원 보안관제본부", "count": 8 },
+      { "organization": "금융보안원 정책연구본부", "count": 6 },
+      { "organization": "금융보안원 기술지원본부", "count": 5 },
+      { "organization": "외부 멘토 (DAKER)", "count": 4 }
+    ]
+  },
+  "timeline": [
+    {
+      "date": "2026-03-14",
+      "time": "09:00~09:30",
+      "label": "오프닝 및 오리엔테이션",
+      "description": "주최사 인사말, 운영 방식 안내, 팀 편성 확인",
+      "icon": "flag"
+    },
+    {
+      "date": "2026-03-14",
+      "time": "09:30~11:00",
+      "label": "바이브코딩 킥오프 세션",
+      "description": "Claude Code와 Cursor 기반 AI 페어 프로그래밍 워밍업, 공통 툴킷 셋업",
+      "icon": "sparkles"
+    },
+    {
+      "date": "2026-03-14",
+      "time": "11:00~12:30",
+      "label": "문제 정의 워크숍",
+      "description": "팀별 실무 과제 선정, 사용자 스토리 및 성공 기준 정의",
+      "icon": "target"
+    },
+    {
+      "date": "2026-03-14",
+      "time": "13:30~18:00",
+      "label": "1일차 집중 빌딩 세션",
+      "description": "프로토타입 1차 버전 구현, 멘토 1:1 코칭 2회 진행",
+      "icon": "hammer"
+    },
+    {
+      "date": "2026-03-14",
+      "time": "18:00~19:30",
+      "label": "중간 공유회",
+      "description": "팀별 5분 진행 상황 공유, 피드백 수렴",
+      "icon": "speech"
+    },
+    {
+      "date": "2026-03-15",
+      "time": "09:00~13:00",
+      "label": "2일차 마무리 빌딩",
+      "description": "MVP 완성, 데모 시나리오 정리 및 발표 자료 준비",
+      "icon": "gear"
+    },
+    {
+      "date": "2026-03-15",
+      "time": "14:00~16:30",
+      "label": "최종 발표 및 심사",
+      "description": "팀당 7분 데모 + 3분 Q&A, 심사위원 5인 실시간 채점",
+      "icon": "mic"
+    },
+    {
+      "date": "2026-03-15",
+      "time": "16:30~18:00",
+      "label": "시상식 및 회고",
+      "description": "수상팀 발표, 전체 회고 세션, 폐회",
+      "icon": "trophy"
+    }
+  ],
+  "teams": [
+    {
+      "id": "T1",
+      "name": "시큐어바이브",
+      "rank": 1,
+      "score": 92.4,
+      "highlight": "실제 침해 대응 로그를 학습한 분류기가 현장 활용도 1위",
+      "award": "대상",
+      "members": [
+        { "name": "김도윤", "role": "팀장 / 백엔드", "organization": "침해대응본부" },
+        { "name": "박서진", "role": "데이터", "organization": "침해대응본부" },
+        { "name": "이하은", "role": "프론트엔드", "organization": "정책연구본부" },
+        { "name": "최민재", "role": "프롬프트 엔지니어", "organization": "기술지원본부" },
+        { "name": "정유나", "role": "도메인 전문가", "organization": "보안관제본부" },
+        { "name": "한지호", "role": "QA", "organization": "침해대응본부" }
+      ],
+      "output": {
+        "title": "AI 기반 침해지표(IOC) 자동 분류기",
+        "summary": "TI 피드와 내부 로그를 통합하여 Claude로 자연어 요약 + 위험도 라벨링을 자동 생성하는 관제 보조 도구",
+        "tech": ["Claude", "Python", "Streamlit", "PostgreSQL"]
+      }
+    },
+    {
+      "id": "T2",
+      "name": "프롬프트포스",
+      "rank": 2,
+      "score": 88.7,
+      "highlight": "반복 업무 50% 단축이 확인된 실효성 있는 프로토타입",
+      "award": "최우수상",
+      "members": [
+        { "name": "윤서연", "role": "팀장 / 기획", "organization": "정책연구본부" },
+        { "name": "강태현", "role": "백엔드", "organization": "보안관제본부" },
+        { "name": "노지환", "role": "프론트엔드", "organization": "기술지원본부" },
+        { "name": "임세영", "role": "데이터", "organization": "침해대응본부" },
+        { "name": "조현우", "role": "운영", "organization": "정책연구본부" },
+        { "name": "배수정", "role": "UX", "organization": "보안관제본부" }
+      ],
+      "output": {
+        "title": "보안 정책 초안 자동 생성기",
+        "summary": "기존 정책 문서를 RAG로 참조해 신규 정책 초안을 30초 안에 생성하고 담당자가 검토·수정하는 워크플로",
+        "tech": ["Claude", "LangChain", "Next.js", "Qdrant"]
+      }
+    },
+    {
+      "id": "T3",
+      "name": "코드가드",
+      "rank": 3,
+      "score": 84.2,
+      "highlight": "정적 분석 결과의 가독성을 크게 개선한 AI 리포트 뷰어",
+      "award": "우수상",
+      "members": [
+        { "name": "송재현", "role": "팀장 / 풀스택", "organization": "기술지원본부" },
+        { "name": "오가영", "role": "보안", "organization": "보안관제본부" },
+        { "name": "이준혁", "role": "데이터", "organization": "침해대응본부" },
+        { "name": "황민지", "role": "UX", "organization": "정책연구본부" },
+        { "name": "류성민", "role": "QA", "organization": "기술지원본부" },
+        { "name": "권소라", "role": "리서치", "organization": "보안관제본부" }
+      ],
+      "output": {
+        "title": "정적 분석 결과 AI 리포트 뷰어",
+        "summary": "SAST 도구 출력물을 Claude가 자연어 리포트로 변환하고 심각도별 추천 조치를 제시하는 대시보드",
+        "tech": ["Claude", "React", "FastAPI", "SQLite"]
+      }
+    },
+    {
+      "id": "T4",
+      "name": "데이터브리지",
+      "rank": 4,
+      "score": 79.1,
+      "highlight": "비정형 보고서 정규화 파이프라인을 주말 내 완성한 근성",
+      "award": "장려상",
+      "members": [
+        { "name": "백현수", "role": "팀장 / 데이터", "organization": "정책연구본부" },
+        { "name": "서지원", "role": "백엔드", "organization": "침해대응본부" },
+        { "name": "고은채", "role": "프론트엔드", "organization": "기술지원본부" },
+        { "name": "유상혁", "role": "도메인", "organization": "보안관제본부" },
+        { "name": "문다은", "role": "QA", "organization": "정책연구본부" }
+      ],
+      "output": {
+        "title": "비정형 보안 보고서 정규화 파이프라인",
+        "summary": "PDF/한글 형식의 외부 보고서를 AI가 표준 스키마로 정규화해 내부 BI에 바로 적재",
+        "tech": ["Claude", "Python", "DuckDB"]
+      }
+    },
+    {
+      "id": "T5",
+      "name": "루프브레이커",
+      "rank": 5,
+      "score": 74.8,
+      "highlight": "사내 FAQ 응답 자동화로 반복 문의 대응 시간 단축",
+      "award": "참가상",
+      "members": [
+        { "name": "진하늘", "role": "팀장 / 풀스택", "organization": "보안관제본부" },
+        { "name": "남기훈", "role": "백엔드", "organization": "기술지원본부" },
+        { "name": "양시은", "role": "데이터", "organization": "정책연구본부" },
+        { "name": "홍재빈", "role": "프론트엔드", "organization": "침해대응본부" },
+        { "name": "전수민", "role": "운영", "organization": "기술지원본부" }
+      ],
+      "output": {
+        "title": "내부 보안 FAQ AI 도우미",
+        "summary": "사내 규정과 운영 매뉴얼을 학습한 Slack 봇이 반복 문의에 즉답을 제공",
+        "tech": ["Claude", "Slack Bolt", "Node.js"]
+      }
+    }
+  ],
+  "participants": [
+    { "name": "김도윤", "team": "T1", "role": "팀장 / 백엔드", "organization": "침해대응본부" },
+    { "name": "박서진", "team": "T1", "role": "데이터", "organization": "침해대응본부" },
+    { "name": "이하은", "team": "T1", "role": "프론트엔드", "organization": "정책연구본부" },
+    { "name": "최민재", "team": "T1", "role": "프롬프트 엔지니어", "organization": "기술지원본부" },
+    { "name": "정유나", "team": "T1", "role": "도메인 전문가", "organization": "보안관제본부" },
+    { "name": "한지호", "team": "T1", "role": "QA", "organization": "침해대응본부" },
+    { "name": "윤서연", "team": "T2", "role": "팀장 / 기획", "organization": "정책연구본부" },
+    { "name": "강태현", "team": "T2", "role": "백엔드", "organization": "보안관제본부" },
+    { "name": "노지환", "team": "T2", "role": "프론트엔드", "organization": "기술지원본부" },
+    { "name": "임세영", "team": "T2", "role": "데이터", "organization": "침해대응본부" },
+    { "name": "조현우", "team": "T2", "role": "운영", "organization": "정책연구본부" },
+    { "name": "배수정", "team": "T2", "role": "UX", "organization": "보안관제본부" },
+    { "name": "송재현", "team": "T3", "role": "팀장 / 풀스택", "organization": "기술지원본부" },
+    { "name": "오가영", "team": "T3", "role": "보안", "organization": "보안관제본부" },
+    { "name": "이준혁", "team": "T3", "role": "데이터", "organization": "침해대응본부" },
+    { "name": "황민지", "team": "T3", "role": "UX", "organization": "정책연구본부" },
+    { "name": "류성민", "team": "T3", "role": "QA", "organization": "기술지원본부" },
+    { "name": "권소라", "team": "T3", "role": "리서치", "organization": "보안관제본부" },
+    { "name": "백현수", "team": "T4", "role": "팀장 / 데이터", "organization": "정책연구본부" },
+    { "name": "서지원", "team": "T4", "role": "백엔드", "organization": "침해대응본부" },
+    { "name": "고은채", "team": "T4", "role": "프론트엔드", "organization": "기술지원본부" },
+    { "name": "유상혁", "team": "T4", "role": "도메인", "organization": "보안관제본부" },
+    { "name": "문다은", "team": "T4", "role": "QA", "organization": "정책연구본부" },
+    { "name": "진하늘", "team": "T5", "role": "팀장 / 풀스택", "organization": "보안관제본부" },
+    { "name": "남기훈", "team": "T5", "role": "백엔드", "organization": "기술지원본부" },
+    { "name": "양시은", "team": "T5", "role": "데이터", "organization": "정책연구본부" },
+    { "name": "홍재빈", "team": "T5", "role": "프론트엔드", "organization": "침해대응본부" },
+    { "name": "전수민", "team": "T5", "role": "운영", "organization": "기술지원본부" },
+    { "name": "김국진", "team": "-", "role": "총괄 멘토", "organization": "DAKER" },
+    { "name": "장경석", "team": "-", "role": "기술 멘토", "organization": "DAKER" },
+    { "name": "이도윤", "team": "-", "role": "운영 멘토", "organization": "DAKER" },
+    { "name": "박지현", "team": "-", "role": "심사 진행", "organization": "DAKER" }
+  ],
+  "highlights": [
+    {
+      "teamId": "T1",
+      "award": "대상",
+      "title": "AI 기반 침해지표(IOC) 자동 분류기",
+      "description": "실제 TI 피드와 내부 SIEM 로그를 통합해 Claude가 IOC를 자동 분류하고 위험도 설명을 자연어로 제공. 심사위원 전원이 즉시 현업 도입 가치를 평가."
+    },
+    {
+      "teamId": "T2",
+      "award": "최우수상",
+      "title": "보안 정책 초안 자동 생성기",
+      "description": "기존 정책 RAG + 정책 담당자 검토 워크플로를 결합. 정책 기안 소요 시간을 기존 4시간에서 40분으로 단축한 실효 사례."
+    },
+    {
+      "teamId": "T3",
+      "award": "우수상",
+      "title": "정적 분석 결과 AI 리포트 뷰어",
+      "description": "SAST 결과 1만건 이상을 테스트 데이터로 사용해 심각도별 자연어 요약과 권장 조치를 제공하는 대시보드 구현."
+    }
+  ],
+  "evaluation": {
+    "criteria": [
+      {
+        "criterion": "실효성 (업무 적용 가능성)",
+        "weight": 0.3,
+        "maxScore": 100,
+        "teamScores": [
+          { "teamId": "T1", "score": 95 },
+          { "teamId": "T2", "score": 92 },
+          { "teamId": "T3", "score": 85 },
+          { "teamId": "T4", "score": 78 },
+          { "teamId": "T5", "score": 74 }
+        ]
+      },
+      {
+        "criterion": "기술 완성도",
+        "weight": 0.25,
+        "maxScore": 100,
+        "teamScores": [
+          { "teamId": "T1", "score": 90 },
+          { "teamId": "T2", "score": 87 },
+          { "teamId": "T3", "score": 86 },
+          { "teamId": "T4", "score": 80 },
+          { "teamId": "T5", "score": 72 }
+        ]
+      },
+      {
+        "criterion": "창의성",
+        "weight": 0.2,
+        "maxScore": 100,
+        "teamScores": [
+          { "teamId": "T1", "score": 92 },
+          { "teamId": "T2", "score": 89 },
+          { "teamId": "T3", "score": 82 },
+          { "teamId": "T4", "score": 79 },
+          { "teamId": "T5", "score": 77 }
+        ]
+      },
+      {
+        "criterion": "팀 협업 및 발표",
+        "weight": 0.25,
+        "maxScore": 100,
+        "teamScores": [
+          { "teamId": "T1", "score": 93 },
+          { "teamId": "T2", "score": 87 },
+          { "teamId": "T3", "score": 84 },
+          { "teamId": "T4", "score": 80 },
+          { "teamId": "T5", "score": 76 }
+        ]
+      }
+    ]
+  },
+  "retrospective": [
+    {
+      "category": "성과",
+      "content": "전 참가자 완주(100%)와 팀당 데모 가능한 프로토타입 도출을 동시에 달성했으며, 3개 팀의 산출물이 후속 내재화 과제로 선정되었다.",
+      "owner": "운영 총괄"
+    },
+    {
+      "category": "성과",
+      "content": "현업 도메인 전문가와 개발 담당자가 짝을 이룬 팀 구성이 문제 정의 속도를 크게 높였다.",
+      "owner": "김국진"
+    },
+    {
+      "category": "개선",
+      "content": "1일차 점심 이후 멘토 대기열이 병목이 되어 2일차에는 멘토 매칭 보드를 도입해야 한다.",
+      "owner": "운영 멘토"
+    },
+    {
+      "category": "개선",
+      "content": "발표 시간 7분은 데모가 복잡한 팀에 부족했으며, 시연 영상 사전 제출 옵션이 필요하다.",
+      "owner": "심사 진행"
+    },
+    {
+      "category": "제안",
+      "content": "상위 3팀 산출물을 내부 POC 과제로 확장하여 2분기 내 실 운영 환경 파일럿으로 연결하자.",
+      "owner": "정책연구본부"
+    },
+    {
+      "category": "제안",
+      "content": "해커톤에서 발굴된 프롬프트 자산을 사내 공용 프롬프트 라이브러리로 정리해 공유하자.",
+      "owner": "DAKER"
+    }
+  ]
+}

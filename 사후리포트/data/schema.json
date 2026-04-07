@@ -1,0 +1,209 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "DAKER 사후리포트 데이터 스키마",
+  "description": "해커톤/교육/그룹 활동 사후리포트 HTML 렌더링을 위한 행사 데이터 구조 정의",
+  "type": "object",
+  "required": [
+    "eventType",
+    "event",
+    "overview",
+    "stats",
+    "timeline",
+    "teams",
+    "participants",
+    "highlights",
+    "evaluation",
+    "retrospective"
+  ],
+  "properties": {
+    "eventType": {
+      "type": "string",
+      "enum": ["hackathon", "education", "group-activity"],
+      "description": "행사 유형 분류"
+    },
+    "event": {
+      "type": "object",
+      "required": ["eventName", "client", "operator", "startDate", "endDate"],
+      "properties": {
+        "eventName": { "type": "string", "description": "행사 정식 명칭" },
+        "client": { "type": "string", "description": "주최사 (고객사)" },
+        "operator": { "type": "string", "description": "운영사 (DAKER 등)" },
+        "startDate": { "type": "string", "format": "date" },
+        "endDate": { "type": "string", "format": "date" },
+        "location": { "type": "string" },
+        "coverSubtitle": { "type": "string" },
+        "coverAccent": { "type": "string", "description": "커버 색상 블록 토큰" }
+      }
+    },
+    "overview": {
+      "type": "object",
+      "required": ["purpose", "goals", "scheduleSummary", "keyMetrics"],
+      "properties": {
+        "purpose": { "type": "string", "description": "행사 목적 요약" },
+        "goals": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "세부 목표 리스트"
+        },
+        "scheduleSummary": { "type": "string", "description": "일정 요약 문구" },
+        "keyMetrics": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["label", "value"],
+            "properties": {
+              "label": { "type": "string" },
+              "value": { "type": "string" },
+              "unit": { "type": "string" }
+            }
+          }
+        }
+      }
+    },
+    "stats": {
+      "type": "object",
+      "required": ["totalParticipants", "totalTeams", "completionRate", "organizationBreakdown"],
+      "properties": {
+        "totalParticipants": { "type": "integer" },
+        "totalTeams": { "type": "integer" },
+        "completionRate": { "type": "number", "description": "완주율 (0~100)" },
+        "engagementRate": { "type": "number", "description": "참여율 (0~100)" },
+        "organizationBreakdown": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["organization", "count"],
+            "properties": {
+              "organization": { "type": "string" },
+              "count": { "type": "integer" }
+            }
+          }
+        }
+      }
+    },
+    "timeline": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["date", "time", "label", "description"],
+        "properties": {
+          "date": { "type": "string", "format": "date" },
+          "time": { "type": "string", "description": "예: 09:00~10:30" },
+          "label": { "type": "string" },
+          "description": { "type": "string" },
+          "icon": { "type": "string", "description": "이모지 또는 아이콘 키" }
+        }
+      }
+    },
+    "teams": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "name", "rank", "score", "highlight", "members", "output"],
+        "properties": {
+          "id": { "type": "string" },
+          "name": { "type": "string" },
+          "rank": { "type": "integer", "description": "최종 순위" },
+          "score": { "type": "number", "description": "총점" },
+          "highlight": { "type": "string", "description": "심사위원 하이라이트 한 줄 평" },
+          "members": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["name", "role"],
+              "properties": {
+                "name": { "type": "string" },
+                "role": { "type": "string" },
+                "organization": { "type": "string" }
+              }
+            }
+          },
+          "output": {
+            "type": "object",
+            "required": ["title", "summary"],
+            "properties": {
+              "title": { "type": "string" },
+              "summary": { "type": "string" },
+              "tech": { "type": "array", "items": { "type": "string" } },
+              "link": { "type": "string" }
+            }
+          },
+          "award": { "type": "string", "description": "수상 등급 (예: 대상, 최우수상)" }
+        }
+      }
+    },
+    "participants": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "team", "role", "organization"],
+        "properties": {
+          "name": { "type": "string" },
+          "team": { "type": "string", "description": "팀 ID 또는 팀명" },
+          "role": { "type": "string" },
+          "organization": { "type": "string" }
+        }
+      }
+    },
+    "highlights": {
+      "type": "array",
+      "description": "우수 산출물 상위 3팀 카드",
+      "items": {
+        "type": "object",
+        "required": ["teamId", "award", "title", "description"],
+        "properties": {
+          "teamId": { "type": "string" },
+          "award": { "type": "string" },
+          "title": { "type": "string" },
+          "description": { "type": "string" }
+        }
+      }
+    },
+    "evaluation": {
+      "type": "object",
+      "required": ["criteria"],
+      "properties": {
+        "criteria": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["criterion", "maxScore", "teamScores"],
+            "properties": {
+              "criterion": { "type": "string" },
+              "weight": { "type": "number" },
+              "maxScore": { "type": "number" },
+              "teamScores": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "required": ["teamId", "score"],
+                  "properties": {
+                    "teamId": { "type": "string" },
+                    "score": { "type": "number" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "retrospective": {
+      "type": "array",
+      "minItems": 3,
+      "items": {
+        "type": "object",
+        "required": ["category", "content"],
+        "properties": {
+          "category": {
+            "type": "string",
+            "enum": ["성과", "개선", "제안"]
+          },
+          "content": { "type": "string" },
+          "owner": { "type": "string", "description": "작성자 또는 책임자 (선택)" }
+        }
+      }
+    }
+  }
+}
