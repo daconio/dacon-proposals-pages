@@ -1,70 +1,49 @@
-# Sprint 1 — Generator Result (GS E&R HTML Slide Sync)
+# Sprint 1 — Generator Result
 
-## Status: COMPLETE
+Attempt: 1
+Timestamp: 2026-04-07T12:00:00+09:00
 
-## Deliverable
+## Implementation Summary
 
-- **File**: `제안/2026-03-27-GS_E&R_AI경진대회_제안서_슬라이드.html`
-- **Commit**: `9f93129`
+| 파일 경로 | 작업 | 설명 |
+|----------|------|------|
+| 사후리포트/data/schema.json | Created | DAKER 사후리포트 전체 데이터 구조(JSON Schema Draft-07) 정의. eventType, event, overview, stats, timeline, teams, participants, highlights, evaluation, retrospective 9개 루트 필드 명시 |
+| 사후리포트/data/sample-hackathon.json | Created | 2026 금융보안원 AI 바이브코딩 해커톤 샘플 데이터. eventType=hackathon, 팀 5개, 참가자 32명, 타임라인 8항목, 평가 4기준, 회고 6항목(성과/개선/제안) |
+| 사후리포트/data/sample-edu.json | Created | 2026 단국대학교 바이브코딩 집중 부트캠프 샘플 데이터. eventType=education, 팀 4개, 참가자 24명, 타임라인 8항목, 학습 성취 기반 평가/회고 |
 
-## Tasks Completed
+## Self-Check
 
-| Task | Description | Status |
-|------|-------------|--------|
-| 1-1 | s3 Option A table: added 대회 유형, 상금 규모 rows; fixed 참가 대상 to 자격조건 | Done |
-| 1-2 | Created new s3b (Option B detail with DACON+DAKER); renamed old s3b to s3c | Done |
-| 1-3 | s3c comparison table: fixed Option B duration to 8주 | Done |
-| 1-4 | s5 performance table: 10 customers with corrected numbers (SAMSUNG 5,000+, LG 20,000+, TOSS 2,500+, energy sector clients) | Done |
-| 1-5 | s6 success factor cards: added 수상인증서/수료증 and 서류 전형 면제 text | Done |
-| 1-6 | s8 references: added 4 latest reference cards (토스, Samsung, SW마에스트로, 수원시) | Done |
-| 1-7 | s9 simplified; created s9b (Option A/B timeline tables) and s9c (contact + next steps) | Done |
-| 1-8 | Slide footers renumbered 2-15 (s1 cover has no footer) | Done |
-| 1-9 | JS navigation verified: show() uses querySelectorAll('.slide') dynamically | Done |
+Contract 기준 자가 점검 결과:
 
-## Contract Verification (CR)
+| 항목 ID | 항목명 | 결과 | 비고 |
+|--------|--------|------|------|
+| CR-1.1 | eventType 필드 존재 | PASS | hackathon 샘플은 "hackathon", edu 샘플은 "education" 값으로 최상위에 존재 |
+| CR-1.2 | 팀 데이터 필수 필드 | PASS | 두 샘플의 모든 team 항목이 id/name/rank/score/highlight/members/output 전부 포함. Python 검증 스크립트로 확인 |
+| CR-1.3 | 참가자 30명 이상 | PASS | sample-hackathon.json participants 길이 = 32 |
+| CR-1.4 | 타임라인 8항목 이상 | PASS | sample-hackathon.json timeline 길이 = 8, 각 항목에 date/time/label/description 포함 |
+| CR-1.5 | 평가 데이터 구조 | PASS | evaluation.criteria 각 항목에 criterion/maxScore/teamScores(팀ID-점수 매핑) 포함 |
+| CR-1.6 | 회고 데이터 카테고리 | PASS | 두 샘플 모두 성과/개선/제안 세 카테고리가 각 2개씩, 총 6항목 |
+| RV-1.1 | JSON 유효성 — 해커톤 샘플 | PASS | `python3 -m json.tool 사후리포트/data/sample-hackathon.json` 정상 실행, "hackathon OK" 출력 |
+| RV-1.2 | JSON 유효성 — 교육 샘플 | PASS | `python3 -m json.tool 사후리포트/data/sample-edu.json` 정상 실행, "edu OK" 출력 |
+| RV-1.3 | 참가자 수 확인 | PASS | `python3 -c ...len(d['participants'])` 결과 = 32 (30 이상) |
 
-| ID | Check | Result |
-|----|-------|--------|
-| CR-01 | File exists | PASS |
-| CR-02 | 15 slide sections | PASS (15) |
-| CR-03 | s3 has 대회 유형 and 상금 규모 | PASS |
-| CR-04 | s3b exists with "AI Hackathon 2026" | PASS |
-| CR-05 | s3b contains "DAKER" in 운영 row | PASS |
-| CR-06 | s3c contains "8주" | PASS |
-| CR-07 | s5 tbody has 10 tr tags | PASS (10) |
-| CR-08 | s5 contains "5,000" | PASS |
-| CR-09 | s5 contains "20,000" | PASS |
-| CR-10 | s5 contains 한국에너지기술연구원/한국수자원공사 | PASS |
-| CR-11 | s8 contains "SW마에스트로" and "수원시" | PASS |
-| CR-12 | s9b exists with "W1~W2" | PASS |
-| CR-13 | s9c exists with "이근민" and "kmlee@gswind.com" | PASS |
-| CR-14 | 14 sf-pg elements, includes "15" | PASS |
-| CR-15 | 83 data-step elements (>= 30) | PASS |
-| CR-16 | No external resources beyond Google Fonts | PASS |
-| CR-17 | @page rule and break-after:page present | PASS |
-| CR-18 | show() with querySelectorAll('.slide') | PASS |
+추가: 금지 문구 검사(견적/예산/비용/패키지/스킬 리포트) 3개 파일 전체에서 0건 확인.
 
-## Slide Structure (15 slides)
+## Known Limitations
 
-| # | ID | Title |
-|---|-----|-------|
-| 1 | s1 | COVER |
-| 2 | s2 | 제안 배경 & 핵심 목표 |
-| 3 | s3 | Option A 대회 개요 |
-| 4 | s3b | Option B 대회 개요 (NEW) |
-| 5 | s3c | Option A vs B 비교 |
-| 6 | s4 | 대회 주제 후보(안) |
-| 7 | s5 | 데이콘 수행 역량 |
-| 8 | s6 | 운영 프로세스 타임라인 |
-| 9 | s6b | 1박 2일 해커톤 일정 |
-| 10 | s7 | 기대 효과 KPI |
-| 11 | s8 | 성공 벤치마킹 |
-| 12 | s9 | 파트너십 & 역할 분담 |
-| 13 | s9b | 추진 일정 상세 (NEW) |
-| 14 | s9c | 담당자 & 다음 단계 (NEW) |
-| 15 | s10 | ENDING |
+- 스키마 파일은 JSON Schema Draft-07 형식이며, 이후 스프린트에서 프로그래밍적으로 검증(ajv 등)하지는 않는다. Generator/Evaluator는 이 문서를 데이터 계약의 단일 참조점으로 사용한다.
+- `highlights` 배열은 스키마에 정의되어 있으나 Sprint 1 Contract에는 직접 검증 항목이 없어, 실제 렌더러(Sprint 3)에서 사용될 때 재확인이 필요하다.
+- 샘플 데이터는 가공된 현실감 있는 가상 사례이며 실제 행사 결과가 아니다.
 
-## Notes
+## Git Commit
 
-- s5 table uses smaller font/padding (font-size:.7rem, padding:4px 8px) to fit 10 rows
-- PDF regeneration deferred to Sprint 2
+```
+Sprint 1: add 사후리포트 data schema and sample JSON data
+
+- Define full JSON schema for DAKER post-event report
+- Add hackathon sample (32 participants, 5 teams, 8 timeline items)
+- Add education bootcamp sample (24 participants, 4 teams, 8 timeline items)
+- Cover event metadata, stats, timeline, teams, evaluation, retrospective
+```
+
+Commit Hash: 22f657b

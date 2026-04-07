@@ -1,58 +1,55 @@
 # Sprint 2 — Generator Result
 
-## Status
+Attempt: 1
+Timestamp: 2026-04-07T12:00:00+09:00
 
-| 항목 | 값 |
-|------|-----|
-| 스프린트 | 2 / 2 |
-| 시도 | 1 |
-| 파일 생성 | 제안/2026-03-29-단국대학교_SW중심대학_사전대회_제안서.html |
-| 커밋 | 완료 |
+## Implementation Summary
 
-## Contract Check (CR)
+| 파일 경로 | 작업 | 설명 |
+|----------|------|------|
+| 사후리포트/report-template.html | Created | A4 세로 인쇄용 단일 HTML 템플릿. 디자인 토큰, @page, @media print/screen, 10개 placeholder 섹션 포함 |
 
-| ID | 항목 | 결과 |
-|----|------|------|
-| CR-20 | 파일 존재 | PASS |
-| CR-21 | 슬라이드 수 (15개) | PASS |
-| CR-22 | 표지에 SW중심대학 + 사전 키워드 | PASS |
-| CR-23 | 7월 타임라인 슬라이드 | PASS (7회 등장) |
-| CR-24 | 예산 슬라이드 (만원 단위) | PASS (8회 등장) |
-| CR-25 | table class="tb" 성과 지표 테이블 | PASS (6개 테이블) |
-| CR-26 | data-step 요소 10개 이상 | PASS (87개) |
-| CR-27 | @page + break-after: page 인쇄 CSS | PASS |
-| CR-28 | 외부 리소스 없음 (Google Fonts만) | PASS |
-| CR-29 | sf-pg 페이지 번호 14개 이상 | PASS (15개) |
-| CR-30 | show() 함수 존재 | PASS |
-| CR-31 | 2026-03-23 문자열 없음 | PASS (0건) |
+## Self-Check
 
-## RV Notes (Render Verification — manual check needed)
+| 항목 ID | 항목명 | 결과 | 비고 |
+|--------|--------|------|------|
+| CR-2.1 | @page A4 규칙 | PASS | `@page { size: A4 portrait; margin: 15mm; }` 선언됨 |
+| CR-2.2 | print-color-adjust | PASS | `:root`와 `body` 양쪽에 `print-color-adjust: exact; -webkit-print-color-adjust: exact;` 선언 |
+| CR-2.3 | 디자인 토큰 일치 | PASS | `:root`에 `--primary: #0053db`, `--accent-warm: #c2622d`, `--surface`, `--on-surface`, `--on-surface-variant: #566166`, `--outline-variant: #a9b4b9` 모두 기존 프로젝트(데이스쿨 슬라이드)와 동일 값 |
+| CR-2.4 | 섹션 페이지 분리 | PASS | `.report-section { page-break-before: always; }` 적용, `.report-section.cover`는 `page-break-before: avoid`로 예외 처리 |
+| CR-2.5 | 카드 잘림 방지 | PASS | `.team-card`, `.participant-row`, `.highlight-card`, `.timeline-item`, `.stat-card`, `.retro-item`에 `page-break-inside: avoid` |
+| CR-2.6 | 화면 미리보기 레이아웃 | PASS | `@media screen`에서 `.a4-page { width: 210mm; min-height: 297mm; margin: 0 auto 24px auto; box-shadow: ... }` |
+| RV-2.1 | 브라우저 파일 열기 | PARTIAL | 수동 확인 전제이나, 파일은 순수 HTML+인라인 CSS로 외부 스크립트 없음 → 콘솔 에러 발생 소지 없음. 샘플 레이아웃 10개 A4 카드가 세로 스크롤로 표시됨 |
+| RV-2.2 | HTML 유효성 | PASS | `python3 -c "from html.parser import HTMLParser; ..."` 실행 결과 `OK` 출력 |
 
-| ID | 항목 | 예상 결과 |
-|----|------|----------|
-| RV-01 | 초기 로드 시 표지만 보임 | slide.active on s1, 나머지 opacity:0 |
-| RV-02 | 키보드 내비게이션 | ArrowRight/Left 바인딩 동일 JS |
-| RV-03 | 프래그먼트 순서 | data-step 1~5 per slide |
-| RV-04 | 진행바 | progress-bar width 업데이트 |
-| RV-05 | 스케일링 | fit() 함수 동일 사용 |
-| RV-06 | 마지막 슬라이드 CTA | s15에 미팅 요청 링크 포함 |
+### 추가 자가 점검
 
-## Slide Map (15 slides)
+- 금지 문구(견적/예산/비용/패키지/스킬 리포트) 0건 확인
+- 모든 placeholder 콘텐츠 한국어 작성
+- 외부 의존성은 Google Fonts(`Plus Jakarta Sans`) 단 하나
+- 섹션 10개: 커버, 목차, 행사 개요, 통계, 타임라인, 하이라이트, 평가, 회고, 팀 카드, 참가자 명단
 
-| # | Section | 내용 |
-|---|---------|------|
-| 1 | COVER | SW중심대학 경진대회 사전 연습, 2026.07, 교수 대상 |
-| 2 | CONTEXT | SW중심대학 경진대회 개요 테이블 |
-| 3 | PROBLEM | 사전 연습 필요성, 타교 격차 비교표 |
-| 4 | LANDSCAPE | 한성대, 조선대, 한국열린사이버대 사례 |
-| 5 | DANKOOK | 110억, 3000+, 100+, 19, 4단계 metrics |
-| 6 | PROPOSAL | 섹션 구분 (slide-sec) |
-| 7 | DUAL TRACK | DAKER vs DACON 비교 |
-| 8 | VIBE TRACK | 바이브코딩 대회 구조/과제/플랫폼 |
-| 9 | ALGO TRACK | 알고리즘 대회 구조/과제/플랫폼 |
-| 10 | ALIGNMENT | 7개 성과 지표 매핑 테이블 |
-| 11 | TIMELINE | 4월~7월 그리드 + 역할 분담 |
-| 12 | BUDGET | Basic/Standard/Premium 패키지 + 상금 구성 |
-| 13 | EXPECTED | KPI 테이블 + 정성적 기대효과 |
-| 14 | PLATFORM | 데이콘 25억+, 14만+ 실적 |
-| 15 | ENDING | CTA 미팅 요청 링크 |
+## Known Limitations
+
+- RV-2.1(브라우저 실행 확인)은 헤드리스 환경이므로 자동 확인 대신 정적 분석으로 대체함. Evaluator가 실제 브라우저에서 최종 확인 권장.
+- JS 렌더러는 Sprint 3 범위이므로 본 스프린트에서는 하드코딩된 placeholder만 포함.
+- CSS `counter()` 기반 페이지 번호는 인쇄 시 브라우저 기본 페이지 카운터와 일치시키기 위해 화면 모드에서만 수동 표기했음(`preview-only` 푸터). 인쇄 모드에서는 `@page` 내장 카운터를 사용할 수 있으나 placeholder 단계에서는 생략.
+
+## Git Commit
+
+```
+Sprint 2: Add A4 print-ready report template with design tokens
+
+- Create 사후리포트/report-template.html with self-contained CSS
+- @page A4 portrait with 15mm margin
+- print-color-adjust: exact on :root and body
+- Design tokens (--primary #0053db, --accent-warm #c2622d, surface set)
+- .report-section page-break-before: always with .cover exception
+- .team-card / .participant-row page-break-inside: avoid
+- @media screen .a4-page mockup (210mm x 297mm, box-shadow)
+- Placeholder 10 sections: cover, toc, overview, stats, timeline,
+  highlights, evaluation, retrospective, team cards, participants
+- Korean content only; no forbidden phrases
+```
+
+Commit Hash: 95cecb3
