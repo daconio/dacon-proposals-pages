@@ -1,0 +1,1024 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>DAKER 행사 사후 리포트 템플릿</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+/* =========================================================
+   DAKER 사후 리포트 템플릿 — A4 Portrait Print Layout
+   Sprint 2 산출물: 디자인 토큰 + 인쇄 레이아웃 + placeholder
+   ========================================================= */
+
+/* -------- Design Tokens (기존 프로젝트 팔레트 재사용) -------- */
+:root {
+  --primary: #0053db;
+  --primary-dim: #0048c1;
+  --on-primary: #f8f7ff;
+  --surface: #f7f9fb;
+  --surface-bright: #ffffff;
+  --surface-low: #f0f4f7;
+  --surface-lowest: #ffffff;
+  --on-surface: #2a3439;
+  --on-surface-variant: #566166;
+  --outline-variant: #a9b4b9;
+  --secondary-container: #d8e3fb;
+  --on-secondary-container: #475266;
+  --accent-warm: #c2622d;
+  --accent-warm-bg: rgba(194, 98, 45, 0.08);
+  --accent-dark: #0f172a;
+  --green: #10b981;
+  --green-bg: rgba(16, 185, 129, 0.08);
+
+  --font: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --r-sm: 0.25rem;
+  --r-md: 0.5rem;
+  --r-lg: 0.75rem;
+  --r-xl: 1rem;
+  --shadow-card: 0 1px 2px rgba(30, 41, 59, 0.04), 0 4px 12px rgba(30, 41, 59, 0.06);
+  --shadow-page: 0 20px 60px rgba(15, 23, 42, 0.12), 0 4px 12px rgba(15, 23, 42, 0.06);
+  --ghost: 1px solid var(--outline-variant);
+
+  print-color-adjust: exact;
+  -webkit-print-color-adjust: exact;
+}
+
+* , *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  font-family: var(--font);
+  color: var(--on-surface);
+  background: #e5e9ef;
+  font-size: 10.5pt;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  print-color-adjust: exact;
+  -webkit-print-color-adjust: exact;
+}
+
+h1, h2, h3, h4 { color: var(--on-surface); font-weight: 700; line-height: 1.25; }
+p { color: var(--on-surface-variant); }
+a { color: var(--primary); text-decoration: none; }
+ul, ol { list-style: none; }
+
+/* -------- @page A4 인쇄 규칙 -------- */
+@page {
+  size: A4 portrait;
+  margin: 15mm;
+}
+
+/* CSS page counter for footer numbering (print context) */
+body { counter-reset: page-counter; }
+
+/* ============================================================
+   화면 미리보기 (screen): A4 카드가 세로 스크롤로 나열
+   ============================================================ */
+@media screen {
+  body {
+    padding: 32px 16px;
+  }
+  .a4-page {
+    width: 210mm;
+    min-height: 297mm;
+    margin: 0 auto 24px auto;
+    padding: 15mm;
+    background: var(--surface-bright);
+    box-shadow: var(--shadow-page);
+    border-radius: 2px;
+    position: relative;
+    overflow: hidden;
+  }
+  .report-header,
+  .report-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 8.5pt;
+    color: var(--on-surface-variant);
+    font-weight: 600;
+    letter-spacing: 0.04em;
+  }
+  .report-header {
+    padding-bottom: 10px;
+    margin-bottom: 16px;
+    border-bottom: 1px solid var(--outline-variant);
+    text-transform: uppercase;
+  }
+  .report-footer {
+    margin-top: 16px;
+    padding-top: 10px;
+    border-top: 1px solid var(--outline-variant);
+  }
+  .preview-only { display: block; }
+}
+
+/* ============================================================
+   인쇄 모드 (print): 화면 전용 UI 숨기고 A4 페이지 그대로 출력
+   ============================================================ */
+@media print {
+  html, body {
+    background: #ffffff;
+    padding: 0;
+    margin: 0;
+  }
+  .a4-page {
+    width: auto;
+    min-height: auto;
+    margin: 0;
+    padding: 0;
+    box-shadow: none;
+    border-radius: 0;
+    page-break-after: always;
+  }
+  .a4-page:last-child { page-break-after: auto; }
+  .preview-only { display: none !important; }
+  .report-header, .report-footer {
+    display: flex;
+    justify-content: space-between;
+    font-size: 8.5pt;
+    color: var(--on-surface-variant);
+  }
+}
+
+/* ============================================================
+   섹션 페이지 분리 규칙
+   ============================================================ */
+.report-section {
+  page-break-before: always;
+  break-before: page;
+}
+.report-section.cover,
+.cover.report-section {
+  page-break-before: avoid;
+  break-before: avoid;
+}
+
+/* 반복 단위는 페이지 중간에서 잘리지 않도록 */
+.team-card,
+.participant-row,
+.highlight-card,
+.timeline-item,
+.stat-card,
+.retro-item {
+  page-break-inside: avoid;
+  break-inside: avoid;
+}
+
+/* ============================================================
+   공통 컴포넌트
+   ============================================================ */
+.brand {
+  font-size: 9pt;
+  font-weight: 800;
+  color: var(--primary);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.section-title {
+  font-size: 20pt;
+  font-weight: 800;
+  color: var(--on-surface);
+  margin-bottom: 4px;
+}
+.section-subtitle {
+  font-size: 10pt;
+  color: var(--on-surface-variant);
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid var(--primary);
+}
+.section-index {
+  display: inline-block;
+  font-size: 9pt;
+  font-weight: 700;
+  color: var(--primary);
+  letter-spacing: 0.1em;
+  margin-bottom: 6px;
+}
+
+/* ---- 커버 페이지 ---- */
+.cover {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.cover-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  font-size: 9pt;
+  color: var(--on-surface-variant);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.cover-hero {
+  margin-top: 40mm;
+}
+.cover-kicker {
+  display: inline-block;
+  padding: 6px 14px;
+  background: var(--secondary-container);
+  color: var(--primary);
+  font-size: 9pt;
+  font-weight: 700;
+  border-radius: 999px;
+  letter-spacing: 0.05em;
+  margin-bottom: 18px;
+}
+.cover-title {
+  font-size: 34pt;
+  font-weight: 800;
+  color: var(--on-surface);
+  line-height: 1.15;
+  margin-bottom: 14px;
+}
+.cover-subtitle {
+  font-size: 13pt;
+  color: var(--on-surface-variant);
+  max-width: 150mm;
+  line-height: 1.5;
+}
+.cover-visual {
+  height: 55mm;
+  margin-top: 24px;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dim) 55%, var(--accent-warm) 100%);
+  border-radius: var(--r-lg);
+  position: relative;
+  overflow: hidden;
+}
+.cover-visual::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 80% 20%, rgba(255,255,255,0.25), transparent 40%),
+    radial-gradient(circle at 20% 80%, rgba(255,255,255,0.15), transparent 45%);
+}
+.cover-meta {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: auto;
+  padding-top: 24px;
+  border-top: 1px solid var(--outline-variant);
+}
+.cover-meta .cell .k {
+  font-size: 8.5pt;
+  color: var(--on-surface-variant);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 4px;
+}
+.cover-meta .cell .v {
+  font-size: 12pt;
+  color: var(--on-surface);
+  font-weight: 700;
+}
+
+/* ---- 목차 ---- */
+.toc-list { display: flex; flex-direction: column; gap: 2px; margin-top: 12px; }
+.toc-row {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  padding: 10px 0;
+  border-bottom: 1px dashed var(--outline-variant);
+  font-size: 11pt;
+}
+.toc-row .num { color: var(--primary); font-weight: 700; width: 22px; }
+.toc-row .label { color: var(--on-surface); font-weight: 600; flex: 0 0 auto; }
+.toc-row .dots { flex: 1 1 auto; border-bottom: 1px dotted var(--outline-variant); transform: translateY(-3px); }
+.toc-row .pg { color: var(--on-surface-variant); font-weight: 700; font-variant-numeric: tabular-nums; }
+
+/* ---- 카드 그리드 / 수치 ---- */
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+
+.card {
+  background: var(--surface-low);
+  border: var(--ghost);
+  border-radius: var(--r-lg);
+  padding: 14px 16px;
+}
+.card h4 {
+  font-size: 10pt;
+  font-weight: 700;
+  color: var(--on-surface);
+  margin-bottom: 6px;
+}
+.card p { font-size: 9.5pt; color: var(--on-surface-variant); }
+
+.stat-card {
+  background: var(--surface-lowest);
+  border: var(--ghost);
+  border-left: 4px solid var(--primary);
+  border-radius: var(--r-md);
+  padding: 12px 14px;
+}
+.stat-card .k {
+  font-size: 8.5pt;
+  color: var(--on-surface-variant);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+.stat-card .v {
+  font-size: 20pt;
+  font-weight: 800;
+  color: var(--primary);
+  line-height: 1.1;
+  margin-top: 4px;
+}
+.stat-card .u { font-size: 10pt; color: var(--on-surface-variant); margin-left: 4px; }
+
+/* ---- 막대 그래프 (CSS only) ---- */
+.bar-chart { display: flex; flex-direction: column; gap: 8px; margin-top: 6px; }
+.bar-row {
+  display: grid;
+  grid-template-columns: 60mm 1fr 20mm;
+  align-items: center;
+  gap: 10px;
+  font-size: 9.5pt;
+}
+.bar-row .name { color: var(--on-surface); font-weight: 600; }
+.bar-row .track {
+  height: 10px;
+  background: var(--surface-low);
+  border-radius: 999px;
+  overflow: hidden;
+}
+.bar-row .fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--primary), var(--primary-dim));
+  border-radius: 999px;
+}
+.bar-row .val { text-align: right; color: var(--on-surface-variant); font-weight: 700; font-variant-numeric: tabular-nums; }
+
+/* ---- 타임라인 ---- */
+.timeline { position: relative; padding-left: 22px; margin-top: 10px; }
+.timeline::before {
+  content: "";
+  position: absolute;
+  left: 7px;
+  top: 4px;
+  bottom: 4px;
+  width: 2px;
+  background: var(--outline-variant);
+}
+.timeline-item {
+  position: relative;
+  padding: 8px 0 14px 0;
+}
+.timeline-item::before {
+  content: "";
+  position: absolute;
+  left: -20px;
+  top: 12px;
+  width: 12px;
+  height: 12px;
+  background: var(--primary);
+  border: 2px solid var(--surface-lowest);
+  border-radius: 50%;
+  box-shadow: 0 0 0 2px var(--primary);
+}
+.timeline-item .when {
+  font-size: 9pt;
+  color: var(--primary);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+.timeline-item .label {
+  font-size: 11pt;
+  font-weight: 700;
+  color: var(--on-surface);
+  margin-top: 2px;
+}
+.timeline-item .desc {
+  font-size: 9.5pt;
+  color: var(--on-surface-variant);
+  margin-top: 3px;
+}
+
+/* ---- 하이라이트 카드 ---- */
+.highlight-card {
+  background: var(--surface-lowest);
+  border: var(--ghost);
+  border-radius: var(--r-lg);
+  padding: 16px 18px;
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+.highlight-card::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; bottom: 0;
+  width: 5px;
+  background: var(--accent-warm);
+}
+.highlight-card.rank-1::before { background: var(--accent-warm); }
+.highlight-card.rank-2::before { background: var(--primary); }
+.highlight-card.rank-3::before { background: var(--green); }
+.highlight-card .award {
+  display: inline-block;
+  padding: 3px 10px;
+  font-size: 8.5pt;
+  font-weight: 800;
+  color: var(--accent-warm);
+  background: var(--accent-warm-bg);
+  border-radius: 999px;
+  letter-spacing: 0.05em;
+  margin-bottom: 6px;
+}
+.highlight-card h4 { font-size: 12pt; margin-bottom: 4px; }
+.highlight-card .team-name { font-size: 9.5pt; color: var(--primary); font-weight: 700; margin-bottom: 6px; }
+.highlight-card p { font-size: 9.5pt; line-height: 1.6; }
+
+/* ---- 평가 결과 테이블 ---- */
+.eval-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 9.5pt;
+  margin-top: 8px;
+}
+.eval-table th, .eval-table td {
+  padding: 9px 10px;
+  border-bottom: 1px solid var(--outline-variant);
+  text-align: left;
+}
+.eval-table th {
+  background: var(--surface-low);
+  color: var(--on-surface);
+  font-weight: 700;
+  font-size: 9pt;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.eval-table td.num,
+.eval-table th.num { text-align: right; font-variant-numeric: tabular-nums; }
+.eval-table tr.rank-row td:first-child { color: var(--primary); font-weight: 800; }
+
+/* ---- 회고 ---- */
+.retro-group { margin-bottom: 16px; }
+.retro-group h4 {
+  font-size: 10.5pt;
+  color: var(--on-surface);
+  margin-bottom: 8px;
+  padding-bottom: 4px;
+  border-bottom: 1px solid var(--outline-variant);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.retro-group .chip {
+  display: inline-block;
+  padding: 2px 8px;
+  font-size: 8pt;
+  font-weight: 700;
+  border-radius: 999px;
+  letter-spacing: 0.05em;
+}
+.retro-group.ok .chip { background: var(--green-bg); color: var(--green); }
+.retro-group.fix .chip { background: var(--accent-warm-bg); color: var(--accent-warm); }
+.retro-group.idea .chip { background: var(--secondary-container); color: var(--primary); }
+.retro-item {
+  padding: 8px 12px;
+  font-size: 9.5pt;
+  color: var(--on-surface-variant);
+  border-left: 3px solid var(--outline-variant);
+  background: var(--surface-low);
+  border-radius: 0 var(--r-md) var(--r-md) 0;
+  margin-bottom: 6px;
+}
+
+/* ---- 팀 카드 (부록) ---- */
+.team-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 10px; }
+.team-card {
+  background: var(--surface-lowest);
+  border: var(--ghost);
+  border-top: 4px solid var(--primary);
+  border-radius: var(--r-md);
+  padding: 14px 14px 12px 14px;
+}
+.team-card .team-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+}
+.team-card .team-name {
+  font-size: 11pt;
+  font-weight: 800;
+  color: var(--on-surface);
+}
+.team-card .team-rank {
+  font-size: 8.5pt;
+  font-weight: 800;
+  color: var(--accent-warm);
+  background: var(--accent-warm-bg);
+  padding: 2px 8px;
+  border-radius: 999px;
+}
+.team-card .team-topic {
+  font-size: 9pt;
+  color: var(--primary);
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+.team-card .team-desc {
+  font-size: 9pt;
+  color: var(--on-surface-variant);
+  line-height: 1.55;
+  margin-bottom: 8px;
+}
+.team-card .team-members {
+  font-size: 8.5pt;
+  color: var(--on-surface-variant);
+  padding-top: 6px;
+  border-top: 1px dashed var(--outline-variant);
+}
+.team-card .team-members strong { color: var(--on-surface); font-weight: 700; }
+
+/* ---- 참가자 명단 ---- */
+.participants-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 9pt;
+}
+.participants-table th,
+.participants-table td {
+  padding: 7px 10px;
+  text-align: left;
+  border-bottom: 1px solid var(--outline-variant);
+}
+.participants-table th {
+  background: var(--surface-low);
+  font-size: 8.5pt;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-weight: 700;
+  color: var(--on-surface);
+}
+.participants-table .participant-row:nth-child(even) td {
+  background: var(--surface-low);
+}
+</style>
+</head>
+<body>
+
+<!-- =================================================================
+     1. COVER PAGE (report-section + cover — page-break 예외)
+     ================================================================= -->
+<section class="a4-page report-section cover">
+  <div class="cover-top">
+    <div class="brand">DAKER · 데이커</div>
+    <div>사후 리포트 / POST-EVENT REPORT</div>
+  </div>
+
+  <div class="cover-hero">
+    <span class="cover-kicker">2026 AI 바이브코딩 해커톤</span>
+    <h1 class="cover-title">2026 금융보안원<br/>AI 바이브코딩 해커톤</h1>
+    <p class="cover-subtitle">
+      금융권 보안 실무자를 위한 생성형 AI 실전 빌딩 2일 과정<br/>
+      운영 결과 및 성과 요약 리포트
+    </p>
+    <div class="cover-visual" aria-hidden="true"></div>
+  </div>
+
+  <div class="cover-meta">
+    <div class="cell"><div class="k">주최</div><div class="v">금융보안원</div></div>
+    <div class="cell"><div class="k">운영</div><div class="v">DAKER (데이커)</div></div>
+    <div class="cell"><div class="k">일정</div><div class="v">2026.03.14 ~ 03.15</div></div>
+  </div>
+</section>
+
+<!-- =================================================================
+     2. TABLE OF CONTENTS
+     ================================================================= -->
+<section class="a4-page report-section toc">
+  <div class="report-header preview-only">
+    <span class="brand">DAKER 사후 리포트</span>
+    <span>목차 / CONTENTS</span>
+  </div>
+
+  <span class="section-index">00 / CONTENTS</span>
+  <h2 class="section-title">목차</h2>
+  <p class="section-subtitle">본 리포트는 커버, 행사 개요, 통계, 타임라인, 하이라이트, 평가, 회고, 부록으로 구성됩니다.</p>
+
+  <ol class="toc-list">
+    <li class="toc-row"><span class="num">01</span><span class="label">행사 개요</span><span class="dots"></span><span class="pg">03</span></li>
+    <li class="toc-row"><span class="num">02</span><span class="label">참가자 · 팀 통계</span><span class="dots"></span><span class="pg">04</span></li>
+    <li class="toc-row"><span class="num">03</span><span class="label">활동 타임라인</span><span class="dots"></span><span class="pg">05</span></li>
+    <li class="toc-row"><span class="num">04</span><span class="label">우수 산출물 하이라이트</span><span class="dots"></span><span class="pg">06</span></li>
+    <li class="toc-row"><span class="num">05</span><span class="label">평가 결과</span><span class="dots"></span><span class="pg">07</span></li>
+    <li class="toc-row"><span class="num">06</span><span class="label">운영 회고</span><span class="dots"></span><span class="pg">08</span></li>
+    <li class="toc-row"><span class="num">07</span><span class="label">부록 · 팀 카드</span><span class="dots"></span><span class="pg">09</span></li>
+    <li class="toc-row"><span class="num">08</span><span class="label">부록 · 참가자 명단</span><span class="dots"></span><span class="pg">10</span></li>
+  </ol>
+
+  <div class="report-footer preview-only">
+    <span>DAKER · Post-Event Report</span>
+    <span>p. 02</span>
+  </div>
+</section>
+
+<!-- =================================================================
+     3. 행사 개요
+     ================================================================= -->
+<section class="a4-page report-section overview">
+  <div class="report-header preview-only">
+    <span class="brand">DAKER 사후 리포트</span>
+    <span>01 · 행사 개요</span>
+  </div>
+
+  <span class="section-index">01 / OVERVIEW</span>
+  <h2 class="section-title">행사 개요</h2>
+  <p class="section-subtitle">행사 목적, 주요 일정, 운영 환경 및 핵심 수치를 한눈에 확인합니다.</p>
+
+  <div class="grid-2" style="margin-bottom:14px;">
+    <div class="card">
+      <h4>행사 목적</h4>
+      <p>금융보안원 실무진이 생성형 AI 도구(Claude, Cursor)를 활용하여 자체 보안 업무를 자동화하는 프로토타입을 2일간 완성하는 몰입형 해커톤입니다.</p>
+    </div>
+    <div class="card">
+      <h4>운영 일정</h4>
+      <p>2026년 3월 14일(토) 09:00 ~ 3월 15일(일) 18:00, 총 2일 12세션 운영.</p>
+    </div>
+    <div class="card">
+      <h4>장소</h4>
+      <p>금융보안원 통합보안관제센터 8층 대강당</p>
+    </div>
+    <div class="card">
+      <h4>운영 형식</h4>
+      <p>팀 기반 프로젝트 해커톤 · 멘토 상주 · 최종 데모 발표 및 심사</p>
+    </div>
+  </div>
+
+  <h4 style="margin:14px 0 8px 0; font-size:10pt;">핵심 지표</h4>
+  <div class="grid-4">
+    <div class="stat-card"><div class="k">총 참가자</div><div class="v">32<span class="u">명</span></div></div>
+    <div class="stat-card"><div class="k">참여 팀</div><div class="v">5<span class="u">팀</span></div></div>
+    <div class="stat-card"><div class="k">운영 일수</div><div class="v">2<span class="u">일</span></div></div>
+    <div class="stat-card"><div class="k">완주율</div><div class="v">100<span class="u">%</span></div></div>
+  </div>
+
+  <div class="report-footer preview-only">
+    <span>DAKER · Post-Event Report</span>
+    <span>p. 03</span>
+  </div>
+</section>
+
+<!-- =================================================================
+     4. 참가자·팀 통계
+     ================================================================= -->
+<section class="a4-page report-section stats">
+  <div class="report-header preview-only">
+    <span class="brand">DAKER 사후 리포트</span>
+    <span>02 · 참가자 · 팀 통계</span>
+  </div>
+
+  <span class="section-index">02 / STATISTICS</span>
+  <h2 class="section-title">참가자 · 팀 통계</h2>
+  <p class="section-subtitle">참여 규모, 조직별 분포, 완주·참여 지표를 시각화합니다.</p>
+
+  <div class="grid-4" style="margin-bottom:18px;">
+    <div class="stat-card"><div class="k">총 인원</div><div class="v">32<span class="u">명</span></div></div>
+    <div class="stat-card"><div class="k">평균 팀 규모</div><div class="v">6.4<span class="u">명</span></div></div>
+    <div class="stat-card"><div class="k">최종 제출률</div><div class="v">100<span class="u">%</span></div></div>
+    <div class="stat-card"><div class="k">세션 출석률</div><div class="v">98<span class="u">%</span></div></div>
+  </div>
+
+  <h4 style="margin-bottom:8px; font-size:10pt;">조직별 참여 분포</h4>
+  <div class="bar-chart">
+    <div class="bar-row"><span class="name">보안관제센터</span><span class="track"><span class="fill" style="width:80%;"></span></span><span class="val">10명</span></div>
+    <div class="bar-row"><span class="name">정책기획실</span><span class="track"><span class="fill" style="width:56%;"></span></span><span class="val">7명</span></div>
+    <div class="bar-row"><span class="name">보안기술연구소</span><span class="track"><span class="fill" style="width:48%;"></span></span><span class="val">6명</span></div>
+    <div class="bar-row"><span class="name">침해사고대응팀</span><span class="track"><span class="fill" style="width:40%;"></span></span><span class="val">5명</span></div>
+    <div class="bar-row"><span class="name">교육운영팀</span><span class="track"><span class="fill" style="width:32%;"></span></span><span class="val">4명</span></div>
+  </div>
+
+  <div class="report-footer preview-only">
+    <span>DAKER · Post-Event Report</span>
+    <span>p. 04</span>
+  </div>
+</section>
+
+<!-- =================================================================
+     5. 활동 타임라인
+     ================================================================= -->
+<section class="a4-page report-section timeline-section">
+  <div class="report-header preview-only">
+    <span class="brand">DAKER 사후 리포트</span>
+    <span>03 · 활동 타임라인</span>
+  </div>
+
+  <span class="section-index">03 / TIMELINE</span>
+  <h2 class="section-title">활동 타임라인</h2>
+  <p class="section-subtitle">2일간 진행된 주요 세션과 운영 활동을 시간 순으로 기록합니다.</p>
+
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="when">2026.03.14 · 09:00</div>
+      <div class="label">오프닝 및 오리엔테이션</div>
+      <div class="desc">주최/운영사 인사, 해커톤 규칙 안내, 팀 편성 공지.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="when">2026.03.14 · 10:00</div>
+      <div class="label">키노트 — 바이브코딩 방법론</div>
+      <div class="desc">생성형 AI 도구를 활용한 실전 프로토타이핑 전략 강연.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="when">2026.03.14 · 11:30</div>
+      <div class="label">팀 빌딩 & 주제 확정</div>
+      <div class="desc">각 팀의 업무 도메인 기반 문제 정의 및 목표 정렬.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="when">2026.03.14 · 13:00</div>
+      <div class="label">해킹 세션 1 — 프로토타입 설계</div>
+      <div class="desc">아이디어를 구조화하고 기능 단위 태스크로 분해.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="when">2026.03.14 · 18:00</div>
+      <div class="label">중간 점검 & 멘토링</div>
+      <div class="desc">진행 상황 공유, 멘토별 1:1 피드백 세션.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="when">2026.03.15 · 09:00</div>
+      <div class="label">해킹 세션 2 — 구현 가속</div>
+      <div class="desc">데모 가능한 수준으로 기능 완성 집중 구현.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="when">2026.03.15 · 14:00</div>
+      <div class="label">최종 발표 및 데모</div>
+      <div class="desc">각 팀 10분 발표, 5분 Q&amp;A, 심사위원 평가.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="when">2026.03.15 · 17:00</div>
+      <div class="label">시상 및 클로징</div>
+      <div class="desc">우수팀 시상, 회고 공유, 전사 확산 계획 공지.</div>
+    </div>
+  </div>
+
+  <div class="report-footer preview-only">
+    <span>DAKER · Post-Event Report</span>
+    <span>p. 05</span>
+  </div>
+</section>
+
+<!-- =================================================================
+     6. 우수 산출물 하이라이트
+     ================================================================= -->
+<section class="a4-page report-section highlights">
+  <div class="report-header preview-only">
+    <span class="brand">DAKER 사후 리포트</span>
+    <span>04 · 우수 산출물 하이라이트</span>
+  </div>
+
+  <span class="section-index">04 / HIGHLIGHTS</span>
+  <h2 class="section-title">우수 산출물 하이라이트</h2>
+  <p class="section-subtitle">심사단이 선정한 상위 3팀의 결과물을 소개합니다.</p>
+
+  <div class="highlight-card rank-1">
+    <span class="award">대상 · 1st PLACE</span>
+    <h4>보안로그 자동 분류 어시스턴트</h4>
+    <div class="team-name">Team Sentinel</div>
+    <p>하루 100만 건 규모의 방화벽 로그를 Claude 기반으로 분류·요약하여 관제 인력이 우선순위를 30분 내로 파악할 수 있게 한 프로토타입.</p>
+  </div>
+
+  <div class="highlight-card rank-2">
+    <span class="award">우수상 · 2nd PLACE</span>
+    <h4>정책 문서 Q&amp;A 봇</h4>
+    <div class="team-name">Team PolicyPal</div>
+    <p>내부 보안 정책 PDF 200여 건을 인덱싱해, 실무자 질문에 근거 링크와 함께 답변하는 업무 보조 챗봇.</p>
+  </div>
+
+  <div class="highlight-card rank-3">
+    <span class="award">특별상 · 3rd PLACE</span>
+    <h4>피싱 메일 탐지 트리아지</h4>
+    <div class="team-name">Team PhishGuard</div>
+    <p>사용자 신고 메일을 자동 분류·요약하여 대응팀의 평균 처리시간을 50% 단축한 파이프라인.</p>
+  </div>
+
+  <div class="report-footer preview-only">
+    <span>DAKER · Post-Event Report</span>
+    <span>p. 06</span>
+  </div>
+</section>
+
+<!-- =================================================================
+     7. 평가 결과
+     ================================================================= -->
+<section class="a4-page report-section evaluation">
+  <div class="report-header preview-only">
+    <span class="brand">DAKER 사후 리포트</span>
+    <span>05 · 평가 결과</span>
+  </div>
+
+  <span class="section-index">05 / EVALUATION</span>
+  <h2 class="section-title">평가 결과</h2>
+  <p class="section-subtitle">4개 평가 항목 합산 기준 팀별 순위입니다.</p>
+
+  <table class="eval-table">
+    <thead>
+      <tr>
+        <th>순위</th>
+        <th>팀명</th>
+        <th class="num">문제정의</th>
+        <th class="num">구현 완성도</th>
+        <th class="num">혁신성</th>
+        <th class="num">발표</th>
+        <th class="num">총점</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="rank-row"><td>1</td><td>Team Sentinel</td><td class="num">24</td><td class="num">27</td><td class="num">23</td><td class="num">18</td><td class="num">92</td></tr>
+      <tr class="rank-row"><td>2</td><td>Team PolicyPal</td><td class="num">23</td><td class="num">24</td><td class="num">22</td><td class="num">19</td><td class="num">88</td></tr>
+      <tr class="rank-row"><td>3</td><td>Team PhishGuard</td><td class="num">22</td><td class="num">23</td><td class="num">21</td><td class="num">17</td><td class="num">83</td></tr>
+      <tr class="rank-row"><td>4</td><td>Team AuditFlow</td><td class="num">20</td><td class="num">21</td><td class="num">19</td><td class="num">16</td><td class="num">76</td></tr>
+      <tr class="rank-row"><td>5</td><td>Team DataVault</td><td class="num">19</td><td class="num">20</td><td class="num">18</td><td class="num">16</td><td class="num">73</td></tr>
+    </tbody>
+  </table>
+
+  <div class="report-footer preview-only">
+    <span>DAKER · Post-Event Report</span>
+    <span>p. 07</span>
+  </div>
+</section>
+
+<!-- =================================================================
+     8. 운영 회고
+     ================================================================= -->
+<section class="a4-page report-section retrospective">
+  <div class="report-header preview-only">
+    <span class="brand">DAKER 사후 리포트</span>
+    <span>06 · 운영 회고</span>
+  </div>
+
+  <span class="section-index">06 / RETROSPECTIVE</span>
+  <h2 class="section-title">운영 회고</h2>
+  <p class="section-subtitle">성과, 개선점, 향후 제안을 카테고리별로 정리합니다.</p>
+
+  <div class="retro-group ok">
+    <h4><span class="chip">성과</span> 잘된 점</h4>
+    <div class="retro-item">모든 팀이 데모 가능한 프로토타입을 2일 내에 완주하여 100% 완주율을 달성.</div>
+    <div class="retro-item">멘토 1:1 피드백 세션이 구현 막힘 구간의 평균 해결 시간을 대폭 단축.</div>
+  </div>
+
+  <div class="retro-group fix">
+    <h4><span class="chip">개선</span> 보완할 점</h4>
+    <div class="retro-item">초반 오리엔테이션의 AI 도구 사전 환경 세팅 가이드가 부족하여 첫 1시간 지연 발생.</div>
+    <div class="retro-item">심사 시간 대비 팀별 발표 시간 배분이 빠듯하여 Q&amp;A가 축약됨.</div>
+  </div>
+
+  <div class="retro-group idea">
+    <h4><span class="chip">제안</span> 차기 행사 제안</h4>
+    <div class="retro-item">사전 환경 세팅 튜토리얼 영상을 행사 3일 전 배포하여 착석 즉시 해킹 가능한 상태 확보.</div>
+    <div class="retro-item">심사 결과 외 동료 평가(peer review) 트랙을 추가하여 학습 효과 강화.</div>
+  </div>
+
+  <div class="report-footer preview-only">
+    <span>DAKER · Post-Event Report</span>
+    <span>p. 08</span>
+  </div>
+</section>
+
+<!-- =================================================================
+     9. 부록 — 팀 카드
+     ================================================================= -->
+<section class="a4-page report-section team-cards">
+  <div class="report-header preview-only">
+    <span class="brand">DAKER 사후 리포트</span>
+    <span>07 · 부록 · 팀 카드</span>
+  </div>
+
+  <span class="section-index">07 / APPENDIX — TEAMS</span>
+  <h2 class="section-title">부록 · 팀 카드</h2>
+  <p class="section-subtitle">참여 팀 전체의 산출물과 구성원을 카드 형태로 기록합니다.</p>
+
+  <div class="team-grid">
+    <div class="team-card">
+      <div class="team-head">
+        <span class="team-name">Team Sentinel</span>
+        <span class="team-rank">1위 · 92점</span>
+      </div>
+      <div class="team-topic">보안로그 자동 분류 어시스턴트</div>
+      <p class="team-desc">방화벽/IDS 로그를 우선순위별로 자동 분류·요약하는 Claude 기반 관제 보조 도구.</p>
+      <div class="team-members"><strong>구성원</strong> · 김보안, 이관제, 박대응, 정로그, 최트리아지, 한플로우</div>
+    </div>
+
+    <div class="team-card">
+      <div class="team-head">
+        <span class="team-name">Team PolicyPal</span>
+        <span class="team-rank">2위 · 88점</span>
+      </div>
+      <div class="team-topic">정책 문서 Q&amp;A 봇</div>
+      <p class="team-desc">내부 보안 정책 문서를 벡터 검색과 결합하여 근거 포함 답변을 제공하는 업무 챗봇.</p>
+      <div class="team-members"><strong>구성원</strong> · 윤정책, 장문서, 김벡터, 이인덱스, 송답변, 오근거</div>
+    </div>
+
+    <div class="team-card">
+      <div class="team-head">
+        <span class="team-name">Team PhishGuard</span>
+        <span class="team-rank">3위 · 83점</span>
+      </div>
+      <div class="team-topic">피싱 메일 탐지 트리아지</div>
+      <p class="team-desc">사용자 신고 메일을 자동 분류·요약하여 대응팀 처리 속도를 높이는 파이프라인.</p>
+      <div class="team-members"><strong>구성원</strong> · 신피싱, 강메일, 권분석, 문트리아지, 임대응, 차우선, 조긴급</div>
+    </div>
+
+    <div class="team-card">
+      <div class="team-head">
+        <span class="team-name">Team AuditFlow</span>
+        <span class="team-rank">4위 · 76점</span>
+      </div>
+      <div class="team-topic">감사 증적 자동 생성기</div>
+      <p class="team-desc">접근 로그를 기반으로 월간 감사 리포트 초안을 자동 생성하는 워크플로우.</p>
+      <div class="team-members"><strong>구성원</strong> · 유감사, 배증적, 노리포트, 홍접근, 전월간, 고초안</div>
+    </div>
+
+    <div class="team-card">
+      <div class="team-head">
+        <span class="team-name">Team DataVault</span>
+        <span class="team-rank">5위 · 73점</span>
+      </div>
+      <div class="team-topic">민감정보 자동 태깅</div>
+      <p class="team-desc">비정형 문서 내 개인정보·민감정보를 자동 식별·태깅하는 프로토타입.</p>
+      <div class="team-members"><strong>구성원</strong> · 민태그, 박식별, 주비정형, 황정보, 남마스킹, 서보관, 추검토</div>
+    </div>
+  </div>
+
+  <div class="report-footer preview-only">
+    <span>DAKER · Post-Event Report</span>
+    <span>p. 09</span>
+  </div>
+</section>
+
+<!-- =================================================================
+     10. 부록 — 참가자 명단
+     ================================================================= -->
+<section class="a4-page report-section participants">
+  <div class="report-header preview-only">
+    <span class="brand">DAKER 사후 리포트</span>
+    <span>08 · 부록 · 참가자 명단</span>
+  </div>
+
+  <span class="section-index">08 / APPENDIX — PARTICIPANTS</span>
+  <h2 class="section-title">부록 · 참가자 명단</h2>
+  <p class="section-subtitle">행사에 참여한 모든 인원을 이름·팀·역할·소속 기준으로 정리합니다.</p>
+
+  <table class="participants-table">
+    <thead>
+      <tr>
+        <th>이름</th>
+        <th>팀</th>
+        <th>역할</th>
+        <th>소속</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="participant-row"><td>김보안</td><td>Team Sentinel</td><td>팀장 / PM</td><td>보안관제센터</td></tr>
+      <tr class="participant-row"><td>이관제</td><td>Team Sentinel</td><td>데이터</td><td>보안관제센터</td></tr>
+      <tr class="participant-row"><td>박대응</td><td>Team Sentinel</td><td>프론트엔드</td><td>침해사고대응팀</td></tr>
+      <tr class="participant-row"><td>정로그</td><td>Team Sentinel</td><td>백엔드</td><td>보안관제센터</td></tr>
+      <tr class="participant-row"><td>최트리아지</td><td>Team Sentinel</td><td>프롬프트</td><td>보안기술연구소</td></tr>
+      <tr class="participant-row"><td>한플로우</td><td>Team Sentinel</td><td>디자인</td><td>교육운영팀</td></tr>
+      <tr class="participant-row"><td>윤정책</td><td>Team PolicyPal</td><td>팀장 / PM</td><td>정책기획실</td></tr>
+      <tr class="participant-row"><td>장문서</td><td>Team PolicyPal</td><td>데이터</td><td>정책기획실</td></tr>
+      <tr class="participant-row"><td>김벡터</td><td>Team PolicyPal</td><td>백엔드</td><td>보안기술연구소</td></tr>
+      <tr class="participant-row"><td>이인덱스</td><td>Team PolicyPal</td><td>엔지니어</td><td>보안기술연구소</td></tr>
+      <tr class="participant-row"><td>송답변</td><td>Team PolicyPal</td><td>프롬프트</td><td>정책기획실</td></tr>
+      <tr class="participant-row"><td>오근거</td><td>Team PolicyPal</td><td>QA</td><td>교육운영팀</td></tr>
+      <tr class="participant-row"><td>신피싱</td><td>Team PhishGuard</td><td>팀장 / PM</td><td>침해사고대응팀</td></tr>
+      <tr class="participant-row"><td>강메일</td><td>Team PhishGuard</td><td>데이터</td><td>침해사고대응팀</td></tr>
+      <tr class="participant-row"><td>권분석</td><td>Team PhishGuard</td><td>ML</td><td>보안기술연구소</td></tr>
+      <tr class="participant-row"><td>문트리아지</td><td>Team PhishGuard</td><td>백엔드</td><td>보안관제센터</td></tr>
+      <tr class="participant-row"><td>임대응</td><td>Team PhishGuard</td><td>프론트엔드</td><td>침해사고대응팀</td></tr>
+      <tr class="participant-row"><td>차우선</td><td>Team PhishGuard</td><td>프롬프트</td><td>정책기획실</td></tr>
+      <tr class="participant-row"><td>조긴급</td><td>Team PhishGuard</td><td>운영</td><td>교육운영팀</td></tr>
+      <tr class="participant-row"><td>유감사</td><td>Team AuditFlow</td><td>팀장 / PM</td><td>정책기획실</td></tr>
+      <tr class="participant-row"><td>배증적</td><td>Team AuditFlow</td><td>데이터</td><td>보안관제센터</td></tr>
+      <tr class="participant-row"><td>노리포트</td><td>Team AuditFlow</td><td>백엔드</td><td>보안기술연구소</td></tr>
+      <tr class="participant-row"><td>홍접근</td><td>Team AuditFlow</td><td>프론트엔드</td><td>침해사고대응팀</td></tr>
+      <tr class="participant-row"><td>전월간</td><td>Team AuditFlow</td><td>프롬프트</td><td>정책기획실</td></tr>
+      <tr class="participant-row"><td>고초안</td><td>Team AuditFlow</td><td>QA</td><td>교육운영팀</td></tr>
+      <tr class="participant-row"><td>민태그</td><td>Team DataVault</td><td>팀장 / PM</td><td>보안기술연구소</td></tr>
+      <tr class="participant-row"><td>박식별</td><td>Team DataVault</td><td>ML</td><td>보안기술연구소</td></tr>
+      <tr class="participant-row"><td>주비정형</td><td>Team DataVault</td><td>데이터</td><td>보안관제센터</td></tr>
+      <tr class="participant-row"><td>황정보</td><td>Team DataVault</td><td>백엔드</td><td>정책기획실</td></tr>
+      <tr class="participant-row"><td>남마스킹</td><td>Team DataVault</td><td>엔지니어</td><td>침해사고대응팀</td></tr>
+      <tr class="participant-row"><td>서보관</td><td>Team DataVault</td><td>프롬프트</td><td>정책기획실</td></tr>
+      <tr class="participant-row"><td>추검토</td><td>Team DataVault</td><td>QA</td><td>교육운영팀</td></tr>
+    </tbody>
+  </table>
+
+  <div class="report-footer preview-only">
+    <span>DAKER · Post-Event Report</span>
+    <span>p. 10</span>
+  </div>
+</section>
+
+</body>
+</html>
