@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>2026 강원대학교 X+AI·SW 융합 프로젝트 운영 대행 용역 제안서 — DAKER x DACON</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" rel="stylesheet" />
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+--p:#1E3A8A;--pd:#162B66;--op:#f8faff;
+--ob:#2a3439;--sf:#ffffff;--sl:#f1f5f9;--sw:#ffffff;
+--os:#0f172a;--osv:#475569;--ov:#94a3b8;
+--sc:#dbe3f4;--osc:#1e3a8a;
+--w:#c2622d;--wb:rgba(194,98,45,0.08);--dk:#0f172a;
+--f:'Plus Jakarta Sans','Pretendard Variable',Pretendard,-apple-system,system-ui,sans-serif;
+--sa:0 8px 24px rgba(30,41,59,0.04);--gh:1px solid rgba(148,163,184,0.2);
+--rs:0.25rem;--rm:0.375rem;--rl:0.75rem;--rx:1rem;--rf:9999px;
+--sw2:1280px;--sh:720px;
+}
+html,body{width:100%;height:100%;background:#e2e8f0;font-family:var(--f);overflow:hidden;color:var(--os)}
+#viewport{position:fixed;inset:0;display:flex;align-items:center;justify-content:center}
+#stage{position:relative;width:var(--sw2);height:var(--sh);overflow:hidden;transform-origin:center center;border-radius:var(--rl);box-shadow:0 12px 48px rgba(30,41,59,0.15)}
+.slide{position:absolute;inset:0;background:var(--sf);display:flex;flex-direction:column;opacity:0;pointer-events:none;transition:opacity 0s}
+.slide.active{opacity:1;pointer-events:auto}
+.si{flex:1;display:flex;flex-direction:column;padding:62px 72px 48px;position:relative}
+.sh{position:absolute;top:0;left:0;right:0;height:44px;padding:0 32px;display:flex;justify-content:space-between;align-items:center;background:rgba(255,255,255,.95);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-bottom:1px solid rgba(148,163,184,.2)}
+.sh-l{font-size:.8125rem;font-weight:700;color:var(--p);letter-spacing:.06em;text-transform:uppercase}
+.sh-r{font-size:.6875rem;font-weight:700;color:var(--ov);letter-spacing:.08em;text-transform:uppercase}
+.sf{position:absolute;bottom:0;left:0;right:0;padding:10px 32px;display:flex;justify-content:space-between;align-items:center;background:rgba(255,255,255,.95);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-top:1px solid rgba(148,163,184,.15)}
+.sf-logo{display:flex;align-items:center;gap:8px;font-size:.75rem;font-weight:700;color:var(--p)}
+.sf-logo span.dot{color:var(--ov);font-weight:400}
+.sf-logo span.dc{color:var(--w)}
+.sf-pg{font-size:.6875rem;color:var(--osv);font-weight:600}
+.sf-cr{font-size:.5625rem;color:var(--ov);letter-spacing:.03em;font-weight:600}
+.tag{display:inline-flex;align-items:center;gap:8px;font-size:.6875rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--p);margin-bottom:12px}
+.tag::before{content:'';width:24px;height:2.5px;background:var(--p);border-radius:2px}
+.tag-w{color:var(--w)}.tag-w::before{background:var(--w)}
+h2.st{font-size:1.875rem;font-weight:800;line-height:1.2;color:var(--os);letter-spacing:-.02em}
+.hl{color:var(--p)}.hl-w{color:var(--w)}
+.sub{margin-top:8px;font-size:.875rem;color:var(--osv);line-height:1.65}
+.c{background:var(--sw);border-radius:var(--rl);padding:18px;border:1px solid rgba(148,163,184,.2)}
+.c-b{background:var(--sc);border:none}.c-w{background:var(--wb);border:none}.c-s{background:var(--sl);border:none}
+.c-d-card{background:var(--dk);color:#fff;border:none}
+.c-d-card .c-t{color:#fff}.c-d-card .c-d{color:#cbd5e1}
+.c-t{font-size:.875rem;font-weight:700;color:var(--os);margin-bottom:6px}
+.c-d{font-size:.75rem;color:var(--osv);line-height:1.6}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+.g4{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:10px}
+.g6{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.ic{width:34px;height:34px;border-radius:var(--rm);display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:800;margin-bottom:10px;color:#fff;background:var(--p)}
+.ic-w{background:var(--w)}.ic-d{background:var(--dk)}
+.bd{display:inline-block;padding:3px 10px;border-radius:var(--rf);font-size:.625rem;font-weight:700;background:var(--sc);color:var(--osc)}
+.bd-w{background:var(--wb);color:var(--w)}
+.bd-d{background:var(--dk);color:#fff}
+.tb{width:100%;border-collapse:collapse;font-size:.75rem}
+.tb th{text-align:left;padding:8px 12px;background:var(--sl);color:var(--os);font-weight:700;font-size:.6875rem;border-bottom:2px solid var(--p)}
+.tb td{padding:7px 12px;color:var(--osv);border-bottom:1px solid rgba(148,163,184,.15)}
+.tb tr:last-child td{border-bottom:none}
+.mx{text-align:center;padding:14px 10px;background:var(--sl);border-radius:var(--rl)}
+.mx .v{font-size:1.5rem;font-weight:800;line-height:1;color:var(--p)}
+.mx .l{font-size:.625rem;color:var(--osv);margin-top:4px;font-weight:500}
+.slide-sec .si{justify-content:center;align-items:center;text-align:center;padding-top:60px;background:linear-gradient(135deg,var(--sf) 0%,var(--sc) 100%)}
+.slide-sec .sn{font-size:4.5rem;font-weight:800;color:rgba(30,58,138,.08);line-height:1;margin-bottom:8px}
+.slide-sec h2{font-size:2.25rem;font-weight:800;color:var(--os);letter-spacing:-.02em}
+.slide-sec .sd{font-size:1rem;color:var(--osv);margin-top:10px;max-width:720px}
+.slide-end .si{justify-content:center;align-items:center;text-align:center;background:linear-gradient(135deg,var(--sf) 0%,var(--sc) 100%)}
+.slide-end h1{font-size:2.5rem;font-weight:800;color:var(--os);line-height:1.15;letter-spacing:-.02em}
+.slide-end .end-sub{font-size:1rem;color:var(--osv);margin-top:12px;line-height:1.6}
+.slide-end .end-logo{display:flex;align-items:center;justify-content:center;gap:16px;margin-bottom:28px}
+.cl{font-size:.75rem;font-weight:700;color:var(--p);margin-bottom:8px;letter-spacing:.04em;text-transform:uppercase}
+.cl-w{color:var(--w)}
+.ck{list-style:none;display:flex;flex-direction:column;gap:5px}
+.ck li{display:flex;align-items:flex-start;gap:8px;font-size:.75rem;color:var(--osv);line-height:1.55}
+.ck li .i{flex-shrink:0;font-size:.75rem;margin-top:1px;font-weight:700;color:var(--p)}
+.ck-w li .i{color:var(--w)}
+.src{font-size:.5625rem;color:var(--ov);position:absolute;bottom:52px;left:72px;right:72px}
+.flow-row{display:flex;align-items:center;gap:6px;margin-top:10px}
+.flow-box{flex:1;padding:12px 10px;background:var(--sl);border-radius:var(--rm);text-align:center}
+.flow-box .fl{font-size:.6875rem;color:var(--osv);font-weight:600}
+.flow-box .fd{font-size:.625rem;color:var(--osv);margin-top:3px;opacity:.75}
+.flow-box.active{background:var(--sc)}
+.flow-arrow{color:var(--ov);font-size:14px;flex-shrink:0}
+[data-step]{opacity:0;transform:translateY(12px);transition:opacity .4s ease,transform .4s ease}
+[data-step].visible{opacity:1;transform:none}
+[data-step].pre-visible{opacity:1;transform:none;transition:none}
+.nav-btn{position:fixed;top:50%;transform:translateY(-50%);width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.9);border:none;color:var(--osv);cursor:pointer;z-index:100;display:flex;align-items:center;justify-content:center;font-size:18px;transition:all .2s;user-select:none;box-shadow:var(--sa);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px)}
+.nav-btn:hover{color:var(--p)}
+#nav-prev{left:12px}#nav-next{right:12px}
+#progress-bar{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--p),var(--pd));transition:width .4s ease;z-index:100}
+#key-hint{position:fixed;bottom:16px;left:50%;transform:translateX(-50%);color:var(--ov);font-size:.6875rem;z-index:100;opacity:.4}
+@page { size: landscape; margin: 0; }
+@media print {
+  html, body { background: #fff !important; overflow: visible !important; height: auto !important; width: auto !important; margin: 0 !important; padding: 0 !important; }
+  #viewport { position: static !important; display: block !important; height: auto !important; }
+  #stage { position: static !important; width: auto !important; height: auto !important; overflow: visible !important; transform: none !important; box-shadow: none !important; border-radius: 0 !important; }
+  .slide { position: relative !important; inset: auto !important; opacity: 1 !important; pointer-events: auto !important; display: flex !important; flex-direction: column !important; width: 100vw !important; height: 100vh !important; page-break-after: always !important; break-after: page !important; page-break-inside: avoid !important; margin: 0 !important; overflow: hidden !important; }
+  .nav-btn, #progress-bar, #key-hint { display: none !important; }
+  [data-step] { opacity: 1 !important; transform: none !important; }
+}
+</style>
+</head>
+<body>
+<div id="viewport"><div id="stage">
+
+<!-- S1: COVER -->
+<section class="slide active" id="s1">
+  <div class="si" style="justify-content:center;align-items:flex-start;padding-left:88px;background:linear-gradient(135deg,#f8faff 0%,var(--sc) 100%)">
+    <div style="position:absolute;top:22px;right:32px"><span style="display:inline-block;background:linear-gradient(135deg,var(--p),var(--pd));color:#fff;padding:6px 18px;border-radius:var(--rf);font-size:.75rem;font-weight:700">2026</span></div>
+    <div data-step="1" style="display:flex;align-items:center;gap:12px">
+      <span style="font-size:1.375rem;font-weight:800;color:var(--p);letter-spacing:.04em">DAKER</span>
+      <span style="font-size:1rem;color:var(--ov)">+</span>
+      <span style="font-size:1.375rem;font-weight:800;color:var(--w);letter-spacing:.04em">DACON</span>
+    </div>
+    <div data-step="2" style="margin-top:10px;font-size:.75rem;font-weight:700;color:var(--p);letter-spacing:.12em;text-transform:uppercase">KANGWON NATIONAL UNIVERSITY · SW CENTRAL UNIV.</div>
+    <h1 data-step="3" style="font-size:2.375rem;font-weight:800;line-height:1.18;letter-spacing:-.02em;color:var(--os);margin-top:10px">
+      2026년 <span style="color:var(--p)">X+AI·SW</span> 융합 프로젝트<br/>운영 대행 용역 제안서
+    </h1>
+    <p data-step="4" style="font-size:.9375rem;color:var(--osv);margin-top:16px;line-height:1.7">
+      강원대학교 SW중심대학사업단장 귀하<br/>
+      재학생 250명 · 65팀 · 3월~7월 · 춘천캠퍼스 본선
+    </p>
+    <div data-step="5" style="display:flex;gap:8px;margin-top:24px;flex-wrap:wrap">
+      <span style="padding:7px 14px;border-radius:var(--rf);background:var(--sc);font-size:.75rem;font-weight:700;color:var(--osc)">전공×AI·SW 융합</span>
+      <span style="padding:7px 14px;border-radius:var(--rf);background:var(--wb);font-size:.75rem;font-weight:700;color:var(--w)">월 2회+ 전문 멘토링</span>
+      <span style="padding:7px 14px;border-radius:var(--rf);background:var(--sl);font-size:.75rem;font-weight:700;color:var(--osv)">예선·본선 책임 운영</span>
+    </div>
+    <div data-step="6" style="position:absolute;bottom:28px;left:88px;font-size:.75rem;color:var(--osv)">
+      제안사: (주)데이콘 · 본 용역 단독 수급
+    </div>
+    <div style="position:absolute;bottom:20px;right:32px;font-size:.5625rem;color:var(--ov)">COPYRIGHT 2026 DAKER &middot; DACON</div>
+  </div>
+</section>
+
+<!-- S2: 제안 요약 -->
+<section class="slide" id="s2">
+  <div class="sh"><span class="sh-l">EXECUTIVE SUMMARY</span><span class="sh-r">KNU X+AI·SW 2026</span></div>
+  <div class="si" style="padding-top:60px">
+    <div class="tag">제안 요약</div>
+    <h2 class="st" data-step="1">한 장으로 보는 <span class="hl">본 제안의 핵심</span></h2>
+    <p class="sub" data-step="2">제안요청서 전 항목에 대한 완전 대응 + 경진대회 운영 전문성 + 플랫폼 기반 관리</p>
+    <div class="g2" style="margin-top:14px;flex:1">
+      <div data-step="3">
+        <table class="tb">
+          <thead><tr><th>구분</th><th>내용</th></tr></thead>
+          <tbody>
+            <tr><td style="font-weight:700">사업명</td><td>2026년 X+AI·SW 융합 프로젝트 운영 대행 용역</td></tr>
+            <tr><td style="font-weight:700">발주처</td><td>강원대학교 SW중심대학사업단</td></tr>
+            <tr><td style="font-weight:700">용역기간</td><td>계약 체결일 ~ 2026. 7. 31.(금)</td></tr>
+            <tr><td style="font-weight:700">참여 규모</td><td>최대 250명 내외 (약 65팀)</td></tr>
+            <tr><td style="font-weight:700">본선 장소</td><td>강원대 춘천캠퍼스 교내 강의실</td></tr>
+            <tr><td style="font-weight:700">제안사</td><td>(주)데이콘 — DAKER &middot; DACON 공동 브랜드 / 단독 수급</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div data-step="4" style="display:flex;flex-direction:column;gap:10px">
+        <div class="cl">본 제안의 4대 전달 가치</div>
+        <div class="c c-b" style="padding:12px 14px"><div class="c-t" style="font-size:.8125rem;color:var(--osc)">01. 제안요청서 100% 대응</div><div class="c-d" style="color:var(--osc);opacity:.85">I-IV 목차 전 항목 매핑표로 증빙</div></div>
+        <div class="c c-w" style="padding:12px 14px"><div class="c-t" style="font-size:.8125rem;color:var(--w)">02. 월 2회+ 전문 멘토링</div><div class="c-d">6개 트랙 분야별 현업 전문가 12명+ Pool</div></div>
+        <div class="c c-s" style="padding:12px 14px"><div class="c-t" style="font-size:.8125rem">03. DAKER 플랫폼 기반 운영</div><div class="c-d">접수·대시보드·쇼케이스 원스톱 제공</div></div>
+        <div class="c c-d-card" style="padding:12px 14px"><div class="c-t" style="font-size:.8125rem">04. 예선·본선·결과보고 책임</div><div class="c-d">안전관리·사후정산·20일 내 결과보고서</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span class="sf-logo">DAKER <span class="dot">&middot;</span> <span class="dc">DACON</span></span><span class="sf-pg">2</span><span class="sf-cr">COPYRIGHT 2026</span></div>
+</section>
+
+<!-- S3: SECTION I -->
+<section class="slide slide-sec" id="s3">
+  <div class="si">
+    <div class="sn" data-step="1">I</div>
+    <h2 data-step="2">개요</h2>
+    <p class="sd" data-step="3">추진 목적 · 용역 개요 · 과업범위에 대한 본 제안의 이해와 대응</p>
+  </div>
+  <div class="sf"><span class="sf-logo">DAKER <span class="dot">&middot;</span> <span class="dc">DACON</span></span><span class="sf-pg">3</span><span class="sf-cr">COPYRIGHT 2026</span></div>
+</section>
+
+<!-- S4: I-1. 추진 목적 -->
+<section class="slide" id="s4">
+  <div class="sh"><span class="sh-l">I-1. 추진 목적</span><span class="sh-r">PROJECT OBJECTIVES</span></div>
+  <div class="si" style="padding-top:58px">
+    <div class="tag">추진 목적에 대한 이해</div>
+    <h2 class="st" data-step="1">4가지 <span class="hl">추진 목적</span>을 구현하는 방식</h2>
+    <p class="sub" data-step="2">제안요청서에 명시된 4가지 목적을 본 제안에서 아래와 같이 직접 구현합니다</p>
+    <div style="margin-top:14px;flex:1" data-step="3">
+      <table class="tb">
+        <thead><tr><th style="width:42%">추진 목적 (발주처)</th><th>본 제안의 실행 방안</th></tr></thead>
+        <tbody>
+          <tr><td style="font-weight:700;color:var(--p)">AI·SW 기술 × 전공/산업 융합 — 문제 해결 중심 실전 프로젝트 경험 제공</td><td>헬스케어/바이오 · 스마트농업/ESG · 관광/문화콘텐츠 · 교육/EduTech · 지역문제 · 창업혁신 <strong>6대 과제 트랙</strong> 제시 및 팀별 자유 선택</td></tr>
+          <tr><td style="font-weight:700;color:var(--p)">전공 간 협업 기반 — 융합형 인재 양성, 창의적 문제 해결 역량</td><td>3~5인 <strong>학과 혼합 팀 구성 권장</strong> + AI 기반 팀빌딩 매칭 시스템 제공</td></tr>
+          <tr><td style="font-weight:700;color:var(--p)">실제 사회·산업 문제 기반 — AI·SW 서비스 기획 역량 향상</td><td>문제 정의 → 기획 → 개발 → 테스트 <strong>단계별 프로토타입 도출</strong> 워크숍 및 결과물 포맷 제공</td></tr>
+          <tr><td style="font-weight:700;color:var(--p)">우수 프로젝트 후속 성장 — 해외연수 · 창업 · 공모전 연계</td><td>본선 수상팀 <strong>포트폴리오 패키지</strong> 제작 · 후속 공모전 DB 연계 · DAKER 쇼케이스 상시 노출</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="sf"><span class="sf-logo">DAKER <span class="dot">&middot;</span> <span class="dc">DACON</span></span><span class="sf-pg">4</span><span class="sf-cr">COPYRIGHT 2026</span></div>
+</section>
+
+<!-- S5: I-2/3. 용역 개요 + 과업범위 -->
+<section class="slide" id="s5">
+  <div class="sh"><span class="sh-l">I-2 · I-3. 용역 개요 &amp; 과업범위</span><span class="sh-r">SCOPE OF WORK</span></div>
+  <div class="si" style="padding-top:58px">
+    <div class="tag">용역 개요 및 과업범위 준수</div>
+    <h2 class="st" data-step="1">제안요청서 <span class="hl">전 항목</span>에 대한 준수 선언</h2>
+    <div class="g2" style="margin-top:12px;flex:1">
+      <div data-step="2">
+        <div class="cl">용역 개요 준수</div>
+        <table class="tb">
+          <tbody>
+            <tr><td style="font-weight:700;width:35%">대 상</td><td>강원대학교 재학생 (학년·전공 무관)</td></tr>
+            <tr><td style="font-weight:700">참여 규모</td><td>최대 250명 내외 (약 65팀)</td></tr>
+            <tr><td style="font-weight:700">사업 일정</td><td>2026년 3월 ~ 7월</td></tr>
+            <tr><td style="font-weight:700">용역 기간</td><td>계약 체결일 ~ 2026. 7. 31.(금)</td></tr>
+            <tr><td style="font-weight:700">입찰 방식</td><td>제한경쟁입찰(총액) · 협상에 의한 계약</td></tr>
+            <tr><td style="font-weight:700">공동 수급</td><td><strong>단독 수급</strong>으로 이행 (요청서 준수)</td></tr>
+          </tbody>
+        </table>
+        <div class="c c-b" style="margin-top:10px;padding:10px 14px"><div class="c-d" style="color:var(--osc);font-size:.75rem">(주)데이콘은 소프트웨어사업자(1470) 및 기타행사기획대행(9901) 등록, 빅데이터분석서비스(8111200202) / 기타행사기획대행(8014199001) 직접생산 요건 충족</div></div>
+      </div>
+      <div data-step="3">
+        <div class="cl">과업범위 이행 (8개 항목)</div>
+        <ul class="ck">
+          <li><span class="i">01</span><strong>프로젝트 활동 지도·멘토링</strong> — 팀별 월 2회 이상 보장</li>
+          <li><span class="i">02</span><strong>중간점검</strong> (5.18~22) — 온라인 진행상황 리뷰</li>
+          <li><span class="i">03</span><strong>결과물 접수·정리</strong> — DAKER 전용 포털 운영</li>
+          <li><span class="i">04</span><strong>예선 서류평가</strong> — 외부 전문 심사위원 5인+</li>
+          <li><span class="i">05</span><strong>본선 대면 발표평가·시상</strong> — 춘천캠퍼스 운영</li>
+          <li><span class="i">06</span><strong>시상금·특강</strong> — 11팀 시상 + 특강 전문가 섭외</li>
+          <li><span class="i">07</span><strong>결과보고서 제출</strong> — 프로그램 종료 20일 내</li>
+          <li><span class="i">08</span><strong>안전·방역대책</strong> — 의료·소방·비상체계 수립</li>
+        </ul>
+        <div class="c c-w" style="margin-top:10px;padding:10px 14px"><div class="c-d" style="font-size:.75rem">※ 참가자 모집은 사업단에서 진행 — 본 제안은 모집 지원 에셋(포스터/SNS) 제공으로 보조</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span class="sf-logo">DAKER <span class="dot">&middot;</span> <span class="dc">DACON</span></span><span class="sf-pg">5</span><span class="sf-cr">COPYRIGHT 2026</span></div>
+</section>
+
+<!-- S6: SECTION II -->
+<section class="slide slide-sec" id="s6">
+  <div class="si">
+    <div class="sn" data-step="1">II</div>
+    <h2 data-step="2">제안 내용</h2>
+    <p class="sd" data-step="3">프로젝트 주제 · 일정 · 구성 · 과업 세부내용 · 안전관리 · 결과보고</p>
+  </div>
+  <div class="sf"><span class="sf-logo">DAKER <span class="dot">&middot;</span> <span class="dc">DACON</span></span><span class="sf-pg">6</span><span class="sf-cr">COPYRIGHT 2026</span></div>
+</section>
+
+<!-- S7: II-1-가. 프로젝트 주제 6트랙 -->
+<section class="slide" id="s7">
+  <div class="sh"><span class="sh-l">II-1-가. 프로젝트 주제</span><span class="sh-r">6 TRACKS</span></div>
+  <div class="si" style="padding-top:58px">
+    <div class="tag">프로젝트 주제 — 6대 트랙</div>
+    <h2 class="st" data-step="1">전공 × AI·SW로 만드는 <span class="hl">6개 산업 융합 트랙</span></h2>
+    <p class="sub" data-step="2">제안요청서에서 제시한 6개 예시 트랙을 그대로 채택하고, 각 트랙별 구체 과제 예시를 제공합니다</p>
+    <div class="g3" style="margin-top:14px;flex:1">
+      <div class="c" data-step="3"><div class="ic">01</div><div class="c-t">AI·SW + 헬스케어 / 바이오</div><div class="c-d">의료영상 분석 보조, 복약 리마인더, 바이오 논문 요약 AI</div></div>
+      <div class="c" data-step="3"><div class="ic">02</div><div class="c-t">AI·SW + 스마트농업 / 환경·ESG</div><div class="c-d">농작물 병해 탐지, 탄소배출 대시보드, 강원 산림 모니터링</div></div>
+      <div class="c" data-step="3"><div class="ic">03</div><div class="c-t">AI·SW + 관광 / 문화콘텐츠</div><div class="c-d">춘천 관광 AI 가이드, 한류 콘텐츠 번역, 축제 챗봇</div></div>
+      <div class="c" data-step="4"><div class="ic ic-w">04</div><div class="c-t">AI·SW + 교육 / EduTech</div><div class="c-d">학습 튜터 AI, 수강신청 도우미, 전공 로드맵 추천</div></div>
+      <div class="c" data-step="4"><div class="ic ic-w">05</div><div class="c-t">AI·SW + 지역문제 해결</div><div class="c-d">강원 폐광지역 재생, 고령층 돌봄 SW, 지역 소멸 대응</div></div>
+      <div class="c" data-step="4"><div class="ic ic-w">06</div><div class="c-t">AI·SW + 창업 / 비즈니스 혁신</div><div class="c-d">AI SaaS MVP, B2B 자동화, 1인 창업자 업무 자동화</div></div>
+    </div>
+  </div>
+  <div class="sf"><span class="sf-logo">DAKER <span class="dot">&middot;</span> <span class="dc">DACON</span></span><span class="sf-pg">7</span><span class="sf-cr">COPYRIGHT 2026</span></div>
+</section>
+
+<!-- S8: II-1-나. 프로젝트 일정 -->
+<section class="slide" id="s8">
+  <div class="sh"><span class="sh-l">II-1-나. 프로젝트 일정</span><span class="sh-r">3월 ~ 7월</span></div>
+  <div class="si" style="padding-top:58px">
+    <div class="tag">프로젝트 일정 (제안요청서 준수)</div>
+    <h2 class="st" data-step="1">3월 모집부터 <span class="hl">7월 본선 시상</span>까지</h2>
+    <p class="sub" data-step="2">제안요청서가 제시한 일정을 100% 준수하고, 각 단계에 본 제안의 운영 방안을 매핑합니다</p>
+    <div class="flow-row" data-step="3" style="margin-top:16px">
+      <div class="flow-box"><div class="fl">모집</div><div class="fd">3.23~4.3</div></div>
+      <div class="flow-arrow">&rarr;</div>
+      <div class="flow-box active"><div class="fl">멘토링</div><div class="fd">계약~6.30</div></div>
+      <div class="flow-arrow">&rarr;</div>
+      <div class="flow-box"><div class="fl">중간점검</div><div class="fd">5.18~22</div></div>
+      <div class="flow-arrow">&rarr;</div>
+      <div class="flow-box"><div class="fl">결과물 제출</div><div class="fd">6.29~7.1</div></div>
+      <div class="flow-arrow">&rarr;</div>
+      <div class="flow-box"><div class="fl">예선</div><div class="fd">7.6(월)</div></div>
+      <div class="flow-arrow">&rarr;</div>
+      <div class="flow-box active"><div class="fl">본선·시상</div><div class="fd">7.8(수)</div></div>
+    </div>
+    <div style="margin-top:18px;flex:1" data-step="4">
+      <table class="tb">
+        <thead><tr><th>구분</th><th>일시 (요청서)</th><th>본 제안 운영 방안</th></tr></thead>
+        <tbody>
+          <tr><td style="font-weight:700">참가자 모집</td><td>3.23(월) ~ 4.3(금)</td><td>※ 사업단 진행 — 모집 에셋(포스터·SNS) 지원</td></tr>
+          <tr><td style="font-weight:700">팀 프로젝트 멘토링</td><td>계약 ~ 6.30(화)</td><td>팀별 <strong>월 2회 이상</strong> 보장, 온라인 대시보드 진도 관리</td></tr>
+          <tr><td style="font-weight:700">중간점검</td><td>5.18 ~ 22</td><td>온라인 진행상황 리뷰 + 개별 피드백</td></tr>
+          <tr><td style="font-weight:700">결과물 제출</td><td>6.29 ~ 7.1</td><td>DAKER 전용 포털 — 보고서+PPT+프로토타입 접수</td></tr>
+          <tr><td style="font-weight:700">예선 (서류평가)</td><td>7.6(월) 예정</td><td>외부 심사위원 5인+ → <strong>본선진출 11팀 선정</strong></td></tr>
+          <tr><td style="font-weight:700">본선 (대면)</td><td>7.8(수) 예정</td><td>춘천캠퍼스 — 발표·심사·특강·시상</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="sf"><span class="sf-logo">DAKER <span class="dot">&middot;</span> <span class="dc">DACON</span></span><span class="sf-pg">8</span><span class="sf-cr">COPYRIGHT 2026</span></div>
+</section>
+
+<!-- S9: II-2-가~다. 인력·지도·멘토링 -->
+<section class="slide" id="s9">
+  <div class="sh"><span class="sh-l">II-2-가~다. 과업 세부내용 ①</span><span class="sh-r">운영·지도·멘토링</span></div>
+  <div class="si" style="padding-top:58px">
+    <div class="tag">운영 인력 · 활동 지도 · 전문가 멘토링</div>
+    <h2 class="st" data-step="1">250명 · 65팀을 움직이는 <span class="hl">운영 체계</span></h2>
+    <div class="g3" style="margin-top:14px;flex:1">
+      <div class="c" data-step="2">
+        <div class="cl">가. 운영 인력 관리</div>
+        <ul class="ck" style="margin-top:6px">
+          <li><span class="i">&bull;</span>총괄 PM 1명 + 운영매니저 2명 + 기술서포트 1명 (계약 즉시 배치)</li>
+          <li><span class="i">&bull;</span>본선 현장 인력 <strong>6인+</strong> 추가 투입</li>
+          <li><span class="i">&bull;</span>전원 경진대회 운영 <strong>3년+</strong> 경력</li>
+          <li><span class="i">&bull;</span>[별지 4]에 인력풀 상세 제시</li>
+        </ul>
+      </div>
+      <div class="c" data-step="3">
+        <div class="cl">나. 프로젝트 활동 지도·관리</div>
+        <ul class="ck" style="margin-top:6px">
+          <li><span class="i">&bull;</span>단계별 서류 제출 안내 — 양식·마감·제출처 사전 공지</li>
+          <li><span class="i">&bull;</span>질의응답 창구 상시 운영 — <strong>24시간 내 응답 SLA</strong></li>
+          <li><span class="i">&bull;</span>팀별 온라인 대시보드 — 진도·멘토링·제출물 통합 확인</li>
+        </ul>
+      </div>
+      <div class="c c-w" data-step="4">
+        <div class="cl cl-w">다. 전문가 멘토링</div>
+        <ul class="ck ck-w" style="margin-top:6px">
+          <li><span class="i">&bull;</span>6개 트랙별 현업 전문가 <strong>12명+</strong> Pool 확보</li>
+          <li><span class="i">&bull;</span>팀별 <strong>월 2회+</strong> 보장 (온라인 우선·오프라인 병행)</li>
+          <li><span class="i">&bull;</span>증빙: 온라인 캡처·녹화 / 오프라인 서명부·사진</li>
+          <li><span class="i">&bull;</span>전 회차 <strong>멘토링 일지</strong> 작성·제출</li>
+          <li><span class="i">&bull;</span>멘토링 종료 후 전수 만족도 조사·결과분석</li>
+        </ul>
+      </div>
+    </div>
+    <div class="c c-b" style="margin-top:12px;padding:10px 14px" data-step="5"><div class="c-d" style="color:var(--osc);font-size:.75rem">※ 멘토링 전문가는 <strong>섭외 전 사업단 승인</strong> 취득 원칙 준수</div></div>
+  </div>
+  <div class="sf"><span class="sf-logo">DAKER <span class="dot">&middot;</span> <span class="dc">DACON</span></span><span class="sf-pg">9</span><span class="sf-cr">COPYRIGHT 2026</span></div>
+</section>
+
+<!-- S10: II-2-라~바. 중간점검·결과물·예선 -->
+<section class="slide" id="s10">
+  <div class="sh"><span class="sh-l">II-2-라~바. 과업 세부내용 ②</span><span class="sh-r">중간점검·결과물·예선</span></div>
+  <div class="si" style="padding-top:58px">
+    <div class="tag">중간점검 · 결과물 접수 · 예선 평가</div>
+    <h2 class="st" data-step="1">DAKER 플랫폼으로 <span class="hl">자동화되는</span> 접수·평가</h2>
+    <div class="g3" style="margin-top:14px;flex:1">
+      <div class="c" data-step="2">
+        <div class="cl">라. 중간점검 (5.18~22)</div>
+        <ul class="ck" style="margin-top:6px">
+          <li><span class="i">&bull;</span>전문 인력 투입, 팀별 <strong>수행 현황 점검</strong></li>
+          <li><span class="i">&bull;</span>향후 방향성 지도·컨설팅</li>
+          <li><span class="i">&bull;</span>결과는 최종 결과보고서에 포함</li>
+        </ul>
+      </div>
+      <div class="c" data-step="3">
+        <div class="cl">마. 최종 결과물 제출</div>
+        <ul class="ck" style="margin-top:6px">
+          <li><span class="i">&bull;</span>DAKER 플랫폼 <strong>강원대 전용 접수 페이지</strong></li>
+          <li><span class="i">&bull;</span>결과보고서 + 제안서 PPT + 프로토타입</li>
+          <li><span class="i">&bull;</span>제출 안내·질의응답·제출자 명단 정리</li>
+          <li><span class="i">&bull;</span>제출 마감: <strong>6.29 ~ 7.1</strong></li>
+        </ul>
+      </div>
+      <div class="c c-w" data-step="4">
+        <div class="cl cl-w">바. 예선 서류평가 (7.6)</div>
+        <ul class="ck ck-w" style="margin-top:6px">
+          <li><span class="i">&bull;</span>전문 심사위원 <strong>5인+</strong> 섭외 (사업단 사전 승인)</li>
+          <li><span class="i">&bull;</span>평가 Rubric 기반 서류평가</li>
+          <li><span class="i">&bull;</span><strong>본선진출 11팀 선발</strong></li>
+          <li><span class="i">&bull;</span>결과는 사업단 홈페이지 게시 지원</li>
+          <li><span class="i">&bull;</span>본선 발표 참관생 모집(홍보·접수) 지원</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span class="sf-logo">DAKER <span class="dot">&middot;</span> <span class="dc">DACON</span></span><span class="sf-pg">10</span><span class="sf-cr">COPYRIGHT 2026</span></div>
+</section>
+
+<!-- S11: II-2-사. 본선 발표 및 시상 -->
+<section class="slide" id="s11">
+  <div class="sh"><span class="sh-l">II-2-사. 본선 발표 및 시상 (대면)</span><span class="sh-r">7.8 · 춘천캠퍼스</span></div>
+  <div class="si" style="padding-top:58px">
+    <div class="tag">본선 대면 운영</div>
+    <h2 class="st" data-step="1">춘천캠퍼스에서 완성되는 <span class="hl">본선 대면 대회</span></h2>
+    <div class="g2" style="margin-top:12px;flex:1">
+      <div data-step="2">
+        <div class="cl">본선 운영 체크리스트</div>
+        <ul class="ck" style="margin-top:6px">
+          <li><span class="i">&#10003;</span>본선진출 학생 참가 안내·독려 (유선+메일+카톡 3중)</li>
+          <li><span class="i">&#10003;</span>등록데스크 2좌석 + 서명부 + 다과(간식·음료)</li>
+          <li><span class="i">&#10003;</span>등록·사회·개회식·특강·발표 심사·시상식 운영</li>
+          <li><span class="i">&#10003;</span>본선 심사위원 <strong>11인 이내</strong> 섭외 (사업단 승인)</li>
+          <li><span class="i">&#10003;</span>사회자·시상품 전달 인력·운영 인력 확보</li>
+          <li><span class="i">&#10003;</span>특강 설계·진행 (AI·SW 분야 특강 전문가 1인 섭외)</li>
+          <li><span class="i">&#10003;</span>행사 사진 촬영 · 전반 진행 · 안전관리 전담</li>
+          <li><span class="i">&#10003;</span>상장·시상품·명찰·현수막·배너 제작 설치</li>
+          <li><span class="i">&#10003;</span>본선 장소: 강원대 춘천캠퍼스 교내 강의실 준수</li>
+        </ul>
+      </div>
+      <div data-step="3">
+        <div class="cl-w" style="font-size:.75rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;margin-bottom:8px;color:var(--w)">시상 계획 (총 11팀)</div>
+        <table class="tb">
+          <thead><tr><th>구분</th><th>훈격</th><th>대상작</th></tr></thead>
+          <tbody>
+            <tr><td style="font-weight:800;color:var(--w)">대 상</td><td>SW중심대학사업단장상</td><td><strong>1팀</strong></td></tr>
+            <tr><td style="font-weight:800;color:var(--w)">최우수상</td><td>SW중심대학사업단장상</td><td><strong>2팀</strong></td></tr>
+            <tr><td style="font-weight:800;color:var(--w)">우수상</td><td>SW중심대학사업단장상</td><td><strong>3팀</strong></td></tr>
+            <tr><td style="font-weight:800;color:var(--w)">장려상</td><td>SW중심대학사업단장상</td><td><strong>5팀</strong></td></tr>
+            <tr><td style="font-weight:800">합 계</td><td>—</td><td><strong>11팀</strong></td></tr>
+          </tbody>
+        </table>
+        <div class="c c-s" style="margin-top:10px;padding:10px 14px"><div class="c-d" style="font-size:.75rem">※ 시상금·상품 세부는 발주처와 협의 후 최종 확정 — 기사 작성·사업단 전달 포함</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span class="sf-logo">DAKER <span class="dot">&middot;</span> <span class="dc">DACON</span></span><span class="sf-pg">11</span><span class="sf-cr">COPYRIGHT 2026</span></div>
+</section>
+
+<!-- S12: II-2-아. 결과보고서 + II-4. 안전관리 -->
+<section class="slide" id="s12">
+  <div class="sh"><span class="sh-l">II-2-아 · II-4. 결과보고서 &amp; 안전관리</span><span class="sh-r">REPORTING &amp; SAFETY</span></div>
+  <div class="si" style="padding-top:58px">
+    <div class="tag">결과보고 · 안전관리 · 후속 업무</div>
+    <h2 class="st" data-step="1">기록과 안전으로 완성하는 <span class="hl">책임 운영</span></h2>
+    <div class="g2" style="margin-top:12px;flex:1">
+      <div data-step="2">
+        <div class="cl">결과보고서 구성 (제안요청서 준수)</div>
+        <table class="tb">
+          <thead><tr><th>포함 항목</th><th>수집 방식</th></tr></thead>
+          <tbody>
+            <tr><td>참가자 명단</td><td>접수 포털 자동 수집</td></tr>
+            <tr><td>사진</td><td>멘토링·중간점검·본선·시상식 전 단계</td></tr>
+            <tr><td>전문가 이력</td><td>심사위원·멘토·특강 이력서 별첨</td></tr>
+            <tr><td>만족도 결과 분석</td><td>전수 설문 분석 리포트</td></tr>
+            <tr><td>멘토링 증빙</td><td>일지·캡처·서명부</td></tr>
+            <tr><td>중간점검 결과</td><td>팀별 진도·피드백</td></tr>
+            <tr><td>최종 결과물</td><td>보고서·PPT·프로토타입</td></tr>
+            <tr><td>심사자료·서명부</td><td>원본 일체 제출</td></tr>
+          </tbody>
+        </table>
+        <div class="c c-b" style="margin-top:10px;padding:10px 14px"><div class="c-d" style="color:var(--osc);font-size:.75rem">프로그램 완료 후 <strong>20일 이내</strong> 결과보고서 제출 (사업 완료일까지 최종본 제출)</div></div>
+      </div>
+      <div data-step="3">
+        <div class="cl-w" style="font-size:.75rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;margin-bottom:8px;color:var(--w)">안전관리 · 후속 업무</div>
+        <div class="c c-w" style="padding:12px 14px;margin-bottom:8px">
+          <div class="c-t" style="color:var(--w);font-size:.8125rem">비상 대응 매뉴얼</div>
+          <div class="c-d" style="font-size:.6875rem">의료·소방 대책, 환자 이송 체계, 현장 조치 프로토콜</div>
+        </div>
+        <div class="c c-w" style="padding:12px 14px;margin-bottom:8px">
+          <div class="c-t" style="color:var(--w);font-size:.8125rem">안전 전담 인력</div>
+          <div class="c-d" style="font-size:.6875rem">교육 중 안전 인력 배치, 안전사고·돌발상황 대응</div>
+        </div>
+        <div class="c c-w" style="padding:12px 14px;margin-bottom:8px">
+          <div class="c-t" style="color:var(--w);font-size:.8125rem">비상 연락망·대응체계</div>
+          <div class="c-d" style="font-size:.6875rem">사업단·경찰·소방·병원 핫라인, 신속한 상황 통제</div>
+        </div>
+        <div class="c c-w" style="padding:12px 14px;margin-bottom:8px">
+          <div class="c-t" style="color:var(--w);font-size:.8125rem">의료·구급품</div>
+          <div class="c-d" style="font-size:.6875rem">참석자 안전·경미 질병 치료용 구급약품 휴대</div>
+        </div>
+        <div class="c c-s" style="padding:10px 14px">
+          <div class="c-d" style="font-size:.6875rem">후속: 현장 사진 기록, 설치물 철거·정리, 만족도 통계, 산출물 일체 발주처 귀속 제출</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span class="sf-logo">DAKER <span class="dot">&middot;</span> <span class="dc">DACON</span></span><span class="sf-pg">12</span><span class="sf-cr">COPYRIGHT 2026</span></div>
+</section>
+
+<!-- S13: SECTION III -->
+<section class="slide slide-sec" id="s13">
+  <div class="si">
+    <div class="sn" data-step="1">III</div>
+    <h2 data-step="2">과업 수행 지침</h2>
+    <p class="sd" data-step="3">일반사항 · 보안대책 · 의견 수렴 · 산출물 귀속에 대한 이행 약속</p>
+  </div>
+  <div class="sf"><span class="sf-logo">DAKER <span class="dot">&middot;</span> <span class="dc">DACON</span></span><span class="sf-pg">13</span><span class="sf-cr">COPYRIGHT 2026</span></div>
+</section>
+
+<!-- S14: III. 일반사항 + 보안대책 -->
+<section class="slide" id="s14">
+  <div class="sh"><span class="sh-l">III. 일반사항 · 보안대책</span><span class="sh-r">COMPLIANCE</span></div>
+  <div class="si" style="padding-top:58px">
+    <div class="tag">과업 수행 지침 100% 수용</div>
+    <h2 class="st" data-step="1">제안요청서의 <span class="hl">모든 지침</span>을 서면으로 약속합니다</h2>
+    <div class="g2" style="margin-top:14px;flex:1">
+      <div data-step="2">
+        <div class="cl">1. 일반사항 준수</div>
+        <table class="tb">
+          <thead><tr><th>요구</th><th>본 제안의 약속</th></tr></thead>
+          <tbody>
+            <tr><td>사전 업무협의·목적 숙지</td><td>Kick-off + <strong>주간 정례</strong> 협의</td></tr>
+            <tr><td>과업 변경·조정 시 협의</td><td>서면 제안 → 발주처 승인 후 이행</td></tr>
+            <tr><td>불성실·지연 시 지시 이행</td><td>24h 내 회신, 기한 내 조치</td></tr>
+            <tr><td>지연 시 금전 책임</td><td>일할 계산 부담 수용</td></tr>
+            <tr><td>의견 수렴 · 개선안 반영</td><td>월 1회+ 발주처 면담</td></tr>
+            <tr><td>산출물 귀속</td><td>모든 산출물 발주처 귀속</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div data-step="3">
+        <div class="cl-w" style="color:var(--w);font-size:.75rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;margin-bottom:8px">2. 보안대책 준수</div>
+        <table class="tb">
+          <thead><tr><th>요구</th><th>본 제안의 약속</th></tr></thead>
+          <tbody>
+            <tr><td>타 용도 사용·외부 공개 금지</td><td><strong>NDA 체결</strong> · 접근권한 최소화</td></tr>
+            <tr><td>보안 사고 책임</td><td>수행업체 전적 책임 수용</td></tr>
+            <tr><td>인원 변경 시 인수인계</td><td>사업단 사전 통지·NDA 재체결</td></tr>
+            <tr><td>위반 시 민·형사 책임</td><td>전적 수용</td></tr>
+            <tr><td>개인정보 보호</td><td>결과보고 완료 시점 <strong>즉시 파기</strong></td></tr>
+            <tr><td>보안서약서</td><td>[별지 6] 첨부 완료</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span class="sf-logo">DAKER <span class="dot">&middot;</span> <span class="dc">DACON</span></span><span class="sf-pg">14</span><span class="sf-cr">COPYRIGHT 2026</span></div>
+</section>
+
+<!-- S15: SECTION IV -->
+<section class="slide slide-sec" id="s15">
+  <div class="si">
+    <div class="sn" data-step="1">IV</div>
+    <h2 data-step="2">제안 안내사항 대응</h2>
+    <p class="sd" data-step="3">평가항목(붙임1) 100점 기준 매핑 · 제출 서류 · 제안서 작성요령 준수</p>
+  </div>
+  <div class="sf"><span class="sf-logo">DAKER <span class="dot">&middot;</span> <span class="dc">DACON</span></span><span class="sf-pg">15</span><span class="sf-cr">COPYRIGHT 2026</span></div>
+</section>
+
+<!-- S16: IV. 평가항목 대응 -->
+<section class="slide" id="s16">
+  <div class="sh"><span class="sh-l">IV. 평가항목 대응 (붙임1 기준 80점)</span><span class="sh-r">SCORING MAP</span></div>
+  <div class="si" style="padding-top:58px">
+    <div class="tag">제안서 평가항목 대응표</div>
+    <h2 class="st" data-step="1">기술능력평가 <span class="hl">80점 전 항목</span> 만점 추구</h2>
+    <div style="margin-top:14px;flex:1" data-step="2">
+      <table class="tb">
+        <thead><tr><th style="width:25%">평가항목</th><th style="width:8%">배점</th><th>본 제안의 강점 및 근거</th></tr></thead>
+        <tbody>
+          <tr>
+            <td style="font-weight:800;color:var(--p)">교육 진행방법 및 충실도</td>
+            <td style="font-weight:800;color:var(--p);text-align:center">25</td>
+            <td>① 사업 전반 이해도·전문성 — 요청서 전 항목 매핑표 제공<br/>② 일정 구성 치밀성·효과성 — 요청서 일정 100% 반영 + 단계별 KPI<br/>③ 시간 배분 합리성 — 월 2회+ 멘토링 고정 + 단계별 간트차트<br/>④ 요구사항 수용·적용 — 과업세부내용 <strong>100% 대응표</strong></td>
+          </tr>
+          <tr>
+            <td style="font-weight:800;color:var(--p)">운영 안정성 &amp; 진행인력 전문성</td>
+            <td style="font-weight:800;color:var(--p);text-align:center">20</td>
+            <td>① 안전계획 — 방역·의료·안전 매뉴얼<br/>② 현장 운영인력 — 경진대회 운영 3년+ 경력 전원<br/>③ 학생지도·안내시스템 — 온라인 대시보드 + 24h CS 채널</td>
+          </tr>
+          <tr>
+            <td style="font-weight:800;color:var(--p)">교육 운영 조건 적정성</td>
+            <td style="font-weight:800;color:var(--p);text-align:center">30</td>
+            <td>① 교육 운영 계획 적절성 — 6대 트랙 + 프로토타입 방법론<br/>② 예선·본선 평가방법 — Rubric 공개·블라인드 평가<br/>③ 프로그램 운영 능력 — DAKER 플랫폼·DACON <strong>500+ 대회 실적</strong><br/>④ 멘토링·강사 섭외 — 분야별 현업 Pool <strong>12명+</strong></td>
+          </tr>
+          <tr>
+            <td style="font-weight:800;color:var(--p)">경영상태</td>
+            <td style="font-weight:800;color:var(--p);text-align:center">5</td>
+            <td>[별지 3] 재무구조 + 신용평가등급확인서 첨부 — 붙임2 정량 지표 기준</td>
+          </tr>
+          <tr>
+            <td style="font-weight:800;background:var(--sc);color:var(--osc)">기술능력평가 합계</td>
+            <td style="font-weight:800;background:var(--sc);color:var(--osc);text-align:center">80</td>
+            <td style="background:var(--sc);color:var(--osc)">+ 입찰가격평가 20점 = <strong>총 100점</strong></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="src">※ 배점 기준: 제안요청서 붙임1 평가항목 및 배점기준</div>
+  </div>
+  <div class="sf"><span class="sf-logo">DAKER <span class="dot">&middot;</span> <span class="dc">DACON</span></span><span class="sf-pg">16</span><span class="sf-cr">COPYRIGHT 2026</span></div>
+</section>
+
+<!-- S17: 수행사 역량 & 실적 -->
+<section class="slide" id="s17">
+  <div class="sh"><span class="sh-l">V. 수행사 역량 및 실적</span><span class="sh-r">TRACK RECORD</span></div>
+  <div class="si" style="padding-top:58px">
+    <div class="tag">(주)데이콘 — DAKER · DACON</div>
+    <h2 class="st" data-step="1">경진대회 운영, <span class="hl">대한민국 대표 플랫폼</span></h2>
+    <p class="sub" data-step="2">본 용역은 (주)데이콘 <strong>단독 수급</strong>으로 이행되며, DAKER·DACON 브랜드의 전 자원이 투입됩니다</p>
+    <div class="g4" style="margin-top:14px" data-step="3">
+      <div class="mx"><div class="v">25억+</div><div class="l">누적 상금 (KRW)</div></div>
+      <div class="mx"><div class="v">1M+</div><div class="l">누적 제출 수</div></div>
+      <div class="mx"><div class="v">236,666</div><div class="l">누적 팀 참여</div></div>
+      <div class="mx"><div class="v">14만+</div><div class="l">회원 수</div></div>
+    </div>
+    <div class="g2" style="margin-top:14px;flex:1">
+      <div class="c" data-step="4">
+        <div class="cl">대학 · 사업단 운영 실적</div>
+        <ul class="ck" style="margin-top:6px">
+          <li><span class="i">&bull;</span><strong>단국대학교</strong> SW중심대학 사전대회 (2026)</li>
+          <li><span class="i">&bull;</span><strong>성균관대학교</strong> Bias 발견 챌린지 · 바이브코딩 (2025)</li>
+          <li><span class="i">&bull;</span><strong>서울시립대학교 · 인하대학교</strong> SW중심대학 알고리즘 (2025)</li>
+          <li><span class="i">&bull;</span><strong>중앙대학교 소프트웨어대학</strong> AI대회 (2026)</li>
+          <li><span class="i">&bull;</span><strong>국내 대학 20여 개</strong> 고객사</li>
+        </ul>
+      </div>
+      <div class="c c-w" data-step="5">
+        <div class="cl cl-w">공공 · 기업 실적</div>
+        <ul class="ck ck-w" style="margin-top:6px">
+          <li><span class="i">&bull;</span>과기정통부 · 금융보안원 · ETRI · LG AI연구원</li>
+          <li><span class="i">&bull;</span>한국수자원공사 · 한국가스공사 · 한국원자력연구원</li>
+          <li><span class="i">&bull;</span>한국수력원자력 · 국가보안연구소 · KRX</li>
+          <li><span class="i">&bull;</span>현대자동차 · HD현대 · LG그룹 · 동서발전</li>
+          <li><span class="i">&bull;</span>KB금융지주 · NH투자증권 · TOSS</li>
+        </ul>
+      </div>
+    </div>
+    <div class="src">출처: dacon.io / daker.ai 공식 통계 (2026.03 기준)</div>
+  </div>
+  <div class="sf"><span class="sf-logo">DAKER <span class="dot">&middot;</span> <span class="dc">DACON</span></span><span class="sf-pg">17</span><span class="sf-cr">COPYRIGHT 2026</span></div>
+</section>
+
+<!-- S18: 기대효과 + KPI -->
+<section class="slide" id="s18">
+  <div class="sh"><span class="sh-l">VI. 기대효과 및 KPI</span><span class="sh-r">OUTCOMES</span></div>
+  <div class="si" style="padding-top:58px">
+    <div class="tag">기대효과 · 정량 KPI</div>
+    <h2 class="st" data-step="1">본 용역으로 <span class="hl">확보되는 성과</span></h2>
+    <div class="g2" style="margin-top:14px;flex:1">
+      <div data-step="2">
+        <div class="cl">정량 KPI</div>
+        <table class="tb">
+          <thead><tr><th>KPI</th><th>목표치</th><th>측정 방법</th></tr></thead>
+          <tbody>
+            <tr><td>참여 규모</td><td><strong>250명 / 65팀</strong></td><td>접수 포털 등록</td></tr>
+            <tr><td>멘토링 이행률</td><td>월 2회+ 100%</td><td>멘토링 일지·증빙</td></tr>
+            <tr><td>결과물 제출률</td><td>등록 팀의 90%+</td><td>포털 제출 기준</td></tr>
+            <tr><td>본선 진출 팀</td><td><strong>11팀</strong></td><td>예선 심사 결과</td></tr>
+            <tr><td>참가자 만족도</td><td>평균 4.3/5.0+</td><td>전수 설문</td></tr>
+            <tr><td>결과보고서 납기</td><td>종료 후 20일 내</td><td>제출일 기준</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div data-step="3">
+        <div class="cl-w" style="color:var(--w);font-size:.75rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;margin-bottom:8px">정성적 기대효과</div>
+        <div class="c c-w" style="padding:10px 14px;margin-bottom:8px">
+          <div class="c-t" style="color:var(--w);font-size:.8125rem">전공 융합 인재 양성</div>
+          <div class="c-d" style="font-size:.6875rem">학과 혼합 팀빌딩으로 AI·SW 비전공자도 실전 프로젝트 경험 확보</div>
+        </div>
+        <div class="c c-w" style="padding:10px 14px;margin-bottom:8px">
+          <div class="c-t" style="color:var(--w);font-size:.8125rem">춘천·강원 지역 문제 해결</div>
+          <div class="c-d" style="font-size:.6875rem">관광·환경·지역소멸 등 지역 맥락 과제 발굴, 지역사회 임팩트</div>
+        </div>
+        <div class="c c-w" style="padding:10px 14px;margin-bottom:8px">
+          <div class="c-t" style="color:var(--w);font-size:.8125rem">후속 성장 연계</div>
+          <div class="c-d" style="font-size:.6875rem">우수팀 포트폴리오 패키지 · 외부 공모전·해외연수·창업 대상 연결</div>
+        </div>
+        <div class="c c-w" style="padding:10px 14px">
+          <div class="c-t" style="color:var(--w);font-size:.8125rem">SW중심대학 평가 기여</div>
+          <div class="c-d" style="font-size:.6875rem">전공/비전공 융합, 경진대회 실적, 산업 연계 등 핵심 지표 직결</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span class="sf-logo">DAKER <span class="dot">&middot;</span> <span class="dc">DACON</span></span><span class="sf-pg">18</span><span class="sf-cr">COPYRIGHT 2026</span></div>
+</section>
+
+<!-- S19: ENDING -->
+<section class="slide slide-end" id="s19">
+  <div class="si">
+    <div class="end-logo" data-step="1">
+      <span style="font-size:2rem;font-weight:800;color:var(--p);letter-spacing:.04em">DAKER</span>
+      <span style="font-size:1.5rem;color:var(--ov)">+</span>
+      <span style="font-size:2rem;font-weight:800;color:var(--w);letter-spacing:.04em">DACON</span>
+    </div>
+    <h1 data-step="2">강원대 <span style="color:var(--p)">X+AI·SW</span><br/>함께 만들겠습니다</h1>
+    <p class="end-sub" data-step="3">
+      250명 · 65팀 · 춘천캠퍼스 본선까지<br/>
+      <strong>기획부터 결과보고까지 책임지고</strong> 운영합니다
+    </p>
+    <div data-step="4" style="margin-top:28px;display:flex;gap:12px">
+      <a href="https://daker.ai" target="_blank" style="padding:10px 24px;border-radius:var(--rm);background:linear-gradient(135deg,var(--p),var(--pd));color:#fff;font-size:.875rem;font-weight:700;text-decoration:none">daker.ai</a>
+      <a href="https://dacon.io" target="_blank" style="padding:10px 24px;border-radius:var(--rm);background:var(--sl);color:var(--osv);font-size:.875rem;font-weight:600;text-decoration:none">dacon.io</a>
+    </div>
+    <div data-step="5" style="margin-top:22px;font-size:.8125rem;color:var(--osv);line-height:1.7">
+      (주)데이콘 · 단독 수급<br/>
+      담당: edgar@dacon.io &middot; 010-6338-1041
+    </div>
+  </div>
+  <div class="sf"><span class="sf-logo">DAKER <span class="dot">&middot;</span> <span class="dc">DACON</span></span><span class="sf-pg">19</span><span class="sf-cr">COPYRIGHT 2026 DAKER &middot; DACON</span></div>
+</section>
+
+</div></div>
+<button class="nav-btn" id="nav-prev">&#8249;</button>
+<button class="nav-btn" id="nav-next">&#8250;</button>
+<div id="progress-bar" style="width:0%"></div>
+<div id="key-hint">Arrow keys or click to navigate</div>
+<script>
+(function(){
+const slides=document.querySelectorAll('.slide'),total=slides.length;let cur=0;
+function maxStep(s){let m=0;s.querySelectorAll('[data-step]').forEach(e=>{const v=+e.dataset.step;if(v>m)m=v});return m}
+let step=0;
+function show(idx,dir){slides.forEach(s=>s.classList.remove('active'));slides[idx].classList.add('active');step=0;const els=slides[idx].querySelectorAll('[data-step]');els.forEach(e=>{e.classList.remove('visible','pre-visible')});if(dir==='back'){step=maxStep(slides[idx]);els.forEach(e=>e.classList.add('pre-visible'))}document.getElementById('progress-bar').style.width=((idx+1)/total*100)+'%'}
+function next(){const ms=maxStep(slides[cur]);if(step<ms){step++;slides[cur].querySelectorAll('[data-step]').forEach(e=>{if(+e.dataset.step<=step)e.classList.add('visible')});return}if(cur<total-1){cur++;show(cur,'fwd')}}
+function prev(){if(step>0){slides[cur].querySelectorAll('[data-step]').forEach(e=>{if(+e.dataset.step===step){e.classList.remove('visible','pre-visible')}});step--;return}if(cur>0){cur--;show(cur,'back')}}
+document.getElementById('nav-next').onclick=next;document.getElementById('nav-prev').onclick=prev;
+document.addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key===' '||e.key==='Enter')next();else if(e.key==='ArrowLeft'||e.key==='Backspace')prev()});
+let tx=0;document.addEventListener('touchstart',e=>{tx=e.changedTouches[0].screenX});document.addEventListener('touchend',e=>{const dx=e.changedTouches[0].screenX-tx;if(dx<-50)next();else if(dx>50)prev()});
+function fit(){const vw=window.innerWidth,vh=window.innerHeight;const s=Math.min(vw/1280,vh/720,1);document.getElementById('stage').style.transform='scale('+s+')'}
+window.addEventListener('resize',fit);fit();show(0,'fwd')
+slides[0].querySelectorAll('[data-step]').forEach(e => { e.classList.add('pre-visible'); });
+})();
+</script>
+</body>
+</html>
