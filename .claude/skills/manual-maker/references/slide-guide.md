@@ -725,6 +725,24 @@ toggleFullscreen() {
 
 > 첫 슬라이드는 `.active` 클래스 + 초기화 JS의 `pre-visible` 클래스 덕분에 data-step 콘텐츠가 정상 노출되어 PDF 1페이지에 잡힘. 마지막 슬라이드(.slide-end)는 `.si`의 `justify-content:center` 등 특수 레이아웃 때문에 일부 콘텐츠가 캡처되어 사용자 눈에 "첫 페이지와 마지막만 정상"으로 보임.
 
+### ⚠️ 추가 함정: 화면 도움말이 PDF에 노출됨
+
+스크린 미디어로 캡처하기 때문에 `@media print { #key-hint, .nav-btn { display:none } }`
+규칙이 발동하지 않는다. "Arrow keys or click to navigate" 같은 안내 텍스트와
+좌우 네비게이션 버튼이 캡처에 그대로 들어간다.
+
+**해결**: 스크린샷 직전에 `add_style_tag`로 해당 요소들을 강제로 숨긴다.
+
+```python
+page.add_style_tag(content="""
+    #key-hint, .nav-btn, #nav-prev, #nav-next, #progress-bar,
+    .controls, .presenter-notes, .speaker-notes {
+        display: none !important;
+        visibility: hidden !important;
+    }
+""")
+```
+
 ### ✅ 해결: `page.screenshot()` (스크린 미디어) + Pillow 조립
 
 ```python

@@ -121,6 +121,19 @@ def convert(
             page.goto(src.as_uri(), wait_until="networkidle")
             page.wait_for_timeout(2500)  # font + JS settle
 
+            # Hide on-screen UI affordances that should not appear in PDF.
+            # The slide deck's @media print CSS would normally hide these,
+            # but we're capturing in screen media so we must hide them via JS.
+            page.add_style_tag(
+                content="""
+                #key-hint, .nav-btn, #nav-prev, #nav-next, #progress-bar,
+                .controls, .presenter-notes, .speaker-notes {
+                    display: none !important;
+                    visibility: hidden !important;
+                }
+                """
+            )
+
             total = page.evaluate("document.querySelectorAll('.slide').length")
             if total == 0:
                 browser.close()
