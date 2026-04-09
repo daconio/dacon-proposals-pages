@@ -1,5 +1,19 @@
 # 장시간 실행 앱 개발을 위한 하네스 설계
 
+<!-- HTML-SECTION-LABELS (alignment marker; do not remove) -->
+<!-- INTRODUCTION -->
+<!-- I. CORE PROBLEMS -->
+<!-- II. FRONTEND DESIGN -->
+<!-- II. FRONTEND DESIGN -->
+<!-- II. FRONTEND DESIGN -->
+<!-- III. FULL-STACK -->
+<!-- III. FULL-STACK -->
+<!-- III. FULL-STACK -->
+<!-- IV. EVOLUTION -->
+<!-- IV. EVOLUTION -->
+<!-- V. LESSONS -->
+<!-- /HTML-SECTION-LABELS -->
+
 > 원문: Anthropic Engineering Blog — *Harness Design for Long-Running Application Development*
 > 저자: Prithvi Rajasekaran (Anthropic Labs) | 2026.03.24
 
