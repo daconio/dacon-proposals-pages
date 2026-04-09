@@ -706,6 +706,125 @@ toggleFullscreen() {
 
 ---
 
+## 7-A. HTML 슬라이드 → PDF 변환 (실전 노하우)
+
+슬라이드 HTML을 PDF로 안정적으로 변환하려면 **반드시 `scripts/html_to_pdf.py` 패턴**을 사용한다.
+이 절은 실제 디버깅으로 확정된 함정과 해결책을 정리한다.
+
+### ⚠️ 함정: Chrome `page.pdf()` 사용 금지
+
+**증상**: Playwright `page.pdf()` 또는 Chrome `--print-to-pdf` 사용 시
+첫 페이지와 마지막 페이지만 정상이고 중간 페이지(2~N-1)는 헤더만 보이고 본문이 비어 있음.
+
+**근본 원인**:
+1. `page.pdf()`는 Chrome 내부적으로 print 미디어를 강제 활성화
+2. 슬라이드 덱 HTML의 `@media print { .slide { display:flex !important; opacity:1 !important } }` 규칙이 발동
+3. inline `style="display:none !important"`로 다른 슬라이드를 숨겨도 stylesheet `!important`가 동등 우선순위로 충돌
+4. 결국 모든 슬라이드가 동시에 `display:flex`로 펼쳐져 전체 문서가 N×720px 길이로 렌더
+5. PDF 페이지 크기가 720px라서 첫 720px(슬라이드 0)만 캡처되고 나머지 슬라이드는 헤더(.sh, top:0 위치)만 잡힘
+
+> 첫 슬라이드는 `.active` 클래스 + 초기화 JS의 `pre-visible` 클래스 덕분에 data-step 콘텐츠가 정상 노출되어 PDF 1페이지에 잡힘. 마지막 슬라이드(.slide-end)는 `.si`의 `justify-content:center` 등 특수 레이아웃 때문에 일부 콘텐츠가 캡처되어 사용자 눈에 "첫 페이지와 마지막만 정상"으로 보임.
+
+### ✅ 해결: `page.screenshot()` (스크린 미디어) + Pillow 조립
+
+```python
+from playwright.sync_api import sync_playwright
+from PIL import Image
+from pathlib import Path
+import tempfile, shutil
+
+def slide_html_to_pdf(src: Path, out: Path, width=1280, height=720, scale=2):
+    tmp = Path(tempfile.mkdtemp())
+    pngs = []
+    try:
+        with sync_playwright() as p:
+            browser = p.chromium.launch(
+                executable_path="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+                headless=True,
+            )
+            ctx = browser.new_context(
+                viewport={"width": width, "height": height},
+                device_scale_factor=scale,  # 2× 캡처로 인쇄 품질 확보
+            )
+            page = ctx.new_page()
+            page.goto(src.resolve().as_uri(), wait_until="networkidle")
+            page.wait_for_timeout(2500)  # 폰트 + JS settle
+
+            total = page.evaluate("document.querySelectorAll('.slide').length")
+
+            for i in range(total):
+                # 핵심: screen 미디어에서 .active 클래스만 토글 + data-step 모두 visible
+                page.evaluate(
+                    """({i}) => {
+                        const slides = document.querySelectorAll('.slide');
+                        slides.forEach((s, idx) => {
+                            if (idx === i) {
+                                s.classList.add('active');
+                                s.querySelectorAll('[data-step]').forEach(e => {
+                                    e.classList.remove('pre-visible');
+                                    e.classList.add('visible');
+                                });
+                            } else {
+                                s.classList.remove('active');
+                            }
+                        });
+                    }""",
+                    {"i": i},
+                )
+                page.wait_for_timeout(180)
+                # #stage 또는 .slide.active를 element-screenshot으로 캡처
+                el = page.query_selector("#stage") or page.query_selector(".slide.active")
+                png = tmp / f"s{i:03d}.png"
+                el.screenshot(path=str(png))
+                pngs.append(png)
+
+            browser.close()
+
+        # PNG → multi-page PDF (Pillow)
+        # dpi = 96 × scale 로 두면 1280×720 px 이미지가 960×540 pt PDF 페이지로 떨어짐
+        imgs = [Image.open(p).convert("RGB") for p in pngs]
+        imgs[0].save(
+            str(out),
+            save_all=True,
+            append_images=imgs[1:],
+            format="PDF",
+            resolution=float(96 * scale),
+        )
+    finally:
+        shutil.rmtree(tmp, ignore_errors=True)
+```
+
+### 검증 체크리스트
+
+PDF 변환 직후 반드시 다음을 확인한다:
+
+1. **페이지 수 일치**: 슬라이드 N개 → PDF N페이지 (`PyPDF2` `len(reader.pages)`)
+2. **페이지 크기 균일**: 모든 페이지 MediaBox가 동일 (예: `(960, 540)` for 16:9)
+3. **이미지 해시 고유성**: 각 페이지의 임베드 이미지 md5가 모두 다름 (slide 0 복제 방지)
+4. **시각 통계**: Pillow `ImageStat`로 각 페이지 mean/stddev 계산 → 모두 0(전백)이 아님
+5. **Preview 직접 확인**: `open output.pdf`로 macOS Preview에서 모든 페이지 시각 검증
+
+### Trade-off
+
+- **장점**: 100% 안정적, 모든 PDF 뷰어에서 동일하게 보임, 폰트·이미지·CSS 효과 완벽 보존
+- **단점**: 텍스트 선택/복사 불가 (이미지 PDF), 파일 크기 증가 (22슬라이드 ≈ 3MB)
+- **텍스트 PDF가 필요하면**: WeasyPrint, 또는 변환 직전에 source HTML에서 `@media print` 블록을 제거(또는 무력화)한 후 `page.pdf()` 사용
+
+### 프로젝트의 기성 유틸리티
+
+DACON 제안서 리포에는 이 패턴을 그대로 구현한 `scripts/html_to_pdf.py`가 있다.
+신규 슬라이드 PDF 변환 시 새 코드를 작성하지 말고 다음을 사용한다:
+
+```bash
+python3 scripts/html_to_pdf.py 제안/파일명.html              # 단일 변환
+python3 scripts/html_to_pdf.py "제안/2026-04-*.html"        # 글롭
+python3 scripts/html_to_pdf.py --width 960 --height 1358 portrait.html  # 세로형
+```
+
+상세 사용법: `scripts/README.md` 참조.
+
+---
+
 ## 8. 슬라이드 생성 시 에이전트 역할 분담
 
 슬라이드 콘텐츠가 많을 경우 병렬 에이전트로 분담:
