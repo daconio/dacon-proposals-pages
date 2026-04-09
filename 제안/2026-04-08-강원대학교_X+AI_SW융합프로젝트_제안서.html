@@ -688,6 +688,163 @@ h2.st{font-size:1.875rem;font-weight:800;line-height:1.2;color:var(--os);letter-
   <div class="sf"><span class="sf-logo"><span class="dc">DACON</span></span><span class="sf-pg">14</span><span class="sf-cr">COPYRIGHT 2026</span></div>
 </section>
 
+<!-- S12c: DAKER 플랫폼 화면 시뮬레이션 -->
+<section class="slide" id="s12c">
+  <div class="sh"><span class="sh-l">II-7. DAKER 플랫폼 화면 시뮬레이션</span><span class="sh-r">LIVE UI PREVIEW</span></div>
+  <div class="si" style="padding-top:58px;padding-bottom:48px">
+    <div class="tag">실제 DAKER 화면 프리뷰 · 4종 시뮬레이션</div>
+    <h2 class="st" data-step="1">설명이 아닌 <span class="hl">실제 UI로</span> 보여드립니다</h2>
+    <p class="sub" data-step="2">사업단·참가자·심사위원이 본 과업에서 사용하게 될 <strong>DAKER 대표 화면 4종</strong>을 프리뷰로 시뮬레이션합니다. 계약 즉시 강원대 전용 인스턴스로 동일 화면이 개설됩니다.</p>
+
+    <style>
+      .mock{background:#fff;border:1px solid rgba(148,163,184,.35);border-radius:10px;overflow:hidden;box-shadow:0 6px 20px rgba(15,23,42,.08);display:flex;flex-direction:column;min-height:248px}
+      .mock-bar{display:flex;align-items:center;gap:8px;padding:7px 10px;background:#f1f5f9;border-bottom:1px solid rgba(148,163,184,.25)}
+      .mock-bar .d{width:9px;height:9px;border-radius:50%}
+      .mock-bar .r{background:#ef4444}.mock-bar .y{background:#eab308}.mock-bar .g{background:#22c55e}
+      .mock-url{flex:1;margin-left:8px;background:#fff;border:1px solid rgba(148,163,184,.25);border-radius:999px;padding:3px 10px;font-size:.5625rem;color:var(--osv);font-family:ui-monospace,Menlo,Consolas,monospace}
+      .mock-body{padding:10px 12px;flex:1;font-size:.625rem;color:var(--os);line-height:1.5}
+      .mock-title{font-size:.75rem;font-weight:800;color:var(--p);margin-bottom:6px;letter-spacing:-.01em}
+      .mock-tab{display:inline-block;font-size:.5625rem;padding:2px 8px;background:var(--sc);color:var(--osc);border-radius:999px;font-weight:700;margin-right:4px}
+      .mock-tab.w{background:var(--wb);color:var(--w)}
+      .mock-row{display:flex;align-items:center;gap:6px;padding:4px 6px;border-bottom:1px dashed rgba(148,163,184,.25);font-size:.5625rem;color:var(--osv);line-height:1.4}
+      .mock-row:last-child{border-bottom:none}
+      .mock-row .tid{font-weight:800;color:var(--p);min-width:44px}
+      .mock-row .tn{flex:1;color:var(--os);font-weight:600}
+      .mock-row .ts{color:var(--ov);font-size:.5rem}
+      .pg{display:inline-block;width:46px;height:5px;background:#e2e8f0;border-radius:3px;overflow:hidden;vertical-align:middle;margin-right:4px}
+      .pg i{display:block;height:100%;background:linear-gradient(90deg,var(--p),var(--pd))}
+      .pg.w i{background:linear-gradient(90deg,var(--w),#92451f)}
+      .kpill{display:inline-block;font-size:.5rem;padding:1px 6px;border-radius:999px;font-weight:700}
+      .kpill.ok{background:#dcfce7;color:#166534}
+      .kpill.go{background:#fef3c7;color:#92400e}
+      .kpill.wt{background:#e0e7ff;color:#3730a3}
+      .rb{display:flex;justify-content:space-between;font-size:.5625rem;padding:3px 0;border-bottom:1px dashed rgba(148,163,184,.2)}
+      .rb:last-child{border-bottom:none;font-weight:800;color:var(--p)}
+      .lb-row{display:flex;align-items:center;gap:8px;padding:5px 6px;border-radius:6px;font-size:.5625rem;color:var(--os);margin-bottom:3px}
+      .lb-row.gold{background:linear-gradient(90deg,#fef3c7,#fde68a)}
+      .lb-row.silv{background:linear-gradient(90deg,#f1f5f9,#e2e8f0)}
+      .lb-row.bron{background:linear-gradient(90deg,#fed7aa,#fdba74)}
+      .lb-row .rk{font-size:.875rem;font-weight:800;min-width:22px}
+      .lb-row .nm{flex:1;font-weight:700}
+      .lb-row .sc{font-weight:800;font-variant-numeric:tabular-nums}
+      .stg{display:flex;align-items:stretch;gap:4px;margin-top:5px}
+      .stg > div{flex:1;text-align:center;padding:5px 2px;border-radius:5px;background:#f1f5f9;font-size:.5rem;line-height:1.3}
+      .stg .done{background:var(--sc);color:var(--osc);font-weight:700}
+      .stg .now{background:var(--wb);color:var(--w);font-weight:700}
+      .stg .ttl{font-size:.5625rem;font-weight:800;display:block;margin-bottom:1px}
+    </style>
+
+    <div style="margin-top:12px;display:grid;grid-template-columns:1fr 1fr;gap:12px;flex:1" data-step="3">
+
+      <!-- MOCK 1: 그룹팀 대시보드 -->
+      <div class="mock">
+        <div class="mock-bar"><span class="d r"></span><span class="d y"></span><span class="d g"></span><span class="mock-url">daker.ai/kangwon/teams</span></div>
+        <div class="mock-body">
+          <div class="mock-title">① 팀 프로젝트 대시보드 <span class="mock-tab">그룹팀</span></div>
+          <div style="display:flex;gap:4px;margin-bottom:5px">
+            <span class="mock-tab">전체 65</span>
+            <span class="mock-tab">T1 헬스케어 32</span>
+            <span class="mock-tab w">T2 창업 28</span>
+            <span class="mock-tab">자유 5</span>
+          </div>
+          <div class="mock-row">
+            <span class="tid">T-017</span>
+            <span class="tn">시니어케어 <span class="ts">· 의예3+간호2+SW1</span></span>
+            <span class="pg"><i style="width:65%"></i></span>
+            <span class="kpill go">개발중</span>
+          </div>
+          <div class="mock-row">
+            <span class="tid">T-024</span>
+            <span class="tn">청년창업봇 <span class="ts">· 경영3+SW2</span></span>
+            <span class="pg"><i style="width:82%"></i></span>
+            <span class="kpill ok">테스트</span>
+          </div>
+          <div class="mock-row">
+            <span class="tid">T-033</span>
+            <span class="tn">의료영상AI <span class="ts">· 의예2+AI3</span></span>
+            <span class="pg"><i style="width:48%"></i></span>
+            <span class="kpill wt">멘토 5/15</span>
+          </div>
+          <div class="mock-row">
+            <span class="tid">T-041</span>
+            <span class="tn">강원로컬SaaS <span class="ts">· 경영2+디자4</span></span>
+            <span class="pg"><i style="width:70%"></i></span>
+            <span class="kpill go">개발중</span>
+          </div>
+          <div style="margin-top:6px;padding:5px 7px;background:var(--sc);border-radius:5px;font-size:.5rem;color:var(--osc);font-weight:700">🔔 5/18 중간점검 D-3 · 전체 팀 알림 발송 완료</div>
+        </div>
+      </div>
+
+      <!-- MOCK 2: 트랙 학습 -->
+      <div class="mock">
+        <div class="mock-bar"><span class="d r"></span><span class="d y"></span><span class="d g"></span><span class="mock-url">daker.ai/learn/healthcare</span></div>
+        <div class="mock-body">
+          <div class="mock-title">② 트랙 학습 경로 (T-017 기준) <span class="mock-tab">트랙학습</span></div>
+          <div style="font-size:.5625rem;color:var(--osv)">헬스케어/바이오 트랙 · 4 Stage 진행 현황</div>
+          <div class="stg">
+            <div class="done"><span class="ttl">STAGE 01</span>문제정의 ✓</div>
+            <div class="done"><span class="ttl">STAGE 02</span>기획 ✓</div>
+            <div class="now"><span class="ttl">STAGE 03</span>개발 ▸</div>
+            <div><span class="ttl">STAGE 04</span>테스트</div>
+          </div>
+          <div style="margin-top:7px;font-size:.5625rem;font-weight:800;color:var(--os)">다음 학습 모듈</div>
+          <div class="mock-row"><span style="flex:1">🎥 MONAI 기반 의료영상 분류 핸즈온 (45분)</span><span class="kpill go">진행중</span></div>
+          <div class="mock-row"><span style="flex:1">📋 데이터 바이어스 체크리스트</span><span class="kpill wt">대기</span></div>
+          <div class="mock-row"><span style="flex:1">🛠 바이브코딩 프로토타입 템플릿</span><span class="kpill wt">대기</span></div>
+          <div style="margin-top:6px;padding:5px 7px;background:var(--wb);border-radius:5px;font-size:.5rem;color:var(--w);font-weight:700">📅 다음 멘토링: 5/15(목) 19:00 · 박OO 멘토 · 온라인</div>
+        </div>
+      </div>
+
+      <!-- MOCK 3: 해커톤 접수 · 예선 심사 -->
+      <div class="mock">
+        <div class="mock-bar"><span class="d r"></span><span class="d y"></span><span class="d g"></span><span class="mock-url">daker.ai/kangwon/submission</span></div>
+        <div class="mock-body">
+          <div class="mock-title">③ 결과물 접수 · 예선 심사 <span class="mock-tab w">해커톤</span></div>
+          <div style="display:grid;grid-template-columns:1.5fr 1fr;gap:8px">
+            <div>
+              <div style="font-size:.5625rem;color:var(--osv);margin-bottom:3px">제출물 리스트 (63 / 65)</div>
+              <div class="mock-row"><span class="tid">T-017</span><span class="tn">시니어케어</span><span style="font-size:.5rem">📄PDF · 📊PPT · 🎬Demo</span></div>
+              <div class="mock-row"><span class="tid">T-024</span><span class="tn">청년창업봇</span><span style="font-size:.5rem">📄PDF · 📊PPT · 🎬Demo</span></div>
+              <div class="mock-row"><span class="tid">T-033</span><span class="tn">의료영상AI</span><span style="font-size:.5rem">📄PDF · 📊PPT · 🎬Demo</span></div>
+              <div class="mock-row"><span class="tid">T-041</span><span class="tn">강원로컬SaaS</span><span style="font-size:.5rem">📄PDF · 📊PPT · 🎬Demo</span></div>
+            </div>
+            <div style="background:var(--sl);border-radius:5px;padding:6px 8px">
+              <div style="font-size:.5625rem;font-weight:800;color:var(--p);margin-bottom:4px">Rubric 블라인드 채점</div>
+              <div class="rb"><span>기술·AI</span><span>22 / 25</span></div>
+              <div class="rb"><span>기획·문제정의</span><span>24 / 25</span></div>
+              <div class="rb"><span>완성도</span><span>21 / 25</span></div>
+              <div class="rb"><span>발표·스토리</span><span>23 / 25</span></div>
+              <div class="rb"><span>총점</span><span>90.0 / 100</span></div>
+            </div>
+          </div>
+          <div style="margin-top:5px;padding:4px 7px;background:var(--wb);border-radius:5px;font-size:.5rem;color:var(--w);font-weight:700">7.6(월) 10:00 심사 시작 · 블라인드 모드 · 5인 심사위원</div>
+        </div>
+      </div>
+
+      <!-- MOCK 4: 본선 라이브 스코어보드 -->
+      <div class="mock">
+        <div class="mock-bar"><span class="d r"></span><span class="d y"></span><span class="d g"></span><span class="mock-url">daker.ai/kangwon/live</span></div>
+        <div class="mock-body">
+          <div class="mock-title">④ 본선 라이브 스코어보드 (7.8) <span class="mock-tab w">해커톤</span></div>
+          <div style="font-size:.5625rem;color:var(--osv);margin-bottom:4px">춘천캠퍼스 본선 · 발표 11팀 · 심사위원 9인 · 실시간 집계</div>
+          <div class="lb-row gold"><span class="rk">🥇</span><span class="nm">T-024 · 청년창업봇</span><span class="sc">92.0</span></div>
+          <div class="lb-row silv"><span class="rk">🥈</span><span class="nm">T-017 · 시니어케어</span><span class="sc">89.5</span></div>
+          <div class="lb-row bron"><span class="rk">🥉</span><span class="nm">T-033 · 의료영상AI</span><span class="sc">87.2</span></div>
+          <div class="lb-row"><span class="rk">4</span><span class="nm">T-041 · 강원로컬SaaS</span><span class="sc">85.8</span></div>
+          <div class="lb-row"><span class="rk">5</span><span class="nm">T-052 · 시니어낙상감지</span><span class="sc">84.0</span></div>
+          <div style="margin-top:5px;display:flex;gap:4px">
+            <span style="flex:1;padding:4px 6px;background:var(--sc);border-radius:5px;font-size:.5rem;color:var(--osc);font-weight:700;text-align:center">📸 사진 자동 태깅</span>
+            <span style="flex:1;padding:4px 6px;background:var(--wb);border-radius:5px;font-size:.5rem;color:var(--w);font-weight:700;text-align:center">📱 SNS 카드 자동 생성</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="c c-s" style="margin-top:10px;padding:9px 14px" data-step="4"><div class="c-d" style="font-size:.6875rem">※ 본 시뮬레이션은 실제 DAKER 표준 기능 기반이며, <strong>계약 즉시 강원대 전용 인스턴스</strong>로 동일 화면이 개설됩니다. 색·로고·텍스트는 사업단 브랜드 가이드에 맞춰 커스터마이징.</div></div>
+  </div>
+  <div class="sf"><span class="sf-logo"><span class="dc">DACON</span></span><span class="sf-pg">15</span><span class="sf-cr">COPYRIGHT 2026</span></div>
+</section>
+
 <!-- S13: SECTION III -->
 <section class="slide slide-sec" id="s13">
   <div class="si">
@@ -695,7 +852,7 @@ h2.st{font-size:1.875rem;font-weight:800;line-height:1.2;color:var(--os);letter-
     <h2 data-step="2">과업 수행 지침</h2>
     <p class="sd" data-step="3">일반사항 · 보안대책 · 의견 수렴 · 산출물 귀속에 대한 이행 약속</p>
   </div>
-  <div class="sf"><span class="sf-logo"><span class="dc">DACON</span></span><span class="sf-pg">15</span><span class="sf-cr">COPYRIGHT 2026</span></div>
+  <div class="sf"><span class="sf-logo"><span class="dc">DACON</span></span><span class="sf-pg">16</span><span class="sf-cr">COPYRIGHT 2026</span></div>
 </section>
 
 <!-- S14: III. 일반사항 + 보안대책 -->
@@ -735,7 +892,7 @@ h2.st{font-size:1.875rem;font-weight:800;line-height:1.2;color:var(--os);letter-
       </div>
     </div>
   </div>
-  <div class="sf"><span class="sf-logo"><span class="dc">DACON</span></span><span class="sf-pg">16</span><span class="sf-cr">COPYRIGHT 2026</span></div>
+  <div class="sf"><span class="sf-logo"><span class="dc">DACON</span></span><span class="sf-pg">17</span><span class="sf-cr">COPYRIGHT 2026</span></div>
 </section>
 
 <!-- S15: SECTION IV -->
@@ -745,7 +902,7 @@ h2.st{font-size:1.875rem;font-weight:800;line-height:1.2;color:var(--os);letter-
     <h2 data-step="2">제안 안내사항 대응</h2>
     <p class="sd" data-step="3">평가항목(붙임1) 100점 기준 매핑 · 제출 서류 · 제안서 작성요령 준수</p>
   </div>
-  <div class="sf"><span class="sf-logo"><span class="dc">DACON</span></span><span class="sf-pg">17</span><span class="sf-cr">COPYRIGHT 2026</span></div>
+  <div class="sf"><span class="sf-logo"><span class="dc">DACON</span></span><span class="sf-pg">18</span><span class="sf-cr">COPYRIGHT 2026</span></div>
 </section>
 
 <!-- S16: IV. 평가항목 대응 -->
@@ -788,7 +945,7 @@ h2.st{font-size:1.875rem;font-weight:800;line-height:1.2;color:var(--os);letter-
     </div>
     <div class="src">※ 배점 기준: 제안요청서 붙임1 평가항목 및 배점기준</div>
   </div>
-  <div class="sf"><span class="sf-logo"><span class="dc">DACON</span></span><span class="sf-pg">18</span><span class="sf-cr">COPYRIGHT 2026</span></div>
+  <div class="sf"><span class="sf-logo"><span class="dc">DACON</span></span><span class="sf-pg">19</span><span class="sf-cr">COPYRIGHT 2026</span></div>
 </section>
 
 <!-- S17: 수행사 역량 & 실적 -->
@@ -828,7 +985,7 @@ h2.st{font-size:1.875rem;font-weight:800;line-height:1.2;color:var(--os);letter-
     </div>
     <div class="src">출처: dacon.io / daker.ai 공식 통계 (2026.03 기준)</div>
   </div>
-  <div class="sf"><span class="sf-logo"><span class="dc">DACON</span></span><span class="sf-pg">19</span><span class="sf-cr">COPYRIGHT 2026</span></div>
+  <div class="sf"><span class="sf-logo"><span class="dc">DACON</span></span><span class="sf-pg">20</span><span class="sf-cr">COPYRIGHT 2026</span></div>
 </section>
 
 <!-- S18: 기대효과 + KPI -->
@@ -873,7 +1030,7 @@ h2.st{font-size:1.875rem;font-weight:800;line-height:1.2;color:var(--os);letter-
       </div>
     </div>
   </div>
-  <div class="sf"><span class="sf-logo"><span class="dc">DACON</span></span><span class="sf-pg">20</span><span class="sf-cr">COPYRIGHT 2026</span></div>
+  <div class="sf"><span class="sf-logo"><span class="dc">DACON</span></span><span class="sf-pg">21</span><span class="sf-cr">COPYRIGHT 2026</span></div>
 </section>
 
 <!-- S19: ENDING -->
@@ -895,7 +1052,7 @@ h2.st{font-size:1.875rem;font-weight:800;line-height:1.2;color:var(--os);letter-
       담당: edgar@dacon.io &middot; 010-6338-1041
     </div>
   </div>
-  <div class="sf"><span class="sf-logo"><span class="dc">DACON</span></span><span class="sf-pg">21</span><span class="sf-cr">COPYRIGHT 2026 DACON</span></div>
+  <div class="sf"><span class="sf-logo"><span class="dc">DACON</span></span><span class="sf-pg">22</span><span class="sf-cr">COPYRIGHT 2026 DACON</span></div>
 </section>
 
 </div></div>
