@@ -5,30 +5,6 @@
       "title": "소개서",
       "cards": [
         {
-          "href": "제안/2026-04-08-강원대_DAKER_그룹팀_소개.html",
-          "title": "DAKER 그룹팀 소개 — 강원대 X+AI·SW 연동",
-          "date": "2026.04.08",
-          "icon": "G",
-          "color": "blue",
-          "badge": "NEW"
-        },
-        {
-          "href": "제안/2026-04-08-강원대_DAKER_트랙학습_소개.html",
-          "title": "DAKER 트랙학습 소개 — 강원대 X+AI·SW 연동",
-          "date": "2026.04.08",
-          "icon": "T",
-          "color": "blue",
-          "badge": "NEW"
-        },
-        {
-          "href": "제안/2026-04-08-강원대_DAKER_해커톤_소개.html",
-          "title": "DAKER 해커톤 소개 — 강원대 X+AI·SW 연동",
-          "date": "2026.04.08",
-          "icon": "H",
-          "color": "warm",
-          "badge": "NEW"
-        },
-        {
           "href": "내부/2026-03-27-데이콘_서비스_소개서_슬라이드.html",
           "title": "데이콘 서비스 소개서",
           "date": "2026.03.27",

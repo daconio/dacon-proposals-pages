@@ -85,6 +85,31 @@ h2.st{font-size:1.875rem;font-weight:800;line-height:1.2;color:var(--os);letter-
 .flow-box .fd{font-size:.625rem;color:var(--osv);margin-top:3px;opacity:.75}
 .flow-box.active{background:var(--sc)}
 .flow-arrow{color:var(--ov);font-size:14px;flex-shrink:0}
+.c-dd{font-size:.75rem;color:var(--osv);line-height:1.6}
+.kpi{display:flex;gap:10px}
+.kpi .k{flex:1;background:var(--sl);border-radius:var(--rm);padding:10px;text-align:center}
+.kpi .v{font-size:1.375rem;font-weight:800;color:var(--p);line-height:1}
+.kpi .l{font-size:.5625rem;color:var(--osv);font-weight:600;margin-top:4px}
+.hl-w{color:var(--w)}
+.cl-p{color:var(--p)}
+.ck-p li .i{color:var(--p)}
+.stage-bar{display:flex;align-items:stretch;gap:0;margin-top:6px;border-radius:var(--rm);overflow:hidden;border:1px solid rgba(148,163,184,.2)}
+.stage-box{flex:1;padding:10px 8px;background:#fff;border-right:1px solid rgba(148,163,184,.2);text-align:center;position:relative}
+.stage-box:last-child{border-right:none}
+.stage-box .num{font-size:.625rem;font-weight:800;color:var(--p);letter-spacing:.06em}
+.stage-box .lb{font-size:.75rem;font-weight:700;color:var(--os);margin-top:2px}
+.stage-box .ds{font-size:.5625rem;color:var(--osv);margin-top:3px;line-height:1.4}
+.stage-box.on{background:var(--sc)}
+.stage-box.on-w{background:var(--wb)}
+.step-row{display:flex;align-items:stretch;gap:0;margin-top:6px;border-radius:var(--rm);overflow:hidden}
+.step{flex:1;padding:10px 8px;background:var(--sl);border-right:2px solid #fff;text-align:center}
+.step:last-child{border-right:none}
+.step.on{background:var(--wb)}
+.step.on-p{background:var(--sc)}
+.step .n{font-size:.625rem;font-weight:800;letter-spacing:.06em;color:var(--w)}
+.step.on-p .n{color:var(--p)}
+.step .l{font-size:.75rem;font-weight:700;color:var(--os);margin-top:2px}
+.step .d{font-size:.5625rem;color:var(--osv);margin-top:3px;line-height:1.4}
 [data-step]{opacity:0;transform:translateY(12px);transition:opacity .4s ease,transform .4s ease}
 [data-step].visible{opacity:1;transform:none}
 [data-step].pre-visible{opacity:1;transform:none;transition:none}
@@ -681,9 +706,260 @@ h2.st{font-size:1.875rem;font-weight:800;line-height:1.2;color:var(--os);letter-
       </div>
     </div>
 
-    <div class="c c-s" style="margin-top:10px;padding:9px 14px" data-step="7"><div class="c-d" style="font-size:.6875rem">※ 3개 기능은 각각 상세 소개 문서(별첨: DAKER 그룹팀·트랙학습·해커톤 소개서)로 제공 — 모두 <strong>DAKER 단일 플랫폼</strong> 내에서 본 과업 전 과정이 끊김 없이 연결됩니다</div></div>
+    <div class="c c-s" style="margin-top:10px;padding:9px 14px" data-step="7"><div class="c-d" style="font-size:.6875rem">※ 다음 3개 슬라이드에서 <strong>그룹팀 · 트랙학습 · 해커톤</strong> 각 기능의 상세 구성과 본 과업 연동 포인트를 순차로 설명합니다 — 모두 <strong>DAKER 단일 플랫폼</strong> 내에서 본 과업 전 과정이 끊김 없이 연결됩니다</div></div>
   </div>
   <div class="sf"><span class="sf-logo"><span class="dc">DACON</span></span><span class="sf-pg">14</span><span class="sf-cr">COPYRIGHT 2026</span></div>
+</section>
+
+<!-- S12b1: DAKER 그룹팀 상세 -->
+<section class="slide" id="s12b1">
+  <div class="sh"><span class="sh-l">II-1-라-①. DAKER 그룹팀 (GROUP) 상세</span><span class="sh-r">TEAM BUILDING</span></div>
+  <div class="si" style="padding-top:58px;padding-bottom:48px">
+    <div class="tag">① 그룹팀 · Team Building &amp; Management</div>
+    <h2 class="st" data-step="1">학과를 섞고, 데이터를 모으는 <span class="hl">팀 운영의 심장</span></h2>
+    <p class="sub" data-step="2">그룹팀은 DAKER 플랫폼의 팀 빌딩·관리 모듈입니다. 65팀 × 250명 규모의 학과 혼합 팀을 AI 매칭으로 빠르게 구성하고, 멘토링 이력·제출물·진도를 <strong>하나의 대시보드</strong>에서 통합 관리하여 <strong>본 과업의 중간점검과 결과보고서 산출까지 자동으로 연결</strong>합니다.</p>
+
+    <div class="g2" style="margin-top:14px;flex:1" data-step="3">
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <div class="c">
+          <div class="cl">핵심 기능</div>
+          <div class="g3" style="margin-top:4px">
+            <div style="padding:10px;background:var(--sl);border-radius:var(--rm)">
+              <div class="ic" style="width:28px;height:28px;font-size:.625rem;margin-bottom:6px">A1</div>
+              <div class="c-t" style="font-size:.75rem">AI 매칭 팀빌딩</div>
+              <div class="c-dd" style="font-size:.625rem">전공·관심·수준 기반 학과 혼합 자동 매칭</div>
+            </div>
+            <div style="padding:10px;background:var(--sl);border-radius:var(--rm)">
+              <div class="ic" style="width:28px;height:28px;font-size:.625rem;margin-bottom:6px">A2</div>
+              <div class="c-t" style="font-size:.75rem">팀 대시보드</div>
+              <div class="c-dd" style="font-size:.625rem">진도·멘토링·제출물·일정 한눈에</div>
+            </div>
+            <div style="padding:10px;background:var(--sl);border-radius:var(--rm)">
+              <div class="ic" style="width:28px;height:28px;font-size:.625rem;margin-bottom:6px">A3</div>
+              <div class="c-t" style="font-size:.75rem">멘토링 로그</div>
+              <div class="c-dd" style="font-size:.625rem">회차·날짜·캡처·녹화 자동 저장</div>
+            </div>
+            <div style="padding:10px;background:var(--sl);border-radius:var(--rm)">
+              <div class="ic" style="width:28px;height:28px;font-size:.625rem;margin-bottom:6px">A4</div>
+              <div class="c-t" style="font-size:.75rem">권한·롤 관리</div>
+              <div class="c-dd" style="font-size:.625rem">팀장·팀원·멘토·운영자 분리</div>
+            </div>
+            <div style="padding:10px;background:var(--sl);border-radius:var(--rm)">
+              <div class="ic" style="width:28px;height:28px;font-size:.625rem;margin-bottom:6px">A5</div>
+              <div class="c-t" style="font-size:.75rem">채팅·공지</div>
+              <div class="c-dd" style="font-size:.625rem">팀 내/운영 채널, 24h CS SLA 연동</div>
+            </div>
+            <div style="padding:10px;background:var(--sl);border-radius:var(--rm)">
+              <div class="ic" style="width:28px;height:28px;font-size:.625rem;margin-bottom:6px">A6</div>
+              <div class="c-t" style="font-size:.75rem">알림·리마인더</div>
+              <div class="c-dd" style="font-size:.625rem">멘토링·중간점검·마감 자동 발송</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="c c-b" style="padding:14px 16px">
+          <div class="cl" style="color:var(--osc)">본과업 유기적 연동 포인트</div>
+          <ul class="ck" style="margin-top:4px">
+            <li><span class="i">&#10003;</span><strong>65팀 × 250명 팀 빌딩</strong> — 모집 직후 학과 혼합 매칭으로 비전공자 고립 방지</li>
+            <li><span class="i">&#10003;</span><strong>월 2회+ 멘토링 이행률 100%</strong> — 일지·증빙을 시스템이 자동 수집·누적</li>
+            <li><span class="i">&#10003;</span><strong>5.18~22 중간점검</strong> — 팀별 진도 카드·멘토 코멘트로 10분 리뷰 즉시 가능</li>
+            <li><span class="i">&#10003;</span><strong>결과보고서 자동 산출</strong> — 참가자 명단·멘토링 이력·사진을 원클릭으로 추출</li>
+          </ul>
+        </div>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <div class="c c-s" style="padding:14px 16px">
+          <div class="cl">팀 대시보드 미리보기</div>
+          <div style="margin-top:6px;padding:12px;background:#fff;border-radius:var(--rm);border:1px dashed rgba(30,58,138,0.25);font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.6875rem;line-height:1.7;color:var(--os)">
+            <div style="font-weight:800;color:var(--p)">[TEAM] 헬스케어 · T-017 "시니어케어"</div>
+            <div>— 팀장: 김OO (의예과 3)  / 팀원 4 · 학과 혼합 3</div>
+            <div>— 멘토: 박OO (의료AI 현직) · 월 2회 확정</div>
+            <div>— 진도: 문제정의 <span style="color:#16a34a">●</span>  기획 <span style="color:#16a34a">●</span>  개발 <span style="color:#eab308">◐</span>  테스트 ○</div>
+            <div>— 제출: 중간보고 <span style="color:#16a34a">제출</span> · 최종 예정 7/1</div>
+            <div>— 알림: 5/20 중간점검 · 6/29 결과물 마감</div>
+          </div>
+        </div>
+        <div class="c" style="padding:14px 16px">
+          <div class="cl">운영 효과 (정량)</div>
+          <div class="kpi" style="margin-top:6px">
+            <div class="k"><div class="v">65</div><div class="l">팀 빌딩 자동화</div></div>
+            <div class="k"><div class="v">100%</div><div class="l">멘토링 증빙률</div></div>
+            <div class="k"><div class="v">24h</div><div class="l">CS 응답 SLA</div></div>
+            <div class="k"><div class="v">1-click</div><div class="l">결과보고 추출</div></div>
+          </div>
+        </div>
+        <div class="c c-d-card" style="padding:14px 16px">
+          <div class="c-t" style="font-size:.8125rem">한 줄 요약</div>
+          <div class="c-dd" style="font-size:.75rem;margin-top:4px">그룹팀 = <strong style="color:#fff">팀빌딩 + 멘토링 관리 + 결과보고 근거 수집</strong>을 동시에 해결하는 본과업 운영의 기반.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span class="sf-logo"><span class="dc">DACON</span></span><span class="sf-pg">15</span><span class="sf-cr">COPYRIGHT 2026</span></div>
+</section>
+
+<!-- S12b2: DAKER 트랙학습 상세 -->
+<section class="slide" id="s12b2">
+  <div class="sh"><span class="sh-l">II-1-라-②. DAKER 트랙 학습 (LEARN) 상세</span><span class="sh-r">STRUCTURED LEARNING</span></div>
+  <div class="si" style="padding-top:58px;padding-bottom:48px">
+    <div class="tag">② 트랙 학습 · Structured Learning Path</div>
+    <h2 class="st" data-step="1">2개 트랙을 끝까지 완주시키는 <span class="hl">단계형 학습 경로</span></h2>
+    <p class="sub" data-step="2">트랙 학습은 강원 특화 2개 트랙(헬스케어/바이오 · 창업/비즈니스 혁신)을 <strong>문제정의 → 기획 → 개발 → 테스트</strong> 단계형 커리큘럼으로 제공합니다. 각 단계에 <strong>전문가 멘토링과 바이브코딩 실습</strong>이 결합되어, <strong>월 2회+ 멘토링이 학습 체크포인트와 자연스럽게 합쳐지고</strong>, 비전공자도 본과업을 끝까지 완주할 수 있도록 설계되었습니다.</p>
+
+    <div class="g2" style="margin-top:12px" data-step="3">
+      <div class="c">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
+          <div style="width:30px;height:30px;border-radius:var(--rm);background:var(--p);color:#fff;display:flex;align-items:center;justify-content:center;font-size:.6875rem;font-weight:800">T1</div>
+          <div>
+            <div class="c-t" style="font-size:.875rem">헬스케어 / 바이오 학습 트랙</div>
+            <div style="font-size:.5625rem;color:var(--p);font-weight:700;letter-spacing:.06em;text-transform:uppercase">HEALTHCARE × BIO</div>
+          </div>
+        </div>
+        <ul class="ck" style="margin-top:4px">
+          <li><span class="i">&bull;</span>의료영상·LLM·웨어러블 데이터 기초 미니 강의 (영상+실습)</li>
+          <li><span class="i">&bull;</span>오픈 의료영상 데이터셋 핸즈온 (NIH, AI Hub)</li>
+          <li><span class="i">&bull;</span>MONAI·MedSAM 기반 프로토타입 템플릿</li>
+          <li><span class="i">&bull;</span>의료 AI 윤리·데이터 바이어스 체크리스트</li>
+        </ul>
+      </div>
+      <div class="c c-w">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
+          <div style="width:30px;height:30px;border-radius:var(--rm);background:var(--w);color:#fff;display:flex;align-items:center;justify-content:center;font-size:.6875rem;font-weight:800">T2</div>
+          <div>
+            <div class="c-t" style="font-size:.875rem;color:var(--w)">창업 / 비즈니스 혁신 학습 트랙</div>
+            <div style="font-size:.5625rem;color:var(--w);font-weight:700;letter-spacing:.06em;text-transform:uppercase">STARTUP × INNOVATION</div>
+          </div>
+        </div>
+        <ul class="ck ck-w" style="margin-top:4px">
+          <li><span class="i">&bull;</span>바이브코딩 기초 (Cursor · Claude Code · Bolt) 핸즈온</li>
+          <li><span class="i">&bull;</span>1주일 MVP 만들기: 노코드 + LLM API 조합 실습</li>
+          <li><span class="i">&bull;</span>시장분석 · 사업계획서 AI 자동 작성 워크숍</li>
+          <li><span class="i">&bull;</span>강원 로컬 비즈니스 디지털 전환 사례 스터디</li>
+        </ul>
+      </div>
+    </div>
+
+    <div style="margin-top:14px" data-step="4">
+      <div class="cl">단계별 학습 체크포인트 (공통)</div>
+      <div class="stage-bar">
+        <div class="stage-box on">
+          <div class="num">STAGE 01</div>
+          <div class="lb">문제 정의</div>
+          <div class="ds">도메인 이해·사용자 인터뷰·데이터 수집 계획</div>
+        </div>
+        <div class="stage-box on">
+          <div class="num">STAGE 02</div>
+          <div class="lb">기획 / 설계</div>
+          <div class="ds">아키텍처·와이어프레임·평가지표 설계</div>
+        </div>
+        <div class="stage-box on">
+          <div class="num">STAGE 03</div>
+          <div class="lb">개발 / 프로토타입</div>
+          <div class="ds">바이브코딩·모델 학습·MVP 구현</div>
+        </div>
+        <div class="stage-box on-w">
+          <div class="num">STAGE 04</div>
+          <div class="lb">테스트 / 발표</div>
+          <div class="ds">성능 검증·시연 영상·발표 자료 완성</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="g2" style="margin-top:14px;flex:1" data-step="5">
+      <div class="c c-b" style="padding:14px 16px">
+        <div class="cl" style="color:var(--osc)">본과업 유기적 연동 포인트</div>
+        <ul class="ck" style="margin-top:4px">
+          <li><span class="i">&#10003;</span><strong>월 2회+ 멘토링 = 체크포인트 리뷰</strong> — 학습 진도와 멘토링이 하나의 타임라인</li>
+          <li><span class="i">&#10003;</span><strong>5/18~22 중간점검</strong> — Stage 02~03 완주 여부로 자동 판정</li>
+          <li><span class="i">&#10003;</span><strong>6.29 결과물</strong> — Stage 04 산출물이 그대로 해커톤 제출물이 됨</li>
+          <li><span class="i">&#10003;</span><strong>비전공자 진입 장벽 완화</strong> — 사전 학습으로 팀 내 역할 균형 확보</li>
+        </ul>
+      </div>
+      <div class="c c-s" style="padding:14px 16px">
+        <div class="cl">핵심 학습 자원</div>
+        <ul class="ck" style="margin-top:4px">
+          <li><span class="i">&bull;</span><strong>전문가 녹화 강의</strong> — 트랙별 기초 + 심화 모듈</li>
+          <li><span class="i">&bull;</span><strong>프로토타입 템플릿</strong> — 즉시 복제 가능한 작동 코드</li>
+          <li><span class="i">&bull;</span><strong>바이브코딩 튜토리얼</strong> — AI 도구 활용 실습</li>
+          <li><span class="i">&bull;</span><strong>평가 Rubric 공개</strong> — 심사 기준을 사전에 내재화</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span class="sf-logo"><span class="dc">DACON</span></span><span class="sf-pg">16</span><span class="sf-cr">COPYRIGHT 2026</span></div>
+</section>
+
+<!-- S12b3: DAKER 해커톤 상세 -->
+<section class="slide" id="s12b3">
+  <div class="sh"><span class="sh-l">II-1-라-③. DAKER 해커톤 (HACK) 상세</span><span class="sh-r">SUBMIT · JUDGE · SHOW</span></div>
+  <div class="si" style="padding-top:58px;padding-bottom:48px">
+    <div class="tag">③ 해커톤 · Submit · Judge · Show</div>
+    <h2 class="st" data-step="1">예선부터 본선 시상까지 <span class="hl-w">하나의 포털에서</span> 완결</h2>
+    <p class="sub" data-step="2">해커톤은 DAKER 플랫폼의 경진대회 운영 엔진입니다. 온라인 접수 포털 · Rubric 블라인드 심사 · 본선 라이브 · 쇼케이스 갤러리를 모두 포함하며, <strong>6.29 결과물 제출 → 7.6 예선 서류평가 → 7.8 춘천캠퍼스 본선 대면 발표·시상</strong>까지의 본과업 평가·시상 전 과정을 빠짐없이 운영합니다.</p>
+
+    <div style="margin-top:12px" data-step="3">
+      <div class="cl">본과업 평가·시상 전 과정</div>
+      <div class="step-row">
+        <div class="step on-p"><div class="n">01</div><div class="l">접수 포털</div><div class="d">6.29~7.1 · 보고서+PPT+프로토타입</div></div>
+        <div class="step on-p"><div class="n">02</div><div class="l">예선 서류평가</div><div class="d">7.6(월) · 5인+ 블라인드</div></div>
+        <div class="step on"><div class="n">03</div><div class="l">본선 진출 발표</div><div class="d">사업단 홈페이지 · 11팀</div></div>
+        <div class="step on"><div class="n">04</div><div class="l">본선 라이브</div><div class="d">7.8(수) · 춘천캠퍼스</div></div>
+        <div class="step on"><div class="n">05</div><div class="l">시상·특강</div><div class="d">대/최우수/우수/장려 11팀</div></div>
+        <div class="step on"><div class="n">06</div><div class="l">쇼케이스</div><div class="d">상시 노출 · 후속 연계</div></div>
+      </div>
+    </div>
+
+    <div class="g2" style="margin-top:14px" data-step="4">
+      <div class="c">
+        <div class="cl cl-p">접수 · 심사 기능</div>
+        <ul class="ck ck-p" style="margin-top:4px">
+          <li><span class="i">&bull;</span><strong>강원대 전용 접수 페이지</strong> — 보고서 PDF · PPT · 프로토타입 링크 업로드</li>
+          <li><span class="i">&bull;</span>팀·개인정보 동의 · 개인정보 자동 마스킹</li>
+          <li><span class="i">&bull;</span><strong>Rubric 기반 블라인드 서류평가</strong> — 심사위원 5인+ 접근 권한 분리</li>
+          <li><span class="i">&bull;</span>심사 결과 자동 집계 · 본선 11팀 컷오프 자동 산출</li>
+          <li><span class="i">&bull;</span>예선 합격자 일괄 알림 (메일·카톡)</li>
+        </ul>
+      </div>
+      <div class="c c-w">
+        <div class="cl">본선 · 라이브 운영 기능</div>
+        <ul class="ck" style="margin-top:4px">
+          <li><span class="i">&bull;</span><strong>본선 큐시트 자동 생성</strong> — 발표순·발표시간·심사위원 배정</li>
+          <li><span class="i">&bull;</span>현장 심사위원용 태블릿 채점 인터페이스</li>
+          <li><span class="i">&bull;</span>라이브 스코어보드 · 실시간 집계</li>
+          <li><span class="i">&bull;</span>사진·영상 자동 태깅 (팀별 · 시상별 자동 분류)</li>
+          <li><span class="i">&bull;</span>수상 발표 즉시 SNS 공유 카드 자동 생성</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="g2" style="margin-top:12px;flex:1" data-step="5">
+      <div class="c c-b" style="padding:14px 16px">
+        <div class="cl cl-p" style="color:var(--osc)">본과업 유기적 연동 포인트</div>
+        <ul class="ck ck-p" style="margin-top:4px">
+          <li><span class="i">&#10003;</span><strong>그룹팀 ↔ 해커톤</strong> — 팀 프로필·진도·멘토링 이력이 제출물과 자동 연결</li>
+          <li><span class="i">&#10003;</span><strong>트랙 학습 ↔ 해커톤</strong> — Stage 04 산출물이 그대로 해커톤 제출물이 됨</li>
+          <li><span class="i">&#10003;</span><strong>예선·본선 Rubric 사전 공개</strong> — 제안요청서의 공정성·일관성 요건 충족</li>
+          <li><span class="i">&#10003;</span><strong>결과보고서 근거 자동 집계</strong> — 심사자료·서명부·본선 사진 원본 일체</li>
+        </ul>
+      </div>
+      <div class="c c-d-card" style="padding:14px 16px">
+        <div class="c-t" style="font-size:.8125rem">시상 계획 (제안요청서 준수, 총 11팀)</div>
+        <table class="tb" style="margin-top:6px">
+          <thead><tr><th style="color:#fff;background:transparent;border-bottom:2px solid var(--w)">구분</th><th style="color:#fff;background:transparent;border-bottom:2px solid var(--w)">훈격</th><th style="color:#fff;background:transparent;border-bottom:2px solid var(--w);text-align:right">팀</th></tr></thead>
+          <tbody style="color:#cbd5e1">
+            <tr><td style="color:#fff;font-weight:800">대 상</td><td style="color:#cbd5e1">SW중심대학사업단장상</td><td style="text-align:right;color:#fff">1</td></tr>
+            <tr><td style="color:#fff;font-weight:800">최우수상</td><td style="color:#cbd5e1">SW중심대학사업단장상</td><td style="text-align:right;color:#fff">2</td></tr>
+            <tr><td style="color:#fff;font-weight:800">우수상</td><td style="color:#cbd5e1">SW중심대학사업단장상</td><td style="text-align:right;color:#fff">3</td></tr>
+            <tr><td style="color:#fff;font-weight:800">장려상</td><td style="color:#cbd5e1">SW중심대학사업단장상</td><td style="text-align:right;color:#fff">5</td></tr>
+            <tr><td style="color:#fff;font-weight:800">합 계</td><td style="color:#cbd5e1">—</td><td style="text-align:right;color:#fff;font-weight:800">11</td></tr>
+          </tbody>
+        </table>
+        <div class="c-dd" style="margin-top:6px;font-size:.625rem">※ 시상금·상품 세부는 발주처와 협의 후 최종 확정</div>
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span class="sf-logo"><span class="dc">DACON</span></span><span class="sf-pg">17</span><span class="sf-cr">COPYRIGHT 2026</span></div>
 </section>
 
 <!-- S12c: DAKER 플랫폼 화면 시뮬레이션 -->
@@ -840,7 +1116,7 @@ h2.st{font-size:1.875rem;font-weight:800;line-height:1.2;color:var(--os);letter-
 
     <div class="c c-s" style="margin-top:10px;padding:9px 14px" data-step="4"><div class="c-d" style="font-size:.6875rem">※ 본 시뮬레이션은 실제 DAKER 표준 기능 기반이며, <strong>계약 즉시 강원대 전용 인스턴스</strong>로 동일 화면이 개설됩니다. 색·로고·텍스트는 사업단 브랜드 가이드에 맞춰 커스터마이징.</div></div>
   </div>
-  <div class="sf"><span class="sf-logo"><span class="dc">DACON</span></span><span class="sf-pg">15</span><span class="sf-cr">COPYRIGHT 2026</span></div>
+  <div class="sf"><span class="sf-logo"><span class="dc">DACON</span></span><span class="sf-pg">18</span><span class="sf-cr">COPYRIGHT 2026</span></div>
 </section>
 
 <!-- S13: SECTION III -->
@@ -850,7 +1126,7 @@ h2.st{font-size:1.875rem;font-weight:800;line-height:1.2;color:var(--os);letter-
     <h2 data-step="2">과업 수행 지침</h2>
     <p class="sd" data-step="3">일반사항 · 보안대책 · 의견 수렴 · 산출물 귀속에 대한 이행 약속</p>
   </div>
-  <div class="sf"><span class="sf-logo"><span class="dc">DACON</span></span><span class="sf-pg">16</span><span class="sf-cr">COPYRIGHT 2026</span></div>
+  <div class="sf"><span class="sf-logo"><span class="dc">DACON</span></span><span class="sf-pg">19</span><span class="sf-cr">COPYRIGHT 2026</span></div>
 </section>
 
 <!-- S14: III. 일반사항 + 보안대책 -->
@@ -890,7 +1166,7 @@ h2.st{font-size:1.875rem;font-weight:800;line-height:1.2;color:var(--os);letter-
       </div>
     </div>
   </div>
-  <div class="sf"><span class="sf-logo"><span class="dc">DACON</span></span><span class="sf-pg">17</span><span class="sf-cr">COPYRIGHT 2026</span></div>
+  <div class="sf"><span class="sf-logo"><span class="dc">DACON</span></span><span class="sf-pg">20</span><span class="sf-cr">COPYRIGHT 2026</span></div>
 </section>
 
 <!-- S15: SECTION IV -->
@@ -900,7 +1176,7 @@ h2.st{font-size:1.875rem;font-weight:800;line-height:1.2;color:var(--os);letter-
     <h2 data-step="2">제안 안내사항 대응</h2>
     <p class="sd" data-step="3">평가항목(붙임1) 100점 기준 매핑 · 제출 서류 · 제안서 작성요령 준수</p>
   </div>
-  <div class="sf"><span class="sf-logo"><span class="dc">DACON</span></span><span class="sf-pg">18</span><span class="sf-cr">COPYRIGHT 2026</span></div>
+  <div class="sf"><span class="sf-logo"><span class="dc">DACON</span></span><span class="sf-pg">21</span><span class="sf-cr">COPYRIGHT 2026</span></div>
 </section>
 
 <!-- S16: IV. 평가항목 대응 -->
@@ -943,7 +1219,7 @@ h2.st{font-size:1.875rem;font-weight:800;line-height:1.2;color:var(--os);letter-
     </div>
     <div class="src">※ 배점 기준: 제안요청서 붙임1 평가항목 및 배점기준</div>
   </div>
-  <div class="sf"><span class="sf-logo"><span class="dc">DACON</span></span><span class="sf-pg">19</span><span class="sf-cr">COPYRIGHT 2026</span></div>
+  <div class="sf"><span class="sf-logo"><span class="dc">DACON</span></span><span class="sf-pg">22</span><span class="sf-cr">COPYRIGHT 2026</span></div>
 </section>
 
 <!-- S17: 수행사 역량 & 실적 -->
@@ -983,7 +1259,7 @@ h2.st{font-size:1.875rem;font-weight:800;line-height:1.2;color:var(--os);letter-
     </div>
     <div class="src">출처: dacon.io / daker.ai 공식 통계 (2026.03 기준)</div>
   </div>
-  <div class="sf"><span class="sf-logo"><span class="dc">DACON</span></span><span class="sf-pg">20</span><span class="sf-cr">COPYRIGHT 2026</span></div>
+  <div class="sf"><span class="sf-logo"><span class="dc">DACON</span></span><span class="sf-pg">23</span><span class="sf-cr">COPYRIGHT 2026</span></div>
 </section>
 
 <!-- S18: 기대효과 + KPI -->
@@ -1028,7 +1304,7 @@ h2.st{font-size:1.875rem;font-weight:800;line-height:1.2;color:var(--os);letter-
       </div>
     </div>
   </div>
-  <div class="sf"><span class="sf-logo"><span class="dc">DACON</span></span><span class="sf-pg">21</span><span class="sf-cr">COPYRIGHT 2026</span></div>
+  <div class="sf"><span class="sf-logo"><span class="dc">DACON</span></span><span class="sf-pg">24</span><span class="sf-cr">COPYRIGHT 2026</span></div>
 </section>
 
 <!-- S19: ENDING -->
@@ -1050,7 +1326,7 @@ h2.st{font-size:1.875rem;font-weight:800;line-height:1.2;color:var(--os);letter-
       담당: edgar@dacon.io &middot; 010-6338-1041
     </div>
   </div>
-  <div class="sf"><span class="sf-logo"><span class="dc">DACON</span></span><span class="sf-pg">22</span><span class="sf-cr">COPYRIGHT 2026 DACON</span></div>
+  <div class="sf"><span class="sf-logo"><span class="dc">DACON</span></span><span class="sf-pg">25</span><span class="sf-cr">COPYRIGHT 2026 DACON</span></div>
 </section>
 
 </div></div>
