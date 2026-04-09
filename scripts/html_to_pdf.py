@@ -13,13 +13,19 @@ img2pdf로 PDF 페이지로 조립합니다. Chrome의 print-to-pdf가 강제하
 사용법:
   python3 scripts/html_to_pdf.py <input.html> [output.pdf]
   python3 scripts/html_to_pdf.py 제안/2026-04-08-강원대학교_X+AI_SW융합프로젝트_제안서.html
-  python3 scripts/html_to_pdf.py "제안/*.html"   # 글롭 지원
+  python3 scripts/html_to_pdf.py "제안/*.html"          # 글롭 지원
   python3 scripts/html_to_pdf.py --width 960 --height 1358 portrait.html
+  python3 scripts/html_to_pdf.py --scale 3 input.html   # 고해상도 (3×)
+  python3 scripts/html_to_pdf.py --lossless input.html  # PNG 무손실 (큰 파일)
+  python3 scripts/html_to_pdf.py --hq input.html        # 3× + lossless 통합 (최상)
   python3 scripts/html_to_pdf.py --quiet input.html
 
 옵션:
   --width N      슬라이드 가로 px (기본 1280)
   --height N     슬라이드 세로 px (기본 720)
+  --scale N      캡처 device_scale_factor (기본 2). 2=Retina, 3=고해상도, 4=초고해상도
+  --lossless     이미지를 JPEG 압축 없이 PNG 무손실로 PDF에 임베드 (텍스트 가장자리 선명)
+  --hq           --scale 3 + --lossless 일괄 적용 (가성비 추천)
   --quiet        진행 메시지 숨김
   --output PATH  출력 경로 명시 (생략 시 입력과 같은 폴더, .pdf 확장자)
   --no-verify    PyPDF2 검증 스킵
@@ -68,6 +74,7 @@ def convert(
     quiet: bool = False,
     verify: bool = True,
     scale: int = 2,
+    lossless: bool = False,
 ) -> int:
     """Convert a slide-deck HTML to PDF via screenshot+Pillow assembly.
 
@@ -106,7 +113,7 @@ def convert(
     log = (lambda *a, **k: None) if quiet else print
 
     log(f"→ Converting: {src.relative_to(ROOT) if src.is_relative_to(ROOT) else src}")
-    log(f"  size: {width}×{height}px (capture scale ×{scale})")
+    log(f"  size: {width}×{height}px (capture scale ×{scale}, {'lossless PNG' if lossless else 'JPEG'})")
 
     tmpdir = Path(tempfile.mkdtemp(prefix="html2pdf_"))
     png_paths: list[Path] = []
@@ -195,21 +202,52 @@ def convert(
             images.append(img)
         # Save as multi-page PDF.
         # Each captured PNG is (width × scale) × (height × scale) pixels.
-        # We want PDF page dimensions in points (1 pt = 1/72 inch) to match
-        # the source 16:9 slide aspect: e.g. 1280×720 px → 960×540 pt
-        # (= 13.333×7.5 inches). Pillow computes PDF page size from image
-        # pixels and the `resolution` (dpi) parameter:
-        #     pt_size = pixels × 72 / dpi
-        # Solving for dpi to land at the canonical 96-dpi-equivalent CSS px:
-        #     dpi = 96 × scale
+        # PDF page dimensions in points (1 pt = 1/72 inch) match the source
+        # 16:9 slide aspect: 1280×720 px → 960×540 pt (= 13.333×7.5 in).
         target_dpi = 96 * scale
-        images[0].save(
-            str(out),
-            save_all=True,
-            append_images=images[1:],
-            format="PDF",
-            resolution=float(target_dpi),
-        )
+
+        if lossless:
+            # True lossless: use img2pdf which embeds PNG with /FlateDecode
+            # filter (zlib compression), preserving every pixel exactly.
+            # Pillow's PDF backend would re-encode to JPEG even from PNG
+            # source, so we cannot use Pillow for lossless mode.
+            try:
+                import img2pdf
+            except ImportError:
+                sys.stderr.write(
+                    "❌ --lossless requires img2pdf. Install: pip install img2pdf\n"
+                    "   Falling back to high-quality JPEG via Pillow.\n"
+                )
+                images[0].save(
+                    str(out),
+                    save_all=True,
+                    append_images=images[1:],
+                    format="PDF",
+                    resolution=float(target_dpi),
+                    quality=95,
+                )
+            else:
+                # Convert PIL images → PNG bytes → img2pdf
+                import io
+                page_size_pt = (width * 72 / 96, height * 72 / 96)  # CSS px → pt
+                layout = img2pdf.get_layout_fun(page_size_pt)
+                png_bytes_list = []
+                for img in images:
+                    buf = io.BytesIO()
+                    img.save(buf, format="PNG", optimize=True, compress_level=9)
+                    png_bytes_list.append(buf.getvalue())
+                pdf_bytes = img2pdf.convert(png_bytes_list, layout_fun=layout)
+                out.write_bytes(pdf_bytes)
+        else:
+            # JPEG embedding via Pillow (smaller file, default quality 95)
+            images[0].save(
+                str(out),
+                save_all=True,
+                append_images=images[1:],
+                format="PDF",
+                resolution=float(target_dpi),
+                quality=95,
+            )
     finally:
         shutil.rmtree(tmpdir, ignore_errors=True)
 
@@ -240,9 +278,16 @@ def main() -> int:
     parser.add_argument("--output", "-o", help="출력 PDF 경로 (단일 입력 시에만)")
     parser.add_argument("--width", type=int, default=1280, help="슬라이드 가로 px (기본 1280)")
     parser.add_argument("--height", type=int, default=720, help="슬라이드 세로 px (기본 720)")
+    parser.add_argument("--scale", type=int, default=2, help="device_scale_factor (기본 2)")
+    parser.add_argument("--lossless", action="store_true", help="PNG 무손실 임베드 (큰 파일·선명한 텍스트)")
+    parser.add_argument("--hq", action="store_true", help="--scale 3 + --lossless 통합 (가성비 추천)")
     parser.add_argument("--quiet", "-q", action="store_true", help="진행 메시지 숨김")
     parser.add_argument("--no-verify", action="store_true", help="PyPDF2 검증 스킵")
     args = parser.parse_args()
+
+    if args.hq:
+        args.scale = max(args.scale, 3)
+        args.lossless = True
 
     # Expand globs
     files: list[Path] = []
@@ -273,6 +318,8 @@ def main() -> int:
                 out=out,
                 width=args.width,
                 height=args.height,
+                scale=args.scale,
+                lossless=args.lossless,
                 quiet=args.quiet,
                 verify=not args.no_verify,
             )

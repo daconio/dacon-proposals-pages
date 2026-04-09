@@ -104,13 +104,25 @@ python3 scripts/html_to_pdf.py --quiet input.html
 |---|---|---|
 | `--width N` | 1280 | 슬라이드 가로 px (HTML 슬라이드 원본 폭과 일치) |
 | `--height N` | 720 | 슬라이드 세로 px |
+| `--scale N` | 2 | device_scale_factor. 2=Retina, 3=고해상도, 4=초고해상도 |
+| `--lossless` |  | PNG 무손실 임베드 (`/FlateDecode`). JPEG 압축 아티팩트 제거, `img2pdf` 필요 |
+| `--hq` |  | `--scale 3` + `--lossless` 통합 (가성비 추천 — 텍스트 거의 벡터 수준) |
 | `--output PATH` (`-o`) | 입력 파일과 동일 폴더, `.pdf` 확장자 | 출력 경로 |
 | `--quiet` (`-q`) |  | 진행 메시지 숨김 |
 | `--no-verify` |  | PyPDF2 사후 검증 스킵 |
 
+### 품질 / 파일 크기 트레이드오프 (강원대 22슬라이드 기준)
+
+| 설정 | 해상도 | 파일 크기 | 변환 시간 | 임베드 포맷 | 추천 용도 |
+|---|---|---|---|---|---|
+| 기본 (`--scale 2`) | 2560×1440 | 3.2 MB | 13s | JPEG q95 | 빠른 검토, 이메일 첨부 |
+| `--scale 3` | 3840×2160 | 6.2 MB | 16s | JPEG q95 | 일반 인쇄, 발표용 |
+| `--hq` (3× + 무손실) | 3840×2160 | **9.9 MB** | 28s | PNG `/FlateDecode` | **최종 납품·고품질 인쇄** (텍스트 가장자리 픽셀 단위 선명) |
+
 ### 의존성
 - `playwright` (`pip install playwright`) — 시스템 Chrome 사용하므로 `playwright install` 불필요
-- `Pillow` (`pip install Pillow`) — PNG → PDF 조립
+- `Pillow` (`pip install Pillow`) — JPEG 모드 PDF 조립
+- `img2pdf` (`pip install img2pdf`) — `--lossless` / `--hq` 모드 PNG 무손실 임베드
 - `PyPDF2` (`pip install PyPDF2`) — 검증용 (선택)
 - Google Chrome.app (macOS 기본 경로 자동 탐지)
 
