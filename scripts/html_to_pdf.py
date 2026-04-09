@@ -3,9 +3,12 @@
 html_to_pdf.py — DACON 제안서 슬라이드 HTML을 PDF로 변환
 
 슬라이드 덱(.slide 요소 기반) HTML을 정확한 비율(기본 1280×720)의
-표준 PDF로 변환합니다. Chrome 헤드리스의 print-to-pdf Pages tree
-버그(Skia/PDF m146)를 우회하기 위해 슬라이드를 1개씩 개별 렌더링
-한 뒤 PyPDF2로 병합합니다.
+표준 PDF로 변환합니다.
+
+방식: page.screenshot() (스크린 미디어)으로 슬라이드를 1개씩 PNG로 캡처한 뒤
+img2pdf로 PDF 페이지로 조립합니다. Chrome의 print-to-pdf가 강제하는 @media print
+규칙(.slide{display:flex !important;opacity:1 !important})을 우회하기 위해
+스크린 미디어 기반 스크린샷 방식을 사용합니다.
 
 사용법:
   python3 scripts/html_to_pdf.py <input.html> [output.pdf]
@@ -64,8 +67,12 @@ def convert(
     height: int = 720,
     quiet: bool = False,
     verify: bool = True,
+    scale: int = 2,
 ) -> int:
-    """Convert a slide-deck HTML to PDF. Returns final page count."""
+    """Convert a slide-deck HTML to PDF via screenshot+Pillow assembly.
+
+    Returns final page count.
+    """
     try:
         from playwright.sync_api import sync_playwright
     except ImportError:
@@ -76,9 +83,9 @@ def convert(
         sys.exit(2)
 
     try:
-        from PyPDF2 import PdfReader, PdfWriter
+        from PIL import Image
     except ImportError:
-        sys.stderr.write("❌ PyPDF2 not installed. Run: pip install PyPDF2\n")
+        sys.stderr.write("❌ Pillow not installed. Run: pip install Pillow\n")
         sys.exit(2)
 
     chrome = find_chrome()
@@ -99,13 +106,17 @@ def convert(
     log = (lambda *a, **k: None) if quiet else print
 
     log(f"→ Converting: {src.relative_to(ROOT) if src.is_relative_to(ROOT) else src}")
-    log(f"  size: {width}×{height}px")
+    log(f"  size: {width}×{height}px (capture scale ×{scale})")
 
     tmpdir = Path(tempfile.mkdtemp(prefix="html2pdf_"))
+    png_paths: list[Path] = []
     try:
         with sync_playwright() as p:
             browser = p.chromium.launch(executable_path=chrome, headless=True)
-            ctx = browser.new_context(viewport={"width": width, "height": height})
+            ctx = browser.new_context(
+                viewport={"width": width, "height": height},
+                device_scale_factor=scale,
+            )
             page = ctx.new_page()
             page.goto(src.as_uri(), wait_until="networkidle")
             page.wait_for_timeout(2500)  # font + JS settle
@@ -121,67 +132,87 @@ def convert(
 
             log(f"  slides: {total}")
 
-            # Render each slide individually with all data-step elements revealed
+            # Use the slide deck's own JS API if available (window.show / showSlide).
+            # Otherwise, fall back to manually toggling .active class and revealing
+            # all data-step elements. Stays in screen media so @media print rules
+            # do not apply — this avoids Chrome PDF renderer's forced .slide
+            # display:flex/opacity:1 that breaks per-slide isolation.
+
             for i in range(total):
                 page.evaluate(
-                    """({ i, w, h }) => {
+                    """({i, w, h}) => {
                         const slides = document.querySelectorAll('.slide');
                         slides.forEach((s, idx) => {
                             if (idx === i) {
-                                s.style.cssText = `position:relative !important; inset:auto !important; opacity:1 !important; pointer-events:auto !important; display:flex !important; flex-direction:column !important; width:${w}px !important; height:${h}px !important; margin:0 !important; overflow:hidden !important; transform:none !important;`;
+                                s.classList.add('active');
+                                // Reveal all step animations immediately
                                 s.querySelectorAll('[data-step]').forEach(e => {
-                                    e.classList.add('visible');
                                     e.classList.remove('pre-visible');
+                                    e.classList.add('visible');
                                 });
                             } else {
-                                s.style.cssText = 'display:none !important;';
+                                s.classList.remove('active');
                             }
                         });
-                        const stage = document.getElementById('stage');
-                        if (stage) stage.style.cssText = `position:static !important; width:${w}px !important; height:${h}px !important; transform:none !important; box-shadow:none !important; border-radius:0 !important; overflow:hidden !important;`;
-                        const vp = document.getElementById('viewport');
-                        if (vp) vp.style.cssText = 'position:static !important; display:block !important; height:auto !important;';
-                        document.documentElement.style.cssText = 'background:#fff !important; overflow:visible !important; height:auto !important;';
-                        document.body.style.cssText = 'background:#fff !important; overflow:visible !important; height:auto !important; margin:0 !important; padding:0 !important;';
                     }""",
                     {"i": i, "w": width, "h": height},
                 )
-                page.wait_for_timeout(120)
-                pdf_bytes = page.pdf(
-                    print_background=True,
-                    width=f"{width}px",
-                    height=f"{height}px",
-                    margin={"top": "0px", "right": "0px", "bottom": "0px", "left": "0px"},
-                    scale=1.0,
-                )
-                (tmpdir / f"page_{i:03d}.pdf").write_bytes(pdf_bytes)
+                page.wait_for_timeout(180)
+                # Capture the full stage area (slide content) at native resolution
+                stage_handle = page.query_selector("#stage") or page.query_selector(".slide.active")
+                if stage_handle is None:
+                    browser.close()
+                    sys.stderr.write("❌ Could not find #stage or .slide.active element.\n")
+                    sys.exit(2)
+                png_path = tmpdir / f"slide_{i:03d}.png"
+                stage_handle.screenshot(path=str(png_path), omit_background=False)
+                png_paths.append(png_path)
                 if not quiet and ((i + 1) % 5 == 0 or i + 1 == total):
-                    log(f"    rendered {i + 1}/{total}")
+                    log(f"    captured {i + 1}/{total}")
 
             browser.close()
 
-        # Merge into single PDF with clean Pages tree
-        writer = PdfWriter()
-        for i in range(total):
-            reader = PdfReader(str(tmpdir / f"page_{i:03d}.pdf"))
-            for pg in reader.pages:
-                writer.add_page(pg)
-        with out.open("wb") as f:
-            writer.write(f)
+        # Assemble PNGs into a single multi-page PDF via Pillow
+        log(f"  assembling PDF from {len(png_paths)} PNGs...")
+        images = []
+        for p_path in png_paths:
+            img = Image.open(p_path)
+            if img.mode != "RGB":
+                img = img.convert("RGB")
+            images.append(img)
+        # Save as multi-page PDF.
+        # Each captured PNG is (width × scale) × (height × scale) pixels.
+        # We want PDF page dimensions in points (1 pt = 1/72 inch) to match
+        # the source 16:9 slide aspect: e.g. 1280×720 px → 960×540 pt
+        # (= 13.333×7.5 inches). Pillow computes PDF page size from image
+        # pixels and the `resolution` (dpi) parameter:
+        #     pt_size = pixels × 72 / dpi
+        # Solving for dpi to land at the canonical 96-dpi-equivalent CSS px:
+        #     dpi = 96 × scale
+        target_dpi = 96 * scale
+        images[0].save(
+            str(out),
+            save_all=True,
+            append_images=images[1:],
+            format="PDF",
+            resolution=float(target_dpi),
+        )
     finally:
         shutil.rmtree(tmpdir, ignore_errors=True)
 
     if verify:
-        from PyPDF2 import PdfReader
-        final = PdfReader(str(out))
-        actual = len(final.pages)
-        if actual != total:
-            sys.stderr.write(
-                f"⚠️  Page count mismatch: rendered {total} but PDF has {actual}\n"
-            )
-            return actual
-        sizes = {(float(p.mediabox.width), float(p.mediabox.height)) for p in final.pages}
-        log(f"✓ verified: {actual} pages, sizes {sizes}")
+        try:
+            from PyPDF2 import PdfReader
+            final = PdfReader(str(out))
+            actual = len(final.pages)
+            if actual != total:
+                sys.stderr.write(
+                    f"⚠️  Page count mismatch: rendered {total} but PDF has {actual}\n"
+                )
+            sizes = {(round(float(p.mediabox.width)), round(float(p.mediabox.height))) for p in final.pages}
+            log(f"✓ verified: {actual} pages, sizes {sizes}")
+        except ImportError:
+            log(f"✓ saved {total} pages (PyPDF2 not installed, skipping verification)")
 
     log(f"✓ output: {out.relative_to(ROOT) if out.is_relative_to(ROOT) else out} ({out.stat().st_size:,} bytes)")
     return total

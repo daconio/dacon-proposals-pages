@@ -75,8 +75,12 @@ git commit --no-verify -m "..."        # 모든 pre-commit 훅 스킵
 ## HTML → PDF 변환 (`html_to_pdf.py`)
 
 슬라이드 덱(`.slide` 요소 기반) HTML을 정확한 비율의 PDF로 변환합니다.
-Chrome 헤드리스의 print-to-pdf Pages tree 버그(Skia/PDF m146)를 우회하기 위해
-**슬라이드를 1개씩 개별 렌더링한 뒤 PyPDF2로 병합**합니다.
+
+**방식**: Playwright + Chrome 헤드리스로 슬라이드를 1개씩 **screen 미디어 스크린샷**(2× 해상도)으로 캡처한 뒤, Pillow로 다중 페이지 PDF를 조립합니다. 이 방식이 필요한 이유:
+- 슬라이드 덱 HTML은 보통 `@media print { .slide { display:flex !important; opacity:1 !important } }` 같은 인쇄 모드 강제 표시 규칙을 가짐
+- Chrome의 `print-to-pdf`는 print 미디어를 강제 활성화 → 모든 슬라이드가 동시에 보이게 되어 inline display:none 우회 불가
+- 결과: PDF의 첫 720px 영역(슬라이드 0)만 캡처되고 나머지는 헤더만 렌더되는 현상 발생
+- **해결**: `page.pdf()`를 포기하고 `page.screenshot()` (스크린 미디어 사용)으로 슬라이드를 1장씩 PNG로 캡처
 
 ```bash
 # 단일 파일 변환 (출력은 같은 폴더 .pdf)
@@ -106,12 +110,15 @@ python3 scripts/html_to_pdf.py --quiet input.html
 
 ### 의존성
 - `playwright` (`pip install playwright`) — 시스템 Chrome 사용하므로 `playwright install` 불필요
-- `PyPDF2` (`pip install PyPDF2`)
+- `Pillow` (`pip install Pillow`) — PNG → PDF 조립
+- `PyPDF2` (`pip install PyPDF2`) — 검증용 (선택)
 - Google Chrome.app (macOS 기본 경로 자동 탐지)
 
 ### 검증된 출력 특성
-모든 PDF 뷰어에서 일관된 페이지 수 인식 (`file`, PyPDF2, macOS Spotlight 모두 동일).
-페이지 크기는 슬라이드 원본 비율을 그대로 보존 (1280×720 → 960×540 pt).
+- 모든 PDF 뷰어에서 일관된 페이지 수 인식 (`file`, PyPDF2, macOS Spotlight 모두 동일)
+- 페이지 크기는 슬라이드 원본 비율을 그대로 보존 (1280×720 → 960×540 pt)
+- 2× 해상도(2560×1440 PNG)로 캡처되어 인쇄 시에도 선명
+- 각 슬라이드의 `[data-step]` 애니메이션이 모두 펼친 상태로 캡처됨
 
 ## 구조
 
