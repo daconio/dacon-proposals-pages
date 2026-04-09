@@ -72,12 +72,54 @@ SKIP_CARD_SYNC=1 git commit -m "..."   # 이번 커밋만 카드 sync 스킵
 git commit --no-verify -m "..."        # 모든 pre-commit 훅 스킵
 ```
 
+## HTML → PDF 변환 (`html_to_pdf.py`)
+
+슬라이드 덱(`.slide` 요소 기반) HTML을 정확한 비율의 PDF로 변환합니다.
+Chrome 헤드리스의 print-to-pdf Pages tree 버그(Skia/PDF m146)를 우회하기 위해
+**슬라이드를 1개씩 개별 렌더링한 뒤 PyPDF2로 병합**합니다.
+
+```bash
+# 단일 파일 변환 (출력은 같은 폴더 .pdf)
+python3 scripts/html_to_pdf.py "제안/2026-04-08-강원대학교_X+AI_SW융합프로젝트_제안서.html"
+
+# 여러 파일 / 글롭
+python3 scripts/html_to_pdf.py "제안/2026-04-08-강원대_DAKER_*.html"
+
+# 출력 경로 명시
+python3 scripts/html_to_pdf.py input.html -o /tmp/out.pdf
+
+# 세로형 슬라이드 (A4 portrait 비율)
+python3 scripts/html_to_pdf.py --width 960 --height 1358 portrait.html
+
+# 진행 메시지 숨김
+python3 scripts/html_to_pdf.py --quiet input.html
+```
+
+### 옵션
+| 옵션 | 기본값 | 설명 |
+|---|---|---|
+| `--width N` | 1280 | 슬라이드 가로 px (HTML 슬라이드 원본 폭과 일치) |
+| `--height N` | 720 | 슬라이드 세로 px |
+| `--output PATH` (`-o`) | 입력 파일과 동일 폴더, `.pdf` 확장자 | 출력 경로 |
+| `--quiet` (`-q`) |  | 진행 메시지 숨김 |
+| `--no-verify` |  | PyPDF2 사후 검증 스킵 |
+
+### 의존성
+- `playwright` (`pip install playwright`) — 시스템 Chrome 사용하므로 `playwright install` 불필요
+- `PyPDF2` (`pip install PyPDF2`)
+- Google Chrome.app (macOS 기본 경로 자동 탐지)
+
+### 검증된 출력 특성
+모든 PDF 뷰어에서 일관된 페이지 수 인식 (`file`, PyPDF2, macOS Spotlight 모두 동일).
+페이지 크기는 슬라이드 원본 비율을 그대로 보존 (1280×720 → 960×540 pt).
+
 ## 구조
 
 ```
 scripts/
-├── cards.json       # 단일 소스: 섹션·카드·scan 설정
-├── sync_cards.py    # 생성기 + 스캐너 (stdlib only)
+├── cards.json       # 카드 단일 소스
+├── sync_cards.py    # index.html 생성기 + 스캐너 (stdlib only)
+├── html_to_pdf.py   # HTML 슬라이드 → PDF 변환기 (playwright + PyPDF2)
 └── README.md        # 이 파일
 
 .githooks/
