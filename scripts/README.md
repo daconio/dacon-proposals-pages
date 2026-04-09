@@ -120,14 +120,36 @@ python3 scripts/html_to_pdf.py --quiet input.html
 - 2× 해상도(2560×1440 PNG)로 캡처되어 인쇄 시에도 선명
 - 각 슬라이드의 `[data-step]` 애니메이션이 모두 펼친 상태로 캡처됨
 
+## MD ↔ HTML 동기화 검증 (`check_md_html_sync.py`)
+
+같은 제안서의 `.md`와 `.html`(슬라이드 덱) 두 파일이 항상 동일한 섹션 구조와 핵심 사실을 유지하는지 검증합니다. pre-commit 훅에서 자동 호출되어 드리프트를 조기에 잡아냅니다.
+
+```bash
+# 사전 정의된 모든 페어 검사
+python3 scripts/check_md_html_sync.py --all
+
+# 특정 페어 (예: 강원대)
+python3 scripts/check_md_html_sync.py --pair 강원대
+
+# 임의 페어 직접 지정
+python3 scripts/check_md_html_sync.py path/to/file.md path/to/file.html
+```
+
+검증 항목:
+- HTML 슬라이드 라벨(`.sh-l`)의 섹션 번호(II-1-라, III, VI 등)와 MD 헤더 정렬
+- 핵심 키워드(250명, 65팀, 7.8 본선, 데이콘(주) 등) 양쪽 존재 여부
+
+새 페어 추가는 `scripts/check_md_html_sync.py`의 `PAIRS` 딕셔너리와 `KEY_FACTS`에 항목 추가.
+
 ## 구조
 
 ```
 scripts/
-├── cards.json       # 카드 단일 소스
-├── sync_cards.py    # index.html 생성기 + 스캐너 (stdlib only)
-├── html_to_pdf.py   # HTML 슬라이드 → PDF 변환기 (playwright + PyPDF2)
-└── README.md        # 이 파일
+├── cards.json             # 카드 단일 소스
+├── sync_cards.py          # index.html 생성기 + 스캐너 (stdlib only)
+├── html_to_pdf.py         # HTML 슬라이드 → PDF 변환기 (playwright + Pillow)
+├── check_md_html_sync.py  # MD ↔ HTML 동기화 검증
+└── README.md              # 이 파일
 
 .githooks/
 └── pre-commit       # 커밋 시 auto-sync + 미등록 경고

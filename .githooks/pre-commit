@@ -51,4 +51,16 @@ if ! git diff --quiet -- index.html 2>/dev/null; then
   git add index.html
 fi
 
+# 4. MD ↔ HTML sync check (강원대 제안서 등 페어)
+SYNC_CHECK="$REPO_ROOT/scripts/check_md_html_sync.py"
+if [[ -f "$SYNC_CHECK" ]]; then
+  python3 "$SYNC_CHECK" --all --quiet || {
+    echo ""
+    echo "[pre-commit] ⚠️  MD↔HTML 동기화 이슈가 감지되었습니다 (위 메시지 참조)."
+    echo "[pre-commit]    커밋은 진행되지만, 가능한 빨리 양쪽 파일을 정렬해주세요."
+    echo "[pre-commit]    수동 검증: python3 scripts/check_md_html_sync.py --all"
+    echo ""
+  }
+fi
+
 exit 0
