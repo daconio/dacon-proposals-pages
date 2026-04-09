@@ -1,0 +1,276 @@
+{
+  "_comment": "index.html 카드 그리드의 단일 소스. 새 제안서/소개서 추가 시 해당 섹션에 항목을 추가하고 `python3 scripts/sync_cards.py`를 실행하면 index.html이 자동 갱신됩니다. 섹션 순서 = 렌더 순서. 각 섹션 내 카드 순서 = 렌더 순서(일반적으로 최신 순).",
+  "sections": [
+    {
+      "title": "소개서",
+      "cards": [
+        {
+          "href": "제안/2026-04-08-강원대_DAKER_그룹팀_소개.html",
+          "title": "DAKER 그룹팀 소개 — 강원대 X+AI·SW 연동",
+          "date": "2026.04.08",
+          "icon": "G",
+          "color": "blue",
+          "badge": "NEW"
+        },
+        {
+          "href": "제안/2026-04-08-강원대_DAKER_트랙학습_소개.html",
+          "title": "DAKER 트랙학습 소개 — 강원대 X+AI·SW 연동",
+          "date": "2026.04.08",
+          "icon": "T",
+          "color": "blue",
+          "badge": "NEW"
+        },
+        {
+          "href": "제안/2026-04-08-강원대_DAKER_해커톤_소개.html",
+          "title": "DAKER 해커톤 소개 — 강원대 X+AI·SW 연동",
+          "date": "2026.04.08",
+          "icon": "H",
+          "color": "warm",
+          "badge": "NEW"
+        },
+        {
+          "href": "내부/2026-03-27-데이콘_서비스_소개서_슬라이드.html",
+          "title": "데이콘 서비스 소개서",
+          "date": "2026.03.27",
+          "icon": "D",
+          "color": "blue",
+          "badge": "소개서"
+        }
+      ]
+    },
+    {
+      "title": "제안서",
+      "cards": [
+        {
+          "href": "제안/2026-04-08-강원대학교_X%2BAI_SW융합프로젝트_제안서.html",
+          "title": "강원대학교 X+AI·SW 융합 프로젝트 운영 대행 제안서",
+          "date": "2026.04.08",
+          "icon": "강",
+          "color": "blue",
+          "badge": "NEW"
+        },
+        {
+          "href": "제안/2026-03-30-미래에셋증권_DAKER교육연동_요약서_슬라이드.html",
+          "title": "미래에셋증권 DAKER 교육연동 요약서",
+          "date": "2026.03.30",
+          "icon": "M",
+          "color": "blue",
+          "badge": "NEW"
+        },
+        {
+          "href": "제안/2026-03-29-데이커_바이브코딩_해커톤_제안서_슬라이드.html",
+          "title": "데이커 바이브코딩 해커톤 제안서",
+          "date": "2026.03.29",
+          "icon": "V",
+          "color": "warm",
+          "badge": "NEW"
+        },
+        {
+          "href": "제안/2026-03-29-데이콘_알고리즘_경진대회_제안서_슬라이드.html",
+          "title": "데이콘 알고리즘 경진대회 제안서",
+          "date": "2026.03.29",
+          "icon": "A",
+          "color": "blue",
+          "badge": "NEW"
+        },
+        {
+          "href": "제안/2026-03-29-데이콘_프롬프톤_범용_제안서_슬라이드.html",
+          "title": "데이콘 프롬프톤 범용 제안서",
+          "date": "2026.03.29",
+          "icon": "P",
+          "color": "warm",
+          "badge": "NEW"
+        },
+        {
+          "href": "제안/2026-03-29-단국대학교_SW중심대학_사전대회_제안서.html",
+          "title": "단국대학교 SW중심대학 사전대회 제안서",
+          "date": "2026.03.29",
+          "icon": "D",
+          "color": "warm",
+          "badge": "NEW"
+        },
+        {
+          "href": "제안/2026-03-27-미래에셋증권_금융리서치AI교육_제안서_슬라이드.html",
+          "title": "미래에셋증권 금융리서치 AI교육 제안서",
+          "date": "2026.03.27",
+          "icon": "M",
+          "color": "blue",
+          "badge": "제안서"
+        },
+        {
+          "href": "제안/2026-03-27-데이콘_서비스_제안서_슬라이드.html",
+          "title": "데이콘 서비스 제안서",
+          "date": "2026.03.27",
+          "icon": "D",
+          "color": "blue",
+          "badge": "제안서"
+        },
+        {
+          "href": "제안/2026-03-27-GS_E&R_AI경진대회_제안서_슬라이드.html",
+          "title": "GS E&R AI경진대회 제안서",
+          "date": "2026.03.27",
+          "icon": "G",
+          "color": "dark",
+          "badge": "제안서"
+        },
+        {
+          "href": "제안/2026-03-26-DAKER_AI_Challenge_플랫폼_소개.html",
+          "title": "DAKER AI Challenge 플랫폼 소개",
+          "date": "2026.03.26",
+          "icon": "D",
+          "color": "blue",
+          "badge": "제안서"
+        },
+        {
+          "href": "제안/2026-03-23-금융보안원_AI_Challenge_제안서.html",
+          "title": "금융보안원 AI Challenge 제안서",
+          "date": "2026.03.23",
+          "icon": "F",
+          "color": "blue",
+          "badge": "제안서"
+        },
+        {
+          "href": "제안/2026-03-23-단국대학교_AI대회_제안서.html",
+          "title": "단국대학교 AI대회 제안서",
+          "date": "2026.03.23",
+          "icon": "D",
+          "color": "warm",
+          "badge": "제안서"
+        },
+        {
+          "href": "제안/2026-03-23-대동그룹_교육_및_프롬프톤_제안서.html",
+          "title": "대동그룹 교육 및 프롬프톤 제안서",
+          "date": "2026.03.23",
+          "icon": "대",
+          "color": "dark",
+          "badge": "제안서"
+        },
+        {
+          "href": "제안/2026-01-27-차세대융합기술원_제조산업_바이브코딩_경진대회_제안서.html",
+          "title": "차세대융합기술원 제조산업 Vibe 코딩 경진대회",
+          "date": "2026.01.27",
+          "icon": "A",
+          "color": "warm",
+          "badge": "제안서"
+        },
+        {
+          "href": "제안/2026-01-16-삼척시_교육특구_AI헬스케어에너지_메이커캠프_제안서.html",
+          "title": "삼척시 교육특구 AI·헬스케어·에너지 메이커 아이디어톤 캠프",
+          "date": "2026.01.16",
+          "icon": "S",
+          "color": "blue",
+          "badge": "제안서"
+        },
+        {
+          "href": "제안/2025-12-10-JB금융그룹_AI경진대회_제안서.html",
+          "title": "JB금융그룹 AI 경진대회 제안서",
+          "date": "2025.12.10",
+          "icon": "JB",
+          "color": "blue",
+          "badge": "제안서"
+        }
+      ]
+    },
+    {
+      "title": "전략서",
+      "cards": [
+        {
+          "href": "제안/2026-03-22-온오프라인_하이브리드_교육연계_해커톤_제안서.html",
+          "title": "온·오프라인 하이브리드 및 교육 연계형 해커톤 전략서",
+          "date": "2026.03.22",
+          "icon": "H",
+          "color": "warm",
+          "badge": "전략서"
+        }
+      ]
+    },
+    {
+      "title": "리서치",
+      "cards": [
+        {
+          "href": "전략/20260331_삼성전자_005930_매수.html",
+          "title": "삼성전자 (005930) Equity Research — 매수",
+          "date": "2026.03.31",
+          "icon": "S",
+          "color": "warm",
+          "badge": "NEW"
+        },
+        {
+          "href": "전략/2026-03-21-제주_우주항공_바이브코딩_창업교육_협업제안_리서치.html",
+          "title": "제주 우주항공 x 바이브코딩 x 창업교육 협업 제안 리서치",
+          "date": "2026.03.21",
+          "icon": "J",
+          "color": "warm",
+          "badge": "리서치"
+        }
+      ]
+    },
+    {
+      "title": "슬라이드",
+      "cards": [
+        {
+          "href": "전략/2026-03-25-데이콘_바이브코딩_15인_글로벌조직도.html",
+          "title": "데이콘 바이브코딩 15인 글로벌조직도",
+          "date": "2026.03.25",
+          "icon": "V",
+          "color": "warm",
+          "badge": "슬라이드"
+        },
+        {
+          "href": "전략/2026-03-23-DAKER_바이브코딩_미래방향성_슬라이드.html",
+          "title": "DAKER 바이브코딩 미래방향성",
+          "date": "2026.03.23",
+          "icon": "V",
+          "color": "blue",
+          "badge": "슬라이드"
+        },
+        {
+          "href": "전략/2026-03-23-DAKER_FDE_기획_슬라이드.html",
+          "title": "DAKER FDE 기획",
+          "date": "2026.03.23",
+          "icon": "F",
+          "color": "dark",
+          "badge": "슬라이드"
+        },
+        {
+          "href": "내부/2026-03-22-DAKER_관리자_매뉴얼_슬라이드.html",
+          "title": "DAKER 관리자 매뉴얼",
+          "date": "2026.03.22",
+          "icon": "M",
+          "color": "warm",
+          "badge": "슬라이드"
+        }
+      ]
+    }
+  ],
+  "scan": {
+    "_comment": "sync_cards.py --scan 실행 시 탐색할 디렉토리와 무시할 패턴",
+    "directories": [
+      "제안",
+      "내부",
+      "전략"
+    ],
+    "ignore_patterns": [
+      "0000-00-00-",
+      "_treatment_plan",
+      "_치트시트",
+      "_단축키",
+      "_사용법",
+      "_매뉴얼.html",
+      "Antigravity",
+      "Claude_Code",
+      "CMUX",
+      "VSCode",
+      "DAKER_플랫폼_매뉴얼",
+      "한국수자원공사",
+      "DAKER_dacon통합계획",
+      "데이스쿨_AI교육_종합_제안서",
+      "삼성디스플레이",
+      "중앙대_소프트웨어대학",
+      "해커톤_시장현황_DAKER_플랫폼",
+      "NIA_정책수립지원",
+      "통합_마스터_템플릿",
+      "Anthropic_하네스설계"
+    ]
+  }
+}

@@ -1,0 +1,54 @@
+#!/usr/bin/env bash
+# pre-commit hook — index.html 카드 그리드 자동 동기화
+#
+# 동작:
+#   1. scripts/cards.json 기준으로 index.html을 재생성
+#   2. 변경이 발생하면 자동으로 re-stage
+#   3. 제안/, 내부/, 전략/ 폴더에 매니페스트 미등록 HTML이 있으면 경고 (non-blocking)
+#
+# 설치:
+#   git config core.hooksPath .githooks
+#
+# 우회:
+#   SKIP_CARD_SYNC=1 git commit ...   # 스킵
+#   git commit --no-verify ...        # 모든 훅 스킵
+
+set -e
+
+if [[ "${SKIP_CARD_SYNC:-}" == "1" ]]; then
+  echo "[pre-commit] SKIP_CARD_SYNC=1 → skipping card sync"
+  exit 0
+fi
+
+REPO_ROOT="$(git rev-parse --show-toplevel)"
+SCRIPT="$REPO_ROOT/scripts/sync_cards.py"
+
+if [[ ! -f "$SCRIPT" ]]; then
+  echo "[pre-commit] scripts/sync_cards.py not found — skipping"
+  exit 0
+fi
+
+if ! command -v python3 >/dev/null 2>&1; then
+  echo "[pre-commit] python3 not available — skipping card sync"
+  exit 0
+fi
+
+# 1. Scan first — warn about unregistered files (non-blocking)
+python3 "$SCRIPT" --scan || {
+  echo ""
+  echo "[pre-commit] ⚠️  Unregistered proposal HTMLs detected (see above)."
+  echo "[pre-commit]    Commit will proceed, but these files won't appear on the landing page."
+  echo "[pre-commit]    Fix: add to scripts/cards.json or scan.ignore_patterns."
+  echo ""
+}
+
+# 2. Sync — regenerate index.html if needed
+python3 "$SCRIPT"
+
+# 3. If index.html changed, re-stage it
+if ! git diff --quiet -- index.html 2>/dev/null; then
+  echo "[pre-commit] ✨ index.html auto-synced → re-staging"
+  git add index.html
+fi
+
+exit 0
