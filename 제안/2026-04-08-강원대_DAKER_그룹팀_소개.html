@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>DAKER 그룹팀 × 강원대 X+AI·SW 본과업 유기적 연동</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" rel="stylesheet" />
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+--p:#1E3A8A;--pd:#162B66;--op:#f8faff;
+--sf:#ffffff;--sl:#f1f5f9;--sw:#ffffff;
+--os:#0f172a;--osv:#475569;--ov:#94a3b8;
+--sc:#dbe3f4;--osc:#1e3a8a;
+--w:#c2622d;--wb:rgba(194,98,45,0.08);--dk:#0f172a;
+--f:'Plus Jakarta Sans','Pretendard Variable',Pretendard,-apple-system,system-ui,sans-serif;
+--sa:0 8px 24px rgba(30,41,59,0.04);
+--rm:0.375rem;--rl:0.75rem;
+--sw2:1280px;--sh:720px;
+}
+html,body{width:100%;height:100%;background:#e2e8f0;font-family:var(--f);overflow:hidden;color:var(--os)}
+#viewport{position:fixed;inset:0;display:flex;align-items:center;justify-content:center}
+#stage{position:relative;width:var(--sw2);height:var(--sh);overflow:hidden;transform-origin:center center;border-radius:var(--rl);box-shadow:0 12px 48px rgba(30,41,59,0.15);background:var(--sf)}
+.slide{position:absolute;inset:0;background:var(--sf);display:flex;flex-direction:column}
+.si{flex:1;display:flex;flex-direction:column;padding:62px 72px 48px;position:relative}
+.sh{position:absolute;top:0;left:0;right:0;height:44px;padding:0 32px;display:flex;justify-content:space-between;align-items:center;background:rgba(255,255,255,.95);border-bottom:1px solid rgba(148,163,184,.2)}
+.sh-l{font-size:.8125rem;font-weight:700;color:var(--p);letter-spacing:.06em;text-transform:uppercase}
+.sh-r{font-size:.6875rem;font-weight:700;color:var(--ov);letter-spacing:.08em;text-transform:uppercase}
+.sf{position:absolute;bottom:0;left:0;right:0;padding:10px 32px;display:flex;justify-content:space-between;align-items:center;background:rgba(255,255,255,.95);border-top:1px solid rgba(148,163,184,.15)}
+.sf-logo{font-size:.75rem;font-weight:700;color:var(--p)}
+.sf-cr{font-size:.5625rem;color:var(--ov);letter-spacing:.03em;font-weight:600}
+.tag{display:inline-flex;align-items:center;gap:8px;font-size:.6875rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--p);margin-bottom:10px}
+.tag::before{content:'';width:24px;height:2.5px;background:var(--p);border-radius:2px}
+h2.st{font-size:1.875rem;font-weight:800;line-height:1.2;color:var(--os);letter-spacing:-.02em}
+.hl{color:var(--p)}
+.sub{margin-top:8px;font-size:.875rem;color:var(--osv);line-height:1.65;max-width:1040px}
+.c{background:var(--sw);border-radius:var(--rl);padding:16px;border:1px solid rgba(148,163,184,.2)}
+.c-b{background:var(--sc);border:none}.c-s{background:var(--sl);border:none}.c-d{background:var(--dk);color:#fff;border:none}
+.c-d .c-t{color:#fff}.c-d .c-dd{color:#cbd5e1}
+.c-t{font-size:.875rem;font-weight:700;color:var(--os);margin-bottom:6px}
+.c-dd{font-size:.75rem;color:var(--osv);line-height:1.6}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+.g2{display:grid;grid-template-columns:1.2fr 1fr;gap:14px}
+.ic{width:36px;height:36px;border-radius:var(--rm);display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:800;color:#fff;background:var(--p)}
+.bd{display:inline-block;padding:3px 10px;border-radius:9999px;font-size:.625rem;font-weight:700;background:var(--sc);color:var(--osc)}
+.ck{list-style:none;display:flex;flex-direction:column;gap:5px}
+.ck li{display:flex;align-items:flex-start;gap:8px;font-size:.75rem;color:var(--osv);line-height:1.55}
+.ck li .i{flex-shrink:0;font-size:.75rem;margin-top:1px;font-weight:700;color:var(--p)}
+.cl{font-size:.6875rem;font-weight:700;color:var(--p);letter-spacing:.06em;text-transform:uppercase;margin-bottom:6px}
+.flow-row{display:flex;align-items:center;gap:6px}
+.flow-box{flex:1;padding:10px 8px;background:var(--sl);border-radius:var(--rm);text-align:center}
+.flow-box .fl{font-size:.6875rem;color:var(--os);font-weight:700}
+.flow-box .fd{font-size:.5625rem;color:var(--osv);margin-top:3px}
+.flow-box.active{background:var(--sc)}
+.flow-arrow{color:var(--ov);font-size:14px}
+.kpi{display:flex;gap:10px}
+.kpi .k{flex:1;background:var(--sl);border-radius:var(--rm);padding:10px;text-align:center}
+.kpi .v{font-size:1.375rem;font-weight:800;color:var(--p);line-height:1}
+.kpi .l{font-size:.5625rem;color:var(--osv);font-weight:600;margin-top:4px}
+@page { size: landscape; margin: 0; }
+@media print {
+  html, body { background: #fff !important; overflow: visible !important; height: auto !important; width: auto !important; }
+  #viewport { position: static !important; display: block !important; height: auto !important; }
+  #stage { position: static !important; width: auto !important; height: auto !important; transform: none !important; box-shadow: none !important; border-radius: 0 !important; }
+  .slide { position: relative !important; inset: auto !important; width: 100vw !important; height: 100vh !important; page-break-after: always !important; overflow: hidden !important; }
+}
+</style>
+</head>
+<body>
+<div id="viewport"><div id="stage">
+
+<section class="slide">
+  <div class="sh"><span class="sh-l">DAKER · 그룹팀 (GROUP) 소개</span><span class="sh-r">강원대 X+AI·SW 연동</span></div>
+  <div class="si" style="padding-top:56px;padding-bottom:48px">
+    <div class="tag">① 그룹팀 · Team Building &amp; Management</div>
+    <h2 class="st">학과를 섞고, 데이터를 모으는 <span class="hl">팀 운영의 심장</span></h2>
+    <p class="sub">그룹팀은 DAKER 플랫폼의 팀 빌딩·관리 모듈입니다. 65팀 × 250명 규모의 학과 혼합 팀을 AI 매칭으로 빠르게 구성하고, 멘토링 이력·제출물·진도를 <strong>하나의 대시보드</strong>에서 통합 관리하여 <strong>본 과업의 중간점검과 결과보고서 산출까지 자동으로 연결</strong>합니다.</p>
+
+    <div class="g2" style="margin-top:14px;flex:1">
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <div class="c">
+          <div class="cl">핵심 기능</div>
+          <div class="g3" style="margin-top:4px">
+            <div style="padding:10px;background:var(--sl);border-radius:var(--rm)">
+              <div class="ic" style="width:28px;height:28px;font-size:.625rem;margin-bottom:6px">A1</div>
+              <div class="c-t" style="font-size:.75rem">AI 매칭 팀빌딩</div>
+              <div class="c-dd" style="font-size:.625rem">전공·관심·수준 기반 학과 혼합 자동 매칭</div>
+            </div>
+            <div style="padding:10px;background:var(--sl);border-radius:var(--rm)">
+              <div class="ic" style="width:28px;height:28px;font-size:.625rem;margin-bottom:6px">A2</div>
+              <div class="c-t" style="font-size:.75rem">팀 대시보드</div>
+              <div class="c-dd" style="font-size:.625rem">진도·멘토링·제출물·일정 한눈에</div>
+            </div>
+            <div style="padding:10px;background:var(--sl);border-radius:var(--rm)">
+              <div class="ic" style="width:28px;height:28px;font-size:.625rem;margin-bottom:6px">A3</div>
+              <div class="c-t" style="font-size:.75rem">멘토링 로그</div>
+              <div class="c-dd" style="font-size:.625rem">회차·날짜·캡처·녹화 자동 저장</div>
+            </div>
+            <div style="padding:10px;background:var(--sl);border-radius:var(--rm)">
+              <div class="ic" style="width:28px;height:28px;font-size:.625rem;margin-bottom:6px">A4</div>
+              <div class="c-t" style="font-size:.75rem">권한·롤 관리</div>
+              <div class="c-dd" style="font-size:.625rem">팀장·팀원·멘토·운영자 분리</div>
+            </div>
+            <div style="padding:10px;background:var(--sl);border-radius:var(--rm)">
+              <div class="ic" style="width:28px;height:28px;font-size:.625rem;margin-bottom:6px">A5</div>
+              <div class="c-t" style="font-size:.75rem">채팅·공지</div>
+              <div class="c-dd" style="font-size:.625rem">팀 내/운영 채널, 24h CS SLA 연동</div>
+            </div>
+            <div style="padding:10px;background:var(--sl);border-radius:var(--rm)">
+              <div class="ic" style="width:28px;height:28px;font-size:.625rem;margin-bottom:6px">A6</div>
+              <div class="c-t" style="font-size:.75rem">알림·리마인더</div>
+              <div class="c-dd" style="font-size:.625rem">멘토링·중간점검·마감 자동 발송</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="c c-b" style="padding:14px 16px">
+          <div class="cl" style="color:var(--osc)">본과업 유기적 연동 포인트</div>
+          <ul class="ck" style="margin-top:4px">
+            <li><span class="i">&#10003;</span><strong>65팀 × 250명 팀 빌딩</strong> — 모집 직후 학과 혼합 매칭으로 비전공자 고립 방지</li>
+            <li><span class="i">&#10003;</span><strong>월 2회+ 멘토링 이행률 100%</strong> — 일지·증빙을 시스템이 자동 수집·누적</li>
+            <li><span class="i">&#10003;</span><strong>5.18~22 중간점검</strong> — 팀별 진도 카드·멘토 코멘트로 10분 리뷰 즉시 가능</li>
+            <li><span class="i">&#10003;</span><strong>결과보고서 자동 산출</strong> — 참가자 명단·멘토링 이력·사진을 원클릭으로 추출</li>
+          </ul>
+        </div>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <div class="c c-s" style="padding:14px 16px">
+          <div class="cl">팀 대시보드 미리보기</div>
+          <div style="margin-top:6px;padding:12px;background:#fff;border-radius:var(--rm);border:1px dashed rgba(30,58,138,0.25);font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.6875rem;line-height:1.7;color:var(--os)">
+            <div style="font-weight:800;color:var(--p)">[TEAM] 헬스케어 · T-017 "시니어케어"</div>
+            <div>— 팀장: 김OO (의예과 3)  / 팀원 4 · 학과 혼합 3</div>
+            <div>— 멘토: 박OO (의료AI 현직) · 월 2회 확정</div>
+            <div>— 진도: 문제정의 <span style="color:#16a34a">●</span>  기획 <span style="color:#16a34a">●</span>  개발 <span style="color:#eab308">◐</span>  테스트 ○</div>
+            <div>— 제출: 중간보고 <span style="color:#16a34a">제출</span> · 최종 예정 7/1</div>
+            <div>— 알림: 5/20 중간점검 · 6/29 결과물 마감</div>
+          </div>
+        </div>
+        <div class="c" style="padding:14px 16px">
+          <div class="cl">운영 효과 (정량)</div>
+          <div class="kpi" style="margin-top:6px">
+            <div class="k"><div class="v">65</div><div class="l">팀 빌딩 자동화</div></div>
+            <div class="k"><div class="v">100%</div><div class="l">멘토링 증빙률</div></div>
+            <div class="k"><div class="v">24h</div><div class="l">CS 응답 SLA</div></div>
+            <div class="k"><div class="v">1-click</div><div class="l">결과보고 추출</div></div>
+          </div>
+        </div>
+        <div class="c c-d" style="padding:14px 16px">
+          <div class="c-t" style="font-size:.8125rem">한 줄 요약</div>
+          <div class="c-dd" style="font-size:.75rem;margin-top:4px">그룹팀 = <strong style="color:#fff">팀빌딩 + 멘토링 관리 + 결과보고 근거 수집</strong>을 동시에 해결하는 본과업 운영의 기반.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- bottom mapping flow -->
+    <div style="margin-top:12px">
+      <div class="cl" style="margin-bottom:4px">본과업 단계와의 연동 흐름</div>
+      <div class="flow-row">
+        <div class="flow-box active"><div class="fl">팀 빌딩</div><div class="fd">3월~4월</div></div>
+        <div class="flow-arrow">&rarr;</div>
+        <div class="flow-box active"><div class="fl">멘토링 월2회+</div><div class="fd">~6.30</div></div>
+        <div class="flow-arrow">&rarr;</div>
+        <div class="flow-box active"><div class="fl">중간점검</div><div class="fd">5.18~22</div></div>
+        <div class="flow-arrow">&rarr;</div>
+        <div class="flow-box"><div class="fl">결과물 제출</div><div class="fd">해커톤 포털</div></div>
+        <div class="flow-arrow">&rarr;</div>
+        <div class="flow-box"><div class="fl">예선·본선</div><div class="fd">7.6 / 7.8</div></div>
+        <div class="flow-arrow">&rarr;</div>
+        <div class="flow-box active"><div class="fl">결과보고</div><div class="fd">자동 추출</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span class="sf-logo">DAKER · 그룹팀</span><span class="sf-cr">COPYRIGHT 2026 DACON</span></div>
+</section>
+
+</div></div>
+<script>
+function fit(){var vw=window.innerWidth,vh=window.innerHeight;var s=Math.min(vw/1280,vh/720,1);document.getElementById('stage').style.transform='scale('+s+')'}
+window.addEventListener('resize',fit);fit();
+</script>
+</body>
+</html>
