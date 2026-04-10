@@ -1,10 +1,15 @@
 {
   "version": "2.0",
-  "lastUpdated": "2026-04-06T05:53:04.310Z",
+  "lastUpdated": "2026-04-09T21:35:26.469Z",
   "activeFeatures": [
     "tmp",
     "scripts",
-    "eval-1-sample1-smartcity"
+    "eval-1-sample1-smartcity",
+    "js",
+    "post-event-report",
+    "admin",
+    "client",
+    "server"
   ],
   "primaryFeature": "tmp",
   "features": {
@@ -17,9 +22,9 @@
       "documents": {},
       "timestamps": {
         "started": "2026-04-02T13:53:36.162Z",
-        "lastUpdated": "2026-04-02T14:27:55.922Z"
+        "lastUpdated": "2026-04-09T21:35:26.469Z"
       },
-      "lastFile": "/tmp/analyze_emails.py"
+      "lastFile": "/tmp/fix_md_html_sync.py"
     },
     "scripts": {
       "phase": "do",
@@ -30,9 +35,9 @@
       "documents": {},
       "timestamps": {
         "started": "2026-04-06T03:30:09.653Z",
-        "lastUpdated": "2026-04-06T05:53:04.310Z"
+        "lastUpdated": "2026-04-09T05:29:17.341Z"
       },
-      "lastFile": "/Users/kookjinkim/code/제안서/.claude/skills/hwpx-autofill-conversion/scripts/inspect_template.py"
+      "lastFile": "/Users/kookjinkim/code/제안서/scripts/check_md_html_sync.py"
     },
     "eval-1-sample1-smartcity": {
       "phase": "do",
@@ -46,6 +51,71 @@
         "lastUpdated": "2026-04-06T05:27:36.666Z"
       },
       "lastFile": "/Users/kookjinkim/code/제안서/.claude/skills/hwpx-autofill-conversion-workspace/iteration-1/eval-1-sample1-smartcity/run_inspect.sh"
+    },
+    "js": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-04-07T14:25:02.322Z",
+        "lastUpdated": "2026-04-07T14:25:02.322Z"
+      },
+      "lastFile": "/Users/kookjinkim/code/제안서/사후리포트/js/renderer.js"
+    },
+    "post-event-report": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-04-07T22:33:07.355Z",
+        "lastUpdated": "2026-04-07T22:41:48.648Z"
+      },
+      "lastFile": "/Users/kookjinkim/code/daker/client/src/lib/post-event-report/ReportRenderer.tsx"
+    },
+    "admin": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-04-07T22:42:04.139Z",
+        "lastUpdated": "2026-04-07T22:53:42.693Z"
+      },
+      "lastFile": "/Users/kookjinkim/code/daker/client/src/pages/admin/post-event-report.tsx"
+    },
+    "client": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-04-07T22:42:09.132Z",
+        "lastUpdated": "2026-04-07T22:42:14.319Z"
+      },
+      "lastFile": "/Users/kookjinkim/code/daker/client/src/hooks/useAdminNav.ts"
+    },
+    "server": {
+      "phase": "do",
+      "phaseNumber": 3,
+      "matchRate": null,
+      "iterationCount": 0,
+      "requirements": [],
+      "documents": {},
+      "timestamps": {
+        "started": "2026-04-07T22:53:07.567Z",
+        "lastUpdated": "2026-04-07T22:53:10.005Z"
+      },
+      "lastFile": "/Users/kookjinkim/code/daker/server/routes.ts"
     }
   },
   "pipeline": {
@@ -56,7 +126,7 @@
   "session": {
     "startedAt": "2026-03-25T13:12:12.210Z",
     "onboardingCompleted": false,
-    "lastActivity": "2026-04-06T05:53:04.310Z"
+    "lastActivity": "2026-04-09T21:35:26.469Z"
   },
   "history": [
     {
@@ -236,6 +306,210 @@
     {
       "timestamp": "2026-04-06T05:53:04.310Z",
       "feature": "scripts",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-04-07T14:25:02.322Z",
+      "feature": "js",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-04-07T22:33:07.355Z",
+      "feature": "post-event-report",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-04-07T22:33:24.043Z",
+      "feature": "post-event-report",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-04-07T22:41:48.648Z",
+      "feature": "post-event-report",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-04-07T22:42:04.139Z",
+      "feature": "admin",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-04-07T22:42:09.132Z",
+      "feature": "client",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-04-07T22:42:11.632Z",
+      "feature": "client",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-04-07T22:42:14.319Z",
+      "feature": "client",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-04-07T22:47:07.883Z",
+      "feature": "admin",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-04-07T22:47:15.223Z",
+      "feature": "admin",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-04-07T22:53:00.463Z",
+      "feature": "admin",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-04-07T22:53:07.567Z",
+      "feature": "server",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-04-07T22:53:10.005Z",
+      "feature": "server",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-04-07T22:53:42.693Z",
+      "feature": "admin",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-04-09T00:49:32.700Z",
+      "feature": "scripts",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-04-09T00:50:21.495Z",
+      "feature": "scripts",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-04-09T00:50:30.751Z",
+      "feature": "scripts",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-04-09T02:26:44.268Z",
+      "feature": "scripts",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-04-09T02:27:45.861Z",
+      "feature": "scripts",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-04-09T02:40:06.019Z",
+      "feature": "scripts",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-04-09T02:40:49.350Z",
+      "feature": "scripts",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-04-09T02:41:57.649Z",
+      "feature": "scripts",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-04-09T02:43:55.677Z",
+      "feature": "scripts",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-04-09T02:50:46.990Z",
+      "feature": "scripts",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-04-09T03:02:37.775Z",
+      "feature": "scripts",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-04-09T03:05:30.259Z",
+      "feature": "scripts",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-04-09T03:05:36.122Z",
+      "feature": "scripts",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-04-09T03:05:40.584Z",
+      "feature": "scripts",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-04-09T03:05:56.096Z",
+      "feature": "scripts",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-04-09T03:06:04.832Z",
+      "feature": "scripts",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-04-09T03:06:11.288Z",
+      "feature": "scripts",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-04-09T03:08:10.526Z",
+      "feature": "scripts",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-04-09T05:29:17.341Z",
+      "feature": "scripts",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-04-09T21:35:26.469Z",
+      "feature": "tmp",
       "phase": "do",
       "action": "updated"
     }
