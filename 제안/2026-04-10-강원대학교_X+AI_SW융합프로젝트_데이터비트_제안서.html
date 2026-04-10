@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>2026 강원대학교 X+AI·SW 융합 프로젝트 운영 대행 용역 제안서 — 주식회사 데이터비트</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" rel="stylesheet" />
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+--p:#3587A8;--pd:#296A84;--op:#f4fafd;
+--ob:#2a3439;--sf:#ffffff;--sl:#f1f5f9;--sw:#ffffff;
+--os:#0f172a;--osv:#475569;--ov:#94a3b8;
+--sc:#d8ebf3;--osc:#1f5a73;
+--w:#c2622d;--wb:rgba(194,98,45,0.08);--dk:#0f172a;
+--f:'Plus Jakarta Sans','Pretendard Variable',Pretendard,-apple-system,system-ui,sans-serif;
+--sa:0 8px 24px rgba(30,41,59,0.04);--gh:1px solid rgba(148,163,184,0.2);
+--rs:0.25rem;--rm:0.375rem;--rl:0.75rem;--rx:1rem;--rf:9999px;
+--sw2:1280px;--sh:720px;
+}
+html,body{width:100%;height:100%;background:#e2e8f0;font-family:var(--f);overflow:hidden;color:var(--os)}
+#viewport{position:fixed;inset:0;display:flex;align-items:center;justify-content:center}
+#stage{position:relative;width:var(--sw2);height:var(--sh);overflow:hidden;transform-origin:center center;border-radius:var(--rl);box-shadow:0 12px 48px rgba(30,41,59,0.15)}
+.slide{position:absolute;inset:0;background:var(--sf);display:flex;flex-direction:column;opacity:0;pointer-events:none;transition:opacity 0s}
+.slide.active{opacity:1;pointer-events:auto}
+.si{flex:1;display:flex;flex-direction:column;padding:62px 72px 48px;position:relative}
+.sh{position:absolute;top:0;left:0;right:0;height:44px;padding:0 32px;display:flex;justify-content:space-between;align-items:center;background:rgba(255,255,255,.95);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-bottom:1px solid rgba(148,163,184,.2)}
+.sh-l{font-size:.8125rem;font-weight:700;color:var(--p);letter-spacing:.06em;text-transform:uppercase}
+.sh-r{font-size:.6875rem;font-weight:700;color:var(--ov);letter-spacing:.08em;text-transform:uppercase}
+.sf{position:absolute;bottom:0;left:0;right:0;padding:10px 32px;display:flex;justify-content:space-between;align-items:center;background:rgba(255,255,255,.95);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-top:1px solid rgba(148,163,184,.15)}
+.sf{justify-content:flex-start}
+.sf-logo{display:inline-flex;align-items:center;gap:8px;font-size:.75rem;font-weight:700;color:var(--p);order:3;margin-left:auto}
+.sf-pg{order:1}
+.sf-cr{order:2;margin:0 14px 0 14px}
+.sf-logo span.dot{color:var(--ov);font-weight:400}
+.sf-logo span.dc{color:var(--p);display:inline-flex;align-items:center;gap:6px;letter-spacing:.04em}
+.sf-logo span.dc::before{content:'';display:inline-block;width:3px;height:12px;background:linear-gradient(180deg,var(--p),var(--pd));border-radius:1px}
+.logo-mark{display:inline-flex;align-items:center;gap:10px;font-weight:800;letter-spacing:.06em;color:var(--p)}
+.logo-mark::before{content:'';display:inline-block;width:6px;height:26px;background:linear-gradient(180deg,var(--p),var(--pd));border-radius:2px;box-shadow:0 2px 8px rgba(53,135,168,.25)}
+.logo-mark-lg{gap:14px}
+.logo-mark-lg::before{width:10px;height:42px;border-radius:3px}
+.sf-pg{font-size:.6875rem;color:var(--osv);font-weight:600}
+.sf-cr{font-size:.5625rem;color:var(--ov);letter-spacing:.03em;font-weight:600}
+.tag{display:inline-flex;align-items:center;gap:8px;font-size:.6875rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--p);margin-bottom:12px}
+.tag::before{content:'';width:24px;height:2.5px;background:var(--p);border-radius:2px}
+.tag-w{color:var(--w)}.tag-w::before{background:var(--w)}
+h2.st{font-size:1.875rem;font-weight:800;line-height:1.2;color:var(--os);letter-spacing:-.02em}
+.hl{color:var(--p)}.hl-w{color:var(--w)}
+.sub{margin-top:8px;font-size:.875rem;color:var(--osv);line-height:1.65}
+.c{background:var(--sw);border-radius:var(--rl);padding:18px;border:1px solid rgba(148,163,184,.2)}
+.c-b{background:var(--sc);border:none}.c-w{background:var(--wb);border:none}.c-s{background:var(--sl);border:none}
+.c-d-card{background:var(--dk);color:#fff;border:none}
+.c-d-card .c-t{color:#fff}.c-d-card .c-d{color:#cbd5e1}
+.c-t{font-size:.875rem;font-weight:700;color:var(--os);margin-bottom:6px}
+.c-d{font-size:.75rem;color:var(--osv);line-height:1.6}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+.g4{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:10px}
+.g6{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.ic{width:34px;height:34px;border-radius:var(--rm);display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:800;margin-bottom:10px;color:#fff;background:var(--p)}
+.ic-w{background:var(--w)}.ic-d{background:var(--dk)}
+.bd{display:inline-block;padding:3px 10px;border-radius:var(--rf);font-size:.625rem;font-weight:700;background:var(--sc);color:var(--osc)}
+.bd-w{background:var(--wb);color:var(--w)}
+.bd-d{background:var(--dk);color:#fff}
+.tb{width:100%;border-collapse:collapse;font-size:.75rem}
+.tb th{text-align:left;padding:8px 12px;background:var(--sl);color:var(--os);font-weight:700;font-size:.6875rem;border-bottom:2px solid var(--p)}
+.tb td{padding:7px 12px;color:var(--osv);border-bottom:1px solid rgba(148,163,184,.15)}
+.tb tr:last-child td{border-bottom:none}
+.mx{text-align:center;padding:14px 10px;background:var(--sl);border-radius:var(--rl)}
+.mx .v{font-size:1.5rem;font-weight:800;line-height:1;color:var(--p)}
+.mx .l{font-size:.625rem;color:var(--osv);margin-top:4px;font-weight:500}
+.slide-sec .si{justify-content:center;align-items:center;text-align:center;padding-top:60px;background:#ffffff}
+.slide-sec .sn{font-size:4.5rem;font-weight:800;color:rgba(53,135,168,.1);line-height:1;margin-bottom:8px}
+.slide-sec h2{font-size:2.25rem;font-weight:800;color:var(--os);letter-spacing:-.02em}
+.slide-sec .sd{font-size:1rem;color:var(--osv);margin-top:10px;max-width:720px}
+.slide-end .si{justify-content:center;align-items:center;text-align:center;background:#ffffff}
+.slide-end h1{font-size:2.5rem;font-weight:800;color:var(--os);line-height:1.15;letter-spacing:-.02em}
+.slide-end .end-sub{font-size:1rem;color:var(--osv);margin-top:12px;line-height:1.6}
+.slide-end .end-logo{display:flex;align-items:center;justify-content:center;gap:16px;margin-bottom:28px}
+.cl{font-size:.75rem;font-weight:700;color:var(--p);margin-bottom:8px;letter-spacing:.04em;text-transform:uppercase}
+.cl-w{color:var(--w)}
+.ck{list-style:none;display:flex;flex-direction:column;gap:5px}
+.ck li{display:flex;align-items:flex-start;gap:8px;font-size:.75rem;color:var(--osv);line-height:1.55}
+.ck li .i{flex-shrink:0;font-size:.75rem;margin-top:1px;font-weight:700;color:var(--p)}
+.ck-w li .i{color:var(--w)}
+[data-step]{opacity:0;transform:translateY(12px);transition:opacity .4s ease,transform .4s ease}
+[data-step].visible{opacity:1;transform:none}
+[data-step].pre-visible{opacity:1;transform:none;transition:none}
+.nav-btn{position:fixed;top:50%;transform:translateY(-50%);width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.9);border:none;color:var(--osv);cursor:pointer;z-index:100;display:flex;align-items:center;justify-content:center;font-size:18px;transition:all .2s;user-select:none;box-shadow:var(--sa);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px)}
+.nav-btn:hover{color:var(--p)}
+#nav-prev{left:12px}#nav-next{right:12px}
+#progress-bar{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--p),var(--pd));transition:width .4s ease;z-index:100}
+#key-hint{position:fixed;bottom:16px;left:50%;transform:translateX(-50%);color:var(--ov);font-size:.6875rem;z-index:100;opacity:.4}
+@page { size: landscape; margin: 0; }
+@media print {
+  html, body { background: #fff !important; overflow: visible !important; height: auto !important; width: auto !important; margin: 0 !important; padding: 0 !important; }
+  #viewport { position: static !important; display: block !important; height: auto !important; }
+  #stage { position: static !important; width: auto !important; height: auto !important; overflow: visible !important; transform: none !important; box-shadow: none !important; border-radius: 0 !important; }
+  .slide { position: relative !important; inset: auto !important; opacity: 1 !important; pointer-events: auto !important; display: flex !important; flex-direction: column !important; width: 100vw !important; height: 100vh !important; page-break-after: always !important; break-after: page !important; page-break-inside: avoid !important; margin: 0 !important; overflow: hidden !important; }
+  .nav-btn, #progress-bar, #key-hint { display: none !important; }
+  [data-step] { opacity: 1 !important; transform: none !important; }
+}
+</style>
+</head>
+<body>
+<div id="viewport"><div id="stage">
+
+<!-- S1: COVER -->
+<section class="slide active" id="s1">
+  <div class="si" style="justify-content:center;align-items:flex-start;padding-left:88px;background:#ffffff">
+    <div style="position:absolute;top:22px;right:32px"><span style="display:inline-block;background:linear-gradient(135deg,var(--p),var(--pd));color:#fff;padding:6px 18px;border-radius:var(--rf);font-size:.75rem;font-weight:700">2026</span></div>
+    <div data-step="1" style="display:flex;align-items:center;gap:14px">
+      <span class="logo-mark logo-mark-lg" style="font-size:1.5rem">DATABIT</span>
+      <span style="padding:3px 10px;border-radius:var(--rf);background:var(--w);color:#fff;font-size:.625rem;font-weight:700;letter-spacing:.04em">여성기업 확인</span>
+    </div>
+    <div data-step="2" style="margin-top:10px;font-size:.75rem;font-weight:700;color:var(--p);letter-spacing:.12em;text-transform:uppercase">KANGWON NATIONAL UNIVERSITY · SW CENTRAL UNIV.</div>
+    <h1 data-step="3" style="font-size:2.375rem;font-weight:800;line-height:1.18;letter-spacing:-.02em;color:var(--os);margin-top:10px">
+      2026년 <span style="color:var(--p)">X+AI·SW</span> 융합 프로젝트<br/>운영 대행 용역 제안서
+    </h1>
+    <p data-step="4" style="font-size:.9375rem;color:var(--osv);margin-top:16px;line-height:1.7">
+      강원대학교 SW중심대학사업단장 귀하<br/>
+      재학생 최대 250명 · 약 65팀 · 계약일 ~ 2026.7.31. · 춘천캠퍼스 본선
+    </p>
+    <div data-step="5" style="display:flex;gap:8px;margin-top:24px;flex-wrap:wrap">
+      <span style="padding:7px 14px;border-radius:var(--rf);background:var(--sc);font-size:.75rem;font-weight:700;color:var(--osc)">AI 경진대회 운영 9건</span>
+      <span style="padding:7px 14px;border-radius:var(--rf);background:var(--wb);font-size:.75rem;font-weight:700;color:var(--w)">월 2회+ 전문 멘토링</span>
+      <span style="padding:7px 14px;border-radius:var(--rf);background:var(--sl);font-size:.75rem;font-weight:700;color:var(--osv)">여성기업·단독 수급</span>
+    </div>
+    <div data-step="6" style="position:absolute;bottom:28px;left:88px;font-size:.75rem;color:var(--osv)">
+      제안사: 주식회사 데이터비트 · 대표 김진선 · 2026.4.10.
+    </div>
+    <div style="position:absolute;bottom:20px;right:32px;font-size:.5625rem;color:var(--ov)">COPYRIGHT 2026 DATABIT</div>
+  </div>
+</section>
+
+<!-- S2: 제안 요약 -->
+<section class="slide" id="s2">
+  <div class="sh"><span class="sh-l">EXECUTIVE SUMMARY</span><span class="sh-r">KNU X+AI·SW 2026</span></div>
+  <div class="si" style="padding-top:60px">
+    <div class="tag">제안 요약</div>
+    <h2 class="st" data-step="1">한 장으로 읽는 <span class="hl">데이터비트의 약속</span></h2>
+    <p class="sub" data-step="2">여성기업 확인 · AI 경진대회 9건의 검증된 운영 경험으로 강원대의 성공적인 프로젝트 개최를 뒷받침하겠습니다</p>
+    <div class="g2" style="margin-top:14px;flex:1">
+      <div data-step="3">
+        <table class="tb">
+          <thead><tr><th>구분</th><th>내용</th></tr></thead>
+          <tbody>
+            <tr><td style="font-weight:700">사업명</td><td>2026년 X+AI·SW 융합 프로젝트 운영</td></tr>
+            <tr><td style="font-weight:700">발주처</td><td>강원대학교 SW중심대학사업단</td></tr>
+            <tr><td style="font-weight:700">과업기간</td><td>계약 체결일 ~ 2026. 7. 31.(금)</td></tr>
+            <tr><td style="font-weight:700">참여 규모</td><td>강원대 재학생 최대 250명 (약 65팀)</td></tr>
+            <tr><td style="font-weight:700">본선 장소</td><td>강원대 춘천캠퍼스 교내 강의실</td></tr>
+            <tr><td style="font-weight:700">제안사</td><td>주식회사 데이터비트 · 여성기업 · 단독 수급</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div data-step="4" style="display:flex;flex-direction:column;gap:10px">
+        <div class="cl">핵심 제안 가치 5</div>
+        <div class="c c-b" style="padding:11px 14px"><div class="c-t" style="font-size:.8125rem;color:var(--osc)">01. 9건의 원스톱 운영 레퍼런스</div><div class="c-d" style="color:var(--osc);opacity:.85">대학·정출연·공공·지자체 전 영역 운영 경험</div></div>
+        <div class="c c-w" style="padding:11px 14px"><div class="c-t" style="font-size:.8125rem;color:var(--w)">02. 밀착형 전문가 멘토링</div><div class="c-d">현업 전문가 5명 · 팀당 월 2회 이상 지원</div></div>
+        <div class="c c-s" style="padding:11px 14px"><div class="c-t" style="font-size:.8125rem">03. 공정하고 체계적인 심사</div><div class="c-d">외부 심사위원 5인+ Rubric 블라인드 평가</div></div>
+        <div class="c c-b" style="padding:11px 14px"><div class="c-t" style="font-size:.8125rem;color:var(--osc)">04. 전 과정 책임 수행</div><div class="c-d" style="color:var(--osc);opacity:.85">기획-안전관리-결과보고까지 단일 책임</div></div>
+        <div class="c c-d-card" style="padding:11px 14px"><div class="c-t" style="font-size:.8125rem">05. 여성기업의 전문성</div><div class="c-d">공공·학술 기관 운영에 최적화된 단독 수행</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span class="sf-logo"><span class="dc">DATABIT</span></span><span class="sf-pg">2</span><span class="sf-cr">COPYRIGHT 2026</span></div>
+</section>
+
+<!-- S3: SECTION I -->
+<section class="slide slide-sec" id="s3">
+  <div class="si">
+    <div class="sn" data-step="1">I</div>
+    <h2 data-step="2">과업 개요 이해</h2>
+    <p class="sd" data-step="3">본 프로젝트가 지향하는 목적과 일정을 공감하며, 실질적인 실행 전략을 마련하였습니다</p>
+  </div>
+  <div class="sf"><span class="sf-logo"><span class="dc">DATABIT</span></span><span class="sf-pg">3</span><span class="sf-cr">COPYRIGHT 2026</span></div>
+</section>
+
+<!-- S4: I-1. 과업 목적 -->
+<section class="slide" id="s4">
+  <div class="sh"><span class="sh-l">I-1. 과업 목적</span><span class="sh-r">PROJECT OBJECTIVES</span></div>
+  <div class="si" style="padding-top:58px">
+    <div class="tag">과업 목적에 대한 완벽한 이해</div>
+    <h2 class="st" data-step="1">4가지 핵심 목적을 <span class="hl">실질 전략으로 구현</span>합니다</h2>
+    <p class="sub" data-step="2">당사는 본 프로젝트가 지향하는 목적을 깊이 공감하며, 구체적인 실행 전략으로 아래와 같이 응답합니다</p>
+    <div style="margin-top:14px;flex:1" data-step="3">
+      <table class="tb">
+        <thead><tr><th style="width:42%">과업 목적</th><th>데이터비트의 실행 전략</th></tr></thead>
+        <tbody>
+          <tr><td style="font-weight:700;color:var(--p)">AI·SW × 전공/산업 융합 — 문제 해결 중심 실전 프로젝트 경험 제공</td><td>강원 특화 <strong>2개 핵심 트랙(헬스케어/바이오 + 창업/비즈니스 혁신)</strong> 집중 운영 + 자유 주제 그룹 수용 — 단계별 워크숍 제공</td></tr>
+          <tr><td style="font-weight:700;color:var(--p)">전공 간 협업 기반 — 융합형 인재 양성, 창의적 문제 해결 역량</td><td>2~5인 <strong>학과 혼합 팀 권장</strong> + 사전 수요조사 기반 팀 매칭, 비전공자 진입 장벽 완화</td></tr>
+          <tr><td style="font-weight:700;color:var(--p)">실제 사회·산업 문제 기반 — AI·SW 서비스 기획 역량 향상</td><td>문제 정의 → 기획 → 개발 → 테스트 <strong>단계별 프로토타입 도출</strong> 포맷, 현업 전문가 멘토링</td></tr>
+          <tr><td style="font-weight:700;color:var(--p)">우수 프로젝트 후속 성장 — 해외연수 · 창업 · 공모전 연계</td><td>본선 수상팀 <strong>포트폴리오 패키지</strong> 제작 · 후속 공모전·창업 지원 사업 정보 큐레이션</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="sf"><span class="sf-logo"><span class="dc">DATABIT</span></span><span class="sf-pg">4</span><span class="sf-cr">COPYRIGHT 2026</span></div>
+</section>
+
+<!-- S5: I-2/3. 주요 과업내용 + 일정 -->
+<section class="slide" id="s5">
+  <div class="sh"><span class="sh-l">I-2 · I-3. 주요 과업내용 &amp; 일정</span><span class="sh-r">SCOPE &amp; SCHEDULE</span></div>
+  <div class="si" style="padding-top:58px">
+    <div class="tag">주요 과업내용 및 일정 운영 방안</div>
+    <h2 class="st" data-step="1">발주처 공식 일정을 <span class="hl">완벽히 준수</span>합니다</h2>
+    <div class="g2" style="margin-top:12px;flex:1">
+      <div data-step="2">
+        <div class="cl">주요 과업내용</div>
+        <table class="tb">
+          <tbody>
+            <tr><td style="font-weight:700;width:35%">참가대상</td><td>강원대학교 재학생 최대 250명 / 약 65팀</td></tr>
+            <tr><td style="font-weight:700">팀 구성</td><td>2인 이상 ~ 5인 이하</td></tr>
+            <tr><td style="font-weight:700">주제</td><td>전공 × AI·SW 융합 산업 분야 아이디어·모델</td></tr>
+            <tr><td style="font-weight:700">과업기간</td><td>계약일 ~ 2026. 7. 31.</td></tr>
+            <tr><td style="font-weight:700">계약방법</td><td>제한경쟁입찰(총액)·협상에 의한 계약</td></tr>
+            <tr><td style="font-weight:700">수급 방식</td><td><strong>주식회사 데이터비트 단독 수급</strong></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div data-step="3">
+        <div class="cl">프로젝트 일정 이행</div>
+        <table class="tb">
+          <tbody>
+            <tr><td style="font-weight:700;width:38%">참가자 모집</td><td>3.23 ~ 4.3 <span style="color:var(--w)">※ 사업단 진행</span></td></tr>
+            <tr><td style="font-weight:700">팀 활동·멘토링</td><td>계약 후 ~ 6.30 · <strong>월 2회 이상</strong></td></tr>
+            <tr><td style="font-weight:700">중간점검</td><td>5.18 ~ 5.22</td></tr>
+            <tr><td style="font-weight:700">결과물 제출</td><td>6.29 ~ 7.1</td></tr>
+            <tr><td style="font-weight:700">예선 (서류평가)</td><td>7.6(월) · 본선 11팀 선정</td></tr>
+            <tr><td style="font-weight:700">본선 발표·시상</td><td>7.8(수) · 춘천캠퍼스 대면</td></tr>
+          </tbody>
+        </table>
+        <div class="c c-w" style="margin-top:8px;padding:9px 12px"><div class="c-d" style="font-size:.6875rem">※ 과업지시서 명시대로 일정·내용은 사업단 진행 상황에 따라 변경될 수 있으며, 본 제안은 변경 요청을 즉시 수용합니다.</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span class="sf-logo"><span class="dc">DATABIT</span></span><span class="sf-pg">5</span><span class="sf-cr">COPYRIGHT 2026</span></div>
+</section>
+
+<!-- S6: SECTION II -->
+<section class="slide slide-sec" id="s6">
+  <div class="si">
+    <div class="sn" data-step="1">II</div>
+    <h2 data-step="2">세부 과업 수행 계획</h2>
+    <p class="sd" data-step="3">전담팀 구성부터 본선 시상까지, 현장 경험으로 다듬어진 실행 계획을 제시합니다</p>
+  </div>
+  <div class="sf"><span class="sf-logo"><span class="dc">DATABIT</span></span><span class="sf-pg">6</span><span class="sf-cr">COPYRIGHT 2026</span></div>
+</section>
+
+<!-- S7: II-1. 운영 인력 관리 -->
+<section class="slide" id="s7">
+  <div class="sh"><span class="sh-l">II-1. 운영 인력 관리</span><span class="sh-r">OPERATIONAL TEAM</span></div>
+  <div class="si" style="padding-top:58px">
+    <div class="tag">전담 운영 인력 구성</div>
+    <h2 class="st" data-step="1">경험 있는 전담팀을 <span class="hl">즉각 투입</span>합니다</h2>
+    <p class="sub" data-step="2">총 9회 AI 경진대회 운영 경험을 가진 핵심 인력으로 전담팀을 구성하여 책임 있는 사업 수행을 보장합니다</p>
+    <div class="g2" style="margin-top:14px;flex:1">
+      <div data-step="3">
+        <div class="cl">운영 조직 구성</div>
+        <div class="c" style="padding:12px 14px;margin-bottom:8px;display:flex;align-items:center;gap:12px">
+          <div class="ic" style="margin-bottom:0;width:36px;height:36px">PM</div>
+          <div><div class="c-t" style="font-size:.8125rem;margin-bottom:2px">총괄 PM (1명)</div><div class="c-d" style="font-size:.6875rem">발주처 단일 창구 · 일정·예산·품질 총괄 · 정기/수시 보고</div></div>
+        </div>
+        <div class="c" style="padding:12px 14px;margin-bottom:8px;display:flex;align-items:center;gap:12px">
+          <div class="ic ic-w" style="margin-bottom:0;width:36px;height:36px">OM</div>
+          <div><div class="c-t" style="font-size:.8125rem;margin-bottom:2px">운영 매니저 (2명)</div><div class="c-d" style="font-size:.6875rem">멘토링 운영 / 평가·본선 운영 분담</div></div>
+        </div>
+        <div class="c" style="padding:12px 14px;margin-bottom:8px;display:flex;align-items:center;gap:12px">
+          <div class="ic ic-d" style="margin-bottom:0;width:36px;height:36px">SJ</div>
+          <div><div class="c-t" style="font-size:.8125rem;margin-bottom:2px">심사·평가 담당 (1명)</div><div class="c-d" style="font-size:.6875rem">심사위원 섭외·Rubric 관리·결과 집계</div></div>
+        </div>
+        <div class="c c-s" style="padding:12px 14px;display:flex;align-items:center;gap:12px">
+          <div class="ic" style="margin-bottom:0;width:36px;height:36px;background:var(--osv)">FE</div>
+          <div><div class="c-t" style="font-size:.8125rem;margin-bottom:2px">현장 운영 인력</div><div class="c-d" style="font-size:.6875rem">본선 당일 등록·진행·안전관리 전담</div></div>
+        </div>
+      </div>
+      <div data-step="4">
+        <div class="cl">과업지시서 Ⅱ-1 이행 체크</div>
+        <ul class="ck">
+          <li><span class="i">&#10003;</span><strong>참여학생 관리 사전 인력 운용</strong> — Kick-off 즉시 배치</li>
+          <li><span class="i">&#10003;</span><strong>수행 요원 충분 배치 + 담당자 지정</strong> — 업무별 주·부담당 이중화</li>
+          <li><span class="i">&#10003;</span><strong>경험·친절·성실 인사 배정</strong> — 9건 AI 경진대회 운영 경력 인력 투입</li>
+          <li><span class="i">&#10003;</span><strong>인력풀 제시 + 경비 용역비 포함</strong> — 명단 별첨, 인건비·출장비 전액 용역비 내</li>
+          <li><span class="i">&#10003;</span><strong>백업 인력 운영</strong> — 주요 포지션별 대체 인력 상시 대기</li>
+          <li><span class="i">&#10003;</span><strong>하도급 없음</strong> — 주식회사 데이터비트 단독 이행</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span class="sf-logo"><span class="dc">DATABIT</span></span><span class="sf-pg">7</span><span class="sf-cr">COPYRIGHT 2026</span></div>
+</section>
+
+<!-- S8: II-2. 전문가 멘토링 -->
+<section class="slide" id="s8">
+  <div class="sh"><span class="sh-l">II-2. 전문가 멘토링</span><span class="sh-r">EXPERT MENTORING</span></div>
+  <div class="si" style="padding-top:58px">
+    <div class="tag tag-w">전문가 멘토링 고도화 운영</div>
+    <h2 class="st" data-step="1">트랙별 전문성을 갖춘 <span class="hl-w">맞춤형 멘토링</span></h2>
+    <p class="sub" data-step="2">참가팀의 실질적 역량 강화를 목표로 · 현업 전문가 5명 · 온·오프라인 혼합 · 증빙 표준화 · 만족도 분석</p>
+    <div class="g2" style="margin-top:14px;flex:1">
+      <div data-step="3">
+        <div class="cl-w" style="color:var(--w)">멘토링 운영 원칙</div>
+        <div class="c c-w" style="padding:11px 14px;margin-bottom:8px">
+          <div class="c-t" style="font-size:.8125rem;color:var(--w)">① 최소 보장: 팀당 8회+ (월 2회 × 4개월)</div>
+          <div class="c-d" style="font-size:.6875rem">과업지시서 "월 2회 이상" 요건 초과 달성</div>
+        </div>
+        <div class="c c-w" style="padding:11px 14px;margin-bottom:8px">
+          <div class="c-t" style="font-size:.8125rem;color:var(--w)">② 섹션별 분배: 도메인 + 공통 코칭 병행</div>
+          <div class="c-d" style="font-size:.6875rem">트랙 전문 멘토 + 기획·개발·발표 공통 코치</div>
+        </div>
+        <div class="c c-w" style="padding:11px 14px;margin-bottom:8px">
+          <div class="c-t" style="font-size:.8125rem;color:var(--w)">③ 증빙 표준화: 공통 템플릿 운영</div>
+          <div class="c-d" style="font-size:.6875rem">회차별 일지 + 온라인 캡처 / 오프라인 사진·서명부</div>
+        </div>
+        <div class="c c-w" style="padding:11px 14px">
+          <div class="c-t" style="font-size:.8125rem;color:var(--w)">④ 사업단 사전 승인</div>
+          <div class="c-d" style="font-size:.6875rem">멘토 섭외 전 프로필·이력서 일괄 승인 요청</div>
+        </div>
+      </div>
+      <div data-step="4">
+        <div class="cl">멘토링 운영 플로우</div>
+        <table class="tb">
+          <thead><tr><th>구분</th><th>내용</th></tr></thead>
+          <tbody>
+            <tr><td style="font-weight:700">멘토 규모</td><td><strong>총 5명</strong> 현업 전문가 (트랙별 2~3명)</td></tr>
+            <tr><td style="font-weight:700">운영 방식</td><td>온라인 + 오프라인 혼합</td></tr>
+            <tr><td style="font-weight:700">증빙 (온라인)</td><td>참가자 명부·세션 캡처 자동 저장</td></tr>
+            <tr><td style="font-weight:700">증빙 (오프라인)</td><td>서명부·사진 촬영·스캔 보관</td></tr>
+            <tr><td style="font-weight:700">만족도 조사</td><td>5점 척도 + 정성 피드백, 결과분석 리포트</td></tr>
+            <tr><td style="font-weight:700">사전 승인</td><td>전문가 이력서 사업단 일괄 제출</td></tr>
+          </tbody>
+        </table>
+        <div class="c c-b" style="margin-top:8px;padding:9px 12px"><div class="c-d" style="color:var(--osc);font-size:.6875rem">과업지시서 Ⅱ-2-가 ~ 나 전 항목 (설계·준비·섭외·일정 조율·증빙·만족도) 이행 보증</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span class="sf-logo"><span class="dc">DATABIT</span></span><span class="sf-pg">8</span><span class="sf-cr">COPYRIGHT 2026</span></div>
+</section>
+
+<!-- S9: II-3/4. 중간점검 + 결과물 -->
+<section class="slide" id="s9">
+  <div class="sh"><span class="sh-l">II-3 · II-4. 중간점검 &amp; 결과물 접수</span><span class="sh-r">MID-CHECK &amp; SUBMISSION</span></div>
+  <div class="si" style="padding-top:58px">
+    <div class="tag">중간점검 · 결과물 수합</div>
+    <h2 class="st" data-step="1">5월 점검부터 7월 접수까지 <span class="hl">빈틈 없이 밀착 지원</span></h2>
+    <div class="g2" style="margin-top:14px;flex:1">
+      <div data-step="2">
+        <div class="cl">II-3. 중간점검 (5.18 ~ 5.22)</div>
+        <div class="c" style="padding:14px;margin-bottom:10px">
+          <div class="c-t" style="font-size:.8125rem">팀별 10~15분 온라인 리뷰 세션</div>
+          <div class="c-d" style="font-size:.6875rem;margin-top:4px">전문 인력이 팀별 진행 상황·기술 적용·프로토타입 개발 현황을 점검하고 체크리스트 기반 피드백 문서 즉시 제공</div>
+        </div>
+        <div class="cl" style="margin-top:4px">중간점검 체크리스트</div>
+        <ul class="ck">
+          <li><span class="i">01</span>문제 정의의 명확성 · 아이디어 구체성</li>
+          <li><span class="i">02</span>기술 적용 진행률 (프로토타입 착수 여부)</li>
+          <li><span class="i">03</span>팀원 참여도 및 협업 상태</li>
+          <li><span class="i">04</span>예선 제출물 준비 상황 및 리스크</li>
+        </ul>
+      </div>
+      <div data-step="3">
+        <div class="cl">II-4. 최종 결과물 접수 (6.29 ~ 7.1)</div>
+        <div class="c c-b" style="padding:14px;margin-bottom:10px">
+          <div class="c-t" style="font-size:.8125rem;color:var(--osc)">자체 온라인 접수처 운영</div>
+          <div class="c-d" style="font-size:.6875rem;margin-top:4px;color:var(--osc);opacity:.85">강원대 전용 접수 페이지 — 결과보고서 PDF + 아이디어 제안서 PPT + 프로토타입 업로드</div>
+        </div>
+        <ul class="ck">
+          <li><span class="i">&#10003;</span><strong>제출 안내·FAQ</strong> 공지 채널 운영</li>
+          <li><span class="i">&#10003;</span><strong>문의 응답 SLA</strong> — 24시간 이내 1차 답변</li>
+          <li><span class="i">&#10003;</span><strong>제출물·제출자 명단 정리</strong> — 자동 집계</li>
+          <li><span class="i">&#10003;</span><strong>개인정보 마스킹</strong> — 심사위원 블라인드 전달</li>
+          <li><span class="i">&#10003;</span><strong>접수 로그 보관</strong> — 결과보고서 증빙 자료로 활용</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span class="sf-logo"><span class="dc">DATABIT</span></span><span class="sf-pg">9</span><span class="sf-cr">COPYRIGHT 2026</span></div>
+</section>
+
+<!-- S10: II-5. 예선 서류평가 -->
+<section class="slide" id="s10">
+  <div class="sh"><span class="sh-l">II-5. 예선 발표(서류평가)</span><span class="sh-r">PRELIMINARY REVIEW</span></div>
+  <div class="si" style="padding-top:58px">
+    <div class="tag">공정하고 체계적인 예선 평가</div>
+    <h2 class="st" data-step="1">외부 심사위원 <span class="hl">5인 이상</span>의 블라인드 평가</h2>
+    <p class="sub" data-step="2">사업단 승인을 거친 전문 심사위원이 사전 합의된 Rubric으로 공정하게 본선 진출 11팀을 선정합니다</p>
+    <div class="g2" style="margin-top:14px;flex:1">
+      <div data-step="3">
+        <div class="cl">예선 Rubric (안) — 사업단 협의 후 확정</div>
+        <table class="tb">
+          <thead><tr><th>평가항목</th><th style="width:18%">배점</th><th>내용</th></tr></thead>
+          <tbody>
+            <tr><td style="font-weight:700">아이디어·창의성</td><td><strong>25</strong></td><td>문제 정의·접근의 독창성</td></tr>
+            <tr><td style="font-weight:700">AI·SW 기술 활용도</td><td><strong>25</strong></td><td>기술 적합성·프로토타입 완성도</td></tr>
+            <tr><td style="font-weight:700">융합성·협업도</td><td><strong>20</strong></td><td>전공 융합 정도·팀원 기여 분배</td></tr>
+            <tr><td style="font-weight:700">실현 가능성·완성도</td><td><strong>20</strong></td><td>구현 가능성·데이터·자원 활용</td></tr>
+            <tr><td style="font-weight:700">후속 연계 가능성</td><td><strong>10</strong></td><td>창업·공모전·사회 기여</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div data-step="4">
+        <div class="cl">과업지시서 Ⅱ-5 이행 체크</div>
+        <ul class="ck">
+          <li><span class="i">&#10003;</span><strong>전문 심사위원 5인 이상 섭외</strong><br/><span style="color:var(--ov);font-size:.6875rem">사업단 사전 승인 절차 준수</span></li>
+          <li><span class="i">&#10003;</span><strong>Rubric 기반 블라인드 평가</strong><br/><span style="color:var(--ov);font-size:.6875rem">개인정보 마스킹 후 배포 · 이중 집계 검증</span></li>
+          <li><span class="i">&#10003;</span><strong>결과 발표 포맷 제공</strong><br/><span style="color:var(--ov);font-size:.6875rem">사업단 홈페이지 게시용 합격자 명단·포맷</span></li>
+          <li><span class="i">&#10003;</span><strong>본선 일정 안내</strong><br/><span style="color:var(--ov);font-size:.6875rem">본선진출자 개별 메일·문자 + FAQ 동봉</span></li>
+          <li><span class="i">&#10003;</span><strong>본선 참관생 모집</strong><br/><span style="color:var(--ov);font-size:.6875rem">홍보 배너·구글폼 운영, 당일 안내</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span class="sf-logo"><span class="dc">DATABIT</span></span><span class="sf-pg">10</span><span class="sf-cr">COPYRIGHT 2026</span></div>
+</section>
+
+<!-- S11: II-6. 본선 발표 + 시상 -->
+<section class="slide" id="s11">
+  <div class="sh"><span class="sh-l">II-6. 본선 발표 및 시상(대면)</span><span class="sh-r">FINALS · AWARDS</span></div>
+  <div class="si" style="padding-top:58px">
+    <div class="tag tag-w">원스톱 본선 개최 (7.8 · 춘천캠퍼스)</div>
+    <h2 class="st" data-step="1">11팀 · 총 <span class="hl-w">700만원 시상금</span> 책임 운영</h2>
+    <div class="g2" style="margin-top:14px;flex:1">
+      <div data-step="2">
+        <div class="cl">본선 시상 구성 (과업지시서 준수)</div>
+        <table class="tb">
+          <thead><tr><th>구분</th><th>훈격</th><th style="width:14%">대상작</th><th>부상</th></tr></thead>
+          <tbody>
+            <tr><td style="font-weight:700;color:var(--w)">대 상</td><td>SW중심대학사업단장상</td><td><strong>1</strong></td><td>200만원 시상금</td></tr>
+            <tr><td style="font-weight:700;color:var(--w)">최우수상</td><td>SW중심대학사업단장상</td><td><strong>2</strong></td><td>100만원 시상금</td></tr>
+            <tr><td style="font-weight:700;color:var(--w)">우수상</td><td>SW중심대학사업단장상</td><td><strong>3</strong></td><td>50만원 시상금</td></tr>
+            <tr><td style="font-weight:700;color:var(--w)">장려상</td><td>SW중심대학사업단장상</td><td><strong>5</strong></td><td>30만원 시상금</td></tr>
+            <tr><td style="font-weight:700;background:var(--wb)">총 계</td><td style="background:var(--wb)">—</td><td style="background:var(--wb)"><strong>11</strong></td><td style="background:var(--wb)"><strong>총 700만원</strong></td></tr>
+          </tbody>
+        </table>
+        <div class="c c-w" style="margin-top:8px;padding:9px 12px"><div class="c-d" style="font-size:.6875rem">※ 본선 장소: 강원대학교 춘천캠퍼스 교내 강의실(사업단 확정). 계획 변경 시 즉시 대응</div></div>
+      </div>
+      <div data-step="3">
+        <div class="cl">본선 운영 체크리스트 (Ⅱ-6 가~아)</div>
+        <ul class="ck">
+          <li><span class="i">&#10003;</span>본선진출자 참가 안내·독려·리허설 조율</li>
+          <li><span class="i">&#10003;</span>등록데스크 운영·서명부·다과(간식/음료)</li>
+          <li><span class="i">&#10003;</span>등록·사회·개회식·특강·발표심사·시상식</li>
+          <li><span class="i">&#10003;</span>본선 발표평가 전문 심사위원 섭외</li>
+          <li><span class="i">&#10003;</span>사회자 + 시상 보조 + 운영 인력 확보</li>
+          <li><span class="i">&#10003;</span>특강 설계·전문가 섭외 (사업단 승인)</li>
+          <li><span class="i">&#10003;</span>전문 사진작가 + 영상 기록·진행·안전관리</li>
+          <li><span class="i">&#10003;</span>상장·시상품·명찰·현수막·배너 일체 제작</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span class="sf-logo"><span class="dc">DATABIT</span></span><span class="sf-pg">11</span><span class="sf-cr">COPYRIGHT 2026</span></div>
+</section>
+
+<!-- S12: II-7/8. 결과보고 + 기타 -->
+<section class="slide" id="s12">
+  <div class="sh"><span class="sh-l">II-7 · II-8. 결과보고 &amp; 기타사항</span><span class="sh-r">REPORT &amp; MISC</span></div>
+  <div class="si" style="padding-top:58px">
+    <div class="tag">프로그램 운영 결과보고</div>
+    <h2 class="st" data-step="1">수집부터 납품까지 <span class="hl">증빙 한 장도 누락 없이</span></h2>
+    <div class="g2" style="margin-top:14px;flex:1">
+      <div data-step="2">
+        <div class="cl">II-7. 프로그램 운영 결과보고</div>
+        <div class="c c-b" style="padding:12px 14px;margin-bottom:8px">
+          <div class="c-t" style="font-size:.8125rem;color:var(--osc)">최종 결과보고서 포함 항목</div>
+          <div class="c-d" style="font-size:.6875rem;color:var(--osc);opacity:.85;margin-top:4px">참가자 명단 · 사진 · 전문가 이력 · 만족도 결과 분석</div>
+        </div>
+        <div class="cl" style="margin-top:4px">제출 자료 일체 (과업지시서 Ⅱ-7-나)</div>
+        <ul class="ck">
+          <li><span class="i">&#10003;</span>참여자 제출 자료</li>
+          <li><span class="i">&#10003;</span>멘토링 증빙자료 (일지·캡처·사진)</li>
+          <li><span class="i">&#10003;</span>중간점검 결과 자료</li>
+          <li><span class="i">&#10003;</span>최종 결과물 · 심사자료 · 서명부</li>
+          <li><span class="i">&#10003;</span>만족도 조사 결과 · 본선 사진</li>
+        </ul>
+      </div>
+      <div data-step="3">
+        <div class="cl">II-8. 기타사항 (가~바)</div>
+        <ul class="ck">
+          <li><span class="i">&#10003;</span><strong>사업단 계획(안) 준수</strong> — 일정·내용 변경 수용</li>
+          <li><span class="i">&#10003;</span><strong>전문 인력 사전 승인</strong> — 멘토·심사위원·특강강사</li>
+          <li><span class="i">&#10003;</span><strong>기사 작성</strong> — 본선 개최 전·직후 보도자료 2건</li>
+          <li><span class="i">&#10003;</span><strong>만족도 조사 분석</strong> — 전체·트랙별·팀별 리포트</li>
+          <li><span class="i">&#10003;</span><strong>전 과정 책임 수행</strong> — 시작~종료 단일 책임</li>
+          <li><span class="i">&#10003;</span><strong>발주처 변경 요청 수용</strong> — 즉시 반영·영향도 분석</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span class="sf-logo"><span class="dc">DATABIT</span></span><span class="sf-pg">12</span><span class="sf-cr">COPYRIGHT 2026</span></div>
+</section>
+
+<!-- S13: SECTION III -->
+<section class="slide slide-sec" id="s13">
+  <div class="si">
+    <div class="sn" data-step="1">III</div>
+    <h2 data-step="2">일반지침 및 행정사항 이행 계획</h2>
+    <p class="sd" data-step="3">과업지시서 상의 모든 요구사항을 철저히 준수하여 리스크 없는 안정적 사업 수행을 보장합니다</p>
+  </div>
+  <div class="sf"><span class="sf-logo"><span class="dc">DATABIT</span></span><span class="sf-pg">13</span><span class="sf-cr">COPYRIGHT 2026</span></div>
+</section>
+
+<!-- S14: III. 일반지침 및 행정사항 -->
+<section class="slide" id="s14">
+  <div class="sh"><span class="sh-l">III. 일반지침 및 행정사항</span><span class="sh-r">COMPLIANCE</span></div>
+  <div class="si" style="padding-top:58px">
+    <div class="tag">안정적 사업 수행을 위한 준수 체계</div>
+    <h2 class="st" data-step="1">리스크 없는 <span class="hl">안정적 사업 수행</span> 보장</h2>
+    <div class="g3" style="margin-top:14px;flex:1">
+      <div data-step="2">
+        <div class="cl">III-1. 수행 내용</div>
+        <ul class="ck" style="gap:4px">
+          <li><span class="i">&#10003;</span>계약 후 <strong>10일 이내</strong> 착수계·수행계획서·인력명단 제출</li>
+          <li><span class="i">&#10003;</span>주간 리포트 + 수시 보고</li>
+          <li><span class="i">&#10003;</span>경미한 변경 즉시 이행</li>
+          <li><span class="i">&#10003;</span>실시간 온라인 회의 대응</li>
+        </ul>
+        <div class="cl" style="margin-top:10px">III-2. 수행 기준</div>
+        <ul class="ck" style="gap:4px">
+          <li><span class="i">&#10003;</span>해석 차이 시 발주자 해석 우선</li>
+          <li><span class="i">&#10003;</span><strong>90% 달성률 미달 시 정산</strong> 수용</li>
+          <li><span class="i">&#10003;</span>경미한 경비 과업수행자 부담</li>
+        </ul>
+      </div>
+      <div data-step="3">
+        <div class="cl">III-3. 수행 조건 · 안전·보안</div>
+        <ul class="ck" style="gap:4px">
+          <li><span class="i">&#10003;</span>보안규정 준수 · 자료 외부 반출 금지</li>
+          <li><span class="i">&#10003;</span>하도급·재위탁 금지 · <strong>단독 이행</strong></li>
+          <li><span class="i">&#10003;</span>성과물 저작권 발주자 소유 수용</li>
+          <li><span class="i">&#10003;</span>참여인력 교체 요청 즉시 대응</li>
+        </ul>
+        <div class="cl" style="margin-top:10px">안전관리 대책</div>
+        <ul class="ck" style="gap:4px">
+          <li><span class="i">&#10003;</span>기상악화 대비 실내 대체 동선</li>
+          <li><span class="i">&#10003;</span>의료·소방 대응 매뉴얼·AED 확인</li>
+          <li><span class="i">&#10003;</span>비상연락망·대응체계 구축</li>
+          <li><span class="i">&#10003;</span>원상복구·청소 인력 운영</li>
+        </ul>
+      </div>
+      <div data-step="4">
+        <div class="cl">행정사항 · 성과품 납품</div>
+        <ul class="ck" style="gap:4px">
+          <li><span class="i">&#10003;</span>한글·아라비아 숫자·미터법 원칙</li>
+          <li><span class="i">&#10003;</span>사전 확인본 → 최종본 2단계 검토</li>
+          <li><span class="i">&#10003;</span><strong>과업 완료 10일 이내 납품</strong></li>
+        </ul>
+        <div class="cl" style="margin-top:10px">성과품 제출 목록</div>
+        <table class="tb" style="font-size:.6875rem">
+          <tbody>
+            <tr><td style="font-weight:700;width:40%">최종보고서</td><td>설문·사진 포함 1부</td></tr>
+            <tr><td style="font-weight:700">기타산출물</td><td>멘토링 일지·사진·평가표 각 1부</td></tr>
+          </tbody>
+        </table>
+        <div class="c c-w" style="margin-top:8px;padding:9px 12px"><div class="c-d" style="font-size:.625rem">하자 발생 시 <strong>추가 비용 청구 없이</strong> 수정·보완</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span class="sf-logo"><span class="dc">DATABIT</span></span><span class="sf-pg">14</span><span class="sf-cr">COPYRIGHT 2026</span></div>
+</section>
+
+<!-- S15: SECTION IV -->
+<section class="slide slide-sec" id="s15">
+  <div class="si">
+    <div class="sn" data-step="1">IV</div>
+    <h2 data-step="2">제안사 소개 및 주요 강점</h2>
+    <p class="sd" data-step="3">주식회사 데이터비트 — 여성기업의 전문성과 9건의 검증된 운영 실적</p>
+  </div>
+  <div class="sf"><span class="sf-logo"><span class="dc">DATABIT</span></span><span class="sf-pg">15</span><span class="sf-cr">COPYRIGHT 2026</span></div>
+</section>
+
+<!-- S16: V-1/2. 회사 개요 + 강점 -->
+<section class="slide" id="s16">
+  <div class="sh"><span class="sh-l">IV-1 · IV-2. 제안사 소개</span><span class="sh-r">COMPANY PROFILE</span></div>
+  <div class="si" style="padding-top:58px">
+    <div class="tag">주식회사 데이터비트 (DATABIT Inc.)</div>
+    <h2 class="st" data-step="1">AI 업무 자동화 전문기업 · <span class="hl">여성기업 확인</span></h2>
+    <p class="sub" data-step="2">공공·학술·지자체 영역에서 AI 경진대회·공모전을 원스톱으로 기획·운영해 온 독보적 전문 사업자</p>
+    <div class="g2" style="margin-top:14px;flex:1">
+      <div data-step="3">
+        <div class="cl">회사 개요</div>
+        <table class="tb">
+          <tbody>
+            <tr><td style="font-weight:700;width:36%">회사명</td><td>주식회사 데이터비트</td></tr>
+            <tr><td style="font-weight:700">대표자</td><td>김진선</td></tr>
+            <tr><td style="font-weight:700">설립일</td><td><strong>2022년 9월</strong></td></tr>
+            <tr><td style="font-weight:700">기업 인증</td><td><strong style="color:var(--w)">여성기업 확인 기업</strong></td></tr>
+            <tr><td style="font-weight:700">사업자번호</td><td>488-87-02645</td></tr>
+            <tr><td style="font-weight:700">본사</td><td>서울시 영등포구 국제금융로6길 33</td></tr>
+            <tr><td style="font-weight:700">핵심 사업</td><td>AI 컨설팅·솔루션·SaaS·<strong>경진대회 운영</strong></td></tr>
+            <tr><td style="font-weight:700">구성원</td><td>ML·AI·데이터사이언스 전공자</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div data-step="4">
+        <div class="cl-w" style="color:var(--w)">데이터비트만의 차별화된 역량</div>
+        <div class="c c-w" style="padding:10px 14px;margin-bottom:6px">
+          <div class="c-t" style="font-size:.8125rem;color:var(--w)">① 대학·연구기관 특화 레퍼런스</div>
+          <div class="c-d" style="font-size:.6875rem">서울시립대 2회 연속 수주·생명공학연·성균관대 등 동일 포맷 경험</div>
+        </div>
+        <div class="c c-w" style="padding:10px 14px;margin-bottom:6px">
+          <div class="c-t" style="font-size:.8125rem;color:var(--w)">② 도메인 전문가 조직</div>
+          <div class="c-d" style="font-size:.6875rem">ML·데이터사이언스 전공자가 직접 주제·멘토링·Rubric 설계에 참여</div>
+        </div>
+        <div class="c c-w" style="padding:10px 14px;margin-bottom:6px">
+          <div class="c-t" style="font-size:.8125rem;color:var(--w)">③ AI 자동화 솔루션 접목</div>
+          <div class="c-d" style="font-size:.6875rem">n8n/Zapier/Make로 접수·일정·증빙 자동화, 누락 원천 차단</div>
+        </div>
+        <div class="c c-w" style="padding:10px 14px;margin-bottom:6px">
+          <div class="c-t" style="font-size:.8125rem;color:var(--w)">④ 강원 지역 네트워크</div>
+          <div class="c-d" style="font-size:.6875rem">2026.03 강원도 캠프 운영으로 지역 특성 반영 현장 경험 확보</div>
+        </div>
+        <div class="c c-w" style="padding:10px 14px">
+          <div class="c-t" style="font-size:.8125rem;color:var(--w)">⑤ 여성기업 + 단독 책임 수행</div>
+          <div class="c-d" style="font-size:.6875rem">공공 조달 자격 + 하도급 없는 데이터비트 단독 이행</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span class="sf-logo"><span class="dc">DATABIT</span></span><span class="sf-pg">16</span><span class="sf-cr">COPYRIGHT 2026</span></div>
+</section>
+
+<!-- S17: V-3. 운영 실적 9건 (핵심 슬라이드) -->
+<section class="slide" id="s17">
+  <div class="sh"><span class="sh-l">IV-3. 주요 운영 실적 (Track Record)</span><span class="sh-r">9 PROJECTS</span></div>
+  <div class="si" style="padding-top:58px">
+    <div class="tag">AI 경진대회·공모전 검증된 운영 레퍼런스</div>
+    <h2 class="st" data-step="1">2022~2026 · <span class="hl">9건의 검증된 운영 실적</span></h2>
+    <p class="sub" data-step="2">대학 주최 AI 경진대회 · 바이오 도메인 대회 · 지자체 공모전 등 본 과업과 완전히 동일한 운영 포맷을 다수 수행해 왔습니다</p>
+    <div style="margin-top:12px;flex:1" data-step="3">
+      <table class="tb">
+        <thead><tr><th style="width:12%">연월</th><th style="width:25%">발주/주최</th><th style="width:22%">사업 유형</th><th>본 과업과의 적합성</th></tr></thead>
+        <tbody>
+          <tr><td>2022.11</td><td style="font-weight:700;color:var(--p)">서울시립대학교</td><td>AI 경진대회 운영</td><td><strong>대학 주최 AI 경진대회</strong> — 본 과업과 동일 유형</td></tr>
+          <tr><td>2024.06</td><td style="font-weight:700;color:var(--p)">한국생명공학연구원</td><td>AI 경진대회 운영</td><td><strong>바이오·생명과학 도메인</strong> — 트랙 1(헬스케어/바이오) 연계</td></tr>
+          <tr><td>2024.07</td><td style="font-weight:700;color:var(--p)">한국재정정보원</td><td>AI 경진대회 운영</td><td>공공기관 대규모 운영 경험</td></tr>
+          <tr><td>2025.06</td><td style="font-weight:700;color:var(--p)">성균관대학교</td><td>심포지움(AI Bias) 운영</td><td><strong>대학 학술 행사</strong> · AI 윤리 전문성</td></tr>
+          <tr><td>2025.06</td><td style="font-weight:700;color:var(--p)">수원시정연구원</td><td>정책 아이디어 공모전</td><td>아이디어 공모전 원스톱 운영</td></tr>
+          <tr><td>2025.07</td><td style="font-weight:700;color:var(--p)">한국기계연구원</td><td>내부 직원 대상 대회</td><td>연구기관 내부 역량 강화 운영</td></tr>
+          <tr><td>2025.11</td><td style="font-weight:700;color:var(--p)">서울시립대학교</td><td>AI 경진대회 운영</td><td><strong>대학 재계약</strong> — 장기 파트너십·품질 재검증</td></tr>
+          <tr><td>2025.12</td><td style="font-weight:700;color:var(--p)">파주시</td><td>AI 아이디어 공모전</td><td>지자체 공모전 운영</td></tr>
+          <tr style="background:var(--wb)"><td>2026.03</td><td style="font-weight:700;color:var(--w)">강원도</td><td>캠프 운영</td><td><strong>강원도 현장 운영 경험</strong> — 본 과업 지역 대응 역량</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="g4" style="margin-top:10px" data-step="4">
+      <div class="mx"><div class="v">9건</div><div class="l">AI 경진대회·공모전 운영</div></div>
+      <div class="mx"><div class="v">2회</div><div class="l">서울시립대 재수주</div></div>
+      <div class="mx" style="background:var(--wb)"><div class="v" style="color:var(--w)">3곳</div><div class="l">대학·학술 레퍼런스</div></div>
+      <div class="mx" style="background:var(--wb)"><div class="v" style="color:var(--w)">YES</div><div class="l">강원 지역 운영 경험</div></div>
+    </div>
+  </div>
+  <div class="sf"><span class="sf-logo"><span class="dc">DATABIT</span></span><span class="sf-pg">17</span><span class="sf-cr">COPYRIGHT 2026</span></div>
+</section>
+
+<!-- S18: VI. 기대효과 + 결과보고 -->
+<section class="slide" id="s18">
+  <div class="sh"><span class="sh-l">V. 기대효과 및 맺음말</span><span class="sh-r">OUTCOMES</span></div>
+  <div class="si" style="padding-top:58px">
+    <div class="tag">기대효과 및 맺음말</div>
+    <h2 class="st" data-step="1">본 협력이 만들어낼 <span class="hl">폭발적 시너지</span></h2>
+    <div class="g2" style="margin-top:14px;flex:1">
+      <div data-step="2">
+        <div class="cl">기대효과</div>
+        <div class="c c-b" style="padding:10px 14px;margin-bottom:6px"><div class="c-t" style="color:var(--osc);font-size:.8125rem">학생 — 실전 역량·포트폴리오</div><div class="c-d" style="color:var(--osc);opacity:.85;font-size:.6875rem">전공×AI·SW 융합 실전 경험 + 수상 시 후속 성장 기회</div></div>
+        <div class="c c-b" style="padding:10px 14px;margin-bottom:6px"><div class="c-t" style="color:var(--osc);font-size:.8125rem">사업단 — SW중심대학 KPI</div><div class="c-d" style="color:var(--osc);opacity:.85;font-size:.6875rem">융합 교육·창업 연계 지표 실적 + 증빙 품질로 상위 평가 대응</div></div>
+        <div class="c c-b" style="padding:10px 14px;margin-bottom:6px"><div class="c-t" style="color:var(--osc);font-size:.8125rem">리스크 최소화</div><div class="c-d" style="color:var(--osc);opacity:.85;font-size:.6875rem">9건 운영 경험 전문사 파트너십으로 운영 리스크 사전 통제</div></div>
+        <div class="c c-b" style="padding:10px 14px"><div class="c-t" style="color:var(--osc);font-size:.8125rem">지역 파트너십</div><div class="c-d" style="color:var(--osc);opacity:.85;font-size:.6875rem">2026.3 강원도 캠프 경험 + 향후 장기 파트너십 기반 마련</div></div>
+      </div>
+      <div data-step="3">
+        <div class="cl-w" style="color:var(--w)">최종보고서 목차(안)</div>
+        <ul class="ck" style="gap:4px">
+          <li><span class="i">01</span>사업 개요 및 추진 경과</li>
+          <li><span class="i">02</span>참가자 현황 (명단·학과·학년 분포)</li>
+          <li><span class="i">03</span>멘토링 운영 결과 (이력·일지·증빙)</li>
+          <li><span class="i">04</span>중간점검 결과</li>
+          <li><span class="i">05</span>예선·본선 심사 결과 (위원·Rubric·데이터)</li>
+          <li><span class="i">06</span>수상팀 및 시상 내역</li>
+          <li><span class="i">07</span>본선 행사 기록 (사진·큐시트·특강)</li>
+          <li><span class="i">08</span><strong>만족도 조사 결과 분석</strong></li>
+          <li><span class="i">09</span>사업 운영 교훈 및 개선 제언</li>
+          <li><span class="i">10</span>별첨 (서명부·개인정보 동의서 등)</li>
+        </ul>
+        <div class="c c-w" style="margin-top:8px;padding:9px 12px"><div class="c-d" style="font-size:.6875rem"><strong>납품:</strong> 인쇄본 1부 + PDF + 디지털 아카이브(USB) · <strong>2026.8.10. 이내</strong></div></div>
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span class="sf-logo"><span class="dc">DATABIT</span></span><span class="sf-pg">18</span><span class="sf-cr">COPYRIGHT 2026</span></div>
+</section>
+
+<!-- S19: ENDING -->
+<section class="slide slide-end" id="s19">
+  <div class="si">
+    <div class="end-logo" data-step="1">
+      <span class="logo-mark logo-mark-lg" style="font-size:2.5rem">DATABIT</span>
+      <span style="padding:4px 12px;border-radius:var(--rf);background:var(--w);color:#fff;font-size:.6875rem;font-weight:700">여성기업 확인</span>
+    </div>
+    <h1 data-step="2">강원대 <span style="color:var(--p)">X+AI·SW</span><br/>책임지고 운영하겠습니다</h1>
+    <p class="end-sub" data-step="3">
+      250명 · 65팀 · 춘천캠퍼스 본선까지<br/>
+      <strong>AI 경진대회 운영 9건 경험</strong>으로 빈틈 없이 이행합니다
+    </p>
+    <div data-step="4" style="margin-top:28px;display:flex;gap:12px">
+      <a href="https://databit.co.kr" target="_blank" style="padding:10px 24px;border-radius:var(--rm);background:linear-gradient(135deg,var(--p),var(--pd));color:#fff;font-size:.875rem;font-weight:700;text-decoration:none">databit.co.kr</a>
+    </div>
+    <div data-step="5" style="margin-top:22px;font-size:.8125rem;color:var(--osv);line-height:1.7">
+      주식회사 데이터비트 · 대표 김진선 · 단독 수급<br/>
+      info@databit.co.kr · 서울시 영등포구 국제금융로6길 33
+    </div>
+  </div>
+  <div class="sf"><span class="sf-logo"><span class="dc">DATABIT</span></span><span class="sf-pg">19</span><span class="sf-cr">COPYRIGHT 2026 DATABIT</span></div>
+</section>
+
+</div></div>
+<button class="nav-btn" id="nav-prev">&#8249;</button>
+<button class="nav-btn" id="nav-next">&#8250;</button>
+<div id="progress-bar" style="width:0%"></div>
+<div id="key-hint">Arrow keys or click to navigate</div>
+<script>
+(function(){
+const slides=document.querySelectorAll('.slide'),total=slides.length;let cur=0;
+function maxStep(s){let m=0;s.querySelectorAll('[data-step]').forEach(e=>{const v=+e.dataset.step;if(v>m)m=v});return m}
+let step=0;
+function show(idx,dir){slides.forEach(s=>s.classList.remove('active'));slides[idx].classList.add('active');step=0;const els=slides[idx].querySelectorAll('[data-step]');els.forEach(e=>{e.classList.remove('visible','pre-visible')});if(dir==='back'){step=maxStep(slides[idx]);els.forEach(e=>e.classList.add('pre-visible'))}document.getElementById('progress-bar').style.width=((idx+1)/total*100)+'%'}
+function next(){const ms=maxStep(slides[cur]);if(step<ms){step++;slides[cur].querySelectorAll('[data-step]').forEach(e=>{if(+e.dataset.step<=step)e.classList.add('visible')});return}if(cur<total-1){cur++;show(cur,'fwd')}}
+function prev(){if(step>0){slides[cur].querySelectorAll('[data-step]').forEach(e=>{if(+e.dataset.step===step){e.classList.remove('visible','pre-visible')}});step--;return}if(cur>0){cur--;show(cur,'back')}}
+document.getElementById('nav-next').onclick=next;document.getElementById('nav-prev').onclick=prev;
+document.addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key===' '||e.key==='Enter')next();else if(e.key==='ArrowLeft'||e.key==='Backspace')prev()});
+let tx=0;document.addEventListener('touchstart',e=>{tx=e.changedTouches[0].screenX});document.addEventListener('touchend',e=>{const dx=e.changedTouches[0].screenX-tx;if(dx<-50)next();else if(dx>50)prev()});
+function fit(){const vw=window.innerWidth,vh=window.innerHeight;const s=Math.min(vw/1280,vh/720,1);document.getElementById('stage').style.transform='scale('+s+')'}
+window.addEventListener('resize',fit);fit();show(0,'fwd')
+slides[0].querySelectorAll('[data-step]').forEach(e => { e.classList.add('pre-visible'); });
+})();
+</script>
+</body></html>
