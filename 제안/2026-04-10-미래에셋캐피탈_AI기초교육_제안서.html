@@ -1,0 +1,1026 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>미래에셋캐피탈 AI 업무 활용 기초 교육 제안서</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --primary: #0053db;
+  --primary-dim: #0048c1;
+  --on-primary: #f8f7ff;
+  --on-background: #2a3439;
+  --surface: #f7f9fb;
+  --surface-bright: #f7f9fb;
+  --surface-low: #f0f4f7;
+  --surface-lowest: #ffffff;
+  --on-surface: #2a3439;
+  --on-surface-variant: #566166;
+  --outline-variant: #a9b4b9;
+  --secondary-container: #d8e3fb;
+  --on-secondary-container: #475266;
+  --accent-warm: #c2622d;
+  --accent-warm-bg: rgba(194,98,45,0.06);
+  --accent-dark: #0f172a;
+  --green: #10b981;
+  --green-bg: rgba(16,185,129,0.06);
+
+  --font: 'Plus Jakarta Sans', -apple-system, sans-serif;
+  --shadow-ambient: 0 8px 24px rgba(30,41,59,0.04);
+  --ghost: 1px solid rgba(169,180,185,0.2);
+  --r-sm: 0.25rem; --r-md: 0.375rem; --r-lg: 0.75rem; --r-xl: 1rem; --r-full: 9999px;
+  --slide-w: 1280px; --slide-h: 720px;
+}
+
+html, body {
+  width: 100%; height: 100%;
+  background: var(--surface-low);
+  font-family: var(--font);
+  overflow: hidden; color: var(--on-surface);
+}
+
+#viewport { position: fixed; inset: 0; display: flex; align-items: center; justify-content: center; }
+#stage {
+  position: relative; width: var(--slide-w); height: var(--slide-h);
+  overflow: hidden; transform-origin: center center;
+  border-radius: var(--r-lg); box-shadow: 0 12px 48px rgba(30,41,59,0.1);
+}
+
+.slide {
+  position: absolute; inset: 0; background: var(--surface);
+  display: flex; flex-direction: column;
+  opacity: 0; pointer-events: none; transition: opacity 0s;
+}
+.slide.active { opacity: 1; pointer-events: auto; }
+
+.si { flex: 1; display: flex; flex-direction: column; padding: 64px 72px 52px; position: relative; }
+
+.sh { position: absolute; top: 0; left: 0; right: 0; padding: 18px 32px; display: flex; justify-content: space-between; align-items: center; background: var(--surface-low); }
+.sh-l { font-size: 0.6875rem; font-weight: 700; color: var(--on-surface-variant); letter-spacing: 0.05em; text-transform: uppercase; }
+
+.sf { position: absolute; bottom: 0; left: 0; right: 0; padding: 12px 32px; display: flex; justify-content: space-between; align-items: center; background: var(--surface-low); }
+.sf-logo { font-size: 0.875rem; font-weight: 800; color: var(--primary); letter-spacing: 0.04em; }
+.sf-pg { font-size: 0.6875rem; color: var(--on-surface-variant); font-weight: 600; }
+.sf-cr { font-size: 0.5625rem; color: var(--outline-variant); letter-spacing: 0.03em; font-weight: 600; }
+
+.tag { display: inline-flex; align-items: center; gap: 8px; font-size: 0.6875rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--primary); margin-bottom: 14px; }
+.tag::before { content: ''; width: 24px; height: 2.5px; background: var(--primary); border-radius: 2px; }
+.tag-w { color: var(--accent-warm); }
+.tag-w::before { background: var(--accent-warm); }
+.tag-g { color: var(--green); }
+.tag-g::before { background: var(--green); }
+
+h2.st { font-size: 2rem; font-weight: 800; line-height: 1.2; color: var(--on-surface); letter-spacing: -0.02em; }
+.hl { color: var(--primary); }
+.hl-w { color: var(--accent-warm); }
+.hl-g { color: var(--green); }
+.sub { margin-top: 10px; font-size: 0.9375rem; color: var(--on-surface-variant); line-height: 1.7; }
+
+.c { background: var(--surface-lowest); border-radius: var(--r-lg); padding: 20px; }
+.c-blue { background: var(--secondary-container); }
+.c-warm { background: var(--accent-warm-bg); }
+.c-surf { background: var(--surface-low); }
+.c-green { background: var(--green-bg); }
+.c-t { font-size: 0.9375rem; font-weight: 700; color: var(--on-surface); margin-bottom: 6px; }
+.c-d { font-size: 0.8125rem; color: var(--on-surface-variant); line-height: 1.65; }
+
+.g2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.g3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+.g4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 12px; }
+
+.ic { width: 36px; height: 36px; border-radius: var(--r-md); display: flex; align-items: center; justify-content: center; font-size: 0.8125rem; font-weight: 800; margin-bottom: 12px; color: #fff; background: var(--primary); }
+.ic-w { background: var(--accent-warm); }
+.ic-d { background: var(--accent-dark); }
+.ic-g { background: var(--green); }
+
+.bd { display: inline-block; padding: 3px 10px; border-radius: var(--r-full); font-size: 0.6875rem; font-weight: 700; background: var(--secondary-container); color: var(--on-secondary-container); }
+.bd-w { background: var(--accent-warm-bg); color: var(--accent-warm); }
+.bd-g { background: var(--green-bg); color: var(--green); }
+
+.tb { width: 100%; border-collapse: collapse; font-size: 0.9375rem; }
+.tb th { text-align: left; padding: 12px 14px; background: var(--surface-low); color: var(--on-surface); font-weight: 700; font-size: 0.8125rem; }
+.tb td { padding: 12px 14px; color: var(--on-surface-variant); }
+.tb tr:nth-child(even) td { background: var(--surface-low); }
+.tb .row-hl td { background: var(--secondary-container); color: var(--on-secondary-container); font-weight: 600; }
+
+.mx { text-align: center; padding: 16px 10px; background: var(--surface-low); border-radius: var(--r-lg); }
+.mx .v { font-size: 1.75rem; font-weight: 800; line-height: 1; color: var(--primary); }
+.mx .l { font-size: 0.6875rem; color: var(--on-surface-variant); margin-top: 6px; font-weight: 500; }
+
+.slide-sec .si { justify-content: center; align-items: center; text-align: center; padding-top: 60px; }
+.slide-sec .sn { font-size: 4.5rem; font-weight: 800; color: rgba(0,83,219,0.06); line-height: 1; margin-bottom: 8px; }
+.slide-sec h2 { font-size: 2.625rem; font-weight: 800; color: var(--on-surface); letter-spacing: -0.02em; }
+.slide-sec .sd { font-size: 1.0625rem; color: var(--on-surface-variant); margin-top: 10px; }
+
+.slide-end .si { justify-content: center; align-items: center; text-align: center; }
+.slide-end h1 { font-size: 3rem; font-weight: 800; color: var(--on-surface); line-height: 1.15; letter-spacing: -0.02em; }
+.slide-end .end-sub { font-size: 1.125rem; color: var(--on-surface-variant); margin-top: 14px; }
+.slide-end .end-logo { font-size: 2.625rem; font-weight: 800; color: var(--primary); letter-spacing: 0.06em; margin-bottom: 36px; }
+
+.tc { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; flex: 1; }
+
+.fr { display: flex; align-items: center; gap: 8px; }
+.fa { font-size: 18px; color: var(--outline-variant); flex-shrink: 0; }
+.fb { flex: 1; padding: 14px 16px; background: var(--surface-low); border-radius: var(--r-lg); text-align: center; }
+.fb-p { background: var(--secondary-container); }
+.fb .fl { font-size: 0.75rem; color: var(--on-surface-variant); font-weight: 600; }
+.fb .fd { font-size: 0.6875rem; color: var(--on-surface-variant); margin-top: 4px; line-height: 1.4; opacity: 0.7; }
+
+.ck { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+.ck li { display: flex; align-items: flex-start; gap: 10px; font-size: 0.8125rem; color: var(--on-surface-variant); line-height: 1.6; }
+.ck li .i { flex-shrink: 0; font-size: 0.8125rem; margin-top: 2px; font-weight: 700; color: var(--primary); }
+
+.sl { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+.sl li { display: flex; align-items: flex-start; gap: 12px; font-size: 0.8125rem; color: var(--on-surface-variant); line-height: 1.6; }
+.sl li .sn2 { flex-shrink: 0; width: 24px; height: 24px; border-radius: 50%; background: var(--primary); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 0.6875rem; font-weight: 800; margin-top: 1px; }
+
+.tl { display: flex; align-items: stretch; gap: 0; margin-top: 12px; }
+.tl-item { flex: 1; position: relative; padding: 14px 12px 12px; text-align: center; }
+.tl-item::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: var(--surface-low); border-radius: 2px; }
+.tl-item.active::before { background: var(--primary); }
+.tl-dt { font-size: 0.625rem; font-weight: 700; color: var(--primary); margin-bottom: 4px; letter-spacing: 0.02em; }
+.tl-tt { font-size: 0.75rem; font-weight: 700; color: var(--on-surface); margin-bottom: 2px; }
+.tl-dd { font-size: 0.625rem; color: var(--on-surface-variant); line-height: 1.4; }
+
+[data-step] { opacity: 0; transform: translateY(14px); transition: opacity 0.45s ease, transform 0.45s ease; }
+[data-step].visible { opacity: 1; transform: none; }
+[data-step].pre-visible { opacity: 1; transform: none; transition: none; }
+
+.nav-btn {
+  position: fixed; top: 50%; transform: translateY(-50%);
+  width: 40px; height: 40px; border-radius: 50%;
+  background: rgba(247,249,251,0.85); border: none;
+  color: var(--on-surface-variant); cursor: pointer; z-index: 100;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px; transition: all 0.2s; user-select: none;
+  box-shadow: var(--shadow-ambient);
+  backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+}
+.nav-btn:hover { color: var(--primary); }
+#nav-prev { left: 12px; }
+#nav-next { right: 12px; }
+
+#progress-bar { position: fixed; top: 0; left: 0; height: 3px; background: linear-gradient(90deg, var(--primary), var(--primary-dim)); transition: width 0.4s ease; z-index: 100; }
+#key-hint { position: fixed; bottom: 16px; left: 50%; transform: translateX(-50%); color: var(--outline-variant); font-size: 0.6875rem; z-index: 100; opacity: 0.4; }
+
+@page { size: landscape; margin: 0; }
+@media print {
+  html, body { background: #fff !important; overflow: visible !important; height: auto !important; width: auto !important; margin: 0 !important; padding: 0 !important; }
+  #viewport { position: static !important; display: block !important; height: auto !important; }
+  #stage { position: static !important; width: auto !important; height: auto !important; overflow: visible !important; transform: none !important; box-shadow: none !important; border-radius: 0 !important; }
+  .slide { position: relative !important; inset: auto !important; opacity: 1 !important; pointer-events: auto !important; display: flex !important; flex-direction: column !important; width: 100vw !important; height: 100vh !important; page-break-after: always !important; break-after: page !important; page-break-inside: avoid !important; margin: 0 !important; overflow: hidden !important; }
+  .nav-btn, #progress-bar, #key-hint { display: none !important; }
+  [data-step] { opacity: 1 !important; transform: none !important; }
+}
+</style>
+</head>
+<body>
+<div id="viewport">
+<div id="stage">
+
+<!-- ===== SLIDE 1: COVER ===== -->
+<section class="slide active" id="s1">
+  <div class="si" style="justify-content: center; align-items: flex-start; padding-left: 88px; background: linear-gradient(135deg, var(--surface) 0%, var(--secondary-container) 100%);">
+    <div style="position: absolute; top: 22px; right: 32px;">
+      <span style="display: inline-block; background: linear-gradient(135deg, var(--primary), var(--primary-dim)); color: var(--on-primary); padding: 6px 18px; border-radius: var(--r-full); font-size: 0.75rem; font-weight: 600;">2026.04</span>
+    </div>
+    <div data-step="1" style="display: flex; align-items: center; gap: 10px;">
+      <span style="font-size: 0.6875rem; font-weight: 700; color: var(--on-surface-variant); letter-spacing: 0.05em;">&#x1f4ce; &#xb370;&#xc774;&#xcf58;(DACON) &rarr; &#xbbf8;&#xb798;&#xc5d0;&#xc14b;&#xce90;&#xd53c;&#xd0c8; &#xc778;&#xc7ac;&#xac1c;&#xbc1c;&#xd300;</span>
+    </div>
+    <h1 data-step="2" style="font-size: 2.625rem; font-weight: 900; line-height: 1.15; letter-spacing: -0.02em; color: var(--on-surface); margin-top: 14px;">
+      AI <span style="color: var(--primary);">업무 활용</span><br/>기초 교육 제안서
+    </h1>
+    <p data-step="3" style="font-size: 1rem; color: var(--on-surface-variant); margin-top: 16px; line-height: 1.7;">
+      전 직군 임직원 대상 &middot; 3일 24시간 &middot; 기초부터 결과물까지<br/>
+      <strong>AI-Powered Work Transformation</strong>
+    </p>
+    <div data-step="4" style="display: flex; gap: 10px; margin-top: 28px;">
+      <span class="bd">3일 24시간</span>
+      <span class="bd-w">전 직군 기초</span>
+      <span class="bd-g">실습 70%</span>
+    </div>
+    <div style="position: absolute; bottom: 20px; right: 32px; font-size: 0.5625rem; color: var(--outline-variant);">COPYRIGHT 2026 DACON</div>
+  </div>
+</section>
+
+<!-- ===== SLIDE 2: ABOUT DAKER ===== -->
+<section class="slide" id="s2">
+  <div class="sh"><span class="sh-l">ABOUT DAKER</span></div>
+  <div class="si" style="padding-top: 60px;">
+    <div class="tag">COMPANY</div>
+    <h2 class="st" data-step="1"><span class="hl">DAKER</span> &mdash; AI 경진대회 &middot; 교육 전문 기업</h2>
+    <p class="sub" data-step="2">DACON(알고리즘 특화) + DAKER(바이브코딩&middot;해커톤&middot;프롬프톤 특화) 듀얼 플랫폼 운영</p>
+    <div class="g2" style="margin-top: 16px;">
+      <div data-step="3">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 12px;">
+          <div class="mx"><div class="v">14만+</div><div class="l">AI 커뮤니티</div></div>
+          <div class="mx"><div class="v">500+</div><div class="l">AI 대회 개최</div></div>
+          <div class="mx"><div class="v">24만</div><div class="l">누적 참여 팀</div></div>
+          <div class="mx"><div class="v">25억+</div><div class="l">누적 상금</div></div>
+        </div>
+      </div>
+      <div data-step="4">
+        <table class="tb" style="font-size: 0.8125rem;">
+          <thead><tr><th>유형</th><th>플랫폼</th></tr></thead>
+          <tbody>
+            <tr><td>AI 알고리즘 대회</td><td style="font-weight: 700;">DACON</td></tr>
+            <tr><td>프롬프톤</td><td style="color: var(--accent-warm); font-weight: 700;">DAKER</td></tr>
+            <tr><td>AI 서비스 &middot; 아이디어 공모전</td><td style="color: var(--accent-warm); font-weight: 700;">DAKER</td></tr>
+            <tr><td>온/오프 하이브리드 해커톤</td><td style="color: var(--accent-warm); font-weight: 700;">DAKER</td></tr>
+            <tr><td>비공개 기업 해커톤</td><td style="color: var(--accent-warm); font-weight: 700;">DAKER</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div data-step="5" style="margin-top: 10px; font-size: 0.6875rem; color: var(--on-surface-variant); line-height: 1.6;">
+      <strong>주요 고객사</strong>: KB금융지주, NH투자증권, TOSS, KRX, 금융보안원, LG그룹, 현대자동차, HD현대 외 다수
+    </div>
+  </div>
+  <div class="sf"><span class="sf-logo">DACON &middot; DAKER</span><span class="sf-pg">2</span><span class="sf-cr">COPYRIGHT 2026 DACON</span></div>
+</section>
+
+<!-- ===== SLIDE 3: 제안 개요 ===== -->
+<section class="slide" id="s3">
+  <div class="sh"><span class="sh-l">I. OVERVIEW</span></div>
+  <div class="si" style="padding-top: 60px;">
+    <div class="tag">PROPOSAL</div>
+    <h2 class="st" data-step="1">제안 <span class="hl">개요</span></h2>
+    <p class="sub" data-step="2">다양한 직군 임직원이 3일 만에 AI를 업무 도구로 활용하는 기초 역량을 갖춥니다</p>
+    <div class="g2" style="margin-top: 16px;">
+      <div data-step="3">
+        <table class="tb" style="font-size: 0.8125rem;">
+          <tbody>
+            <tr><td><strong>일정</strong></td><td>3일간 (일 8시간, 총 24시간)</td></tr>
+            <tr><td><strong>대상</strong></td><td>전 직군 임직원 <strong>20명</strong></td></tr>
+            <tr><td><strong>수준</strong></td><td>기초 &mdash; AI&middot;코딩 사전 지식 불요</td></tr>
+            <tr><td><strong>형태</strong></td><td>이론 20% + 실습 70% + 발표 10%</td></tr>
+            <tr><td><strong>강사</strong></td><td>메인 1명 + 보조 1명 (총 2명)</td></tr>
+            <tr><td><strong>도구</strong></td><td>Claude (1인 1계정) + Integrations</td></tr>
+            <tr><td><strong>플랫폼</strong></td><td>DAKER &mdash; 교재&middot;팀 구성&middot;트래킹</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div data-step="4">
+        <div class="c c-blue" style="padding: 18px; margin-bottom: 10px;">
+          <div class="c-t" style="color: var(--on-secondary-container); font-size: 0.8125rem;">왜 "기초부터 결과물까지"인가</div>
+          <div class="c-d" style="color: var(--on-secondary-container);">
+            코딩 경험이나 AI 사전 지식이 전혀 없는 분도<br/>
+            3일 후에는 자신의 업무에 AI를 직접 적용할 수 있는<br/>
+            수준에 도달하는 것이 목표입니다.
+          </div>
+        </div>
+        <div class="c c-surf" style="padding: 18px;">
+          <div class="c-t" style="font-size: 0.8125rem;">3일 학습 사이클</div>
+          <div class="c-d">
+            <strong style="color: var(--primary);">Day 1</strong> 이해 &rarr;
+            <strong style="color: var(--accent-warm);">Day 2</strong> 체험 &middot; 숙련 &rarr;
+            <strong style="color: var(--green);">Day 3</strong> 적용 &middot; 발표
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span class="sf-logo">DACON</span><span class="sf-pg">3</span><span class="sf-cr">COPYRIGHT 2026 DACON</span></div>
+</section>
+
+<!-- ===== SLIDE 4: 직군별 교육 포커스 ===== -->
+<section class="slide" id="s4">
+  <div class="sh"><span class="sh-l">I. OVERVIEW &mdash; 직군별 포커스</span></div>
+  <div class="si" style="padding-top: 60px;">
+    <div class="tag tag-w">JOB-SPECIFIC</div>
+    <h2 class="st" data-step="1"><span class="hl-w">직군별</span> AI 활용 실습 주제</h2>
+    <p class="sub" data-step="2">기초 과정이지만, 각 직군의 실습 주제는 실제 업무와 직결됩니다</p>
+    <div data-step="3">
+      <table class="tb" style="margin-top: 16px; font-size: 0.8125rem;">
+        <thead><tr><th style="width: 22%;">직군</th><th>AI 활용 실습 주제</th></tr></thead>
+        <tbody>
+          <tr><td style="font-weight: 700;">심사</td><td>심사 보고서 초안 자동 작성, 재무제표 요약&middot;분석</td></tr>
+          <tr><td style="font-weight: 700;">영업</td><td>고객 제안서 작성 보조, 시장 동향 요약 리포트</td></tr>
+          <tr><td style="font-weight: 700;">리스크관리</td><td>규정 문서 요약, 리스크 체크리스트 자동 생성</td></tr>
+          <tr><td style="font-weight: 700;">마케팅</td><td>캠페인 카피 작성, 고객 세그먼트별 메시지 생성</td></tr>
+          <tr><td style="font-weight: 700;">경영지원</td><td>회의록 정리, 사내 공지&middot;보고서 초안 작성</td></tr>
+          <tr><td style="font-weight: 700;">IT</td><td>기술 문서 요약, 장애 보고서 템플릿 자동 생성</td></tr>
+          <tr><td style="font-weight: 700;">법무&middot;컴플라이언스</td><td>계약서 조항 요약, 규정 변경 사항 비교&middot;정리</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="sf"><span class="sf-logo">DACON</span><span class="sf-pg">4</span><span class="sf-cr">COPYRIGHT 2026 DACON</span></div>
+</section>
+
+<!-- ===== SLIDE 5: SECTION — 커리큘럼 ===== -->
+<section class="slide slide-sec" id="s5">
+  <div class="si">
+    <div class="sn" data-step="1">III</div>
+    <h2 data-step="2">커리큘럼 상세</h2>
+    <div class="sd" data-step="3">3일 24시간 &mdash; AI 이해부터 직군별 프로젝트 완성까지</div>
+  </div>
+  <div class="sf"><span class="sf-logo">DACON</span><span class="sf-pg"></span><span class="sf-cr">COPYRIGHT 2026 DACON</span></div>
+</section>
+
+<!-- ===== SLIDE 6: DAY 1 ===== -->
+<section class="slide" id="s6">
+  <div class="sh"><span class="sh-l">III. CURRICULUM &mdash; DAY 1</span></div>
+  <div class="si" style="padding-top: 60px;">
+    <div class="tag">DAY 1 &mdash; 8H</div>
+    <h2 class="st" data-step="1">AI 이해와 <span class="hl">프롬프트 기초</span></h2>
+    <p class="sub" data-step="2">AI가 무엇이고 어떻게 작동하는지 이해하고, 기본적인 프롬프트 작성법을 체득</p>
+    <div class="g2" style="margin-top: 16px;">
+      <div data-step="3">
+        <div style="font-size: 0.6875rem; font-weight: 700; color: var(--primary); margin-bottom: 8px; letter-spacing: 0.05em;">&#9650; 오전 09:00 ~ 12:00 (3H)</div>
+        <div class="c c-surf" style="padding: 12px; margin-bottom: 6px;">
+          <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 4px;">
+            <span class="bd">09:00~10:00</span>
+            <span style="font-size: 0.8125rem; font-weight: 700;">Session 1</span>
+          </div>
+          <div class="c-t" style="font-size: 0.8125rem;">AI와 바이브코딩 시대의 이해</div>
+          <div class="c-d" style="font-size: 0.75rem;">생성형 AI 개념, 금융업계 AI 활용 사례, 라이브 데모</div>
+        </div>
+        <div class="c c-surf" style="padding: 12px; margin-bottom: 6px;">
+          <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 4px;">
+            <span class="bd">10:10~12:00</span>
+            <span style="font-size: 0.8125rem; font-weight: 700;">Session 2</span>
+          </div>
+          <div class="c-t" style="font-size: 0.8125rem;">Claude 기본 사용법 + 프롬프트 기초</div>
+          <div class="c-d" style="font-size: 0.75rem;">인터페이스 익히기, 첫 대화, Role&middot;Constraint&middot;Format 3요소</div>
+        </div>
+        <div style="text-align: center; font-size: 0.6875rem; color: var(--outline-variant); padding: 6px 0;">&#127860; 점심 12:00 ~ 13:00</div>
+      </div>
+      <div data-step="4">
+        <div style="font-size: 0.6875rem; font-weight: 700; color: var(--accent-warm); margin-bottom: 8px; letter-spacing: 0.05em;">&#9660; 오후 13:00 ~ 18:00 (5H)</div>
+        <div class="c c-surf" style="padding: 12px; margin-bottom: 6px;">
+          <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 4px;">
+            <span class="bd-w">13:00~14:30</span>
+            <span style="font-size: 0.8125rem; font-weight: 700;">Session 3</span>
+          </div>
+          <div class="c-t" style="font-size: 0.8125rem;">프롬프트 설계 심화 실습</div>
+          <div class="c-d" style="font-size: 0.75rem;">모호한 vs 구체적 질문 비교, 프롬프트 템플릿 활용</div>
+        </div>
+        <div class="c c-surf" style="padding: 12px; margin-bottom: 6px;">
+          <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 4px;">
+            <span class="bd-w">14:40~16:10</span>
+            <span style="font-size: 0.8125rem; font-weight: 700;">Session 4</span>
+          </div>
+          <div class="c-t" style="font-size: 0.8125rem;">문서 작성 자동화 기초</div>
+          <div class="c-d" style="font-size: 0.75rem;">이메일&middot;공지 작성, 보고서 초안, 회의록 정리</div>
+        </div>
+        <div class="c c-surf" style="padding: 12px; margin-bottom: 6px;">
+          <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 4px;">
+            <span class="bd-w">16:20~17:50</span>
+            <span style="font-size: 0.8125rem; font-weight: 700;">Session 5</span>
+          </div>
+          <div class="c-t" style="font-size: 0.8125rem;">데이터 요약과 분석 기초</div>
+          <div class="c-d" style="font-size: 0.75rem;">긴 문서 요약, 표&middot;데이터 정리, 비교&middot;분석</div>
+        </div>
+        <div class="c c-blue" style="padding: 10px 12px;">
+          <div class="c-d" style="font-size: 0.75rem; color: var(--on-secondary-container);"><strong>Day 1 산출물</strong> &mdash; AI 기본 사용법 숙지 + 프롬프트 3요소 체득 + 문서&middot;요약 실습 경험</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span class="sf-logo">DACON</span><span class="sf-pg">6</span><span class="sf-cr">COPYRIGHT 2026 DACON</span></div>
+</section>
+
+<!-- ===== SLIDE 7: DAY 2 ===== -->
+<section class="slide" id="s7">
+  <div class="sh"><span class="sh-l">III. CURRICULUM &mdash; DAY 2</span></div>
+  <div class="si" style="padding-top: 60px;">
+    <div class="tag tag-w">DAY 2 &mdash; 8H</div>
+    <h2 class="st" data-step="1">직군별 AI 활용 <span class="hl-w">심화 실습</span></h2>
+    <p class="sub" data-step="2">각 직군에 맞는 AI 활용법을 깊이 있게 실습하고, 업무 적용 가능한 결과물 제작 시작</p>
+    <div class="g2" style="margin-top: 16px;">
+      <div data-step="3">
+        <div style="font-size: 0.6875rem; font-weight: 700; color: var(--primary); margin-bottom: 8px; letter-spacing: 0.05em;">&#9650; 오전 09:00 ~ 12:00 (3H)</div>
+        <div class="c c-surf" style="padding: 12px; margin-bottom: 6px;">
+          <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 4px;">
+            <span class="bd">09:00~10:00</span>
+            <span style="font-size: 0.8125rem; font-weight: 700;">Session 6</span>
+          </div>
+          <div class="c-t" style="font-size: 0.8125rem;">Day 1 복습 &amp; 심화 프롬프트</div>
+          <div class="c-d" style="font-size: 0.75rem;">멀티턴 프롬프트, 피드백 루프 기법</div>
+        </div>
+        <div class="c c-surf" style="padding: 12px; margin-bottom: 6px;">
+          <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 4px;">
+            <span class="bd">10:10~12:00</span>
+            <span style="font-size: 0.8125rem; font-weight: 700;">Session 7</span>
+          </div>
+          <div class="c-t" style="font-size: 0.8125rem;">직군별 AI 실습 &#9312; &mdash; 업무 문서 자동화</div>
+          <div class="c-d" style="font-size: 0.75rem;">심사&middot;영업&middot;경영지원&middot;IT 등 팀별 그룹 실습</div>
+        </div>
+        <div style="text-align: center; font-size: 0.6875rem; color: var(--outline-variant); padding: 6px 0;">&#127860; 점심 12:00 ~ 13:00</div>
+      </div>
+      <div data-step="4">
+        <div style="font-size: 0.6875rem; font-weight: 700; color: var(--accent-warm); margin-bottom: 8px; letter-spacing: 0.05em;">&#9660; 오후 13:00 ~ 18:00 (5H)</div>
+        <div class="c c-surf" style="padding: 12px; margin-bottom: 6px;">
+          <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 4px;">
+            <span class="bd-w">13:00~14:30</span>
+            <span style="font-size: 0.8125rem; font-weight: 700;">Session 8</span>
+          </div>
+          <div class="c-t" style="font-size: 0.8125rem;">직군별 AI 실습 &#9313; &mdash; 정보 수집&middot;분석</div>
+          <div class="c-d" style="font-size: 0.75rem;">업계 동향 수집, 경쟁사 분석, 규정 모니터링</div>
+        </div>
+        <div class="c c-surf" style="padding: 12px; margin-bottom: 6px;">
+          <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 4px;">
+            <span class="bd-w">14:40~16:10</span>
+            <span style="font-size: 0.8125rem; font-weight: 700;">Session 9</span>
+          </div>
+          <div class="c-t" style="font-size: 0.8125rem;">Claude Integrations 활용</div>
+          <div class="c-d" style="font-size: 0.75rem;">Artifacts, 시각화, 리포트 템플릿으로 결과물 완성도 향상</div>
+        </div>
+        <div class="c c-surf" style="padding: 12px; margin-bottom: 6px;">
+          <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 4px;">
+            <span class="bd-w">16:20~17:50</span>
+            <span style="font-size: 0.8125rem; font-weight: 700;">Session 10</span>
+          </div>
+          <div class="c-t" style="font-size: 0.8125rem;">업무 자동화 워크플로우 설계</div>
+          <div class="c-d" style="font-size: 0.75rem;">반복 업무 자동화, 프롬프트 세트 3~5개 구성</div>
+        </div>
+        <div class="c c-warm" style="padding: 10px 12px;">
+          <div class="c-d" style="font-size: 0.75rem;"><strong style="color: var(--accent-warm);">Day 2 산출물</strong> &mdash; 직군별 프롬프트 템플릿 + 워크플로우 설계서 초안</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span class="sf-logo">DACON</span><span class="sf-pg">7</span><span class="sf-cr">COPYRIGHT 2026 DACON</span></div>
+</section>
+
+<!-- ===== SLIDE 8: DAY 3 ===== -->
+<section class="slide" id="s8">
+  <div class="sh"><span class="sh-l">III. CURRICULUM &mdash; DAY 3</span></div>
+  <div class="si" style="padding-top: 60px;">
+    <div class="tag tag-g">DAY 3 &mdash; 8H</div>
+    <h2 class="st" data-step="1">결과물 완성과 <span class="hl-g">조직 확산</span></h2>
+    <p class="sub" data-step="2">직군별 AI 활용 결과물을 완성하고, 조직 차원의 AI 활용 방안을 함께 설계</p>
+    <div class="g2" style="margin-top: 16px;">
+      <div data-step="3">
+        <div style="font-size: 0.6875rem; font-weight: 700; color: var(--primary); margin-bottom: 8px; letter-spacing: 0.05em;">&#9650; 오전 09:00 ~ 12:00 (3H)</div>
+        <div class="c c-surf" style="padding: 12px; margin-bottom: 6px;">
+          <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 4px;">
+            <span class="bd">09:00~10:20</span>
+            <span style="font-size: 0.8125rem; font-weight: 700;">Session 11</span>
+          </div>
+          <div class="c-t" style="font-size: 0.8125rem;">직군별 프로젝트 완성 &#9312;</div>
+          <div class="c-d" style="font-size: 0.75rem;">워크플로우 구현, 엣지 케이스 테스트, 결과물 다듬기</div>
+        </div>
+        <div class="c c-surf" style="padding: 12px; margin-bottom: 6px;">
+          <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 4px;">
+            <span class="bd">10:30~12:00</span>
+            <span style="font-size: 0.8125rem; font-weight: 700;">Session 12</span>
+          </div>
+          <div class="c-t" style="font-size: 0.8125rem;">직군별 프로젝트 완성 &#9313;</div>
+          <div class="c-d" style="font-size: 0.75rem;">발표 자료 준비, 강사 1:1 코칭, Before/After 비교</div>
+        </div>
+        <div style="text-align: center; font-size: 0.6875rem; color: var(--outline-variant); padding: 6px 0;">&#127860; 점심 12:00 ~ 13:00</div>
+      </div>
+      <div data-step="4">
+        <div style="font-size: 0.6875rem; font-weight: 700; color: var(--green); margin-bottom: 8px; letter-spacing: 0.05em;">&#9660; 오후 13:00 ~ 18:00 (5H)</div>
+        <div class="c c-surf" style="padding: 12px; margin-bottom: 6px;">
+          <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 4px;">
+            <span class="bd-g">13:00~15:10</span>
+            <span style="font-size: 0.8125rem; font-weight: 700;">Session 13 &mdash; 130분</span>
+          </div>
+          <div class="c-t" style="font-size: 0.8125rem;">팀별 발표 &amp; 피어 평가</div>
+          <div class="c-d" style="font-size: 0.75rem;">
+            &bull; 팀당 15분 발표 (DAKER 갤러리 기반)<br/>
+            &bull; 피어 평가 &middot; 크로스 직군 인사이트<br/>
+            &bull; 베스트 프랙티스 투표 선정
+          </div>
+        </div>
+        <div class="c c-surf" style="padding: 12px; margin-bottom: 6px;">
+          <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 4px;">
+            <span class="bd-g">15:20~17:30</span>
+            <span style="font-size: 0.8125rem; font-weight: 700;">Session 14 &mdash; 130분</span>
+          </div>
+          <div class="c-t" style="font-size: 0.8125rem;">AI 업무 적용 로드맵</div>
+          <div class="c-d" style="font-size: 0.75rem;">
+            &bull; 개인별 1주&middot;1개월&middot;3개월 적용 계획<br/>
+            &bull; 조직 내 AI 확산 방안 논의<br/>
+            &bull; AI 활용 윤리 &middot; 보안 가이드
+          </div>
+        </div>
+        <div class="c c-green" style="padding: 10px 12px;">
+          <div class="c-d" style="font-size: 0.75rem;"><strong style="color: var(--green);">17:30~18:00</strong> &mdash; 종합 Q&amp;A &middot; 수료식 &middot; 최종 산출물: "나만의 AI 업무 어시스턴트"</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span class="sf-logo">DACON</span><span class="sf-pg">8</span><span class="sf-cr">COPYRIGHT 2026 DACON</span></div>
+</section>
+
+<!-- ===== SLIDE 9: SECTION — 운영·도구 ===== -->
+<section class="slide slide-sec" id="s9">
+  <div class="si">
+    <div class="sn" data-step="1">IV</div>
+    <h2 data-step="2">교육 운영 &amp; AI 도구</h2>
+    <div class="sd" data-step="3">운영 계획, Claude 요금제, DAKER 플랫폼 연동</div>
+  </div>
+  <div class="sf"><span class="sf-logo">DACON</span><span class="sf-pg"></span><span class="sf-cr">COPYRIGHT 2026 DACON</span></div>
+</section>
+
+<!-- ===== SLIDE 10: 교육 운영 계획 ===== -->
+<section class="slide" id="s10">
+  <div class="sh"><span class="sh-l">IV. OPERATION PLAN</span></div>
+  <div class="si" style="padding-top: 60px;">
+    <div class="tag">OPERATION</div>
+    <h2 class="st" data-step="1">교육 <span class="hl">운영 계획</span></h2>
+    <div class="g2" style="margin-top: 16px;">
+      <div data-step="2">
+        <div class="c-t" style="font-size: 0.8125rem; margin-bottom: 10px; color: var(--primary);">강사진 &amp; 사전 준비</div>
+        <table class="tb" style="font-size: 0.75rem;">
+          <tbody>
+            <tr><td style="font-weight: 700;">메인 강사</td><td>1명 &mdash; 3일 &times; 8h (24h)</td></tr>
+            <tr><td style="font-weight: 700;">보조 강사</td><td>1명 &mdash; 3일 &times; 10h (30h)</td></tr>
+            <tr><td style="font-weight: 700;">AI 계정</td><td>Claude Teams 22시트 (관리자 2 + 참가자 20)</td></tr>
+            <tr><td style="font-weight: 700;">교육장 세팅</td><td>Day 1 시작 전 현장 방문, 환경 구성</td></tr>
+            <tr><td style="font-weight: 700;">실습 자료</td><td>직군별 샘플, 프롬프트 가이드북, 워크시트</td></tr>
+            <tr><td style="font-weight: 700;">사전 설문</td><td>직군&middot;업무&middot;AI 경험 수준 수집</td></tr>
+            <tr><td style="font-weight: 700;">네트워크</td><td>미래에셋캐피탈 Wi-Fi 사전 확인</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div data-step="3">
+        <div class="c-t" style="font-size: 0.8125rem; margin-bottom: 10px; color: var(--green);">교육 후 제공물</div>
+        <div class="c c-green" style="padding: 16px; margin-bottom: 10px;">
+          <div class="c-d">
+            <strong>&#10003; 실습 결과물</strong> &mdash; 프롬프트 세트 + 워크플로우 정리본<br/>
+            <strong>&#10003; 가이드북</strong> &mdash; 직군별 AI 활용 프롬프트 가이드 (PDF)<br/>
+            <strong>&#10003; AI 계정</strong> &mdash; 교육 후 2주간 추가 사용 (자율 실습)<br/>
+            <strong>&#10003; 후속 Q&amp;A</strong> &mdash; 2주간 온라인 Q&amp;A 채널 운영
+          </div>
+        </div>
+        <div class="c c-blue" style="padding: 16px;">
+          <div class="c-t" style="font-size: 0.8125rem; color: var(--on-secondary-container);">DAKER 플랫폼</div>
+          <div class="c-d" style="color: var(--on-secondary-container);">교재 업로드, 직군별 팀 구성, 학습 트래킹, 갤러리&middot;쇼케이스까지 모든 교육 운영을 통합 관리</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span class="sf-logo">DACON</span><span class="sf-pg">10</span><span class="sf-cr">COPYRIGHT 2026 DACON</span></div>
+</section>
+
+<!-- ===== SLIDE 11: Claude 요금제 ===== -->
+<section class="slide" id="s11">
+  <div class="sh"><span class="sh-l">V. CLAUDE &mdash; PRICING</span></div>
+  <div class="si" style="padding-top: 60px;">
+    <div class="tag">AI TOOL</div>
+    <h2 class="st" data-step="1">Claude <span class="hl">요금제</span> 구조</h2>
+    <p class="sub" data-step="2">Anthropic의 AI 어시스턴트 &mdash; 24시간 대기하는 만능 업무 보조원</p>
+    <div data-step="3">
+      <table class="tb" style="margin-top: 16px; font-size: 0.8125rem;">
+        <thead><tr><th>요금제</th><th>월 비용</th><th>주요 특징</th><th>교육 적합도</th></tr></thead>
+        <tbody>
+          <tr><td>Free</td><td>무료</td><td>기본 기능, 사용량 제한 큼</td><td>&#10060;</td></tr>
+          <tr><td>Pro</td><td>$20/월</td><td>5배 사용량, 프로젝트, 웹 검색</td><td>&#9651;</td></tr>
+          <tr class="row-hl"><td><strong>Team Standard</strong></td><td><strong>$30/월(월간)</strong></td><td>팀 협업, 프로젝트 공유, SSO</td><td><strong>&#9678; 추천</strong></td></tr>
+          <tr><td>Enterprise</td><td>별도 협의</td><td>500K 컨텍스트, 감사 로그</td><td>&#9675;</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="c c-blue" style="margin-top: 14px; padding: 14px 20px;" data-step="4">
+      <div style="font-size: 0.8125rem; color: var(--on-secondary-container);">
+        <strong>교육 추천</strong>: Claude Teams $30/인/월 &times; 22명 (관리자 2 + 참가자 20) &mdash; 데이콘이 Team 조직 생성 후 참가자 초대. 교육 후 2주 자율 실습 포함.
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span class="sf-logo">DACON</span><span class="sf-pg">11</span><span class="sf-cr">COPYRIGHT 2026 DACON</span></div>
+</section>
+
+<!-- ===== SLIDE 12: Claude Teams 추천 이유 ===== -->
+<section class="slide" id="s12">
+  <div class="sh"><span class="sh-l">V. CLAUDE &mdash; TEAM VS. PRO</span></div>
+  <div class="si" style="padding-top: 60px;">
+    <div class="tag tag-g">WHY TEAMS</div>
+    <h2 class="st" data-step="1">Team Standard를 <span class="hl-g">추천하는 이유</span></h2>
+    <div data-step="2">
+      <table class="tb" style="margin-top: 16px; font-size: 0.8125rem;">
+        <thead><tr><th style="width: 30%;">기능</th><th style="width: 30%;">Pro (개인)</th><th style="width: 40%;">Team Standard</th></tr></thead>
+        <tbody>
+          <tr><td style="font-weight: 600;">프로젝트 공유</td><td>불가</td><td style="font-weight: 600; color: var(--primary);">&#10003; 강사 템플릿 즉시 사용</td></tr>
+          <tr><td style="font-weight: 600;">지식 베이스</td><td>개인용만</td><td style="font-weight: 600; color: var(--primary);">&#10003; 팀 전체 동일 자료 접근</td></tr>
+          <tr><td style="font-weight: 600;">관리자 대시보드</td><td>없음</td><td style="font-weight: 600; color: var(--primary);">&#10003; 사용 현황 모니터링</td></tr>
+          <tr><td style="font-weight: 600;">SSO / 도메인 캡처</td><td>없음</td><td style="font-weight: 600; color: var(--primary);">&#10003; 사내 계정 로그인</td></tr>
+          <tr><td style="font-weight: 600;">데이터 보안</td><td>학습 미활용</td><td style="font-weight: 600; color: var(--primary);">&#10003; 학습 미활용 + 데이터 격리</td></tr>
+          <tr><td style="font-weight: 600;">사용량</td><td>기준치</td><td style="font-weight: 600; color: var(--primary);">1.25배 (3일 교육 충분)</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="sf"><span class="sf-logo">DACON</span><span class="sf-pg">12</span><span class="sf-cr">COPYRIGHT 2026 DACON</span></div>
+</section>
+
+<!-- ===== SLIDE 13: DAKER 플랫폼 ===== -->
+<section class="slide" id="s13">
+  <div class="sh"><span class="sh-l">VI. DAKER PLATFORM</span></div>
+  <div class="si" style="padding-top: 60px;">
+    <div class="tag">LEARNING PLATFORM</div>
+    <h2 class="st" data-step="1">DAKER &mdash; <span class="hl">AI 학습 플랫폼</span></h2>
+    <p class="sub" data-step="2">교재 &middot; 학습 &middot; 팀을 하나의 시스템으로 통합 관리</p>
+    <div class="g3" style="margin-top: 20px;" data-step="3">
+      <div class="c c-surf" style="padding: 20px; text-align: center;">
+        <div style="font-size: 2rem; margin-bottom: 8px;">&#128218;</div>
+        <div style="font-size: 0.9375rem; font-weight: 800; margin-bottom: 8px;">교재 관리</div>
+        <div class="c-d" style="font-size: 0.8125rem; line-height: 1.6;">
+          프롬프트 템플릿, 가이드북,<br/>
+          실습 워크시트를 플랫폼에<br/>
+          업로드하여 참가자 즉시 접근
+        </div>
+      </div>
+      <div class="c c-surf" style="padding: 20px; text-align: center;">
+        <div style="font-size: 2rem; margin-bottom: 8px;">&#128200;</div>
+        <div style="font-size: 0.9375rem; font-weight: 800; margin-bottom: 8px;">학습 트래킹</div>
+        <div class="c-d" style="font-size: 0.8125rem; line-height: 1.6;">
+          참가자별 3일간 실습 진행률,<br/>
+          과제 제출 현황, 학습 성과를<br/>
+          실시간 대시보드로 모니터링
+        </div>
+      </div>
+      <div class="c c-surf" style="padding: 20px; text-align: center;">
+        <div style="font-size: 2rem; margin-bottom: 8px;">&#128101;</div>
+        <div style="font-size: 0.9375rem; font-weight: 800; margin-bottom: 8px;">팀 구성 &middot; 협업</div>
+        <div class="c-d" style="font-size: 0.8125rem; line-height: 1.6;">
+          직군별 팀 자동 편성,<br/>
+          조별 결과물 공유 &middot; 피드백,<br/>
+          갤러리로 참여도 극대화
+        </div>
+      </div>
+    </div>
+    <div class="c c-blue" style="margin-top: 16px; padding: 16px 24px;" data-step="4">
+      <div class="c-d" style="color: var(--on-secondary-container); text-align: center;">
+        커리큘럼 설계 &rarr; 맞춤형 교재 &rarr; 사전 설문 &rarr; 3일간 실습 운영 &rarr; 후속 2주 Q&amp;A까지
+        <strong>DAKER 하나로 교육의 전 과정을 시스템화</strong>
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span class="sf-logo">DACON &middot; DAKER</span><span class="sf-pg">13</span><span class="sf-cr">COPYRIGHT 2026 DACON</span></div>
+</section>
+
+<!-- ===== SLIDE 14: DAKER 3대 핵심 가치 ===== -->
+<section class="slide" id="s14">
+  <div class="sh"><span class="sh-l">VI. DAKER PLATFORM &mdash; CORE VALUES</span></div>
+  <div class="si" style="padding-top: 60px;">
+    <div class="tag">PLATFORM VALUE</div>
+    <h2 class="st" data-step="1">DAKER <span class="hl">3대 핵심 가치</span></h2>
+    <p class="sub" data-step="2">교육의 모든 여정을 하나의 플랫폼에서 &mdash; 입력부터 확산까지 끊김 없이 연결</p>
+    <div class="g3" style="margin-top: 20px;">
+      <div class="c c-blue" data-step="3" style="padding: 24px;">
+        <div class="ic">01</div>
+        <div class="c-t" style="color: var(--on-secondary-container);">팀 협업<br/><span style="font-size: .75rem; font-weight: 500;">Team Collaboration</span></div>
+        <div class="c-d" style="margin-top: 10px; color: var(--on-secondary-container);">
+          &bull; 팀 빌딩 &rarr; 작전실(War Room)<br/>
+          &bull; 실시간 협업 &middot; 공유<br/>
+          &bull; 강사 모니터링 대시보드<br/><br/>
+          <strong>미래에셋캐피탈 적용</strong><br/>
+          직군별 4~5개 팀 구성<br/>
+          실습 과정 실시간 공유
+        </div>
+      </div>
+      <div class="c c-green" data-step="3" style="padding: 24px;">
+        <div class="ic ic-g">02</div>
+        <div class="c-t" style="color: var(--green);">성과 전시<br/><span style="font-size: .75rem; font-weight: 500;">Showcase</span></div>
+        <div class="c-d" style="margin-top: 10px;">
+          &bull; 갤러리 &middot; 쇼케이스<br/>
+          &bull; 피어 평가 &middot; 피드백<br/>
+          &bull; 우수 사례 투표<br/><br/>
+          <strong>미래에셋캐피탈 적용</strong><br/>
+          팀별 워크플로우 게시<br/>
+          상호 평가 &middot; 베스트 선정
+        </div>
+      </div>
+      <div class="c c-warm" data-step="3" style="padding: 24px;">
+        <div class="ic ic-w">03</div>
+        <div class="c-t" style="color: var(--accent-warm);">학습 추적<br/><span style="font-size: .75rem; font-weight: 500;">Learning Track</span></div>
+        <div class="c-d" style="margin-top: 10px;">
+          &bull; 교재 &middot; 과제 &middot; 제출 이력<br/>
+          &bull; 성장 시각화<br/><br/>
+          <strong>미래에셋캐피탈 적용</strong><br/>
+          3일간 실습 진도 추적<br/>
+          결과물 실시간 트래킹
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span class="sf-logo">DACON &middot; DAKER</span><span class="sf-pg">14</span><span class="sf-cr">COPYRIGHT 2026 DACON</span></div>
+</section>
+
+<!-- ===== SLIDE 15: DAKER 5단계 교육 흐름 ===== -->
+<section class="slide" id="s15">
+  <div class="sh"><span class="sh-l">VI. DAKER PLATFORM &mdash; 5-STEP FLOW</span></div>
+  <div class="si" style="padding-top: 60px;">
+    <div class="tag tag-w">5-STEP FLOW</div>
+    <h2 class="st" data-step="1">DAKER가 연결하는 <span class="hl">5단계 교육 흐름</span></h2>
+    <p class="sub" data-step="2">3일간의 교육 전 과정이 DAKER 위에서 유기적으로 작동합니다</p>
+    <div style="display: flex; align-items: stretch; gap: 0; margin-top: 20px;" data-step="3">
+      <div style="flex: 1; padding: 16px 14px; text-align: center; position: relative;">
+        <div style="position: absolute; top: 0; left: 0; right: 0; height: 4px; background: var(--primary); border-radius: 2px;"></div>
+        <div style="font-size: .625rem; font-weight: 700; color: var(--primary); margin-top: 8px;">STEP 1</div>
+        <div style="font-size: .8125rem; font-weight: 700; color: var(--on-surface); margin-top: 4px;">사전 준비</div>
+        <div style="font-size: .6875rem; color: var(--on-surface-variant); margin-top: 4px; line-height: 1.5;">교육 페이지 개설<br/>교재 업로드<br/>팀 자동 배정</div>
+      </div>
+      <div style="display: flex; align-items: center; color: var(--outline-variant); font-size: 14px;">&rarr;</div>
+      <div style="flex: 1; padding: 16px 14px; text-align: center; position: relative;">
+        <div style="position: absolute; top: 0; left: 0; right: 0; height: 4px; background: var(--primary); border-radius: 2px;"></div>
+        <div style="font-size: .625rem; font-weight: 700; color: var(--primary); margin-top: 8px;">STEP 2</div>
+        <div style="font-size: .8125rem; font-weight: 700; color: var(--on-surface); margin-top: 4px;">실시간 협업</div>
+        <div style="font-size: .6875rem; color: var(--on-surface-variant); margin-top: 4px; line-height: 1.5;">팀별 작전실<br/>강사 모니터링<br/>실시간 비교·개선</div>
+      </div>
+      <div style="display: flex; align-items: center; color: var(--outline-variant); font-size: 14px;">&rarr;</div>
+      <div style="flex: 1; padding: 16px 14px; text-align: center; position: relative;">
+        <div style="position: absolute; top: 0; left: 0; right: 0; height: 4px; background: var(--green); border-radius: 2px;"></div>
+        <div style="font-size: .625rem; font-weight: 700; color: var(--green); margin-top: 8px;">STEP 3</div>
+        <div style="font-size: .8125rem; font-weight: 700; color: var(--on-surface); margin-top: 4px;">결과물 제출</div>
+        <div style="font-size: .6875rem; color: var(--on-surface-variant); margin-top: 4px; line-height: 1.5;">갤러리에 자동 게시<br/>프롬프트 + 워크플로우<br/>전원 열람 가능</div>
+      </div>
+      <div style="display: flex; align-items: center; color: var(--outline-variant); font-size: 14px;">&rarr;</div>
+      <div style="flex: 1; padding: 16px 14px; text-align: center; position: relative;">
+        <div style="position: absolute; top: 0; left: 0; right: 0; height: 4px; background: var(--green); border-radius: 2px;"></div>
+        <div style="font-size: .625rem; font-weight: 700; color: var(--green); margin-top: 8px;">STEP 4</div>
+        <div style="font-size: .8125rem; font-weight: 700; color: var(--on-surface); margin-top: 4px;">성과 발표</div>
+        <div style="font-size: .6875rem; color: var(--on-surface-variant); margin-top: 4px; line-height: 1.5;">갤러리 기반 발표<br/>피어 평가·피드백<br/>우수 사례 투표</div>
+      </div>
+      <div style="display: flex; align-items: center; color: var(--outline-variant); font-size: 14px;">&rarr;</div>
+      <div style="flex: 1; padding: 16px 14px; text-align: center; position: relative;">
+        <div style="position: absolute; top: 0; left: 0; right: 0; height: 4px; background: var(--accent-warm); border-radius: 2px;"></div>
+        <div style="font-size: .625rem; font-weight: 700; color: var(--accent-warm); margin-top: 8px;">STEP 5</div>
+        <div style="font-size: .8125rem; font-weight: 700; color: var(--on-surface); margin-top: 4px;">후속 활용</div>
+        <div style="font-size: .6875rem; color: var(--on-surface-variant); margin-top: 4px; line-height: 1.5;">2주 자율 실습<br/>결과물 영구 보존</div>
+      </div>
+    </div>
+    <div class="c c-blue" data-step="4" style="margin-top: 16px; padding: 14px 20px;">
+      <div style="font-size: .8125rem; color: var(--on-secondary-container); text-align: center;">
+        <strong>입력(교재)</strong> &rarr; <strong>과정(협업)</strong> &rarr; <strong>출력(결과물)</strong> &rarr; <strong>확산(공유)</strong> &mdash; 하나의 플랫폼에서 끊김 없이 연결
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span class="sf-logo">DACON &middot; DAKER</span><span class="sf-pg">15</span><span class="sf-cr">COPYRIGHT 2026 DACON</span></div>
+</section>
+
+<!-- ===== SLIDE 16: 일반 vs DAKER ===== -->
+<section class="slide" id="s16">
+  <div class="sh"><span class="sh-l">VI. DAKER PLATFORM &mdash; COMPARISON</span></div>
+  <div class="si" style="padding-top: 60px;">
+    <div class="tag tag-g">COMPARISON</div>
+    <h2 class="st" data-step="1">일반 교육 vs. <span class="hl-g">DAKER 연동</span> 교육</h2>
+    <p class="sub" data-step="2">DAKER는 단순한 도구가 아니라, 교육 성과를 조직 자산으로 전환하는 엔진입니다</p>
+    <div data-step="3">
+      <table class="tb" style="margin-top: 16px;">
+        <thead><tr><th style="width: 18%;">구분</th><th style="width: 38%;">일반 교육</th><th style="width: 44%; color: var(--primary);">DAKER 연동 교육</th></tr></thead>
+        <tbody>
+          <tr><td style="font-weight: 600;">교재 배포</td><td>이메일 &middot; USB</td><td style="font-weight: 600; color: var(--primary);">플랫폼 내 교재·템플릿 즉시 접근</td></tr>
+          <tr><td style="font-weight: 600;">팀 구성</td><td>수동 배정</td><td style="font-weight: 600; color: var(--primary);">AI 기반 자동 매칭 (직군·역량)</td></tr>
+          <tr><td style="font-weight: 600;">실습 과정</td><td>각자 진행, 파악 어려움</td><td style="font-weight: 600; color: var(--primary);">작전실에서 실시간 모니터링</td></tr>
+          <tr><td style="font-weight: 600;">결과물 공유</td><td>USB 교환 또는 미공유</td><td style="font-weight: 600; color: var(--primary);">갤러리에 자동 게시, 전원 열람</td></tr>
+          <tr><td style="font-weight: 600;">발표 &amp; 평가</td><td>구두 발표만</td><td style="font-weight: 600; color: var(--primary);">갤러리 기반 발표 + 피어 평가</td></tr>
+          <tr><td style="font-weight: 600;">교육 후</td><td>자료 유실, 복습 어려움</td><td style="font-weight: 600; color: var(--primary);">결과물·이력 영구 보존</td></tr>
+          <tr><td style="font-weight: 600;">성과 측정</td><td>만족도 설문만</td><td style="font-weight: 600; color: var(--primary);">제출 이력 데이터</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="sf"><span class="sf-logo">DACON &middot; DAKER</span><span class="sf-pg">16</span><span class="sf-cr">COPYRIGHT 2026 DACON</span></div>
+</section>
+
+<!-- ===== SLIDE 17: 수행 역량 ===== -->
+<section class="slide" id="s17">
+  <div class="sh"><span class="sh-l">VII. REFERENCE</span></div>
+  <div class="si" style="padding-top: 60px;">
+    <div class="tag tag-g">DACON CAPABILITY</div>
+    <h2 class="st" data-step="1">데이콘의 <span class="hl-g">수행 역량</span></h2>
+    <div class="g4" style="margin-top: 16px;" data-step="2">
+      <div class="mx"><div class="v" style="color: var(--green);">14만+</div><div class="l">AI 커뮤니티 회원</div></div>
+      <div class="mx"><div class="v" style="color: var(--green);">500+</div><div class="l">AI 대회 운영</div></div>
+      <div class="mx"><div class="v" style="color: var(--green);">50여개</div><div class="l">대학 교육 수행</div></div>
+      <div class="mx"><div class="v" style="color: var(--green);">200여회</div><div class="l">데이스쿨 교육</div></div>
+    </div>
+    <div data-step="3" style="margin-top: 14px;">
+      <table class="tb" style="font-size: 0.8125rem;">
+        <thead><tr><th>기관</th><th>프로그램</th><th>내용</th></tr></thead>
+        <tbody>
+          <tr><td style="font-weight: 700;">서울대 포함 50여개 대학</td><td>AI &middot; 바이브코딩 교육</td><td>서울대, 연세대, 고려대 등 전국 50여개 대학 대상 AI 교육 수행</td></tr>
+          <tr><td style="font-weight: 700;">LG그룹</td><td>그룹사 AI 교육</td><td>LG그룹 대상 AI 활용 교육 프로그램 운영</td></tr>
+          <tr><td style="font-weight: 700;">미래에셋증권</td><td>금융 리서치 AI 교육</td><td>팀장급 대상 AI 리서치 자동화 실습 워크숍</td></tr>
+          <tr><td style="font-weight: 700;">KT</td><td>K intelligence 해커톤</td><td>AI 에이전트 개발 워크숍 (1,658명)</td></tr>
+          <tr><td style="font-weight: 700;">금융보안원</td><td>금융 AI Challenge</td><td>금융 도메인 특화 AI 대회 운영</td></tr>
+          <tr><td style="font-weight: 700;">KB금융그룹</td><td>KB AI 경진대회</td><td>금융 데이터 기반 AI 교육 &middot; 대회</td></tr>
+          <tr><td style="font-weight: 700;">데이스쿨</td><td>AI 교육 200여회</td><td>기업&middot;기관 대상 맞춤형 AI 활용 교육 프로그램 누적 200여 회 수행</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="sf"><span class="sf-logo">DACON</span><span class="sf-pg">17</span><span class="sf-cr">COPYRIGHT 2026 DACON</span></div>
+</section>
+
+<!-- ===== SLIDE 18: 추진 일정 & 기대 효과 ===== -->
+<section class="slide" id="s18">
+  <div class="sh"><span class="sh-l">VIII. TIMELINE &amp; IMPACT</span></div>
+  <div class="si" style="padding-top: 60px;">
+    <div class="tag">TIMELINE</div>
+    <h2 class="st" data-step="1">추진 일정 &amp; <span class="hl">기대 효과</span></h2>
+    <div class="g2" style="margin-top: 16px;">
+      <div data-step="2">
+        <div class="tl">
+          <div class="tl-item active"><div class="tl-dt">2주</div><div class="tl-tt">계약&middot;기획</div><div class="tl-dd">계약 체결<br/>사전 설문</div></div>
+          <div class="tl-item active"><div class="tl-dt">2주</div><div class="tl-tt">자료 개발</div><div class="tl-dd">직군별 교재<br/>프롬프트 템플릿</div></div>
+          <div class="tl-item active"><div class="tl-dt">D-7</div><div class="tl-tt">사전 안내</div><div class="tl-dd">참가자 안내<br/>계정 초대</div></div>
+          <div class="tl-item active" style="--primary: var(--accent-warm);"><div class="tl-dt" style="color: var(--accent-warm);">3일</div><div class="tl-tt">교육 시행</div><div class="tl-dd">Day 1~3<br/>24시간</div></div>
+          <div class="tl-item active" style="--primary: var(--green);"><div class="tl-dt" style="color: var(--green);">2주</div><div class="tl-tt">후속 지원</div><div class="tl-dd">AI 계정<br/>Q&amp;A</div></div>
+          <div class="tl-item active" style="--primary: var(--green);"><div class="tl-dt" style="color: var(--green);">D+21</div><div class="tl-tt">결과 리포트</div><div class="tl-dd">만족도<br/>활용 현황</div></div>
+        </div>
+      </div>
+      <div data-step="3">
+        <div class="c c-blue" style="padding: 16px; margin-bottom: 10px;">
+          <div style="font-size: 0.75rem; font-weight: 700; color: var(--primary); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 8px;">참가자 관점</div>
+          <div class="c-d" style="color: var(--on-secondary-container);">
+            &bull; 즉시 적용 가능한 AI 프롬프트 세트 &middot; 워크플로우<br/>
+            &bull; 반복 업무 시간 <strong>50% 이상</strong> 단축<br/>
+            &bull; 코딩 없이 AI 활용 자신감 확보
+          </div>
+        </div>
+        <div class="c c-green" style="padding: 16px;">
+          <div style="font-size: 0.75rem; font-weight: 700; color: var(--green); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 8px;">조직 관점</div>
+          <div class="c-d">
+            &bull; 전사적 AI 역량 기반 동시 구축<br/>
+            &bull; 크로스 직군 시너지 &middot; 베스트 프랙티스 축적<br/>
+            &bull; 20명의 AI 선도 그룹 &rarr; 팀별 전파 승수 효과
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span class="sf-logo">DACON</span><span class="sf-pg">18</span><span class="sf-cr">COPYRIGHT 2026 DACON</span></div>
+</section>
+
+<!-- ===== SLIDE 19: 후속 확장 ===== -->
+<section class="slide" id="s19">
+  <div class="sh"><span class="sh-l">X. EXPANSION PLAN</span></div>
+  <div class="si" style="padding-top: 60px;">
+    <div class="tag tag-g">NEXT CHAPTER</div>
+    <h2 class="st" data-step="1">후속 <span class="hl-g">확장 프로그램</span></h2>
+    <p class="sub" data-step="2">1차 교육의 성공적 진행을 기반으로 추가 차수 및 심화 프로그램을 확장합니다</p>
+    <div class="g2" style="margin-top: 16px;">
+      <div data-step="3">
+        <div class="c c-surf" style="padding: 14px; margin-bottom: 8px;">
+          <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 6px;">
+            <div class="ic" style="width: 24px; height: 24px; font-size: 0.6875rem;">2</div>
+            <div class="c-t" style="font-size: 0.8125rem; margin-bottom: 0;">2차 교육 &mdash; 대상 확대</div>
+          </div>
+          <div class="c-d" style="font-size: 0.75rem;">미참여 직군&middot;지점 대상 동일 프로그램 확대 운영</div>
+        </div>
+        <div class="c c-surf" style="padding: 14px; margin-bottom: 8px;">
+          <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 6px;">
+            <div class="ic ic-w" style="width: 24px; height: 24px; font-size: 0.6875rem;">3</div>
+            <div class="c-t" style="font-size: 0.8125rem; margin-bottom: 0;">심화 과정 &mdash; AI 에이전트 구축</div>
+          </div>
+          <div class="c-d" style="font-size: 0.75rem;">Claude Code 기반 업무 에이전트, API 연동 자동화</div>
+        </div>
+        <div class="c c-surf" style="padding: 14px; margin-bottom: 8px;">
+          <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 6px;">
+            <div class="ic ic-g" style="width: 24px; height: 24px; font-size: 0.6875rem;">4</div>
+            <div class="c-t" style="font-size: 0.8125rem; margin-bottom: 0;">직군 특화 워크숍</div>
+          </div>
+          <div class="c-d" style="font-size: 0.75rem;">심사&middot;영업&middot;리스크 등 특정 직군 심층 AI 활용</div>
+        </div>
+        <div class="c c-surf" style="padding: 14px;">
+          <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 6px;">
+            <div class="ic ic-d" style="width: 24px; height: 24px; font-size: 0.6875rem;">5</div>
+            <div class="c-t" style="font-size: 0.8125rem; margin-bottom: 0;">사내 AI 해커톤</div>
+          </div>
+          <div class="c-d" style="font-size: 0.75rem;">전사 임직원 대상 AI 업무 혁신 해커톤 &middot; 아이디어 발굴</div>
+        </div>
+      </div>
+      <div data-step="4">
+        <div class="c c-blue" style="padding: 20px; height: 100%; display: flex; flex-direction: column; justify-content: center;">
+          <div style="font-size: 0.75rem; font-weight: 700; color: var(--primary); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 12px;">확장 로드맵</div>
+          <div style="display: flex; flex-direction: column; gap: 14px;">
+            <div style="display: flex; align-items: center; gap: 12px;">
+              <div style="width: 60px; font-size: 0.6875rem; font-weight: 700; color: var(--primary);">1차</div>
+              <div style="flex: 1; height: 8px; background: var(--primary); border-radius: 4px;"></div>
+              <div style="font-size: 0.75rem; font-weight: 600; color: var(--on-surface);">전 직군 20명 &middot; 기초</div>
+            </div>
+            <div style="display: flex; align-items: center; gap: 12px;">
+              <div style="width: 60px; font-size: 0.6875rem; font-weight: 700; color: var(--accent-warm);">2차</div>
+              <div style="flex: 1; height: 8px; background: var(--accent-warm); border-radius: 4px; opacity: 0.6;"></div>
+              <div style="font-size: 0.75rem; font-weight: 600; color: var(--on-surface-variant);">추가 직군 확대</div>
+            </div>
+            <div style="display: flex; align-items: center; gap: 12px;">
+              <div style="width: 60px; font-size: 0.6875rem; font-weight: 700; color: var(--green);">심화</div>
+              <div style="flex: 1; height: 8px; background: var(--green); border-radius: 4px; opacity: 0.4;"></div>
+              <div style="font-size: 0.75rem; font-weight: 600; color: var(--on-surface-variant);">AI 에이전트 &middot; 자동화</div>
+            </div>
+            <div style="display: flex; align-items: center; gap: 12px;">
+              <div style="width: 60px; font-size: 0.6875rem; font-weight: 700; color: var(--accent-dark);">도입</div>
+              <div style="flex: 1; height: 8px; background: var(--accent-dark); border-radius: 4px; opacity: 0.3;"></div>
+              <div style="font-size: 0.75rem; font-weight: 600; color: var(--on-surface-variant);">Enterprise 조직 도입</div>
+            </div>
+          </div>
+          <div style="margin-top: 16px; padding-top: 12px; border-top: 1px solid rgba(0,83,219,0.15); font-size: 0.75rem; color: var(--on-secondary-container); line-height: 1.6;">
+            1차 교육 만족도 &middot; 활용 현황을 기반으로<br/>가장 효과적인 후속 프로그램을 함께 설계합니다
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span class="sf-logo">DACON</span><span class="sf-pg">19</span><span class="sf-cr">COPYRIGHT 2026 DACON</span></div>
+</section>
+
+<!-- ===== SLIDE 20: ENDING ===== -->
+<section class="slide slide-end" id="s20">
+  <div class="si" style="background: linear-gradient(135deg, var(--surface) 0%, var(--secondary-container) 100%);">
+    <div class="end-logo" data-step="1">DACON</div>
+    <h1 data-step="2">감사합니다</h1>
+    <p class="end-sub" data-step="3">AI-Powered Work Transformation &mdash; 전 직군 기초 과정</p>
+    <div data-step="4" style="margin-top: 48px; display: flex; gap: 40px; font-size: 0.875rem; color: var(--on-surface-variant);">
+      <div style="text-align: center;">
+        <div style="font-size: 0.6875rem; color: var(--outline-variant); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 4px;">담당자</div>
+        <div style="font-weight: 700;">데이콘(DACON) | 김국진</div>
+      </div>
+      <div style="text-align: center;">
+        <div style="font-size: 0.6875rem; color: var(--outline-variant); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 4px;">이메일</div>
+        <div style="font-weight: 700;">edgar@dacon.io</div>
+      </div>
+      <div style="text-align: center;">
+        <div style="font-size: 0.6875rem; color: var(--outline-variant); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 4px;">연락처</div>
+        <div style="font-weight: 700;">010-6338-1041</div>
+      </div>
+    </div>
+    <div data-step="5" style="margin-top: 16px; font-size: 0.8125rem; color: var(--outline-variant);">https://about.dacon.io</div>
+    <div style="position: absolute; bottom: 20px; right: 32px; font-size: 0.5625rem; color: var(--outline-variant);">COPYRIGHT 2026 DACON. ALL RIGHTS RESERVED</div>
+  </div>
+</section>
+
+</div><!-- #stage -->
+</div><!-- #viewport -->
+
+<button class="nav-btn" id="nav-prev">&#8249;</button>
+<button class="nav-btn" id="nav-next">&#8250;</button>
+<div id="progress-bar"></div>
+<div id="key-hint">&larr; &rarr; / Space / Swipe</div>
+
+<script>
+(function(){
+  const slides = Array.from(document.querySelectorAll('.slide'));
+  const total = slides.length;
+  let cur = 0, step = 0;
+  function maxStep(sl){ let m=0; sl.querySelectorAll('[data-step]').forEach(e=>{m=Math.max(m,+e.dataset.step);}); return m; }
+  function show(idx, dir){
+    slides.forEach(s=>s.classList.remove('active'));
+    slides[idx].classList.add('active');
+    step = 0;
+    const els = slides[idx].querySelectorAll('[data-step]');
+    els.forEach(e => { e.classList.remove('visible','pre-visible'); });
+    if(dir === 'back'){
+      step = maxStep(slides[idx]);
+      els.forEach(e => e.classList.add('pre-visible'));
+    }
+    document.getElementById('progress-bar').style.width = ((idx+1)/total*100)+'%';
+  }
+  function next(){
+    const ms = maxStep(slides[cur]);
+    if(step < ms){
+      step++;
+      slides[cur].querySelectorAll('[data-step]').forEach(e=>{
+        if(+e.dataset.step <= step) e.classList.add('visible');
+      });
+      return;
+    }
+    if(cur < total-1){ cur++; show(cur,'fwd'); }
+  }
+  function prev(){
+    if(step > 0){
+      slides[cur].querySelectorAll('[data-step]').forEach(e=>{
+        if(+e.dataset.step === step) { e.classList.remove('visible','pre-visible'); }
+      });
+      step--;
+      return;
+    }
+    if(cur > 0){ cur--; show(cur,'back'); }
+  }
+  document.getElementById('nav-next').onclick = next;
+  document.getElementById('nav-prev').onclick = prev;
+  document.addEventListener('keydown', e => {
+    if(e.key==='ArrowRight'||e.key===' '||e.key==='Enter') next();
+    else if(e.key==='ArrowLeft'||e.key==='Backspace') prev();
+  });
+  let tx=0;
+  document.addEventListener('touchstart', e=>{ tx=e.changedTouches[0].screenX; });
+  document.addEventListener('touchend', e=>{
+    const dx = e.changedTouches[0].screenX - tx;
+    if(dx < -50) next(); else if(dx > 50) prev();
+  });
+  function fit(){
+    const vw=window.innerWidth, vh=window.innerHeight;
+    const s = Math.min(vw/1280, vh/720, 1);
+    document.getElementById('stage').style.transform = 'scale('+s+')';
+  }
+  window.addEventListener('resize', fit); fit();
+  step = maxStep(slides[0]);
+  slides[0].querySelectorAll('[data-step]').forEach(e => { e.classList.add('pre-visible'); });
+  document.getElementById('progress-bar').style.width = ((1)/total*100)+'%';
+})();
+</script>
+</body>
+</html>

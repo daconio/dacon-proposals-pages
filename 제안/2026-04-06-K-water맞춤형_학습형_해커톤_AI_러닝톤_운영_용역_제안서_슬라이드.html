@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>「K-water맞춤형 학습형 해커톤(AI 러닝톤) 운영 용역」 제안서 슬라이드</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --primary:#1E3A8A;--primary-d:#162B66;--primary-light:#dbe3f4;
+  --warm:#c2622d;--warm-bg:rgba(194,98,45,.08);
+  --dark:#0f172a;--on-surface:#0f172a;--on-variant:#475569;
+  --surface:#ffffff;--surface-low:#f1f5f9;--outline:#94a3b8;--outline-d:rgba(148,163,184,.2);
+  --sec:#dbe3f4;--on-sec:#1e3a8a;
+  --green:#0a8e6b;--green-bg:rgba(10,142,107,.08);
+  --font:'Plus Jakarta Sans','Pretendard Variable',Pretendard,-apple-system,system-ui,sans-serif;
+  --shadow:0 8px 24px rgba(30,41,59,.04);
+  --r-sm:.25rem;--r-md:.375rem;--r-lg:.75rem;
+  --slide-w:1280px;--slide-h:720px;
+}
+html,body{width:100%;height:100%;font-family:var(--font);color:var(--on-surface);background:#e2e8f0;overflow:hidden;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+#viewport{position:fixed;inset:0;display:flex;align-items:center;justify-content:center}
+#stage{position:relative;width:var(--slide-w);height:var(--slide-h);overflow:hidden;transform-origin:center;border-radius:var(--r-lg);box-shadow:0 12px 48px rgba(30,41,59,.15);background:var(--surface)}
+
+.slide{position:absolute;inset:0;background:var(--surface);display:flex;flex-direction:column;opacity:0;pointer-events:none;transition:opacity 0s;overflow:hidden}
+.slide.active{opacity:1;pointer-events:auto}
+
+.sh{position:absolute;top:0;left:0;right:0;height:44px;padding:0 32px;display:flex;justify-content:space-between;align-items:center;background:rgba(255,255,255,.95);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-bottom:1px solid var(--outline-d);z-index:2}
+.sh-l{font-size:.8125rem;font-weight:700;color:var(--primary);letter-spacing:.06em;text-transform:uppercase}
+.sh span:last-child{font-size:.6875rem;font-weight:700;color:var(--outline);letter-spacing:.08em;text-transform:uppercase}
+.sf{position:absolute;bottom:0;left:0;right:0;height:36px;padding:0 32px;display:flex;justify-content:space-between;align-items:center;background:rgba(255,255,255,.95);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-top:1px solid rgba(148,163,184,.15);z-index:2}
+.sf .brand{font-size:.75rem;font-weight:700;color:var(--primary);letter-spacing:.08em}
+.sf .pg{font-size:.6875rem;color:var(--on-variant);font-weight:600;font-family:'SF Mono',Menlo,monospace}
+.sf span:last-child{font-size:.5625rem;color:var(--outline);letter-spacing:.03em;font-weight:600;text-transform:uppercase}
+
+.si{flex:1;display:flex;flex-direction:column;padding:62px 72px 48px;position:relative}
+
+.tag{display:inline-flex;align-items:center;gap:8px;font-size:.6875rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--primary);margin-bottom:12px}
+.tag::before{content:'';width:24px;height:2.5px;background:var(--primary);border-radius:2px}
+.tag.w{color:var(--warm)}.tag.w::before{background:var(--warm)}
+h1.st{font-size:2rem;font-weight:800;color:var(--on-surface);letter-spacing:-.02em;line-height:1.2}
+h2.st{font-size:1.75rem;font-weight:800;color:var(--on-surface);letter-spacing:-.02em;line-height:1.22}
+.sub{margin-top:8px;font-size:.875rem;color:var(--on-variant);line-height:1.65}
+.hl{color:var(--primary);font-weight:700}
+.hl-w{color:var(--warm);font-weight:700}
+
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+.g4{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:10px}
+.c{background:var(--surface);border:1px solid rgba(148,163,184,.2);border-radius:var(--r-lg);padding:16px}
+.c-p{background:var(--sec);border:none}
+.c-w{background:var(--warm-bg);border:none}
+.c-g{background:var(--green-bg);border:none}
+.c-d{background:var(--dark);color:#fff;border:none}
+.c-d .c-t{color:#fff}.c-d .c-dd{color:#cbd5e1}
+.c .c-t{font-size:.875rem;font-weight:700;color:var(--on-surface);margin-bottom:6px}
+.c .c-dt{font-size:.9375rem;font-weight:800;color:var(--on-surface);margin-bottom:6px;letter-spacing:-.01em}
+.c .c-dd{font-size:.75rem;color:var(--on-variant);line-height:1.6}
+.c ul{list-style:none;margin-top:6px}
+.c ul li{position:relative;padding-left:14px;font-size:.75rem;color:var(--on-variant);line-height:1.7}
+.c ul li::before{content:'';position:absolute;left:0;top:9px;width:5px;height:5px;border-radius:50%;background:var(--primary)}
+.c-w ul li::before{background:var(--warm)}
+.c-g ul li::before{background:var(--green)}
+.c-d ul li::before{background:#fff}
+
+.mx{text-align:center;padding:14px 10px;background:var(--surface-low);border-radius:var(--r-lg)}
+.mx .v{font-size:1.5rem;font-weight:800;color:var(--primary);line-height:1;letter-spacing:-.02em}
+.mx .v.w{color:var(--warm)}.mx .v.g{color:var(--green)}
+.mx .l{font-size:.625rem;color:var(--on-variant);margin-top:4px;font-weight:500}
+
+.tb{width:100%;border-collapse:collapse;font-size:.75rem;margin-top:8px}
+.tb th{background:var(--surface-low);color:var(--on-surface);padding:8px 12px;text-align:left;font-size:.6875rem;font-weight:700;border:none;border-bottom:2px solid var(--primary)}
+.tb td{padding:7px 12px;border:none;border-bottom:1px solid rgba(148,163,184,.15);color:var(--on-variant);vertical-align:top;line-height:1.6}
+.tb tr:last-child td{border-bottom:none}
+
+.ui{background:#fff;border:1px solid rgba(148,163,184,.25);border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--shadow)}
+.ui-bar{background:var(--surface-low);padding:6px 10px;display:flex;align-items:center;gap:5px;border-bottom:1px solid rgba(148,163,184,.15)}
+.ui-dot{width:8px;height:8px;border-radius:50%}
+.ui-dot.r{background:#ef4444}.ui-dot.y{background:#f59e0b}.ui-dot.g{background:#10b981}
+.ui-url{margin-left:10px;font-size:.625rem;color:var(--on-variant);font-family:'SF Mono',Menlo,monospace}
+.ui-body{padding:10px 12px}
+.ui-cap{font-size:.625rem;color:var(--on-variant);font-style:italic;text-align:center;margin-top:4px}
+
+pre.flow{background:var(--surface-low);border-left:3px solid var(--primary);padding:12px 14px;font-family:'SF Mono',Menlo,monospace;font-size:.6875rem;color:var(--on-surface);line-height:1.65;border-radius:var(--r-sm);margin:8px 0;white-space:pre;overflow:auto}
+
+.stepper{display:flex;gap:8px;margin:10px 0;align-items:stretch}
+.step{flex:1;background:var(--surface-low);border-radius:var(--r-md);padding:12px 14px;border-left:3px solid var(--primary);font-size:.75rem}
+.step .n{font-size:.625rem;color:var(--warm);font-weight:800;letter-spacing:.06em}
+.step .t{font-size:.875rem;font-weight:700;color:var(--on-surface);margin:3px 0}
+.step .d{font-size:.6875rem;color:var(--on-variant);line-height:1.5}
+
+.slide-sec{padding:0}
+.slide-sec .si{justify-content:center;align-items:center;text-align:center;padding-top:60px;background:linear-gradient(135deg,var(--surface) 0%,var(--sec) 100%)}
+.slide-sec .sn{font-size:4.5rem;font-weight:800;color:rgba(30,58,138,.09);line-height:1;margin-bottom:8px;letter-spacing:-.04em}
+.slide-sec h2{font-size:2.25rem;font-weight:800;color:var(--on-surface);letter-spacing:-.02em}
+.slide-sec .sd{font-size:1rem;color:var(--on-variant);margin-top:10px;max-width:720px;line-height:1.65}
+
+.slide-cover{padding:0}
+.slide-cover .si{justify-content:center;padding:70px 88px;background:linear-gradient(135deg,var(--surface) 0%,var(--sec) 100%)}
+.slide-cover .kv{font-size:.8125rem;font-weight:700;color:var(--warm);letter-spacing:.18em;margin-bottom:16px;text-transform:uppercase}
+.slide-cover h1{font-size:2.75rem;font-weight:800;line-height:1.18;letter-spacing:-.02em;color:var(--on-surface)}
+.slide-cover .meta{margin-top:28px;font-size:.8125rem;color:var(--on-variant);line-height:1.9}
+.slide-cover .date{position:absolute;top:28px;right:36px;background:linear-gradient(135deg,var(--primary),var(--primary-d));color:#fff;padding:6px 16px;border-radius:999px;font-size:.6875rem;font-weight:700}
+.slide-cover .rule{width:160px;height:3px;background:var(--primary);border-radius:999px;margin:14px 0}
+
+.slide-end{padding:0}
+.slide-end .si{justify-content:center;align-items:center;text-align:center;background:linear-gradient(135deg,var(--surface) 0%,var(--sec) 100%)}
+.slide-end .lg{font-size:2.25rem;font-weight:800;color:var(--primary);letter-spacing:.1em;margin-bottom:24px}
+.slide-end h1{font-size:2rem;font-weight:800;color:var(--on-surface);letter-spacing:-.02em;line-height:1.22}
+.slide-end .ed{font-size:.9375rem;color:var(--on-variant);margin-top:18px;line-height:1.75}
+
+[data-step]{opacity:0;transform:translateY(10px);transition:opacity .4s ease,transform .4s ease}
+[data-step].visible{opacity:1;transform:none}
+
+.nav-btn{position:fixed;top:50%;transform:translateY(-50%);width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.9);border:none;color:var(--on-variant);cursor:pointer;z-index:100;display:flex;align-items:center;justify-content:center;font-size:18px;box-shadow:var(--shadow);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);transition:all .2s;user-select:none}
+.nav-btn:hover{color:var(--primary)}
+#nav-prev{left:12px}#nav-next{right:12px}
+#progress-bar{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--primary),var(--primary-d));transition:width .4s ease;z-index:100}
+#key-hint{position:fixed;bottom:16px;left:50%;transform:translateX(-50%);color:var(--outline);font-size:.6875rem;z-index:100;opacity:.4}
+
+@page{size:A4 landscape;margin:0}
+@media print{
+  html,body{background:#fff;overflow:visible!important;height:auto!important;width:auto!important}
+  #viewport{position:static!important;display:block!important;height:auto!important}
+  #stage{position:static!important;width:auto!important;height:auto!important;overflow:visible!important;transform:none!important;box-shadow:none!important;border-radius:0!important}
+  .slide{position:relative!important;inset:auto!important;opacity:1!important;pointer-events:auto!important;width:100vw!important;height:100vh!important;page-break-after:always!important;margin:0!important;overflow:hidden!important}
+  .nav-btn,#progress-bar,#key-hint{display:none!important}
+  [data-step]{opacity:1!important;transform:none!important}
+}
+</style>
+</head>
+<body>
+
+<div id="progress-bar"></div>
+<button class="nav-btn" id="nav-prev" aria-label="이전">&#9664;</button>
+<button class="nav-btn" id="nav-next" aria-label="다음">&#9654;</button>
+<div id="key-hint">← → Space · F 전체화면</div>
+
+<div id="viewport"><div id="stage">
+
+<!-- S1 COVER -->
+<section class="slide slide-cover active">
+  <div class="si">
+    <span class="date">FY 2026 · 한국수자원공사 인재개발원</span>
+    <div class="kv" data-step="1">&lt; K-water AI 러닝톤 · 제안서 &gt;</div>
+    <div class="rule" data-step="2"></div>
+    <h1 data-step="3">
+      「K-water맞춤형 학습형 해커톤<br>
+      <span class="hl">(AI 러닝톤)</span> 운영 용역」 제안서
+    </h1>
+    <div class="rule" data-step="4"></div>
+    <div class="meta" data-step="5">
+      사업금액 ₩89,760,000 (VAT 포함) · 과업기간 90일 · 규모 약 30팀 90여명<br>
+      2026. 3.  · 제안기관 : <span style="color:var(--warm);font-weight:700">○ ○ ○ (블라인드)</span>
+    </div>
+  </div>
+</section>
+
+<!-- S2 Executive -->
+<section class="slide">
+  <div class="sh"><span class="sh-l">Executive Summary</span><span>AI 러닝톤 운영 총괄안</span></div>
+  <div class="si">
+    <div class="tag">AI FIRST · BLENDED LEARNATHON</div>
+    <h2 class="st"><span class="hl">AI First 전략</span>을 현장에 안착시키는 90일 학습형 해커톤</h2>
+
+    <div class="g4" style="margin-top:16px">
+      <div class="mx"><div class="v">30팀</div><div class="l">참여 규모</div></div>
+      <div class="mx"><div class="v">90명</div><div class="l">참가자</div></div>
+      <div class="mx"><div class="v w">90일</div><div class="l">과업 기간</div></div>
+      <div class="mx"><div class="v w">30+</div><div class="l">프로토타입 목표</div></div>
+    </div>
+
+    <table class="tb" style="margin-top:16px">
+      <thead><tr><th style="width:22%">구분</th><th>핵심 방향</th></tr></thead>
+      <tbody>
+        <tr><td>대회 컨셉</td><td>K-water 맞춤형 생성형 AI 교육 연계 · 비전공자도 완주 가능</td></tr>
+        <tr><td>주요 산출물</td><td>프로토타입 30건+ · 우수작 업무 적용 제안서 · 결과 분석 보고서</td></tr>
+        <tr><td>운영 플랫폼</td><td>DAKER 기반 통합 운영 + 실시간 리더보드 (웹·설치 불필요)</td></tr>
+        <tr><td>핵심 KPI</td><td>완주율 ≥85%, 과제 제출율 ≥95%, AI 역량 +30%p, NPS ≥60</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="sf"><span class="brand">K-WATER · AI 러닝톤</span><span class="pg">02 / 20</span><span>Executive</span></div>
+</section>
+
+<!-- S3 TOC -->
+<section class="slide">
+  <div class="sh"><span class="sh-l">TABLE OF CONTENTS</span><span>RFP 3.4 매핑</span></div>
+  <div class="si">
+    <div class="tag">목차 · 평가 배점</div>
+    <h2 class="st">정량 30 + <span class="hl">정성 70</span> — 5영역</h2>
+
+    <div class="g2" style="margin-top:14px">
+      <div class="c">
+        <div class="c-dt">정량평가 (30점)</div>
+        <ul>
+          <li>I. 기관 소개 (서식1) — 정량</li>
+          <li>II. 경영상태 (서식2) — <strong>10점</strong></li>
+          <li>입찰가격 평가 — 20점 (별도)</li>
+        </ul>
+      </div>
+      <div class="c c-p">
+        <div class="c-dt">정성평가 (70점)</div>
+        <ul>
+          <li>III-1. 과업수행 계획 (서식3) — <strong>15점</strong></li>
+          <li>III-2. 교육 및 멘토링 — <strong>15점</strong></li>
+          <li>III-3. 플랫폼 기술구현 — <strong>15점</strong></li>
+          <li>III-4. 대회 운영 — <strong>15점</strong></li>
+          <li>III-5. 성과관리 — <strong>10점</strong></li>
+        </ul>
+      </div>
+    </div>
+    <div class="c c-w" style="margin-top:12px">
+      <div class="c-t">블라인드 심사 대응</div>
+      <div class="c-dd">회사명·대표·로고·주소·전화·실적(수행기관/사업대상지역)·기술인증·e-mail 삭제 · 인력명 <code>***</code> 처리 · 감점 최대 3점</div>
+    </div>
+  </div>
+  <div class="sf"><span class="brand">K-WATER · AI 러닝톤</span><span class="pg">03 / 20</span><span>TOC</span></div>
+</section>
+
+<!-- S4 I. 기관 소개 -->
+<section class="slide">
+  <div class="sh"><span class="sh-l">I. 기관 소개</span><span>서식1 · 정량</span></div>
+  <div class="si">
+    <div class="tag">제안기관 일반현황</div>
+    <h2 class="st">학습형 해커톤 전문 · <span class="hl">All-in-One AX Platform</span> 보유</h2>
+
+    <div class="g2" style="margin-top:14px">
+      <div class="c">
+        <div class="c-t">기관 일반현황</div>
+        <table class="tb" style="margin-top:4px;font-size:.6875rem">
+          <tbody>
+            <tr><td style="width:35%"><strong>대표자</strong></td><td>김***</td></tr>
+            <tr><td><strong>사업 종류</strong></td><td>정보통신업 / 데이터·AI 플랫폼</td></tr>
+            <tr><td><strong>설립년월</strong></td><td>2018.05</td></tr>
+            <tr><td><strong>해당부문 사업기간</strong></td><td>2018.05 ~ 현재 (약 8년)</td></tr>
+            <tr><td><strong>상시 종업원 수</strong></td><td>30여 명</td></tr>
+            <tr><td><strong>입찰참가 제한 이력</strong></td><td>없음</td></tr>
+            <tr><td><strong>중소기업 해당</strong></td><td>「중소기업기본법」 제2조 충족</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="c c-p">
+        <div class="c-t">사업 라인업 — All-in-One AX Platform</div>
+        <ul>
+          <li><strong>dacon.io</strong> — AI 알고리즘 대회 플랫폼, 회원 14만</li>
+          <li><strong style="color:var(--primary)">daker.ai</strong> — 학습형 해커톤 전용 플랫폼 (본 사업 핵심)</li>
+          <li><strong>데이스쿨</strong> — AI 교육 서비스, 200+ 교재</li>
+        </ul>
+        <div class="c-t" style="margin-top:12px">전담 인력 7명 (타 과업 겸직 없음)</div>
+        <div class="c-dd">총괄 PM 1 + PL 3(기획·기술·교육) + 운영 매니저 2 + 디자이너 1 · <strong>하도급 없음</strong></div>
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span class="brand">K-WATER · AI 러닝톤</span><span class="pg">04 / 20</span><span>I. 기관 소개</span></div>
+</section>
+
+<!-- S5 II. 경영상태 -->
+<section class="slide">
+  <div class="sh"><span class="sh-l">II. 경영상태</span><span>서식2 · 정량 10점</span></div>
+  <div class="si">
+    <div class="tag">신용평가등급</div>
+    <h2 class="st">유효기간 내 <span class="hl">최신 신용평가등급확인서</span> 첨부</h2>
+
+    <table class="tb" style="margin-top:18px">
+      <tbody>
+        <tr><td style="width:30%"><strong>신용평가등급</strong></td><td>○○○ <span style="color:var(--warm);font-weight:700">(확인서 별첨)</span></td></tr>
+        <tr><td><strong>평가 기관</strong></td><td>입찰공고일 이전 가장 최근 유효기간 내 확인서 기준</td></tr>
+        <tr><td><strong>유효기간</strong></td><td>~ 2026. ○○. ○○</td></tr>
+        <tr><td><strong>평가 대상</strong></td><td>회사채 / 기업어음 / 기업신용평가등급 중 해당 등급</td></tr>
+        <tr><td><strong>증빙 서류</strong></td><td>신용평가등급확인서 (별도 PDF 첨부)</td></tr>
+      </tbody>
+    </table>
+
+    <div class="c c-p" style="margin-top:14px">
+      <div class="c-t">평가 기준 숙지 (RFP 주2)</div>
+      <div class="c-dd">회사채·기업어음·기업신용평가에 따른 평점이 다를 경우 <strong>가장 낮은 평점으로 평가</strong>됨을 숙지. 유효기간 내 확인서 별도 PDF 동시 제출.</div>
+    </div>
+  </div>
+  <div class="sf"><span class="brand">K-WATER · AI 러닝톤</span><span class="pg">05 / 20</span><span>II. 경영상태</span></div>
+</section>
+
+<!-- S6 Section divider -->
+<section class="slide slide-sec">
+  <div class="sh"><span class="sh-l">III. 사업수행계획평가</span><span>정성 70점</span></div>
+  <div class="si">
+    <div class="sn" data-step="1">III</div>
+    <h2 data-step="2">사업수행계획평가 <span class="hl">정성 70점</span></h2>
+    <div class="sd" data-step="3">과업수행계획 15 · 교육·멘토링 15 · 플랫폼 기술구현 15 · 대회운영 15 · 성과관리 10</div>
+  </div>
+  <div class="sf"><span class="brand">K-WATER · AI 러닝톤</span><span class="pg">06 / 20</span><span>Section III</span></div>
+</section>
+
+<!-- S7 III-1 part 1 -->
+<section class="slide">
+  <div class="sh"><span class="sh-l">III-1. 과업수행 계획</span><span>서식3 · 15점</span></div>
+  <div class="si">
+    <div class="tag">과업의 이해 · 범위</div>
+    <h2 class="st">&ldquo;비전공자도 완주할 수 있는&rdquo; <span class="hl-w">학습형 해커톤</span>의 설계</h2>
+
+    <div class="c c-d" style="margin-top:14px">
+      <div class="c-t">과업의 재정의</div>
+      <div class="c-dd" style="color:rgba(255,255,255,.88);font-size:.8125rem;line-height:1.7">&ldquo;K-water 임직원이 AI로 실제 업무를 바꿔보는 경험을, <strong style="color:#fff">비전공자도 안전하게 완주</strong>할 수 있는 학습형 해커톤으로 설계한다.&rdquo;</div>
+    </div>
+
+    <h3 style="font-size:.9375rem;color:var(--on-surface);margin-top:14px;font-weight:700">과업 범위 매핑 (RFP 2.2)</h3>
+    <table class="tb">
+      <thead><tr><th style="width:30%">RFP 조항</th><th>본 제안 세부</th></tr></thead>
+      <tbody>
+        <tr><td>가. 러닝톤 종합 기획</td><td>3단계 운영 프레임 (준비 - 운영 - 사후)</td></tr>
+        <tr><td>나. 통합 운영 플랫폼·리더보드</td><td>DAKER 기반 K-water 맞춤 구축 (III-3)</td></tr>
+        <tr><td>다. 보안·안정성</td><td>3배 트래픽 · SSL · 99%+ 가용성</td></tr>
+        <tr><td>라. 교육·멘토링</td><td>데이스쿨 연계 · 멘토 1:3 (III-2)</td></tr>
+        <tr><td>마~자. 행사·평가</td><td>4일 운영 (설치1 + 본선2 + 철거1)</td></tr>
+        <tr><td>차·카. 사후·성과품</td><td>최종보고서 본+요약본 5부 제본</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="sf"><span class="brand">K-WATER · AI 러닝톤</span><span class="pg">07 / 20</span><span>III-1 ①</span></div>
+</section>
+
+<!-- S8 III-1 part 2 -->
+<section class="slide">
+  <div class="sh"><span class="sh-l">III-1. 과업수행 계획</span><span>일정 · 조직 · 리스크 · 예산 · 홍보</span></div>
+  <div class="si">
+    <div class="tag">추진 전략</div>
+    <h2 class="st">90일 전 구간 <span class="hl">전담 체계</span> · 리스크 <span class="hl-w">6축 대응</span></h2>
+
+    <h3 style="font-size:.8125rem;color:var(--on-surface);margin-top:10px;font-weight:700">추진 일정 (착수일로부터 90일)</h3>
+    <pre class="flow">W1-3  킥오프 · 플랫폼 구축 · 홍보  ───▶  W4-7  학습 교재 · 아이디어톤  ───▶  W8-10  멘토링  ───▶  W11  본선 4일  ───▶  W12-13  결과 분석</pre>
+
+    <div class="g2" style="margin-top:12px">
+      <div class="c c-p">
+        <div class="c-t">조직·인력 (전담 7명)</div>
+        <div class="c-dd">총괄 PM 1 · 기획 PL · 플랫폼 개발 PL · 교육 PL · 운영 매니저 2 · 디자이너 1. 전원 본 용역 <strong>전담 배정</strong>, 타 과업 겸직 없음. 경력·자격증 별첨.</div>
+      </div>
+      <div class="c c-w">
+        <div class="c-t">리스크 6축 대응</div>
+        <div class="c-dd">참여 저조 / 일정 지연 / 기술 이슈 / 비전공자 이탈 / 품질 편차 / 안전·식중독 — 시나리오별 1:1 대응 계획 + 2주 버퍼</div>
+      </div>
+    </div>
+
+    <div class="g4" style="margin-top:12px">
+      <div class="mx"><div class="v">45%</div><div class="l">인건비</div></div>
+      <div class="mx"><div class="v">20%</div><div class="l">플랫폼·인프라</div></div>
+      <div class="mx"><div class="v w">20%</div><div class="l">행사·기념품</div></div>
+      <div class="mx"><div class="v w">10%</div><div class="l">멘토·심사비</div></div>
+    </div>
+    <p style="font-size:.75rem;color:var(--on-variant);text-align:center;margin-top:6px">+ 예비비 5% · 총 <strong class="hl">₩89,760,000 (VAT 포함)</strong> 범위 내</p>
+
+    <h3 style="font-size:.8125rem;color:var(--on-surface);margin-top:12px;font-weight:700">홍보 전략 (3단계 깔때기)</h3>
+    <div class="stepper">
+      <div class="step"><div class="n">STEP 1</div><div class="t">전사 인지</div><div class="d">사내 포털·사보·메일 (D-30~D-20)</div></div>
+      <div class="step"><div class="n">STEP 2</div><div class="t">개별 접촉</div><div class="d">부서 설명회·얼리버드 (D-20~D-7)</div></div>
+      <div class="step"><div class="n">STEP 3</div><div class="t">현장 동기부여</div><div class="d">선배 후기 영상·참가자 만남 (D-7~D-1)</div></div>
+    </div>
+    <p style="font-size:.75rem;color:var(--on-variant);margin-top:4px">인지율 ≥95% · 신청 전환 ≥25% · 완주율 ≥85%</p>
+  </div>
+  <div class="sf"><span class="brand">K-WATER · AI 러닝톤</span><span class="pg">08 / 20</span><span>III-1 ②</span></div>
+</section>
+
+<!-- S9 III-2 part 1 -->
+<section class="slide">
+  <div class="sh"><span class="sh-l">III-2. 교육 및 멘토링</span><span>15점 · 커리큘럼</span></div>
+  <div class="si">
+    <div class="tag">LEARNING · 2-TRACK</div>
+    <h2 class="st">K-water 맞춤형 생성형 AI 교육과 <span class="hl">결을 맞춘</span> 5-Step 학습</h2>
+
+    <table class="tb" style="margin-top:12px">
+      <thead><tr><th style="width:14%">단계</th><th style="width:12%">시점</th><th style="width:18%">대상</th><th>콘텐츠</th><th style="width:18%">방식</th></tr></thead>
+      <tbody>
+        <tr><td><strong>M1 워밍업</strong></td><td>D-14</td><td>전 참가자</td><td>생성형 AI 기초 + 규칙</td><td>온라인 self-paced 60분</td></tr>
+        <tr><td><strong>M2 바이브코딩</strong></td><td>D-10</td><td>비전공자 우선</td><td>자연어 앱 · K-water 기업용 생성형 AI 활용</td><td>온라인 self-paced 120분</td></tr>
+        <tr><td><strong>M3 업무 자동화</strong></td><td>D-7</td><td>팀 단위</td><td>RAG · 문서 요약 · 리포팅 자동화</td><td>온라인 self-paced 90분</td></tr>
+        <tr><td><strong>M4 아이디어톤 가이드</strong></td><td>D-5</td><td>팀 단위</td><td>&ldquo;내 업무 문제&rdquo; 과제화 템플릿</td><td>온라인 LIVE 30분</td></tr>
+        <tr><td><strong>본선 현장 실습</strong></td><td>본선 1일차</td><td>전 팀</td><td>프로토타입 구현 실전</td><td>오프라인 3시간</td></tr>
+      </tbody>
+    </table>
+
+    <div class="g2" style="margin-top:12px">
+      <div class="c">
+        <div class="c-t">2-Track 분기 (참가 시 역량 설문)</div>
+        <div class="c-dd">▸ <strong>A. 비전공자</strong>: 코드 없이 시작, 노코드 워크플로우, 프롬프트 템플릿<br>▸ <strong>B. 경험자</strong>: 에이전트·RAG, 업무 자동화 설계, 고급 프롬프트</div>
+      </div>
+      <div class="c c-p">
+        <div class="c-t">학습 편의성·복습 · 사용자 매뉴얼</div>
+        <div class="c-dd">▸ 진도·체류시간·퀴즈 자동 집계 · 수료 미달 시 멘토 개입<br>▸ 북마크·스니펫 · 용어 툴팁 · 요약 모드 토글<br>▸ 영상 매뉴얼 · FAQ · 상시 Q&amp;A 채널</div>
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span class="brand">K-WATER · AI 러닝톤</span><span class="pg">09 / 20</span><span>III-2 ①</span></div>
+</section>
+
+<!-- S10 III-2 part 2 -->
+<section class="slide">
+  <div class="sh"><span class="sh-l">III-2. 교육 및 멘토링</span><span>15점 · 멘토단 · 4단계 역할</span></div>
+  <div class="si">
+    <div class="tag w">MENTORING</div>
+    <h2 class="st">멘토 1인당 <span class="hl-w">≤ 3팀</span> · 단순 자문이 아닌 <span class="hl-w">공동 설계자</span></h2>
+
+    <h3 style="font-size:.8125rem;color:var(--on-surface);margin-top:10px;font-weight:700">멘토 자격 요건 (2개 이상 필수 충족)</h3>
+    <div class="g3">
+      <div class="c c-w"><div class="c-t">① 생성형 AI</div><div class="c-dd">데이터 기반 업무 자동화 프로젝트 수행 경험</div></div>
+      <div class="c c-w"><div class="c-t">② 컨설팅·교육</div><div class="c-dd">기업·공공기관 AI/데이터 컨설팅·교육 경험</div></div>
+      <div class="c c-w"><div class="c-t">③ 업무 개선·DX</div><div class="c-dd">AI 업무 프로세스 개선 또는 DX 실무 경험</div></div>
+    </div>
+
+    <h3 style="font-size:.8125rem;color:var(--on-surface);margin-top:12px;font-weight:700">멘토 4단계 역할 — 기술 자문이 아닌 공동 설계자</h3>
+    <div class="stepper">
+      <div class="step"><div class="n">①</div><div class="t">과제 정의</div><div class="d">업무 문제를 구체 과제로 구조화 · AI 적용성 검토</div></div>
+      <div class="step"><div class="n">②</div><div class="t">솔루션 설계</div><div class="d">프롬프트·데이터·자동화 구조 설계</div></div>
+      <div class="step"><div class="n">③</div><div class="t">기술·구현</div><div class="d">API 활용·바이브코딩 디버깅·실현가능성 검증</div></div>
+      <div class="step"><div class="n">④</div><div class="t">결과 고도화</div><div class="d">완성도 향상 · 업무 적용·확산 전략 제시</div></div>
+    </div>
+
+    <div class="g2" style="margin-top:10px">
+      <div class="c">
+        <div class="c-t">멘토링 운영</div>
+        <div class="c-dd">▸ 정기 3회 이상 (화상 60분) ▸ 수시 (플랫폼 Q&amp;A·채널) ▸ 행사당일 현장 밀착</div>
+      </div>
+      <div class="c c-p">
+        <div class="c-t">추가 제출 서류 (전원)</div>
+        <div class="c-dd">① 주요 프로젝트/역할 ② 생성형 AI 실적 ③ 교육·컨설팅 경험 ④ 관련 자격/전문 분야</div>
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span class="brand">K-WATER · AI 러닝톤</span><span class="pg">10 / 20</span><span>III-2 ②</span></div>
+</section>
+
+<!-- S11 III-3 overview -->
+<section class="slide">
+  <div class="sh"><span class="sh-l">III-3. 플랫폼 기술구현</span><span>15점 · 통합 운영 플랫폼 개요</span></div>
+  <div class="si">
+    <div class="tag">DAKER · UNIFIED PLATFORM</div>
+    <h2 class="st">참가 신청부터 시상까지 — <span class="hl">단일 플랫폼</span>에서 전 과정 운영</h2>
+
+    <div class="g2" style="margin-top:14px">
+      <div class="c c-p">
+        <div class="c-t">RFP 2.2.나 요구 기능 대응 (전 항목 충족)</div>
+        <ul>
+          <li>참가 신청·팀 관리 (<code>hackathons</code>, <code>raids</code>)</li>
+          <li>과제 제출 + <strong>버전 관리</strong> (<code>hackathon-submission</code>)</li>
+          <li>멘토링 신청·승인·이력 (<code>expert-portal</code>)</li>
+          <li>온라인 교육 + 복습 + 학습 이력 (<code>public/learning</code>, <code>dashboard</code>)</li>
+          <li>공지·자료·알림 (<code>announcements</code>)</li>
+          <li>일정 캘린더 (<code>events</code>, <code>event-assignments</code>)</li>
+        </ul>
+      </div>
+      <div class="c c-w">
+        <div class="c-t">평가·리더보드 + UX</div>
+        <ul>
+          <li>실시간 리더보드 + <strong>대형 스크린 송출</strong> (<code>public/leaderboard</code>)</li>
+          <li>심사 기준 설정·온라인 점수 입력·자동 집계 (<code>scoring-sheets</code>)</li>
+          <li>내부 직원 투표 + ELO 상호평가 (<code>hackathon-elo-arena</code>)</li>
+          <li>직관적 UI/UX · 모바일 반응형 · WCAG 2.1 AA</li>
+          <li>사용자 매뉴얼 (영상·FAQ) 플랫폼 내장 (<code>qa-list</code>)</li>
+          <li>웹 기반(설치 불필요) · PC 중심 안정 운영</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="c c-d" style="margin-top:10px">
+      <div class="c-t">핵심 원칙 — 로컬 구현 사실만 기술</div>
+      <div class="c-dd" style="color:rgba(255,255,255,.82);font-size:.75rem">본 제안의 플랫폼은 <strong style="color:#fff">현재 로컬(daker.ai)에 실제 구현된 기능</strong>만을 기준으로 설명합니다. 미구현 기능을 &ldquo;제공 가능&rdquo;으로 기술하지 않습니다.</div>
+    </div>
+  </div>
+  <div class="sf"><span class="brand">K-WATER · AI 러닝톤</span><span class="pg">11 / 20</span><span>III-3 ①</span></div>
+</section>
+
+<!-- S12 III-3 UI ① -->
+<section class="slide">
+  <div class="sh"><span class="sh-l">III-3. DAKER UI ①</span><span>참가자 · 리더보드 · 제출</span></div>
+  <div class="si">
+    <div class="tag">LOCAL UI MOCKUPS · PART 1</div>
+    <div class="g2" style="margin-top:8px">
+      <div class="ui">
+        <div class="ui-bar"><span class="ui-dot r"></span><span class="ui-dot y"></span><span class="ui-dot g"></span><span class="ui-url">daker.ai / dashboard</span></div>
+        <div class="ui-body">
+          <div style="font-size:9px;color:var(--primary);font-weight:700">K-water AI 러닝톤 2026</div>
+          <div style="font-size:12px;font-weight:800;color:var(--on-surface);margin:3px 0 6px">환영합니다, *** 님</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:4px">
+            <div style="background:var(--sec);padding:5px 6px;border-radius:3px;text-align:center"><div style="font-size:8px;color:var(--on-variant)">학습 진도</div><div style="font-size:12px;font-weight:800;color:var(--primary)">3/5</div></div>
+            <div style="background:var(--sec);padding:5px 6px;border-radius:3px;text-align:center"><div style="font-size:8px;color:var(--on-variant)">과제 제출</div><div style="font-size:12px;font-weight:800;color:var(--primary)">1건</div></div>
+            <div style="background:var(--warm-bg);padding:5px 6px;border-radius:3px;text-align:center"><div style="font-size:8px;color:var(--on-variant)">멘토링 잔여</div><div style="font-size:12px;font-weight:800;color:var(--warm)">2회</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ui">
+        <div class="ui-bar"><span class="ui-dot r"></span><span class="ui-dot y"></span><span class="ui-dot g"></span><span class="ui-url">daker.ai / hackathons / k-water-learnathon</span></div>
+        <div class="ui-body">
+          <div style="display:flex;gap:10px;align-items:center">
+            <div style="flex:1">
+              <span style="background:var(--sec);color:var(--primary);padding:1px 6px;border-radius:999px;font-size:8px;font-weight:700">모집 중</span>
+              <div style="font-size:11px;font-weight:800;margin:3px 0 2px">K-water AI 러닝톤 2026</div>
+              <div style="font-size:9px;color:var(--on-variant)">30팀 90명 · 2026.05.01 ~ 07.30</div>
+            </div>
+            <button style="background:var(--primary);color:#fff;border:none;padding:5px 9px;border-radius:4px;font-size:9px;font-weight:700">참가 신청</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="ui">
+        <div class="ui-bar"><span class="ui-dot r"></span><span class="ui-dot y"></span><span class="ui-dot g"></span><span class="ui-url">daker.ai / leaderboard</span></div>
+        <div class="ui-body">
+          <div style="font-size:9px;font-weight:700;margin-bottom:4px">실시간 리더보드</div>
+          <table style="width:100%;font-size:9px;border-collapse:collapse">
+            <tr style="background:var(--primary-light)"><td style="padding:3px 4px">🥇 1</td><td style="padding:3px 4px">팀 ***</td><td style="padding:3px 4px;text-align:right">1,782</td></tr>
+            <tr><td style="padding:3px 4px">🥈 2</td><td style="padding:3px 4px">팀 ***</td><td style="padding:3px 4px;text-align:right">1,741</td></tr>
+            <tr style="background:var(--surface-low)"><td style="padding:3px 4px">🥉 3</td><td style="padding:3px 4px">팀 ***</td><td style="padding:3px 4px;text-align:right">1,705</td></tr>
+          </table>
+        </div>
+      </div>
+
+      <div class="ui">
+        <div class="ui-bar"><span class="ui-dot r"></span><span class="ui-dot y"></span><span class="ui-dot g"></span><span class="ui-url">daker.ai / ... / submit · v3</span></div>
+        <div class="ui-body">
+          <div style="font-size:9px;font-weight:700;margin-bottom:4px">과제 제출 — 버전 관리</div>
+          <div style="background:var(--surface-low);border:1px dashed var(--outline);border-radius:4px;padding:8px;text-align:center;font-size:8px;color:var(--on-variant);margin-bottom:4px">📁 ZIP · PDF · MP4 업로드</div>
+          <div style="font-size:8px;color:var(--on-variant)">v1 (05/20) → v2 (05/27) → <strong style="color:var(--primary)">v3 (현재)</strong></div>
+        </div>
+      </div>
+    </div>
+    <div class="ui-cap">실 구현: <code>dashboard.tsx · hackathon-detail.tsx · public/leaderboard.tsx · hackathon-submission/</code></div>
+  </div>
+  <div class="sf"><span class="brand">K-WATER · AI 러닝톤</span><span class="pg">12 / 20</span><span>III-3 ②</span></div>
+</section>
+
+<!-- S13 III-3 UI ② -->
+<section class="slide">
+  <div class="sh"><span class="sh-l">III-3. DAKER UI ②</span><span>멘토 · 심사 · 관리자</span></div>
+  <div class="si">
+    <div class="tag">LOCAL UI MOCKUPS · PART 2</div>
+    <div class="g2" style="margin-top:8px">
+      <div class="ui">
+        <div class="ui-bar"><span class="ui-dot r"></span><span class="ui-dot y"></span><span class="ui-dot g"></span><span class="ui-url">daker.ai / expert-portal</span></div>
+        <div class="ui-body">
+          <div style="font-size:9px;font-weight:700;margin-bottom:5px">멘토 포털 — 담당 3팀</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:4px">
+            <div style="background:#fff;border:1px solid var(--outline-d);border-radius:3px;padding:5px"><div style="font-size:8px;color:var(--warm);font-weight:700">TEAM A</div><div style="font-size:8px;color:var(--on-variant)">2/3회 · 05.22</div></div>
+            <div style="background:#fff;border:1px solid var(--outline-d);border-radius:3px;padding:5px"><div style="font-size:8px;color:var(--warm);font-weight:700">TEAM B</div><div style="font-size:8px;color:var(--on-variant)">1/3회 · 05.23</div></div>
+            <div style="background:#fff;border:1px solid var(--outline-d);border-radius:3px;padding:5px"><div style="font-size:8px;color:var(--warm);font-weight:700">TEAM C</div><div style="font-size:8px;color:var(--on-variant)">완료</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ui">
+        <div class="ui-bar"><span class="ui-dot r"></span><span class="ui-dot y"></span><span class="ui-dot g"></span><span class="ui-url">daker.ai / hackathon-elo-arena</span></div>
+        <div class="ui-body" style="display:grid;grid-template-columns:1fr auto 1fr;gap:6px;align-items:center">
+          <div style="background:#fff;border:1.5px solid var(--primary);border-radius:4px;padding:6px;text-align:center">
+            <div style="font-size:8px;color:var(--on-variant)">과제 A</div>
+            <div style="font-size:9px;font-weight:700;margin:2px 0">음성 리포트</div>
+            <button style="background:var(--primary);color:#fff;border:none;padding:3px 8px;border-radius:3px;font-size:8px;font-weight:700;width:100%">선택</button>
+          </div>
+          <div style="font-size:10px;color:var(--warm);font-weight:800">VS</div>
+          <div style="background:#fff;border:1px solid var(--outline-d);border-radius:4px;padding:6px;text-align:center">
+            <div style="font-size:8px;color:var(--on-variant)">과제 B</div>
+            <div style="font-size:9px;font-weight:700;margin:2px 0">민원 분류기</div>
+            <button style="background:#fff;color:var(--on-surface);border:1px solid var(--outline-d);padding:3px 8px;border-radius:3px;font-size:8px;font-weight:700;width:100%">선택</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="ui">
+        <div class="ui-bar"><span class="ui-dot r"></span><span class="ui-dot y"></span><span class="ui-dot g"></span><span class="ui-url">daker.ai / scoring-sheets</span></div>
+        <div class="ui-body">
+          <div style="font-size:9px;font-weight:700;margin-bottom:4px">심사 시트 — 자동 집계</div>
+          <table style="width:100%;font-size:8.5px;border-collapse:collapse">
+            <tr style="background:var(--primary-light)"><td style="padding:2px 4px">Team</td><td style="padding:2px 4px">적용</td><td style="padding:2px 4px">구체</td><td style="padding:2px 4px">실현</td><td style="padding:2px 4px">혁신</td><td style="padding:2px 4px">계</td></tr>
+            <tr><td style="padding:2px 4px">A</td><td style="padding:2px 4px">28</td><td style="padding:2px 4px">23</td><td style="padding:2px 4px">22</td><td style="padding:2px 4px">17</td><td style="padding:2px 4px;font-weight:800;color:var(--primary)">90</td></tr>
+            <tr><td style="padding:2px 4px">B</td><td style="padding:2px 4px">25</td><td style="padding:2px 4px">22</td><td style="padding:2px 4px">20</td><td style="padding:2px 4px">18</td><td style="padding:2px 4px;font-weight:800">85</td></tr>
+          </table>
+        </div>
+      </div>
+
+      <div class="ui">
+        <div class="ui-bar" style="background:var(--dark);color:#fff;border:none"><span class="ui-dot r"></span><span class="ui-dot y"></span><span class="ui-dot g"></span><span class="ui-url" style="color:#94a3b8">DAKER Admin · 운영자 전용</span></div>
+        <div class="ui-body">
+          <div style="font-size:9px;font-weight:700;margin-bottom:4px">관리자 콘솔</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:4px">
+            <div style="background:var(--surface-low);padding:5px;border-radius:3px;text-align:center"><div style="font-size:7px;color:var(--on-variant)">참가팀</div><div style="font-size:11px;font-weight:800">30</div></div>
+            <div style="background:var(--surface-low);padding:5px;border-radius:3px;text-align:center"><div style="font-size:7px;color:var(--on-variant)">참가자</div><div style="font-size:11px;font-weight:800">92</div></div>
+            <div style="background:var(--surface-low);padding:5px;border-radius:3px;text-align:center"><div style="font-size:7px;color:var(--on-variant)">제출</div><div style="font-size:11px;font-weight:800;color:var(--primary)">28</div></div>
+            <div style="background:var(--surface-low);padding:5px;border-radius:3px;text-align:center"><div style="font-size:7px;color:var(--on-variant)">멘토링</div><div style="font-size:11px;font-weight:800;color:var(--warm)">67/90</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="ui-cap">실 구현: <code>expert-portal/ · hackathon-elo-arena.tsx · scoring-sheets/ · admin/</code></div>
+  </div>
+  <div class="sf"><span class="brand">K-WATER · AI 러닝톤</span><span class="pg">13 / 20</span><span>III-3 ③</span></div>
+</section>
+
+<!-- S14 III-3 보안/안정성 -->
+<section class="slide">
+  <div class="sh"><span class="sh-l">III-3. 보안 · 안정성</span><span>데이터 관리</span></div>
+  <div class="si">
+    <div class="tag">SECURITY · RELIABILITY · DATA</div>
+    <h2 class="st">RFP 요구 <span class="hl">100% 충족</span> · 발주기관 <span class="hl-w">데이터 귀속</span></h2>
+
+    <table class="tb" style="margin-top:12px">
+      <thead><tr><th style="width:20%">영역</th><th style="width:28%">기준</th><th>구현 방안</th></tr></thead>
+      <tbody>
+        <tr><td><strong>동시접속</strong></td><td>예상 인원의 3배 이상</td><td>AWS Auto-Scaling · 예상 300명 → 900명 대응 구성</td></tr>
+        <tr><td><strong>가용성</strong></td><td>99% 이상</td><td>다중 AZ · HealthCheck · 장애 감지 즉시 Failover</td></tr>
+        <tr><td><strong>장애 대응</strong></td><td>10분 이내</td><td>On-call 체계 · Slack · PagerDuty</td></tr>
+        <tr><td><strong>보안 (전송)</strong></td><td>SSL/TLS</td><td>Let's Encrypt 인증서 자동 갱신</td></tr>
+        <tr><td><strong>보안 (앱)</strong></td><td>OWASP Top 10 대응</td><td>WAF(CloudFront) + 취약점 스캐닝</td></tr>
+        <tr><td><strong>개인정보</strong></td><td>개인정보보호법 준수</td><td>수집 최소화 동의 · 암호화 저장 · 접근 로그</td></tr>
+        <tr><td><strong>백업·복구</strong></td><td>일 1회 + 이벤트 기반</td><td>DB 스냅샷 · S3 이중화</td></tr>
+        <tr><td><strong>데이터 소유권</strong></td><td>발주기관 귀속</td><td>K-water 인계 · 자체 보관본 폐기</td></tr>
+        <tr><td><strong>보관·폐기</strong></td><td>과업 종료 후 6개월</td><td>안전 폐기 · 폐기 인증서 발급</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="sf"><span class="brand">K-WATER · AI 러닝톤</span><span class="pg">14 / 20</span><span>III-3 ④</span></div>
+</section>
+
+<!-- S15 III-4 part 1 -->
+<section class="slide">
+  <div class="sh"><span class="sh-l">III-4. 대회 운영</span><span>15점 · 조직 · 홍보 · 심사</span></div>
+  <div class="si">
+    <div class="tag">OPERATIONS · EVALUATION</div>
+    <h2 class="st">전담 운영 사무국 · 4단 <span class="hl">교차 평가</span></h2>
+
+    <div class="g2" style="margin-top:12px">
+      <div class="c c-p">
+        <div class="c-t">운영 체계 (총괄 PM 직속)</div>
+        <div class="c-dd">▸ 기획파트 · 기술파트 · 교육파트 · 현장파트<br>▸ 일일 Stand-up(내부) · 주간 Sync(발주처) · 월간 보고<br>▸ 전담 메일 · Slack 채널 · 24h 긴급 연락망</div>
+      </div>
+      <div class="c c-w">
+        <div class="c-t">공고·홍보·참가자 유치</div>
+        <div class="c-dd">▸ 사내 포털·사보·메일 (100% 인지)<br>▸ 부서별 찾아가는 설명회 (대면 설득)<br>▸ 포스터·현수막·엘리베이터 배너<br>▸ 참여자 영상 후기 · 사내 인플루언서<br>▸ 얼리버드 혜택 · 부서 단위 인센티브</div>
+      </div>
+    </div>
+
+    <h3 style="font-size:.8125rem;color:var(--on-surface);margin-top:12px;font-weight:700">심사·평가 운영 (실시간 집계 · 대형 스크린 송출)</h3>
+    <table class="tb">
+      <thead><tr><th style="width:22%">단계</th><th style="width:12%">가중치</th><th>방식</th><th style="width:22%">평가자</th></tr></thead>
+      <tbody>
+        <tr><td><strong>1차 서류</strong></td><td>20%</td><td>과제 기획서 심사</td><td>운영진 + K-water 담당자</td></tr>
+        <tr><td><strong>2차 프로토타입</strong></td><td>40%</td><td>본선 발표·시연</td><td>외부 심사위원 *** 명</td></tr>
+        <tr><td><strong>3차 ELO 상호평가</strong></td><td>20%</td><td>1:1 비교 투표</td><td>참가자</td></tr>
+        <tr><td><strong>4차 사내 직원 투표</strong></td><td>20%</td><td>QR · 온라인 투표</td><td>전 임직원</td></tr>
+      </tbody>
+    </table>
+    <p style="font-size:.6875rem;color:var(--on-variant);margin-top:6px">▸ 이의 제기 24시간 내 접수·검토 ▸ <strong>상위작 검증</strong>: 표절·코드 검증 후 시상 확정</p>
+  </div>
+  <div class="sf"><span class="brand">K-WATER · AI 러닝톤</span><span class="pg">15 / 20</span><span>III-4 ①</span></div>
+</section>
+
+<!-- S16 III-4 part 2 -->
+<section class="slide">
+  <div class="sh"><span class="sh-l">III-4. 대회 운영</span><span>안전관리 · 4일 현장 운영</span></div>
+  <div class="si">
+    <div class="tag w">ON-SITE · 4 DAYS</div>
+    <h2 class="st"><span class="hl-w">4일 운영</span> (설치1 + 본선2 + 철거1) · 하계 안전·위생 강화</h2>
+
+    <table class="tb" style="margin-top:12px">
+      <thead><tr><th style="width:12%">일차</th><th>프로그램</th><th style="width:26%">핵심 활동</th></tr></thead>
+      <tbody>
+        <tr><td><strong>D-1</strong></td><td>설치</td><td>무대·장비·네트워크·30개 팀별 작업 공간 · 리허설</td></tr>
+        <tr><td><strong>D+1</strong></td><td>본선 1일차</td><td>개회식 · 현장 실습 · 집중 구현 · 중간 멘토링 (멘토 순회)</td></tr>
+        <tr><td><strong>D+2</strong></td><td>본선 2일차</td><td>리허설 · 발표 5분+Q&amp;A 3분 · 심사·사내 투표 · 시상식</td></tr>
+        <tr><td><strong>D+3</strong></td><td>철거</td><td>시설 철거 · 장비 반납 · 원상 복구</td></tr>
+      </tbody>
+    </table>
+
+    <div class="g2" style="margin-top:12px">
+      <div class="c c-p">
+        <div class="c-t">▸ 안전관리</div>
+        <div class="c-dd">냉방·환기 점검 · 전력·통신 이중화 · 방재 책임자 상주 · AED · 응급 의료 상주 · 대인·대물 단체보험 가입</div>
+      </div>
+      <div class="c c-w">
+        <div class="c-t">▸ 방역·위생 (하계 특성)</div>
+        <div class="c-dd">발열 체크 · 손소독제 · HACCP 식자재 · 냉장 보관 · 2시간 소진 원칙 · 식중독 대응 매뉴얼</div>
+      </div>
+    </div>
+
+    <div class="c c-d" style="margin-top:10px">
+      <div class="c-t" style="color:#fff">운영 인력 구성</div>
+      <div class="c-dd" style="color:rgba(255,255,255,.82);font-size:.75rem">기획·기술·현장 구성 · <strong style="color:#fff">발주기관 추천(심사위원 등) 우선 고려</strong> · 돌발 대응 5분 내 현장 조치 → PM·발주처 에스컬레이션</div>
+    </div>
+  </div>
+  <div class="sf"><span class="brand">K-WATER · AI 러닝톤</span><span class="pg">16 / 20</span><span>III-4 ②</span></div>
+</section>
+
+<!-- S17 III-5 part 1 -->
+<section class="slide">
+  <div class="sh"><span class="sh-l">III-5. 성과관리</span><span>10점 · KPI · 측정 체계</span></div>
+  <div class="si">
+    <div class="tag">KPI · PERFORMANCE</div>
+    <h2 class="st">정량 KPI <span class="hl">12 지표 · 4축</span> · 객관·정량 측정</h2>
+
+    <div class="g4" style="margin-top:14px">
+      <div class="c">
+        <div class="c-t">참여</div>
+        <ul><li>신청 전환율 ≥ <strong class="hl">25%</strong></li><li>완주율 ≥ <strong class="hl">85%</strong></li><li>제출율 ≥ <strong class="hl">95%</strong></li></ul>
+      </div>
+      <div class="c c-p">
+        <div class="c-t">학습</div>
+        <ul><li>수료율 ≥ 90%</li><li>역량 +30%p</li><li>아이디어 평균 ≥ 75</li></ul>
+      </div>
+      <div class="c c-w">
+        <div class="c-t">산출물</div>
+        <ul><li><strong>프로토타입 ≥ 30건</strong></li><li>업무 적용 ≥ 15건</li><li>파일럿 3건+</li></ul>
+      </div>
+      <div class="c c-g">
+        <div class="c-t">만족 · 확산</div>
+        <ul><li>NPS ≥ 60</li><li>멘토링 ≥ 4.3/5</li><li>사내 인지율 ≥ 80%</li></ul>
+      </div>
+    </div>
+
+    <h3 style="font-size:.8125rem;color:var(--on-surface);margin-top:12px;font-weight:700">측정 체계</h3>
+    <table class="tb">
+      <thead><tr><th style="width:20%">축</th><th>수집 방법</th><th style="width:22%">보고 시점</th></tr></thead>
+      <tbody>
+        <tr><td>참여 정량</td><td>DAKER 플랫폼 자동 집계</td><td>실시간 · 월간</td></tr>
+        <tr><td>역량 변화</td><td>사전·사후 AI 역량 진단 설문 비교</td><td>본선 직후 · +2주</td></tr>
+        <tr><td>산출물 품질</td><td>외부 심사 + ELO + 업무 적용 인터뷰</td><td>당일 · +4주</td></tr>
+        <tr><td>만족 · 확산</td><td>NPS · 영역별 리커트 · 사내 설문</td><td>+2주 · +4주</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="sf"><span class="brand">K-WATER · AI 러닝톤</span><span class="pg">17 / 20</span><span>III-5 ①</span></div>
+</section>
+
+<!-- S18 III-5 part 2 -->
+<section class="slide">
+  <div class="sh"><span class="sh-l">III-5. 확산 방안 · 지속가능성</span><span>10점</span></div>
+  <div class="si">
+    <div class="tag">IMPACT · SUSTAINABILITY</div>
+    <h2 class="st">&ldquo;만들었지만 안 쓰는 결과물&rdquo;을 <span class="hl-w">끝내는</span> 확산 로드맵</h2>
+
+    <div class="stepper" style="margin-top:14px">
+      <div class="step"><div class="n">①</div><div class="t">심층 검토</div><div class="d">우수작 상위 10개 선정 → 부서 적용 가능성 인터뷰</div></div>
+      <div class="step"><div class="n">②</div><div class="t">파일럿 기획</div><div class="d">해당 부서와 파일럿 계획 수립 (3건 내외)</div></div>
+      <div class="step"><div class="n">③</div><div class="t">도입 지원</div><div class="d">운영사·부서 합동 파일럿 · K-water LLM 환경 연계</div></div>
+      <div class="step"><div class="n">④</div><div class="t">전사 확산</div><div class="d">성공 사례 사내 공유회 · 차기 러닝톤 주제 피드</div></div>
+    </div>
+
+    <h3 style="font-size:.8125rem;color:var(--on-surface);margin-top:14px;font-weight:700">지속가능성 5축</h3>
+    <div class="g2">
+      <div class="c c-p">
+        <ul>
+          <li><strong>콘텐츠 자산화</strong> — 교재·프롬프트 템플릿 K-water 내부 지식베이스화</li>
+          <li><strong>멘토 네트워크</strong> — 본 러닝톤 멘토단 → 상시 자문단 전환 옵션</li>
+          <li><strong>플랫폼 이관</strong> — 데이터·운영 노하우 K-water 운영 모델로 전수</li>
+        </ul>
+      </div>
+      <div class="c c-w">
+        <ul>
+          <li><strong>차기 대회 고도화</strong> — 본 회 피드백 → 차기 주제·포맷 개선 제안서 동봉</li>
+          <li><strong>사내 커뮤니티</strong> — 수료생 → 상시 학습 공동체</li>
+          <li><strong>데이터 소유권</strong> — 모든 산출물·데이터 K-water 귀속 (과업지시서 10조)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span class="brand">K-WATER · AI 러닝톤</span><span class="pg">18 / 20</span><span>III-5 ②</span></div>
+</section>
+
+<!-- S19 IV. 기타 + 성과품 -->
+<section class="slide">
+  <div class="sh"><span class="sh-l">IV. 기타 · 성과품 제출</span><span>서식4</span></div>
+  <div class="si">
+    <div class="tag">DIFFERENTIATORS · DELIVERABLES</div>
+    <h2 class="st">본 제안의 <span class="hl">5대 차별성</span> · 과업지시서 <span class="hl-w">성과품 5부</span></h2>
+
+    <div class="g3" style="margin-top:12px">
+      <div class="c c-p"><div class="c-t">① 전용 플랫폼</div><div class="c-dd">학습형 해커톤에 최적화된 DAKER — 참가 신청부터 시상까지 단일 플랫폼</div></div>
+      <div class="c c-p"><div class="c-t">② 완주 설계</div><div class="c-dd">비전공자 커리큘럼 + 2-Track + 멘토 1:3 밀착 지원</div></div>
+      <div class="c c-p"><div class="c-t">③ 업무 연계 실전성</div><div class="c-dd">멘토 4단계 역할(정의-설계-구현-고도화)로 프로토타입 보장</div></div>
+    </div>
+    <div class="g2" style="margin-top:10px">
+      <div class="c c-w"><div class="c-t">④ 객관·정량 성과</div><div class="c-dd">플랫폼 자동 집계 + 사전·사후 진단 + 외부 심사 3중 교차 검증</div></div>
+      <div class="c c-w"><div class="c-t">⑤ 지속가능성</div><div class="c-dd">차기 러닝톤 개선안 · 사내 커뮤니티 · 우수작 확산까지 한 묶음</div></div>
+    </div>
+
+    <div class="c c-d" style="margin-top:12px">
+      <div class="c-t" style="color:#fff">성과품 제출 (과업지시서 2.)</div>
+      <div class="c-dd" style="color:rgba(255,255,255,.88);font-size:.75rem">최종보고서 본 + 요약본 <strong style="color:#fff">5부 제본</strong> (용역 준공 후 2주 내) · <strong style="color:#fff">운영계획서 · 교육 커리큘럼 · 교안</strong> 일체 · 만족도·교육효과 분석 · 모든 산출물·데이터 <strong style="color:#fff">K-water 귀속</strong> · 서약서(서식4) 전원 날인 제출</div>
+    </div>
+  </div>
+  <div class="sf"><span class="brand">K-WATER · AI 러닝톤</span><span class="pg">19 / 20</span><span>IV. 기타</span></div>
+</section>
+
+<!-- S20 ENDING -->
+<section class="slide slide-end">
+  <div class="sh"><span class="sh-l">CLOSING</span><span>&nbsp;</span></div>
+  <div class="si">
+    <div class="lg" data-step="1">K-WATER · AI 러닝톤</div>
+    <h1 data-step="2">
+      &ldquo;본선 4일&rdquo;이 아닌<br>
+      <span class="hl">&ldquo;본선까지의 90일&rdquo;</span>을<br>
+      K-water와 함께 만들겠습니다.
+    </h1>
+    <div class="ed" data-step="3">
+      온라인 학습 · 온라인 아이디어톤 · 멘토링 · 오프라인 바이브코딩 해커톤<br>
+      4-Stage 파이프라인으로 <strong class="hl-w">비전공자도 완주하는 학습형 해커톤</strong>을 보증합니다.
+    </div>
+  </div>
+  <div class="sf"><span class="brand">K-WATER · AI 러닝톤</span><span class="pg">20 / 20</span><span>Thank you</span></div>
+</section>
+
+</div></div>
+
+<script>
+(function(){
+  const stage=document.getElementById('stage');
+  const slides=Array.from(document.querySelectorAll('.slide'));
+  const prev=document.getElementById('nav-prev');
+  const next=document.getElementById('nav-next');
+  const bar=document.getElementById('progress-bar');
+  let idx=Math.max(0,slides.findIndex(s=>s.classList.contains('active')));
+  if(idx<0)idx=0;
+  function fit(){
+    const s=Math.min(window.innerWidth/1280,window.innerHeight/720);
+    stage.style.transform='scale('+s+')';
+  }
+  function show(i){
+    idx=Math.max(0,Math.min(slides.length-1,i));
+    slides.forEach((s,k)=>s.classList.toggle('active',k===idx));
+    bar.style.width=((idx+1)/slides.length*100)+'%';
+    const frags=slides[idx].querySelectorAll('[data-step]');
+    frags.forEach((el,k)=>{el.classList.remove('visible');setTimeout(()=>el.classList.add('visible'),70*(k+1))});
+    if(location.hash!=='#s'+(idx+1))history.replaceState(null,'','#s'+(idx+1));
+  }
+  function nav(d){show(idx+d)}
+  prev.addEventListener('click',()=>nav(-1));
+  next.addEventListener('click',()=>nav(1));
+  document.addEventListener('keydown',e=>{
+    if(e.key==='ArrowRight'||e.key==='PageDown'||e.key===' '){e.preventDefault();nav(1)}
+    else if(e.key==='ArrowLeft'||e.key==='PageUp'){e.preventDefault();nav(-1)}
+    else if(e.key==='Home'){show(0)}
+    else if(e.key==='End'){show(slides.length-1)}
+    else if(e.key==='f'||e.key==='F'){if(!document.fullscreenElement)document.documentElement.requestFullscreen().catch(()=>{});else document.exitFullscreen().catch(()=>{});}
+  });
+  let tx=0;
+  document.addEventListener('touchstart',e=>{tx=e.touches[0].clientX},{passive:true});
+  document.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-tx;if(Math.abs(dx)>50)nav(dx<0?1:-1)},{passive:true});
+  const h=location.hash.match(/^#s(\d+)$/);
+  if(h){const n=parseInt(h[1],10)-1;if(n>=0&&n<slides.length)idx=n}
+  window.addEventListener('resize',fit);
+  fit();show(idx);
+})();
+</script>
+
+</body>
+</html>

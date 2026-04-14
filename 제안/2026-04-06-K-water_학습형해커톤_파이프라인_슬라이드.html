@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>K-water AI 러닝톤 — 온라인 학습→아이디어톤→멘토링→오프라인 바이브코딩 해커톤</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --primary:#1E3A8A;--primary-d:#162B66;--primary-light:#dbe3f4;
+  --warm:#c2622d;--warm-bg:rgba(194,98,45,.08);--warm-light:#f5dccb;
+  --dark:#0f172a;--on-surface:#0f172a;--on-variant:#475569;
+  --surface:#ffffff;--surface-low:#f1f5f9;--outline:#94a3b8;--outline-d:rgba(148,163,184,.2);
+  --on-sec:#1e3a8a;
+  --green:#0a8e6b;--green-bg:rgba(10,142,107,.08);
+  --font:'Plus Jakarta Sans','Pretendard Variable',Pretendard,-apple-system,system-ui,sans-serif;
+  --shadow-ambient:0 8px 24px rgba(30,41,59,0.04);
+  --r-sm:.25rem;--r-md:.375rem;--r-lg:.75rem;--r-xl:1rem;
+  --slide-w:1280px;--slide-h:720px;
+}
+html,body{width:100%;height:100%;font-family:var(--font);color:var(--on-surface);background:#e2e8f0;overflow:hidden;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+#viewport{position:fixed;inset:0;display:flex;align-items:center;justify-content:center}
+#stage{position:relative;width:var(--slide-w);height:var(--slide-h);overflow:hidden;transform-origin:center;border-radius:var(--r-lg);box-shadow:0 12px 48px rgba(30,41,59,0.15);background:var(--surface)}
+
+.slide{position:absolute;inset:0;background:var(--surface);display:flex;flex-direction:column;opacity:0;pointer-events:none;transition:opacity 0s;overflow:hidden}
+.slide.active{opacity:1;pointer-events:auto}
+
+/* Slide header/footer — 강원대 blur 스타일 */
+.sh{position:absolute;top:0;left:0;right:0;height:44px;padding:0 32px;display:flex;justify-content:space-between;align-items:center;background:rgba(255,255,255,.95);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-bottom:1px solid var(--outline-d);z-index:2}
+.sh-l{font-size:.8125rem;font-weight:700;color:var(--primary);letter-spacing:.06em;text-transform:uppercase}
+.sh span:last-child{font-size:.6875rem;font-weight:700;color:var(--outline);letter-spacing:.08em;text-transform:uppercase}
+.sf{position:absolute;bottom:0;left:0;right:0;height:36px;padding:0 32px;display:flex;justify-content:space-between;align-items:center;background:rgba(255,255,255,.95);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-top:1px solid rgba(148,163,184,.15);z-index:2}
+.sf .pg{font-size:.6875rem;color:var(--on-variant);font-weight:600;font-family:'SF Mono',Menlo,monospace}
+.sf .brand{font-size:.75rem;font-weight:700;color:var(--primary);letter-spacing:.08em}
+.sf span:last-child{font-size:.5625rem;color:var(--outline);letter-spacing:.03em;font-weight:600;text-transform:uppercase}
+
+/* Content area — 강원대 .si padding 스타일 */
+.si{flex:1;display:flex;flex-direction:column;padding:62px 72px 48px;position:relative;margin-top:0}
+
+/* Tags, titles — 강원대 스타일 */
+.tag{display:inline-flex;align-items:center;gap:8px;font-size:.6875rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--primary);margin-bottom:12px}
+.tag::before{content:'';width:24px;height:2.5px;background:var(--primary);border-radius:2px}
+.tag.w{color:var(--warm)}.tag.w::before{background:var(--warm)}
+.tag.g{color:var(--green)}.tag.g::before{background:var(--green)}
+h1.st{font-size:2rem;font-weight:800;color:var(--on-surface);letter-spacing:-.02em;line-height:1.2}
+h2.st{font-size:1.875rem;font-weight:800;color:var(--on-surface);letter-spacing:-.02em;line-height:1.2}
+.sub{margin-top:8px;font-size:.875rem;color:var(--on-variant);line-height:1.65}
+.hl{color:var(--primary);font-weight:700}
+.hl-w{color:var(--warm);font-weight:700}
+.hl-g{color:var(--green);font-weight:700}
+
+/* Card / grid — 강원대 borderless + tonal 배경 */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+.g4{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:10px}
+.c{background:var(--surface);border:1px solid rgba(148,163,184,.2);border-radius:var(--r-lg);padding:18px}
+.c-p{background:var(--primary-light);border:none}
+.c-w{background:var(--warm-bg);border:none}
+.c-g{background:var(--green-bg);border:none}
+.c-d{background:var(--dark);color:#fff;border:none}
+.c-d .c-t,.c-d .c-dt{color:#fff}
+.c-d .c-dd{color:#cbd5e1}
+.c .c-t{font-size:.875rem;font-weight:700;color:var(--on-surface);margin-bottom:6px}
+.c .c-dt{font-size:.9375rem;font-weight:800;color:var(--on-surface);margin-bottom:6px;letter-spacing:-.01em}
+.c .c-dd{font-size:.75rem;color:var(--on-variant);line-height:1.6}
+.c ul{list-style:none;margin-top:6px}
+.c ul li{position:relative;padding-left:14px;font-size:.75rem;color:var(--on-variant);line-height:1.7}
+.c ul li::before{content:'';position:absolute;left:0;top:9px;width:5px;height:5px;border-radius:50%;background:var(--primary)}
+.c-w ul li::before{background:var(--warm)}
+.c-g ul li::before{background:var(--green)}
+.c-d ul li::before{background:#fff}
+
+/* Metric — 강원대 .mx */
+.mx{text-align:center;padding:14px 10px;background:var(--surface-low);border-radius:var(--r-lg)}
+.mx .v{font-size:1.5rem;font-weight:800;color:var(--primary);line-height:1;letter-spacing:-.02em}
+.mx .v.w{color:var(--warm)}.mx .v.g{color:var(--green)}
+.mx .l{font-size:.625rem;color:var(--on-variant);margin-top:4px;font-weight:500}
+
+/* Pipeline flow (4 stages) — 강원대 카드 톤 */
+.pipe{display:flex;gap:10px;align-items:stretch;margin-top:16px}
+.pipe-stage{flex:1;background:var(--surface);border:1px solid rgba(148,163,184,.2);border-radius:var(--r-lg);padding:14px;position:relative}
+.pipe-stage.s1{border-top:3px solid var(--primary)}
+.pipe-stage.s2{border-top:3px solid #3b82f6}
+.pipe-stage.s3{border-top:3px solid var(--warm)}
+.pipe-stage.s4{border-top:3px solid var(--green)}
+.pipe-arrow{display:flex;align-items:center;color:var(--outline);font-size:18px;font-weight:800}
+.pipe-num{font-size:.625rem;font-weight:800;letter-spacing:.12em;color:var(--primary);margin-bottom:4px}
+.pipe-num.w{color:var(--warm)}.pipe-num.g{color:var(--green)}.pipe-num.b2{color:#3b82f6}
+.pipe-title{font-size:.875rem;font-weight:800;color:var(--on-surface);margin-bottom:6px;line-height:1.3}
+.pipe-desc{font-size:.6875rem;color:var(--on-variant);line-height:1.55}
+.pipe-meta{margin-top:8px;padding-top:8px;border-top:1px dashed rgba(148,163,184,.25);font-size:.625rem;color:var(--outline);font-weight:600}
+
+/* Timeline */
+.tline{display:flex;align-items:stretch;gap:0;margin-top:14px;background:var(--surface-low);border-radius:var(--r-md);padding:4px}
+.tline-col{flex:1;text-align:center;padding:10px 6px;position:relative;font-size:.625rem;color:var(--on-variant)}
+.tline-col .wk{font-size:.5625rem;font-weight:700;color:var(--outline);letter-spacing:.12em}
+.tline-col .ev{font-size:.6875rem;font-weight:700;color:var(--on-surface);margin-top:2px;line-height:1.35}
+.tline-col.hi{background:var(--primary-light);border-radius:var(--r-sm)}
+.tline-col.hi .ev{color:var(--primary-d)}
+.tline-col.hi-w{background:var(--warm-bg);border-radius:var(--r-sm)}
+.tline-col.hi-w .ev{color:var(--warm)}
+.tline-col.hi-g{background:var(--green-bg);border-radius:var(--r-sm)}
+.tline-col.hi-g .ev{color:var(--green)}
+
+/* Table — 강원대 .tb (borderless, 2px primary bottom on header) */
+.tb{width:100%;border-collapse:collapse;font-size:.75rem;margin-top:8px}
+.tb th{background:var(--surface-low);color:var(--on-surface);padding:8px 12px;text-align:left;font-size:.6875rem;font-weight:700;border:none;border-bottom:2px solid var(--primary)}
+.tb td{padding:7px 12px;border:none;border-bottom:1px solid rgba(148,163,184,.15);color:var(--on-variant);vertical-align:top;line-height:1.6}
+.tb tr:last-child td{border-bottom:none}
+
+/* UI mock (DAKER) */
+.ui{background:#fff;border:1px solid rgba(148,163,184,.25);border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--shadow-ambient)}
+.ui-bar{background:var(--surface-low);padding:6px 10px;display:flex;align-items:center;gap:5px;border-bottom:1px solid rgba(148,163,184,.15)}
+.ui-dot{width:8px;height:8px;border-radius:50%}
+.ui-dot.r{background:#ef4444}.ui-dot.y{background:#f59e0b}.ui-dot.g{background:#10b981}
+.ui-url{margin-left:10px;font-size:.625rem;color:var(--on-variant);font-family:'SF Mono',Menlo,monospace}
+.ui-body{padding:12px}
+.ui-cap{font-size:.625rem;color:var(--on-variant);font-style:italic;text-align:center;margin-top:4px}
+
+/* Section title slide — 강원대 그라디언트 */
+.slide-sec{padding:0}
+.slide-sec .si{justify-content:center;align-items:center;text-align:center;padding-top:60px;background:linear-gradient(135deg,var(--surface) 0%,var(--primary-light) 100%)}
+.slide-sec .sn{font-size:4.5rem;font-weight:800;color:rgba(30,58,138,.09);line-height:1;margin-bottom:8px;letter-spacing:-.04em}
+.slide-sec h2{font-size:2.25rem;font-weight:800;color:var(--on-surface);letter-spacing:-.02em}
+.slide-sec .sd{font-size:1rem;color:var(--on-variant);margin-top:10px;max-width:720px;line-height:1.65}
+
+/* Cover — 강원대 그라디언트 */
+.slide-cover{padding:0}
+.slide-cover .si{justify-content:center;padding:70px 88px;background:linear-gradient(135deg,var(--surface) 0%,var(--primary-light) 100%);margin-top:0}
+.slide-cover .kv{font-size:.8125rem;font-weight:700;color:var(--warm);letter-spacing:.18em;margin-bottom:16px;text-transform:uppercase}
+.slide-cover h1{font-size:2.875rem;font-weight:800;line-height:1.18;letter-spacing:-.02em;color:var(--on-surface)}
+.slide-cover .flowtag{display:flex;gap:6px;margin-top:22px;flex-wrap:wrap;align-items:center}
+.slide-cover .flowtag .chip{background:#fff;border:1px solid var(--primary);color:var(--primary);padding:6px 12px;border-radius:999px;font-size:.75rem;font-weight:700}
+.slide-cover .flowtag .chip.w{border-color:var(--warm);color:var(--warm)}
+.slide-cover .flowtag .chip.g{border-color:var(--green);color:var(--green)}
+.slide-cover .flowtag .arr{color:var(--outline);font-size:14px;font-weight:800}
+.slide-cover .meta{margin-top:32px;font-size:.8125rem;color:var(--on-variant);line-height:1.9}
+.slide-cover .date{position:absolute;top:28px;right:36px;background:linear-gradient(135deg,var(--primary),var(--primary-d));color:#fff;padding:6px 16px;border-radius:999px;font-size:.6875rem;font-weight:700}
+
+/* Ending — 강원대 그라디언트 */
+.slide-end{padding:0}
+.slide-end .si{justify-content:center;align-items:center;text-align:center;background:linear-gradient(135deg,var(--surface) 0%,var(--primary-light) 100%)}
+.slide-end .lg{font-size:2.5rem;font-weight:800;color:var(--primary);letter-spacing:.1em;margin-bottom:28px}
+.slide-end h1{font-size:2.25rem;font-weight:800;color:var(--on-surface);letter-spacing:-.02em;line-height:1.2}
+.slide-end .ed{font-size:.9375rem;color:var(--on-variant);margin-top:20px;line-height:1.75}
+
+/* Fragment animation */
+[data-step]{opacity:0;transform:translateY(12px);transition:opacity .4s ease,transform .4s ease}
+[data-step].visible{opacity:1;transform:none}
+[data-step].pre-visible{opacity:1;transform:none;transition:none}
+
+/* Navigation — 강원대 blur 스타일 */
+.nav-btn{position:fixed;top:50%;transform:translateY(-50%);width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.9);border:none;color:var(--on-variant);cursor:pointer;z-index:100;display:flex;align-items:center;justify-content:center;font-size:18px;box-shadow:var(--shadow-ambient);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);transition:all .2s;user-select:none}
+.nav-btn:hover{color:var(--primary)}
+#nav-prev{left:12px}#nav-next{right:12px}
+#progress-bar{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--primary),var(--primary-d));transition:width .4s ease;z-index:100}
+#key-hint{position:fixed;bottom:16px;left:50%;transform:translateX(-50%);color:var(--outline);font-size:.6875rem;z-index:100;opacity:.4}
+
+@page{size:A4 landscape;margin:0}
+@media print{
+  html,body{background:#fff;overflow:visible!important;height:auto!important;width:auto!important}
+  #viewport{position:static!important;display:block!important;height:auto!important}
+  #stage{position:static!important;width:auto!important;height:auto!important;overflow:visible!important;transform:none!important;box-shadow:none!important;border-radius:0!important}
+  .slide{position:relative!important;inset:auto!important;opacity:1!important;pointer-events:auto!important;width:100vw!important;height:100vh!important;page-break-after:always!important;margin:0!important;overflow:hidden!important}
+  .nav-btn,#progress-bar,#key-hint{display:none!important}
+  [data-step]{opacity:1!important;transform:none!important}
+}
+</style>
+</head>
+<body>
+
+<div id="progress-bar"></div>
+<button class="nav-btn" id="nav-prev" aria-label="이전">&#9664;</button>
+<button class="nav-btn" id="nav-next" aria-label="다음">&#9654;</button>
+<div id="key-hint">← → 또는 스페이스로 이동 · F 전체화면</div>
+
+<div id="viewport"><div id="stage">
+
+<!-- ============ S1 COVER ============ -->
+<section class="slide slide-cover active">
+  <div class="si">
+    <span class="date">2026.04.06 / K-water 인재개발원</span>
+    <div class="kv" data-step="1">&lt; FY2026 · K-water 맞춤형 학습형 해커톤 &gt;</div>
+    <h1 data-step="2">
+      「K-water맞춤형 학습형 해커톤<br>
+      <span class="hl">(AI 러닝톤)</span> 운영 용역」<br>
+      <span style="font-size:24px;color:var(--warm);display:inline-block;margin-top:12px">― 4-Stage 파이프라인 제안 ―</span>
+    </h1>
+    <div class="flowtag" data-step="3">
+      <span class="chip">① 온라인 학습 교재</span>
+      <span class="arr">→</span>
+      <span class="chip" style="border-color:#3b82f6;color:#3b82f6">② 온라인 아이디어 대회</span>
+      <span class="arr">→</span>
+      <span class="chip w">③ 멘토링</span>
+      <span class="arr">→</span>
+      <span class="chip g">④ 오프라인 바이브코딩 해커톤</span>
+    </div>
+    <div class="meta" data-step="4">
+      총 용역비 ₩89,760,000 (VAT 포함) · 과업기간 90일 · 규모 약 30팀 90여명
+    </div>
+  </div>
+</section>
+
+<!-- ============ S2 한눈에 보기 ============ -->
+<section class="slide">
+  <div class="sh"><span class="sh-l">EXECUTIVE SUMMARY</span><span>한눈에 보는 파이프라인</span></div>
+  <div class="si">
+    <div class="tag">4-STAGE BLENDED PIPELINE</div>
+    <h2 class="st">온라인에서 시작해, <span class="hl">프로토타입으로 끝내는</span> 러닝톤</h2>
+    <div class="sub">학습→아이디어→멘토링→구현의 4단계를 DAKER 단일 플랫폼에서 연속 운영.<br>이전 단계의 산출물을 다음 단계의 입력으로 써서, 중도 이탈 없이 프로토타입까지 도달.</div>
+
+    <div class="pipe">
+      <div class="pipe-stage s1">
+        <div class="pipe-num">STAGE 1</div>
+        <div class="pipe-title">온라인 학습 교재</div>
+        <div class="pipe-desc">생성형 AI·바이브코딩·업무자동화 기초. 비전공자 우선.</div>
+        <div class="pipe-meta">W4 ~ W7 · self-paced + 복습</div>
+      </div>
+      <div class="pipe-arrow">→</div>
+      <div class="pipe-stage s2">
+        <div class="pipe-num b2">STAGE 2</div>
+        <div class="pipe-title">온라인 아이디어 대회</div>
+        <div class="pipe-desc">현업 페인포인트 → 과제 기획서 제출. 심사→본선 30팀 선발.</div>
+        <div class="pipe-meta">W6 ~ W7 · 아이디어톤</div>
+      </div>
+      <div class="pipe-arrow">→</div>
+      <div class="pipe-stage s3">
+        <div class="pipe-num w">STAGE 3</div>
+        <div class="pipe-title">멘토링</div>
+        <div class="pipe-desc">1인 ≤3팀 · 4단계 역할(정의·설계·구현·고도화).</div>
+        <div class="pipe-meta">W8 ~ W10 · 온라인+행사당일</div>
+      </div>
+      <div class="pipe-arrow">→</div>
+      <div class="pipe-stage s4">
+        <div class="pipe-num g">STAGE 4</div>
+        <div class="pipe-title">오프라인 바이브코딩 해커톤</div>
+        <div class="pipe-desc">4일 운영(설치1+본선2+철거1) 중 본선 2일. 프로토타입 30건+.</div>
+        <div class="pipe-meta">W11 · 4일 오프라인 운영</div>
+      </div>
+    </div>
+
+    <div class="g4" style="margin-top:20px">
+      <div class="mx"><div class="v">30+</div><div class="l">프로토타입 과제</div></div>
+      <div class="mx"><div class="v">≥85%</div><div class="l">완주율 (KPI)</div></div>
+      <div class="mx"><div class="v w">≥95%</div><div class="l">과제 제출율</div></div>
+      <div class="mx"><div class="v g">+30%p</div><div class="l">AI 역량 향상도</div></div>
+    </div>
+  </div>
+  <div class="sf"><span class="brand">DACON · DAKER</span><span class="pg">02 / 16</span><span>K-water AI 러닝톤 2026</span></div>
+</section>
+
+<!-- ============ S3 WHY ============ -->
+<section class="slide">
+  <div class="sh"><span class="sh-l">WHY — 왜 이 구조인가</span><span>RFP 해석</span></div>
+  <div class="si">
+    <div class="tag">DESIGN RATIONALE</div>
+    <h2 class="st">&ldquo;비전공자도 완주할 수 있는&rdquo; 학습형 해커톤의 <span class="hl-w">필연적 구조</span></h2>
+
+    <div class="g2" style="margin-top:16px">
+      <div class="c c-p">
+        <div class="c-dt">문제 — 기존 해커톤의 한계</div>
+        <ul>
+          <li>비전공자는 첫 날 이탈. 배경 지식 격차로 팀 기여도 낮음</li>
+          <li>현업 페인포인트가 과제와 분리 — 시상 이후 업무 적용 X</li>
+          <li>본선 집중 시간에 멘토 부족. 기술 자문만 가능</li>
+          <li>&ldquo;만들었지만 쓰지 않는&rdquo; 결과물의 악순환</li>
+        </ul>
+      </div>
+      <div class="c c-w">
+        <div class="c-dt">해결 — 4-Stage 블렌디드 설계</div>
+        <ul>
+          <li><strong>Stage 1</strong> — 바이브코딩 기초를 self-paced 교재로 선학습</li>
+          <li><strong>Stage 2</strong> — 아이디어톤이 &ldquo;내 업무 문제&rdquo;를 표면화</li>
+          <li><strong>Stage 3</strong> — 멘토가 정의→구현→고도화까지 밀착 지원</li>
+          <li><strong>Stage 4</strong> — 본선에서 &ldquo;이미 준비된 팀&rdquo;이 프로토타입까지 도달</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="c c-d" style="margin-top:18px">
+      <div class="c-dt" style="color:#fff">핵심 인사이트</div>
+      <p style="color:rgba(255,255,255,.85);font-size:13px;line-height:1.7;margin-top:4px">
+        &ldquo;본선 2일&rdquo;이 아니라 <strong style="color:#fff">&ldquo;본선까지의 90일&rdquo;</strong>을 설계한다.<br>
+        학습-아이디어-멘토링 3단계에서 축적된 준비가 본선 집중도의 90%를 만든다.
+      </p>
+    </div>
+  </div>
+  <div class="sf"><span class="brand">DACON · DAKER</span><span class="pg">03 / 16</span><span>Why this pipeline</span></div>
+</section>
+
+<!-- ============ S4 파이프라인 개관 ============ -->
+<section class="slide slide-sec">
+  <div class="sh"><span class="sh-l">PIPELINE OVERVIEW</span><span>4 Stages</span></div>
+  <div class="si">
+    <div class="sn" data-step="1">04</div>
+    <h2 data-step="2">4-Stage <span class="hl">Blended Pipeline</span></h2>
+    <div class="sd" data-step="3">Online Learning · Idea Contest · Mentoring · Offline Vibecoding Hackathon</div>
+  </div>
+  <div class="sf"><span class="brand">DACON · DAKER</span><span class="pg">04 / 16</span><span>Overview</span></div>
+</section>
+
+<!-- ============ S5 Stage 1 — 온라인 학습 교재 ============ -->
+<section class="slide">
+  <div class="sh"><span class="sh-l">STAGE 1 · 온라인 학습 교재</span><span>W4 ~ W7 · self-paced</span></div>
+  <div class="si">
+    <div class="tag">ONLINE LEARNING</div>
+    <h2 class="st">바이브코딩 <span class="hl">self-paced 교재</span> — 비전공자도 완주</h2>
+    <div class="sub">K-water 맞춤형 생성형 AI 교육과 중복 없이 결을 맞춘 러닝톤 전용 학습 트랙.<br>수료 시점에 &ldquo;내 업무에 AI를 붙여볼 수 있는 최소 역량&rdquo;을 보장.</div>
+
+    <div class="g4" style="margin-top:18px">
+      <div class="c c-p">
+        <div class="c-t">M1. 생성형 AI 입문</div>
+        <div class="c-dd">LLM 개념 · 프롬프트 기본기 · 유용한 도구 맵<br><strong style="color:var(--primary)">60분 · 영상+퀴즈</strong></div>
+      </div>
+      <div class="c c-p">
+        <div class="c-t">M2. 바이브코딩</div>
+        <div class="c-dd">자연어로 앱 만들기 · K-water 기업용 생성형 AI 서비스 활용·프롬프트 패턴<br><strong style="color:var(--primary)">120분 · 영상+실습</strong></div>
+      </div>
+      <div class="c c-p">
+        <div class="c-t">M3. 업무 자동화 사례</div>
+        <div class="c-dd">RAG · 업무 문서 요약·리포팅 자동화 예제<br><strong style="color:var(--primary)">90분 · 영상+샘플코드</strong></div>
+      </div>
+      <div class="c c-p">
+        <div class="c-t">M4. 아이디어톤 가이드</div>
+        <div class="c-dd">&ldquo;내 업무 문제&rdquo; 과제화 템플릿 · 제출 양식 이해<br><strong style="color:var(--primary)">30분 · 영상+워크시트</strong></div>
+      </div>
+    </div>
+
+    <div class="g2" style="margin-top:16px">
+      <div class="c">
+        <div class="c-t">학습 이력 관리</div>
+        <div class="c-dd">▸ 진도율·체류시간·퀴즈 점수 실시간 집계<br>▸ 수료 기준 미달 시 자동 알림 → 멘토 개입 트리거<br>▸ 북마크·스니펫으로 복습 용이</div>
+      </div>
+      <div class="c c-w">
+        <div class="c-t">비전공자 완주 장치</div>
+        <div class="c-dd">▸ 기술 용어 툴팁·용어집<br>▸ 어려운 모듈 &ldquo;요약 모드&rdquo; 토글<br>▸ 1:1 질문 채널(Q&amp;A)에서 멘토 회신</div>
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span class="brand">DACON · DAKER</span><span class="pg">05 / 16</span><span>Stage 1 · Online Learning</span></div>
+</section>
+
+<!-- ============ S6 Stage 1 - 학습 대시보드 UI ============ -->
+<section class="slide">
+  <div class="sh"><span class="sh-l">STAGE 1 · 학습 대시보드</span><span>DAKER 화면</span></div>
+  <div class="si">
+    <div class="tag">DAKER · LEARNING DASHBOARD</div>
+    <h2 class="st">학습 진도 · 질의응답 · 수료 기준 — <span class="hl">한 화면에서</span></h2>
+
+    <div class="g2" style="margin-top:16px">
+      <!-- Learning dashboard mock -->
+      <div class="ui">
+        <div class="ui-bar"><span class="ui-dot r"></span><span class="ui-dot y"></span><span class="ui-dot g"></span><span class="ui-url">daker.ai / dashboard / learning</span></div>
+        <div class="ui-body">
+          <div style="font-size:11px;color:var(--primary);font-weight:700">K-water 러닝톤 · 학습 트랙</div>
+          <div style="font-size:15px;font-weight:800;color:var(--dark);margin:4px 0 10px">환영합니다, *** 님</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:11px">
+            <div style="background:var(--primary-light);padding:8px 10px;border-radius:6px"><div style="color:var(--primary);font-weight:700">M1 생성형 AI 입문</div><div style="color:var(--on-variant)">진도 100% · 퀴즈 9/10 · <strong style="color:var(--green)">수료</strong></div></div>
+            <div style="background:var(--primary-light);padding:8px 10px;border-radius:6px"><div style="color:var(--primary);font-weight:700">M2 바이브코딩</div><div style="color:var(--on-variant)">진도 60% · 체류 72분</div></div>
+            <div style="background:var(--surface);padding:8px 10px;border-radius:6px"><div style="color:var(--on-variant);font-weight:700">M3 업무 자동화</div><div style="color:var(--outline)">진도 0%</div></div>
+            <div style="background:var(--surface);padding:8px 10px;border-radius:6px"><div style="color:var(--on-variant);font-weight:700">M4 아이디어톤 가이드</div><div style="color:var(--outline)">진도 0%</div></div>
+          </div>
+          <div style="margin-top:10px;font-size:10px;color:var(--on-variant)">▸ 멘토 Q&amp;A 미답변 0건 · 북마크 4개</div>
+        </div>
+      </div>
+
+      <!-- Q&A channel mock -->
+      <div class="ui">
+        <div class="ui-bar"><span class="ui-dot r"></span><span class="ui-dot y"></span><span class="ui-dot g"></span><span class="ui-url">daker.ai / qa-list</span></div>
+        <div class="ui-body">
+          <div style="font-size:11px;font-weight:700;color:var(--dark);margin-bottom:8px">Q&amp;A — 러닝톤 채널</div>
+          <div style="background:var(--surface);padding:8px 10px;border-radius:6px;margin-bottom:6px">
+            <div style="font-size:11px;font-weight:700;color:var(--dark)">Q. 프롬프트 템플릿 공유 가능한가요?</div>
+            <div style="font-size:10px;color:var(--on-variant);margin-top:2px">*** · 3시간 전 · 답변 2</div>
+          </div>
+          <div style="background:var(--warm-bg);padding:8px 10px;border-radius:6px;border-left:3px solid var(--warm);margin-bottom:6px">
+            <div style="font-size:11px;font-weight:700;color:var(--warm)">🎓 Mentor 답변 — *** 멘토</div>
+            <div style="font-size:10px;color:var(--on-variant);line-height:1.5;margin-top:2px">M2 영상 12분대에 링크 드렸어요. 러닝톤 과제에 맞춰 변형 가능...</div>
+          </div>
+          <div style="background:var(--surface);padding:8px 10px;border-radius:6px">
+            <div style="font-size:11px;font-weight:700;color:var(--dark)">Q. K-water 기업용 생성형 AI 서비스 접근은?</div>
+            <div style="font-size:10px;color:var(--on-variant);margin-top:2px">*** · 어제 · 답변 1</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="ui-cap">실 구현: <code>public/learning/*</code> · <code>qa-list.tsx</code> · <code>dashboard.tsx</code> &middot; 사용자 매뉴얼(영상·FAQ) 플랫폼 내장</div>
+  </div>
+  <div class="sf"><span class="brand">DACON · DAKER</span><span class="pg">06 / 16</span><span>Stage 1 · Dashboard</span></div>
+</section>
+
+<!-- ============ S7 Stage 2 — 온라인 아이디어 대회 ============ -->
+<section class="slide">
+  <div class="sh"><span class="sh-l">STAGE 2 · 온라인 아이디어 대회</span><span>W6 ~ W7 · 아이디어톤</span></div>
+  <div class="si">
+    <div class="tag" style="color:#3b82f6">ONLINE IDEA CONTEST</div>
+    <h2 class="st"><span style="color:#3b82f6;font-weight:700">&ldquo;내 업무 문제&rdquo;</span>를 과제로 — 아이디어톤</h2>
+    <div class="sub">단순 아이디어 공모가 아니라 <strong>현업 페인포인트 → 구체 과제 기획서</strong>로 구조화.<br>본선 진출 30팀을 아이디어 품질 기준으로 투명하게 선발.</div>
+
+    <div class="g3" style="margin-top:18px">
+      <div class="c">
+        <div class="c-t">① 접수 기간</div>
+        <div class="c-dd">W6 · 팀(3인 기준) 단위 접수.<br>플랫폼 템플릿: <strong>문제 정의 · 사용자 · 가설 · 생성형 AI 활용 방식 · 기대효과</strong></div>
+      </div>
+      <div class="c c-w">
+        <div class="c-t">② 1차 심사 (W7 초)</div>
+        <div class="c-dd">외부 심사위원 + K-water 담당자. <strong>업무 적용성·구체성·실현 가능성</strong> 3축 평가. 상위 50팀 2차 진출.</div>
+      </div>
+      <div class="c c-g">
+        <div class="c-t">③ 2차 심사 (W7 말)</div>
+        <div class="c-dd">발주처와 &ldquo;업무 적용 우선도&rdquo; 인터뷰. <strong>본선 진출 30팀 확정</strong>. 결과물은 Stage 3 멘토 매칭 근거.</div>
+      </div>
+    </div>
+
+    <h3 style="font-size:14px;color:var(--dark);margin-top:20px;margin-bottom:8px">심사 기준</h3>
+    <table class="tb">
+      <thead><tr><th style="width:22%">항목</th><th style="width:13%">배점</th><th>기준</th></tr></thead>
+      <tbody>
+        <tr><td><strong>업무 적용성</strong></td><td>30점</td><td>해당 과제가 K-water 현업 업무에 실제 적용 가능한가</td></tr>
+        <tr><td><strong>구체성</strong></td><td>25점</td><td>문제·사용자·가설·AI 활용 방식이 구체적으로 기술되었는가</td></tr>
+        <tr><td><strong>실현 가능성</strong></td><td>25점</td><td>90일 러닝톤 일정 안에 프로토타입까지 도달 가능한가</td></tr>
+        <tr><td><strong>혁신성</strong></td><td>20점</td><td>기존 방식 대비 생성형 AI를 유의미하게 활용하는가</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="sf"><span class="brand">DACON · DAKER</span><span class="pg">07 / 16</span><span>Stage 2 · Idea Contest</span></div>
+</section>
+
+<!-- ============ S8 Stage 2 UI ============ -->
+<section class="slide">
+  <div class="sh"><span class="sh-l">STAGE 2 · 아이디어톤 플랫폼</span><span>DAKER 화면</span></div>
+  <div class="si">
+    <div class="tag" style="color:#3b82f6">DAKER · IDEA SUBMISSION</div>
+    <h2 class="st">제출부터 <span style="color:#3b82f6">심사·선발</span>까지 단일 플랫폼</h2>
+
+    <div class="g2" style="margin-top:16px">
+      <div class="ui">
+        <div class="ui-bar"><span class="ui-dot r"></span><span class="ui-dot y"></span><span class="ui-dot g"></span><span class="ui-url">daker.ai / hackathons / learnathon / submit-idea</span></div>
+        <div class="ui-body">
+          <div style="font-size:11px;font-weight:700;color:var(--dark);margin-bottom:8px">아이디어 기획서 제출 · Team A</div>
+          <div style="display:grid;gap:6px;font-size:11px">
+            <div style="background:var(--surface);padding:7px 10px;border-radius:4px"><strong style="color:var(--dark)">문제</strong> <span style="color:var(--on-variant)">현장 점검 결과를 손글씨로 적은 뒤 매번 컴퓨터에 재입력</span></div>
+            <div style="background:var(--surface);padding:7px 10px;border-radius:4px"><strong style="color:var(--dark)">사용자</strong> <span style="color:var(--on-variant)">전국 정수장 현장 점검 담당 120명</span></div>
+            <div style="background:var(--surface);padding:7px 10px;border-radius:4px"><strong style="color:var(--dark)">AI 활용</strong> <span style="color:var(--on-variant)">음성 녹음 → K-water 기업용 생성형 AI로 전사·구조화 리포트</span></div>
+            <div style="background:var(--surface);padding:7px 10px;border-radius:4px"><strong style="color:var(--dark)">기대효과</strong> <span style="color:var(--on-variant)">1인당 일평균 40분 절감</span></div>
+          </div>
+          <div style="margin-top:8px;display:flex;gap:6px"><button style="background:#3b82f6;color:#fff;border:none;padding:5px 10px;border-radius:4px;font-size:10px;font-weight:700">임시저장</button><button style="background:var(--primary);color:#fff;border:none;padding:5px 10px;border-radius:4px;font-size:10px;font-weight:700">제출하기</button></div>
+        </div>
+      </div>
+
+      <div class="ui">
+        <div class="ui-bar"><span class="ui-dot r"></span><span class="ui-dot y"></span><span class="ui-dot g"></span><span class="ui-url">daker.ai / scoring-sheets / idea-round</span></div>
+        <div class="ui-body">
+          <div style="font-size:11px;font-weight:700;color:var(--dark);margin-bottom:8px">심사 시트 — 심사위원 ***</div>
+          <table style="width:100%;font-size:10.5px;border-collapse:collapse">
+            <thead><tr style="background:var(--primary-light);color:var(--on-sec)"><th style="padding:5px;text-align:left">Team</th><th style="padding:5px">적용성</th><th style="padding:5px">구체성</th><th style="padding:5px">실현</th><th style="padding:5px">혁신</th><th style="padding:5px">계</th></tr></thead>
+            <tbody>
+              <tr style="border-bottom:1px solid var(--outline-d)"><td style="padding:5px">팀 A</td><td style="padding:5px;text-align:center">28</td><td style="padding:5px;text-align:center">23</td><td style="padding:5px;text-align:center">22</td><td style="padding:5px;text-align:center">17</td><td style="padding:5px;text-align:center;font-weight:800;color:var(--primary)">90</td></tr>
+              <tr style="border-bottom:1px solid var(--outline-d)"><td style="padding:5px">팀 B</td><td style="padding:5px;text-align:center">25</td><td style="padding:5px;text-align:center">22</td><td style="padding:5px;text-align:center">20</td><td style="padding:5px;text-align:center">18</td><td style="padding:5px;text-align:center;font-weight:800">85</td></tr>
+              <tr><td style="padding:5px">팀 C</td><td style="padding:5px;text-align:center">22</td><td style="padding:5px;text-align:center">20</td><td style="padding:5px;text-align:center">19</td><td style="padding:5px;text-align:center">16</td><td style="padding:5px;text-align:center;font-weight:800">77</td></tr>
+            </tbody>
+          </table>
+          <div style="margin-top:6px;font-size:10px;color:var(--on-variant)">▸ 완료 제출 후 자동 집계 → 본선 30팀 확정</div>
+        </div>
+      </div>
+    </div>
+    <div class="ui-cap">실 구현: <code>hackathon-submission/</code> · <code>scoring-sheets/</code> · <code>evaluator-invite.tsx</code></div>
+  </div>
+  <div class="sf"><span class="brand">DACON · DAKER</span><span class="pg">08 / 16</span><span>Stage 2 · Submission</span></div>
+</section>
+
+<!-- ============ S9 Stage 3 — 멘토링 ============ -->
+<section class="slide">
+  <div class="sh"><span class="sh-l">STAGE 3 · 멘토링</span><span>W8 ~ W11 · 온라인 + 행사당일</span></div>
+  <div class="si">
+    <div class="tag w">MENTORING</div>
+    <h2 class="st">멘토 1인당 <span class="hl-w">≤ 3팀</span> · 기술 자문이 아닌 <span class="hl-w">공동 설계자</span></h2>
+
+    <div class="g4" style="margin-top:18px">
+      <div class="c c-w">
+        <div class="c-t" style="color:var(--warm)">① 과제 정의</div>
+        <div class="c-dd">Stage 2 기획서를 구체 과제로 구조화 · 생성형 AI 적용 가능성 검토</div>
+        <div style="font-size:10px;color:var(--warm);font-weight:700;margin-top:6px">W8 · 1st 세션 (화상 60분)</div>
+      </div>
+      <div class="c c-w">
+        <div class="c-t" style="color:var(--warm)">② 솔루션 설계</div>
+        <div class="c-dd">프롬프트 설계 · 데이터 활용 · 자동화 구조 · K-water LLM 환경 연계</div>
+        <div style="font-size:10px;color:var(--warm);font-weight:700;margin-top:6px">W9~10 · 2nd 세션 (화상 60분)</div>
+      </div>
+      <div class="c c-w">
+        <div class="c-t" style="color:var(--warm)">③ 기술·구현 지원</div>
+        <div class="c-dd">API 활용 · 바이브코딩 디버깅 · 실현 가능성 검증. 팀별 순회.</div>
+        <div style="font-size:10px;color:var(--warm);font-weight:700;margin-top:6px">W11 · 본선 1일차 현장 밀착</div>
+      </div>
+      <div class="c c-w">
+        <div class="c-t" style="color:var(--warm)">④ 결과 고도화</div>
+        <div class="c-dd">완성도 향상 · 시연 구성 · 업무 적용·확산 전략</div>
+        <div style="font-size:10px;color:var(--warm);font-weight:700;margin-top:6px">W11 · 본선 2일차 오전</div>
+      </div>
+    </div>
+
+    <div class="g2" style="margin-top:18px">
+      <div class="c">
+        <div class="c-t">멘토 자격 요건 (2개 이상 충족)</div>
+        <ul>
+          <li>생성형 AI · 데이터 기반 업무 자동화 프로젝트 수행 경험</li>
+          <li>기업·공공기관 대상 AI/데이터 컨설팅·교육 수행 경험</li>
+          <li>AI 업무 프로세스 개선 또는 디지털 전환 실무 경험</li>
+        </ul>
+      </div>
+      <div class="c c-p">
+        <div class="c-t">멘토 매칭 원칙</div>
+        <ul>
+          <li>Stage 2 아이디어 도메인 기준으로 <strong>1:N 매칭</strong></li>
+          <li>멘토 1인당 최대 3팀 (실시간 지원 품질 보장)</li>
+          <li>각 팀 <strong>정기 3회 이상 + 수시</strong> 멘토링 실시</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span class="brand">DACON · DAKER</span><span class="pg">09 / 16</span><span>Stage 3 · Mentoring</span></div>
+</section>
+
+<!-- ============ S10 Stage 3 UI ============ -->
+<section class="slide">
+  <div class="sh"><span class="sh-l">STAGE 3 · 멘토 포털</span><span>DAKER 화면</span></div>
+  <div class="si">
+    <div class="tag w">DAKER · EXPERT PORTAL</div>
+    <h2 class="st">멘토 1명의 <span class="hl-w">3팀 × 3세션</span>을 한 눈에</h2>
+
+    <div class="ui" style="margin-top:16px">
+      <div class="ui-bar"><span class="ui-dot r"></span><span class="ui-dot y"></span><span class="ui-dot g"></span><span class="ui-url">daker.ai / expert-portal</span></div>
+      <div class="ui-body">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+          <div style="font-size:12px;font-weight:700;color:var(--dark)">담당 팀 · 멘토링 히스토리 — 멘토 ***</div>
+          <div style="font-size:10px;color:var(--warm);font-weight:700">잔여 세션 5 / 9</div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px">
+          <div style="background:#fff;border:1px solid var(--outline-d);border-radius:6px;padding:10px">
+            <div style="font-size:10px;color:var(--warm);font-weight:700">TEAM A · 음성 리포팅봇</div>
+            <div style="display:flex;gap:3px;margin:6px 0">
+              <span style="flex:1;height:5px;border-radius:3px;background:var(--green)"></span>
+              <span style="flex:1;height:5px;border-radius:3px;background:var(--green)"></span>
+              <span style="flex:1;height:5px;border-radius:3px;background:var(--outline-d)"></span>
+            </div>
+            <div style="font-size:10px;color:var(--on-variant);line-height:1.5">정의 ✓ · 설계 ✓ · 구현 예정<br>다음 05.22 14:00</div>
+          </div>
+          <div style="background:#fff;border:1px solid var(--outline-d);border-radius:6px;padding:10px">
+            <div style="font-size:10px;color:var(--warm);font-weight:700">TEAM B · 민원 자동 분류</div>
+            <div style="display:flex;gap:3px;margin:6px 0">
+              <span style="flex:1;height:5px;border-radius:3px;background:var(--green)"></span>
+              <span style="flex:1;height:5px;border-radius:3px;background:var(--outline-d)"></span>
+              <span style="flex:1;height:5px;border-radius:3px;background:var(--outline-d)"></span>
+            </div>
+            <div style="font-size:10px;color:var(--on-variant);line-height:1.5">정의 ✓ · 설계 예정<br>다음 05.23 15:00</div>
+          </div>
+          <div style="background:#fff;border:1px solid var(--outline-d);border-radius:6px;padding:10px">
+            <div style="font-size:10px;color:var(--warm);font-weight:700">TEAM C · 수질 보고서 요약</div>
+            <div style="display:flex;gap:3px;margin:6px 0">
+              <span style="flex:1;height:5px;border-radius:3px;background:var(--green)"></span>
+              <span style="flex:1;height:5px;border-radius:3px;background:var(--green)"></span>
+              <span style="flex:1;height:5px;border-radius:3px;background:var(--green)"></span>
+            </div>
+            <div style="font-size:10px;color:var(--on-variant);line-height:1.5">전 세션 완료 · 현장 W11<br>본선 출입증 발급 완료</div>
+          </div>
+        </div>
+
+        <div style="margin-top:12px;padding-top:10px;border-top:1px dashed var(--outline-d);display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:8px;font-size:10.5px">
+          <div style="text-align:center"><div style="font-size:18px;font-weight:800;color:var(--primary)">3</div><div style="color:var(--on-variant)">담당 팀</div></div>
+          <div style="text-align:center"><div style="font-size:18px;font-weight:800;color:var(--green)">5</div><div style="color:var(--on-variant)">완료 세션</div></div>
+          <div style="text-align:center"><div style="font-size:18px;font-weight:800;color:var(--warm)">4</div><div style="color:var(--on-variant)">잔여 세션</div></div>
+          <div style="text-align:center"><div style="font-size:18px;font-weight:800;color:var(--dark)">4.6</div><div style="color:var(--on-variant)">멘티 평가</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="ui-cap">실 구현: <code>expert-portal/</code> · <code>expert-profile.tsx</code> · <code>experts.tsx</code></div>
+  </div>
+  <div class="sf"><span class="brand">DACON · DAKER</span><span class="pg">10 / 16</span><span>Stage 3 · Portal</span></div>
+</section>
+
+<!-- ============ S11 Stage 4 — 오프라인 해커톤 ============ -->
+<section class="slide">
+  <div class="sh"><span class="sh-l">STAGE 4 · 오프라인 바이브코딩 해커톤</span><span>W11 · 4일 운영(설치1+본선2+철거1)</span></div>
+  <div class="si">
+    <div class="tag g">OFFLINE VIBECODING HACKATHON</div>
+    <h2 class="st">이미 <span class="hl-g">아이디어+설계+초안</span>이 준비된 30팀의 <span class="hl-g">집중 구현</span></h2>
+    <div class="sub">본선은 새 아이디어를 짜는 자리가 아니라 <strong>Stage 2·3 산출물을 프로토타입(시연 가능 수준)으로 완성하는 자리</strong>.<br>4일 운영(설치 1일 + <strong>본선 2일</strong> + 철거 1일) 중 본선 2일이 집중 구현·발표·시상의 핵심.</div>
+
+    <h3 style="font-size:14px;color:var(--dark);margin-top:18px;margin-bottom:8px">본선 2일 타임라인 (4일 운영 중 핵심 2일)</h3>
+    <table class="tb">
+      <thead><tr><th style="width:14%">일차</th><th style="width:18%">시간</th><th>프로그램</th><th style="width:22%">산출물</th></tr></thead>
+      <tbody>
+        <tr><td rowspan="3"><strong>1일차</strong></td><td>09:30 ~ 10:30</td><td>개회식 · 팀별 &ldquo;지금까지의 여정&rdquo; 공유 (Stage 1~3 요약 1분)</td><td>팀 세팅</td></tr>
+        <tr><td>10:30 ~ 18:00</td><td><strong>집중 구현</strong> — 바이브코딩 실전, 현장 멘토 순회 지원</td><td>MVP 코드 v1</td></tr>
+        <tr><td>18:00 ~ 21:00</td><td>중간 리뷰 + 리팩토링 + 데모 시나리오 작성</td><td>시연 스크립트</td></tr>
+        <tr><td rowspan="3"><strong>2일차</strong></td><td>09:00 ~ 12:00</td><td>시연 리허설 · 멘토 최종 피드백 (고도화 단계)</td><td>MVP v2 · 발표자료</td></tr>
+        <tr><td>13:00 ~ 16:30</td><td><strong>본선 발표</strong> — 각 팀 5분 시연 + 3분 Q&amp;A, 심사위원 · 사내 투표</td><td>심사 점수</td></tr>
+        <tr><td>16:30 ~ 17:30</td><td>결과 집계 · <strong>시상식</strong> · 수상작 짧은 재연 + 사내 네트워킹</td><td>최종 수상작</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="sf"><span class="brand">DACON · DAKER</span><span class="pg">11 / 16</span><span>Stage 4 · Hackathon</span></div>
+</section>
+
+<!-- ============ S12 Stage 4 — 현장 운영 + UI ============ -->
+<section class="slide">
+  <div class="sh"><span class="sh-l">STAGE 4 · 현장 운영 + 실시간 리더보드</span><span>DAKER 화면</span></div>
+  <div class="si">
+    <div class="tag g">ON-SITE OPERATION</div>
+    <h2 class="st">현장 안전·의전 · 실시간 평가 집계 · <span class="hl-g">대형 스크린 송출</span></h2>
+
+    <div class="g2" style="margin-top:16px">
+      <div class="c">
+        <div class="c-t">현장 운영 체계 (4일)</div>
+        <ul>
+          <li>설치 1일 → 본선 2일 → 철거 1일, 팀별 전용 작업 공간 30개</li>
+          <li>운영 인력: 기획·기술·현장 구성, <strong>발주기관 추천(심사위원 등) 우선 고려</strong></li>
+          <li>안전관리: 방재 책임자 상주, AED, 응급 의료, 대인·대물 단체보험</li>
+          <li>하계 위생: HACCP 식자재, 냉장 보관, 2시간 소진 원칙</li>
+          <li>돌발 대응: 5분 내 현장 조치 → PM·발주처 에스컬레이션</li>
+          <li><strong>상위작 검증</strong>: 표절 여부·코드 검증 수행 후 시상 확정</li>
+        </ul>
+      </div>
+
+      <div class="ui">
+        <div class="ui-bar"><span class="ui-dot r"></span><span class="ui-dot y"></span><span class="ui-dot g"></span><span class="ui-url">daker.ai / leaderboard · 대형 스크린</span></div>
+        <div class="ui-body" style="background:var(--dark);color:#fff;border-radius:4px;padding:14px">
+          <div style="font-size:11px;color:#a3b3c2;letter-spacing:.2em">LIVE · K-WATER 러닝톤 본선</div>
+          <div style="font-size:16px;font-weight:800;margin:4px 0 10px">실시간 리더보드</div>
+          <table style="width:100%;font-size:11px;color:#fff">
+            <tr style="border-bottom:1px solid rgba(255,255,255,.15)"><td style="padding:6px 0;width:10%">🥇 1</td><td style="padding:6px 0">팀 ***</td><td style="padding:6px 0;text-align:right;color:#60a5fa">94.5</td></tr>
+            <tr style="border-bottom:1px solid rgba(255,255,255,.15)"><td style="padding:6px 0">🥈 2</td><td style="padding:6px 0">팀 ***</td><td style="padding:6px 0;text-align:right;color:#60a5fa">92.0</td></tr>
+            <tr style="border-bottom:1px solid rgba(255,255,255,.15)"><td style="padding:6px 0">🥉 3</td><td style="padding:6px 0">팀 ***</td><td style="padding:6px 0;text-align:right;color:#60a5fa">89.5</td></tr>
+            <tr><td style="padding:6px 0">4</td><td style="padding:6px 0">팀 ***</td><td style="padding:6px 0;text-align:right;color:#60a5fa">87.2</td></tr>
+          </table>
+          <div style="margin-top:8px;font-size:10px;color:#a3b3c2">▸ 심사(40) + 사내 투표(20) + ELO(20) + 서류(20) 합산</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="g3" style="margin-top:16px">
+      <div class="c c-p"><div class="c-t">심사위원</div><div class="c-dd">외부 *** 명 + K-water 담당자</div></div>
+      <div class="c c-g"><div class="c-t">사내 투표</div><div class="c-dd">QR 코드 · 실시간 집계 · 전 임직원</div></div>
+      <div class="c c-w"><div class="c-t">ELO 상호평가</div><div class="c-dd">1:1 비교 투표로 팀 간 편차 보정</div></div>
+    </div>
+    <div class="ui-cap">실 구현: <code>public/leaderboard.tsx</code> · <code>hackathon-elo-arena.tsx</code> · <code>presenters.tsx</code></div>
+  </div>
+  <div class="sf"><span class="brand">DACON · DAKER</span><span class="pg">12 / 16</span><span>Stage 4 · Live</span></div>
+</section>
+
+<!-- ============ S13 통합 일정 ============ -->
+<section class="slide">
+  <div class="sh"><span class="sh-l">통합 일정</span><span>90일 전 구간</span></div>
+  <div class="si">
+    <div class="tag">END-TO-END SCHEDULE · 90 DAYS</div>
+    <h2 class="st">착수부터 시상까지 — <span class="hl">90일 안에</span> 끝내는 설계</h2>
+
+    <div class="tline" style="margin-top:16px">
+      <div class="tline-col hi"><div class="wk">W1</div><div class="ev">킥오프</div></div>
+      <div class="tline-col hi"><div class="wk">W2~3</div><div class="ev">플랫폼 구축 · 홍보</div></div>
+      <div class="tline-col hi"><div class="wk">W4</div><div class="ev">접수 시작 · M1 교재 오픈</div></div>
+      <div class="tline-col"><div class="wk">W5</div><div class="ev">M2~M4 교재</div></div>
+      <div class="tline-col" style="background:rgba(59,130,246,.1);border-radius:4px"><div class="wk" style="color:#3b82f6">W6</div><div class="ev" style="color:#3b82f6">아이디어톤 접수</div></div>
+      <div class="tline-col" style="background:rgba(59,130,246,.1);border-radius:4px"><div class="wk" style="color:#3b82f6">W7</div><div class="ev" style="color:#3b82f6">심사 · 30팀 확정</div></div>
+      <div class="tline-col hi-w"><div class="wk">W8</div><div class="ev">멘토링 1차</div></div>
+      <div class="tline-col hi-w"><div class="wk">W9</div><div class="ev">멘토링 2차</div></div>
+      <div class="tline-col hi-w"><div class="wk">W10</div><div class="ev">MVP 설계</div></div>
+      <div class="tline-col hi-g"><div class="wk">W11</div><div class="ev">본선 4일 운영 · 시상</div></div>
+      <div class="tline-col"><div class="wk">W12</div><div class="ev">설문·분석</div></div>
+      <div class="tline-col"><div class="wk">W13</div><div class="ev">최종 보고</div></div>
+    </div>
+
+    <div class="g4" style="margin-top:20px">
+      <div class="c c-p" style="padding:10px 14px"><div class="c-t" style="font-size:11px">Stage 1</div><div class="c-dd" style="font-size:11px">W4~W7 · 학습 교재 운영</div></div>
+      <div class="c" style="background:rgba(59,130,246,.08);border-color:#3b82f6;padding:10px 14px"><div class="c-t" style="font-size:11px;color:#3b82f6">Stage 2</div><div class="c-dd" style="font-size:11px">W6~W7 · 아이디어톤 + 심사</div></div>
+      <div class="c c-w" style="padding:10px 14px"><div class="c-t" style="font-size:11px">Stage 3</div><div class="c-dd" style="font-size:11px">W8~W10 · 멘토링 3세션 + 수시</div></div>
+      <div class="c c-g" style="padding:10px 14px"><div class="c-t" style="font-size:11px">Stage 4</div><div class="c-dd" style="font-size:11px">W11 · 본선 해커톤 4일 (설치1+본선2+철거1)</div></div>
+    </div>
+  </div>
+  <div class="sf"><span class="brand">DACON · DAKER</span><span class="pg">13 / 16</span><span>Schedule</span></div>
+</section>
+
+<!-- ============ S14 KPI + 측정 ============ -->
+<section class="slide">
+  <div class="sh"><span class="sh-l">KPI · 성과 측정</span><span>4축 지표</span></div>
+  <div class="si">
+    <div class="tag">KPI · PERFORMANCE</div>
+    <h2 class="st">학습형 해커톤의 <span class="hl">정량 성과</span> 관리</h2>
+
+    <div class="g4" style="margin-top:18px">
+      <div class="c">
+        <div class="c-t">참여</div>
+        <ul>
+          <li>신청 전환율 ≥ <strong class="hl">25%</strong></li>
+          <li>완주율 ≥ <strong class="hl">85%</strong></li>
+          <li>과제 제출율 ≥ <strong class="hl">95%</strong></li>
+        </ul>
+      </div>
+      <div class="c c-p">
+        <div class="c-t">학습</div>
+        <ul>
+          <li>교재 수료율 ≥ 90%</li>
+          <li>사전-사후 역량 +30%p</li>
+          <li>아이디어 평균 점수 ≥ 75</li>
+        </ul>
+      </div>
+      <div class="c c-w">
+        <div class="c-t">산출물</div>
+        <ul>
+          <li><strong>프로토타입 ≥ 30건</strong></li>
+          <li>업무 적용 판정 ≥ 15건</li>
+          <li>우수작 확산 파일럿 3건+</li>
+        </ul>
+      </div>
+      <div class="c c-g">
+        <div class="c-t">만족·확산</div>
+        <ul>
+          <li>참가자 NPS ≥ 60</li>
+          <li>멘토링 만족도 ≥ 4.3/5</li>
+          <li>사내 인지율 ≥ 80%</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3 style="font-size:14px;color:var(--dark);margin-top:20px;margin-bottom:8px">측정 체계</h3>
+    <table class="tb">
+      <thead><tr><th style="width:18%">측정 축</th><th style="width:35%">수집 방법</th><th>보고 시점</th></tr></thead>
+      <tbody>
+        <tr><td>참여 정량</td><td>DAKER 플랫폼 자동 집계</td><td>실시간 · 월간 운영 리포트</td></tr>
+        <tr><td>역량 변화</td><td>사전 · 사후 AI 역량 진단 설문 비교</td><td>본선 직후 · 종료 후 2주</td></tr>
+        <tr><td>산출물 품질</td><td>외부 심사 + ELO + 업무 적용 인터뷰</td><td>본선 당일 · 종료 후 4주</td></tr>
+        <tr><td>만족도 · 확산</td><td>NPS · 영역별 리커트 · 사내 설문</td><td>종료 후 2주 · 4주</td></tr>
+      </tbody>
+    </table>
+
+    <div style="margin-top:12px;padding:10px 14px;background:var(--primary-light);border-radius:var(--r-md);font-size:11px;color:var(--on-sec)">
+      <strong>성과품 제출 (과업지시서 2.)</strong> &mdash; 최종보고서 본 + 요약본 <strong>5부 제본</strong> (용역 준공 후 2주 내), <strong>운영계획서 · 교육 커리큘럼 · 교안</strong> 일체, 만족도·교육효과 분석 포함. 모든 산출물·데이터 <strong>K-water 귀속</strong>.
+    </div>
+  </div>
+  <div class="sf"><span class="brand">DACON · DAKER</span><span class="pg">14 / 16</span><span>KPI</span></div>
+</section>
+
+<!-- ============ S15 우수작 확산 · 지속가능성 ============ -->
+<section class="slide">
+  <div class="sh"><span class="sh-l">우수작 확산</span><span>지속가능성</span></div>
+  <div class="si">
+    <div class="tag w">IMPACT · SUSTAINABILITY</div>
+    <h2 class="st">&ldquo;만들었지만 안 쓰는 결과물&rdquo;을 <span class="hl-w">끝내는</span> 확산 로드맵</h2>
+
+    <div class="stepper" style="margin-top:18px;display:flex;gap:10px">
+      <div class="c c-p" style="flex:1"><div class="c-t">① 심층 검토</div><div class="c-dd">상위 10개 선정 → 부서 적용 가능성 인터뷰</div></div>
+      <div style="display:flex;align-items:center;color:var(--outline);font-size:16px;font-weight:800">→</div>
+      <div class="c c-p" style="flex:1"><div class="c-t">② 파일럿 기획</div><div class="c-dd">해당 부서와 파일럿 계획 수립 (3건 내외)</div></div>
+      <div style="display:flex;align-items:center;color:var(--outline);font-size:16px;font-weight:800">→</div>
+      <div class="c c-w" style="flex:1"><div class="c-t">③ 도입 지원</div><div class="c-dd">운영사-부서 합동 파일럿, K-water LLM 환경 연계</div></div>
+      <div style="display:flex;align-items:center;color:var(--outline);font-size:16px;font-weight:800">→</div>
+      <div class="c c-g" style="flex:1"><div class="c-t">④ 전사 확산</div><div class="c-dd">성공 사례 사내 공유회 · 차기 러닝톤 주제 피드</div></div>
+    </div>
+
+    <h3 style="font-size:14px;color:var(--dark);margin-top:20px;margin-bottom:8px">지속가능성 5축</h3>
+    <div class="g2">
+      <div class="c">
+        <ul>
+          <li><strong>콘텐츠 자산화</strong> — 교재·프롬프트 템플릿을 K-water 내부 지식베이스화</li>
+          <li><strong>멘토 네트워크</strong> — 본 러닝톤 멘토단 → 상시 자문단 전환 옵션</li>
+          <li><strong>플랫폼 이관</strong> — 데이터·운영 노하우 K-water 운영 모델로 전수</li>
+        </ul>
+      </div>
+      <div class="c">
+        <ul>
+          <li><strong>차기 대회 고도화</strong> — 본 회 피드백 → 주제·포맷 개선 제안서 동봉</li>
+          <li><strong>사내 커뮤니티</strong> — 수료생 커뮤니티 → 상시 학습 공동체</li>
+          <li><strong>데이터 소유권</strong> — 모든 산출물·데이터 K-water 귀속 (과업지시서 10조)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span class="brand">DACON · DAKER</span><span class="pg">15 / 16</span><span>Impact</span></div>
+</section>
+
+<!-- ============ S16 ENDING ============ -->
+<section class="slide slide-end">
+  <div class="sh"><span class="sh-l">CLOSING</span><span>&nbsp;</span></div>
+  <div class="si">
+    <div class="lg" data-step="1">DACON &middot; DAKER</div>
+    <h1 data-step="2">
+      &ldquo;본선 4일&rdquo;이 아닌<br>
+      <span class="hl">&ldquo;본선까지의 90일&rdquo;</span>을<br>
+      K-water와 함께 만들겠습니다.
+    </h1>
+    <div class="ed" data-step="3">
+      온라인 학습 · 아이디어톤 · 멘토링 · 오프라인 바이브코딩 해커톤<br>
+      4-Stage 파이프라인으로 <strong class="hl-w">비전공자도 완주하는 학습형 해커톤</strong>을 보증합니다.
+    </div>
+  </div>
+  <div class="sf"><span class="brand">DACON · DAKER</span><span class="pg">16 / 16</span><span>Thank you</span></div>
+</section>
+
+</div></div>
+
+<script>
+(function(){
+  const stage=document.getElementById('stage');
+  const slides=Array.from(document.querySelectorAll('.slide'));
+  const prev=document.getElementById('nav-prev');
+  const next=document.getElementById('nav-next');
+  const bar=document.getElementById('progress-bar');
+  let idx=Math.max(0,slides.findIndex(s=>s.classList.contains('active')));
+  if(idx<0)idx=0;
+
+  function fit(){
+    const s=Math.min(window.innerWidth/1280,window.innerHeight/720);
+    stage.style.transform='scale('+s+')';
+  }
+  function show(i){
+    idx=Math.max(0,Math.min(slides.length-1,i));
+    slides.forEach((s,k)=>s.classList.toggle('active',k===idx));
+    bar.style.width=((idx+1)/slides.length*100)+'%';
+    const frags=slides[idx].querySelectorAll('[data-step]');
+    frags.forEach((el,k)=>{el.classList.remove('visible');setTimeout(()=>el.classList.add('visible'),70*(k+1))});
+    if(location.hash!=='#s'+(idx+1))history.replaceState(null,'','#s'+(idx+1));
+  }
+  function nav(d){show(idx+d)}
+
+  prev.addEventListener('click',()=>nav(-1));
+  next.addEventListener('click',()=>nav(1));
+
+  document.addEventListener('keydown',e=>{
+    if(e.key==='ArrowRight'||e.key==='PageDown'||e.key===' '){e.preventDefault();nav(1)}
+    else if(e.key==='ArrowLeft'||e.key==='PageUp'){e.preventDefault();nav(-1)}
+    else if(e.key==='Home'){show(0)}
+    else if(e.key==='End'){show(slides.length-1)}
+    else if(e.key==='f'||e.key==='F'){
+      if(!document.fullscreenElement)document.documentElement.requestFullscreen().catch(()=>{});
+      else document.exitFullscreen().catch(()=>{});
+    }
+  });
+
+  let tx=0;
+  document.addEventListener('touchstart',e=>{tx=e.touches[0].clientX},{passive:true});
+  document.addEventListener('touchend',e=>{
+    const dx=e.changedTouches[0].clientX-tx;
+    if(Math.abs(dx)>50)nav(dx<0?1:-1);
+  },{passive:true});
+
+  const h=location.hash.match(/^#s(\d+)$/);
+  if(h){const n=parseInt(h[1],10)-1;if(n>=0&&n<slides.length)idx=n}
+
+  window.addEventListener('resize',fit);
+  fit();show(idx);
+})();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GS E&R AI 경진대회 &middot; 데이커 &middot; 교육 통합 서비스 소개서</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --primary:#1E3A8A;--primary-dim:#172E6E;--on-primary:#f8f7ff;
+  --on-background:#2a3439;--surface:#f7f9fb;--surface-bright:#f7f9fb;
+  --surface-low:#f0f4f7;--surface-lowest:#ffffff;
+  --on-surface:#2a3439;--on-surface-variant:#566166;--outline-variant:#a9b4b9;
+  --secondary-container:#dce4fb;--on-secondary-container:#3d4a66;
+  --accent-warm:#c2622d;--accent-warm-bg:rgba(194,98,45,0.06);
+  --accent-dark:#0f172a;--green:#10b981;--green-bg:rgba(16,185,129,0.06);
+  --font:'Noto Sans KR',-apple-system,sans-serif;
+  --shadow-ambient:0 8px 24px rgba(42,52,57,0.05);
+  --ghost:1px solid rgba(169,180,185,0.18);
+  --r-sm:0.25rem;--r-md:0.375rem;--r-lg:0.75rem;--r-xl:1rem;--r-full:9999px;
+  --slide-w:1280px;--slide-h:720px;
+}
+html,body{width:100%;height:100%;background:var(--surface-low);font-family:var(--font);overflow:hidden;color:var(--on-surface)}
+#viewport{position:fixed;inset:0;display:flex;align-items:center;justify-content:center}
+#stage{position:relative;width:var(--slide-w);height:var(--slide-h);overflow:hidden;transform-origin:center center;border-radius:var(--r-lg);box-shadow:0 12px 48px rgba(42,52,57,0.1)}
+.slide{position:absolute;inset:0;background:var(--surface);display:flex;flex-direction:column;opacity:0;pointer-events:none;transition:opacity 0s}
+.slide.active{opacity:1;pointer-events:auto}
+.si{flex:1;display:flex;flex-direction:column;padding:64px 72px 52px;position:relative}
+.sh{position:absolute;top:0;left:0;right:0;padding:18px 32px;display:flex;justify-content:space-between;align-items:center;background:var(--surface-low);z-index:2}
+.sh-l{font-size:.6875rem;font-weight:700;color:var(--on-surface-variant);letter-spacing:.05em;text-transform:uppercase}
+.sf{position:absolute;bottom:0;left:0;right:0;padding:12px 32px;display:flex;justify-content:space-between;align-items:center;background:var(--surface-low);z-index:2}
+.sf-logo{font-size:.875rem;font-weight:800;color:var(--primary);letter-spacing:.04em}
+.sf-pg{font-size:.6875rem;color:var(--on-surface-variant);font-weight:600}
+.sf-cr{font-size:.5625rem;color:var(--outline-variant);letter-spacing:.03em;font-weight:600}
+.tag{display:inline-flex;align-items:center;gap:8px;font-size:.6875rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--primary);margin-bottom:14px}
+.tag::before{content:'';width:24px;height:2.5px;background:var(--primary);border-radius:2px}
+.tag-w{color:var(--accent-warm)}.tag-w::before{background:var(--accent-warm)}
+h2.st{font-size:2rem;font-weight:800;line-height:1.2;color:var(--on-surface);letter-spacing:-.02em}
+.hl{color:var(--primary)}.hl-w{color:var(--accent-warm)}
+.sub{margin-top:10px;font-size:.9375rem;color:var(--on-surface-variant);line-height:1.7}
+.c{background:var(--surface-lowest);border-radius:var(--r-lg);padding:20px}
+.c-blue{background:var(--secondary-container)}.c-warm{background:var(--accent-warm-bg)}.c-surf{background:var(--surface-low)}.c-green{background:var(--green-bg)}
+.c-t{font-size:.9375rem;font-weight:700;color:var(--on-surface);margin-bottom:6px}
+.c-d{font-size:.8125rem;color:var(--on-surface-variant);line-height:1.65}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
+.g4{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:12px}
+.ic{width:36px;height:36px;border-radius:var(--r-md);display:flex;align-items:center;justify-content:center;font-size:.8125rem;font-weight:800;margin-bottom:12px;color:#fff;background:var(--primary)}
+.ic-w{background:var(--accent-warm)}.ic-d{background:var(--accent-dark)}.ic-g{background:var(--green)}
+.bd{display:inline-block;padding:3px 10px;border-radius:var(--r-full);font-size:.6875rem;font-weight:700;background:var(--secondary-container);color:var(--on-secondary-container)}
+.bd-w{background:var(--accent-warm-bg);color:var(--accent-warm)}
+.tb{width:100%;border-collapse:collapse;font-size:.8125rem}
+.tb th{text-align:left;padding:9px 14px;background:var(--surface-low);color:var(--on-surface);font-weight:700;font-size:.75rem}
+.tb td{padding:9px 14px;color:var(--on-surface-variant)}
+.tb tr:nth-child(even) td{background:var(--surface-low)}
+.mx{text-align:center;padding:16px 10px;background:var(--surface-low);border-radius:var(--r-lg)}
+.mx .v{font-size:1.75rem;font-weight:800;line-height:1;color:var(--primary)}
+.mx .l{font-size:.6875rem;color:var(--on-surface-variant);margin-top:6px;font-weight:500}
+.fr{display:flex;align-items:center;gap:8px}
+.fa{font-size:18px;color:var(--outline-variant);flex-shrink:0}
+.fb{flex:1;padding:14px 16px;background:var(--surface-low);border-radius:var(--r-lg);text-align:center}
+.fb-p{background:var(--secondary-container)}
+.fb .fl{font-size:.75rem;color:var(--on-surface-variant);font-weight:600}
+.fb .fd{font-size:.6875rem;color:var(--on-surface-variant);margin-top:4px;line-height:1.4;opacity:.7}
+.ck{list-style:none;display:flex;flex-direction:column;gap:6px}
+.ck li{display:flex;align-items:flex-start;gap:10px;font-size:.8125rem;color:var(--on-surface-variant);line-height:1.6}
+.ck li .i{flex-shrink:0;font-size:.8125rem;margin-top:2px;font-weight:700;color:var(--primary)}
+.tc{display:grid;grid-template-columns:1fr 1fr;gap:24px;flex:1}
+.src{font-size:.5625rem;color:var(--outline-variant);position:absolute;bottom:52px;left:72px;right:72px}
+.slide-sec .si{justify-content:center;align-items:center;text-align:center;padding-top:60px}
+.slide-sec .sn{font-size:4.5rem;font-weight:800;color:rgba(30,58,138,.06);line-height:1;margin-bottom:8px}
+.slide-sec h2{font-size:2.625rem;font-weight:800;color:var(--on-surface);letter-spacing:-.02em}
+.slide-sec .sd{font-size:1.0625rem;color:var(--on-surface-variant);margin-top:10px}
+.slide-end .si{justify-content:center;align-items:center;text-align:center}
+.slide-end h1{font-size:3rem;font-weight:800;color:var(--on-surface);line-height:1.15;letter-spacing:-.02em}
+.slide-end .end-sub{font-size:1.125rem;color:var(--on-surface-variant);margin-top:14px}
+.slide-end .end-logo{font-size:2.625rem;font-weight:800;color:var(--primary);letter-spacing:.06em;margin-bottom:36px}
+.cl{font-size:.8125rem;font-weight:700;color:var(--primary);margin-bottom:10px}
+.cl-w{color:var(--accent-warm)}
+[data-step]{opacity:0;transform:translateY(14px);transition:opacity .45s ease,transform .45s ease}
+[data-step].visible{opacity:1;transform:none}
+[data-step].pre-visible{opacity:1;transform:none;transition:none}
+.nav-btn{position:fixed;top:50%;transform:translateY(-50%);width:40px;height:40px;border-radius:50%;background:rgba(247,249,251,.85);border:none;color:var(--on-surface-variant);cursor:pointer;z-index:100;display:flex;align-items:center;justify-content:center;font-size:18px;transition:all .2s;user-select:none;box-shadow:var(--shadow-ambient);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px)}
+.nav-btn:hover{color:var(--primary)}
+#nav-prev{left:12px}#nav-next{right:12px}
+#progress-bar{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--primary),var(--primary-dim));transition:width .4s ease;z-index:100}
+#key-hint{position:fixed;bottom:16px;left:50%;transform:translateX(-50%);color:var(--outline-variant);font-size:.6875rem;z-index:100;opacity:.4}
+@page{size:landscape;margin:0}
+@media print{
+  html,body{background:#fff!important;overflow:visible!important;height:auto!important;width:auto!important;margin:0!important;padding:0!important}
+  #viewport{position:static!important;display:block!important;height:auto!important}
+  #stage{position:static!important;width:auto!important;height:auto!important;overflow:visible!important;transform:none!important;box-shadow:none!important;border-radius:0!important}
+  .slide{position:relative!important;inset:auto!important;opacity:1!important;pointer-events:auto!important;display:flex!important;flex-direction:column!important;width:100vw!important;height:100vh!important;page-break-after:always!important;break-after:page!important;page-break-inside:avoid!important;margin:0!important;overflow:hidden!important}
+  .nav-btn,#progress-bar,#key-hint{display:none!important}
+  [data-step]{opacity:1!important;transform:none!important}
+}
+</style>
+</head>
+<body>
+<div id="viewport"><div id="stage">
+
+<!-- S1: COVER -->
+<section class="slide active" id="s1">
+  <div class="si" style="justify-content:center;align-items:flex-start;padding-left:88px;background:linear-gradient(135deg,var(--surface) 0%,var(--secondary-container) 100%)">
+    <div style="position:absolute;top:22px;right:32px"><span style="display:inline-block;background:linear-gradient(135deg,var(--primary),var(--primary-dim));color:var(--on-primary);padding:6px 18px;border-radius:var(--r-full);font-size:.75rem;font-weight:600">2026.04.10</span></div>
+    <div data-step="1">
+      <span style="font-size:1.75rem;font-weight:800;color:var(--green);letter-spacing:.04em">GS E&R</span>
+      <span style="font-size:1rem;color:var(--outline-variant);margin:0 8px">&times;</span>
+      <span style="font-size:1.5rem;font-weight:800;color:var(--primary);letter-spacing:.04em">DAKER &middot; DACON</span>
+    </div>
+    <h1 data-step="2" style="font-size:2.5rem;font-weight:800;line-height:1.15;letter-spacing:-.02em;color:var(--on-surface);margin-top:14px">
+      에너지 AI <span class="hl">알고리즘 경진대회</span> &middot;<br/><span class="hl-w">데이커 AI 서비스 개발 대회</span> &middot; 교육<br/>통합 서비스 소개서
+    </h1>
+    <p data-step="3" style="font-size:1rem;color:var(--on-surface-variant);margin-top:18px;line-height:1.7">
+      풍력 &middot; 태양광 &middot; 전력 수요 예측 &mdash; 에너지 AI 경진대회 전문 파트너<br/>
+      데이콘 7년간 에너지 분야 10+ 대회 운영 실적
+    </p>
+  </div>
+  <div class="sf"><span class="sf-logo">DACON &middot; DAKER</span><span class="sf-pg">1</span><span class="sf-cr">COPYRIGHT 2026 DACON</span></div>
+</section>
+
+<!-- S2: AGENDA -->
+<section class="slide" id="s2">
+  <div class="sh"><span class="sh-l">AGENDA</span></div>
+  <div class="si" style="justify-content:center;padding-top:72px">
+    <div class="tag">목차</div>
+    <h2 class="st" data-step="1">오늘 안내 드릴 <span class="hl">3가지 서비스</span></h2>
+    <div class="g3" style="margin-top:36px" data-step="2">
+      <div class="c c-blue" style="padding:28px 24px">
+        <div class="ic">01</div>
+        <div class="c-t">에너지 AI 알고리즘 경진대회</div>
+        <div class="c-d">dacon.io 플랫폼 기반<br/>풍력/태양광/전력 예측 대회</div>
+      </div>
+      <div class="c c-warm" style="padding:28px 24px">
+        <div class="ic ic-w">02</div>
+        <div class="c-t">데이커(DAKER) AI 서비스 개발 대회</div>
+        <div class="c-d">바이브코딩 해커톤<br/>실무형 AI 프로토타입 대회</div>
+      </div>
+      <div class="c c-green" style="padding:28px 24px">
+        <div class="ic ic-g">03</div>
+        <div class="c-t">AI/DX 교육 통합 서비스</div>
+        <div class="c-d">데이스쿨 기반<br/>맞춤형 기업 교육 프로그램</div>
+      </div>
+    </div>
+    <p class="sub" data-step="3" style="margin-top:18px;text-align:center">GS E&R의 <strong>신재생에너지 사업</strong>과 <strong>DX/IT 역량 강화</strong>를 동시에 지원하는 통합 파트너십</p>
+  </div>
+  <div class="sf"><span class="sf-logo">DACON &middot; DAKER</span><span class="sf-pg">2</span><span class="sf-cr">COPYRIGHT 2026 DACON</span></div>
+</section>
+
+<!-- S3: GS E&R UNDERSTANDING -->
+<section class="slide" id="s3">
+  <div class="sh"><span class="sh-l">GS E&R UNDERSTANDING</span></div>
+  <div class="si" style="padding-top:72px">
+    <div class="tag">고객 이해</div>
+    <h2 class="st" data-step="1">GS E&R &middot; GS풍력발전 <span class="hl">사업 현황</span></h2>
+    <div class="tc" style="margin-top:24px" data-step="2">
+      <div>
+        <div class="cl">신재생에너지 사업</div>
+        <div class="g2" style="gap:10px">
+          <div class="c c-green" style="padding:14px 16px">
+            <div class="c-t" style="font-size:.8125rem">영양풍력발전소 (Y1)</div>
+            <div class="c-d">풍력 59.4MW (3.3MW &times; 18기)<br/>ESS 16.8MW / 50.4MWh</div>
+          </div>
+          <div class="c c-green" style="padding:14px 16px">
+            <div class="c-t" style="font-size:.8125rem">영양무창풍력 (Y2)</div>
+            <div class="c-d">풍력 24.2MW (3.45MW &times; 7기)<br/>ESS 8MW / 24MWh</div>
+          </div>
+          <div class="c c-green" style="padding:14px 16px">
+            <div class="c-t" style="font-size:.8125rem">영양제2풍력 (Y3)</div>
+            <div class="c-d">풍력 42.0MW (4.2MW &times; 10기)<br/>'23.5 상업운전</div>
+          </div>
+          <div class="c c-green" style="padding:14px 16px">
+            <div class="c-t" style="font-size:.8125rem">영덕제1풍력 (YD1)</div>
+            <div class="c-d">풍력 77.4MW<br/>'26.2H 상업운전 예정</div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="cl-w cl">AI 활용 기회</div>
+        <ul class="ck">
+          <li><span class="i">&#10003;</span> <strong>풍력 발전량 예측</strong> &mdash; 기상 데이터 기반 발전량 예측 정확도 향상</li>
+          <li><span class="i">&#10003;</span> <strong>ESS 충방전 최적화</strong> &mdash; 에너지저장장치 운영 효율 극대화</li>
+          <li><span class="i">&#10003;</span> <strong>설비 예지정비</strong> &mdash; 터빈 고장 사전 예측 및 다운타임 최소화</li>
+          <li><span class="i">&#10003;</span> <strong>전력 수급 예측</strong> &mdash; SMP/REC 시장 대응 최적 발전 스케줄링</li>
+          <li><span class="i">&#10003;</span> <strong>DX 인재 양성</strong> &mdash; 임직원 AI/데이터 리터러시 교육</li>
+        </ul>
+        <div class="c c-surf" style="margin-top:14px;padding:14px 16px" data-step="3">
+          <div class="c-d"><strong>총 설비용량 203MW+</strong> &mdash; 국내 민간 최대 규모 풍력 사업자</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span class="sf-logo">DACON &middot; DAKER</span><span class="sf-pg">3</span><span class="sf-cr">COPYRIGHT 2026 DACON</span></div>
+</section>
+
+<!-- S4: SECTION DIVIDER - 알고리즘 경진대회 -->
+<section class="slide slide-sec" id="s4">
+  <div class="si">
+    <div class="sn" data-step="1">01</div>
+    <h2 data-step="2">에너지 AI <span class="hl">알고리즘 경진대회</span></h2>
+    <p class="sd" data-step="3">dacon.io 플랫폼 기반 &middot; 풍력 / 태양광 / 전력 수요 예측</p>
+  </div>
+  <div class="sf"><span class="sf-logo">DACON &middot; DAKER</span><span class="sf-pg">4</span><span class="sf-cr">COPYRIGHT 2026 DACON</span></div>
+</section>
+
+<!-- S5: DACON 에너지 대회 실적 -->
+<section class="slide" id="s5">
+  <div class="sh"><span class="sh-l">01 ALGORITHM COMPETITION &mdash; TRACK RECORD</span></div>
+  <div class="si" style="padding-top:72px">
+    <div class="tag">에너지 대회 실적</div>
+    <h2 class="st" data-step="1">데이콘 에너지 분야 <span class="hl">경진대회 히스토리</span></h2>
+    <div data-step="2" style="margin-top:20px;flex:1;overflow:auto">
+      <table class="tb">
+        <tr><th style="width:30%">대회명</th><th style="width:20%">주최</th><th style="width:12%">분야</th><th style="width:20%">핵심 과제</th><th style="width:18%">성과</th></tr>
+        <tr><td><strong>전력 수요량 예측 경진대회</strong></td><td>한국에너지공단</td><td>전력</td><td>28일간 전력 수요량 + SMP 예측</td><td>AI프렌즈 등 우수 알고리즘 발굴</td></tr>
+        <tr><td><strong>태양광 발전량 예측 AI 경진대회</strong></td><td>데이콘</td><td>태양광</td><td>7일 기상 데이터 &rarr; 2일 발전량 예측 (96 스텝)</td><td>재생에너지 예측 모델 다수 도출</td></tr>
+        <tr><td><strong>동서발전 태양광 발전량 예측</strong></td><td>한국동서발전</td><td>태양광</td><td>실제 발전소 데이터 기반 발전량 예측</td><td>현업 적용 가능 모델 발굴</td></tr>
+        <tr><td><strong>풍력 발전량 예측 AI 해커톤</strong></td><td>데이콘</td><td>풍력</td><td>기후 데이터 기반 풍력 발전량 예측</td><td>풍력 예측 알고리즘 고도화</td></tr>
+        <tr><td><strong>전력사용량 예측 AI 경진대회</strong><br/>(2021, 2023, 2025 &mdash; 3회)</td><td>한국에너지공단</td><td>전력</td><td>전력 사용량 시뮬레이션 예측</td><td>에너지 AI 알고리즘 3년 연속 개최</td></tr>
+        <tr><td><strong>원자력연구원 태양광 발전량 예측</strong></td><td>한국원자력연구원</td><td>태양광</td><td>태양광 발전 효율 예측 모델</td><td>국가연구기관 공동 과제 도출</td></tr>
+      </table>
+    </div>
+  </div>
+  <div class="sf"><span class="sf-logo">DACON &middot; DAKER</span><span class="sf-pg">5</span><span class="sf-cr">COPYRIGHT 2026 DACON</span></div>
+</section>
+
+<!-- S6: GS E&R 맞춤 대회 제안 -->
+<section class="slide" id="s6">
+  <div class="sh"><span class="sh-l">01 ALGORITHM COMPETITION &mdash; GS E&R CUSTOMIZED</span></div>
+  <div class="si" style="padding-top:72px">
+    <div class="tag">맞춤 대회 설계</div>
+    <h2 class="st" data-step="1">GS E&R 맞춤 <span class="hl">풍력 AI 경진대회</span> 제안</h2>
+    <div class="g2" style="margin-top:24px;flex:1" data-step="2">
+      <div>
+        <div class="cl">대회 주제 후보</div>
+        <div class="c c-blue" style="margin-bottom:10px">
+          <div class="c-t">&#9312; 풍력 발전량 예측 대회</div>
+          <div class="c-d">영양/영덕 풍력단지 기상 데이터 기반<br/>단기(1~48h) 발전량 예측 알고리즘 발굴</div>
+        </div>
+        <div class="c c-blue" style="margin-bottom:10px">
+          <div class="c-t">&#9313; ESS 충방전 최적화 대회</div>
+          <div class="c-d">풍력 연계 ESS(50.4MWh+) 운영 최적화<br/>전력 시장 가격 연동 수익 극대화</div>
+        </div>
+        <div class="c c-blue">
+          <div class="c-t">&#9314; 풍력터빈 예지정비 대회</div>
+          <div class="c-d">터빈 센서 데이터 기반 고장 예측<br/>유지보수 비용 절감 및 가동률 향상</div>
+        </div>
+      </div>
+      <div>
+        <div class="cl">대회 운영 프레임워크</div>
+        <div class="fr" style="flex-direction:column;gap:10px;align-items:stretch">
+          <div class="c c-surf" style="padding:14px 16px">
+            <div class="c-t" style="font-size:.8125rem">&#128204; 데이터 설계 (1개월)</div>
+            <div class="c-d">GS E&R 실제 데이터 익명화 및 대회용 데이터셋 구축</div>
+          </div>
+          <div class="c c-surf" style="padding:14px 16px">
+            <div class="c-t" style="font-size:.8125rem">&#128640; 대회 운영 (4~8주)</div>
+            <div class="c-d">dacon.io 리더보드 실시간 순위 &middot; 자동 채점 시스템</div>
+          </div>
+          <div class="c c-surf" style="padding:14px 16px">
+            <div class="c-t" style="font-size:.8125rem">&#127942; 평가/시상 (2주)</div>
+            <div class="c-d">상위 모델 코드 리뷰 &middot; 현업 적용 가능성 검증</div>
+          </div>
+          <div class="c c-surf" style="padding:14px 16px">
+            <div class="c-t" style="font-size:.8125rem">&#128218; 성과 이관</div>
+            <div class="c-d">우수 알고리즘 소스코드 + 보고서 &middot; GS E&R 내부 배포</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span class="sf-logo">DACON &middot; DAKER</span><span class="sf-pg">6</span><span class="sf-cr">COPYRIGHT 2026 DACON</span></div>
+</section>
+
+<!-- S7: 알고리즘 대회 기대 효과 -->
+<section class="slide" id="s7">
+  <div class="sh"><span class="sh-l">01 ALGORITHM COMPETITION &mdash; EXPECTED VALUE</span></div>
+  <div class="si" style="padding-top:72px">
+    <div class="tag">기대 효과</div>
+    <h2 class="st" data-step="1">알고리즘 경진대회 <span class="hl">기대 효과</span></h2>
+    <div class="g4" style="margin-top:28px" data-step="2">
+      <div class="mx">
+        <div class="v">50+</div>
+        <div class="l">팀 참가 (평균)</div>
+      </div>
+      <div class="mx">
+        <div class="v">1,000+</div>
+        <div class="l">제출 모델 수</div>
+      </div>
+      <div class="mx">
+        <div class="v">Top 5</div>
+        <div class="l">우수 알고리즘 확보</div>
+      </div>
+      <div class="mx">
+        <div class="v" style="color:var(--green)">현업 적용</div>
+        <div class="l">코드 + 보고서 이관</div>
+      </div>
+    </div>
+    <div class="g3" style="margin-top:24px" data-step="3">
+      <div class="c c-green">
+        <div class="c-t">발전량 예측 정확도 향상</div>
+        <div class="c-d">크라우드소싱 기반 다양한 접근법 도출<br/>앙상블 모델로 단일 모델 대비 정확도 대폭 개선</div>
+      </div>
+      <div class="c c-green">
+        <div class="c-t">GS E&R 기술 브랜딩</div>
+        <div class="c-d">데이터 사이언스 커뮤니티 내 GS E&R 인지도 제고<br/>AI 기술 채용 파이프라인 확보</div>
+      </div>
+      <div class="c c-green">
+        <div class="c-t">비용 효율적 R&D</div>
+        <div class="c-d">외부 전문 인력 크라우드소싱 방식<br/>자체 개발 대비 비용/시간 대폭 절감</div>
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span class="sf-logo">DACON &middot; DAKER</span><span class="sf-pg">7</span><span class="sf-cr">COPYRIGHT 2026 DACON</span></div>
+</section>
+
+<!-- S8: SECTION DIVIDER - DAKER -->
+<section class="slide slide-sec" id="s8">
+  <div class="si">
+    <div class="sn" data-step="1">02</div>
+    <h2 data-step="2">데이커(DAKER) <span class="hl-w">AI 서비스 개발 대회</span></h2>
+    <p class="sd" data-step="3">바이브코딩 해커톤 &middot; 실무형 AI 프로토타입 구현</p>
+  </div>
+  <div class="sf"><span class="sf-logo">DACON &middot; DAKER</span><span class="sf-pg">8</span><span class="sf-cr">COPYRIGHT 2026 DACON</span></div>
+</section>
+
+<!-- S9: DAKER 소개 -->
+<section class="slide" id="s9">
+  <div class="sh"><span class="sh-l">02 DAKER &mdash; PLATFORM</span></div>
+  <div class="si" style="padding-top:72px">
+    <div class="tag tag-w">DAKER</div>
+    <h2 class="st" data-step="1">데이커(DAKER) &mdash; <span class="hl-w">AI 서비스 개발 해커톤 플랫폼</span></h2>
+    <p class="sub" data-step="2">알고리즘이 아닌 <strong>'서비스'</strong>를 만드는 대회 &mdash; 바이브코딩으로 실제 작동하는 AI 프로토타입 구현</p>
+    <div class="tc" style="margin-top:24px" data-step="3">
+      <div>
+        <div class="cl-w cl">DAKER 해커톤 특장점</div>
+        <div class="c c-warm" style="margin-bottom:10px">
+          <div class="c-t">실시간 개발 환경 내장</div>
+          <div class="c-d">브라우저 기반 IDE &middot; AI 코딩 어시스턴트 내장<br/>별도 환경 세팅 없이 즉시 개발 가능</div>
+        </div>
+        <div class="c c-warm" style="margin-bottom:10px">
+          <div class="c-t">갤러리 기반 투표 심사</div>
+          <div class="c-d">참가자/심사위원이 제출된 프로토타입을 직접 체험<br/>ELO 레이팅 + AI 심사 + 전문가 심사 3단계 평가</div>
+        </div>
+        <div class="c c-warm">
+          <div class="c-t">교육 &rarr; 해커톤 연결</div>
+          <div class="c-d">학습 트랙 수강 후 해커톤 참여하는 원스톱 파이프라인<br/>비개발자도 AI 프로토타입 구현 가능</div>
+        </div>
+      </div>
+      <div>
+        <div class="cl-w cl">알고리즘 vs 서비스 대회 비교</div>
+        <table class="tb">
+          <tr><th>항목</th><th>DACON 알고리즘</th><th>DAKER 서비스</th></tr>
+          <tr><td>결과물</td><td>예측 모델 (코드)</td><td>작동하는 AI 서비스</td></tr>
+          <tr><td>참가 대상</td><td>데이터 사이언티스트</td><td>전 임직원 (비개발자 포함)</td></tr>
+          <tr><td>평가 기준</td><td>정확도 (리더보드)</td><td>완성도/혁신성 (투표+심사)</td></tr>
+          <tr><td>핵심 기술</td><td>ML/DL 알고리즘</td><td>바이브코딩/프롬프트</td></tr>
+          <tr><td>소요 기간</td><td>4~8주</td><td>3~7일 (집중형)</td></tr>
+          <tr><td>현업 적용</td><td>모델 배포</td><td>PoC/MVP 즉시 활용</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span class="sf-logo">DACON &middot; DAKER</span><span class="sf-pg">9</span><span class="sf-cr">COPYRIGHT 2026 DACON</span></div>
+</section>
+
+<!-- S10: GS E&R DAKER 해커톤 제안 -->
+<section class="slide" id="s10">
+  <div class="sh"><span class="sh-l">02 DAKER &mdash; GS E&R HACKATHON</span></div>
+  <div class="si" style="padding-top:72px">
+    <div class="tag tag-w">GS E&R 맞춤 해커톤</div>
+    <h2 class="st" data-step="1">GS E&R <span class="hl-w">바이브코딩 해커톤</span> 주제 예시</h2>
+    <div class="g3" style="margin-top:24px;flex:1" data-step="2">
+      <div class="c c-warm" style="display:flex;flex-direction:column">
+        <div class="ic ic-w">A</div>
+        <div class="c-t">풍력 발전 모니터링 대시보드</div>
+        <div class="c-d" style="flex:1">영양/영덕 풍력단지 실시간 발전량 모니터링<br/>AI 이상 감지 알림 서비스<br/>기상 데이터 연동 예측 시각화</div>
+        <div class="bd-w bd" style="margin-top:12px">비개발자 참여 가능</div>
+      </div>
+      <div class="c c-warm" style="display:flex;flex-direction:column">
+        <div class="ic ic-w">B</div>
+        <div class="c-t">에너지 전환 시뮬레이터</div>
+        <div class="c-d" style="flex:1">신규 풍력단지 입지 평가 도구<br/>ROI 시뮬레이션 &middot; 탄소 감축량 산출<br/>투자 의사결정 지원 AI 서비스</div>
+        <div class="bd-w bd" style="margin-top:12px">경영/기획 직군 참여</div>
+      </div>
+      <div class="c c-warm" style="display:flex;flex-direction:column">
+        <div class="ic ic-w">C</div>
+        <div class="c-t">스마트 안전관리 서비스</div>
+        <div class="c-d" style="flex:1">풍력터빈 점검 체크리스트 자동화<br/>위험 상황 예측 및 알림<br/>작업자 안전교육 AI 어시스턴트</div>
+        <div class="bd-w bd" style="margin-top:12px">현장 직군 참여</div>
+      </div>
+    </div>
+    <div class="c c-surf" style="margin-top:14px;text-align:center" data-step="3">
+      <div class="c-d"><strong>해커톤 기간:</strong> 교육 1~2일 + 해커톤 1~2일 = 총 2~4일 집중 프로그램 &nbsp;|&nbsp; <strong>참여 대상:</strong> GS E&R &middot; GS풍력발전 전 임직원</div>
+    </div>
+  </div>
+  <div class="sf"><span class="sf-logo">DACON &middot; DAKER</span><span class="sf-pg">10</span><span class="sf-cr">COPYRIGHT 2026 DACON</span></div>
+</section>
+
+<!-- S11: SECTION DIVIDER - 교육 -->
+<section class="slide slide-sec" id="s11">
+  <div class="si">
+    <div class="sn" data-step="1">03</div>
+    <h2 data-step="2">AI/DX <span class="hl">교육 통합 서비스</span></h2>
+    <p class="sd" data-step="3">데이스쿨(DASCHOOL) 기반 &middot; 맞춤형 기업 교육 프로그램</p>
+  </div>
+  <div class="sf"><span class="sf-logo">DACON &middot; DAKER</span><span class="sf-pg">11</span><span class="sf-cr">COPYRIGHT 2026 DACON</span></div>
+</section>
+
+<!-- S12: 교육 서비스 -->
+<section class="slide" id="s12">
+  <div class="sh"><span class="sh-l">03 EDUCATION &mdash; DASCHOOL</span></div>
+  <div class="si" style="padding-top:72px">
+    <div class="tag">교육 서비스</div>
+    <h2 class="st" data-step="1">GS E&R 맞춤 <span class="hl">AI/DX 교육 프로그램</span></h2>
+    <div class="tc" style="margin-top:24px" data-step="2">
+      <div>
+        <div class="cl">직군별 교육 과정 설계</div>
+        <div class="c c-blue" style="margin-bottom:10px">
+          <div class="c-t">&#128187; DX/IT팀 &middot; 데이터 분석가</div>
+          <div class="c-d">ML/DL 심화 과정 &middot; 에너지 데이터 분석 실습<br/>풍력/태양광 예측 모델 구현 워크숍</div>
+        </div>
+        <div class="c c-blue" style="margin-bottom:10px">
+          <div class="c-t">&#128736; 발전소 운영/엔지니어</div>
+          <div class="c-d">AI 기반 설비 모니터링 실습<br/>예지정비 데이터 분석 기초</div>
+        </div>
+        <div class="c c-blue" style="margin-bottom:10px">
+          <div class="c-t">&#128188; 경영/기획 직군</div>
+          <div class="c-d">AI 리터러시 &middot; 바이브코딩 입문<br/>프롬프트 엔지니어링 &middot; 업무 자동화</div>
+        </div>
+        <div class="c c-blue">
+          <div class="c-t">&#128101; 전 임직원</div>
+          <div class="c-d">생성형 AI 활용 교육<br/>ChatGPT/Claude 업무 적용 실습</div>
+        </div>
+      </div>
+      <div>
+        <div class="cl">교육 운영 방식</div>
+        <div class="fr" style="flex-direction:column;gap:10px;align-items:stretch">
+          <div class="c c-surf" style="padding:14px 16px">
+            <div class="c-t" style="font-size:.8125rem">온라인 자기주도 학습</div>
+            <div class="c-d">데이스쿨 LMS 기반 &middot; 동영상 강의 + 실습 과제<br/>수강 진도/완료율 관리자 대시보드</div>
+          </div>
+          <div class="c c-surf" style="padding:14px 16px">
+            <div class="c-t" style="font-size:.8125rem">오프라인 집중 워크숍</div>
+            <div class="c-d">1~2일 집중 교육 &middot; GS E&R 실 데이터 활용 실습<br/>전문 강사 파견 (데이콘 소속)</div>
+          </div>
+          <div class="c c-surf" style="padding:14px 16px">
+            <div class="c-t" style="font-size:.8125rem">교육 &rarr; 해커톤 연계</div>
+            <div class="c-d">교육 수료 후 DAKER 해커톤 참여 자동 연결<br/>학습 성과를 실전에서 즉시 검증</div>
+          </div>
+        </div>
+        <div class="g3" style="margin-top:14px" data-step="3">
+          <div class="mx">
+            <div class="v">LG</div>
+            <div class="l">AI연구원 교육 파트너</div>
+          </div>
+          <div class="mx">
+            <div class="v">KT</div>
+            <div class="l">에이블스쿨 운영</div>
+          </div>
+          <div class="mx">
+            <div class="v">삼성</div>
+            <div class="l">DX 교육 다수 수행</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span class="sf-logo">DACON &middot; DAKER</span><span class="sf-pg">12</span><span class="sf-cr">COPYRIGHT 2026 DACON</span></div>
+</section>
+
+<!-- S13: 통합 로드맵 -->
+<section class="slide" id="s13">
+  <div class="sh"><span class="sh-l">INTEGRATED ROADMAP</span></div>
+  <div class="si" style="padding-top:72px">
+    <div class="tag">통합 로드맵</div>
+    <h2 class="st" data-step="1">GS E&R <span class="hl">AI 역량 강화 로드맵</span></h2>
+    <p class="sub" data-step="2">교육 &rarr; 해커톤 &rarr; 경진대회의 3단계 파이프라인으로 지속적 AI 역량 성장</p>
+    <div class="fr" style="margin-top:28px;gap:4px" data-step="3">
+      <div class="fb fb-p">
+        <div class="fl" style="font-weight:800;color:var(--primary)">STEP 1</div>
+        <div class="fl" style="margin-top:4px">AI/DX 교육</div>
+        <div class="fd">전 임직원 AI 리터러시<br/>바이브코딩 입문<br/>2~4주</div>
+      </div>
+      <div class="fa">&rarr;</div>
+      <div class="fb" style="background:var(--accent-warm-bg)">
+        <div class="fl" style="font-weight:800;color:var(--accent-warm)">STEP 2</div>
+        <div class="fl" style="margin-top:4px">DAKER 해커톤</div>
+        <div class="fd">바이브코딩 해커톤<br/>AI 프로토타입 경쟁<br/>2~4일</div>
+      </div>
+      <div class="fa">&rarr;</div>
+      <div class="fb fb-p">
+        <div class="fl" style="font-weight:800;color:var(--primary)">STEP 3</div>
+        <div class="fl" style="margin-top:4px">알고리즘 경진대회</div>
+        <div class="fd">풍력 발전량 예측<br/>오픈 크라우드소싱<br/>4~8주</div>
+      </div>
+      <div class="fa">&rarr;</div>
+      <div class="fb" style="background:var(--green-bg)">
+        <div class="fl" style="font-weight:800;color:var(--green)">OUTCOME</div>
+        <div class="fl" style="margin-top:4px">AI 내재화</div>
+        <div class="fd">우수 모델 현업 배포<br/>프로토타입 고도화<br/>DX 인재풀 확보</div>
+      </div>
+    </div>
+    <div class="g3" style="margin-top:28px" data-step="4">
+      <div class="c c-blue">
+        <div class="c-t">단기 (Q3 2026)</div>
+        <div class="c-d">AI 리터러시 교육 + 바이브코딩 해커톤<br/>전 임직원 AI 체험 &middot; DX 문화 확산</div>
+      </div>
+      <div class="c c-warm">
+        <div class="c-t">중기 (Q4 2026)</div>
+        <div class="c-d">풍력 발전량 예측 알고리즘 경진대회 개최<br/>외부 AI 인재 활용 &middot; 예측 모델 확보</div>
+      </div>
+      <div class="c c-green">
+        <div class="c-t">장기 (2027~)</div>
+        <div class="c-d">ESS 최적화 / 예지정비 고도화 대회<br/>연간 AI 대회 시리즈 &middot; 지속적 혁신</div>
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span class="sf-logo">DACON &middot; DAKER</span><span class="sf-pg">13</span><span class="sf-cr">COPYRIGHT 2026 DACON</span></div>
+</section>
+
+<!-- S14: DACON 소개 -->
+<section class="slide" id="s14">
+  <div class="sh"><span class="sh-l">ABOUT DACON</span></div>
+  <div class="si" style="padding-top:72px">
+    <div class="tag">회사 소개</div>
+    <h2 class="st" data-step="1">데이콘(DACON) &mdash; <span class="hl">대한민국 AI 경진대회 1위 플랫폼</span></h2>
+    <div class="g4" style="margin-top:24px" data-step="2">
+      <div class="mx">
+        <div class="v">2018~</div>
+        <div class="l">설립 8년차</div>
+      </div>
+      <div class="mx">
+        <div class="v">300+</div>
+        <div class="l">경진대회 개최</div>
+      </div>
+      <div class="mx">
+        <div class="v">40만+</div>
+        <div class="l">누적 회원 수</div>
+      </div>
+      <div class="mx">
+        <div class="v">304곳</div>
+        <div class="l">고객사 (7년간)</div>
+      </div>
+    </div>
+    <div class="g3" style="margin-top:20px" data-step="3">
+      <div class="c c-surf">
+        <div class="c-t">에너지 / 공공</div>
+        <div class="c-d">한국에너지공단, 한국동서발전, 한국남부발전,<br/>한국원자력연구원, 금융보안원, 국토연구원</div>
+      </div>
+      <div class="c c-surf">
+        <div class="c-t">대기업 / 금융</div>
+        <div class="c-d">삼성전자, LG AI연구원, KT, SK,<br/>KB금융, JB금융, 현대NGV, 두산</div>
+      </div>
+      <div class="c c-surf">
+        <div class="c-t">교육 / 연구</div>
+        <div class="c-d">서울대, 단국대, SW중심대학사업단,<br/>ETRI, KISTI, SW마에스트로</div>
+      </div>
+    </div>
+    <div class="c c-blue" style="margin-top:16px;text-align:center" data-step="4">
+      <div class="c-d"><strong>dacon.io</strong> &mdash; 알고리즘 경진대회 &nbsp;&nbsp;|&nbsp;&nbsp; <strong>daker.ai</strong> &mdash; AI 서비스 개발 해커톤 &nbsp;&nbsp;|&nbsp;&nbsp; <strong>daschool.io</strong> &mdash; AI/DX 교육 플랫폼</div>
+    </div>
+  </div>
+  <div class="sf"><span class="sf-logo">DACON &middot; DAKER</span><span class="sf-pg">14</span><span class="sf-cr">COPYRIGHT 2026 DACON</span></div>
+</section>
+
+<!-- S15: ENDING -->
+<section class="slide slide-end" id="s15">
+  <div class="si" style="background:linear-gradient(135deg,var(--surface) 0%,var(--secondary-container) 100%)">
+    <div class="end-logo" data-step="1">DAKER &middot; DACON</div>
+    <h1 data-step="2">GS E&R의 <span style="color:var(--green)">에너지 AI 혁신</span>을<br/><span class="hl">함께 만들겠습니다</span></h1>
+    <p class="end-sub" data-step="3">풍력 &middot; 태양광 &middot; 전력 &mdash; 에너지 AI 경진대회 전문 파트너<br/>알고리즘(정밀도) + 바이브코딩(속도) + 교육(내재화)</p>
+    <div data-step="4" style="margin-top:28px;display:flex;gap:14px">
+      <a href="https://daker.ai/public/surveys/dacon-ai-competition-host-custom-planning-survey/respond" target="_blank" style="padding:10px 24px;border-radius:var(--r-md);background:linear-gradient(135deg,var(--primary),var(--primary-dim));color:var(--on-primary);font-size:.875rem;font-weight:700;text-decoration:none">미팅 요청</a>
+      <a href="https://daker.ai" target="_blank" style="padding:10px 24px;border-radius:var(--r-md);background:var(--surface-low);color:var(--on-surface-variant);font-size:.875rem;font-weight:600;text-decoration:none">daker.ai</a>
+      <a href="https://dacon.io" target="_blank" style="padding:10px 24px;border-radius:var(--r-md);background:var(--surface-low);color:var(--on-surface-variant);font-size:.875rem;font-weight:600;text-decoration:none">dacon.io</a>
+    </div>
+    <div data-step="5" style="margin-top:32px;background:var(--surface-lowest);border-radius:var(--r-lg);padding:18px 28px;display:inline-flex;flex-direction:column;gap:4px">
+      <div style="font-size:.8125rem;font-weight:700;color:var(--on-surface)">Contact</div>
+      <div style="font-size:.75rem;color:var(--on-surface-variant);line-height:1.6">
+        담당자: 김국진 | edgar@dacon.io | 010-6338-1041
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span class="sf-logo">DACON &middot; DAKER</span><span class="sf-pg"></span><span class="sf-cr">COPYRIGHT 2026 DACON</span></div>
+</section>
+
+</div></div>
+<button class="nav-btn" id="nav-prev">&#8249;</button>
+<button class="nav-btn" id="nav-next">&#8250;</button>
+<div id="progress-bar" style="width:0%"></div>
+<div id="key-hint">Arrow keys or click to navigate</div>
+<script>
+(function(){
+  const slides = document.querySelectorAll('.slide'), total = slides.length;
+  let cur = 0, busy = false;
+  const progBar = document.getElementById('progress-bar');
+  function updateUI() {
+    progBar.style.width = ((cur + 1) / total) * 100 + '%';
+    history.replaceState(null, '', '#slide-' + (cur + 1));
+  }
+  function revealSteps(s) {
+    const steps = [...s.querySelectorAll('[data-step]')].sort((a, b) => +a.dataset.step - +b.dataset.step);
+    steps.forEach((el, i) => setTimeout(() => el.classList.add('visible'), 70 * (i + 1)));
+  }
+  function hideSteps(s) { s.querySelectorAll('[data-step]').forEach(el => el.classList.remove('visible', 'pre-visible')); }
+  function preReveal(s) { s.querySelectorAll('[data-step]').forEach(el => el.classList.add('pre-visible')); }
+  function goTo(idx) {
+    if (busy || idx < 0 || idx >= total || idx === cur) return;
+    busy = true;
+    hideSteps(slides[cur]); slides[cur].classList.remove('active');
+    if (idx < cur) preReveal(slides[idx]);
+    slides[idx].classList.add('active');
+    if (idx >= cur) revealSteps(slides[idx]);
+    cur = idx; updateUI();
+    setTimeout(() => { busy = false; }, 400);
+  }
+  preReveal(slides[0]); updateUI();
+  function fit() { const s = document.getElementById('stage'); const sc = Math.min(window.innerWidth / 1280, window.innerHeight / 720, 1); s.style.transform = 'scale(' + sc + ')'; }
+  fit(); window.addEventListener('resize', fit);
+  document.addEventListener('keydown', e => {
+    if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+    switch (e.key) {
+      case 'ArrowRight': case 'ArrowDown': case ' ': case 'PageDown': e.preventDefault(); goTo(cur + 1); break;
+      case 'ArrowLeft': case 'ArrowUp': case 'PageUp': case 'Backspace': e.preventDefault(); goTo(cur - 1); break;
+      case 'Home': e.preventDefault(); goTo(0); break;
+      case 'End': e.preventDefault(); goTo(total - 1); break;
+      case 'f': case 'F': e.preventDefault(); document.fullscreenElement ? document.exitFullscreen?.() : document.documentElement.requestFullscreen?.(); break;
+      case 'Escape': if (document.fullscreenElement) document.exitFullscreen(); break;
+    }
+  });
+  let tx, ty, tt;
+  const vp = document.getElementById('viewport');
+  vp.addEventListener('touchstart', e => { tx = e.changedTouches[0].pageX; ty = e.changedTouches[0].pageY; tt = Date.now(); }, { passive: true });
+  vp.addEventListener('touchend', e => { const dx = e.changedTouches[0].pageX - tx, dy = e.changedTouches[0].pageY - ty; if (Date.now() - tt < 300 && Math.abs(dx) > 50 && Math.abs(dy) < 100) dx < 0 ? goTo(cur + 1) : goTo(cur - 1); }, { passive: true });
+  document.getElementById('nav-prev').addEventListener('click', () => goTo(cur - 1));
+  document.getElementById('nav-next').addEventListener('click', () => goTo(cur + 1));
+  const m = location.hash.match(/#slide-(\d+)/);
+  if (m) { const idx = +m[1] - 1; if (idx > 0 && idx < total) { slides[0].classList.remove('active'); hideSteps(slides[0]); preReveal(slides[idx]); slides[idx].classList.add('active'); cur = idx; updateUI(); } }
+})();
+</script>
+</body>
+</html>
