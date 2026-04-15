@@ -446,10 +446,68 @@ client/src/hooks/useMentoring*
       </div>
     </div>
   </div>
-  <div class="sf"><span class="brand">DACON · DAKER</span><span class="pg">07 / 14</span><span>Entry flow</span></div>
+  <div class="sf"><span class="brand">DACON · DAKER</span><span class="pg">07 / 15</span><span>Entry flow</span></div>
 </section>
 
-<!-- ============ S8 CP 세션 실행 플로우 (SSE) ============ -->
+<!-- ============ S8 동의서 상세 ============ -->
+<section class="slide">
+  <div class="sh"><span class="sh-l">CONSENT DETAIL</span><span>8 필수 + 1 선택 · 버전 관리</span></div>
+  <div class="si">
+    <div class="tag">CONSENT CONTENT</div>
+    <h2 class="st">동의서 8개 필수 섹션 + 1 선택 · <span class="hl">v1.0 (2026-04-14)</span></h2>
+
+    <table class="tb" style="margin-top:10px">
+      <thead>
+        <tr><th style="width:5%">#</th><th style="width:14%">key</th><th style="width:18%">제목</th><th style="width:8%">필수</th><th>핵심 내용</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>1</td><td><code>collect</code></td><td>개인정보 수집·이용</td><td><span class="badge r">필수</span></td><td>팀장·팀원 성명·역할·기술스택·가용시간·대화·리포트. 해커톤 종료 후 1년 보존</td></tr>
+        <tr><td>2</td><td><code>overseas</code></td><td>국외 이전</td><td><span class="badge r">필수</span></td><td>Google LLC(미국)로 메시지 전송. 모델 학습 미사용 (Vertex AI/Gemini API 정책)</td></tr>
+        <tr><td>3</td><td><code>teamShare</code></td><td>팀원 정보 공유</td><td><span class="badge r">필수</span></td><td>팀장이 팀원 정보 AI 제공 시 팀원 전원 공유. 팀원 고지 완료 확인</td></tr>
+        <tr><td>4</td><td><code>forbidden</code></td><td>금지 입력</td><td><span class="badge r">필수</span></td><td>주민번호·건강·금융·제3자 정보·유해 콘텐츠 입력 금지. 위반 책임 본인</td></tr>
+        <tr><td>5</td><td><code>disclaimer</code></td><td>AI 한계·면책</td><td><span class="badge r">필수</span></td><td>참고용 · 법률/의료/재무 자문 아님 · 환각 가능 · DAKER/주최측 면책</td></tr>
+        <tr><td>6</td><td><code>ip</code></td><td>저작권·산출물</td><td><span class="badge r">필수</span></td><td>입력 메시지 저작권 본인 귀속. AI 리포트 자유 활용, 제출물에 자동 포함 X</td></tr>
+        <tr><td>7</td><td><code>adminAccess</code></td><td>운영자 열람</td><td><span class="badge r">필수</span></td><td>운영자는 리포트만 접근. 대화 전문 열람은 별도 고지</td></tr>
+        <tr><td>8</td><td><code>minorConsented</code></td><td>연령 확인</td><td><span class="badge r">필수</span></td><td>만 14세 이상 또는 법정대리인 동의</td></tr>
+        <tr><td>9</td><td><code>marketing</code></td><td>마케팅 활용</td><td><span class="badge g">선택</span></td><td>체크 안 해도 멘토링 이용 가능. 사례 연구 · 홍보 활용 동의 (선택)</td></tr>
+      </tbody>
+    </table>
+
+    <div class="g3" style="margin-top:14px">
+      <div class="c c-p">
+        <div class="c-t">🏷 버전 관리</div>
+        <ul>
+          <li><code>CURRENT_MENTORING_CONSENT_VERSION = 'v1.0'</code></li>
+          <li>단일 소스: <code>shared/schema/mentoring.ts</code></li>
+          <li>서버·클라이언트 동일 import → drift 방지</li>
+          <li>버전↑ 시 기존 사용자 재동의 모달 (법령 변경 안내)</li>
+        </ul>
+      </div>
+      <div class="c c-w">
+        <div class="c-t">🗄 저장 스키마 — mentoring_consents</div>
+        <div class="c-dd" style="font-family:var(--mono);font-size:.6875rem;line-height:1.65">
+          id · userId(FK) · <strong style="color:var(--warm)">version</strong> · consentedAt · revokedAt<br>
+          ipAddress · userAgent · <strong style="color:var(--warm)">sectionsJson(JSONB)</strong>
+        </div>
+        <div style="margin-top:6px;font-size:.6875rem;color:var(--on-variant)">
+          유니크: <code>(userId, version)</code> — 버전당 1회 기록
+        </div>
+      </div>
+      <div class="c c-g">
+        <div class="c-t">🔐 API · 게이트</div>
+        <ul>
+          <li><code>GET /api/mentoring/consents/me</code></li>
+          <li><code>POST /api/mentoring/consents</code></li>
+          <li>세션 생성 시 서버 검증 → <strong>403 CONSENT_REQUIRED</strong></li>
+          <li>테스트: <strong>9/9 통과</strong> (consents 7 + gate 2)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span class="brand">DACON · DAKER</span><span class="pg">08 / 15</span><span>Consent detail</span></div>
+</section>
+
+<!-- ============ S9 CP 세션 실행 플로우 (SSE) ============ -->
 <section class="slide">
   <div class="sh"><span class="sh-l">SESSION EXECUTION</span><span>SSE 스트리밍 흐름</span></div>
   <div class="si">
@@ -504,7 +562,7 @@ POST /.../messages?stream=false
       <div class="mx"><div class="v g">30s</div><div class="l">API 타임아웃</div></div>
     </div>
   </div>
-  <div class="sf"><span class="brand">DACON · DAKER</span><span class="pg">08 / 14</span><span>SSE flow</span></div>
+  <div class="sf"><span class="brand">DACON · DAKER</span><span class="pg">09 / 15</span><span>SSE flow</span></div>
 </section>
 
 <!-- ============ S9 UI — CheckpointCard ============ -->
@@ -546,7 +604,7 @@ POST /.../messages?stream=false
       </div>
     </div>
   </div>
-  <div class="sf"><span class="brand">DACON · DAKER</span><span class="pg">09 / 14</span><span>UI · CheckpointCard</span></div>
+  <div class="sf"><span class="brand">DACON · DAKER</span><span class="pg">10 / 15</span><span>UI · CheckpointCard</span></div>
 </section>
 
 <!-- ============ S10 UI — MentoringChat ============ -->
@@ -603,7 +661,7 @@ POST /.../messages?stream=false
       </div>
     </div>
   </div>
-  <div class="sf"><span class="brand">DACON · DAKER</span><span class="pg">10 / 14</span><span>UI · MentoringChat</span></div>
+  <div class="sf"><span class="brand">DACON · DAKER</span><span class="pg">11 / 15</span><span>UI · MentoringChat</span></div>
 </section>
 
 <!-- ============ S11 UI — Report / Feedback ============ -->
@@ -651,7 +709,7 @@ POST /.../messages?stream=false
       </div>
     </div>
   </div>
-  <div class="sf"><span class="brand">DACON · DAKER</span><span class="pg">11 / 14</span><span>UI · Report &amp; Feedback</span></div>
+  <div class="sf"><span class="brand">DACON · DAKER</span><span class="pg">12 / 15</span><span>UI · Report &amp; Feedback</span></div>
 </section>
 
 <!-- ============ S12 관리자 제어 ============ -->
@@ -708,7 +766,7 @@ POST /.../messages?stream=false
       </div>
     </div>
   </div>
-  <div class="sf"><span class="brand">DACON · DAKER</span><span class="pg">12 / 14</span><span>Admin control</span></div>
+  <div class="sf"><span class="brand">DACON · DAKER</span><span class="pg">13 / 15</span><span>Admin control</span></div>
 </section>
 
 <!-- ============ S13 데이터 모델 + 가드레일 ============ -->
@@ -757,7 +815,7 @@ POST /.../messages?stream=false
       </div>
     </div>
   </div>
-  <div class="sf"><span class="brand">DACON · DAKER</span><span class="pg">13 / 14</span><span>Data &amp; guardrails</span></div>
+  <div class="sf"><span class="brand">DACON · DAKER</span><span class="pg">14 / 15</span><span>Data &amp; guardrails</span></div>
 </section>
 
 <!-- ============ S14 ENDING ============ -->
@@ -774,7 +832,7 @@ POST /.../messages?stream=false
       <strong class="hl-w">docs/01-plan/features/ai-mentoring.plan.md</strong> · <strong class="hl-w">docs/02-design/features/ai-mentoring.design.md</strong>
     </div>
   </div>
-  <div class="sf"><span class="brand">DACON · DAKER</span><span class="pg">14 / 14</span><span>Thank you</span></div>
+  <div class="sf"><span class="brand">DACON · DAKER</span><span class="pg">15 / 15</span><span>Thank you</span></div>
 </section>
 
 </div></div>
