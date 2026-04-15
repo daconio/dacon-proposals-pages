@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>DAKER AI 멘토링 — 개념·프로세스·UI 개요</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --primary:#1E3A8A;--primary-d:#162B66;--primary-light:#dbe3f4;
+  --warm:#c2622d;--warm-bg:rgba(194,98,45,.08);--warm-light:#f5dccb;
+  --dark:#0f172a;--on-surface:#0f172a;--on-variant:#475569;
+  --surface:#ffffff;--surface-low:#f1f5f9;--outline:#94a3b8;--outline-d:rgba(148,163,184,.2);
+  --green:#0a8e6b;--green-bg:rgba(10,142,107,.08);
+  --red:#b91c1c;--red-bg:rgba(185,28,28,.08);
+  --font:'Plus Jakarta Sans','Pretendard Variable',Pretendard,-apple-system,system-ui,sans-serif;
+  --mono:'SF Mono',Menlo,Consolas,monospace;
+  --shadow-ambient:0 8px 24px rgba(30,41,59,0.04);
+  --r-sm:.25rem;--r-md:.375rem;--r-lg:.75rem;--r-xl:1rem;
+  --slide-w:1280px;--slide-h:720px;
+}
+html,body{width:100%;height:100%;font-family:var(--font);color:var(--on-surface);background:#e2e8f0;overflow:hidden;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+#viewport{position:fixed;inset:0;display:flex;align-items:center;justify-content:center}
+#stage{position:relative;width:var(--slide-w);height:var(--slide-h);overflow:hidden;transform-origin:center;border-radius:var(--r-lg);box-shadow:0 12px 48px rgba(30,41,59,0.15);background:var(--surface)}
+
+.slide{position:absolute;inset:0;background:var(--surface);display:flex;flex-direction:column;opacity:0;pointer-events:none;transition:opacity 0s;overflow:hidden}
+.slide.active{opacity:1;pointer-events:auto}
+
+.sh{position:absolute;top:0;left:0;right:0;height:44px;padding:0 32px;display:flex;justify-content:space-between;align-items:center;background:rgba(255,255,255,.95);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-bottom:1px solid var(--outline-d);z-index:2}
+.sh-l{font-size:.8125rem;font-weight:700;color:var(--primary);letter-spacing:.06em;text-transform:uppercase}
+.sh span:last-child{font-size:.6875rem;font-weight:700;color:var(--outline);letter-spacing:.08em;text-transform:uppercase}
+.sf{position:absolute;bottom:0;left:0;right:0;height:36px;padding:0 32px;display:flex;justify-content:space-between;align-items:center;background:rgba(255,255,255,.95);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-top:1px solid rgba(148,163,184,.15);z-index:2}
+.sf .pg{font-size:.6875rem;color:var(--on-variant);font-weight:600;font-family:var(--mono)}
+.sf .brand{font-size:.75rem;font-weight:700;color:var(--primary);letter-spacing:.08em}
+.sf span:last-child{font-size:.5625rem;color:var(--outline);letter-spacing:.03em;font-weight:600;text-transform:uppercase}
+
+.si{flex:1;display:flex;flex-direction:column;padding:62px 72px 48px;position:relative;margin-top:0}
+
+.tag{display:inline-flex;align-items:center;gap:8px;font-size:.6875rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--primary);margin-bottom:12px}
+.tag::before{content:'';width:24px;height:2.5px;background:var(--primary);border-radius:2px}
+.tag.w{color:var(--warm)}.tag.w::before{background:var(--warm)}
+.tag.g{color:var(--green)}.tag.g::before{background:var(--green)}
+h1.st{font-size:2rem;font-weight:800;color:var(--on-surface);letter-spacing:-.02em;line-height:1.2}
+h2.st{font-size:1.75rem;font-weight:800;color:var(--on-surface);letter-spacing:-.02em;line-height:1.2}
+.sub{margin-top:8px;font-size:.875rem;color:var(--on-variant);line-height:1.65}
+.hl{color:var(--primary);font-weight:700}
+.hl-w{color:var(--warm);font-weight:700}
+.hl-g{color:var(--green);font-weight:700}
+
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.g5{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
+.c{background:var(--surface);border:1px solid rgba(148,163,184,.2);border-radius:var(--r-lg);padding:16px}
+.c-p{background:var(--primary-light);border:none}
+.c-w{background:var(--warm-bg);border:none}
+.c-g{background:var(--green-bg);border:none}
+.c-r{background:var(--red-bg);border:none}
+.c-d{background:var(--dark);color:#fff;border:none}
+.c-d .c-t,.c-d .c-dt{color:#fff}.c-d .c-dd{color:#cbd5e1}
+.c .c-t{font-size:.8125rem;font-weight:700;color:var(--on-surface);margin-bottom:6px}
+.c .c-dt{font-size:.9375rem;font-weight:800;color:var(--on-surface);margin-bottom:6px;letter-spacing:-.01em}
+.c .c-dd{font-size:.75rem;color:var(--on-variant);line-height:1.6}
+.c ul{list-style:none;margin-top:6px}
+.c ul li{position:relative;padding-left:14px;font-size:.75rem;color:var(--on-variant);line-height:1.7}
+.c ul li::before{content:'';position:absolute;left:0;top:9px;width:5px;height:5px;border-radius:50%;background:var(--primary)}
+.c-w ul li::before{background:var(--warm)}
+.c-g ul li::before{background:var(--green)}
+.c-r ul li::before{background:var(--red)}
+.c-d ul li::before{background:#fff}
+
+.mx{text-align:center;padding:14px 10px;background:var(--surface-low);border-radius:var(--r-lg)}
+.mx .v{font-size:1.5rem;font-weight:800;color:var(--primary);line-height:1;letter-spacing:-.02em}
+.mx .v.w{color:var(--warm)}.mx .v.g{color:var(--green)}.mx .v.r{color:var(--red)}
+.mx .l{font-size:.625rem;color:var(--on-variant);margin-top:4px;font-weight:500}
+
+.tb{width:100%;border-collapse:collapse;font-size:.75rem;margin-top:8px}
+.tb th{background:var(--surface-low);color:var(--on-surface);padding:8px 12px;text-align:left;font-size:.6875rem;font-weight:700;border:none;border-bottom:2px solid var(--primary)}
+.tb td{padding:7px 12px;border:none;border-bottom:1px solid rgba(148,163,184,.15);color:var(--on-variant);vertical-align:top;line-height:1.6}
+.tb tr:last-child td{border-bottom:none}
+.tb td code{font-family:var(--mono);font-size:.6875rem;color:var(--primary);background:var(--primary-light);padding:1px 5px;border-radius:3px}
+
+pre.code{background:#0f172a;color:#e2e8f0;border-radius:var(--r-md);padding:14px 18px;font-family:var(--mono);font-size:.6875rem;line-height:1.6;overflow:auto;white-space:pre}
+pre.code .kw{color:#fbbf24}
+pre.code .ok{color:#10b981}
+pre.code .pp{color:#a5b4fc}
+pre.code .cm{color:#64748b}
+
+.flow{display:flex;align-items:stretch;gap:0;margin-top:12px}
+.flow-step{flex:1;background:var(--surface);border:1px solid rgba(148,163,184,.2);border-radius:var(--r-lg);padding:12px;position:relative}
+.flow-step.p{border-top:3px solid var(--primary)}
+.flow-step.b{border-top:3px solid #3b82f6}
+.flow-step.w{border-top:3px solid var(--warm)}
+.flow-step.g{border-top:3px solid var(--green)}
+.flow-step.r{border-top:3px solid var(--red)}
+.flow-arr{display:flex;align-items:center;color:var(--outline);font-size:16px;font-weight:800;padding:0 6px}
+.flow-num{font-size:.5625rem;font-weight:800;letter-spacing:.12em;color:var(--primary);margin-bottom:3px}
+.flow-num.b{color:#3b82f6}.flow-num.w{color:var(--warm)}.flow-num.g{color:var(--green)}.flow-num.r{color:var(--red)}
+.flow-title{font-size:.8125rem;font-weight:800;color:var(--on-surface);margin-bottom:4px;line-height:1.3}
+.flow-desc{font-size:.6875rem;color:var(--on-variant);line-height:1.55}
+
+/* CheckpointCard UI mock */
+.cpcard{background:#fff;border:1px solid rgba(148,163,184,.25);border-radius:var(--r-lg);padding:14px;position:relative;min-height:150px;display:flex;flex-direction:column}
+.cpcard.done{background:var(--green-bg);border-color:var(--green)}
+.cpcard.avail{background:var(--primary-light);border-color:var(--primary)}
+.cpcard.lock{background:var(--surface-low);opacity:.72}
+.cpcard .cp-st{font-size:.625rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;margin-bottom:6px}
+.cpcard.done .cp-st{color:var(--green)}
+.cpcard.avail .cp-st{color:var(--primary)}
+.cpcard.lock .cp-st{color:var(--outline)}
+.cpcard .cp-title{font-size:.875rem;font-weight:800;color:var(--on-surface);margin-bottom:4px}
+.cpcard .cp-meta{font-size:.6875rem;color:var(--on-variant);line-height:1.55;flex:1}
+.cpcard .cp-btn{margin-top:10px;display:inline-block;padding:6px 12px;border-radius:var(--r-md);font-size:.6875rem;font-weight:700;text-align:center}
+.cpcard.done .cp-btn{background:#fff;border:1px solid var(--green);color:var(--green)}
+.cpcard.avail .cp-btn{background:var(--primary);color:#fff}
+.cpcard .stars{color:#f59e0b;font-size:.75rem;margin-top:2px}
+
+/* Chat UI mock */
+.chat{background:#fff;border:1px solid rgba(148,163,184,.25);border-radius:var(--r-lg);overflow:hidden;display:flex;flex-direction:column;height:100%}
+.chat-hd{background:var(--surface-low);padding:10px 14px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(148,163,184,.15)}
+.chat-hd .ct{font-size:.8125rem;font-weight:800;color:var(--on-surface)}
+.chat-hd .pg-q{font-size:.6875rem;color:var(--on-variant);font-family:var(--mono)}
+.chat-body{padding:12px;display:flex;flex-direction:column;gap:8px;flex:1;overflow:auto}
+.msg{max-width:82%;padding:8px 12px;border-radius:var(--r-lg);font-size:.75rem;line-height:1.55}
+.msg.ai{background:var(--primary-light);color:var(--on-surface);align-self:flex-start}
+.msg.user{background:var(--dark);color:#fff;align-self:flex-end}
+.chat-inp{border-top:1px solid rgba(148,163,184,.15);padding:8px 12px;display:flex;gap:6px;background:var(--surface-low)}
+.chat-inp .ip{flex:1;background:#fff;border:1px solid rgba(148,163,184,.25);border-radius:var(--r-md);padding:6px 10px;font-size:.6875rem;color:var(--on-variant)}
+.chat-inp .send{background:var(--primary);color:#fff;padding:6px 14px;border-radius:var(--r-md);font-size:.6875rem;font-weight:700}
+
+.badge{display:inline-block;padding:2px 8px;border-radius:999px;font-size:.625rem;font-weight:700;letter-spacing:.04em}
+.badge.p{background:var(--primary-light);color:var(--primary)}
+.badge.w{background:var(--warm-bg);color:var(--warm)}
+.badge.g{background:var(--green-bg);color:var(--green)}
+.badge.r{background:var(--red-bg);color:var(--red)}
+
+.slide-sec{padding:0}
+.slide-sec .si{justify-content:center;align-items:center;text-align:center;padding-top:60px;background:linear-gradient(135deg,var(--surface) 0%,var(--primary-light) 100%)}
+.slide-sec .sn{font-size:4.5rem;font-weight:800;color:rgba(30,58,138,.09);line-height:1;margin-bottom:8px;letter-spacing:-.04em}
+.slide-sec h2{font-size:2.25rem;font-weight:800;color:var(--on-surface);letter-spacing:-.02em}
+.slide-sec .sd{font-size:1rem;color:var(--on-variant);margin-top:10px;max-width:720px;line-height:1.65}
+
+.slide-cover{padding:0}
+.slide-cover .si{justify-content:center;padding:70px 88px;background:linear-gradient(135deg,var(--surface) 0%,var(--primary-light) 100%);margin-top:0}
+.slide-cover .kv{font-size:.8125rem;font-weight:700;color:var(--warm);letter-spacing:.18em;margin-bottom:16px;text-transform:uppercase}
+.slide-cover h1{font-size:2.875rem;font-weight:800;line-height:1.18;letter-spacing:-.02em;color:var(--on-surface)}
+.slide-cover .flowtag{display:flex;gap:6px;margin-top:22px;flex-wrap:wrap;align-items:center}
+.slide-cover .flowtag .chip{background:#fff;border:1px solid var(--primary);color:var(--primary);padding:6px 12px;border-radius:999px;font-size:.75rem;font-weight:700}
+.slide-cover .flowtag .chip.w{border-color:var(--warm);color:var(--warm)}
+.slide-cover .flowtag .chip.g{border-color:var(--green);color:var(--green)}
+.slide-cover .flowtag .arr{color:var(--outline);font-size:14px;font-weight:800}
+.slide-cover .meta{margin-top:32px;font-size:.8125rem;color:var(--on-variant);line-height:1.9}
+.slide-cover .date{position:absolute;top:28px;right:36px;background:linear-gradient(135deg,var(--primary),var(--primary-d));color:#fff;padding:6px 16px;border-radius:999px;font-size:.6875rem;font-weight:700}
+
+.slide-end{padding:0}
+.slide-end .si{justify-content:center;align-items:center;text-align:center;background:linear-gradient(135deg,var(--surface) 0%,var(--primary-light) 100%)}
+.slide-end .lg{font-size:2.25rem;font-weight:800;color:var(--primary);letter-spacing:.1em;margin-bottom:24px}
+.slide-end h1{font-size:2rem;font-weight:800;color:var(--on-surface);letter-spacing:-.02em;line-height:1.3}
+.slide-end .ed{font-size:.9375rem;color:var(--on-variant);margin-top:20px;line-height:1.75}
+
+[data-step]{opacity:0;transform:translateY(12px);transition:opacity .4s ease,transform .4s ease}
+[data-step].visible{opacity:1;transform:none}
+[data-step].pre-visible{opacity:1;transform:none;transition:none}
+
+.nav-btn{position:fixed;top:50%;transform:translateY(-50%);width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.9);border:none;color:var(--on-variant);cursor:pointer;z-index:100;display:flex;align-items:center;justify-content:center;font-size:18px;box-shadow:var(--shadow-ambient);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);transition:all .2s;user-select:none}
+.nav-btn:hover{color:var(--primary)}
+#nav-prev{left:12px}#nav-next{right:12px}
+#progress-bar{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--primary),var(--primary-d));transition:width .4s ease;z-index:100}
+#key-hint{position:fixed;bottom:16px;left:50%;transform:translateX(-50%);color:var(--outline);font-size:.6875rem;z-index:100;opacity:.4}
+
+@page{size:A4 landscape;margin:0}
+@media print{
+  html,body{background:#fff;overflow:visible!important;height:auto!important;width:auto!important}
+  #viewport{position:static!important;display:block!important;height:auto!important}
+  #stage{position:static!important;width:auto!important;height:auto!important;overflow:visible!important;transform:none!important;box-shadow:none!important;border-radius:0!important}
+  .slide{position:relative!important;inset:auto!important;opacity:1!important;pointer-events:auto!important;width:100vw!important;height:100vh!important;page-break-after:always!important;margin:0!important;overflow:hidden!important}
+  .nav-btn,#progress-bar,#key-hint{display:none!important}
+  [data-step]{opacity:1!important;transform:none!important}
+}
+</style>
+</head>
+<body>
+
+<div id="progress-bar"></div>
+<button class="nav-btn" id="nav-prev" aria-label="이전">&#9664;</button>
+<button class="nav-btn" id="nav-next" aria-label="다음">&#9654;</button>
+<div id="key-hint">← → 또는 스페이스로 이동 · F 전체화면</div>
+
+<div id="viewport"><div id="stage">
+
+<!-- ============ S1 COVER ============ -->
+<section class="slide slide-cover active">
+  <div class="si">
+    <span class="date">2026.04.15 / DAKER Docs</span>
+    <div class="kv" data-step="1">&lt; DAKER · AI MENTORING SYSTEM &gt;</div>
+    <h1 data-step="2">
+      DAKER <span class="hl">AI 멘토링</span><br>
+      ― 개념·프로세스·UI 한눈에 보기 ―
+    </h1>
+    <div class="flowtag" data-step="3">
+      <span class="chip">동의 게이트</span>
+      <span class="arr">→</span>
+      <span class="chip" style="border-color:#3b82f6;color:#3b82f6">CP 세션</span>
+      <span class="arr">→</span>
+      <span class="chip w">SSE 채팅</span>
+      <span class="arr">→</span>
+      <span class="chip g">리포트 · 피드백</span>
+    </div>
+    <div class="meta" data-step="4">
+      4 Checkpoint + 자유 채팅 · Gemini · SSE 스트리밍 · Drizzle/PostgreSQL<br>
+      해커톤 모드 + 팀 플래그 + Office Hours 3단 제어
+    </div>
+  </div>
+</section>
+
+<!-- ============ S2 AI 멘토링이란 ============ -->
+<section class="slide">
+  <div class="sh"><span class="sh-l">WHAT IS IT</span><span>AI 멘토링이란</span></div>
+  <div class="si">
+    <div class="tag">ONE-LINE DEFINITION</div>
+    <h2 class="st">해커톤 전 기간 동안, <span class="hl">필요한 순간에</span> 정해진 질문 흐름으로<br>AI 멘토가 붙어 <span class="hl-w">완주를 돕는</span> 시스템</h2>
+
+    <div class="g3" style="margin-top:18px">
+      <div class="c c-p">
+        <div class="c-dt">적용 위치</div>
+        <ul>
+          <li>참가자: <strong>팀 워룸 내 AI 멘토링 탭</strong></li>
+          <li>관리자: <strong>해커톤 관리자 콘솔</strong></li>
+          <li>컴포넌트: <code>client/src/components/mentoring/</code></li>
+        </ul>
+      </div>
+      <div class="c c-w">
+        <div class="c-dt">세션 타입</div>
+        <ul>
+          <li>CP1 팀 셋업 / CP2 아이디어 리뷰</li>
+          <li>CP3 중간 점검 / CP4 최종 리뷰</li>
+          <li>자유 채팅 (힌트 기반, 무제한)</li>
+        </ul>
+      </div>
+      <div class="c c-g">
+        <div class="c-dt">기술 스택</div>
+        <ul>
+          <li><strong>AIProvider</strong> 인터페이스 추상화</li>
+          <li><strong>Gemini</strong> (learning-chat 공용)</li>
+          <li><strong>SSE</strong> 스트리밍 + Drizzle ORM</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="g4" style="margin-top:18px">
+      <div class="mx"><div class="v">5</div><div class="l">세션 타입</div></div>
+      <div class="mx"><div class="v w">4</div><div class="l">신규 테이블</div></div>
+      <div class="mx"><div class="v g">24/7</div><div class="l">응답 가능 (Office Hours 제한 가능)</div></div>
+      <div class="mx"><div class="v">p95&lt;10s</div><div class="l">AI 응답 SLO</div></div>
+    </div>
+  </div>
+  <div class="sf"><span class="brand">DACON · DAKER</span><span class="pg">02 / 14</span><span>What is AI Mentoring</span></div>
+</section>
+
+<!-- ============ S3 WHY ============ -->
+<section class="slide">
+  <div class="sh"><span class="sh-l">WHY — 왜 만들었나</span><span>4가지 문제 동시 해결</span></div>
+  <div class="si">
+    <div class="tag w">PROBLEM / SOLUTION</div>
+    <h2 class="st">기존 해커톤 멘토링의 <span class="hl-w">4가지 한계</span>를 동시에 해결</h2>
+
+    <div class="g2" style="margin-top:16px">
+      <div class="c c-r">
+        <div class="c-dt">문제</div>
+        <ul>
+          <li>멘토 역량 편차 — 같은 CP를 받아도 팀별 품질 격차</li>
+          <li>사각지대 — 스코프·리스크가 본선 직전까지 노출 안 됨</li>
+          <li>멘토 부족 — 본선 집중 시간대 기술 자문 과부하</li>
+          <li>B2B 상품화 공백 — DAKER 플랫폼 부가가치 창출 여지</li>
+        </ul>
+      </div>
+      <div class="c c-g">
+        <div class="c-dt">해결</div>
+        <ul>
+          <li><strong>품질 균등화</strong> — 5종 시스템 프롬프트로 고정 품질</li>
+          <li><strong>구조화 발견</strong> — 강제 질문 흐름이 스코프/리스크 노출</li>
+          <li><strong>24/7 접근</strong> — AI 멘토 상시 가용, SSE 실시간 응답</li>
+          <li><strong>B2B 상품화</strong> — 멘토링 모드 설정 · 비용 한도 관리</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="c c-d" style="margin-top:16px">
+      <div class="c-dt" style="color:#fff">핵심 인사이트</div>
+      <p style="color:rgba(255,255,255,.88);font-size:13px;line-height:1.7;margin-top:4px">
+        &ldquo;사람 멘토의 보조&rdquo;가 아니라 <strong style="color:#fff">&ldquo;구조화된 AI 세션 + 사람 멘토 하이브리드&rdquo;</strong>를 전제로 설계.<br>
+        AI가 먼저 스코프·리스크를 노출시키고, 사람 멘토는 고차원 판단에 집중.
+      </p>
+    </div>
+  </div>
+  <div class="sf"><span class="brand">DACON · DAKER</span><span class="pg">03 / 14</span><span>Why</span></div>
+</section>
+
+<!-- ============ S4 아키텍처 ============ -->
+<section class="slide slide-sec">
+  <div class="sh"><span class="sh-l">ARCHITECTURE</span><span>한 장 요약</span></div>
+  <div class="si">
+    <div class="sn" data-step="1">04</div>
+    <h2 data-step="2">시스템 <span class="hl">아키텍처</span></h2>
+    <div class="sd" data-step="3">공통 AIProvider + 멘토링 라우터 + 5 세션 타입 + SSE 스트리밍으로 구성된 단일 모노리스 구조</div>
+  </div>
+  <div class="sf"><span class="brand">DACON · DAKER</span><span class="pg">04 / 14</span><span>Section</span></div>
+</section>
+
+<!-- ============ S5 아키텍처 상세 ============ -->
+<section class="slide">
+  <div class="sh"><span class="sh-l">ARCHITECTURE DETAIL</span><span>파일 의존 관계</span></div>
+  <div class="si">
+    <div class="tag">LAYERED STRUCTURE</div>
+    <h2 class="st">4층 구조 — <span class="hl">공통 AI · 서비스 · 라우터 · UI</span></h2>
+
+    <div class="g2" style="margin-top:14px">
+      <div>
+<pre class="code"><span class="cm">// 공통 AI 계층</span>
+server/services/<span class="pp">ai-provider.ts</span>
+ ├─ AIProvider (<span class="kw">interface</span>)
+ │   ├─ chat(messages, config)
+ │   ├─ chatStream(messages, config)   <span class="ok">// SSE</span>
+ │   └─ countTokens(text)
+ └─ GeminiProvider
+
+<span class="cm">// 서비스 계층</span>
+server/services/
+ ├─ <span class="pp">mentoring-prompt.ts</span>   <span class="cm">// 5종 프롬프트</span>
+ ├─ <span class="pp">mentoring-context.ts</span>  <span class="cm">// 컨텍스트 빌더</span>
+ └─ <span class="pp">mentoring-office-hours.ts</span>
+</pre>
+      </div>
+      <div>
+<pre class="code"><span class="cm">// 라우터 계층</span>
+server/routes/mentoring/
+ ├─ sessions.ts     <span class="cm">// CRUD + 잠금</span>
+ ├─ messages.ts     <span class="cm">// SSE 스트리밍</span>
+ ├─ reports.ts      <span class="cm">// 리포트 조회</span>
+ └─ admin.ts        <span class="cm">// 설정·통계</span>
+
+<span class="cm">// 스키마</span>
+shared/schema/<span class="pp">mentoring.ts</span>   <span class="ok">// 4 테이블</span>
+shared/schema/<span class="pp">hackathons.ts</span>  <span class="ok">// mode/config/enabled</span>
+
+<span class="cm">// UI</span>
+client/src/components/mentoring/*
+client/src/hooks/useMentoring*
+</pre>
+      </div>
+    </div>
+
+    <div class="c c-p" style="margin-top:14px">
+      <div class="c-dt">설계 원칙</div>
+      <div class="c-dd">
+        <strong>기존 패턴 재사용</strong>: learning-chat.ts의 Gemini 초기화·Rate Limiter·Provider 패턴을 그대로 공용화해서 멘토링과 공유.<br>
+        <strong>최소 침습</strong>: 기존 파일 변경 최소, 신규 파일 추가 위주. <strong>Provider 추상화</strong>: Gemini/OpenAI 교체 가능 구조.
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span class="brand">DACON · DAKER</span><span class="pg">05 / 14</span><span>Architecture</span></div>
+</section>
+
+<!-- ============ S6 5개 세션 타입 ============ -->
+<section class="slide">
+  <div class="sh"><span class="sh-l">SESSION TYPES</span><span>5개 타입 · AI 역할</span></div>
+  <div class="si">
+    <div class="tag g">CHECKPOINT &amp; FREE CHAT</div>
+    <h2 class="st">5종 시스템 프롬프트 — <span class="hl">CP별 AI 역할이 명확히 다르다</span></h2>
+
+    <table class="tb" style="margin-top:12px">
+      <thead>
+        <tr><th style="width:14%">타입</th><th style="width:14%">라벨</th><th style="width:18%">AI 역할</th><th style="width:18%">톤</th><th>핵심 지시</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><code>team_setup</code></td><td><strong>팀 셋업</strong></td><td>Team Coach</td><td>격려 + 전략적</td><td>역할 분배·일정 최적화. <strong>프로필 확인형</strong> 첫 질문으로 팀원 정보 기반 추천</td></tr>
+        <tr><td><code>idea_review</code></td><td><strong>아이디어 리뷰</strong></td><td>Idea Mentor</td><td>도전적 + 건설적</td><td><strong>리프레이밍</strong>. &ldquo;실제로 만들고 있는 건 X&rdquo; 패턴으로 스코프 노출</td></tr>
+        <tr><td><code>mid_check</code></td><td><strong>중간 점검</strong></td><td>Tech Mentor</td><td>실용적 + 긴급</td><td>남은 기간 대비 스코프 컷을 <strong>대담하게 제안</strong>. 기능 컷 제안 필수</td></tr>
+        <tr><td><code>final_review</code></td><td><strong>최종 리뷰</strong></td><td>Submit Reviewer</td><td>꼼꼼 + 임팩트</td><td>평가 루브릭 기준 <strong>체크리스트</strong>. quick-win 2~3개 집중 가이드</td></tr>
+        <tr><td><code>free_chat</code></td><td><strong>자유 채팅</strong></td><td>General Mentor</td><td>친근 + 힌트</td><td><strong>정답 직접 제공 금지</strong>. 코드 50줄 이하. 언제든 호출 가능</td></tr>
+      </tbody>
+    </table>
+
+    <div class="g4" style="margin-top:16px">
+      <div class="mx"><div class="v">QuestionItem[]</div><div class="l">강제 질문 흐름</div></div>
+      <div class="mx"><div class="v w">soloAlt</div><div class="l">솔로 참가자 대체 질문</div></div>
+      <div class="mx"><div class="v g">zeroCodeAlt</div><div class="l">코드 0줄 대체 질문</div></div>
+      <div class="mx"><div class="v">followUpAction</div><div class="l">AI 후속 행동 지침</div></div>
+    </div>
+  </div>
+  <div class="sf"><span class="brand">DACON · DAKER</span><span class="pg">06 / 14</span><span>Session types</span></div>
+</section>
+
+<!-- ============ S7 동의→세션 진입 프로세스 ============ -->
+<section class="slide">
+  <div class="sh"><span class="sh-l">ENTRY FLOW</span><span>동의 → 세션 진입</span></div>
+  <div class="si">
+    <div class="tag">CONSENT GATE</div>
+    <h2 class="st">동의 게이트는 <span class="hl">클라이언트 · 서버 양쪽</span>에서 강제</h2>
+
+    <div class="flow" style="margin-top:14px">
+      <div class="flow-step p">
+        <div class="flow-num">STEP 1</div>
+        <div class="flow-title">탭 진입</div>
+        <div class="flow-desc">useMentoringConsentStatus()<br/>→ consented 여부 조회</div>
+      </div>
+      <div class="flow-arr">→</div>
+      <div class="flow-step b">
+        <div class="flow-num b">STEP 2</div>
+        <div class="flow-title">ConsentDialog</div>
+        <div class="flow-desc">미동의 시 모달 오픈.<br/>섹션별 체크박스 → 저장</div>
+      </div>
+      <div class="flow-arr">→</div>
+      <div class="flow-step w">
+        <div class="flow-num w">STEP 3</div>
+        <div class="flow-title">CP / Free Chat 시작</div>
+        <div class="flow-desc">CheckpointCard 클릭<br/>OR [자유 채팅] 버튼</div>
+      </div>
+      <div class="flow-arr">→</div>
+      <div class="flow-step g">
+        <div class="flow-num g">STEP 4</div>
+        <div class="flow-title">POST /sessions</div>
+        <div class="flow-desc">세션 생성 · 팀 컨텍스트 빌드<br/>→ MentoringChat 뷰로 이동</div>
+      </div>
+    </div>
+
+    <div class="g2" style="margin-top:16px">
+      <div class="c c-r">
+        <div class="c-dt">에러 분기</div>
+        <ul>
+          <li><strong>403 CONSENT_REQUIRED</strong> → 서버가 재차 동의 요구 → ConsentDialog 재오픈</li>
+          <li><strong>409 Conflict</strong> → 동일 CP에 진행 중 세션 존재 → <code>data.sessionId</code>로 <strong>기존 세션 이어가기</strong></li>
+          <li><strong>429</strong> → Rate Limit · 일일 토큰 초과 → 사용자 안내</li>
+        </ul>
+      </div>
+      <div class="c c-p">
+        <div class="c-dt">pendingAction 패턴</div>
+        <div class="c-dd">
+          동의 모달이 열리기 전 사용자가 시도한 행동(CP 시작 · 자유 채팅)을 <code>pendingAction</code> state에 저장.<br>
+          동의 완료 후 자동으로 해당 행동을 재실행 — <strong>흐름 끊김 없이 이어가기</strong>.
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span class="brand">DACON · DAKER</span><span class="pg">07 / 14</span><span>Entry flow</span></div>
+</section>
+
+<!-- ============ S8 CP 세션 실행 플로우 (SSE) ============ -->
+<section class="slide">
+  <div class="sh"><span class="sh-l">SESSION EXECUTION</span><span>SSE 스트리밍 흐름</span></div>
+  <div class="si">
+    <div class="tag w">SERVER-SENT EVENTS</div>
+    <h2 class="st">메시지 전송 → <span class="hl-w">SSE chunk</span> 수신 → 리포트 자동 생성</h2>
+
+    <div class="g2" style="margin-top:14px">
+      <div>
+<pre class="code"><span class="cm">// 1. 사용자 입력 (≤2000자)</span>
+POST /api/mentoring/sessions/:id/messages
+  body: { content: <span class="ok">"..."</span> }
+
+<span class="cm">// 2. 서버 처리</span>
+<span class="kw">check</span> dailyTokenLimit → 429 if exceed
+<span class="kw">save</span> user message (role=<span class="ok">'user'</span>)
+<span class="kw">build</span> context:
+    systemPrompt + previousReports
+    + recentTurns(10)
+<span class="kw">call</span> AIProvider.chatStream(ctx, config)
+
+<span class="cm">// 3. SSE 스트림</span>
+data: {<span class="ok">"chunk"</span>:<span class="ok">"안녕하세요..."</span>}
+data: {<span class="ok">"chunk"</span>:<span class="ok">" 팀의 목표는..."</span>}
+data: {<span class="ok">"done"</span>:true,<span class="ok">"tokenCount"</span>:421}
+</pre>
+      </div>
+      <div>
+<pre class="code"><span class="cm">// 4. 메시지 저장</span>
+<span class="kw">save</span> assistant message (tokenCount)
+<span class="kw">update</span> session.tokenUsage += N
+
+<span class="cm">// 5. 리포트 자동 생성</span>
+<span class="kw">if</span> (session.type != <span class="ok">'free_chat'</span>
+   &amp;&amp; allQuestionsAnswered) {
+  generateReport(session, messages)
+  → insert into mentoring_reports
+  → share to War Room
+}
+
+<span class="cm">// 미지원 클라이언트용 JSON 폴백</span>
+POST /.../messages?stream=false
+→ { content, tokenCount, done }
+</pre>
+      </div>
+    </div>
+
+    <div class="g5" style="margin-top:14px">
+      <div class="mx"><div class="v">2,000</div><div class="l">입력 자수 제한</div></div>
+      <div class="mx"><div class="v w">50,000</div><div class="l">팀당 일일 토큰</div></div>
+      <div class="mx"><div class="v">10/min</div><div class="l">메시지 Rate Limit</div></div>
+      <div class="mx"><div class="v">5/min</div><div class="l">세션 Rate Limit</div></div>
+      <div class="mx"><div class="v g">30s</div><div class="l">API 타임아웃</div></div>
+    </div>
+  </div>
+  <div class="sf"><span class="brand">DACON · DAKER</span><span class="pg">08 / 14</span><span>SSE flow</span></div>
+</section>
+
+<!-- ============ S9 UI — CheckpointCard ============ -->
+<section class="slide">
+  <div class="sh"><span class="sh-l">UI — CHECKPOINTCARD</span><span>3가지 상태</span></div>
+  <div class="si">
+    <div class="tag g">COMPONENT MOCK</div>
+    <h2 class="st">CheckpointCard — <span class="hl-g">Completed · Available · Locked</span> 3종</h2>
+
+    <div class="g3" style="margin-top:18px">
+      <div class="cpcard done">
+        <div class="cp-st">✅ COMPLETED</div>
+        <div class="cp-title">CP1. 팀 셋업</div>
+        <div class="cp-meta">2026-04-13 14:30<br>역할 분배 · 일정 초안 수립</div>
+        <div class="stars">★★★★☆ 4.0</div>
+        <span class="cp-btn">리포트 보기</span>
+      </div>
+      <div class="cpcard avail">
+        <div class="cp-st">🔵 AVAILABLE</div>
+        <div class="cp-title">CP2. 아이디어 리뷰</div>
+        <div class="cp-meta">이전 CP 완료<br>아이디어 리프레이밍 · 차별점 검토</div>
+        <span class="cp-btn">멘토링 시작</span>
+      </div>
+      <div class="cpcard lock">
+        <div class="cp-st">🔒 LOCKED</div>
+        <div class="cp-title">CP3. 중간 점검</div>
+        <div class="cp-meta">이전 단계 완료 필요<br>(CP2 · 아이디어 리뷰)</div>
+      </div>
+    </div>
+
+    <div class="c c-p" style="margin-top:18px">
+      <div class="c-dt">상태 판정 로직 — <code>getCheckpointStatus()</code></div>
+      <div class="c-dd">
+        ① 완료 세션 있음 → <strong>completed</strong><br>
+        ② 진행 중 세션 있음 → <strong>in_progress</strong><br>
+        ③ 첫 번째 CP (cpIndex === 0) → <strong>available</strong><br>
+        ④ 이전 CP 완료 세션 있음 → <strong>available</strong><br>
+        ⑤ 이외 → <strong>locked</strong>
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span class="brand">DACON · DAKER</span><span class="pg">09 / 14</span><span>UI · CheckpointCard</span></div>
+</section>
+
+<!-- ============ S10 UI — MentoringChat ============ -->
+<section class="slide">
+  <div class="sh"><span class="sh-l">UI — MENTORINGCHAT</span><span>SSE 채팅 인터페이스</span></div>
+  <div class="si">
+    <div class="tag">COMPONENT MOCK</div>
+    <h2 class="st">MentoringChat — <span class="hl">SSE 수신 실시간 렌더</span></h2>
+
+    <div class="g2" style="margin-top:14px;grid-template-columns:1.1fr .9fr;gap:18px">
+      <div style="min-height:360px">
+        <div class="chat" style="height:360px">
+          <div class="chat-hd">
+            <div class="ct">CP1. 팀 셋업</div>
+            <div class="pg-q">질문 3 / 5</div>
+          </div>
+          <div class="chat-body">
+            <div class="msg ai">
+              안녕하세요 팀 "알파"! 프로필을 보니 홍길동님이 백엔드, 이영희님이 디자인을 맡으셨네요.
+              두 분이 지금 가장 걱정되는 리스크 한 가지씩만 알려주실 수 있을까요?
+            </div>
+            <div class="msg user">
+              백엔드는 인증 연동이 걱정이고, 디자인은 반응형 레이아웃이 어려울 것 같습니다.
+            </div>
+            <div class="msg ai">
+              좋은 자기 진단입니다. 그럼 이 두 리스크를 해커톤 3일 안에 체크하려면,
+              각각 어떤 작업을 24시간 내로 끝내야 한다고 보시나요?
+            </div>
+          </div>
+          <div class="chat-inp">
+            <div class="ip">답변을 입력하세요... (최대 2000자)</div>
+            <span class="send">전송</span>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="c c-p" style="margin-bottom:12px">
+          <div class="c-dt">구성 요소</div>
+          <ul>
+            <li><strong>ChatHeader</strong> — CP명 + 진행률 (질문 N/M)</li>
+            <li><strong>ChatMessages</strong> — user/assistant 구분 렌더</li>
+            <li><strong>ChatInput</strong> — 2000자 제한, Enter 전송</li>
+            <li><strong>ChatActions</strong> — [세션 포기] / [리포트 보기]</li>
+          </ul>
+        </div>
+        <div class="c c-w">
+          <div class="c-dt">훅</div>
+          <ul>
+            <li><code>useMentoringSession</code> — React Query 기반 세션 상태</li>
+            <li><code>useMentoringSSE</code> — 스트림 chunk 수신 훅</li>
+            <li><code>useMentoringConsent</code> — 동의 상태 & 저장</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span class="brand">DACON · DAKER</span><span class="pg">10 / 14</span><span>UI · MentoringChat</span></div>
+</section>
+
+<!-- ============ S11 UI — Report / Feedback ============ -->
+<section class="slide">
+  <div class="sh"><span class="sh-l">UI — REPORT &amp; FEEDBACK</span><span>리포트 &amp; 만족도</span></div>
+  <div class="si">
+    <div class="tag w">REPORT &amp; FEEDBACK</div>
+    <h2 class="st">세션 완료 → <span class="hl-w">리포트 자동 생성 → 피드백 수집</span></h2>
+
+    <div class="g2" style="margin-top:14px">
+      <div class="c c-g">
+        <div class="c-dt">MentoringReport</div>
+        <ul>
+          <li><strong>ReportHeader</strong> — CP명 · 점수(0~100) · 생성일</li>
+          <li><strong>ReportContent</strong> — <code>contentJson</code> 구조화 렌더</li>
+          <li><strong>ReportRecommendations</strong> — <code>recommendations[]</code></li>
+          <li>War Room에 <strong>자동 공유</strong> — 팀 전원 열람 가능</li>
+        </ul>
+        <div style="margin-top:10px;padding:10px;background:#fff;border-radius:var(--r-md);font-size:.6875rem;line-height:1.65;color:var(--on-variant)">
+          <strong style="color:var(--green)">Score: 78 / 100</strong><br>
+          ✓ 역할 분배 구체적<br>
+          ⚠ 인증 PoC 24h 내 완료 필요<br>
+          ✓ 마일스톤 3개 정의됨
+        </div>
+      </div>
+      <div class="c c-p">
+        <div class="c-dt">MentoringFeedback</div>
+        <ul>
+          <li><strong>StarRating</strong> — ★ 1~5점</li>
+          <li><strong>CommentInput</strong> — 선택 입력</li>
+          <li>유니크 제약: <code>(sessionId, userId)</code></li>
+          <li>세션당 1회만 제출 가능</li>
+        </ul>
+        <div style="margin-top:10px;padding:10px;background:#fff;border-radius:var(--r-md);text-align:center">
+          <div style="color:#f59e0b;font-size:1.25rem">★ ★ ★ ★ ☆</div>
+          <div style="font-size:.6875rem;color:var(--on-variant);margin-top:6px">"질문이 구조적이어서 도움됐어요.<br>조금 더 구체적 예시가 있으면 좋겠습니다."</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="c c-d" style="margin-top:14px">
+      <div class="c-dt" style="color:#fff">리포트 데이터 모델 (mentoring_reports)</div>
+      <div class="c-dd" style="font-family:var(--mono);font-size:.6875rem">
+        id · sessionId(FK) · reportType · <strong style="color:#fbbf24">contentJson (JSONB)</strong> · summaryText · <strong style="color:#fbbf24">score(0-100)</strong> · <strong style="color:#fbbf24">recommendations (JSONB)</strong> · createdAt
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span class="brand">DACON · DAKER</span><span class="pg">11 / 14</span><span>UI · Report &amp; Feedback</span></div>
+</section>
+
+<!-- ============ S12 관리자 제어 ============ -->
+<section class="slide">
+  <div class="sh"><span class="sh-l">ADMIN CONTROL</span><span>3단 제어</span></div>
+  <div class="si">
+    <div class="tag">MULTI-LEVEL SWITCHES</div>
+    <h2 class="st">관리자 제어 — <span class="hl">해커톤 · 팀 · 시간대</span> 3단 스위치</h2>
+
+    <div class="g3" style="margin-top:16px">
+      <div class="c c-p">
+        <div class="c-dt">① 해커톤 단위</div>
+        <div class="c-dd" style="margin-bottom:6px">
+          <code>hackathons.mentoring_mode</code><br>
+          <code>hackathons.mentoring_config</code> (JSONB)
+        </div>
+        <ul>
+          <li>모드: <span class="badge r">disabled</span> <span class="badge p">optional</span> <span class="badge g">required</span></li>
+          <li>활성 CP 목록 선택</li>
+          <li>자유 채팅 on/off</li>
+          <li>LLM 모델 · 일일 토큰 한도</li>
+        </ul>
+      </div>
+      <div class="c c-w">
+        <div class="c-dt">② 팀 단위 (2026-04-15)</div>
+        <div class="c-dd" style="margin-bottom:6px">
+          <code>hackathons.mentoring_enabled</code> flag<br>
+          (feat: 8aec9ca 참가팀별 플래그)
+        </div>
+        <ul>
+          <li>참가팀별 on/off 가능</li>
+          <li>해커톤 모드가 enabled여도<br>팀 플래그 false면 차단</li>
+          <li>민감 팀 · 파일럿 팀만 선별 가능</li>
+        </ul>
+      </div>
+      <div class="c c-g">
+        <div class="c-dt">③ Office Hours</div>
+        <div class="c-dd" style="margin-bottom:6px">
+          <code>services/mentoring-office-hours.ts</code>
+        </div>
+        <ul>
+          <li>시간대 제한 운영 (예: 10:00~22:00)</li>
+          <li>시간 외 호출 시 안내 메시지</li>
+          <li>비용 ·멘토 운영 시간 통제</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="c c-d" style="margin-top:16px">
+      <div class="c-dt" style="color:#fff">관리자 API — server/routes/mentoring/admin.ts</div>
+      <div class="c-dd" style="font-family:var(--mono);font-size:.6875rem">
+        PATCH /api/admin/hackathons/:id/mentoring &nbsp;·&nbsp; GET /api/admin/hackathons/:id/mentoring/stats<br>
+        GET /api/admin/hackathons/:id/mentoring/teams &nbsp;→&nbsp; 팀별 진행 현황 · 토큰 사용량 · 만족도
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span class="brand">DACON · DAKER</span><span class="pg">12 / 14</span><span>Admin control</span></div>
+</section>
+
+<!-- ============ S13 데이터 모델 + 가드레일 ============ -->
+<section class="slide">
+  <div class="sh"><span class="sh-l">DATA MODEL &amp; GUARDRAILS</span><span>4 테이블 + 비용 · 보존 정책</span></div>
+  <div class="si">
+    <div class="tag">SCHEMA &amp; LIMITS</div>
+    <h2 class="st">4개 테이블 + <span class="hl">비용 · Rate · 데이터 보존</span> 가드레일</h2>
+
+    <table class="tb" style="margin-top:12px">
+      <thead>
+        <tr><th style="width:22%">테이블</th><th style="width:48%">핵심 필드</th><th>제약</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><code>mentoring_sessions</code></td><td>checkpointType · status · currentQuestionIndex · reportJson · tokenUsage</td><td>팀당 동일 CP <code>in_progress</code> 1개</td></tr>
+        <tr><td><code>mentoring_messages</code></td><td>role · content · modelUsed · questionIndex · tokenCount · metadataJson</td><td>session FK cascade</td></tr>
+        <tr><td><code>mentoring_reports</code></td><td>reportType · contentJson · summaryText · score(0-100) · recommendations</td><td>session FK cascade</td></tr>
+        <tr><td><code>mentoring_feedback</code></td><td>rating(1~5) · comment</td><td><code>(sessionId, userId)</code> unique</td></tr>
+      </tbody>
+    </table>
+
+    <div class="g3" style="margin-top:14px">
+      <div class="c c-p">
+        <div class="c-t">💰 비용 제어</div>
+        <ul>
+          <li>팀당 일일 토큰 50,000</li>
+          <li>메시지 10 req/min/user</li>
+          <li>세션 5 req/min/team</li>
+        </ul>
+      </div>
+      <div class="c c-w">
+        <div class="c-t">⚠️ 장애 대응</div>
+        <ul>
+          <li>타임아웃 30초 → 재시도 1회</li>
+          <li>연속 3회 실패 → 관리자 알림</li>
+          <li>서킷 브레이커 + 일시 중지</li>
+        </ul>
+      </div>
+      <div class="c c-g">
+        <div class="c-t">🗂 데이터 보존</div>
+        <ul>
+          <li>대화: 해커톤 종료 90일 후 익명화</li>
+          <li>리포트: 1년 보존 후 통계만 유지</li>
+          <li>개인정보 분리 저장</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span class="brand">DACON · DAKER</span><span class="pg">13 / 14</span><span>Data &amp; guardrails</span></div>
+</section>
+
+<!-- ============ S14 ENDING ============ -->
+<section class="slide slide-end">
+  <div class="sh"><span class="sh-l">CLOSING</span><span>&nbsp;</span></div>
+  <div class="si">
+    <div class="lg" data-step="1">DACON &middot; DAKER</div>
+    <h1 data-step="2">
+      구조화 · 품질균등 · 24/7 —<br>
+      <span class="hl">AI 멘토가 팀의 완주를 보증합니다</span>
+    </h1>
+    <div class="ed" data-step="3">
+      공통 AIProvider · 5 세션 타입 · SSE 스트리밍 · 3단 관리자 제어<br>
+      <strong class="hl-w">docs/01-plan/features/ai-mentoring.plan.md</strong> · <strong class="hl-w">docs/02-design/features/ai-mentoring.design.md</strong>
+    </div>
+  </div>
+  <div class="sf"><span class="brand">DACON · DAKER</span><span class="pg">14 / 14</span><span>Thank you</span></div>
+</section>
+
+</div></div>
+
+<script>
+(function(){
+  const stage=document.getElementById('stage');
+  const slides=Array.from(document.querySelectorAll('.slide'));
+  const prev=document.getElementById('nav-prev');
+  const next=document.getElementById('nav-next');
+  const bar=document.getElementById('progress-bar');
+  let idx=Math.max(0,slides.findIndex(s=>s.classList.contains('active')));
+  if(idx<0)idx=0;
+
+  function fit(){
+    const s=Math.min(window.innerWidth/1280,window.innerHeight/720);
+    stage.style.transform='scale('+s+')';
+  }
+  function show(i){
+    idx=Math.max(0,Math.min(slides.length-1,i));
+    slides.forEach((s,k)=>s.classList.toggle('active',k===idx));
+    bar.style.width=((idx+1)/slides.length*100)+'%';
+    const frags=slides[idx].querySelectorAll('[data-step]');
+    frags.forEach((el,k)=>{el.classList.remove('visible');setTimeout(()=>el.classList.add('visible'),70*(k+1))});
+    if(location.hash!=='#s'+(idx+1))history.replaceState(null,'','#s'+(idx+1));
+  }
+  function nav(d){show(idx+d)}
+
+  prev.addEventListener('click',()=>nav(-1));
+  next.addEventListener('click',()=>nav(1));
+
+  document.addEventListener('keydown',e=>{
+    if(e.key==='ArrowRight'||e.key==='PageDown'||e.key===' '){e.preventDefault();nav(1)}
+    else if(e.key==='ArrowLeft'||e.key==='PageUp'){e.preventDefault();nav(-1)}
+    else if(e.key==='Home'){show(0)}
+    else if(e.key==='End'){show(slides.length-1)}
+    else if(e.key==='f'||e.key==='F'){
+      if(!document.fullscreenElement)document.documentElement.requestFullscreen().catch(()=>{});
+      else document.exitFullscreen().catch(()=>{});
+    }
+  });
+
+  let tx=0;
+  document.addEventListener('touchstart',e=>{tx=e.touches[0].clientX},{passive:true});
+  document.addEventListener('touchend',e=>{
+    const dx=e.changedTouches[0].clientX-tx;
+    if(Math.abs(dx)>50)nav(dx<0?1:-1);
+  },{passive:true});
+
+  const h=location.hash.match(/^#s(\d+)$/);
+  if(h){const n=parseInt(h[1],10)-1;if(n>=0&&n<slides.length)idx=n}
+
+  window.addEventListener('resize',fit);
+  fit();show(idx);
+})();
+</script>
+
+</body>
+</html>

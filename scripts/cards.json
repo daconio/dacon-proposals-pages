@@ -233,6 +233,14 @@
       "title": "슬라이드",
       "cards": [
         {
+          "href": "내부/2026-04-15-DAKER_AI멘토링_개요_슬라이드.html",
+          "title": "DAKER AI 멘토링 — 개념·프로세스·UI 개요",
+          "date": "2026.04.15",
+          "icon": "AI",
+          "color": "blue",
+          "badge": "NEW"
+        },
+        {
           "href": "제안/2026-04-06-K-water맞춤형_학습형_해커톤_AI_러닝톤_운영_용역_제안서_슬라이드.html",
           "title": "K-water 맞춤형 학습형 해커톤 AI 러닝톤 운영 용역 제안서",
           "date": "2026.04.06",
