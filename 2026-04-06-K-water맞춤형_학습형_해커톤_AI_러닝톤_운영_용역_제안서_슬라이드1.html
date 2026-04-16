@@ -34,7 +34,7 @@ html,body{width:100%;height:100%;font-family:var(--font);color:var(--on-surface)
 .sh span:last-child{font-size:.6875rem;font-weight:700;color:var(--outline);letter-spacing:.08em;text-transform:uppercase}
 .sf{position:absolute;bottom:0;left:0;right:0;height:36px;padding:0 32px;display:flex;justify-content:space-between;align-items:center;background:rgba(255,255,255,.95);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-top:1px solid rgba(148,163,184,.15);z-index:2}
 .sf .brand{font-size:.75rem;font-weight:700;color:var(--primary);letter-spacing:.08em}
-.sf .pg{font-size:.6875rem;color:var(--on-variant);font-weight:600;font-family:'SF Mono',Menlo,monospace}
+.sf .pg{position:absolute;left:50%;transform:translateX(-50%);font-size:.6875rem;color:var(--on-variant);font-weight:600;font-family:'SF Mono',Menlo,monospace}
 .sf span:last-child{font-size:.5625rem;color:var(--outline);letter-spacing:.03em;font-weight:600;text-transform:uppercase}
 
 .si{flex:1;display:flex;flex-direction:column;padding:62px 72px 48px;position:relative}
@@ -254,15 +254,15 @@ pre.flow{background:var(--surface-low);border-left:3px solid var(--primary);padd
         <li class="toc-ii"><span class="lbl">1. 본 제안 특징 및 차별성</span><span class="dots"></span><span class="pg">13</span></li>
         <li class="toc-iii"><span class="lbl">가. 플랫폼 기술</span><span class="dots"></span><span class="pg">13-14</span></li>
         <li class="toc-iii"><span class="lbl">나. 온오프라인 연계 노하우</span><span class="dots"></span><span class="pg">15</span></li>
-        <li class="toc-iii"><span class="lbl">다. 전문적인 멘토링 Pool</span><span class="dots"></span><span class="pg">16</span></li>
-        <li class="toc-ii"><span class="lbl">2. 기대효과</span><span class="dots"></span><span class="pg">17</span></li>
-        <li class="toc-ii"><span class="lbl">3. 상세 운영 방안</span><span class="dots"></span><span class="pg">18</span></li>
-        <li class="toc-iii"><span class="lbl">가. 홍보</span><span class="dots"></span><span class="pg">18</span></li>
-        <li class="toc-iii"><span class="lbl">나. 온라인 경진대회 운영</span><span class="dots"></span><span class="pg">19</span></li>
-        <li class="toc-iii"><span class="lbl">다. 온라인 멘토링 실시</span><span class="dots"></span><span class="pg">20-21</span></li>
-        <li class="toc-iii"><span class="lbl">라. 오프라인 대회 운영</span><span class="dots"></span><span class="pg">22-23</span></li>
-        <li class="toc-iii"><span class="lbl">마. 발표평가 및 시상식 운영</span><span class="dots"></span><span class="pg">24</span></li>
-        <li class="toc-iii"><span class="lbl">바. 성과 관리 방안</span><span class="dots"></span><span class="pg">25</span></li>
+        <li class="toc-iii"><span class="lbl">다. 전문적인 멘토링 Pool · 캘린더 스케줄링</span><span class="dots"></span><span class="pg">16-17</span></li>
+        <li class="toc-ii"><span class="lbl">2. 기대효과</span><span class="dots"></span><span class="pg">18</span></li>
+        <li class="toc-ii"><span class="lbl">3. 상세 운영 방안</span><span class="dots"></span><span class="pg">19</span></li>
+        <li class="toc-iii"><span class="lbl">가. 홍보</span><span class="dots"></span><span class="pg">19</span></li>
+        <li class="toc-iii"><span class="lbl">나. 온라인 경진대회 운영</span><span class="dots"></span><span class="pg">20</span></li>
+        <li class="toc-iii"><span class="lbl">다. 멘토링 (AI Office Hours · 멘토 예약 · AI×휴먼 연결)</span><span class="dots"></span><span class="pg">21-23</span></li>
+        <li class="toc-iii"><span class="lbl">라. 오프라인 대회 운영</span><span class="dots"></span><span class="pg">24-25</span></li>
+        <li class="toc-iii"><span class="lbl">마. 발표평가 및 시상식 운영</span><span class="dots"></span><span class="pg">26</span></li>
+        <li class="toc-iii"><span class="lbl">바. 성과 관리 방안</span><span class="dots"></span><span class="pg">27-28</span></li>
       </ul>
     </div>
   </div>
@@ -310,7 +310,7 @@ pre.flow{background:var(--surface-low);border-left:3px solid var(--primary);padd
       </div>
     </div>
   </div>
-  <div class="sf"><span class="brand">K-WATER · AI 러닝톤</span><span class="pg">03 / 27</span><span>Ⅰ-1</span></div>
+  <div class="sf"><span class="brand">K-WATER · AI 러닝톤</span><span class="pg">03 / 29</span><span>Ⅰ-1</span></div>
 </section>
 
 <!-- ============================================================ -->
@@ -391,7 +391,7 @@ pre.flow{background:var(--surface-low);border-left:3px solid var(--primary);padd
       <div class="c-dd" style="margin-top:8px">과업범위는 개별 독립이 아닌 <strong>90일 운영 파이프라인</strong>으로 유기적으로 연결됩니다. <strong class="hl">1단계의 가·나가 병행</strong>되며 온라인 예선을 구성하고, 그 결과(상위 30팀)가 <strong class="hl">2단계 본선</strong>으로 이어져 <strong class="hl">3단계 사후 성과 관리</strong>로 완성됩니다.</div>
     </div>
   </div>
-  <div class="sf"><span class="brand">K-WATER · AI 러닝톤</span><span class="pg">04 / 27</span><span>Ⅰ-2 과업범위</span></div>
+  <div class="sf"><span class="brand">K-WATER · AI 러닝톤</span><span class="pg">04 / 29</span><span>Ⅰ-2 과업범위</span></div>
 </section>
 
 <!-- ============================================================ -->
@@ -436,7 +436,7 @@ pre.flow{background:var(--surface-low);border-left:3px solid var(--primary);padd
       </div>
     </div>
   </div>
-  <div class="sf"><span class="brand">K-WATER · AI 러닝톤</span><span class="pg">05 / 27</span><span>Ⅰ-2-가 러닝톤 운영</span></div>
+  <div class="sf"><span class="brand">K-WATER · AI 러닝톤</span><span class="pg">05 / 29</span><span>Ⅰ-2-가 러닝톤 운영</span></div>
 </section>
 
 <!-- ============================================================ -->
@@ -512,7 +512,7 @@ pre.flow{background:var(--surface-low);border-left:3px solid var(--primary);padd
       </div>
     </div>
   </div>
-  <div class="sf"><span class="brand">K-WATER · AI 러닝톤</span><span class="pg">06 / 27</span><span>Ⅰ-2-나 온라인 멘토링</span></div>
+  <div class="sf"><span class="brand">K-WATER · AI 러닝톤</span><span class="pg">06 / 29</span><span>Ⅰ-2-나 온라인 멘토링</span></div>
 </section>
 
 <!-- ============================================================ -->
@@ -592,7 +592,7 @@ pre.flow{background:var(--surface-low);border-left:3px solid var(--primary);padd
       </div>
     </div>
   </div>
-  <div class="sf"><span class="brand">K-WATER · AI 러닝톤</span><span class="pg">07 / 27</span><span>Ⅰ-2-다 현장 운영</span></div>
+  <div class="sf"><span class="brand">K-WATER · AI 러닝톤</span><span class="pg">07 / 29</span><span>Ⅰ-2-다 현장 운영</span></div>
 </section>
 
 <!-- ============================================================ -->
@@ -655,7 +655,7 @@ pre.flow{background:var(--surface-low);border-left:3px solid var(--primary);padd
 
     <div class="c-dd" style="margin-top:8px;font-size:.6875rem;font-style:italic;text-align:center;color:var(--on-variant)">산출물(최종보고서 5부 제본)·확산 4단계·지속가능성 상세는 <strong>Ⅲ-3-바 성과 관리 방안</strong>에서 구체화</div>
   </div>
-  <div class="sf"><span class="brand">K-WATER · AI 러닝톤</span><span class="pg">08 / 27</span><span>Ⅰ-2-라 성과 관리</span></div>
+  <div class="sf"><span class="brand">K-WATER · AI 러닝톤</span><span class="pg">08 / 29</span><span>Ⅰ-2-라 성과 관리</span></div>
 </section>
 
 <!-- ============================================================ -->
@@ -709,7 +709,7 @@ pre.flow{background:var(--surface-low);border-left:3px solid var(--primary);padd
     </div>
     <div class="ph-note">홍보·예선·멘토링이 동시 병행되는 5월 말 ~ 6월 말 구간이 <strong>운영 피크</strong>. 전담 인력 100% 투입.</div>
   </div>
-  <div class="sf"><span class="brand">K-WATER · AI 러닝톤</span><span class="pg">09 / 27</span><span>Ⅱ-1</span></div>
+  <div class="sf"><span class="brand">K-WATER · AI 러닝톤</span><span class="pg">09 / 29</span><span>Ⅱ-1</span></div>
 </section>
 
 <!-- ============================================================ -->
@@ -756,7 +756,7 @@ pre.flow{background:var(--surface-low);border-left:3px solid var(--primary);padd
       </div>
     </div>
   </div>
-  <div class="sf"><span class="brand">K-WATER · AI 러닝톤</span><span class="pg">10 / 27</span><span>Ⅱ-2-가 사업수행 조직</span></div>
+  <div class="sf"><span class="brand">K-WATER · AI 러닝톤</span><span class="pg">10 / 29</span><span>Ⅱ-2-가 사업수행 조직</span></div>
 </section>
 
 <!-- ============================================================ -->
@@ -792,7 +792,7 @@ pre.flow{background:var(--surface-low);border-left:3px solid var(--primary);padd
       <div class="c-dd">정보처리기사·AI 관련 자격 · 공공기관 대회 운영 실적 · 생성형 AI 활용 실무 경험 · 인력 교체 시 발주처 <strong>사전 승인</strong> 원칙 · 인력별 상세 이력서·자격증 사본은 별첨 제출</div>
     </div>
   </div>
-  <div class="sf"><span class="brand">K-WATER · AI 러닝톤</span><span class="pg">11 / 27</span><span>Ⅱ-2-나 전문인력 현황</span></div>
+  <div class="sf"><span class="brand">K-WATER · AI 러닝톤</span><span class="pg">11 / 29</span><span>Ⅱ-2-나 전문인력 현황</span></div>
 </section>
 
 <!-- ============================================================ -->
@@ -839,7 +839,7 @@ pre.flow{background:var(--surface-low);border-left:3px solid var(--primary);padd
     </div>
     <div class="ph-note"><strong>운영 원칙</strong> — 1인당 최대 3팀 절대 준수 · 분야 5축 균형 배치 · 정기 3회 + 수시 + 본선 현장 상주 · AI 멘토 리포트 인수인계</div>
   </div>
-  <div class="sf"><span class="brand">K-WATER · AI 러닝톤</span><span class="pg">12 / 27</span><span>Ⅱ-2-다 멘토단</span></div>
+  <div class="sf"><span class="brand">K-WATER · AI 러닝톤</span><span class="pg">12 / 29</span><span>Ⅱ-2-다 멘토단</span></div>
 </section>
 
 <!-- ============================================================ -->
@@ -886,7 +886,7 @@ pre.flow{background:var(--surface-low);border-left:3px solid var(--primary);padd
       </div>
     </div>
   </div>
-  <div class="sf"><span class="brand">K-WATER · AI 러닝톤</span><span class="pg">13 / 27</span><span>Ⅲ-1-가 플랫폼 기술</span></div>
+  <div class="sf"><span class="brand">K-WATER · AI 러닝톤</span><span class="pg">13 / 29</span><span>Ⅲ-1-가 플랫폼 기술</span></div>
 </section>
 
 <!-- ============================================================ -->
@@ -901,7 +901,7 @@ pre.flow{background:var(--surface-low);border-left:3px solid var(--primary);padd
       <div style="font-size:.8125rem;color:var(--on-variant);line-height:1.6">본 슬라이드는 추후 보완 예정 · 상세 내용 작성 후 교체</div>
     </div>
   </div>
-  <div class="sf"><span class="brand">K-WATER · AI 러닝톤</span><span class="pg">14 / 27</span><span>Ⅲ-1-가 플랫폼 기능 추가</span></div>
+  <div class="sf"><span class="brand">K-WATER · AI 러닝톤</span><span class="pg">14 / 29</span><span>Ⅲ-1-가 플랫폼 기능 추가</span></div>
 </section>
 
 <!-- ============================================================ -->
@@ -983,7 +983,7 @@ pre.flow{background:var(--surface-low);border-left:3px solid var(--primary);padd
       </div>
     </div>
   </div>
-  <div class="sf"><span class="brand">K-WATER · AI 러닝톤</span><span class="pg">15 / 27</span><span>Ⅲ-1-나 온오프라인 연계</span></div>
+  <div class="sf"><span class="brand">K-WATER · AI 러닝톤</span><span class="pg">15 / 29</span><span>Ⅲ-1-나 온오프라인 연계</span></div>
 </section>
 
 <!-- ============================================================ -->
@@ -992,31 +992,31 @@ pre.flow{background:var(--surface-low);border-left:3px solid var(--primary);padd
 <section class="slide">
   <div class="sh"><span class="sh-l">Ⅲ-1-다. 전문적인 멘토링 Pool</span><span>Ⅲ. 과업추진 방향 · 차별성</span></div>
   <div class="si">
-    <div class="tag">차별성 · 하이브리드 멘토링</div>
-    <h2 class="st"><span class="hl">전문가의 깊이</span>와 <span class="hl-w">AI의 24시간 상시성</span>을 결합한 당사만의 하이브리드 멘토링</h2>
+    <div class="tag">차별성 · 이중 멘토링 구조</div>
+    <h2 class="st"><span class="hl">AI Office Hours</span>와 <span class="hl-w">휴먼 멘토 예약</span>의 이중 구조로 팀의 <span class="hl">사고와 실행</span>을 동시에 끌어올림</h2>
 
     <div class="c c-p" style="margin-top:12px">
-      <div class="c-t">🤖 + 👤 역할 분담</div>
+      <div class="c-t">🤖 + 👤 이중 멘토링 역할 분담</div>
       <table class="tb" style="font-size:.6875rem;margin-top:2px">
-        <thead><tr><th style="width:14%">축</th><th>AI 멘토 (24/7)</th><th>사람 멘토 (본선·중요 시점)</th></tr></thead>
+        <thead><tr><th style="width:14%">구분</th><th>AI 멘토링 (Office Hours)</th><th>휴먼 멘토 예약 (Mentor Booking)</th></tr></thead>
         <tbody>
-          <tr><td><strong>상시성</strong></td><td><strong class="hl">24시간</strong> · 탭 열면 즉시 시작</td><td>정기 3회 + 수시 + 본선 상주</td></tr>
-          <tr><td><strong>구조</strong></td><td><strong>4 Checkpoint</strong> 강제 질문 흐름</td><td><strong>4단계 역할</strong> (정의→설계→구현→고도화)</td></tr>
-          <tr><td><strong>효과</strong></td><td>사각지대·리스크 <strong>조기 노출</strong></td><td><strong>맥락 있는 고난도 코칭</strong></td></tr>
-          <tr><td><strong>산출</strong></td><td>세션 종료 시 <strong>리포트 자동 생성</strong></td><td>AI 리포트 참조·인수인계</td></tr>
+          <tr><td><strong>목적</strong></td><td><strong class="hl">24/7 Forcing Question</strong>으로 팀 사고 압박</td><td>전문가 1:1 집중 미팅 운영</td></tr>
+          <tr><td><strong>트리거</strong></td><td>참가자가 <strong>언제든</strong> 채팅 진입</td><td>팀장 예약/제안 → 멘토 확정</td></tr>
+          <tr><td><strong>컨텍스트</strong></td><td>팀 스킬·프로필 + 해커톤 평가기준 <strong>스냅샷 자동 주입</strong></td><td>해커톤 기간·모드·장소 설정</td></tr>
+          <tr><td><strong>산출물</strong></td><td>체크포인트 기반 <strong>리포트 자동 생성</strong></td><td>미팅 후 구조화 리포트 (요약/피드백/액션아이템)</td></tr>
         </tbody>
       </table>
     </div>
 
     <div class="g2" style="margin-top:10px">
       <div class="c">
-        <div class="c-t">🧭 4 Checkpoint (AI 멘토)</div>
+        <div class="c-t">🧭 AI 멘토 — 6대 Forcing Question × 4 Checkpoint</div>
         <table class="tb" style="font-size:.6875rem;margin-top:2px">
           <tbody>
-            <tr><td><strong>CP1</strong></td><td>Team Coach — 역할 분배·일정</td></tr>
-            <tr><td><strong>CP2</strong></td><td>Idea Mentor — 리프레이밍·실현가능성</td></tr>
-            <tr><td><strong>CP3</strong></td><td>Tech Mentor — 스코프 컷·남은 기간</td></tr>
-            <tr><td><strong>CP4</strong></td><td>Submit Reviewer — 루브릭·quick-win</td></tr>
+            <tr><td style="width:16%"><strong>CP1 탐색</strong></td><td>Q1 수요의 실재 → Q2 현재 대안 → Q3 구체적 타겟</td></tr>
+            <tr><td><strong>CP2 기획</strong></td><td>Q2 현재 대안 → Q4 <strong class="hl">최소 검증 단위</strong></td></tr>
+            <tr><td><strong>CP3 개발</strong></td><td>Q4 최소 검증 단위 → Q5 관찰과 의외성</td></tr>
+            <tr><td><strong>CP4 발표</strong></td><td>Q5 관찰과 의외성 → Q6 <strong class="hl">3년 적합성</strong></td></tr>
           </tbody>
         </table>
       </div>
@@ -1030,9 +1030,63 @@ pre.flow{background:var(--surface-low);border-left:3px solid var(--primary);padd
         </ul>
       </div>
     </div>
-    <div class="ph-note"><strong>K-water 효과</strong> — 사람은 &ldquo;깊이&rdquo;에, AI는 &ldquo;상시성·균등성&rdquo;에 · 비전공자 학습 격차 해소 · 멘토 공백(야간·주말) 제거 · 세션 내용 <strong>데이터로 축적</strong></div>
+    <div class="ph-note"><strong>핵심 가치 6축</strong> — ① 맥락 주입(Context-Aware) ② 강한 질문(Forcing Question) ③ 캘린더 기반 상호 스케줄링 ④ 자율 협상(Hybrid Booking) ⑤ 책임성(쿼터·노쇼·cutoff 정책) ⑥ 리포트 자동화 → 운영팀 사후분석 자산</div>
   </div>
-  <div class="sf"><span class="brand">K-WATER · AI 러닝톤</span><span class="pg">16 / 27</span><span>Ⅲ-1-다 멘토링 Pool</span></div>
+  <div class="sf"><span class="brand">K-WATER · AI 러닝톤</span><span class="pg">16 / 29</span><span>Ⅲ-1-다 멘토링 Pool</span></div>
+</section>
+
+<!-- ============================================================ -->
+<!-- S15-B. 캘린더 기반 상호 스케줄링 (핵심 UX)                      -->
+<!-- ============================================================ -->
+<section class="slide">
+  <div class="sh"><span class="sh-l">Ⅲ-1-다. 캘린더 기반 상호 스케줄링</span><span>Ⅲ. 과업추진 방향 · 차별성</span></div>
+  <div class="si">
+    <div class="tag">차별성 · 캘린더 상호 스케줄링</div>
+    <h2 class="st">멘토와 팀장이 <span class="hl">동일한 주간 캘린더 뷰</span>를 공유 — <span class="hl-w">"언제 가능하세요?" 왕복 제거</span></h2>
+
+    <!-- WeeklySlotGrid 시각 목업 -->
+    <div class="ui" style="margin-top:12px">
+      <div class="ui-bar"><div class="ui-dot r"></div><div class="ui-dot y"></div><div class="ui-dot g"></div><span class="ui-url">k-water-learningthon.daker.io/mentor/calendar</span></div>
+      <div class="ui-body" style="padding:14px 16px">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+          <div style="font-size:.8125rem;font-weight:800;color:var(--primary)">WeeklySlotGrid — 주간 캘린더 공통 뷰</div>
+          <div style="display:flex;gap:6px">
+            <span style="display:inline-flex;align-items:center;gap:4px;font-size:.5625rem;color:var(--on-variant)"><span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:var(--primary)"></span> 오픈 슬롯</span>
+            <span style="display:inline-flex;align-items:center;gap:4px;font-size:.5625rem;color:var(--on-variant)"><span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:var(--warm)"></span> 내 팀 예약</span>
+            <span style="display:inline-flex;align-items:center;gap:4px;font-size:.5625rem;color:var(--on-variant)"><span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:var(--outline)"></span> Busy (타 팀)</span>
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:48px repeat(7,1fr);gap:2px;font-size:.5625rem;text-align:center">
+          <div style="font-weight:700;color:var(--on-variant)"></div>
+          <div style="font-weight:700;color:var(--primary);padding:4px 0">월</div><div style="font-weight:700;color:var(--primary);padding:4px 0">화</div><div style="font-weight:700;color:var(--primary);padding:4px 0">수</div><div style="font-weight:700;color:var(--primary);padding:4px 0">목</div><div style="font-weight:700;color:var(--primary);padding:4px 0">금</div><div style="font-weight:700;color:var(--outline);padding:4px 0">토</div><div style="font-weight:700;color:var(--outline);padding:4px 0">일</div>
+          <div style="font-size:.5rem;color:var(--on-variant);padding:6px 0">10:00</div><div style="background:var(--primary);color:#fff;border-radius:3px;padding:4px 2px;font-weight:600">멘토A<br>60분</div><div style="background:var(--surface-low);border-radius:3px;padding:4px 2px">—</div><div style="background:var(--primary);color:#fff;border-radius:3px;padding:4px 2px;font-weight:600">멘토A<br>30분</div><div style="background:var(--outline);color:#fff;border-radius:3px;padding:4px 2px">busy</div><div style="background:var(--surface-low);border-radius:3px;padding:4px 2px">—</div><div style="background:var(--surface-low);border-radius:3px;padding:4px 2px">—</div><div style="background:var(--surface-low);border-radius:3px;padding:4px 2px">—</div>
+          <div style="font-size:.5rem;color:var(--on-variant);padding:6px 0">14:00</div><div style="background:var(--surface-low);border-radius:3px;padding:4px 2px">—</div><div style="background:var(--warm);color:#fff;border-radius:3px;padding:4px 2px;font-weight:600">내 팀<br>예약됨</div><div style="background:var(--surface-low);border-radius:3px;padding:4px 2px">—</div><div style="background:var(--primary);color:#fff;border-radius:3px;padding:4px 2px;font-weight:600">멘토A<br>60분</div><div style="background:var(--surface-low);border-radius:3px;padding:4px 2px">—</div><div style="background:var(--surface-low);border-radius:3px;padding:4px 2px">—</div><div style="background:var(--surface-low);border-radius:3px;padding:4px 2px">—</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 멘토 측 vs 팀장 측 -->
+    <div class="g2" style="margin-top:10px">
+      <div class="c c-p">
+        <div class="c-t">🧑‍🏫 멘토 측 (Producer)</div>
+        <ul>
+          <li>주간 그리드에서 <strong class="hl">드래그로 N개 슬롯</strong> 프리뷰 → 일괄 생성</li>
+          <li>모드(<strong>online/offline</strong>) · 공개범위(<strong>assigned/public</strong>) 지정</li>
+          <li>리스트 뷰에서 개별 편집·삭제 (예약된 슬롯은 장소·링크만)</li>
+        </ul>
+      </div>
+      <div class="c c-w">
+        <div class="c-t">👩‍💻 팀장 측 (Consumer)</div>
+        <ul>
+          <li><strong>오픈 슬롯 클릭</strong> → 모드/장소/링크 확인 → <strong class="hl-w">즉시 예약</strong></li>
+          <li><strong>빈 셀 클릭</strong> → ProposalDialog → <strong class="hl-w">슬롯 밖 시간 제안</strong></li>
+          <li>타 팀 예약은 <strong>busy 마스킹</strong>만 노출 (프라이버시 보호)</li>
+        </ul>
+      </div>
+    </div>
+    <div class="ph-note"><strong>설계 의미</strong> — 슬롯(즉시확정) + 제안(협상)이 같은 캘린더 위에서 동작 → UX 분리 부담 없음 · 드래그 기반 대량 생성으로 <strong>멘토 운영 피로 최소화</strong></div>
+  </div>
+  <div class="sf"><span class="brand">K-WATER · AI 러닝톤</span><span class="pg">17 / 29</span><span>Ⅲ-1-다 캘린더 스케줄링</span></div>
 </section>
 
 <!-- ============================================================ -->
@@ -1080,7 +1134,7 @@ pre.flow{background:var(--surface-low);border-left:3px solid var(--primary);padd
       </div>
     </div>
   </div>
-  <div class="sf"><span class="brand">K-WATER · AI 러닝톤</span><span class="pg">17 / 27</span><span>Ⅲ-2</span></div>
+  <div class="sf"><span class="brand">K-WATER · AI 러닝톤</span><span class="pg">18 / 29</span><span>Ⅲ-2</span></div>
 </section>
 
 <!-- ============================================================ -->
@@ -1132,7 +1186,7 @@ pre.flow{background:var(--surface-low);border-left:3px solid var(--primary);padd
       <div></div>
     </div>
   </div>
-  <div class="sf"><span class="brand">K-WATER · AI 러닝톤</span><span class="pg">18 / 27</span><span>Ⅲ-3-가 홍보</span></div>
+  <div class="sf"><span class="brand">K-WATER · AI 러닝톤</span><span class="pg">19 / 29</span><span>Ⅲ-3-가 홍보</span></div>
 </section>
 
 <!-- ============================================================ -->
@@ -1215,78 +1269,198 @@ pre.flow{background:var(--surface-low);border-left:3px solid var(--primary);padd
       </div>
     </div>
   </div>
-  <div class="sf"><span class="brand">K-WATER · AI 러닝톤</span><span class="pg">19 / 27</span><span>Ⅲ-3-나 온라인 경진대회</span></div>
+  <div class="sf"><span class="brand">K-WATER · AI 러닝톤</span><span class="pg">20 / 29</span><span>Ⅲ-3-나 온라인 경진대회</span></div>
 </section>
 
 <!-- ============================================================ -->
-<!-- S19. Ⅲ-3-③ 온라인 멘토링 (placeholder)                       -->
+<!-- S19. Ⅲ-3-③ AI 멘토링 Office Hours                            -->
 <!-- ============================================================ -->
 <section class="slide">
-  <div class="sh"><span class="sh-l">Ⅲ-3-다. 온라인 멘토링 실시</span><span>Ⅲ. 과업추진 방향 · 상세 운영</span></div>
+  <div class="sh"><span class="sh-l">Ⅲ-3-다. AI 멘토링 — Office Hours</span><span>Ⅲ. 과업추진 방향 · 상세 운영</span></div>
   <div class="si">
-    <div class="tag w">상세 운영 · 온라인 멘토링 실시</div>
-    <h2 class="st"><span class="hl">전문 멘토 팀당 3회</span>와 <span class="hl-w">AI 멘토 24시간</span>이 온라인 기간 팀을 빈틈없이 지원</h2>
-    <div class="ph-badge">📝 상세 내용 추후 보완 예정 — 본 슬라이드는 구조 placeholder</div>
+    <div class="tag w">상세 운영 · AI 멘토링 Office Hours</div>
+    <h2 class="st">VC 오피스아워 스타일 <span class="hl">6대 Forcing Question</span>으로 팀의 <span class="hl-w">가설을 실전 검증</span></h2>
 
-    <div class="g2" style="margin-top:8px">
-      <div class="c">
-        <div class="c-t">🎯 운영 개요 (초안)</div>
-        <table class="tb" style="font-size:.6875rem;margin-top:2px">
-          <tbody>
-            <tr><td style="width:30%"><strong>기간</strong></td><td>5월 말 ~ 6월 말 (예선과 동시)</td></tr>
-            <tr><td><strong>멘토 배치</strong></td><td><strong class="hl">1인당 ≤ 3팀</strong> (과업지시서 충족)</td></tr>
-            <tr><td><strong>정기 세션</strong></td><td><strong class="hl">팀당 3회</strong> — 화상·플랫폼</td></tr>
-            <tr><td><strong>수시 세션</strong></td><td>플랫폼 Q&amp;A · AI 멘토 24/7</td></tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="c c-p">
-        <div class="c-t">👥 멘토 자격 · 구성 (초안)</div>
-        <ul>
-          <li>생성형 AI / 컨설팅·교육 / 업무 개선 중 <strong>2개 이상</strong></li>
-          <li>분야 5축 (LLM · 바이브코딩 · 데이터 · 자동화 · UX)</li>
-          <li>평균 경력 8년+</li>
-          <li>제출 서류: 프로젝트·역할, AI 실적, 교육·컨설팅, 자격</li>
-        </ul>
-      </div>
+    <!-- 6대 Forcing Question -->
+    <div class="c c-p" style="margin-top:10px">
+      <div class="c-t">🔥 6대 Forcing Question — 팀의 사고를 압박하는 핵심 질문 체계</div>
+      <table class="tb" style="font-size:.6875rem;margin-top:2px">
+        <thead><tr><th style="width:6%">#</th><th style="width:22%">영문</th><th style="width:22%">한국어</th><th>의도</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Q1</strong></td><td>Demand Reality</td><td><strong class="hl">수요의 실재</strong></td><td>누가 실제로 원하는가</td></tr>
+          <tr><td><strong>Q2</strong></td><td>Status Quo</td><td><strong class="hl">현재 대안·비용</strong></td><td>지금은 어떻게 해결 중인가</td></tr>
+          <tr><td><strong>Q3</strong></td><td>Desperate Specificity</td><td><strong class="hl">구체적 타겟</strong></td><td>누가 &ldquo;절박하게&rdquo; 필요한가</td></tr>
+          <tr><td><strong>Q4</strong></td><td>Narrowest Wedge</td><td><strong class="hl-w">최소 검증 단위</strong></td><td>가장 좁게 증명할 범위는</td></tr>
+          <tr><td><strong>Q5</strong></td><td>Observation &amp; Surprise</td><td><strong class="hl">관찰과 의외성</strong></td><td>관찰로 얻은 비상식 발견은</td></tr>
+          <tr><td><strong>Q6</strong></td><td>Future-Fit</td><td><strong class="hl-w">3년 적합성</strong></td><td>3년 뒤에도 유효한가</td></tr>
+        </tbody>
+      </table>
     </div>
 
     <div class="g2" style="margin-top:10px">
-      <div class="c c-w">
-        <div class="c-t">🧭 멘토 4단계 역할 (초안)</div>
-        <div class="stepper" style="gap:4px;margin-top:4px">
-          <div class="step"><div class="n">①</div><div class="t" style="font-size:.75rem">과제 정의</div></div>
-          <div class="step"><div class="n">②</div><div class="t" style="font-size:.75rem">솔루션 설계</div></div>
-          <div class="step"><div class="n">③</div><div class="t" style="font-size:.75rem">기술·구현</div></div>
-          <div class="step"><div class="n">④</div><div class="t" style="font-size:.75rem">결과 고도화</div></div>
-        </div>
+      <!-- 스테이지 라우팅 -->
+      <div class="c">
+        <div class="c-t">🧭 스테이지 라우팅 — 체크포인트별 질문 흐름</div>
+        <table class="tb" style="font-size:.6875rem;margin-top:2px">
+          <thead><tr><th style="width:24%">체크포인트</th><th style="width:20%">단계</th><th>허용 질문</th></tr></thead>
+          <tbody>
+            <tr><td><strong>CP1</strong></td><td>탐색</td><td><strong class="hl">Q1 → Q2 → Q3</strong></td></tr>
+            <tr><td><strong>CP2</strong></td><td>기획</td><td><strong class="hl">Q2 → Q4</strong></td></tr>
+            <tr><td><strong>CP3</strong></td><td>개발</td><td><strong class="hl">Q4 → Q5</strong></td></tr>
+            <tr><td><strong>CP4</strong></td><td>발표</td><td><strong class="hl">Q5 → Q6</strong></td></tr>
+          </tbody>
+        </table>
       </div>
-      <div class="c c-g">
-        <div class="c-t">🤖 하이브리드 멘토링 (초안)</div>
-        <ul>
-          <li>AI 멘토 24/7 (4 Checkpoint) + 사람 멘토 1:3 병행</li>
-          <li>AI 세션 리포트 → 사람 멘토 <strong>인수인계 자료</strong> 활용</li>
-        </ul>
+      <!-- 톤 + 컨텍스트 스냅샷 + 품질 규칙 -->
+      <div class="c c-w">
+        <div class="c-t">🎛 톤 선택 · 컨텍스트 스냅샷 · 대화 품질 규칙</div>
+        <table class="tb" style="font-size:.6875rem;margin-top:2px">
+          <thead><tr><th style="width:28%">톤</th><th>특성</th><th style="width:26%">적용 대상</th></tr></thead>
+          <tbody>
+            <tr><td><strong class="hl-w">yc-hard</strong> (기본)</td><td>직설 · Red flag 즉시 지적</td><td>K-water 러닝톤 (성인)</td></tr>
+            <tr><td><strong>yc-soft</strong></td><td>Forcing Q 유지 + 칭찬↑ + 경어</td><td>기업 교육형</td></tr>
+            <tr><td><strong>coach</strong></td><td>푸시백 최소 · 선택지 제시</td><td>입문자·청소년</td></tr>
+          </tbody>
+        </table>
+        <div class="c-dd" style="margin-top:6px"><strong>컨텍스트 스냅샷</strong> — 세션 생성 시 <strong class="hl-w">팀원 닉네임·스킬·평가기준·이전 리포트</strong> 자동 주입</div>
+        <div class="c-dd" style="margin-top:3px"><strong>대화 품질 규칙</strong> — 첫 응답에 팀원+스킬+평가기준 <strong class="hl-w">필수 인용</strong> · 1응답 = 1주질문 · Escape Hatch(거부 시 2개만 묻고 요약) · 시그널 2 미만 시 Builder Mode 폴백</div>
       </div>
     </div>
-    <div class="ph-note">이 섹션은 발주처와 협의 후 상세 내용 보완 예정 — 멘토 매칭 로직 · 세션 운영 방식 · 플랫폼 UI · 피드백 루틴 등</div>
+    <div class="ph-note"><strong>AI × 휴먼 연결</strong> — AI가 도출한 &ldquo;최소 검증 단위(Q4)&rdquo;를 휴먼 멘토 미팅 주제로 제안 · 휴먼 리포트의 액션아이템을 AI 다음 세션 컨텍스트로 활용 → <strong>단일 리포트 스트림</strong>으로 팀 성장 궤적 추적</div>
   </div>
-  <div class="sf"><span class="brand">K-WATER · AI 러닝톤</span><span class="pg">20 / 27</span><span>Ⅲ-3-다 온라인 멘토링</span></div>
+  <div class="sf"><span class="brand">K-WATER · AI 러닝톤</span><span class="pg">21 / 29</span><span>Ⅲ-3-다 AI 멘토링</span></div>
 </section>
 
 <!-- ============================================================ -->
-<!-- S20. Ⅲ-3-다. 온라인 멘토링 — 추가 장표 (빈 슬라이드)           -->
+<!-- S20. Ⅲ-3-다. 휴먼 멘토 예약 시스템 (Mentor Booking)           -->
 <!-- ============================================================ -->
 <section class="slide">
-  <div class="sh"><span class="sh-l">Ⅲ-3-다. 온라인 멘토링 실시 (보완)</span><span>Ⅲ. 과업추진 방향 · 상세 운영</span></div>
-  <div class="si" style="justify-content:center;align-items:center">
-    <div style="text-align:center;padding:40px">
-      <div style="font-size:3rem;line-height:1;margin-bottom:18px;opacity:.3">📝</div>
-      <div style="font-size:1.5rem;font-weight:800;color:var(--primary);letter-spacing:-.01em;margin-bottom:10px">(멘토링 설명 추가 장표)</div>
-      <div style="font-size:.8125rem;color:var(--on-variant);line-height:1.6">본 슬라이드는 추후 보완 예정 · 상세 내용 작성 후 교체</div>
+  <div class="sh"><span class="sh-l">Ⅲ-3-다. 휴먼 멘토 예약 시스템</span><span>Ⅲ. 과업추진 방향 · 상세 운영</span></div>
+  <div class="si">
+    <div class="tag w">상세 운영 · 휴먼 멘토 예약</div>
+    <h2 class="st"><span class="hl">즉시 예약 + 시간 제안</span>의 하이브리드 협상으로 <span class="hl-w">멘토 1:1 미팅을 시스템화</span></h2>
+
+    <!-- 하이브리드 예약 방식 -->
+    <div class="g2" style="margin-top:10px">
+      <div class="c c-p">
+        <div class="c-t">⚡ 즉시 예약 — 오픈 슬롯 클릭 즉시 확정</div>
+        <ul>
+          <li>멘토가 <strong>주간 그리드(7일 x 30분)</strong>에서 드래그로 N개 슬롯 일괄 오픈</li>
+          <li>팀장이 오픈 슬롯 클릭 → <strong class="hl">즉시 확정</strong> (슬롯당 1팀)</li>
+          <li>동시성 안전: <code>SELECT FOR UPDATE</code> → 409 충돌 시 자동 refetch</li>
+        </ul>
+      </div>
+      <div class="c c-w">
+        <div class="c-t">💬 시간 제안 — 슬롯 밖 유연 협상</div>
+        <ul>
+          <li>팀장이 <strong>슬롯 밖 시간 제안</strong> → 멘토 승인 시 슬롯+예약 <strong class="hl-w">원자적 생성</strong></li>
+          <li>멘토 거절·만료 시 팀 즉시 알림</li>
+          <li>빠른 운영(즉시)과 유연한 조율(제안)을 <strong>동시 제공</strong></li>
+        </ul>
+      </div>
     </div>
+
+    <!-- 쿼터·노쇼 + 알림 + 리포트 -->
+    <div class="g3" style="margin-top:10px">
+      <div class="c">
+        <div class="c-t">📊 쿼터 &amp; 노쇼 정책</div>
+        <ul>
+          <li>팀당 <strong class="hl">누적 한도</strong> 설정 (분 단위)</li>
+          <li>취소 = 쿼터 <strong>회복</strong> · 노쇼 = <strong class="hl-w">미회복</strong></li>
+          <li>취소 마감(기본 60분 전) 이후 취소 = 노쇼 처리</li>
+          <li>잔여 쿼터 <strong>배지 상시 노출</strong></li>
+        </ul>
+      </div>
+      <div class="c c-g">
+        <div class="c-t">🔔 알림 5종 (in-app + 이메일)</div>
+        <ul>
+          <li><strong>예약 생성</strong> — 팀+멘토 양측 알림</li>
+          <li><strong>예약 취소</strong> — 사유·쿼터 변동 안내</li>
+          <li><strong>30분 전 리마인더</strong> — 자동 발송</li>
+          <li><strong>제안 제출</strong> — 멘토에게 알림</li>
+          <li><strong>제안 응답</strong> — 팀에게 결과 알림</li>
+        </ul>
+      </div>
+      <div class="c c-d">
+        <div class="c-t" style="color:#fff">📋 미팅 후 리포트</div>
+        <ul>
+          <li style="color:#e2e8f0"><strong>summary</strong> — 논의 요약</li>
+          <li style="color:#e2e8f0"><strong>feedback</strong> — 팀에 대한 피드백</li>
+          <li style="color:#e2e8f0"><strong>actionItems</strong> — 다음 액션 아이템</li>
+          <li style="color:#e2e8f0">AI·휴먼 리포트 <strong>단일 뷰</strong>로 통합</li>
+          <li style="color:#e2e8f0">→ AI 멘토가 액션아이템을 다음 세션 맥락으로 활용</li>
+        </ul>
+      </div>
+    </div>
+    <div class="ph-note"><strong>3자 역할 분리</strong> — 관리자(정책 설정) · 멘토(슬롯 오픈·리포트 작성) · 팀장(예약·제안·리포트 열람) · 팀원(열람 전용) → 운영 리스크 최소화</div>
   </div>
-  <div class="sf"><span class="brand">K-WATER · AI 러닝톤</span><span class="pg">21 / 27</span><span>Ⅲ-3-다 멘토링 추가</span></div>
+  <div class="sf"><span class="brand">K-WATER · AI 러닝톤</span><span class="pg">22 / 29</span><span>Ⅲ-3-다 멘토 예약</span></div>
+</section>
+
+<!-- ============================================================ -->
+<!-- S20-B. AI × 휴먼 멘토링 연결 고리 + End-to-End 프로세스          -->
+<!-- ============================================================ -->
+<section class="slide">
+  <div class="sh"><span class="sh-l">Ⅲ-3-다. AI × 휴먼 멘토링 연결 · E2E 프로세스</span><span>Ⅲ. 과업추진 방향 · 상세 운영</span></div>
+  <div class="si">
+    <div class="tag w">상세 운영 · AI × 휴먼 연결 프로세스</div>
+    <h2 class="st"><span class="hl">AI 리포트 → 휴먼 미팅 → 액션아이템</span>이 <span class="hl-w">단일 스트림</span>으로 순환하는 멘토링</h2>
+
+    <!-- E2E 프로세스 흐름 -->
+    <div class="stepper" style="margin-top:12px">
+      <div class="step" style="border-left-color:var(--primary)">
+        <div class="n">STEP 1</div>
+        <div class="t">AI Office Hours</div>
+        <div class="d">팀 채팅 진입 → 컨텍스트 스냅샷 자동 주입 → 6대 Forcing Question으로 가설 검증</div>
+      </div>
+      <div class="step" style="border-left-color:var(--warm)">
+        <div class="n">STEP 2</div>
+        <div class="t">AI 리포트 생성</div>
+        <div class="d">세션 종료 시 구조화 리포트 자동 생성 → 체크포인트별 진척 기록</div>
+      </div>
+      <div class="step" style="border-left-color:var(--green)">
+        <div class="n">STEP 3</div>
+        <div class="t">휴먼 멘토 미팅</div>
+        <div class="d">AI가 도출한 Q4(최소 검증 단위)를 미팅 주제로 제안 → 도메인 전문가 검증</div>
+      </div>
+      <div class="step" style="border-left-color:var(--primary)">
+        <div class="n">STEP 4</div>
+        <div class="t">순환 반영</div>
+        <div class="d">휴먼 리포트의 액션아이템 → AI 다음 세션 컨텍스트로 자동 활용</div>
+      </div>
+    </div>
+
+    <!-- 리포트 통합 + 캘린더 UI 상태 -->
+    <div class="g2" style="margin-top:10px">
+      <div class="c c-p">
+        <div class="c-t">📋 단일 리포트 스트림 — AI · 휴먼 통합 뷰</div>
+        <table class="tb" style="font-size:.6875rem;margin-top:2px">
+          <thead><tr><th style="width:28%">리포트 종류</th><th>내용</th><th style="width:22%">생성 주체</th></tr></thead>
+          <tbody>
+            <tr><td><strong class="hl">AI 체크포인트</strong></td><td>Forcing Q 대화 로그 + 요약 + 다음 Q 안내</td><td>AI 자동 생성</td></tr>
+            <tr><td><strong class="hl-w">휴먼 미팅</strong></td><td>논의 요약 · 피드백 · 액션아이템</td><td>멘토 수동 작성</td></tr>
+          </tbody>
+        </table>
+        <div class="c-dd" style="margin-top:6px"><code>mentoring_sessions</code> 테이블에서 <strong>kind='ai'|'human'</strong>으로 구분 → 팀 성장 궤적을 시간순 <strong class="hl">단일 타임라인</strong>으로 추적</div>
+      </div>
+      <div class="c c-w">
+        <div class="c-t">🎨 캘린더 UI 상태 가시화</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:6px">
+          <div style="display:flex;align-items:center;gap:6px;font-size:.6875rem"><span style="display:inline-block;width:28px;height:14px;border-radius:3px;background:var(--primary)"></span> <strong>confirmed</strong> — solid</div>
+          <div style="display:flex;align-items:center;gap:6px;font-size:.6875rem"><span style="display:inline-block;width:28px;height:14px;border-radius:3px;background:rgba(30,58,138,.2)"></span> <strong>pending</strong> — tint</div>
+          <div style="display:flex;align-items:center;gap:6px;font-size:.6875rem"><span style="display:inline-block;width:28px;height:14px;border-radius:3px;background:var(--outline)"></span> <strong>canceled</strong> — muted</div>
+          <div style="display:flex;align-items:center;gap:6px;font-size:.6875rem"><span style="display:inline-block;width:28px;height:14px;border-radius:3px;border:2px solid var(--warm);background:transparent"></span> <strong>no_show</strong> — outline</div>
+        </div>
+        <ul style="margin-top:8px">
+          <li><strong class="hl-w">QuotaBadge</strong> — 잔여 시간 ≤30분 시 경고 톤 자동 전환</li>
+          <li>슬롯 경쟁 실패 시 <strong>409 → 토스트 + 자동 새로고침</strong></li>
+          <li>cutoff 지난 예약은 <strong>"노쇼 위험" 시각 단서</strong> 표시</li>
+        </ul>
+      </div>
+    </div>
+    <div class="ph-note"><strong>설계 원칙</strong> — ① 컨텍스트 우선: AI든 휴먼이든 팀·평가기준을 먼저 본다 ② No Overengineering: 그룹 멘토링·외부 캘린더·멀티 TZ 1차 제외 ③ 어뷰즈 방지: 노쇼 쿼터 미회복 · 취소 슬롯 재오픈 금지</div>
+  </div>
+  <div class="sf"><span class="brand">K-WATER · AI 러닝톤</span><span class="pg">23 / 29</span><span>Ⅲ-3-다 AI×휴먼 연결</span></div>
 </section>
 
 <!-- ============================================================ -->
@@ -1344,7 +1518,7 @@ pre.flow{background:var(--surface-low);border-left:3px solid var(--primary);padd
       </div>
     </div>
   </div>
-  <div class="sf"><span class="brand">K-WATER · AI 러닝톤</span><span class="pg">22 / 27</span><span>Ⅲ-3-라 오프라인 대회</span></div>
+  <div class="sf"><span class="brand">K-WATER · AI 러닝톤</span><span class="pg">24 / 29</span><span>Ⅲ-3-라 오프라인 대회</span></div>
 </section>
 
 <!-- ============================================================ -->
@@ -1359,7 +1533,7 @@ pre.flow{background:var(--surface-low);border-left:3px solid var(--primary);padd
       <div style="font-size:.8125rem;color:var(--on-variant);line-height:1.6">본 슬라이드는 추후 보완 예정 · 상세 내용 작성 후 교체</div>
     </div>
   </div>
-  <div class="sf"><span class="brand">K-WATER · AI 러닝톤</span><span class="pg">23 / 27</span><span>Ⅲ-3-라 본선 첫째날</span></div>
+  <div class="sf"><span class="brand">K-WATER · AI 러닝톤</span><span class="pg">25 / 29</span><span>Ⅲ-3-라 본선 첫째날</span></div>
 </section>
 
 <!-- ============================================================ -->
@@ -1417,7 +1591,7 @@ pre.flow{background:var(--surface-low);border-left:3px solid var(--primary);padd
     </div>
     <div class="ph-note">이 섹션은 발주처와 협의 후 상세 내용 보완 예정 — 심사 기준 세부 · 시상 구성 · 발표 순서 · 결과 공개 방식 등</div>
   </div>
-  <div class="sf"><span class="brand">K-WATER · AI 러닝톤</span><span class="pg">24 / 27</span><span>Ⅲ-3-마 발표·시상</span></div>
+  <div class="sf"><span class="brand">K-WATER · AI 러닝톤</span><span class="pg">26 / 29</span><span>Ⅲ-3-마 발표·시상</span></div>
 </section>
 
 <!-- ============================================================ -->
@@ -1486,7 +1660,7 @@ pre.flow{background:var(--surface-low);border-left:3px solid var(--primary);padd
 
     <div class="ph-note">참조 — Ⅰ-2-라 과업범위 성과 관리(p.8) 연계 · 제안요청서 Ⅱ. 과업 범위 · 과업지시서 Ⅳ. 성과품</div>
   </div>
-  <div class="sf"><span class="brand">K-WATER · AI 러닝톤</span><span class="pg">25 / 27</span><span>Ⅲ-3-바 성과 관리 · KPI</span></div>
+  <div class="sf"><span class="brand">K-WATER · AI 러닝톤</span><span class="pg">27 / 29</span><span>Ⅲ-3-바 성과 관리 · KPI</span></div>
 </section>
 
 <!-- ============================================================ -->
@@ -1543,7 +1717,7 @@ pre.flow{background:var(--surface-low);border-left:3px solid var(--primary);padd
       </div>
     </div>
   </div>
-  <div class="sf"><span class="brand">K-WATER · AI 러닝톤</span><span class="pg">26 / 27</span><span>Ⅲ-3-바 성과 관리 · 확산</span></div>
+  <div class="sf"><span class="brand">K-WATER · AI 러닝톤</span><span class="pg">28 / 29</span><span>Ⅲ-3-바 성과 관리 · 확산</span></div>
 </section>
 
 <!-- ============================================================ -->
@@ -1555,7 +1729,7 @@ pre.flow{background:var(--surface-low);border-left:3px solid var(--primary);padd
     <div class="lg" data-step="1">K-WATER · AI 러닝톤</div>
     <h1 data-step="2">
       <span class="hl">90일의 러닝톤</span>,<br>
-      K-water와 <span class="hl-w">끝까지 함께</span>하겠습니다.
+      한국수자원공사와 <span class="hl-w">끝까지 함께</span>하겠습니다.
     </h1>
     <div class="ed" data-step="3">
       홍보·모집 → 온라인 예선·멘토링 → 본선 1박 2일 → 성과 확산까지<br>
@@ -1563,7 +1737,7 @@ pre.flow{background:var(--surface-low);border-left:3px solid var(--primary);padd
       <strong class="hl-w">K-water AI 러닝톤의 성공적 운영</strong>을 약속드립니다.
     </div>
   </div>
-  <div class="sf"><span class="brand">K-WATER · AI 러닝톤</span><span class="pg">27 / 27</span><span>감사합니다</span></div>
+  <div class="sf"><span class="brand">K-WATER · AI 러닝톤</span><span class="pg">29 / 29</span><span>감사합니다</span></div>
 </section>
 
 </div></div>
