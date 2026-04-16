@@ -11,21 +11,24 @@
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --primary:#1E3A8A;--primary-d:#162B66;--primary-light:#dbe3f4;
-  --warm:#c2622d;--warm-bg:rgba(194,98,45,.08);--warm-light:#f5dccb;
-  --dark:#0f172a;--on-surface:#0f172a;--on-variant:#475569;
-  --surface:#ffffff;--surface-low:#f1f5f9;--outline:#94a3b8;--outline-d:rgba(148,163,184,.2);
-  --green:#0a8e6b;--green-bg:rgba(10,142,107,.08);
-  --red:#b91c1c;--red-bg:rgba(185,28,28,.08);
-  --blue:#3b82f6;--blue-bg:rgba(59,130,246,.08);
-  --purple:#7c3aed;--purple-bg:rgba(124,58,237,.08);
+  /* DAKER 3-Color System: Blue + Slate + White */
+  --primary:#0053db;--primary-d:#0048c1;--primary-light:#d8e3fb;
+  --on-primary:#f8f7ff;--secondary-container:#d8e3fb;--on-secondary:#475266;
+  --warm:#0053db;--warm-bg:rgba(0,83,219,.06);--warm-light:#d8e3fb;
+  --dark:#2a3439;--on-surface:#2a3439;--on-variant:#566166;
+  --surface:#ffffff;--surface-low:#f0f4f7;--bg:#f7f9fb;
+  --outline:#a9b4b9;--outline-d:rgba(169,180,185,.2);
+  --green:#0053db;--green-bg:rgba(0,83,219,.04);
+  --red:#0053db;--red-bg:rgba(0,83,219,.08);
+  --blue:#0053db;--blue-bg:rgba(0,83,219,.06);
+  --purple:#0053db;--purple-bg:rgba(0,83,219,.04);
   --font:'Plus Jakarta Sans','Pretendard Variable',Pretendard,-apple-system,system-ui,sans-serif;
   --mono:'SF Mono',Menlo,Consolas,monospace;
   --shadow-ambient:0 8px 24px rgba(30,41,59,0.04);
   --r-sm:.25rem;--r-md:.375rem;--r-lg:.75rem;--r-xl:1rem;
   --slide-w:1280px;--slide-h:720px;
 }
-html,body{width:100%;height:100%;font-family:var(--font);color:var(--on-surface);background:#e2e8f0;overflow:hidden;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+html,body{width:100%;height:100%;font-family:var(--font);color:var(--on-surface);background:var(--bg);overflow:hidden;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
 #viewport{position:fixed;inset:0;display:flex;align-items:center;justify-content:center}
 #stage{position:relative;width:var(--slide-w);height:var(--slide-h);overflow:hidden;transform-origin:center;border-radius:var(--r-lg);box-shadow:0 12px 48px rgba(30,41,59,0.15);background:var(--surface)}
 .slide{position:absolute;inset:0;background:var(--surface);display:flex;flex-direction:column;opacity:0;pointer-events:none;transition:opacity 0s;overflow:hidden}
@@ -40,29 +43,27 @@ html,body{width:100%;height:100%;font-family:var(--font);color:var(--on-surface)
 .si{flex:1;display:flex;flex-direction:column;padding:62px 72px 48px;position:relative;margin-top:0}
 .tag{display:inline-flex;align-items:center;gap:8px;font-size:.6875rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--primary);margin-bottom:12px}
 .tag::before{content:'';width:24px;height:2.5px;background:var(--primary);border-radius:2px}
-.tag.w{color:var(--warm)}.tag.w::before{background:var(--warm)}
-.tag.g{color:var(--green)}.tag.g::before{background:var(--green)}
-.tag.b{color:var(--blue)}.tag.b::before{background:var(--blue)}
-.tag.pp{color:var(--purple)}.tag.pp::before{background:var(--purple)}
+.tag.w,.tag.g,.tag.b,.tag.pp{color:var(--primary)}
+.tag.w::before,.tag.g::before,.tag.b::before,.tag.pp::before{background:var(--primary)}
 h1.st{font-size:2rem;font-weight:800;color:var(--on-surface);letter-spacing:-.02em;line-height:1.2}
 h2.st{font-size:1.75rem;font-weight:800;color:var(--on-surface);letter-spacing:-.02em;line-height:1.2}
 .sub{margin-top:8px;font-size:.875rem;color:var(--on-variant);line-height:1.65}
 .hl{color:var(--primary);font-weight:700}
-.hl-w{color:var(--warm);font-weight:700}
-.hl-g{color:var(--green);font-weight:700}
+.hl-w{color:var(--primary);font-weight:700}
+.hl-g{color:var(--primary);font-weight:700}
 .g2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
 .g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
 .g4{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
 .g5{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
 .g6{display:grid;grid-template-columns:repeat(6,1fr);gap:10px}
-.c{background:var(--surface);border:1px solid rgba(148,163,184,.2);border-radius:var(--r-lg);padding:16px}
-.c-p{background:var(--primary-light);border:none}
-.c-w{background:var(--warm-bg);border:none}
-.c-g{background:var(--green-bg);border:none}
-.c-r{background:var(--red-bg);border:none}
-.c-b{background:var(--blue-bg);border:none}
-.c-pp{background:var(--purple-bg);border:none}
-.c-d{background:var(--dark);color:#fff;border:none}
+.c{background:var(--surface);border:none;border-radius:var(--r-lg);padding:16px;box-shadow:0 0 0 1px var(--outline-d)}
+.c-p{background:var(--primary-light);border:none;box-shadow:none}
+.c-w{background:rgba(0,83,219,.04);border:none;box-shadow:none}
+.c-g{background:var(--surface-low);border:none;box-shadow:none}
+.c-r{background:rgba(0,83,219,.08);border:none;box-shadow:none}
+.c-b{background:rgba(0,83,219,.06);border:none;box-shadow:none}
+.c-pp{background:var(--surface-low);border:none;box-shadow:none}
+.c-d{background:var(--dark);color:#fff;border:none;box-shadow:none}
 .c-d .c-t,.c-d .c-dt{color:#fff}.c-d .c-dd{color:#cbd5e1}
 .c .c-t{font-size:.8125rem;font-weight:700;color:var(--on-surface);margin-bottom:6px}
 .c .c-dt{font-size:.9375rem;font-weight:800;color:var(--on-surface);margin-bottom:6px;letter-spacing:-.01em}
@@ -70,14 +71,10 @@ h2.st{font-size:1.75rem;font-weight:800;color:var(--on-surface);letter-spacing:-
 .c ul{list-style:none;margin-top:6px}
 .c ul li{position:relative;padding-left:14px;font-size:.75rem;color:var(--on-variant);line-height:1.7}
 .c ul li::before{content:'';position:absolute;left:0;top:9px;width:5px;height:5px;border-radius:50%;background:var(--primary)}
-.c-w ul li::before{background:var(--warm)}
-.c-g ul li::before{background:var(--green)}
-.c-r ul li::before{background:var(--red)}
-.c-b ul li::before{background:var(--blue)}
 .c-d ul li::before{background:#fff}
 .mx{text-align:center;padding:14px 10px;background:var(--surface-low);border-radius:var(--r-lg)}
 .mx .v{font-size:1.5rem;font-weight:800;color:var(--primary);line-height:1;letter-spacing:-.02em}
-.mx .v.w{color:var(--warm)}.mx .v.g{color:var(--green)}.mx .v.r{color:var(--red)}
+.mx .v.w,.mx .v.g,.mx .v.r{color:var(--primary)}
 .mx .l{font-size:.625rem;color:var(--on-variant);margin-top:4px;font-weight:500}
 .tb{width:100%;border-collapse:collapse;font-size:.75rem;margin-top:8px}
 .tb th{background:var(--surface-low);color:var(--on-surface);padding:8px 12px;text-align:left;font-size:.6875rem;font-weight:700;border:none;border-bottom:2px solid var(--primary)}
@@ -88,41 +85,31 @@ h2.st{font-size:1.75rem;font-weight:800;color:var(--on-surface);letter-spacing:-
 .tb tr.hl-row td{color:var(--on-surface);font-weight:600}
 .flow{display:flex;align-items:stretch;gap:0;margin-top:12px}
 .flow-step{flex:1;background:var(--surface);border:1px solid rgba(148,163,184,.2);border-radius:var(--r-lg);padding:12px;position:relative}
-.flow-step.p{border-top:3px solid var(--primary)}
-.flow-step.b{border-top:3px solid #3b82f6}
-.flow-step.w{border-top:3px solid var(--warm)}
-.flow-step.g{border-top:3px solid var(--green)}
-.flow-step.r{border-top:3px solid var(--red)}
-.flow-step.pp{border-top:3px solid var(--purple)}
+.flow-step.p,.flow-step.b,.flow-step.w,.flow-step.g,.flow-step.r,.flow-step.pp{border-top:3px solid var(--primary)}
 .flow-arr{display:flex;align-items:center;color:var(--outline);font-size:16px;font-weight:800;padding:0 6px}
 .flow-num{font-size:.5625rem;font-weight:800;letter-spacing:.12em;color:var(--primary);margin-bottom:3px}
-.flow-num.b{color:#3b82f6}.flow-num.w{color:var(--warm)}.flow-num.g{color:var(--green)}.flow-num.r{color:var(--red)}.flow-num.pp{color:var(--purple)}
+.flow-num.b,.flow-num.w,.flow-num.g,.flow-num.r,.flow-num.pp{color:var(--primary)}
 .flow-title{font-size:.8125rem;font-weight:800;color:var(--on-surface);margin-bottom:4px;line-height:1.3}
 .flow-desc{font-size:.6875rem;color:var(--on-variant);line-height:1.55}
 .badge{display:inline-block;padding:2px 8px;border-radius:999px;font-size:.625rem;font-weight:700;letter-spacing:.04em}
-.badge.p{background:var(--primary-light);color:var(--primary)}
-.badge.w{background:var(--warm-bg);color:var(--warm)}
-.badge.g{background:var(--green-bg);color:var(--green)}
-.badge.r{background:var(--red-bg);color:var(--red)}
-.badge.b{background:var(--blue-bg);color:var(--blue)}
+.badge.p,.badge.w,.badge.g,.badge.r,.badge.b{background:var(--secondary-container);color:var(--on-secondary)}
 .slide-sec{padding:0}
-.slide-sec .si{justify-content:center;align-items:center;text-align:center;padding-top:60px;background:linear-gradient(135deg,var(--surface) 0%,var(--primary-light) 100%)}
+.slide-sec .si{justify-content:center;align-items:center;text-align:center;padding-top:60px;background:linear-gradient(135deg,var(--bg) 0%,var(--primary-light) 100%)}
 .slide-sec .sn{font-size:4.5rem;font-weight:800;color:rgba(30,58,138,.09);line-height:1;margin-bottom:8px;letter-spacing:-.04em}
 .slide-sec h2{font-size:2.25rem;font-weight:800;color:var(--on-surface);letter-spacing:-.02em}
 .slide-sec .sd{font-size:1rem;color:var(--on-variant);margin-top:10px;max-width:720px;line-height:1.65}
 .slide-cover{padding:0}
-.slide-cover .si{justify-content:center;padding:70px 88px;background:linear-gradient(135deg,var(--surface) 0%,var(--primary-light) 100%);margin-top:0}
-.slide-cover .kv{font-size:.8125rem;font-weight:700;color:var(--warm);letter-spacing:.18em;margin-bottom:16px;text-transform:uppercase}
+.slide-cover .si{justify-content:center;padding:70px 88px;background:linear-gradient(135deg,var(--bg) 0%,var(--primary-light) 100%);margin-top:0}
+.slide-cover .kv{font-size:.8125rem;font-weight:700;color:var(--primary);letter-spacing:.18em;margin-bottom:16px;text-transform:uppercase}
 .slide-cover h1{font-size:2.875rem;font-weight:800;line-height:1.18;letter-spacing:-.02em;color:var(--on-surface)}
 .slide-cover .flowtag{display:flex;gap:6px;margin-top:22px;flex-wrap:wrap;align-items:center}
-.slide-cover .flowtag .chip{background:#fff;border:1px solid var(--primary);color:var(--primary);padding:6px 12px;border-radius:999px;font-size:.75rem;font-weight:700}
-.slide-cover .flowtag .chip.w{border-color:var(--warm);color:var(--warm)}
-.slide-cover .flowtag .chip.g{border-color:var(--green);color:var(--green)}
+.slide-cover .flowtag .chip{background:var(--secondary-container);border:none;color:var(--on-secondary);padding:6px 12px;border-radius:999px;font-size:.75rem;font-weight:700}
+.slide-cover .flowtag .chip.w,.slide-cover .flowtag .chip.g{color:var(--on-secondary)}
 .slide-cover .flowtag .arr{color:var(--outline);font-size:14px;font-weight:800}
 .slide-cover .meta{margin-top:32px;font-size:.8125rem;color:var(--on-variant);line-height:1.9}
 .slide-cover .date{position:absolute;top:28px;right:36px;background:linear-gradient(135deg,var(--primary),var(--primary-d));color:#fff;padding:6px 16px;border-radius:999px;font-size:.6875rem;font-weight:700}
 .slide-end{padding:0}
-.slide-end .si{justify-content:center;align-items:center;text-align:center;background:linear-gradient(135deg,var(--surface) 0%,var(--primary-light) 100%)}
+.slide-end .si{justify-content:center;align-items:center;text-align:center;background:linear-gradient(135deg,var(--bg) 0%,var(--primary-light) 100%)}
 .slide-end .lg{font-size:2.25rem;font-weight:800;color:var(--primary);letter-spacing:.1em;margin-bottom:24px}
 .slide-end h1{font-size:2rem;font-weight:800;color:var(--on-surface);letter-spacing:-.02em;line-height:1.3}
 .slide-end .ed{font-size:.9375rem;color:var(--on-variant);margin-top:20px;line-height:1.75}
@@ -132,7 +119,7 @@ h2.st{font-size:1.75rem;font-weight:800;color:var(--on-surface);letter-spacing:-
 .nav-btn{position:fixed;top:50%;transform:translateY(-50%);width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.9);border:none;color:var(--on-variant);cursor:pointer;z-index:100;display:flex;align-items:center;justify-content:center;font-size:18px;box-shadow:var(--shadow-ambient);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);transition:all .2s;user-select:none}
 .nav-btn:hover{color:var(--primary)}
 #nav-prev{left:12px}#nav-next{right:12px}
-#progress-bar{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--primary),var(--primary-d));transition:width .4s ease;z-index:100}
+#progress-bar{position:fixed;top:0;left:0;height:2px;background:var(--primary);transition:width .4s ease;z-index:100}
 #key-hint{position:fixed;bottom:16px;left:50%;transform:translateX(-50%);color:var(--outline);font-size:.6875rem;z-index:100;opacity:.4}
 @page{size:A4 landscape;margin:0}
 @media print{
@@ -170,7 +157,7 @@ h2.st{font-size:1.75rem;font-weight:800;color:var(--on-surface);letter-spacing:-
       <span class="arr">&rarr;</span>
       <span class="chip g">AI 멘토링</span>
       <span class="arr">&rarr;</span>
-      <span class="chip" style="border-color:var(--green);color:var(--green)">Expert 심사</span>
+      <span class="chip">Expert 심사</span>
     </div>
     <div class="meta" data-step="4">
       제안사: 데이콘(DACON) &middot; 데이커(DAKER)<br>
@@ -205,7 +192,7 @@ h2.st{font-size:1.75rem;font-weight:800;color:var(--on-surface);letter-spacing:-
       <div class="mx"><div class="v">220+</div><div class="l">예상 참가자</div></div>
       <div class="mx"><div class="v w">40</div><div class="l">팀 구성</div></div>
       <div class="mx"><div class="v g">2일</div><div class="l">오프라인 본선</div></div>
-      <div class="mx"><div class="v" style="color:var(--purple)">4종</div><div class="l">교재 제작&middot;배포</div></div>
+      <div class="mx"><div class="v" style="color:var(--primary)">4종</div><div class="l">교재 제작&middot;배포</div></div>
     </div>
   </div>
   <div class="sf"><span class="brand">DACON &middot; DAKER</span><span class="pg">2 / 25</span><span>Summary</span></div>
@@ -231,7 +218,7 @@ h2.st{font-size:1.75rem;font-weight:800;color:var(--on-surface);letter-spacing:-
       </div>
       <div class="c c-w" style="padding:18px">
         <div class="c-dt">DAKER (daker.ai)</div>
-        <div class="c-t" style="color:var(--warm);font-size:.6875rem;margin-top:4px">바이브코딩&middot;서비스개발 특화</div>
+        <div class="c-t" style="color:var(--primary);font-size:.6875rem;margin-top:4px">바이브코딩&middot;서비스개발 특화</div>
         <ul>
           <li>팀 빌딩&middot;원정대 매칭</li>
           <li>작전실(War Room) 실시간 협업</li>
@@ -243,7 +230,7 @@ h2.st{font-size:1.75rem;font-weight:800;color:var(--on-surface);letter-spacing:-
       </div>
       <div class="c c-g" style="padding:18px">
         <div class="c-dt">DASCHOOL</div>
-        <div class="c-t" style="color:var(--green);font-size:.6875rem;margin-top:4px">AI 실무형 교육 특화</div>
+        <div class="c-t" style="color:var(--primary);font-size:.6875rem;margin-top:4px">AI 실무형 교육 특화</div>
         <ul>
           <li>학습 여정 &rarr; 실전 대회 연결</li>
           <li>구독형 온라인 학습</li>
@@ -256,7 +243,7 @@ h2.st{font-size:1.75rem;font-weight:800;color:var(--on-surface);letter-spacing:-
       <div class="mx"><div class="v">14만+</div><div class="l">AI 전문가 커뮤니티</div></div>
       <div class="mx"><div class="v w">500+</div><div class="l">누적 대회 운영</div></div>
       <div class="mx"><div class="v g">103만+</div><div class="l">누적 코드&middot;결과물 제출</div></div>
-      <div class="mx"><div class="v" style="color:var(--purple)">150+</div><div class="l">협력 기업&middot;기관</div></div>
+      <div class="mx"><div class="v" style="color:var(--primary)">150+</div><div class="l">협력 기업&middot;기관</div></div>
     </div>
   </div>
   <div class="sf"><span class="brand">DACON &middot; DAKER</span><span class="pg">3 / 25</span><span>Ecosystem</span></div>
@@ -280,7 +267,7 @@ h2.st{font-size:1.75rem;font-weight:800;color:var(--on-surface);letter-spacing:-
           <div style="display:flex;justify-content:space-between;align-items:baseline"><span class="c-t" style="margin:0">2. AI 알고리즘 on 코드 제출</span><span class="c-dd">Samsung AI Challenge (5,000명+)</span></div>
           <div class="c-dd" style="margin-top:4px">코드 자체를 제출, 서버에서 실행&middot;평가</div>
         </div>
-        <div style="font-size:.6875rem;font-weight:800;color:var(--warm);letter-spacing:.1em;margin-bottom:8px;margin-top:16px">DAKER &mdash; 서비스개발&middot;해커톤 특화</div>
+        <div style="font-size:.6875rem;font-weight:800;color:var(--primary);letter-spacing:.1em;margin-bottom:8px;margin-top:16px">DAKER &mdash; 서비스개발&middot;해커톤 특화</div>
         <div class="c" style="margin-bottom:8px;padding:12px">
           <div style="display:flex;justify-content:space-between;align-items:baseline"><span class="c-t" style="margin:0">3. 프롬프톤</span><span class="c-dd">SW마에스트로</span></div>
           <div class="c-dd" style="margin-top:4px">AI 프롬프트 엔지니어링 특화 해커톤</div>
@@ -300,7 +287,7 @@ h2.st{font-size:1.75rem;font-weight:800;color:var(--on-surface);letter-spacing:-
       </div>
       <!-- 본 제안 유형 -->
       <div data-step="3">
-        <div style="font-size:.6875rem;font-weight:800;color:var(--green);letter-spacing:.1em;margin-bottom:8px">본 제안 유형 &mdash; 4 + 5 결합</div>
+        <div style="font-size:.6875rem;font-weight:800;color:var(--primary);letter-spacing:.1em;margin-bottom:8px">본 제안 유형 &mdash; 4 + 5 결합</div>
         <div style="border:2px solid var(--primary);border-radius:var(--r-lg);padding:16px;background:linear-gradient(135deg,rgba(30,58,138,.03),rgba(10,142,107,.03))">
           <div class="c c-w" style="padding:14px;margin-bottom:10px">
             <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px"><span class="badge w">유형 4</span><span class="c-dt" style="margin:0;font-size:.875rem">AI 서비스&middot;아이디어 공모전</span></div>
@@ -426,7 +413,7 @@ h2.st{font-size:1.75rem;font-weight:800;color:var(--on-surface);letter-spacing:-
           <div class="mx"><div class="v" style="font-size:1.25rem">$10~12.8B</div><div class="l">AI 코딩 도구 시장 (2026)</div></div>
           <div class="mx"><div class="v w" style="font-size:1.25rem">$23.97B</div><div class="l">2030년 전망</div></div>
           <div class="mx"><div class="v g" style="font-size:1.25rem">22~38%</div><div class="l">CAGR</div></div>
-          <div class="mx"><div class="v" style="font-size:1.25rem;color:var(--purple)">46%</div><div class="l">GitHub AI 생성 코드</div></div>
+          <div class="mx"><div class="v" style="font-size:1.25rem;color:var(--primary)">46%</div><div class="l">GitHub AI 생성 코드</div></div>
         </div>
         <div style="margin-top:14px" data-step="3">
           <div class="tag w">생산성 향상</div>
@@ -450,19 +437,19 @@ h2.st{font-size:1.75rem;font-weight:800;color:var(--on-surface);letter-spacing:-
           <div class="c c-w" style="margin-bottom:8px;padding:12px 16px">
             <div style="display:flex;justify-content:space-between;align-items:center">
               <span class="c-dd">Fortune 500 바이브코딩 플랫폼 도입률</span>
-              <span style="font-size:1.125rem;font-weight:800;color:var(--warm)">87%</span>
+              <span style="font-size:1.125rem;font-weight:800;color:var(--primary)">87%</span>
             </div>
           </div>
           <div class="c c-g" style="margin-bottom:8px;padding:12px 16px">
             <div style="display:flex;justify-content:space-between;align-items:center">
               <span class="c-dd">엔지니어링 팀 AI 사용률 (2025 말)</span>
-              <span style="font-size:1.125rem;font-weight:800;color:var(--green)">90%</span>
+              <span style="font-size:1.125rem;font-weight:800;color:var(--primary)">90%</span>
             </div>
           </div>
           <div class="c c-pp" style="margin-bottom:8px;padding:12px 16px">
             <div style="display:flex;justify-content:space-between;align-items:center">
               <span class="c-dd">바이브코딩 사용자 중 비개발자 비율</span>
-              <span style="font-size:1.125rem;font-weight:800;color:var(--purple)">63%</span>
+              <span style="font-size:1.125rem;font-weight:800;color:var(--primary)">63%</span>
             </div>
           </div>
         </div>
@@ -533,7 +520,7 @@ h2.st{font-size:1.75rem;font-weight:800;color:var(--on-surface);letter-spacing:-
           <div class="mx" style="padding:8px"><div class="v" style="font-size:.875rem">Badge</div><div class="l">7 카테고리</div></div>
           <div class="mx" style="padding:8px"><div class="v w" style="font-size:.875rem">Streak</div><div class="l">연속 학습</div></div>
           <div class="mx" style="padding:8px"><div class="v g" style="font-size:.875rem">Challenge</div><div class="l">시즌 목표</div></div>
-          <div class="mx" style="padding:8px"><div class="v" style="font-size:.875rem;color:var(--purple)">Rank</div><div class="l">XP 순위</div></div>
+          <div class="mx" style="padding:8px"><div class="v" style="font-size:.875rem;color:var(--primary)">Rank</div><div class="l">XP 순위</div></div>
           <div class="mx" style="padding:8px"><div class="v r" style="font-size:.875rem">Ring</div><div class="l">활동 링</div></div>
         </div>
       </div>
@@ -604,28 +591,28 @@ h2.st{font-size:1.75rem;font-weight:800;color:var(--on-surface);letter-spacing:-
         <div class="c-dd">선박 건조 공정의 실시간 모니터링 및 일정 최적화 AI 서비스</div>
       </div>
       <div class="c c-w" style="padding:18px">
-        <div style="font-size:.625rem;font-weight:800;color:var(--warm);letter-spacing:.1em;margin-bottom:6px">TOPIC 2</div>
+        <div style="font-size:.625rem;font-weight:800;color:var(--primary);letter-spacing:.1em;margin-bottom:6px">TOPIC 2</div>
         <div class="c-dt" style="font-size:.875rem">결함 탐지&middot;예측 정비</div>
         <div class="c-dd">운항 데이터 기반 주요 기기 고장 예측 및 정비 일정 자동화</div>
       </div>
       <div class="c c-g" style="padding:18px">
-        <div style="font-size:.625rem;font-weight:800;color:var(--green);letter-spacing:.1em;margin-bottom:6px">TOPIC 3</div>
+        <div style="font-size:.625rem;font-weight:800;color:var(--primary);letter-spacing:.1em;margin-bottom:6px">TOPIC 3</div>
         <div class="c-dt" style="font-size:.875rem">해양 안전&middot;환경 모니터링</div>
         <div class="c-dd">해양 기상&middot;오염&middot;사고 위험 실시간 감지 및 알림 시스템</div>
       </div>
     </div>
     <div class="g3" style="margin-top:10px" data-step="4">
       <div class="c c-b" style="padding:18px">
-        <div style="font-size:.625rem;font-weight:800;color:var(--blue);letter-spacing:.1em;margin-bottom:6px">TOPIC 4</div>
+        <div style="font-size:.625rem;font-weight:800;color:var(--primary);letter-spacing:.1em;margin-bottom:6px">TOPIC 4</div>
         <div class="c-dt" style="font-size:.875rem">자율운항 지원 AI</div>
         <div class="c-dd">항로 최적화, 충돌 회피, 접안 보조 AI 시스템</div>
       </div>
       <div class="c c-pp" style="padding:18px">
-        <div style="font-size:.625rem;font-weight:800;color:var(--purple);letter-spacing:.1em;margin-bottom:6px">TOPIC 5</div>
+        <div style="font-size:.625rem;font-weight:800;color:var(--primary);letter-spacing:.1em;margin-bottom:6px">TOPIC 5</div>
         <div class="c-dt" style="font-size:.875rem">ESG&middot;탄소중립 AI</div>
         <div class="c-dd">선박 연료 소비 최적화, 탄소 배출 모니터링 및 리포팅</div>
       </div>
-      <div class="c" style="padding:18px;background:rgba(148,163,184,.06)">
+      <div class="c" style="padding:18px;background:var(--surface-low)">
         <div style="font-size:.625rem;font-weight:800;color:var(--on-variant);letter-spacing:.1em;margin-bottom:6px">TOPIC 6</div>
         <div class="c-dt" style="font-size:.875rem">선박 설계&middot;시뮬레이션</div>
         <div class="c-dd">선형 최적화, 구조 해석 자동화, 디지털 트윈 연동</div>
@@ -683,9 +670,9 @@ h2.st{font-size:1.75rem;font-weight:800;color:var(--on-surface);letter-spacing:-
           <div class="c c-p" style="margin-bottom:6px;padding:8px 14px"><div class="c-dd"><strong class="hl">팀 빌딩</strong> &mdash; 역할&middot;스킬 기반 AI 매칭, 40팀</div></div>
           <div class="c c-w" style="margin-bottom:6px;padding:8px 14px"><div class="c-dd"><strong class="hl-w">작전실(War Room)</strong> &mdash; 팀별 실시간 협업, 공동 편집</div></div>
           <div class="c c-g" style="margin-bottom:6px;padding:8px 14px"><div class="c-dd"><strong class="hl-g">갤러리&middot;쇼케이스</strong> &mdash; MVP 자동 게시, 포트폴리오 보존</div></div>
-          <div class="c c-b" style="margin-bottom:6px;padding:8px 14px"><div class="c-dd"><strong style="color:var(--blue);font-weight:700">ELO 1v1 피어 평가</strong> &mdash; 블라인드 1:1 비교</div></div>
-          <div class="c c-pp" style="margin-bottom:6px;padding:8px 14px"><div class="c-dd"><strong style="color:var(--purple);font-weight:700">Expert 심사 포털</strong> &mdash; 12명 심사위원, 자동 집계</div></div>
-          <div class="c c-pp" style="margin-bottom:6px;padding:8px 14px"><div class="c-dd"><strong style="color:var(--purple);font-weight:700">온라인 AI 멘토링</strong> &mdash; 40팀 &times; 1시간</div></div>
+          <div class="c c-b" style="margin-bottom:6px;padding:8px 14px"><div class="c-dd"><strong style="color:var(--primary);font-weight:700">ELO 1v1 피어 평가</strong> &mdash; 블라인드 1:1 비교</div></div>
+          <div class="c c-pp" style="margin-bottom:6px;padding:8px 14px"><div class="c-dd"><strong style="color:var(--primary);font-weight:700">Expert 심사 포털</strong> &mdash; 12명 심사위원, 자동 집계</div></div>
+          <div class="c c-pp" style="margin-bottom:6px;padding:8px 14px"><div class="c-dd"><strong style="color:var(--primary);font-weight:700">온라인 AI 멘토링</strong> &mdash; 40팀 &times; 1시간</div></div>
           <div class="c" style="padding:8px 14px"><div class="c-dd"><strong>인증서 자동 발급</strong> &mdash; 수상&middot;참가 디지털 인증서</div></div>
         </div>
       </div>
@@ -707,21 +694,21 @@ h2.st{font-size:1.75rem;font-weight:800;color:var(--on-surface);letter-spacing:-
         <div class="c-dd" style="text-align:center;margin-top:6px">조선해양 산업의 실제 문제를 정확히 정의했는가</div>
       </div>
       <div class="c c-w" style="padding:16px;text-align:center">
-        <div style="font-size:2rem;font-weight:800;color:var(--warm);line-height:1">25%</div>
+        <div style="font-size:2rem;font-weight:800;color:var(--primary);line-height:1">25%</div>
         <div class="c-t" style="margin-top:10px;text-align:center">AI 활용<br>창의성</div>
         <div class="c-dd" style="text-align:center;margin-top:6px">AI 기술을 창의적이고 효과적으로 활용했는가</div>
       </div>
       <div class="c c-g" style="padding:16px;text-align:center">
-        <div style="font-size:2rem;font-weight:800;color:var(--green);line-height:1">25%</div>
+        <div style="font-size:2rem;font-weight:800;color:var(--primary);line-height:1">25%</div>
         <div class="c-t" style="margin-top:10px;text-align:center">MVP<br>완성도</div>
         <div class="c-dd" style="text-align:center;margin-top:6px">실제 작동하는 서비스인가, UX/UI 품질은</div>
       </div>
       <div class="c c-b" style="padding:16px;text-align:center">
-        <div style="font-size:2rem;font-weight:800;color:var(--blue);line-height:1">15%</div>
+        <div style="font-size:2rem;font-weight:800;color:var(--primary);line-height:1">15%</div>
         <div class="c-t" style="margin-top:10px;text-align:center">실현 가능성 &amp;<br>비즈니스 임팩트</div>
         <div class="c-dd" style="text-align:center;margin-top:6px">실제 현장 도입이 가능한가</div>
       </div>
-      <div class="c" style="padding:16px;text-align:center;background:rgba(148,163,184,.06)">
+      <div class="c" style="padding:16px;text-align:center;background:var(--surface-low)">
         <div style="font-size:2rem;font-weight:800;color:var(--on-variant);line-height:1">10%</div>
         <div class="c-t" style="margin-top:10px;text-align:center">발표 &amp;<br>커뮤니케이션</div>
         <div class="c-dd" style="text-align:center;margin-top:6px">논리적이고 설득력 있게 전달했는가</div>
@@ -750,7 +737,7 @@ h2.st{font-size:1.75rem;font-weight:800;color:var(--on-surface);letter-spacing:-
     <div class="sub" data-step="2">제한된 시간 안에 40팀의 발표를 순차 진행하면 <span class="hl-w">팀당 6분</span> &mdash; 심사 품질이 무너집니다.<br>DAKER 심사 시스템은 <span class="hl">4개 부스 병렬 평가</span>로 이 문제를 해결합니다.</div>
     <div class="g2" style="margin-top:16px;gap:20px">
       <div data-step="3">
-        <div style="font-size:.6875rem;font-weight:800;color:var(--red);letter-spacing:.1em;margin-bottom:8px">문제 &mdash; 순차 심사의 한계</div>
+        <div style="font-size:.6875rem;font-weight:800;color:var(--primary);letter-spacing:.1em;margin-bottom:8px">문제 &mdash; 순차 심사의 한계</div>
         <div class="c c-r" style="padding:14px;margin-bottom:10px">
           <div class="c-t">40팀 &times; 발표 10분 = 400분 (6시간 40분)</div>
           <div class="c-dd">반나절 행사에서 순차 발표는 물리적으로 불가능</div>
@@ -763,7 +750,7 @@ h2.st{font-size:1.75rem;font-weight:800;color:var(--on-surface);letter-spacing:-
           <div class="c-t">수기 채점 &rarr; 집계 오류</div>
           <div class="c-dd">엑셀 수작업 집계 시 가중치 오류, 결과 지연</div>
         </div>
-        <div style="font-size:.6875rem;font-weight:800;color:var(--green);letter-spacing:.1em;margin-bottom:8px;margin-top:16px">해법 &mdash; 4개 부스 병렬 평가</div>
+        <div style="font-size:.6875rem;font-weight:800;color:var(--primary);letter-spacing:.1em;margin-bottom:8px;margin-top:16px">해법 &mdash; 4개 부스 병렬 평가</div>
         <div class="g4" style="gap:8px">
           <div class="c c-p" style="padding:10px;text-align:center">
             <div style="font-size:.625rem;font-weight:800;color:var(--primary)">부스 A</div>
@@ -771,18 +758,18 @@ h2.st{font-size:1.75rem;font-weight:800;color:var(--on-surface);letter-spacing:-
             <div class="c-dd" style="text-align:center">심사위원 3명</div>
           </div>
           <div class="c c-w" style="padding:10px;text-align:center">
-            <div style="font-size:.625rem;font-weight:800;color:var(--warm)">부스 B</div>
-            <div style="font-size:1.25rem;font-weight:800;color:var(--warm);margin:4px 0">10팀</div>
+            <div style="font-size:.625rem;font-weight:800;color:var(--primary)">부스 B</div>
+            <div style="font-size:1.25rem;font-weight:800;color:var(--primary);margin:4px 0">10팀</div>
             <div class="c-dd" style="text-align:center">심사위원 3명</div>
           </div>
           <div class="c c-g" style="padding:10px;text-align:center">
-            <div style="font-size:.625rem;font-weight:800;color:var(--green)">부스 C</div>
-            <div style="font-size:1.25rem;font-weight:800;color:var(--green);margin:4px 0">10팀</div>
+            <div style="font-size:.625rem;font-weight:800;color:var(--primary)">부스 C</div>
+            <div style="font-size:1.25rem;font-weight:800;color:var(--primary);margin:4px 0">10팀</div>
             <div class="c-dd" style="text-align:center">심사위원 3명</div>
           </div>
           <div class="c c-b" style="padding:10px;text-align:center">
-            <div style="font-size:.625rem;font-weight:800;color:var(--blue)">부스 D</div>
-            <div style="font-size:1.25rem;font-weight:800;color:var(--blue);margin:4px 0">10팀</div>
+            <div style="font-size:.625rem;font-weight:800;color:var(--primary)">부스 D</div>
+            <div style="font-size:1.25rem;font-weight:800;color:var(--primary);margin:4px 0">10팀</div>
             <div class="c-dd" style="text-align:center">심사위원 3명</div>
           </div>
         </div>
@@ -868,7 +855,7 @@ h2.st{font-size:1.75rem;font-weight:800;color:var(--on-surface);letter-spacing:-
         <div class="mx"><div class="v" style="font-size:1.25rem">220+</div><div class="l">참가자 수</div></div>
         <div class="mx"><div class="v w" style="font-size:1.25rem">20+</div><div class="l">MVP 제출 팀</div></div>
         <div class="mx"><div class="v g" style="font-size:1.25rem">14만</div><div class="l">AI 커뮤니티 노출</div></div>
-        <div class="mx"><div class="v" style="font-size:1.25rem;color:var(--purple)">14개</div><div class="l">공모전 사이트 홍보</div></div>
+        <div class="mx"><div class="v" style="font-size:1.25rem;color:var(--primary)">14개</div><div class="l">공모전 사이트 홍보</div></div>
         <div class="mx"><div class="v r" style="font-size:1.25rem">70%+</div><div class="l">완주율 목표</div></div>
       </div>
     </div>
@@ -983,10 +970,10 @@ h2.st{font-size:1.75rem;font-weight:800;color:var(--on-surface);letter-spacing:-
         <div class="g3" style="gap:8px">
           <div class="c c-p" style="padding:10px;text-align:center"><div style="font-size:.5625rem;font-weight:800;color:var(--primary)">Q1</div><div class="c-t" style="font-size:.6875rem;text-align:center">수요의 실재</div></div>
           <div class="c c-p" style="padding:10px;text-align:center"><div style="font-size:.5625rem;font-weight:800;color:var(--primary)">Q2</div><div class="c-t" style="font-size:.6875rem;text-align:center">현재 대안&middot;비용</div></div>
-          <div class="c c-w" style="padding:10px;text-align:center"><div style="font-size:.5625rem;font-weight:800;color:var(--warm)">Q3</div><div class="c-t" style="font-size:.6875rem;text-align:center">구체적 타겟</div></div>
-          <div class="c c-w" style="padding:10px;text-align:center"><div style="font-size:.5625rem;font-weight:800;color:var(--warm)">Q4</div><div class="c-t" style="font-size:.6875rem;text-align:center">최소 검증 단위</div></div>
-          <div class="c c-g" style="padding:10px;text-align:center"><div style="font-size:.5625rem;font-weight:800;color:var(--green)">Q5</div><div class="c-t" style="font-size:.6875rem;text-align:center">관찰과 의외성</div></div>
-          <div class="c c-g" style="padding:10px;text-align:center"><div style="font-size:.5625rem;font-weight:800;color:var(--green)">Q6</div><div class="c-t" style="font-size:.6875rem;text-align:center">3년 적합성</div></div>
+          <div class="c c-w" style="padding:10px;text-align:center"><div style="font-size:.5625rem;font-weight:800;color:var(--primary)">Q3</div><div class="c-t" style="font-size:.6875rem;text-align:center">구체적 타겟</div></div>
+          <div class="c c-w" style="padding:10px;text-align:center"><div style="font-size:.5625rem;font-weight:800;color:var(--primary)">Q4</div><div class="c-t" style="font-size:.6875rem;text-align:center">최소 검증 단위</div></div>
+          <div class="c c-g" style="padding:10px;text-align:center"><div style="font-size:.5625rem;font-weight:800;color:var(--primary)">Q5</div><div class="c-t" style="font-size:.6875rem;text-align:center">관찰과 의외성</div></div>
+          <div class="c c-g" style="padding:10px;text-align:center"><div style="font-size:.5625rem;font-weight:800;color:var(--primary)">Q6</div><div class="c-t" style="font-size:.6875rem;text-align:center">3년 적합성</div></div>
         </div>
         <div class="c c-p" style="margin-top:10px;padding:12px">
           <div class="c-t">VC 오피스아워 방식</div>
@@ -1044,7 +1031,7 @@ h2.st{font-size:1.75rem;font-weight:800;color:var(--on-surface);letter-spacing:-
         <div class="badge p" style="margin-top:8px">PDF + Learning</div>
       </div>
       <div class="c c-w" style="padding:18px">
-        <div style="font-size:.5625rem;font-weight:800;color:var(--warm);letter-spacing:.1em;margin-bottom:8px">BOOK 2</div>
+        <div style="font-size:.5625rem;font-weight:800;color:var(--primary);letter-spacing:.1em;margin-bottom:8px">BOOK 2</div>
         <div class="c-dt" style="font-size:.8125rem">바이브코딩<br>실전 가이드</div>
         <ul style="margin-top:8px">
           <li>프롬프트 엔지니어링</li>
@@ -1054,7 +1041,7 @@ h2.st{font-size:1.75rem;font-weight:800;color:var(--on-surface);letter-spacing:-
         <div class="badge w" style="margin-top:8px">PDF + 프롬프트 실습</div>
       </div>
       <div class="c c-g" style="padding:18px">
-        <div style="font-size:.5625rem;font-weight:800;color:var(--green);letter-spacing:.1em;margin-bottom:8px">BOOK 3</div>
+        <div style="font-size:.5625rem;font-weight:800;color:var(--primary);letter-spacing:.1em;margin-bottom:8px">BOOK 3</div>
         <div class="c-dt" style="font-size:.8125rem">조선해양 AI<br>활용 사례집</div>
         <ul style="margin-top:8px">
           <li>스마트 야드</li>
@@ -1065,7 +1052,7 @@ h2.st{font-size:1.75rem;font-weight:800;color:var(--on-surface);letter-spacing:-
         <div class="badge g" style="margin-top:8px">PDF</div>
       </div>
       <div class="c c-b" style="padding:18px">
-        <div style="font-size:.5625rem;font-weight:800;color:var(--blue);letter-spacing:.1em;margin-bottom:8px">BOOK 4</div>
+        <div style="font-size:.5625rem;font-weight:800;color:var(--primary);letter-spacing:.1em;margin-bottom:8px">BOOK 4</div>
         <div class="c-dt" style="font-size:.8125rem">MVP 제출 및<br>발표 가이드</div>
         <ul style="margin-top:8px">
           <li>DAKER 갤러리 등록</li>
