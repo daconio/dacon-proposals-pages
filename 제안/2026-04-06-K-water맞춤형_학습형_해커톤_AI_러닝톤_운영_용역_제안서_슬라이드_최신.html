@@ -183,13 +183,13 @@ pre.flow{background:var(--surface-low);border-left:3px solid var(--primary);padd
 #progress-bar{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--primary),var(--primary-d));transition:width .4s ease;z-index:100}
 #key-hint{position:fixed;bottom:16px;left:50%;transform:translateX(-50%);color:var(--outline);font-size:.6875rem;z-index:100;opacity:.4}
 
-@page{size:297mm 210mm;margin:0!important}
+@page{size:338.667mm 190.5mm;margin:0!important}
 @media print{
   *{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important;color-adjust:exact!important}
-  html,body{background:#fff;overflow:visible!important;height:auto!important;width:auto!important;margin:0!important;padding:0!important}
-  #viewport{position:static!important;display:block!important;height:auto!important;width:auto!important}
-  #stage{position:static!important;width:auto!important;height:auto!important;overflow:visible!important;transform:none!important;box-shadow:none!important;border-radius:0!important}
-  .slide{position:relative!important;inset:auto!important;opacity:1!important;pointer-events:auto!important;width:297mm!important;height:210mm!important;page-break-after:always!important;break-after:page!important;margin:0!important;padding:0!important;overflow:hidden!important;display:flex!important;flex-direction:column!important}
+  html,body{background:#fff;overflow:visible!important;height:auto!important;width:100%!important;margin:0!important;padding:0!important}
+  #viewport{position:static!important;display:block!important;height:auto!important;width:100%!important}
+  #stage{position:static!important;width:100%!important;height:auto!important;overflow:visible!important;transform:none!important;box-shadow:none!important;border-radius:0!important}
+  .slide{position:relative!important;inset:auto!important;opacity:1!important;pointer-events:auto!important;width:100%!important;height:100vh!important;page-break-after:always!important;break-after:page!important;margin:0!important;padding:0!important;overflow:hidden!important;display:flex!important;flex-direction:column!important}
   .slide:last-child{page-break-after:auto!important;break-after:auto!important}
   .sh{top:0!important;height:44px!important;flex-shrink:0!important;position:absolute!important}
   .sf{bottom:0!important;height:36px!important;flex-shrink:0!important;position:absolute!important}
