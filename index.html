@@ -78,6 +78,33 @@ html, body { min-height: 100vh; background: var(--surface-low); font-family: var
 .badge-new { background: #dcfce7; color: #166534; }
 
 .footer { text-align: center; padding: 24px; font-size: 0.6875rem; color: var(--outline-variant); }
+
+/* Toolbar */
+.toolbar {
+  display: flex; gap: 10px; align-items: center; flex-wrap: wrap;
+  margin-bottom: 28px; position: sticky; top: 0; z-index: 10;
+  background: var(--surface-low); padding: 14px 0; border-radius: 0;
+}
+.search-box {
+  flex: 1; min-width: 200px; padding: 10px 16px; border: none; border-radius: 9999px;
+  background: #fff; font-size: 0.875rem; font-family: var(--font); color: var(--on-surface);
+  box-shadow: 0 2px 8px rgba(30,41,59,0.04); outline: none; transition: box-shadow 0.2s;
+}
+.search-box:focus { box-shadow: 0 0 0 2px var(--primary); }
+.search-box::placeholder { color: var(--outline-variant); }
+.sort-btn, .filter-chip {
+  padding: 8px 16px; border: none; border-radius: 9999px;
+  font-size: 0.75rem; font-weight: 700; font-family: var(--font);
+  cursor: pointer; transition: all 0.2s; user-select: none;
+}
+.sort-btn { background: #fff; color: var(--on-surface-variant); box-shadow: 0 2px 8px rgba(30,41,59,0.04); }
+.sort-btn:hover { color: var(--primary); }
+.sort-btn.active { background: var(--primary); color: var(--on-primary); }
+.filter-chip { background: var(--secondary-container); color: #475266; }
+.filter-chip.active { background: var(--primary); color: var(--on-primary); }
+.result-count { font-size: 0.6875rem; color: var(--outline-variant); margin-left: auto; flex-shrink: 0; }
+.card.hidden { display: none; }
+.section-group.hidden { display: none; }
 </style>
 </head>
 <body>
@@ -88,6 +115,19 @@ html, body { min-height: 100vh; background: var(--surface-low); font-family: var
 </div>
 
 <div class="container">
+  <div class="toolbar">
+    <input type="text" class="search-box" id="search" placeholder="피제안사 또는 제목으로 검색..." autocomplete="off" />
+    <button class="sort-btn active" data-sort="date-desc" id="sortDateDesc">최신순</button>
+    <button class="sort-btn" data-sort="date-asc" id="sortDateAsc">오래된순</button>
+    <button class="sort-btn" data-sort="name" id="sortName">이름순</button>
+    <button class="filter-chip active" data-filter="all">전체</button>
+    <button class="filter-chip" data-filter="소개서">소개서</button>
+    <button class="filter-chip" data-filter="제안서">제안서</button>
+    <button class="filter-chip" data-filter="전략서">전략서</button>
+    <button class="filter-chip" data-filter="리서치">리서치</button>
+    <button class="filter-chip" data-filter="슬라이드">슬라이드</button>
+    <span class="result-count" id="resultCount"></span>
+  </div>
   <!-- AUTO:cards-start -->
   <div class="section-title">소개서</div>
   <div class="card-grid">
@@ -376,6 +416,111 @@ html, body { min-height: 100vh; background: var(--surface-low); font-family: var
 </div>
 
 <div class="footer">COPYRIGHT 2026 DACON. ALL RIGHTS RESERVED</div>
+
+<script>
+(function(){
+  const search = document.getElementById('search');
+  const resultCount = document.getElementById('resultCount');
+  const container = document.querySelector('.container');
+
+  // Wrap each section-title + card-grid pair into .section-group and tag cards
+  const titles = container.querySelectorAll('.section-title');
+  titles.forEach(t => {
+    const section = t.textContent.trim();
+    const grid = t.nextElementSibling;
+    if (!grid || !grid.classList.contains('card-grid')) return;
+    const group = document.createElement('div');
+    group.className = 'section-group';
+    group.dataset.section = section;
+    t.parentNode.insertBefore(group, t);
+    group.appendChild(t);
+    group.appendChild(grid);
+    grid.querySelectorAll('.card').forEach(card => {
+      const dateEl = card.querySelector('.card-date');
+      if (dateEl) card.dataset.date = dateEl.textContent.trim();
+      card.dataset.section = section;
+    });
+  });
+
+  const allCards = Array.from(container.querySelectorAll('.card'));
+  const allGroups = Array.from(container.querySelectorAll('.section-group'));
+
+  let currentFilter = 'all';
+  let currentSort = 'date-desc';
+
+  function parseDate(d) {
+    return d ? d.replace(/\./g, '') : '0';
+  }
+
+  function applyFilter() {
+    const q = search.value.trim().toLowerCase();
+    let visible = 0;
+
+    allCards.forEach(card => {
+      const title = (card.querySelector('.card-title')?.textContent || '').toLowerCase();
+      const section = card.dataset.section || '';
+      const matchSearch = !q || title.includes(q);
+      const matchFilter = currentFilter === 'all' || section === currentFilter;
+      const show = matchSearch && matchFilter;
+      card.classList.toggle('hidden', !show);
+      if (show) visible++;
+    });
+
+    // Hide empty section groups
+    allGroups.forEach(g => {
+      const hasVisible = g.querySelector('.card:not(.hidden)');
+      g.classList.toggle('hidden', !hasVisible);
+    });
+
+    resultCount.textContent = q || currentFilter !== 'all' ? visible + '건' : '';
+  }
+
+  function applySort() {
+    allGroups.forEach(group => {
+      const grid = group.querySelector('.card-grid');
+      const cards = Array.from(grid.querySelectorAll('.card'));
+      cards.sort((a, b) => {
+        if (currentSort === 'date-desc') return parseDate(b.dataset.date) - parseDate(a.dataset.date);
+        if (currentSort === 'date-asc') return parseDate(a.dataset.date) - parseDate(b.dataset.date);
+        if (currentSort === 'name') {
+          const ta = a.querySelector('.card-title')?.textContent || '';
+          const tb = b.querySelector('.card-title')?.textContent || '';
+          return ta.localeCompare(tb, 'ko');
+        }
+        return 0;
+      });
+      cards.forEach(c => grid.appendChild(c));
+    });
+  }
+
+  // Sort buttons
+  document.querySelectorAll('.sort-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.sort-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      currentSort = btn.dataset.sort;
+      applySort();
+    });
+  });
+
+  // Filter chips
+  document.querySelectorAll('.filter-chip').forEach(chip => {
+    chip.addEventListener('click', () => {
+      document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+      chip.classList.add('active');
+      currentFilter = chip.dataset.filter;
+      applyFilter();
+    });
+  });
+
+  // Search
+  search.addEventListener('input', applyFilter);
+
+  // Init
+  applySort();
+  applyFilter();
+})();
+</script>
 
 </body>
 </html>
