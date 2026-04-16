@@ -1,0 +1,2258 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DAKER LMS — 전체 기획서</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+@font-face {
+  font-family: 'Pretendard Variable';
+  font-weight: 45 920;
+  font-style: normal;
+  font-display: swap;
+  src: url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+}
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css');
+
+:root {
+  --primary: #0053db;
+  --primary-light: #e8f0fe;
+  --primary-dark: #003da5;
+  --dark: #2a3439;
+  --dark-light: #3d4a50;
+  --white: #ffffff;
+  --light: #f8f9fa;
+  --gray-50: #f9fafb;
+  --gray-100: #f3f4f6;
+  --gray-200: #e5e7eb;
+  --gray-300: #d1d5db;
+  --gray-400: #9ca3af;
+  --gray-500: #6b7280;
+  --gray-600: #4b5563;
+  --gray-700: #374151;
+  --gray-800: #1f2937;
+  --green: #16a34a;
+  --green-light: #dcfce7;
+  --amber: #d97706;
+  --amber-light: #fef3c7;
+  --blue-light: #dbeafe;
+  --radius: 8px;
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+  --shadow: 0 1px 3px rgba(0,0,0,0.1), 0 1px 2px rgba(0,0,0,0.06);
+  --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; font-size: 16px; }
+
+body {
+  font-family: 'Pretendard Variable', 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  color: var(--dark);
+  background: var(--light);
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Header ── */
+.doc-header {
+  background: var(--dark);
+  color: var(--white);
+  padding: 32px 0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: var(--shadow-md);
+}
+.doc-header-inner {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.doc-header h1 {
+  font-size: 1.5rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+.doc-header h1 span { color: var(--primary); }
+.header-meta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.85rem;
+  color: var(--gray-400);
+}
+.badge {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+.badge-blue { background: var(--primary); color: var(--white); }
+.badge-green { background: var(--green); color: var(--white); }
+.badge-amber { background: var(--amber); color: var(--white); }
+
+/* ── Layout ── */
+.layout {
+  display: flex;
+  max-width: 1200px;
+  margin: 0 auto;
+  gap: 0;
+}
+
+/* ── TOC Sidebar ── */
+.toc-sidebar {
+  width: 260px;
+  flex-shrink: 0;
+  position: sticky;
+  top: 96px;
+  align-self: flex-start;
+  height: calc(100vh - 96px);
+  overflow-y: auto;
+  padding: 24px 16px;
+  border-right: 1px solid var(--gray-200);
+  background: var(--white);
+  font-size: 0.82rem;
+}
+.toc-sidebar h3 {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--gray-400);
+  margin-bottom: 12px;
+  font-weight: 700;
+}
+.toc-sidebar ol {
+  list-style: none;
+  padding: 0;
+}
+.toc-sidebar li {
+  margin-bottom: 2px;
+}
+.toc-sidebar a {
+  display: block;
+  padding: 5px 10px;
+  color: var(--gray-600);
+  text-decoration: none;
+  border-radius: 6px;
+  transition: all 0.15s;
+  line-height: 1.4;
+}
+.toc-sidebar a:hover {
+  background: var(--primary-light);
+  color: var(--primary);
+}
+.toc-sidebar .toc-appendix { margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--gray-200); }
+
+.toc-toggle {
+  display: none;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 200;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--primary);
+  color: var(--white);
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  box-shadow: var(--shadow-md);
+  line-height: 1;
+}
+
+/* ── Main Content ── */
+.main-content {
+  flex: 1;
+  min-width: 0;
+  max-width: 960px;
+  padding: 40px 40px 80px;
+  background: var(--white);
+}
+
+/* ── Section Headers ── */
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 56px 0 24px;
+  padding-bottom: 16px;
+  border-bottom: 2px solid var(--gray-200);
+}
+.section-header:first-child { margin-top: 0; }
+.section-num {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: var(--primary);
+  color: var(--white);
+  font-weight: 800;
+  font-size: 0.95rem;
+  flex-shrink: 0;
+}
+.section-header h2 {
+  font-size: 1.55rem;
+  font-weight: 800;
+  color: var(--dark);
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+
+h3 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--dark);
+  margin: 32px 0 12px;
+}
+h4 {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--dark-light);
+  margin: 24px 0 10px;
+}
+
+p { margin: 0 0 14px; color: var(--gray-700); }
+
+strong { color: var(--dark); font-weight: 700; }
+
+/* ── Tables ── */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 12px 0 24px;
+  font-size: 0.88rem;
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+thead th {
+  background: var(--primary);
+  color: var(--white);
+  padding: 10px 14px;
+  text-align: left;
+  font-weight: 600;
+  white-space: nowrap;
+}
+tbody td {
+  padding: 9px 14px;
+  border-bottom: 1px solid var(--gray-100);
+  vertical-align: top;
+}
+tbody tr:nth-child(even) { background: var(--gray-50); }
+tbody tr:hover { background: var(--primary-light); }
+td code {
+  background: var(--gray-100);
+  padding: 1px 5px;
+  border-radius: 4px;
+  font-size: 0.82rem;
+  font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+  color: var(--primary-dark);
+}
+
+/* ── Code / Pre ── */
+pre {
+  background: var(--gray-800);
+  color: #e2e8f0;
+  padding: 20px 24px;
+  border-radius: var(--radius);
+  overflow-x: auto;
+  font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+  font-size: 0.82rem;
+  line-height: 1.6;
+  margin: 12px 0 24px;
+  box-shadow: var(--shadow);
+  -webkit-overflow-scrolling: touch;
+}
+pre code { background: none; padding: 0; color: inherit; font-size: inherit; }
+
+code {
+  background: var(--gray-100);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+}
+
+/* ── Blockquote ── */
+blockquote {
+  border-left: 4px solid var(--primary);
+  padding: 14px 20px;
+  margin: 16px 0 24px;
+  background: var(--primary-light);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  color: var(--gray-700);
+  font-size: 0.92rem;
+}
+blockquote strong { color: var(--primary-dark); }
+
+/* ── Horizontal Rule ── */
+hr {
+  border: none;
+  height: 1px;
+  background: var(--gray-200);
+  margin: 40px 0;
+}
+
+/* ── Lists ── */
+ul, ol { margin: 8px 0 16px 20px; color: var(--gray-700); }
+li { margin-bottom: 4px; }
+
+/* ── Status badges ── */
+.status {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.status-done { background: var(--green-light); color: var(--green); }
+.status-progress { background: var(--amber-light); color: var(--amber); }
+.status-planned { background: var(--blue-light); color: var(--primary); }
+
+/* ── Appendix Header ── */
+.appendix-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 56px 0 24px;
+  padding-bottom: 16px;
+  border-bottom: 2px solid var(--gray-200);
+}
+.appendix-num {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: var(--gray-600);
+  color: var(--white);
+  font-weight: 800;
+  font-size: 0.95rem;
+  flex-shrink: 0;
+}
+.appendix-header h2 {
+  font-size: 1.55rem;
+  font-weight: 800;
+  color: var(--dark);
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+
+/* ── Footer ── */
+.doc-footer {
+  text-align: center;
+  padding: 32px 24px;
+  color: var(--gray-400);
+  font-size: 0.82rem;
+  border-top: 1px solid var(--gray-200);
+  background: var(--white);
+}
+
+/* ── Responsive ── */
+@media (max-width: 900px) {
+  .toc-sidebar {
+    position: fixed;
+    left: -280px;
+    top: 0;
+    height: 100vh;
+    z-index: 300;
+    transition: left 0.3s;
+    border-right: none;
+    box-shadow: var(--shadow-md);
+  }
+  .toc-sidebar.open { left: 0; }
+  .toc-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.4);
+    z-index: 250;
+  }
+  .toc-overlay.open { display: block; }
+  .toc-toggle { display: flex; align-items: center; justify-content: center; }
+  .main-content { padding: 24px 20px 60px; }
+  .doc-header-inner { flex-direction: column; align-items: flex-start; }
+}
+
+/* ── Print ── */
+@media print {
+  .doc-header { position: static; }
+  .toc-sidebar, .toc-toggle, .toc-overlay { display: none !important; }
+  .layout { display: block; }
+  .main-content {
+    max-width: 100%;
+    padding: 0;
+    box-shadow: none;
+  }
+  body { background: white; font-size: 11pt; }
+  pre { white-space: pre-wrap; word-break: break-all; box-shadow: none; border: 1px solid #ccc; }
+  table { font-size: 9pt; }
+  thead th { background: #333 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .section-header { break-after: avoid; }
+  h3 { break-after: avoid; }
+  table, pre { break-inside: avoid; }
+  .doc-footer { border-top: 1px solid #ccc; }
+}
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<header class="doc-header">
+  <div class="doc-header-inner">
+    <h1><span>DAKER</span> LMS — 전체 기획서</h1>
+    <div class="header-meta">
+      <span class="badge badge-blue">v3.0</span>
+      <span>2026.04.12</span>
+    </div>
+  </div>
+</header>
+
+<div class="layout">
+
+<!-- TOC Sidebar -->
+<nav class="toc-sidebar" id="toc">
+  <h3>목차</h3>
+  <ol>
+    <li><a href="#sec1">1. 개요</a></li>
+    <li><a href="#sec2">2. Hybrid Plugin LMS 4-Layer 아키텍처</a></li>
+    <li><a href="#sec3">3. 콘텐츠 계층 구조</a></li>
+    <li><a href="#sec4">4. Layer 1 — 스테이지 플러그인 시스템</a></li>
+    <li><a href="#sec5">5. Layer 2 — 학습 이벤트 스트림</a></li>
+    <li><a href="#sec6">6. Layer 3 — Gradebook 통합 성적부</a></li>
+    <li><a href="#sec7">7. AI 교재 생성 파이프라인</a></li>
+    <li><a href="#sec8">8. 학습 흐름 (Learner Journey)</a></li>
+    <li><a href="#sec9">9. 게이미피케이션 시스템</a></li>
+    <li><a href="#sec10">10. 학습 분석 (Analytics)</a></li>
+    <li><a href="#sec11">11. 관리자 기능</a></li>
+    <li><a href="#sec12">12. 인증서 시스템</a></li>
+    <li><a href="#sec13">13. 팀 학습 및 Raid 연계</a></li>
+    <li><a href="#sec14">14. 집중 도구 (Focus Tools)</a></li>
+    <li><a href="#sec15">15. 학습 그룹 및 일괄 등록 시스템</a></li>
+    <li><a href="#sec16">16. 경량 출결 시스템</a></li>
+    <li><a href="#sec17">17. 데이터 모델 (DB 스키마)</a></li>
+    <li><a href="#sec18">18. API 구조</a></li>
+    <li><a href="#sec19">19. 화면 구성 (페이지 맵)</a></li>
+    <li><a href="#sec20">20. 기술 스택</a></li>
+    <li><a href="#sec21">21. 개발 로드맵 및 진행 현황</a></li>
+  </ol>
+  <div class="toc-appendix">
+    <li><a href="#secA">부록 A. 사용자 시나리오</a></li>
+    <li><a href="#secB">부록 B. 디자인 시스템</a></li>
+    <li><a href="#secC">부록 C. 접근성</a></li>
+    <li><a href="#secD">부록 D. 한국어 최적화</a></li>
+  </div>
+</nav>
+
+<!-- Overlay for mobile TOC -->
+<div class="toc-overlay" id="tocOverlay" onclick="closeToc()"></div>
+
+<!-- Main Content -->
+<main class="main-content">
+
+<!-- 1. 개요 -->
+<div class="section-header" id="sec1">
+  <div class="section-num">1</div>
+  <h2>개요</h2>
+</div>
+
+<h3>1.1 비전</h3>
+<p>DAKER LMS는 <strong>AI 기반 맞춤형 학습 관리 시스템</strong>으로, 기업·대학·공공기관의 AI/데이터 교육을 위한 올인원 플랫폼이다. 단순 콘텐츠 전달을 넘어 <strong>AI 교재 자동 생성</strong>, <strong>실시간 학습 분석</strong>, <strong>게이미피케이션</strong>, <strong>팀 학습 연계</strong>를 통합하여 학습 효과를 극대화한다.</p>
+<p>2026년 4월, <strong>Hybrid Plugin LMS 4-Layer 아키텍처</strong>를 도입하여 스테이지 타입 확장성, 이벤트 기반 분석, 통합 성적부 등 차세대 LMS 기능을 구현하고 있으며, <strong>학습 그룹 관리</strong>, <strong>일괄 등록 시스템</strong>, <strong>경량 출결 시스템</strong>을 완성하여 대규모 조직 교육 운영 인프라를 갖추었다.</p>
+
+<h3>1.2 핵심 가치</h3>
+<table>
+<thead><tr><th>가치</th><th>설명</th></tr></thead>
+<tbody>
+<tr><td><strong>AI-Native 교재 생성</strong></td><td>Gemini + GPT 상호 검수 파이프라인으로 교재를 자동 생성. 관리자의 교재 제작 부담을 90% 이상 절감</td></tr>
+<tr><td><strong>플러그인 기반 확장</strong></td><td>새로운 스테이지 유형을 <strong>1파일 + 레지스트리 등록 2줄</strong>로 추가. 기존 10개 파일 수정 → 사실상 1시간 내 확장</td></tr>
+<tr><td><strong>xAPI 이벤트 스트림</strong></td><td>12종 Verb × 5종 Object Type의 학습 이벤트를 실시간 수집. 이탈 분석, 완료 퍼널 등 7대 분석 지표 제공</td></tr>
+<tr><td><strong>통합 성적부 (Gradebook)</strong></td><td>퀴즈·프롬프트·플래시카드의 시도 데이터를 교재/트랙 단위로 통합 집계. 관리자·학습자 모두 성적 확인 가능</td></tr>
+<tr><td><strong>게이미피케이션</strong></td><td>Apple Watch 스타일 활동 링, 스트릭, 배지, 리더보드로 학습 동기 부여</td></tr>
+<tr><td><strong>학습 그룹 관리</strong></td><td>그룹 단위 수강 등록, 기간별 권한 관리, 일괄 등록(최대 1,000명) 4단계 마법사로 대규모 교육 운영</td></tr>
+<tr><td><strong>경량 출결 시스템</strong></td><td>세션 로그 기반 자동 감지 + 관리자 수동 편집. 그리드 UI로 출결 현황 한눈에 관리, 학습자 셀프 대시보드 제공</td></tr>
+<tr><td><strong>해커톤/Raid 연계</strong></td><td>DAKER의 해커톤·Raid 플랫폼과 유기적으로 연결된 학습 트랙 시스템</td></tr>
+</tbody>
+</table>
+
+<h3>1.3 대상 사용자</h3>
+<table>
+<thead><tr><th>사용자 유형</th><th>역할</th></tr></thead>
+<tbody>
+<tr><td><strong>학습자 (Learner)</strong></td><td>교재 학습, 퀴즈 풀이, 프롬프트 실습, 진도 관리, 성적 확인, 인증서 취득</td></tr>
+<tr><td><strong>관리자 (Admin)</strong></td><td>교재 생성/관리, 학습 분석, 수강생 관리, 트랙 구성, 목표 설정, Gradebook 성적 관리</td></tr>
+<tr><td><strong>전문가 (Expert)</strong></td><td>교재 리뷰, 멘토링, 학습 가이드</td></tr>
+<tr><td><strong>팀 리더</strong></td><td>팀원 학습 현황 파악, 그룹 목표 관리</td></tr>
+</tbody>
+</table>
+
+<hr>
+
+<!-- 2. Hybrid Plugin LMS 4-Layer 아키텍처 -->
+<div class="section-header" id="sec2">
+  <div class="section-num">2</div>
+  <h2>Hybrid Plugin LMS 4-Layer 아키텍처</h2>
+</div>
+
+<h3>2.1 왜 "Hybrid Plugin"인가</h3>
+<p>해외 LMS 플랫폼(Moodle, Canvas, Coursera, Khan Academy 등)과 국내 플랫폼을 리서치한 결과, 두 가지 접근법이 존재했다:</p>
+<table>
+<thead><tr><th>접근법</th><th>장점</th><th>단점</th><th>대표</th></tr></thead>
+<tbody>
+<tr><td><strong>모놀리식</strong></td><td>안정적, 일관된 UX</td><td>타입 추가 시 대규모 수정 필요</td><td>Coursera, Khan Academy</td></tr>
+<tr><td><strong>플러그인 기반</strong></td><td>높은 확장성, 외부 개발자 참여</td><td>복잡한 인터페이스, 버전 관리</td><td>Moodle, Canvas</td></tr>
+</tbody>
+</table>
+<p>DAKER는 단일팀 단일 코드베이스이므로 외부 플러그인 공개 필요 없이, <strong>내부 개발 속도 향상</strong>을 위한 Hybrid 전략을 채택했다:</p>
+<ul>
+<li>플러그인 인터페이스는 <strong>내부용</strong> (StagePlugin 계약)</li>
+<li>배포는 <strong>단일 번들</strong> (기존 빌드/배포 파이프라인 유지)</li>
+<li>기존 동작을 <strong>한 줄도 깨지 않으면서</strong> 플러그인 구조를 덧씌움</li>
+</ul>
+
+<h3>2.2 4-Layer 구조</h3>
+<pre><code>┌─────────────────────────────────────────────────────────────┐
+│ Layer 4 — 표준 호환 (SCORM/xAPI Export)                      │ ⏭️ 생략
+├─────────────────────────────────────────────────────────────┤
+│ Layer 3 — Assessment (Gradebook + 문제은행 + 과제)           │ 🔄 Phase 3-A 진행중
+│   └─ Gradebook 서비스: plugin.score() → 통합 성적 집계       │
+├─────────────────────────────────────────────────────────────┤
+│ Layer 2 — 학습 이벤트 스트림 (xAPI 경량)                      │ ✅ Phase 1 완료
+│   └─ learning_events 테이블 + 12 verbs + 7대 분석 지표       │
+├─────────────────────────────────────────────────────────────┤
+│ Layer 1 — Stage Plugin Core (스테이지 타입 확장 인프라)       │ ✅ Phase 2 완료
+│   └─ 6종 플러그인 + 서버-클라이언트 대칭 레지스트리          │
+└─────────────────────────────────────────────────────────────┘
+                          ↑
+                 기존 DAKER Learning Domain
+              (교재/트랙/세션/스트릭/배지/AI생성)</code></pre>
+
+<h3>2.3 Layer 간 의존성 및 데이터 흐름</h3>
+<pre><code>사용자가 퀴즈 제출
+  → LearningQuizViewer (Layer 1 quiz 플러그인)
+  → plugin.toEvents() → eventStream.recordBatch() → learning_events (Layer 2)
+  → plugin.score() → gradebookService 집계 (Layer 3)
+  → 학습자 성적 뷰 / 관리자 Gradebook 대시보드</code></pre>
+
+<table>
+<thead><tr><th>Layer</th><th>역할</th><th>산출물</th><th>다른 Layer와의 관계</th></tr></thead>
+<tbody>
+<tr><td><strong>Layer 1</strong></td><td>스테이지 타입 플러그인</td><td><code>StagePlugin</code> 인터페이스, 레지스트리, 6종 플러그인</td><td>Layer 2에 <code>toEvents()</code>로 이벤트 주입, Layer 3에 <code>score()</code> 제공</td></tr>
+<tr><td><strong>Layer 2</strong></td><td>학습 이벤트 단일 소스</td><td><code>learning_events</code> 테이블, 분석 대시보드</td><td>Layer 1의 <code>toEvents()</code> 결과를 수집, Layer 3의 원시 데이터</td></tr>
+<tr><td><strong>Layer 3</strong></td><td>평가·성적 통합</td><td>Gradebook 서비스, 문제 은행, 과제</td><td>Layer 2 이벤트 집계 + Layer 1의 <code>score()</code> 호출</td></tr>
+<tr><td><strong>Layer 4</strong></td><td>외부 표준 호환</td><td>SCORM/xAPI export</td><td>생략 (필요 시 Layer 2 변환으로 저비용 도입)</td></tr>
+</tbody>
+</table>
+
+<h3>2.4 Phase 순서 및 이유</h3>
+<pre><code>Phase 1 (Layer 2) ✅ 완료
+         ↓
+Phase 2 (Layer 1) ✅ 완료 ──→ toEvents() 계약으로 Phase 1 수집 훅 자동화
+         ↓
+Phase 3 (Layer 3) 🔄 진행중 ──→ 이벤트 + score() 조합으로 Gradebook 자연 구성</code></pre>
+<p><strong>Phase 1을 먼저 한 이유</strong>: Layer 2의 이벤트 스트림이 없으면 Layer 1의 <code>toEvents()</code>는 저장할 곳이 없고, Layer 3의 Gradebook은 집계할 단일 소스가 없다.</p>
+
+<hr>
+
+<!-- 3. 콘텐츠 계층 구조 -->
+<div class="section-header" id="sec3">
+  <div class="section-num">3</div>
+  <h2>콘텐츠 계층 구조</h2>
+</div>
+
+<p>DAKER LMS는 <strong>3-Tier 계층 구조</strong>로 학습 콘텐츠를 구성한다.</p>
+
+<h3>3.1 계층도</h3>
+<pre><code>학습 트랙 (Track)
+  └─ 코스 (Course) — 교재 모음
+       └─ 교재 (Material) — 단일 학습 단위
+            └─ 스테이지 (Stage) — 학습 활동 단위 (6종)</code></pre>
+
+<h3>3.2 각 계층 상세</h3>
+
+<h4>트랙 (Track)</h4>
+<table>
+<thead><tr><th>속성</th><th>설명</th></tr></thead>
+<tbody>
+<tr><td><strong>정의</strong></td><td>하나의 학습 목표를 달성하기 위한 코스·교재의 순서 있는 묶음</td></tr>
+<tr><td><strong>유형</strong></td><td><code>industry</code> (산업별), <code>skill</code> (기술별), <code>custom</code> (커스텀)</td></tr>
+<tr><td><strong>진행 모드</strong></td><td>순차 강제, 순차 선택, 자유</td></tr>
+<tr><td><strong>연계</strong></td><td>Raid/해커톤과 연계하여 참가자 사전 학습 경로로 활용</td></tr>
+<tr><td><strong>AI 생성</strong></td><td>트랙 전체 커리큘럼 AI 자동 설계 + 일괄 교재 생성 지원</td></tr>
+</tbody>
+</table>
+
+<h4>코스 (Course)</h4>
+<table>
+<thead><tr><th>속성</th><th>설명</th></tr></thead>
+<tbody>
+<tr><td><strong>정의</strong></td><td>교재(Material)의 논리적 그룹. 하나의 주제 또는 모듈 단위</td></tr>
+<tr><td><strong>진행 모드</strong></td><td><code>sequential_forced</code> (순차 강제), <code>sequential_optional</code> (순차 선택), <code>free</code> (자유)</td></tr>
+<tr><td><strong>상태</strong></td><td><code>draft</code>, <code>published</code>, <code>archived</code></td></tr>
+<tr><td><strong>필수/선택</strong></td><td>트랙 내에서 필수 또는 선택 코스로 지정 가능</td></tr>
+</tbody>
+</table>
+
+<h4>교재 (Material)</h4>
+<table>
+<thead><tr><th>속성</th><th>설명</th></tr></thead>
+<tbody>
+<tr><td><strong>정의</strong></td><td>학습의 기본 단위. 여러 스테이지로 구성</td></tr>
+<tr><td><strong>난이도</strong></td><td><code>beginner</code>, <code>intermediate</code>, <code>advanced</code></td></tr>
+<tr><td><strong>상태</strong></td><td><code>draft</code> → <code>published</code> → <code>archived</code></td></tr>
+<tr><td><strong>메타데이터</strong></td><td>제목, 설명, 썸네일, 카테고리, 태그, 예상 소요시간, 학습 목표</td></tr>
+<tr><td><strong>AI 생성</strong></td><td>Gemini 기반 자동 생성 지원</td></tr>
+</tbody>
+</table>
+
+<h4>스테이지 (Stage)</h4>
+<table>
+<thead><tr><th>속성</th><th>설명</th></tr></thead>
+<tbody>
+<tr><td><strong>정의</strong></td><td>교재 내 개별 학습 활동. 화면 하나에 대응</td></tr>
+<tr><td><strong>유형</strong></td><td>6종 (content, quiz, prompt, flashcard, pdf, branching-lesson)</td></tr>
+<tr><td><strong>순서</strong></td><td><code>orderIndex</code>로 정렬</td></tr>
+<tr><td><strong>슬러그</strong></td><td>URL-friendly 식별자</td></tr>
+<tr><td><strong>팁 콘텐츠</strong></td><td>학습 중 도움말로 표시되는 부가 설명</td></tr>
+</tbody>
+</table>
+
+<hr>
+
+<!-- 4. Layer 1 — 스테이지 플러그인 시스템 -->
+<div class="section-header" id="sec4">
+  <div class="section-num">4</div>
+  <h2>Layer 1 — 스테이지 플러그인 시스템 (Phase 2 ✅)</h2>
+</div>
+
+<h3>4.1 플러그인의 의미</h3>
+<p><strong>한 문장 정의</strong>: "스테이지 타입 하나를 추가하려면 파일 하나만 작성하면 되는 구조."</p>
+
+<h4>도입 전 (10개 파일 수정 필요)</h4>
+<table>
+<thead><tr><th>#</th><th>파일</th><th>수정 내용</th></tr></thead>
+<tbody>
+<tr><td>1</td><td><code>shared/schema/learning.ts</code></td><td><code>STAGE_TYPES</code> 배열 수정</td></tr>
+<tr><td>2</td><td><code>LearningStageRenderer.tsx</code></td><td>switch문에 case 추가</td></tr>
+<tr><td>3</td><td>새 Viewer 컴포넌트</td><td>렌더링 구현</td></tr>
+<tr><td>4</td><td>타입 정의</td><td>데이터 필드 추가</td></tr>
+<tr><td>5</td><td>DB 스키마</td><td>jsonb 컬럼 추가</td></tr>
+<tr><td>6</td><td>AI 파이프라인</td><td>프롬프트 규칙 추가</td></tr>
+<tr><td>7</td><td>Wizard</td><td>선택지 추가</td></tr>
+<tr><td>8~10</td><td>검증/테스트/문서</td><td>각 단계별</td></tr>
+</tbody>
+</table>
+
+<h4>도입 후 (2파일 + 레지스트리 2줄)</h4>
+<pre><code>1. server/learning/plugins/{type}.ts     — StagePlugin 구현 (1파일)
+2. client/src/learning/plugins/{type}.ts  — ClientStagePlugin 어댑터 (1파일)
+3. server/learning/plugins/registry.ts    — import + Map 등록 (1줄)
+4. client/src/learning/plugins/client-registry.ts — import + Map 등록 (1줄)
+5. shared/schema/learning.ts의 STAGE_TYPES — 타입 추가 (1줄)</code></pre>
+
+<h3>4.2 서버-클라이언트 대칭 플러그인 구조</h3>
+<pre><code>Server Plugin                          Client Plugin
+┌──────────────────────┐               ┌──────────────────────┐
+│ StagePlugin&lt;T,R&gt;     │               │ ClientStagePlugin    │
+│ ──────────────────── │               │ ──────────────────── │
+│ id: string           │               │ id: string           │
+│ label: string        │               │ label: string        │
+│ description: string  │               │ Viewer: Component    │
+│ dataSchema: Zod      │     미러      │ showInWizard: bool   │
+│ aiPromptFragment?    │ ←──────────→  │                      │
+│ scorable: boolean    │               │                      │
+│ toEvents()           │               │                      │
+│ score?()             │               │                      │
+└──────────────────────┘               └──────────────────────┘</code></pre>
+
+<h3>4.3 등록된 6종 플러그인</h3>
+<table>
+<thead><tr><th>플러그인 ID</th><th>라벨</th><th>채점</th><th>목적</th><th>AI 생성</th></tr></thead>
+<tbody>
+<tr><td><code>content</code></td><td>콘텐츠</td><td>✗</td><td>마크다운 기반 텍스트 학습</td><td>✅</td></tr>
+<tr><td><code>quiz</code></td><td>퀴즈</td><td>✅</td><td>4지선다형 객관식 (80% 통과)</td><td>✅</td></tr>
+<tr><td><code>prompt</code></td><td>프롬프트</td><td>✅</td><td>AI 프롬프트 작성 실습 (유사도 0~100)</td><td>✅</td></tr>
+<tr><td><code>flashcard</code></td><td>플래시카드</td><td>✅</td><td>앞/뒤 카드 암기 학습 (Known/Unknown)</td><td>✅</td></tr>
+<tr><td><code>pdf</code></td><td>PDF</td><td>✗</td><td>PDF 문서 뷰어</td><td>✗</td></tr>
+<tr><td><code>branching-lesson</code></td><td>분기 학습</td><td>✗</td><td>시나리오 기반 트리 구조 학습</td><td>✅</td></tr>
+</tbody>
+</table>
+
+<h3>4.4 각 플러그인 상세</h3>
+
+<h4>4.1.1 콘텐츠 (Content)</h4>
+<table>
+<thead><tr><th>항목</th><th>설명</th></tr></thead>
+<tbody>
+<tr><td><strong>유형</strong></td><td><code>content</code></td></tr>
+<tr><td><strong>목적</strong></td><td>마크다운 기반 텍스트 학습 콘텐츠</td></tr>
+<tr><td><strong>채점</strong></td><td>비채점</td></tr>
+<tr><td><strong>데이터</strong></td><td><code>content</code> 필드 (마크다운 텍스트)</td></tr>
+<tr><td><strong>AI 생성</strong></td><td>지원 (500~1500자 권장)</td></tr>
+<tr><td><strong>뷰어</strong></td><td><code>LearningMarkdownRenderer</code> — 코드 하이라이팅, 테이블, 이미지 등 지원</td></tr>
+</tbody>
+</table>
+
+<h4>4.1.2 퀴즈 (Quiz)</h4>
+<table>
+<thead><tr><th>항목</th><th>설명</th></tr></thead>
+<tbody>
+<tr><td><strong>유형</strong></td><td><code>quiz</code></td></tr>
+<tr><td><strong>목적</strong></td><td>4지선다형 객관식 문제</td></tr>
+<tr><td><strong>채점</strong></td><td>채점 가능 (80% 이상 통과)</td></tr>
+<tr><td><strong>데이터 형식</strong></td><td><code>{ question, options: [{id, text}], correctAnswer: optionId, explanations, hasExplanation }</code></td></tr>
+<tr><td><strong>시도 기록</strong></td><td><code>learningQuizAttempts</code> 테이블에 답변, 점수, 통과 여부 저장</td></tr>
+<tr><td><strong>AI 생성</strong></td><td>지원</td></tr>
+<tr><td><strong>뷰어</strong></td><td><code>LearningQuizViewer</code> — 정답 확인, 해설 표시, 재시도</td></tr>
+</tbody>
+</table>
+
+<h4>4.1.3 프롬프트 실습 (Prompt)</h4>
+<table>
+<thead><tr><th>항목</th><th>설명</th></tr></thead>
+<tbody>
+<tr><td><strong>유형</strong></td><td><code>prompt</code></td></tr>
+<tr><td><strong>목적</strong></td><td>AI 프롬프트 작성 실습. 사용자가 작성한 프롬프트를 AI가 평가</td></tr>
+<tr><td><strong>채점</strong></td><td>채점 가능 (유사도 점수 0~100)</td></tr>
+<tr><td><strong>데이터 형식</strong></td><td><code>{ instruction, sampleAnswer, hasSampleAnswer }</code></td></tr>
+<tr><td><strong>평가 항목</strong></td><td>의도(intent), 구조(structure), 명확성(clarity) 3축 평가</td></tr>
+<tr><td><strong>시도 기록</strong></td><td><code>learningPromptAttempts</code> 테이블에 사용자 프롬프트, AI 응답, 유사도, 피드백 저장</td></tr>
+<tr><td><strong>뷰어</strong></td><td><code>LearningPromptViewer</code> — 프롬프트 입력, AI 평가 결과 표시</td></tr>
+</tbody>
+</table>
+
+<h4>4.1.4 플래시카드 (Flashcard)</h4>
+<table>
+<thead><tr><th>항목</th><th>설명</th></tr></thead>
+<tbody>
+<tr><td><strong>유형</strong></td><td><code>flashcard</code></td></tr>
+<tr><td><strong>목적</strong></td><td>앞/뒤 카드 기반 암기 학습</td></tr>
+<tr><td><strong>채점</strong></td><td>채점 가능 (Known/Unknown 비율)</td></tr>
+<tr><td><strong>데이터 형식</strong></td><td><code>{ cards: [{id, front, back, difficulty}], settings: {shuffleOnLoad, showProgress, passingThreshold} }</code></td></tr>
+<tr><td><strong>난이도</strong></td><td>카드별 <code>easy</code>, <code>medium</code>, <code>hard</code></td></tr>
+<tr><td><strong>시도 기록</strong></td><td><code>learningFlashcardAttempts</code> 테이블에 카드별 결과, 소요 시간 저장</td></tr>
+<tr><td><strong>뷰어</strong></td><td><code>LearningFlashcardViewer</code> — 카드 플립 애니메이션, 진도 표시</td></tr>
+</tbody>
+</table>
+
+<h4>4.1.5 PDF</h4>
+<table>
+<thead><tr><th>항목</th><th>설명</th></tr></thead>
+<tbody>
+<tr><td><strong>유형</strong></td><td><code>pdf</code></td></tr>
+<tr><td><strong>목적</strong></td><td>PDF 문서 뷰어 (외부 자료 참조)</td></tr>
+<tr><td><strong>채점</strong></td><td>비채점</td></tr>
+<tr><td><strong>데이터</strong></td><td>PDF 파일 URL</td></tr>
+<tr><td><strong>AI 생성</strong></td><td>미지원 (외부 파일 업로드)</td></tr>
+<tr><td><strong>뷰어</strong></td><td><code>LearningPdfViewer</code> — 내장 PDF 리더</td></tr>
+</tbody>
+</table>
+
+<h4>4.1.6 분기 학습 (Branching Lesson)</h4>
+<table>
+<thead><tr><th>항목</th><th>설명</th></tr></thead>
+<tbody>
+<tr><td><strong>유형</strong></td><td><code>branching-lesson</code></td></tr>
+<tr><td><strong>목적</strong></td><td>시나리오 기반 트리 구조 학습. 학습자의 선택에 따라 경로 분기</td></tr>
+<tr><td><strong>채점</strong></td><td>비채점</td></tr>
+<tr><td><strong>데이터 구조</strong></td><td>노드 트리 (각 노드에 콘텐츠 + 선택지 + 다음 노드 ID)</td></tr>
+<tr><td><strong>뷰어</strong></td><td><code>LearningBranchingLessonViewer</code> — 대화형 선택지 UI</td></tr>
+</tbody>
+</table>
+
+<h3>4.5 플러그인 모드 전환</h3>
+<p>환경변수 <code>LEARNING_PLUGIN_MODE</code> / <code>VITE_LEARNING_PLUGIN_MODE</code>로 제어:</p>
+<ul>
+<li><code>'PLUGIN'</code> (기본값, Phase 2 Sprint 3 이후): 플러그인 레지스트리 기반 렌더링 + 이벤트 자동화</li>
+<li><code>'LEGACY'</code>: 기존 switch문 기반 (폴백용)</li>
+</ul>
+
+<h3>4.6 Phase 2 구현 이력</h3>
+<table>
+<thead><tr><th>Sprint</th><th>내용</th><th>커밋</th></tr></thead>
+<tbody>
+<tr><td>Sprint 1</td><td>StagePlugin 인터페이스 + 빈 레지스트리</td><td><code>5d176b46</code></td></tr>
+<tr><td>Sprint 2</td><td>5종 플러그인 포팅 (LEGACY 유지, 피처 플래그 전환)</td><td><code>500d045d</code></td></tr>
+<tr><td>Sprint 3</td><td>PLUGIN 모드 기본 전환 + 이벤트 자동화 + sessionsCount 일원화</td><td><code>028f032e</code></td></tr>
+<tr><td>Sprint 4</td><td>branching-lesson 플러그인 추가 (1파일 완결 실증)</td><td><code>56455a9e</code></td></tr>
+</tbody>
+</table>
+
+<hr>
+
+<!-- 5. Layer 2 — 학습 이벤트 스트림 -->
+<div class="section-header" id="sec5">
+  <div class="section-num">5</div>
+  <h2>Layer 2 — 학습 이벤트 스트림 (Phase 1 ✅)</h2>
+</div>
+
+<h3>5.1 핵심 개념</h3>
+<p>xAPI (Experience API)를 경량화한 <strong>단일 이벤트 테이블</strong> (<code>learning_events</code>). 모든 학습 상호작용은 <code>{ user, verb, objectType, objectId, result, context, occurredAt }</code> 형태로 기록된다.</p>
+
+<h3>5.2 이벤트 체계</h3>
+
+<h4>12종 Verb</h4>
+<table>
+<thead><tr><th>Verb</th><th>설명</th><th>발생 시점</th></tr></thead>
+<tbody>
+<tr><td><code>viewed</code></td><td>콘텐츠 조회</td><td>교재/트랙 페이지 열람</td></tr>
+<tr><td><code>started</code></td><td>학습 시작</td><td>교재/트랙/세션 시작</td></tr>
+<tr><td><code>attempted</code></td><td>시도</td><td>퀴즈/프롬프트/플래시카드 시작</td></tr>
+<tr><td><code>answered</code></td><td>응답</td><td>퀴즈 답 제출</td></tr>
+<tr><td><code>completed</code></td><td>완료</td><td>교재/스테이지/트랙 완료</td></tr>
+<tr><td><code>passed</code></td><td>통과</td><td>퀴즈 80% 이상</td></tr>
+<tr><td><code>failed</code></td><td>미통과</td><td>퀴즈 80% 미만</td></tr>
+<tr><td><code>submitted</code></td><td>제출</td><td>프롬프트 답변 제출</td></tr>
+<tr><td><code>commented</code></td><td>코멘트</td><td>학습 노트 작성</td></tr>
+<tr><td><code>branched</code></td><td>분기</td><td>분기 학습 선택</td></tr>
+<tr><td><code>abandoned</code></td><td>이탈</td><td>학습 도중 이탈</td></tr>
+<tr><td><code>resumed</code></td><td>재개</td><td>이탈 후 학습 재개</td></tr>
+</tbody>
+</table>
+
+<h4>5종 Object Type</h4>
+<p><code>material</code>, <code>stage</code>, <code>question</code>, <code>assignment</code>, <code>track</code></p>
+
+<h3>5.3 이벤트 수집 구조</h3>
+<pre><code>[학습 라우트] → eventStream.record() / recordBatch() (fire-and-forget)
+     │
+     ▼
+[learning_events 테이블] ← 3개 인덱스 (userId, objectType+objectId, occurredAt)
+     │
+     ├─ [eventAggregator] ← 1분 주기 배치 집계 → learningDailyActivity 업데이트
+     │
+     └─ [analyticsQueries] ← 7대 분석 지표 실시간 조회</code></pre>
+
+<h4>수집 포인트 (5개 라우트)</h4>
+<table>
+<thead><tr><th>라우트 파일</th><th>수집 이벤트</th></tr></thead>
+<tbody>
+<tr><td><code>public-attempts.ts</code></td><td>퀴즈/프롬프트/플래시카드 <code>attempted</code>/<code>answered</code>/<code>passed</code>/<code>failed</code></td></tr>
+<tr><td><code>public-progress.ts</code></td><td>스테이지/교재/트랙 <code>completed</code></td></tr>
+<tr><td><code>public-materials.ts</code></td><td>교재 상세 <code>viewed</code> (인증 사용자만)</td></tr>
+<tr><td><code>session-logs.ts</code></td><td>세션 <code>started</code>/<code>abandoned</code></td></tr>
+<tr><td><code>tracks.ts</code></td><td>트랙 상세 <code>viewed</code></td></tr>
+</tbody>
+</table>
+<blockquote><strong>Phase 2 이후</strong>: 플러그인의 <code>toEvents()</code> 함수가 이벤트를 자동 생성하므로, 수동 <code>eventStream.record()</code> 호출이 불필요해졌다.</blockquote>
+
+<h3>5.4 배치 집계기 (Event Aggregator)</h3>
+<ul>
+<li>1분 주기 <code>setInterval</code> 스케줄러</li>
+<li>슬라이딩 윈도우 방식으로 <code>learning_events</code> → <code>learningDailyActivity</code> 집계</li>
+<li><code>sessionsCount</code> 업데이트 (Phase 2에서 일원화)</li>
+<li>서버 시작/종료 시 자동 등록/해제</li>
+</ul>
+
+<h3>5.5 7대 분석 지표</h3>
+<table>
+<thead><tr><th>지표</th><th>설명</th></tr></thead>
+<tbody>
+<tr><td><strong>활성 사용자</strong></td><td>DAU/WAU/MAU + 일별 시계열</td></tr>
+<tr><td><strong>교재 완료 퍼널</strong></td><td>교재별 시작→완료 전환율</td></tr>
+<tr><td><strong>이탈 핫스팟</strong></td><td>이탈률 높은 스테이지 Top 10</td></tr>
+<tr><td><strong>퀴즈 정확도 분포</strong></td><td>5구간 히스토그램 (0-20/20-40/.../80-100)</td></tr>
+<tr><td><strong>평균 세션 길이</strong></td><td>평균/중앙값 (분)</td></tr>
+<tr><td><strong>재시도 스테이지</strong></td><td>가장 많이 재시도된 스테이지 Top 10</td></tr>
+<tr><td><strong>일별 이벤트 볼륨</strong></td><td>일별 이벤트 수 추이</td></tr>
+</tbody>
+</table>
+
+<h3>5.6 Phase 1 구현 이력</h3>
+<table>
+<thead><tr><th>Sprint</th><th>내용</th><th>커밋</th></tr></thead>
+<tbody>
+<tr><td>Sprint 1</td><td><code>learning_events</code> 스키마 (12 verbs, 5 object types, 11 컬럼, 3 인덱스)</td><td><code>1eb073f3</code></td></tr>
+<tr><td>Sprint 2</td><td>eventStream 서비스 + 5개 라우트 이벤트 훅 삽입</td><td><code>bba6e888</code></td></tr>
+<tr><td>Sprint 3</td><td>eventAggregator 배치 + 스케줄러 등록</td><td><code>5764a9b2</code></td></tr>
+<tr><td>Sprint 4</td><td>analyticsQueries 7종 + 관리자 API 등록</td><td><code>755bd2ce</code></td></tr>
+<tr><td>Sprint 5</td><td>관리자 대시보드 UI + 통합 테스트 17건</td><td><code>a1f1b7e9</code></td></tr>
+</tbody>
+</table>
+
+<hr>
+
+<!-- 6. Layer 3 — Gradebook 통합 성적부 -->
+<div class="section-header" id="sec6">
+  <div class="section-num">6</div>
+  <h2>Layer 3 — Assessment: Gradebook 통합 성적부 (Phase 3-A 🔄)</h2>
+</div>
+
+<h3>6.1 문제 정의</h3>
+<p><strong>"학습자 A의 전체 성적을 한 화면에서 보는 방법이 없다."</strong></p>
+<ul>
+<li>퀴즈/프롬프트/플래시카드 시도는 각각 테이블에 분산</li>
+<li>트랙/교재 단위로 통합된 성적 뷰 없음</li>
+<li>관리자가 학습자별 진도/성적을 한눈에 파악 불가</li>
+</ul>
+
+<h3>6.2 Gradebook 서비스 설계</h3>
+<p><strong>신규 DB 테이블 없이</strong> 기존 attempts 3종 + 진도 테이블을 Gradebook 서비스가 조합한다.</p>
+<pre><code>interface GradebookEntry {
+  stageId: string;
+  stageTitle: string;
+  stageType: string;          // 'quiz' | 'prompt' | 'flashcard' | 'content' | 'pdf'
+  scorable: boolean;
+  bestScore: number | null;    // 시도 중 최고 점수
+  maxScore: number | null;     // 만점
+  passed: boolean;             // 통과 여부 (plugin.score() 기준)
+  attempts: number;            // 총 시도 횟수
+  lastAttemptAt: Date | null;
+  completed: boolean;          // 스테이지 완료 여부
+}
+
+interface MaterialGradebook {
+  materialId: string;
+  materialTitle: string;
+  totalStages: number;
+  completedStages: number;
+  scorableStages: number;
+  averageScore: number | null;  // scorable 스테이지 평균 점수율 (%)
+  entries: GradebookEntry[];
+}</code></pre>
+
+<h3>6.3 채점 로직 (plugin.score() 재활용)</h3>
+<table>
+<thead><tr><th>스테이지 유형</th><th>점수 소스</th><th>만점 기준</th><th>통과 기준</th></tr></thead>
+<tbody>
+<tr><td><code>quiz</code></td><td><code>MAX(score)</code> from learningQuizAttempts</td><td>총 문제 수</td><td>80% 이상</td></tr>
+<tr><td><code>prompt</code></td><td><code>MAX(similarityScore)</code> from learningPromptAttempts</td><td>100 (유사도 만점)</td><td>plugin.score() 판정</td></tr>
+<tr><td><code>flashcard</code></td><td><code>MAX(knownCount)</code> from learningFlashcardAttempts</td><td>총 카드 수</td><td>passingThreshold 이상</td></tr>
+<tr><td><code>content</code></td><td>scorable: false</td><td>—</td><td>완료 여부만</td></tr>
+<tr><td><code>pdf</code></td><td>scorable: false</td><td>—</td><td>완료 여부만</td></tr>
+</tbody>
+</table>
+
+<h3>6.4 Gradebook API</h3>
+<h4>관리자 API (인증 + admin 필수)</h4>
+<table>
+<thead><tr><th>Method</th><th>Endpoint</th><th>설명</th></tr></thead>
+<tbody>
+<tr><td>GET</td><td><code>/api/admin/learning-analytics/gradebook/materials/:materialId</code></td><td>교재별 전체 학습자 성적 요약</td></tr>
+<tr><td>GET</td><td><code>/api/admin/learning-analytics/gradebook/materials/:materialId/users/:userId</code></td><td>특정 학습자 교재 상세 성적</td></tr>
+</tbody>
+</table>
+
+<h4>학습자 API (인증 필수)</h4>
+<table>
+<thead><tr><th>Method</th><th>Endpoint</th><th>설명</th></tr></thead>
+<tbody>
+<tr><td>GET</td><td><code>/api/learning/gradebook/me</code></td><td>본인 전체 교재 성적 목록</td></tr>
+<tr><td>GET</td><td><code>/api/learning/gradebook/me/materials/:materialId</code></td><td>본인 특정 교재 상세 성적</td></tr>
+</tbody>
+</table>
+
+<h3>6.5 Gradebook UI</h3>
+<p><strong>관리자 대시보드</strong>: <code>/admin/learning-analytics</code>에 Gradebook 탭 추가</p>
+<ul>
+<li>교재 목록 → 선택 → 전체 학습자 성적 테이블 (이름/완료율/평균점수/마지막활동)</li>
+<li>학습자 클릭 → 스테이지별 상세 (타입/점수/시도횟수/통과여부)</li>
+</ul>
+<p><strong>학습자 뷰</strong>: "내 성적" 진입점</p>
+<ul>
+<li>교재 목록 (완료율/평균점수)</li>
+<li>교재 클릭 → 스테이지별 점수 카드</li>
+</ul>
+
+<h3>6.6 Phase 3-A 구현 현황</h3>
+<table>
+<thead><tr><th>Sprint</th><th>내용</th><th>상태</th></tr></thead>
+<tbody>
+<tr><td>Sprint 1</td><td>Gradebook 서비스 + 관리자 API 2개</td><td><span class="status status-done">✅ 완료</span> (<code>c9b01aac</code>)</td></tr>
+<tr><td>Sprint 2</td><td>학습자 API + 관리자 대시보드 Gradebook 탭</td><td><span class="status status-done">✅ 완료</span> (<code>3a4be78d</code>)</td></tr>
+<tr><td>Sprint 3</td><td>학습자 성적 뷰 + 관리자 상세 + 테스트 보강</td><td><span class="status status-planned">📋 계획</span></td></tr>
+</tbody>
+</table>
+
+<h3>6.7 Phase 3 전체 범위 (Phase 3-A 이후)</h3>
+<table>
+<thead><tr><th>단계</th><th>내용</th><th>상태</th></tr></thead>
+<tbody>
+<tr><td><strong>Phase 3-A</strong></td><td>Gradebook (통합 성적부)</td><td><span class="status status-progress">🔄 진행 중</span> (Sprint 2/3 완료)</td></tr>
+<tr><td><strong>Phase 3-B</strong></td><td>문제 은행 (Question Bank)</td><td><span class="status status-planned">📋 계획</span></td></tr>
+<tr><td><strong>Phase 3-C</strong></td><td>과제 (Assignment) + 루브릭 채점</td><td><span class="status status-planned">📋 계획</span></td></tr>
+</tbody>
+</table>
+
+<h4>Phase 3-B 문제 은행 (계획)</h4>
+<pre><code>learning_questions — 문항 본체 (type, prompt, options, correctAnswer, difficulty, tags)
+learning_question_tags — 다대다 태그
+learning_question_versions — 문항 버전 (정답 수정 이력)</code></pre>
+<ul>
+<li>교재 직접 입력 퀴즈와 문제은행 기반 퀴즈 <strong>병존</strong> (기존 quizData 유지)</li>
+<li>AI 기반 동적 퀴즈 구성 (태그/난이도 기반 샘플링)</li>
+</ul>
+
+<h4>Phase 3-C 과제 (계획)</h4>
+<pre><code>learning_assignments — 과제 정의 (rubric, dueAt, maxScore)
+learning_assignment_submissions — 제출물 (content, score, feedback)
+learning_assignment_rubric_items — 루브릭 항목</code></pre>
+
+<hr>
+
+<!-- 7. AI 교재 생성 파이프라인 -->
+<div class="section-header" id="sec7">
+  <div class="section-num">7</div>
+  <h2>AI 교재 생성 파이프라인</h2>
+</div>
+
+<h3>7.1 개요</h3>
+<p>DAKER LMS의 핵심 차별 기능으로, <strong>AI가 교재를 자동 생성</strong>한다. Gemini와 GPT의 <strong>상호 검수(Mutual Review)</strong> 4단계 파이프라인을 통해 품질을 보장한다.</p>
+
+<h3>7.2 파이프라인 구조</h3>
+<pre><code>[관리자: 주제/키워드 입력]
+            │
+            ▼
+┌─────────────────────────────────┐
+│  Step 1: 커리큘럼 생성 (Gemini) │
+│  주제 분석 → 학습 목표 도출     │
+│  → 스테이지 구성 계획           │
+└──────────────┬──────────────────┘
+               │
+               ▼
+┌─────────────────────────────────┐
+│  Step 2: 상호 검수 (GPT)       │
+│  Gemini 결과를 GPT가 리뷰      │
+│  → 개선점 피드백               │
+└──────────────┬──────────────────┘
+               │
+               ▼
+┌─────────────────────────────────┐
+│  Step 3: 콘텐츠 생성 (Gemini)  │
+│  각 스테이지별 콘텐츠 생성      │
+│  → 퀴즈, 프롬프트, 플래시카드  │
+└──────────────┬──────────────────┘
+               │
+               ▼
+┌─────────────────────────────────┐
+│  Step 4: 최종 검수 &amp; 확정      │
+│  관리자 미리보기 → 수정 → 확정  │
+└─────────────────────────────────┘</code></pre>
+
+<h3>7.3 플러그인 연동 (Phase 2 이후)</h3>
+<p>각 서버 플러그인의 <code>aiPromptFragment</code> 속성에 해당 스테이지 유형의 데이터 형식이 한국어로 명시되어 있으며, AI 교재 파이프라인이 이를 <strong>자동으로</strong> 프롬프트에 포함한다.</p>
+<ul>
+<li><code>quiz</code> 플러그인 → 퀴즈 데이터 형식 규칙이 자동 주입</li>
+<li><code>flashcard</code> 플러그인 → 플래시카드 형식 규칙이 자동 주입</li>
+<li><code>pdf</code> 플러그인 → AI 생성 대상 아님 (자동 제외)</li>
+<li><strong>새 플러그인 추가 시</strong> <code>aiPromptFragment</code>만 작성하면 AI 파이프라인이 자동 인식</li>
+</ul>
+
+<h3>7.4 AI 생성 기능 목록</h3>
+<table>
+<thead><tr><th>기능</th><th>설명</th><th>스트리밍</th></tr></thead>
+<tbody>
+<tr><td><strong>단일 교재 생성</strong></td><td>주제/키워드로 전체 교재 생성</td><td>SSE</td></tr>
+<tr><td><strong>일괄 교재 생성</strong></td><td>트랙 내 여러 교재를 한 번에 생성</td><td>SSE</td></tr>
+<tr><td><strong>커리큘럼 AI 생성</strong></td><td>트랙 전체 커리큘럼 자동 설계</td><td>SSE</td></tr>
+<tr><td><strong>커리큘럼 AI 보완</strong></td><td>기존 커리큘럼 개선 제안</td><td>SSE</td></tr>
+<tr><td><strong>프롬프트 스펙 파싱</strong></td><td>자연어 명세서로부터 교재 구조 생성</td><td>SSE</td></tr>
+<tr><td><strong>학습 AI 어시스턴트</strong></td><td>학습 중 질의응답 챗봇</td><td>SSE</td></tr>
+</tbody>
+</table>
+
+<h3>7.5 일일 토큰 제한</h3>
+<p>AI 생성에는 일일 토큰 한도가 적용되며, <code>aiGenerationLogs</code> 테이블에 입력/출력 토큰, 사용 여부, 피드백이 기록된다.</p>
+
+<hr>
+
+<!-- 8. 학습 흐름 (Learner Journey) -->
+<div class="section-header" id="sec8">
+  <div class="section-num">8</div>
+  <h2>학습 흐름 (Learner Journey)</h2>
+</div>
+
+<h3>8.1 전체 학습 플로우</h3>
+<pre><code>[교재 목록 탐색]
+       │
+       ▼
+[교재 상세 (개요)]─────── [즐겨찾기 등록]
+       │
+       ▼
+[학습 시작] ─── 세션 로그 시작 ─── started 이벤트 (Layer 2)
+       │
+       ├─ [Stage: 콘텐츠] ─── 읽기 완료 → viewed/completed 이벤트
+       │
+       ├─ [Stage: 퀴즈] ─── 풀이 → plugin.toEvents() 자동 호출
+       │       │                     attempted → answered → passed/failed
+       │       │                     plugin.score() → Gradebook 반영
+       │       └── 재시도 가능
+       │
+       ├─ [Stage: 프롬프트] ─── 작성 → submitted 이벤트
+       │       │                        AI 유사도 평가 → Gradebook 반영
+       │       └── 모범 답안 확인
+       │
+       ├─ [Stage: 플래시카드] ─── 학습 → attempted 이벤트
+       │       │                          Known/Unknown → Gradebook 반영
+       │       └── 재학습 가능
+       │
+       ├─ [Stage: PDF] ─── 열람 → viewed 이벤트
+       │
+       └─ [Stage: 분기 학습] ─── 선택 → branched 이벤트
+               │
+               └── 경로에 따라 다른 콘텐츠
+       │
+       ▼
+[교재 완료] ─── completed 이벤트
+       │         배지/스트릭/활동 링 업데이트
+       │
+       ▼
+[성적 확인] ─── GET /api/learning/gradebook/me (Layer 3)
+       │
+       ▼
+[인증서 발급 요청] (조건 충족 시)</code></pre>
+
+<h3>8.2 진도 추적</h3>
+<table>
+<thead><tr><th>상태</th><th>설명</th></tr></thead>
+<tbody>
+<tr><td><code>not_started</code></td><td>교재를 열지 않은 상태</td></tr>
+<tr><td><code>in_progress</code></td><td>하나 이상의 스테이지를 진행 중</td></tr>
+<tr><td><code>completed</code></td><td>모든 스테이지 완료</td></tr>
+</tbody>
+</table>
+<p>진도 데이터:</p>
+<ul>
+<li><code>completedStages</code>: 완료한 스테이지 ID 배열 (JSON)</li>
+<li><code>learningTimeSeconds</code>: 총 학습 시간 (초)</li>
+<li><code>stageTimeMap</code>: 스테이지별 학습 시간 (JSON)</li>
+<li><code>stageSummaries</code>: 스테이지별 학습 요약 (JSON)</li>
+<li><code>completionCount</code>: 완료 횟수 (반복 학습 추적)</li>
+</ul>
+
+<hr>
+
+<!-- 9. 게이미피케이션 시스템 -->
+<div class="section-header" id="sec9">
+  <div class="section-num">9</div>
+  <h2>게이미피케이션 시스템</h2>
+</div>
+
+<h3>9.1 활동 링 (Activity Rings)</h3>
+<p>Apple Watch의 활동 링에서 영감을 받은 시각화 시스템.</p>
+<table>
+<thead><tr><th>링</th><th>목표</th><th>추적 항목</th></tr></thead>
+<tbody>
+<tr><td><strong>Move</strong> (파란색)</td><td>학습 시간 달성</td><td>일일 학습 시간 (초)</td></tr>
+<tr><td><strong>Exercise</strong> (보라색)</td><td>세션 수 달성</td><td>일일 학습 세션 수</td></tr>
+<tr><td><strong>Stand</strong> (초록색)</td><td>교재 완료 수</td><td>일일 완료 교재 수</td></tr>
+</tbody>
+</table>
+<ul>
+<li>사용자별 일일 목표 설정 가능</li>
+<li>링 100% 채움 시 축하 애니메이션</li>
+<li>주간 목표 링도 별도 제공</li>
+</ul>
+
+<h3>9.2 스트릭 (Streak)</h3>
+<table>
+<thead><tr><th>속성</th><th>설명</th></tr></thead>
+<tbody>
+<tr><td><strong>현재 스트릭</strong></td><td>연속 학습 일수</td></tr>
+<tr><td><strong>최장 스트릭</strong></td><td>역대 최고 연속 기록</td></tr>
+<tr><td><strong>스트릭 실드</strong></td><td>스트릭 끊김 방지 아이템</td></tr>
+<tr><td><strong>동결 횟수</strong></td><td>실드 사용 횟수</td></tr>
+<tr><td><strong>활동 유형</strong></td><td>어떤 활동이 스트릭에 포함되는지</td></tr>
+</tbody>
+</table>
+
+<h3>9.3 배지 시스템</h3>
+
+<h4>배지 카테고리</h4>
+<table>
+<thead><tr><th>카테고리</th><th>설명</th><th>예시</th></tr></thead>
+<tbody>
+<tr><td><code>course</code></td><td>코스 완료 관련</td><td>"첫 교재 완료", "10개 교재 마스터"</td></tr>
+<tr><td><code>time</code></td><td>학습 시간 관련</td><td>"100시간 학습", "1000시간 학습"</td></tr>
+<tr><td><code>streak</code></td><td>연속 학습 관련</td><td>"7일 연속", "30일 연속"</td></tr>
+<tr><td><code>quiz</code></td><td>퀴즈 성적 관련</td><td>"퀴즈 만점왕", "100문제 정복"</td></tr>
+<tr><td><code>ring</code></td><td>활동 링 관련</td><td>"링 7일 연속 달성"</td></tr>
+<tr><td><code>record</code></td><td>개인 최고 기록</td><td>"최고 점수 경신"</td></tr>
+<tr><td><code>limited</code></td><td>기간 한정 배지</td><td>이벤트/시즌 한정</td></tr>
+</tbody>
+</table>
+
+<h4>배지 등급</h4>
+<table>
+<thead><tr><th>등급</th><th>조건</th><th>시각적 표현</th></tr></thead>
+<tbody>
+<tr><td><code>bronze</code></td><td>입문</td><td>브론즈 테두리</td></tr>
+<tr><td><code>silver</code></td><td>중급</td><td>실버 테두리</td></tr>
+<tr><td><code>gold</code></td><td>고급</td><td>골드 테두리 + 광택</td></tr>
+<tr><td><code>platinum</code></td><td>최상위</td><td>플래티넘 테두리 + 반짝임 효과</td></tr>
+</tbody>
+</table>
+
+<h3>9.4 XP/LP 이중 통화</h3>
+<table>
+<thead><tr><th>통화</th><th>용도</th><th>획득 방법</th></tr></thead>
+<tbody>
+<tr><td><strong>XP (경험치)</strong></td><td>레벨업, 리더보드 순위</td><td>학습 완료, 퀴즈 통과, 스트릭 유지</td></tr>
+<tr><td><strong>LP (학습 포인트)</strong></td><td>인증서 발급 비용</td><td>XP 획득 시 일부 LP 적립</td></tr>
+</tbody>
+</table>
+
+<h3>9.5 챌린지</h3>
+<table>
+<thead><tr><th>유형</th><th>기간</th><th>예시</th></tr></thead>
+<tbody>
+<tr><td><code>monthly</code></td><td>월간</td><td>"이번 달 5개 교재 완료"</td></tr>
+<tr><td><code>seasonal</code></td><td>시즌</td><td>"봄 시즌 100시간 학습"</td></tr>
+<tr><td><code>event</code></td><td>이벤트</td><td>"해커톤 사전 학습 완료"</td></tr>
+</tbody>
+</table>
+<p>조건 유형: <code>completedCourses</code>, <code>currentStreak</code>, <code>totalLearningTime</code>, <code>perfectQuiz</code>, <code>ringClosures</code>, <code>personalBest</code></p>
+
+<h3>9.6 리더보드</h3>
+<p>학습 시간, XP, 완료 교재 수 기준 순위 표시. 전체/팀별/트랙별 필터 지원.</p>
+
+<hr>
+
+<!-- 10. 학습 분석 -->
+<div class="section-header" id="sec10">
+  <div class="section-num">10</div>
+  <h2>학습 분석 (Analytics)</h2>
+</div>
+
+<h3>10.1 데이터 소스 계층</h3>
+<pre><code>Layer 2 (learning_events)
+    │
+    ├─ eventAggregator (1분 배치) → learningDailyActivity (히트맵/활동 링)
+    │
+    └─ analyticsQueries (실시간) → 관리자 대시보드 7대 지표
+                                      │
+                                      └─ Gradebook 탭 (Phase 3-A)</code></pre>
+
+<h3>10.2 관리자 분석 대시보드 탭 구성</h3>
+<table>
+<thead><tr><th>탭</th><th>내용</th><th>데이터 소스</th></tr></thead>
+<tbody>
+<tr><td><strong>지표 (Metrics)</strong></td><td>7대 분석 카드 (DAU/MAU, 퍼널, 이탈, 퀴즈분포, 세션, 재시도, 이벤트)</td><td><code>analyticsQueries.ts</code></td></tr>
+<tr><td><strong>성적부 (Gradebook)</strong> 🆕</td><td>교재별 학습자 성적 테이블, 학습자 상세 성적</td><td><code>gradebookService.ts</code></td></tr>
+</tbody>
+</table>
+
+<h3>10.3 분석 대시보드 지표</h3>
+<table>
+<thead><tr><th>지표</th><th>설명</th><th>데이터 소스</th></tr></thead>
+<tbody>
+<tr><td><strong>활성 사용자</strong></td><td>DAU/WAU/MAU + 일별 추이</td><td><code>learning_events</code></td></tr>
+<tr><td><strong>교재 완료 퍼널</strong></td><td>시작→완료 전환율</td><td><code>user_course_progress</code></td></tr>
+<tr><td><strong>이탈 핫스팟</strong></td><td>이탈률 높은 스테이지 Top 10</td><td><code>learning_events</code> (abandoned)</td></tr>
+<tr><td><strong>퀴즈 정확도 분포</strong></td><td>5구간 히스토그램 (0-20/20-40/.../80-100)</td><td><code>learning_quiz_attempts</code></td></tr>
+<tr><td><strong>평균 세션 길이</strong></td><td>평균/중앙값 (분)</td><td><code>learning_session_logs</code></td></tr>
+<tr><td><strong>재시도 많은 스테이지</strong></td><td>Top 10</td><td><code>learning_events</code> (attempted)</td></tr>
+<tr><td><strong>일별 이벤트 볼륨</strong></td><td>일별 이벤트 수 추이</td><td><code>learning_events</code></td></tr>
+</tbody>
+</table>
+
+<h3>10.4 관리자 분석 API</h3>
+<table>
+<thead><tr><th>API</th><th>설명</th></tr></thead>
+<tbody>
+<tr><td><code>GET /analytics/quiz-stats</code></td><td>퀴즈 통계</td></tr>
+<tr><td><code>GET /analytics/learning-time</code></td><td>학습 시간 분석</td></tr>
+<tr><td><code>GET /analytics/progress-insights</code></td><td>진도 인사이트</td></tr>
+<tr><td><code>GET /analytics/learner-segments</code></td><td>학습자 세그먼트 분류</td></tr>
+<tr><td><code>GET /analytics/traffic</code></td><td>트래픽 분석</td></tr>
+<tr><td><code>GET /analytics/drop-off</code></td><td>이탈 분석</td></tr>
+<tr><td><code>GET /analytics/export</code></td><td>CSV 내보내기</td></tr>
+<tr><td><code>GET /analytics/gradebook/materials/:id</code> 🆕</td><td>교재별 성적 요약</td></tr>
+<tr><td><code>GET /analytics/gradebook/materials/:id/users/:uid</code> 🆕</td><td>학습자별 성적 상세</td></tr>
+</tbody>
+</table>
+
+<h3>10.5 학습 히트맵</h3>
+<p><code>learningDailyActivity</code> 테이블에 일별 학습 시간, 세션 수를 기록하여 GitHub 스타일 학습 히트맵을 시각화한다.</p>
+
+<hr>
+
+<!-- 11. 관리자 기능 -->
+<div class="section-header" id="sec11">
+  <div class="section-num">11</div>
+  <h2>관리자 기능</h2>
+</div>
+
+<h3>11.1 관리 영역</h3>
+<table>
+<thead><tr><th>탭</th><th>기능</th></tr></thead>
+<tbody>
+<tr><td><strong>교재 관리</strong></td><td>교재 CRUD, 스테이지 편집, AI 생성, 발행/아카이브</td></tr>
+<tr><td><strong>학습 그룹</strong> <span class="status status-done">🆕</span></td><td>그룹 CRUD, 멤버 관리, 교재/트랙 권한 부여/회수, 출결 관리</td></tr>
+<tr><td><strong>일괄 등록</strong> <span class="status status-done">🆕</span></td><td>4단계 마법사 (멤버 입력 → 대상 선택 → 기간 → 실행, 최대 1,000명)</td></tr>
+<tr><td><strong>카테고리 관리</strong></td><td>사이드바 카테고리 생성/편집/삭제/순서 변경</td></tr>
+<tr><td><strong>저자 관리</strong></td><td>교재 저자 프로필 관리 (DAKER 회원 연동 또는 외부 저자)</td></tr>
+<tr><td><strong>스테이지 관리</strong></td><td>개별 스테이지 편집, 순서 변경, 유형 변환</td></tr>
+<tr><td><strong>수강생 관리</strong></td><td>수강생 목록, 진도 확인, 학습 메모, 상태 변경</td></tr>
+<tr><td><strong>통계</strong></td><td>7대 분석 대시보드 + Gradebook 탭 + CSV 내보내기</td></tr>
+<tr><td><strong>수강 요청</strong></td><td>수강 신청 승인/거절 관리</td></tr>
+<tr><td><strong>권한 관리</strong></td><td>교재/트랙별 크리에이터 권한 부여, 수강자 등록/해제</td></tr>
+<tr><td><strong>태그 관리</strong></td><td>산업별/기술별 태그 CRUD</td></tr>
+</tbody>
+</table>
+
+<h3>11.2 교재 제작 마법사 (4단계)</h3>
+<pre><code>Step 1: 기본 정보
+  ─ 제목, 설명, 카테고리, 난이도, 예상 소요 시간
+
+Step 2: 커리큘럼
+  ─ 스테이지 구성 (수동 또는 AI 자동 생성)
+  ─ 스테이지 순서 설정
+
+Step 3: 콘텐츠
+  ─ 각 스테이지별 콘텐츠 입력/편집
+  ─ 퀴즈, 프롬프트, 플래시카드 데이터 입력
+
+Step 4: 미리보기 &amp; 발행
+  ─ 전체 교재 미리보기
+  ─ 발행 (draft → published)</code></pre>
+
+<h3>11.3 Raid/해커톤 그룹 학습 대시보드</h3>
+<ul>
+<li>Raid 그룹별 학습 현황 대시보드</li>
+<li>그룹 내 교재 완료율, 평균 학습 시간</li>
+<li>개별 수강생 진도 추적 + Gradebook 성적 확인</li>
+<li>학습 목표 설정 및 달성 현황</li>
+</ul>
+
+<hr>
+
+<!-- 12. 인증서 시스템 -->
+<div class="section-header" id="sec12">
+  <div class="section-num">12</div>
+  <h2>인증서 시스템</h2>
+</div>
+
+<h3>12.1 인증서 유형</h3>
+<table>
+<thead><tr><th>유형</th><th>조건</th><th>설명</th></tr></thead>
+<tbody>
+<tr><td><code>learning_excellence</code></td><td>교재 우수 완료</td><td>높은 점수로 교재 완료</td></tr>
+<tr><td><code>learning_completion</code></td><td>교재 완료</td><td>교재 전체 스테이지 완료</td></tr>
+<tr><td><code>track_excellence</code></td><td>트랙 우수 완료</td><td>높은 점수로 트랙 완료</td></tr>
+<tr><td><code>track_completion</code></td><td>트랙 완료</td><td>트랙 내 필수 코스 전체 완료</td></tr>
+</tbody>
+</table>
+
+<h3>12.2 인증서 상태 흐름</h3>
+<pre><code>pending → approved → (revoked)
+       → rejected</code></pre>
+
+<h3>12.3 인증서 점수 구성</h3>
+<table>
+<thead><tr><th>항목</th><th>가중치</th><th>설명</th></tr></thead>
+<tbody>
+<tr><td>퀴즈 평균 점수</td><td>40%</td><td>Gradebook의 quiz bestScore 기반</td></tr>
+<tr><td>프롬프트 유사도 평균</td><td>30%</td><td>Gradebook의 prompt bestScore 기반</td></tr>
+<tr><td>플래시카드 통과율</td><td>15%</td><td>Gradebook의 flashcard bestScore 기반</td></tr>
+<tr><td>학습 시간</td><td>15%</td><td>총 학습 시간 기반</td></tr>
+</tbody>
+</table>
+<h3>12.4 LP 비용</h3>
+<p>인증서 발급에는 LP (학습 포인트)가 소모된다. LP는 학습 활동으로 획득.</p>
+
+<hr>
+
+<!-- 13. 팀 학습 및 Raid 연계 -->
+<div class="section-header" id="sec13">
+  <div class="section-num">13</div>
+  <h2>팀 학습 및 Raid 연계</h2>
+</div>
+
+<h3>13.1 구조</h3>
+<pre><code>Raid Group (팀 그룹)
+  └─ Team (팀)
+       └─ Team Members (팀원)
+            └─ 개인 학습 진도 + Gradebook 성적
+
+Learning Track (학습 트랙)
+  ← 연결 → Raid / Raid Group</code></pre>
+
+<h3>13.2 팀 학습 기능</h3>
+<table>
+<thead><tr><th>기능</th><th>설명</th></tr></thead>
+<tbody>
+<tr><td><strong>그룹 목표</strong></td><td>관리자가 Raid 그룹 단위로 학습 목표 설정</td></tr>
+<tr><td><strong>팀 보너스 XP</strong></td><td>팀 전원이 트랙 완료 시 보너스 XP 지급</td></tr>
+<tr><td><strong>팀 리더보드</strong></td><td>팀 단위 학습 현황 경쟁</td></tr>
+<tr><td><strong>수강 등록/해제</strong></td><td>관리자가 팀 단위로 교재/트랙에 수강 등록</td></tr>
+<tr><td><strong>진도 대시보드</strong></td><td>Raid별, 그룹별 학습 진도 대시보드</td></tr>
+</tbody>
+</table>
+
+<h3>13.3 보너스 XP 유형</h3>
+<table>
+<thead><tr><th>유형</th><th>조건</th><th>보너스</th></tr></thead>
+<tbody>
+<tr><td><code>track_all_complete</code></td><td>팀 전원 트랙 완료</td><td>팀원 수 × 기본 XP</td></tr>
+<tr><td><code>hackathon_team_submit</code></td><td>해커톤 팀 제출</td><td>고정 보너스</td></tr>
+<tr><td><code>streak_team_bonus</code></td><td>팀 전원 스트릭 유지</td><td>스트릭 일수 × 보너스</td></tr>
+</tbody>
+</table>
+
+<hr>
+
+<!-- 14. 집중 도구 -->
+<div class="section-header" id="sec14">
+  <div class="section-num">14</div>
+  <h2>집중 도구 (Focus Tools)</h2>
+</div>
+
+<p>학습 중 집중력 향상을 위한 보조 도구 세트.</p>
+<table>
+<thead><tr><th>도구</th><th>설명</th></tr></thead>
+<tbody>
+<tr><td><strong>뽀모도로 타이머</strong></td><td>25분 집중 + 5분 휴식 사이클</td></tr>
+<tr><td><strong>인테그럴 에어리어 클록</strong></td><td>면적 기반 시각적 시간 표시</td></tr>
+<tr><td><strong>비주얼 타이머</strong></td><td>직관적 카운트다운</td></tr>
+<tr><td><strong>리딩 룰러</strong></td><td>화면 위 읽기 가이드선</td></tr>
+<tr><td><strong>블라인드 모드</strong></td><td>주변부 어둡게 처리하여 집중 강화</td></tr>
+<tr><td><strong>화이트 노이즈</strong></td><td>배경 소음 재생 (비, 카페, 자연 등)</td></tr>
+<tr><td><strong>키보드 단축키</strong></td><td>학습 조작 키보드 단축키</td></tr>
+</tbody>
+</table>
+
+<hr>
+
+<!-- 15. 학습 그룹 및 일괄 등록 시스템 -->
+<div class="section-header" id="sec15">
+  <div class="section-num">15</div>
+  <h2>학습 그룹 및 일괄 등록 시스템</h2>
+</div>
+
+<h3>15.1 학습 그룹 (Learning Groups)</h3>
+<p>학습 그룹은 <strong>수강생 묶음 + 권한 관리 + 출결 관리</strong>의 중심 엔티티이다. 기업 교육, 대학 수업 등 조직 단위 학습 운영을 위한 핵심 인프라.</p>
+
+<pre><code>학습 그룹 (Learning Group)
+  ├─ 그룹 멤버 (N명) — 이메일 기반 등록
+  ├─ 교재/트랙 권한 — 기간 조건부 수강 권한
+  ├─ 출결 기록 — 자동 감지 + 수동 편집
+  └─ 출결 설정 — 최소 인정 시간 등 임계값</code></pre>
+
+<h4>learning_groups — 그룹 컨테이너</h4>
+<table>
+<thead><tr><th>컬럼</th><th>타입</th><th>설명</th></tr></thead>
+<tbody>
+<tr><td><code>id</code></td><td>varchar (PK)</td><td>그룹 ID</td></tr>
+<tr><td><code>name</code></td><td>varchar(200)</td><td>그룹명</td></tr>
+<tr><td><code>description</code></td><td>text</td><td>그룹 설명</td></tr>
+<tr><td><code>createdBy</code></td><td>varchar (FK → users)</td><td>생성자</td></tr>
+<tr><td><code>createdAt</code>, <code>updatedAt</code></td><td>timestamp</td><td>생성/수정 시각</td></tr>
+</tbody>
+</table>
+
+<h4>learning_group_members — 그룹 멤버십</h4>
+<table>
+<thead><tr><th>컬럼</th><th>타입</th><th>설명</th></tr></thead>
+<tbody>
+<tr><td><code>id</code></td><td>varchar (PK)</td><td>멤버십 ID</td></tr>
+<tr><td><code>groupId</code></td><td>varchar (FK, CASCADE)</td><td>소속 그룹</td></tr>
+<tr><td><code>userId</code></td><td>varchar (FK, CASCADE)</td><td>사용자</td></tr>
+<tr><td><code>memo</code></td><td>text</td><td>멤버 메모</td></tr>
+<tr><td><code>addedBy</code></td><td>varchar</td><td>등록자</td></tr>
+<tr><td><strong>UK</strong></td><td>(groupId, userId)</td><td>중복 방지</td></tr>
+</tbody>
+</table>
+
+<h4>그룹 관리 API</h4>
+<table>
+<thead><tr><th>Method</th><th>Endpoint</th><th>설명</th></tr></thead>
+<tbody>
+<tr><td>GET</td><td><code>/api/learning/admin/groups</code></td><td>그룹 목록 (검색, 페이징)</td></tr>
+<tr><td>POST</td><td><code>/api/learning/admin/groups</code></td><td>그룹 생성</td></tr>
+<tr><td>GET</td><td><code>/api/learning/admin/groups/:id</code></td><td>그룹 상세 + 멤버</td></tr>
+<tr><td>PATCH</td><td><code>/api/learning/admin/groups/:id</code></td><td>그룹 수정</td></tr>
+<tr><td>DELETE</td><td><code>/api/learning/admin/groups/:id</code></td><td>그룹 삭제 (멤버 CASCADE)</td></tr>
+<tr><td>POST</td><td><code>/api/learning/admin/groups/:id/members</code></td><td>이메일 기반 멤버 추가</td></tr>
+<tr><td>DELETE</td><td><code>/api/learning/admin/groups/:id/members/:userId</code></td><td>멤버 제거</td></tr>
+<tr><td>POST</td><td><code>/api/learning/admin/groups/:id/grant</code></td><td>교재/트랙 권한 부여 (기간 조건부)</td></tr>
+<tr><td>POST</td><td><code>/api/learning/admin/groups/:id/revoke</code></td><td>권한 회수</td></tr>
+<tr><td>GET</td><td><code>/api/learning/admin/groups/:id/permissions</code></td><td>부여된 권한 목록</td></tr>
+</tbody>
+</table>
+
+<h4>관리자 UI</h4>
+<ul>
+<li><strong>그룹 목록</strong>: <code>/admin/learning</code> &gt; "그룹" 탭 — 검색, 페이징</li>
+<li><strong>그룹 상세</strong>: <code>/admin/learning/groups/:groupId</code> — 3개 탭 (멤버 / 권한 / 출석)</li>
+</ul>
+
+<h3>15.2 일괄 등록 (Bulk Enrollment)</h3>
+<p>최대 <strong>1,000명</strong>까지 한 번에 수강 등록하는 4단계 마법사. <code>one-shot</code> (즉석 등록) 또는 <code>save-group</code> (그룹 저장 후 등록) 모드 지원.</p>
+
+<h4>4단계 마법사</h4>
+<pre><code>Step 1: 멤버 입력 — 이메일 붙여넣기 / CSV 업로드
+           │
+           ▼
+Step 2: 교재/트랙 선택 — 체크박스로 수강 대상 지정
+           │
+           ▼
+Step 3: 기간 설정 — 시작일/종료일 (선택)
+           │
+           ▼
+Step 4: 리뷰 &amp; 실행 — dryRun 미리보기 → 확정 실행</code></pre>
+
+<h4>처리 파이프라인 (3-Phase)</h4>
+<table>
+<thead><tr><th>Phase</th><th>처리</th><th>설명</th></tr></thead>
+<tbody>
+<tr><td><strong>1. Resolve</strong></td><td>이메일 → userId 매핑</td><td>정규화, 중복 제거, 미등록자 건너뜀</td></tr>
+<tr><td><strong>2. Assign</strong></td><td>(user × target) 멱등 처리</td><td>활성 기존 → skipped, 취소 → restored, 신규 → created</td></tr>
+<tr><td><strong>3. Execute</strong></td><td>save-group 시 그룹 생성</td><td>그룹 + 멤버 + 권한 원자적 처리</td></tr>
+</tbody>
+</table>
+
+<h4>진도 테이블 확장 (기존 테이블에 컬럼 추가)</h4>
+<p><code>user_course_progress</code>, <code>user_track_progress</code>에 추가된 컬럼:</p>
+<table>
+<thead><tr><th>컬럼</th><th>타입</th><th>설명</th></tr></thead>
+<tbody>
+<tr><td><code>enrolledBy</code></td><td>varchar (FK → users)</td><td>등록 처리한 관리자</td></tr>
+<tr><td><code>enrolledAt</code></td><td>timestamp</td><td>등록 시각</td></tr>
+<tr><td><code>enrollmentSource</code></td><td>enum</td><td>admin_assigned / group / payment / self_enrolled</td></tr>
+<tr><td><code>startsAt</code></td><td>timestamp</td><td>수강 시작일 (선택)</td></tr>
+<tr><td><code>expiresAt</code></td><td>timestamp</td><td>수강 종료일 (선택)</td></tr>
+<tr><td><code>sourceGroupId</code></td><td>varchar (FK → learning_groups)</td><td>권한 부여 그룹</td></tr>
+</tbody>
+</table>
+
+<hr>
+
+<!-- 16. 경량 출결 시스템 -->
+<div class="section-header" id="sec16">
+  <div class="section-num">16</div>
+  <h2>경량 출결 시스템</h2>
+</div>
+
+<h3>16.1 설계 철학</h3>
+<blockquote><strong>"세션 로그는 이미 쌓이고 있다"</strong> — 별도 하드웨어나 복잡한 QR 시스템 없이, 기존 학습 세션 로그를 재활용하여 출결을 자동 감지한다.</blockquote>
+<ul>
+<li>기존 <code>learning_session_logs</code> 테이블의 학습 시간을 집계</li>
+<li>임계값(<code>minDurationSeconds</code>, 기본 60초) 이상이면 출석 인정</li>
+<li>관리자는 그리드 UI에서 원클릭으로 수동 편집 가능</li>
+</ul>
+
+<h3>16.2 출결 상태</h3>
+<table>
+<thead><tr><th>상태</th><th>라벨</th><th>설명</th></tr></thead>
+<tbody>
+<tr><td><code>present</code></td><td>출석</td><td>최소 인정 시간 이상 학습</td></tr>
+<tr><td><code>absent</code></td><td>결석</td><td>학습 기록 없음 또는 미달</td></tr>
+<tr><td><code>late</code></td><td>지각</td><td>관리자 수동 지정</td></tr>
+<tr><td><code>excused</code></td><td>공결</td><td>관리자 수동 지정</td></tr>
+<tr><td><code>early_leave</code></td><td>조퇴</td><td>관리자 수동 지정</td></tr>
+</tbody>
+</table>
+
+<h3>16.3 데이터 모델</h3>
+<h4>learning_attendance_records — 출결 기록</h4>
+<table>
+<thead><tr><th>컬럼</th><th>타입</th><th>설명</th></tr></thead>
+<tbody>
+<tr><td><code>id</code></td><td>varchar (PK)</td><td>기록 ID</td></tr>
+<tr><td><code>groupId</code></td><td>varchar (FK, CASCADE)</td><td>소속 그룹</td></tr>
+<tr><td><code>userId</code></td><td>varchar (FK, CASCADE)</td><td>대상 학습자</td></tr>
+<tr><td><code>date</code></td><td>date</td><td>출결 날짜 (KST 기준)</td></tr>
+<tr><td><code>status</code></td><td>enum</td><td>present / absent / late / excused / early_leave</td></tr>
+<tr><td><code>durationSeconds</code></td><td>integer</td><td>해당일 총 학습 시간 (초)</td></tr>
+<tr><td><code>detectionSource</code></td><td>enum</td><td>auto (자동 감지) / manual (수동 편집)</td></tr>
+<tr><td><code>memo</code></td><td>text</td><td>사유 메모</td></tr>
+<tr><td><strong>UK</strong></td><td>(groupId, userId, date)</td><td>1인 1일 1건 보장</td></tr>
+</tbody>
+</table>
+
+<h3>16.4 자동 감지 로직</h3>
+<pre><code>[학습 세션 로그 조회]
+  그룹 멤버 ∩ 그룹 교재 ⊂ learning_session_logs
+       │
+       ▼
+[일별 집계 (KST 기준)]
+  SUM(durationSeconds) per (userId, date)
+       │
+       ▼
+[임계값 판정]
+  durationSeconds &gt;= minDurationSeconds → 'present'
+  durationSeconds &lt; minDurationSeconds  → 'absent'
+       │
+       ▼
+[그리드 셀 반환]
+  persisted: false (아직 DB 미저장)
+  detectionSource: 'auto'</code></pre>
+
+<h3>16.5 출결 API</h3>
+<h4>관리자 API</h4>
+<table>
+<thead><tr><th>Method</th><th>Endpoint</th><th>설명</th></tr></thead>
+<tbody>
+<tr><td>GET</td><td><code>/api/learning/admin/groups/:groupId/attendance</code></td><td>출결 그리드 조회 (최대 93일)</td></tr>
+<tr><td>POST</td><td><code>/api/learning/admin/groups/:groupId/attendance</code></td><td>출결 수동 편집 (단건)</td></tr>
+<tr><td>DELETE</td><td><code>/api/learning/admin/groups/:groupId/attendance/:userId/:date</code></td><td>수동 편집 삭제 → 자동 감지 복원</td></tr>
+<tr><td>GET</td><td><code>/api/learning/admin/groups/:groupId/attendance/settings</code></td><td>출결 설정 조회</td></tr>
+<tr><td>PUT</td><td><code>/api/learning/admin/groups/:groupId/attendance/settings</code></td><td>출결 설정 변경</td></tr>
+<tr><td>POST</td><td><code>/api/learning/admin/groups/:groupId/attendance/snapshot</code></td><td>자동 감지 결과 일괄 DB 저장</td></tr>
+</tbody>
+</table>
+
+<h4>학습자 API (내 출석 대시보드)</h4>
+<table>
+<thead><tr><th>Method</th><th>Endpoint</th><th>설명</th></tr></thead>
+<tbody>
+<tr><td>GET</td><td><code>/api/learning/my/attendance/summary</code></td><td>내 전체 그룹 출석 요약 (출석률, 스트릭, 경고)</td></tr>
+<tr><td>GET</td><td><code>/api/learning/my/attendance/groups/:groupId</code></td><td>그룹별 상세 출석 기록 (월별 캘린더)</td></tr>
+</tbody>
+</table>
+
+<h3>16.6 관리자 UI — 출결 그리드</h3>
+<p>위치: <code>/admin/learning/groups/:groupId</code> &gt; "출석" 탭</p>
+<pre><code>┌──────────────────────────────────────────────┐
+│ [기간 선택: 2026.04.01 ~ 2026.04.12]  [CSV] │
+├──────┬───┬───┬───┬───┬───┬───┬───┬───┬───┬──┤
+│ 이름 │ 1 │ 2 │ 3 │ 4 │ 5 │ 6 │ 7 │ 8 │ … │
+├──────┼───┼───┼───┼───┼───┼───┼───┼───┼───┼──┤
+│ 김OO │ ● │ ● │ △ │ ● │   │   │ ● │ ● │ … │
+│ 이OO │ ● │   │ ● │ ● │   │   │ ● │ ○ │ … │
+│ 박OO │ ● │ ● │ ● │ ● │   │   │ ● │ ● │ … │
+└──────┴───┴───┴───┴───┴───┴───┴───┴───┴───┴──┘
+  ● 출석  △ 지각  ✕ 결석  ○ 공결  ◁ 조퇴</code></pre>
+
+<h3>16.7 학습자 UI — 내 출석 대시보드</h3>
+<ul>
+<li><strong>전체 요약</strong>: 소속 그룹 목록, 그룹별 출석률/스트릭/경고</li>
+<li><strong>그룹 상세</strong>: 월별 캘린더 뷰, 일별 출석 상태, 통계 (출석/지각/결석/공결/조퇴)</li>
+</ul>
+
+<h3>16.8 테스트 현황</h3>
+<table>
+<thead><tr><th>구분</th><th>파일</th><th>결과</th></tr></thead>
+<tbody>
+<tr><td>E2E (관리자 출결)</td><td><code>10-lms-attendance.spec.ts</code></td><td>7/7 PASS ✅</td></tr>
+<tr><td>E2E (내 출석 대시보드)</td><td><code>11-lms-my-attendance.spec.ts</code></td><td>6/6 PASS ✅</td></tr>
+<tr><td>단위 테스트</td><td>attendanceService, myAttendanceService</td><td>전체 PASS ✅</td></tr>
+</tbody>
+</table>
+
+<hr>
+
+<!-- 17. 데이터 모델 -->
+<div class="section-header" id="sec17">
+  <div class="section-num">17</div>
+  <h2>데이터 모델 (DB 스키마)</h2>
+</div>
+
+<h3>17.1 테이블 목록 (45+ 테이블)</h3>
+
+<h4>핵심 콘텐츠 테이블</h4>
+<table>
+<thead><tr><th>코드 변수명</th><th>DB 테이블명</th><th>설명</th></tr></thead>
+<tbody>
+<tr><td><code>learningCategories</code></td><td><code>learning_categories</code></td><td>사이드바 카테고리</td></tr>
+<tr><td><code>learningTags</code></td><td><code>learning_tags</code></td><td>산업별/기술별 필터 태그</td></tr>
+<tr><td><code>materialAuthors</code></td><td><code>course_authors</code></td><td>저자 프로필</td></tr>
+<tr><td><code>materials</code></td><td><code>courses</code></td><td>교재 (학습 기본 단위)</td></tr>
+<tr><td><code>materialAuthorRelations</code></td><td><code>course_author_relations</code></td><td>교재↔저자 N:N 관계</td></tr>
+<tr><td><code>materialStages</code></td><td><code>course_stages</code></td><td>교재 내 스테이지</td></tr>
+<tr><td><code>courses</code></td><td><code>learning_courses</code></td><td>코스 (교재 모음)</td></tr>
+<tr><td><code>courseMaterials</code></td><td><code>course_materials</code></td><td>코스↔교재 N:N 관계</td></tr>
+</tbody>
+</table>
+
+<h4>이벤트 스트림 테이블 (Phase 1)</h4>
+<table>
+<thead><tr><th>코드 변수명</th><th>DB 테이블명</th><th>설명</th></tr></thead>
+<tbody>
+<tr><td><code>learningEvents</code></td><td><code>learning_events</code></td><td>xAPI 이벤트 스트림 (12 verbs × 5 object types)</td></tr>
+</tbody>
+</table>
+
+<h4>진도 추적 테이블</h4>
+<table>
+<thead><tr><th>코드 변수명</th><th>DB 테이블명</th><th>설명</th></tr></thead>
+<tbody>
+<tr><td><code>userMaterialProgress</code></td><td><code>user_course_progress</code></td><td>사용자별 교재 진도</td></tr>
+<tr><td><code>userMaterialFavorites</code></td><td><code>user_course_favorites</code></td><td>즐겨찾기</td></tr>
+<tr><td><code>userCourseProgress</code></td><td><code>user_learning_course_progress</code></td><td>사용자별 코스 진도</td></tr>
+<tr><td><code>userTrackProgress</code></td><td><code>user_track_progress</code></td><td>사용자별 트랙 진도</td></tr>
+</tbody>
+</table>
+
+<h4>시도/평가 테이블 (Gradebook 데이터 소스)</h4>
+<table>
+<thead><tr><th>코드 변수명</th><th>DB 테이블명</th><th>설명</th></tr></thead>
+<tbody>
+<tr><td><code>learningQuizAttempts</code></td><td><code>learning_quiz_attempts</code></td><td>퀴즈 시도 기록</td></tr>
+<tr><td><code>learningPromptAttempts</code></td><td><code>learning_prompt_attempts</code></td><td>프롬프트 시도 기록</td></tr>
+<tr><td><code>learningFlashcardAttempts</code></td><td><code>learning_flashcard_attempts</code></td><td>플래시카드 시도 기록</td></tr>
+</tbody>
+</table>
+
+<h4>게이미피케이션 테이블</h4>
+<table>
+<thead><tr><th>코드 변수명</th><th>DB 테이블명</th><th>설명</th></tr></thead>
+<tbody>
+<tr><td><code>learningBadgeDefinitions</code></td><td><code>learning_badge_definitions</code></td><td>배지 정의</td></tr>
+<tr><td><code>userLearningBadges</code></td><td><code>user_learning_badges</code></td><td>사용자 획득 배지</td></tr>
+<tr><td><code>learningStreaks</code></td><td><code>learning_streaks</code></td><td>스트릭 추적</td></tr>
+<tr><td><code>learningDailyActivity</code></td><td><code>learning_daily_activity</code></td><td>일별 활동 (히트맵)</td></tr>
+<tr><td><code>learningChallenges</code></td><td><code>learning_challenges</code></td><td>챌린지 정의</td></tr>
+<tr><td><code>userChallengeProgress</code></td><td><code>user_challenge_progress</code></td><td>사용자 챌린지 진도</td></tr>
+</tbody>
+</table>
+
+<h4>트랙/경로 테이블</h4>
+<table>
+<thead><tr><th>코드 변수명</th><th>DB 테이블명</th><th>설명</th></tr></thead>
+<tbody>
+<tr><td><code>learningTracks</code></td><td><code>learning_tracks</code></td><td>학습 트랙</td></tr>
+<tr><td><code>learningTrackCourses</code></td><td><code>learning_track_courses</code></td><td>트랙↔코스 N:N</td></tr>
+<tr><td><code>learningTrackMaterials</code></td><td><code>learning_track_materials</code></td><td>트랙↔교재 직접 연결</td></tr>
+</tbody>
+</table>
+
+<h4>학습 그룹/출결 테이블 🆕</h4>
+<table>
+<thead><tr><th>코드 변수명</th><th>DB 테이블명</th><th>설명</th></tr></thead>
+<tbody>
+<tr><td><code>learningGroups</code></td><td><code>learning_groups</code></td><td>학습 그룹 (수강생 묶음 + 권한 + 출결 컨테이너)</td></tr>
+<tr><td><code>learningGroupMembers</code></td><td><code>learning_group_members</code></td><td>그룹 멤버십 (UK: groupId + userId)</td></tr>
+<tr><td><code>learningAttendanceRecords</code></td><td><code>learning_attendance_records</code></td><td>출결 기록 (자동 감지 + 수동 편집)</td></tr>
+<tr><td><code>learningAttendanceSettings</code></td><td><code>learning_attendance_settings</code></td><td>그룹별 출결 설정 (최소 인정 시간 등)</td></tr>
+</tbody>
+</table>
+
+<h4>인증서/권한/기타 테이블</h4>
+<table>
+<thead><tr><th>코드 변수명</th><th>DB 테이블명</th><th>설명</th></tr></thead>
+<tbody>
+<tr><td><code>learningCertificates</code></td><td><code>learning_certificates</code></td><td>인증서</td></tr>
+<tr><td><code>enrollmentRequests</code></td><td><code>enrollment_requests</code></td><td>수강 신청</td></tr>
+<tr><td><code>learningGoals</code></td><td><code>learning_goals</code></td><td>학습 목표</td></tr>
+<tr><td><code>learningSessionLogs</code></td><td><code>learning_session_logs</code></td><td>세션 로그</td></tr>
+<tr><td><code>learningRoadmaps</code></td><td><code>learning_roadmaps</code></td><td>로드맵</td></tr>
+<tr><td><code>learningRoadmapLevels</code></td><td><code>learning_roadmap_levels</code></td><td>로드맵 레벨</td></tr>
+<tr><td><code>learningRoadmapLevelItems</code></td><td><code>learning_roadmap_level_items</code></td><td>레벨 내 아이템</td></tr>
+<tr><td><code>materialPublishHistory</code></td><td><code>course_publish_history</code></td><td>발행 이력</td></tr>
+<tr><td><code>learnerNotes</code><td><code>learner_notes</code></td><td>관리자 메모</td></tr>
+<tr><td><code>materialCreatorPermissions</code></td><td><code>material_creator_permissions</code></td><td>교재 편집 권한</td></tr>
+<tr><td><code>trackCreatorPermissions</code></td><td><code>track_creator_permissions</code></td><td>트랙 편집 권한</td></tr>
+<tr><td><code>learningPrerequisites</code></td><td><code>learning_prerequisites</code></td><td>선수 과목</td></tr>
+<tr><td><code>learningMentors</code></td><td><code>learning_mentors</code></td><td>멘토/보조강사</td></tr>
+<tr><td><code>learningSkillTags</code></td><td><code>learning_skill_tags</code></td><td>스킬 태그</td></tr>
+<tr><td><code>learningSkillTagRelations</code></td><td><code>learning_skill_tag_relations</code></td><td>스킬 태그 관계</td></tr>
+<tr><td><code>teamBonusXpLogs</code></td><td><code>team_bonus_xp_logs</code></td><td>팀 보너스 XP 로그</td></tr>
+<tr><td><code>aiGenerationLogs</code></td><td><code>ai_generation_logs</code></td><td>AI 생성 로그</td></tr>
+</tbody>
+</table>
+
+<hr>
+
+<!-- 18. API 구조 -->
+<div class="section-header" id="sec18">
+  <div class="section-num">18</div>
+  <h2>API 구조</h2>
+</div>
+
+<h3>18.1 Public API (사용자용)</h3>
+<p>모든 API는 <code>/api/learning/</code> 하위에 마운트된다.</p>
+
+<h4>교재 관련</h4>
+<table>
+<thead><tr><th>Method</th><th>Endpoint</th><th>설명</th></tr></thead>
+<tbody>
+<tr><td>GET</td><td><code>/recent</code></td><td>최근 교재 목록</td></tr>
+<tr><td>GET</td><td><code>/categories</code></td><td>카테고리 목록</td></tr>
+<tr><td>GET</td><td><code>/materials</code></td><td>교재 목록 (필터/검색)</td></tr>
+<tr><td>GET</td><td><code>/materials/:id</code></td><td>교재 상세</td></tr>
+<tr><td>POST</td><td><code>/materials/:id/progress</code></td><td>진도 업데이트</td></tr>
+<tr><td>POST</td><td><code>/materials/:id/favorite</code></td><td>즐겨찾기 추가</td></tr>
+<tr><td>DELETE</td><td><code>/materials/:id/favorite</code></td><td>즐겨찾기 삭제</td></tr>
+<tr><td>GET</td><td><code>/materials/:id/certificate</code></td><td>인증서 조회</td></tr>
+<tr><td>GET</td><td><code>/materials/:id/completion-stats</code></td><td>완료 통계</td></tr>
+<tr><td>GET</td><td><code>/materials/:id/recommendations</code></td><td>추천 교재</td></tr>
+</tbody>
+</table>
+
+<h4>시도/평가 관련</h4>
+<table>
+<thead><tr><th>Method</th><th>Endpoint</th><th>설명</th></tr></thead>
+<tbody>
+<tr><td>POST</td><td><code>/materials/:mid/stages/:sid/quiz-attempt</code></td><td>퀴즈 시도 제출</td></tr>
+<tr><td>GET</td><td><code>/materials/:mid/stages/:sid/quiz-attempts</code></td><td>퀴즈 시도 이력</td></tr>
+<tr><td>POST</td><td><code>/materials/:mid/stages/:sid/prompt-attempt</code></td><td>프롬프트 시도 제출</td></tr>
+<tr><td>GET</td><td><code>/materials/:mid/stages/:sid/prompt-attempts</code></td><td>프롬프트 시도 이력</td></tr>
+<tr><td>POST</td><td><code>/materials/:mid/stages/:sid/flashcard-attempt</code></td><td>플래시카드 시도 제출</td></tr>
+</tbody>
+</table>
+
+<h4>Gradebook (성적부) 🆕</h4>
+<table>
+<thead><tr><th>Method</th><th>Endpoint</th><th>설명</th></tr></thead>
+<tbody>
+<tr><td>GET</td><td><code>/gradebook/me</code></td><td>본인 전체 교재 성적 목록</td></tr>
+<tr><td>GET</td><td><code>/gradebook/me/materials/:materialId</code></td><td>본인 특정 교재 상세 성적</td></tr>
+</tbody>
+</table>
+
+<h4>트랙 관련</h4>
+<table>
+<thead><tr><th>Method</th><th>Endpoint</th><th>설명</th></tr></thead>
+<tbody>
+<tr><td>GET</td><td><code>/tracks</code></td><td>트랙 목록</td></tr>
+<tr><td>GET</td><td><code>/tracks/:id</code></td><td>트랙 상세</td></tr>
+<tr><td>GET</td><td><code>/tracks/:id/progress</code></td><td>트랙 진도</td></tr>
+<tr><td>POST</td><td><code>/tracks/:id/enroll</code></td><td>트랙 수강 등록</td></tr>
+<tr><td>GET</td><td><code>/my-tracks</code></td><td>내 트랙 목록</td></tr>
+<tr><td>POST</td><td><code>/tracks</code></td><td>트랙 생성 (크리에이터)</td></tr>
+<tr><td>PUT</td><td><code>/tracks/:id</code></td><td>트랙 수정</td></tr>
+<tr><td>DELETE</td><td><code>/tracks/:id</code></td><td>트랙 삭제</td></tr>
+</tbody>
+</table>
+
+<h4>코스/로드맵</h4>
+<table>
+<thead><tr><th>Method</th><th>Endpoint</th><th>설명</th></tr></thead>
+<tbody>
+<tr><td>GET</td><td><code>/courses</code></td><td>코스 목록</td></tr>
+<tr><td>GET</td><td><code>/courses/:id</code></td><td>코스 상세</td></tr>
+<tr><td>POST</td><td><code>/courses/:id/progress</code></td><td>코스 진도 업데이트</td></tr>
+<tr><td>GET</td><td><code>/roadmaps</code></td><td>로드맵 목록</td></tr>
+<tr><td>GET</td><td><code>/roadmaps/:slug</code></td><td>로드맵 상세</td></tr>
+</tbody>
+</table>
+
+<h4>게이미피케이션</h4>
+<table>
+<thead><tr><th>Method</th><th>Endpoint</th><th>설명</th></tr></thead>
+<tbody>
+<tr><td>GET</td><td><code>/my-badges</code></td><td>내 배지 목록</td></tr>
+<tr><td>GET</td><td><code>/badges/available</code></td><td>획득 가능 배지</td></tr>
+<tr><td>GET</td><td><code>/activity-ring</code></td><td>활동 링 데이터</td></tr>
+<tr><td>GET</td><td><code>/streak</code></td><td>스트릭 데이터</td></tr>
+<tr><td>GET</td><td><code>/challenges</code></td><td>진행 중 챌린지</td></tr>
+<tr><td>GET</td><td><code>/leaderboard</code></td><td>리더보드</td></tr>
+<tr><td>GET</td><td><code>/certificates</code></td><td>내 인증서 목록</td></tr>
+</tbody>
+</table>
+
+<h4>세션/대시보드</h4>
+<table>
+<thead><tr><th>Method</th><th>Endpoint</th><th>설명</th></tr></thead>
+<tbody>
+<tr><td>POST</td><td><code>/sessions/start</code></td><td>학습 세션 시작</td></tr>
+<tr><td>PUT</td><td><code>/sessions/:id/end</code></td><td>학습 세션 종료</td></tr>
+<tr><td>GET</td><td><code>/my-dashboard</code></td><td>개인 대시보드</td></tr>
+<tr><td>GET</td><td><code>/my-stats</code></td><td>개인 통계</td></tr>
+<tr><td>GET</td><td><code>/wrong-answers</code></td><td>오답 목록</td></tr>
+<tr><td>GET</td><td><code>/stage-summaries</code></td><td>스테이지 요약</td></tr>
+</tbody>
+</table>
+
+<h4>AI 기능</h4>
+<table>
+<thead><tr><th>Method</th><th>Endpoint</th><th>설명</th></tr></thead>
+<tbody>
+<tr><td>POST</td><td><code>/tracks/:id/ai-bulk-generate</code></td><td>트랙 일괄 AI 생성 (SSE)</td></tr>
+<tr><td>POST</td><td><code>/chat</code></td><td>AI 학습 어시스턴트 (SSE)</td></tr>
+</tbody>
+</table>
+
+<h4>내 출석 🆕</h4>
+<table>
+<thead><tr><th>Method</th><th>Endpoint</th><th>설명</th></tr></thead>
+<tbody>
+<tr><td>GET</td><td><code>/my/attendance/summary</code></td><td>내 전체 그룹 출석 요약</td></tr>
+<tr><td>GET</td><td><code>/my/attendance/groups/:groupId</code></td><td>그룹별 상세 출석 기록</td></tr>
+</tbody>
+</table>
+
+<h3>18.2 Admin API (관리자용)</h3>
+<p><code>/api/learning/admin/</code> 하위에 마운트.</p>
+<table>
+<thead><tr><th>카테고리</th><th>주요 엔드포인트</th></tr></thead>
+<tbody>
+<tr><td><strong>교재 CRUD</strong></td><td>GET/POST/PUT/DELETE <code>/materials</code>, <code>/materials/:id</code></td></tr>
+<tr><td><strong>스테이지</strong></td><td>GET/POST/PUT/DELETE <code>/materials/:id/stages</code></td></tr>
+<tr><td><strong>카테고리</strong></td><td>CRUD <code>/categories</code></td></tr>
+<tr><td><strong>저자</strong></td><td>CRUD <code>/authors</code></td></tr>
+<tr><td><strong>트랙</strong></td><td>CRUD <code>/learning-tracks</code></td></tr>
+<tr><td><strong>코스</strong></td><td>CRUD <code>/learning-courses</code></td></tr>
+<tr><td><strong>수강 관리</strong></td><td>GET/POST <code>/enrollment-requests</code>, <code>/approve</code>, <code>/reject</code></td></tr>
+<tr><td><strong>AI 생성</strong></td><td>POST <code>/materials/ai-generate</code>, <code>/ai-confirm</code> (SSE)</td></tr>
+<tr><td><strong>일괄 생성</strong></td><td>POST <code>/learning-tracks/:id/bulk-generate</code> (SSE)</td></tr>
+<tr><td><strong>프롬프트 스펙</strong></td><td>POST <code>/learning-tracks/prompt-spec-generate</code> (SSE)</td></tr>
+<tr><td><strong>학습 그룹</strong> <span class="status status-done">🆕</span></td><td>CRUD <code>/groups</code>, <code>/groups/:id/members</code>, <code>/groups/:id/grant</code>, <code>/groups/:id/revoke</code></td></tr>
+<tr><td><strong>일괄 등록</strong> <span class="status status-done">🆕</span></td><td>POST <code>/bulk-enroll</code> (dryRun 지원, 최대 1,000명)</td></tr>
+<tr><td><strong>출결 관리</strong> <span class="status status-done">🆕</span></td><td>GET/POST/DELETE <code>/groups/:id/attendance</code>, 설정, 스냅샷</td></tr>
+<tr><td><strong>분석</strong></td><td>GET <code>/analytics/*</code> (7종 + Gradebook)</td></tr>
+<tr><td><strong>수강생</strong></td><td>GET <code>/learners</code>, GET <code>/learners/:id</code>, CRUD <code>/learners/:id/notes</code></td></tr>
+<tr><td><strong>목표</strong></td><td>CRUD <code>/goals</code>, GET <code>/goals/:id/progress</code></td></tr>
+<tr><td><strong>권한</strong></td><td>CRUD <code>/permissions</code>, 수강 등록/해제</td></tr>
+<tr><td><strong>로드맵</strong></td><td>CRUD <code>/roadmaps</code>, <code>/levels</code>, <code>/level-items</code></td></tr>
+<tr><td><strong>태그</strong></td><td>CRUD <code>/tags</code></td></tr>
+<tr><td><strong>선수 과목</strong></td><td>GET/PUT <code>/learning-tracks/:id/prerequisites</code></td></tr>
+</tbody>
+</table>
+
+<hr>
+
+<!-- 19. 화면 구성 -->
+<div class="section-header" id="sec19">
+  <div class="section-num">19</div>
+  <h2>화면 구성 (페이지 맵)</h2>
+</div>
+
+<h3>19.1 Public (학습자용)</h3>
+<table>
+<thead><tr><th>페이지</th><th>경로</th><th>설명</th></tr></thead>
+<tbody>
+<tr><td>교재 목록</td><td><code>/public/learning</code></td><td>카테고리/태그 필터, 검색, 카드 그리드</td></tr>
+<tr><td>교재 상세</td><td><code>/public/learning/materials/:id</code></td><td>학습 워크스페이스 (사이드바 + 스테이지 뷰어)</td></tr>
+<tr><td>교재 개요</td><td><code>/public/learning/materials/:id/overview</code></td><td>교재 소개, 목차, 저자, 학습 목표</td></tr>
+<tr><td>코스 상세</td><td><code>/public/learning/courses/:id</code></td><td>코스 내 교재 목록, 진도</td></tr>
+<tr><td>내 학습</td><td><code>/public/learning/my</code></td><td>개인 대시보드 (진행 중, 완료, 스트릭)</td></tr>
+<tr><td>내 통계</td><td><code>/public/learning/my/stats</code></td><td>상세 학습 통계</td></tr>
+<tr><td>내 순위</td><td><code>/public/learning/my/ranking</code></td><td>리더보드 내 위치</td></tr>
+<tr><td>오답 노트</td><td><code>/public/learning/my/wrong-answers</code></td><td>퀴즈 오답 복습</td></tr>
+<tr><td>스테이지 요약</td><td><code>/public/learning/my/summaries</code></td><td>학습 요약 모아보기</td></tr>
+<tr><td>내 초고</td><td><code>/public/learning/my/drafts</code></td><td>작성 중인 교재</td></tr>
+<tr><td>내 배지</td><td><code>/public/learning/my/badges</code></td><td>획득 배지 컬렉션</td></tr>
+<tr><td>학습 이력</td><td><code>/public/learning/history</code></td><td>전체 학습 이력</td></tr>
+<tr><td>교재 생성</td><td><code>/public/learning/create</code></td><td>크리에이터용 교재 제작</td></tr>
+<tr><td>트랙 목록</td><td><code>/public/learning/tracks</code></td><td>학습 트랙 카드 그리드</td></tr>
+<tr><td>트랙 상세</td><td><code>/public/learning/tracks/:id</code></td><td>트랙 커리큘럼, 진도</td></tr>
+<tr><td>트랙 생성</td><td><code>/public/learning/tracks/create</code></td><td>크리에이터용 트랙 생성</td></tr>
+<tr><td>트랙 편집</td><td><code>/public/learning/tracks/:id/edit</code></td><td>트랙 수정</td></tr>
+<tr><td>내 트랙</td><td><code>/public/learning/tracks/my</code></td><td>수강 중 트랙</td></tr>
+<tr><td>로드맵 목록</td><td><code>/public/learning/roadmaps</code></td><td>학습 로드맵</td></tr>
+<tr><td>로드맵 상세</td><td><code>/public/learning/roadmaps/:slug</code></td><td>레벨별 로드맵 타임라인</td></tr>
+<tr><td>인증서</td><td><code>/public/learning/certificate/:id</code></td><td>인증서 뷰어</td></tr>
+<tr><td>학습 가이드</td><td><code>/public/learning-guide</code></td><td>플랫폼 사용 안내</td></tr>
+<tr><td>내 출석 요약 <span class="status status-done">🆕</span></td><td><code>/my-dashboard/attendance</code></td><td>전체 그룹 출석률, 스트릭, 경고</td></tr>
+<tr><td>그룹 출석 상세 <span class="status status-done">🆕</span></td><td><code>/my-dashboard/attendance/groups/:groupId</code></td><td>그룹별 월별 캘린더, 상세 출석 기록</td></tr>
+</tbody>
+</table>
+
+<h3>19.2 Admin (관리자용)</h3>
+<table>
+<thead><tr><th>페이지</th><th>경로</th><th>설명</th></tr></thead>
+<tbody>
+<tr><td>학습 관리</td><td><code>/admin/learning</code></td><td>탭 기반 통합 관리 (교재/카테고리/저자/스테이지/수강생/통계/요청/권한/태그)</td></tr>
+<tr><td>교재 편집</td><td><code>/admin/learning/edit</code></td><td>4단계 마법사 기반 교재 편집기</td></tr>
+<tr><td>그룹 대시보드</td><td><code>/admin/raid-groups/:id/learning</code></td><td>Raid 그룹 학습 현황</td></tr>
+<tr><td>Raid 대시보드</td><td><code>/admin/raids/:id/learning</code></td><td>Raid별 학습 현황</td></tr>
+<tr><td>학습 분석</td><td><code>/admin/learning-analytics</code></td><td>7대 분석 + Gradebook 탭</td></tr>
+<tr><td>학습 그룹 목록 <span class="status status-done">🆕</span></td><td><code>/admin/learning</code> &gt; "그룹" 탭</td><td>그룹 CRUD, 검색, 페이징</td></tr>
+<tr><td>그룹 상세 <span class="status status-done">🆕</span></td><td><code>/admin/learning/groups/:groupId</code></td><td>멤버/권한/출석 3탭 관리</td></tr>
+<tr><td>일괄 등록 <span class="status status-done">🆕</span></td><td><code>/admin/learning</code> &gt; "일괄 등록" 탭</td><td>4단계 마법사</td></tr>
+</tbody>
+</table>
+
+<h3>19.3 Expert (전문가용)</h3>
+<table>
+<thead><tr><th>페이지</th><th>경로</th><th>설명</th></tr></thead>
+<tbody>
+<tr><td>교재 목록</td><td><code>/expert/learning</code></td><td>전문가용 교재 리뷰 목록</td></tr>
+</tbody>
+</table>
+
+<hr>
+
+<!-- 20. 기술 스택 -->
+<div class="section-header" id="sec20">
+  <div class="section-num">20</div>
+  <h2>기술 스택</h2>
+</div>
+
+<h3>20.1 프론트엔드</h3>
+<table>
+<thead><tr><th>기술</th><th>버전</th><th>용도</th></tr></thead>
+<tbody>
+<tr><td>React</td><td>18.3</td><td>UI 프레임워크</td></tr>
+<tr><td>TypeScript</td><td>5.6</td><td>타입 안전성</td></tr>
+<tr><td>Tailwind CSS</td><td>3.4</td><td>스타일링 (Editorial Architect 디자인 시스템)</td></tr>
+<tr><td>shadcn/ui (Radix UI)</td><td>—</td><td>UI 컴포넌트</td></tr>
+<tr><td>React Query (TanStack)</td><td>5.60</td><td>서버 상태 관리</td></tr>
+<tr><td>Wouter</td><td>3.3</td><td>라우팅</td></tr>
+<tr><td>Tiptap</td><td>3.10</td><td>리치 텍스트 편집기 (표, 수식, 코드)</td></tr>
+<tr><td>Yjs + y-websocket</td><td>13.6</td><td>CRDT 기반 실시간 협업 편집</td></tr>
+<tr><td>Recharts</td><td>2.15</td><td>차트/데이터 시각화</td></tr>
+<tr><td>Uppy</td><td>5.x</td><td>파일 업로드 (S3 멀티파트)</td></tr>
+<tr><td>Lucide React</td><td>—</td><td>아이콘</td></tr>
+<tr><td>date-fns (ko locale)</td><td>—</td><td>날짜 포맷</td></tr>
+</tbody>
+</table>
+
+<h3>20.2 백엔드</h3>
+<table>
+<thead><tr><th>기술</th><th>버전</th><th>용도</th></tr></thead>
+<tbody>
+<tr><td>Node.js</td><td>20</td><td>런타임</td></tr>
+<tr><td>Express</td><td>4.21</td><td>API 서버</td></tr>
+<tr><td>TypeScript</td><td>5.6</td><td>타입 안전성</td></tr>
+<tr><td>Drizzle ORM</td><td>0.39</td><td>데이터베이스 ORM</td></tr>
+<tr><td>PostgreSQL</td><td>16</td><td>데이터베이스</td></tr>
+<tr><td>Zod</td><td>—</td><td>입력 검증 + 플러그인 dataSchema</td></tr>
+<tr><td>Passport.js</td><td>0.7</td><td>인증 (Local, Google, GitHub, Discord, DACON SSO)</td></tr>
+<tr><td>WebSocket (ws)</td><td>8.18</td><td>실시간 통신 (알림, Yjs)</td></tr>
+<tr><td>node-cron</td><td>4.2</td><td>스케줄러 (배치 작업)</td></tr>
+<tr><td>Nodemailer</td><td>8.0</td><td>이메일 발송</td></tr>
+<tr><td>Pino</td><td>10.3</td><td>구조화 로깅</td></tr>
+<tr><td>SSE (Server-Sent Events)</td><td>—</td><td>AI 스트리밍</td></tr>
+</tbody>
+</table>
+
+<h3>20.3 AI</h3>
+<table>
+<thead><tr><th>기술</th><th>용도</th></tr></thead>
+<tbody>
+<tr><td>Google Gemini (@google/genai)</td><td>교재 생성, 학습 챗봇, 프롬프트 평가</td></tr>
+<tr><td>GPT (OpenAI SDK)</td><td>상호 검수 (커리큘럼 리뷰)</td></tr>
+<tr><td>Anthropic Claude (@anthropic-ai/sdk)</td><td>AI 어시스턴트 (War Room 등)</td></tr>
+</tbody>
+</table>
+
+<h3>20.4 테스트</h3>
+<table>
+<thead><tr><th>기술</th><th>버전</th><th>용도</th></tr></thead>
+<tbody>
+<tr><td>Vitest</td><td>4.0</td><td>단위/통합 테스트 (6,300+ 테스트)</td></tr>
+<tr><td>Playwright</td><td>1.57</td><td>E2E 테스트 (8 스위트, 100+ 테스트)</td></tr>
+</tbody>
+</table>
+
+<h3>20.5 인프라</h3>
+<table>
+<thead><tr><th>기술</th><th>용도</th></tr></thead>
+<tbody>
+<tr><td>AWS EC2</td><td>서버 호스팅</td></tr>
+<tr><td>AWS S3</td><td>파일 스토리지</td></tr>
+<tr><td>Google Cloud Storage</td><td>대체 스토리지</td></tr>
+<tr><td>PM2</td><td>프로세스 매니저</td></tr>
+<tr><td>Vite 8.0</td><td>개발 서버/빌드</td></tr>
+</tbody>
+</table>
+
+<hr>
+
+<!-- 21. 개발 로드맵 및 진행 현황 -->
+<div class="section-header" id="sec21">
+  <div class="section-num">21</div>
+  <h2>개발 로드맵 및 진행 현황</h2>
+</div>
+
+<h3>21.1 기존 기반 (Phase 0)</h3>
+<table>
+<thead><tr><th>기능</th><th>상태</th><th>시기</th></tr></thead>
+<tbody>
+<tr><td>교재/스테이지 CRUD</td><td><span class="status status-done">✅</span></td><td>2026-02</td></tr>
+<tr><td>4종 뷰어 (content/quiz/prompt/pdf)</td><td><span class="status status-done">✅</span></td><td>2026-02</td></tr>
+<tr><td>플래시카드 뷰어</td><td><span class="status status-done">✅</span></td><td>2026-02</td></tr>
+<tr><td>진도 추적 시스템</td><td><span class="status status-done">✅</span></td><td>2026-02</td></tr>
+<tr><td>AI 교재 생성 파이프라인</td><td><span class="status status-done">✅</span></td><td>2026-02</td></tr>
+<tr><td>게이미피케이션 (활동 링/스트릭/배지/챌린지/리더보드)</td><td><span class="status status-done">✅</span></td><td>2026-02~03</td></tr>
+<tr><td>트랙/코스/교재 3-Tier 계층 구조</td><td><span class="status status-done">✅</span></td><td>2026-03</td></tr>
+<tr><td>AI 커리큘럼 설계 + 일괄 생성</td><td><span class="status status-done">✅</span></td><td>2026-03</td></tr>
+<tr><td>교재 마법사 (4단계)</td><td><span class="status status-done">✅</span></td><td>2026-03</td></tr>
+<tr><td>집중 도구 7종</td><td><span class="status status-done">✅</span></td><td>2026-02</td></tr>
+<tr><td>인증서 시스템 (4종)</td><td><span class="status status-done">✅</span></td><td>2026-03</td></tr>
+<tr><td>로드맵 시스템</td><td><span class="status status-done">✅</span></td><td>2026-03</td></tr>
+<tr><td>권한 관리 시스템</td><td><span class="status status-done">✅</span></td><td>2026-04</td></tr>
+</tbody>
+</table>
+
+<h3>21.2 Hybrid Plugin LMS 4-Layer (2026-04-09~)</h3>
+
+<h4>Phase 1 — Layer 2: 학습 이벤트 스트림 ✅ 완료</h4>
+<table>
+<thead><tr><th>Sprint</th><th>내용</th><th>커밋</th><th>점수</th></tr></thead>
+<tbody>
+<tr><td>Sprint 1</td><td><code>learning_events</code> 스키마 (12 verbs, 5 types, 3 인덱스)</td><td><code>1eb073f3</code></td><td>100%</td></tr>
+<tr><td>Sprint 2</td><td>eventStream 서비스 + 5개 라우트 이벤트 훅 삽입</td><td><code>bba6e888</code></td><td>95.5%</td></tr>
+<tr><td>Sprint 3</td><td>eventAggregator 배치 + 스케줄러 등록</td><td><code>5764a9b2</code></td><td>✅</td></tr>
+<tr><td>Sprint 4</td><td>analyticsQueries 7종 + 관리자 API 등록</td><td><code>755bd2ce</code></td><td>✅</td></tr>
+<tr><td>Sprint 5</td><td>관리자 대시보드 UI + 통합 테스트 17건</td><td><code>a1f1b7e9</code></td><td>✅</td></tr>
+</tbody>
+</table>
+<p><strong>산출물</strong>: 20개 파일, <code>learning_events</code> 테이블, 7대 분석 대시보드</p>
+
+<h4>Phase 2 — Layer 1: 스테이지 플러그인 코어 ✅ 완료</h4>
+<table>
+<thead><tr><th>Sprint</th><th>내용</th><th>커밋</th></tr></thead>
+<tbody>
+<tr><td>Sprint 1</td><td>StagePlugin 인터페이스 + 빈 레지스트리</td><td><code>5d176b46</code></td></tr>
+<tr><td>Sprint 2</td><td>5종 플러그인 포팅 (LEGACY 유지)</td><td><code>500d045d</code></td></tr>
+<tr><td>Sprint 3</td><td>PLUGIN 모드 기본 전환 + 이벤트 자동화</td><td><code>028f032e</code></td></tr>
+<tr><td>Sprint 4</td><td>branching-lesson 플러그인 추가 (1파일 완결 실증)</td><td><code>56455a9e</code></td></tr>
+</tbody>
+</table>
+<p><strong>산출물</strong>: 6종 플러그인, 서버-클라이언트 대칭 레지스트리, LEGACY 폴백 지원</p>
+
+<h4>Phase 3-A — Layer 3: Gradebook 통합 성적부 🔄 진행 중</h4>
+<table>
+<thead><tr><th>Sprint</th><th>내용</th><th>커밋</th><th>상태</th></tr></thead>
+<tbody>
+<tr><td>Sprint 1</td><td>Gradebook 서비스 + 관리자 API</td><td><code>c9b01aac</code></td><td><span class="status status-done">✅ 완료</span></td></tr>
+<tr><td>Sprint 2</td><td>학습자 Gradebook API + 관리자 대시보드 성적부 탭</td><td><code>3a4be78d</code></td><td><span class="status status-done">✅ 완료</span></td></tr>
+<tr><td>Sprint 3</td><td>학습자 성적 뷰 + 관리자 상세 + 테스트 보강</td><td>—</td><td><span class="status status-planned">📋 계획</span></td></tr>
+</tbody>
+</table>
+
+<h3>21.3 운영 인프라 (2026-04-10~12) ✅ 완료</h3>
+
+<h4>학습 그룹 + 일괄 등록 시스템 ✅ 완료</h4>
+<table>
+<thead><tr><th>날짜</th><th>내용</th><th>커밋</th></tr></thead>
+<tbody>
+<tr><td>04-10</td><td>학습 그룹 스키마 + groupService CRUD + grant/revoke</td><td><code>d8f5b463</code> ~ <code>5c998cd0</code></td></tr>
+<tr><td>04-10</td><td>bulkEnrollment 서비스 (3-phase 파이프라인)</td><td><code>fed6005e</code></td></tr>
+<tr><td>04-11</td><td>일괄 등록/그룹 관리 API 라우트</td><td><code>994f2e18</code></td></tr>
+<tr><td>04-11</td><td>BulkEnroll 4단계 마법사 UI</td><td><code>476a4fcb</code></td></tr>
+<tr><td>04-11</td><td>그룹 관리 UI (멤버/권한/출석 3탭)</td><td><code>4d88e40b</code></td></tr>
+<tr><td>04-11</td><td>E2E 테스트 (일괄 등록 6/6 PASS)</td><td><code>601a3326</code></td></tr>
+</tbody>
+</table>
+
+<h4>경량 출결 시스템 ✅ 완료</h4>
+<table>
+<thead><tr><th>날짜</th><th>내용</th><th>커밋</th></tr></thead>
+<tbody>
+<tr><td>04-10</td><td>출결 스키마 (attendance_records + settings)</td><td><code>30f60fa9</code></td></tr>
+<tr><td>04-10</td><td>attendanceService (자동 감지 + 수동 편집 + 스냅샷)</td><td><code>05b6e70e</code></td></tr>
+<tr><td>04-10</td><td>출결 API 라우트 (관리자 6개 엔드포인트)</td><td><code>35404d92</code></td></tr>
+<tr><td>04-10</td><td>출결 탭 UI + E2E 테스트 7/7 PASS</td><td><code>f3f4c4f9</code></td></tr>
+</tbody>
+</table>
+
+<h4>내 출석 대시보드 ✅ 완료</h4>
+<table>
+<thead><tr><th>날짜</th><th>내용</th><th>커밋</th></tr></thead>
+<tbody>
+<tr><td>04-10</td><td>shared 타입 + myAttendanceService + 단위 테스트</td><td><code>0689accd</code> ~ <code>ae8b3dd0</code></td></tr>
+<tr><td>04-11</td><td>학습자 출석 API + 내 출석 대시보드 UI</td><td><code>b13f87e3</code> ~ <code>f1c9dfcf</code></td></tr>
+<tr><td>04-12</td><td>E2E 테스트 6/6 PASS</td><td><code>8e7c521e</code></td></tr>
+</tbody>
+</table>
+
+<h3>21.4 향후 계획</h3>
+<table>
+<thead><tr><th>Phase</th><th>내용</th><th>상태</th></tr></thead>
+<tbody>
+<tr><td><strong>Phase 3-A Sprint 3</strong></td><td>학습자 성적 뷰 + 3모드 UI + 통합 테스트</td><td><span class="status status-planned">📋 다음</span></td></tr>
+<tr><td><strong>Phase 3-B</strong></td><td>문제 은행 (Question Bank) — 문항 독립 관리</td><td><span class="status status-planned">📋 계획</span></td></tr>
+<tr><td><strong>Phase 3-C</strong></td><td>과제 (Assignment) + 루브릭 채점 + 동료 평가</td><td><span class="status status-planned">📋 계획</span></td></tr>
+<tr><td><strong>Phase 1+</strong></td><td>Layer 2 운영 — 파티셔닝 실구현 + double-count 정리</td><td><span class="status status-planned">📋 계획</span></td></tr>
+<tr><td><strong>Phase 4</strong></td><td>협업 학습 — 실시간 공동 학습, 토론, 피어 리뷰</td><td><span class="status status-planned">📋 계획</span></td></tr>
+<tr><td><strong>Phase 5</strong></td><td>모바일 최적화 — PWA, 오프라인 학습</td><td><span class="status status-planned">📋 계획</span></td></tr>
+</tbody>
+</table>
+
+<hr>
+
+<!-- 부록 -->
+<div class="appendix-header" id="secA">
+  <div class="appendix-num">A</div>
+  <h2>부록 A. 4-Layer가 해결하는 사용자 시나리오</h2>
+</div>
+
+<table>
+<thead><tr><th>시나리오</th><th>현재</th><th>4-Layer 도입 후</th></tr></thead>
+<tbody>
+<tr><td>"코딩 문제 스테이지를 추가하고 싶다"</td><td>10개 파일 수정 (수일)</td><td>1 파일 + 레지스트리 2줄 (1시간)</td></tr>
+<tr><td>"학습자 A의 전체 성적을 한 화면에서 보고 싶다"</td><td>불가능</td><td>Gradebook API + UI (Phase 3-A)</td></tr>
+<tr><td>"이탈률 30% 이상인 교재를 자동 감지"</td><td>Phase 1 이전 불가 → <strong>Phase 1 완료로 가능</strong></td><td><code>getAbandonmentHotspots</code> API</td></tr>
+<tr><td>"300명을 한 번에 수강 등록시키고 싶다"</td><td>수동 1건씩 등록</td><td><strong>일괄 등록 4단계 마법사</strong> (최대 1,000명, dryRun 지원)</td></tr>
+<tr><td>"별도 출결 시스템 없이 출석 관리하고 싶다"</td><td>불가능</td><td><strong>경량 출결 시스템</strong> (세션 로그 자동 감지 + 그리드 UI)</td></tr>
+<tr><td>"학습자가 자기 출석을 직접 확인하고 싶다"</td><td>불가능</td><td><strong>내 출석 대시보드</strong> (출석률/스트릭/캘린더)</td></tr>
+<tr><td>"AI가 문제은행에서 맞춤 퀴즈를 자동 구성"</td><td>불가능</td><td>Phase 3-B 문제 은행 + AI 샘플링</td></tr>
+</tbody>
+</table>
+
+<div class="appendix-header" id="secB">
+  <div class="appendix-num">B</div>
+  <h2>부록 B. 디자인 시스템</h2>
+</div>
+
+<p>DAKER의 <strong>Editorial Architect</strong> 디자인 시스템을 따른다.</p>
+<ul>
+<li><strong>3-Color 원칙</strong>: Blue (#0053db) + Slate (#2a3439) + White (#ffffff)</li>
+<li><strong>3 모드</strong>: Light / Dark / Brutal</li>
+<li><strong>No-Line 규칙</strong>: 1px 보더 대신 배경색 톤 전환으로 영역 구분</li>
+<li><strong>카드 그리드</strong>: <code>grid-cols-1 min-[600px]:grid-cols-2 xl:grid-cols-3 gap-4 min-[600px]:gap-6</code></li>
+</ul>
+
+<div class="appendix-header" id="secC">
+  <div class="appendix-num">C</div>
+  <h2>부록 C. 접근성</h2>
+</div>
+
+<ul>
+<li>WCAG AA 준수 (텍스트 대비율 4.5:1 이상)</li>
+<li>키보드 내비게이션 완벽 지원</li>
+<li>ARIA 라벨 모든 인터랙티브 요소 적용</li>
+<li>터치 타겟 최소 44px × 44px</li>
+</ul>
+
+<div class="appendix-header" id="secD">
+  <div class="appendix-num">D</div>
+  <h2>부록 D. 한국어 최적화</h2>
+</div>
+
+<ul>
+<li>모든 UI 텍스트, 라벨, 에러 메시지 한국어</li>
+<li>날짜 형식: <code>YYYY년 MM월 DD일 HH:mm</code></li>
+<li>숫자 형식: 천 단위 구분자 (<code>1,000,000</code>)</li>
+<li>서체: Plus Jakarta Sans + Pretendard</li>
+</ul>
+
+<hr>
+
+<blockquote>
+<strong>본 문서는 DAKER LMS의 전체 기능, 4-Layer 아키텍처, 및 개발 진행 현황을 포괄하는 기획서입니다.</strong><br>
+<strong>문서 작성일: 2026년 4월 10일 | 최종 업데이트: 2026년 4월 12일</strong><br>
+<strong>현재: Phase 3-A Gradebook Sprint 2 완료 · 학습 그룹/일괄 등록/경량 출결/내 출석 대시보드 완료</strong>
+</blockquote>
+
+</main>
+</div>
+
+<!-- Footer -->
+<footer class="doc-footer">
+  DAKER &middot; daker.ai
+</footer>
+
+<!-- Mobile TOC Toggle -->
+<button class="toc-toggle" id="tocToggle" onclick="toggleToc()" aria-label="목차 열기">&#9776;</button>
+
+<script>
+function toggleToc() {
+  document.getElementById('toc').classList.toggle('open');
+  document.getElementById('tocOverlay').classList.toggle('open');
+}
+function closeToc() {
+  document.getElementById('toc').classList.remove('open');
+  document.getElementById('tocOverlay').classList.remove('open');
+}
+// Close TOC on anchor click (mobile)
+document.querySelectorAll('.toc-sidebar a').forEach(a => {
+  a.addEventListener('click', closeToc);
+});
+</script>
+</body>
+</html>

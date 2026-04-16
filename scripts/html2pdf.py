@@ -15,7 +15,6 @@ PAGE_H = 540.0
 
 async def convert(html_path):
     from playwright.async_api import async_playwright
-    from reportlab.pdfgen import canvas
 
     pdf_path = html_path.rsplit('.html', 1)[0] + '.pdf'
     basename = os.path.basename(html_path)
@@ -41,10 +40,16 @@ async def convert(html_path):
                 slides.forEach((s, idx) => s.classList.toggle("active", idx === {i}));
                 const active = slides[{i}];
                 active.querySelectorAll("[data-step]").forEach(el => {{
+                    el.classList.add("visible", "pre-visible");
                     el.style.opacity = "1";
                     el.style.transform = "none";
                 }});
-                document.querySelectorAll(".nav-btn, #progress-bar, #key-hint").forEach(x => x.style.display = "none");
+                active.querySelectorAll(".fragment").forEach(el => {{
+                    el.classList.add("visible");
+                    el.style.opacity = "1";
+                    el.style.transform = "none";
+                }});
+                document.querySelectorAll(".nav-btn, #progress-bar, #key-hint, .controls, .presenter-notes").forEach(x => x.style.display = "none");
             }}''')
             await page.wait_for_timeout(150)
             img_path = f'/tmp/_pdf_{os.getpid()}_{i:03d}.png'
@@ -53,12 +58,17 @@ async def convert(html_path):
 
         await browser.close()
 
-        c = canvas.Canvas(pdf_path, pagesize=(PAGE_W, PAGE_H))
-        for idx, img in enumerate(imgs):
-            if idx > 0:
-                c.showPage()
-            c.drawImage(img, 0, 0, width=PAGE_W, height=PAGE_H)
-        c.save()
+        # Pillow direct PDF — no intermediate compression
+        from PIL import Image
+        pil_imgs = [Image.open(img).convert('RGB') for img in imgs]
+        # dpi=192 ensures 2560px / (960pt * 72dpi) = correct mapping
+        pil_imgs[0].save(
+            pdf_path,
+            save_all=True,
+            append_images=pil_imgs[1:],
+            format='PDF',
+            resolution=192.0
+        )
 
         for img in imgs:
             os.remove(img)
