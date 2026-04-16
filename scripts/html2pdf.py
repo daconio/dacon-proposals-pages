@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-HTML slide → PDF converter (native Chromium PDF, no screenshot)
+HTML slide → PDF converter (screenshot per slide, no color loss)
 
 Usage:
   python3 scripts/html2pdf.py                          # all slide HTMLs
@@ -9,12 +9,13 @@ Usage:
 
 import asyncio, sys, os, subprocess
 
-# 16:9 in mm (matches 960x540pt)
-PAGE_W_MM = 338.667  # 960pt * 25.4/72
-PAGE_H_MM = 190.5    # 540pt * 25.4/72
+# 16:9 PDF page in points
+PAGE_W = 960.0
+PAGE_H = 540.0
 
 async def convert(html_path):
     from playwright.async_api import async_playwright
+    from reportlab.pdfgen import canvas
 
     pdf_path = html_path.rsplit('.html', 1)[0] + '.pdf'
     basename = os.path.basename(html_path)
@@ -22,62 +23,47 @@ async def convert(html_path):
 
     async with async_playwright() as p:
         browser = await p.chromium.launch()
-        page = await browser.new_page(viewport={'width': 1280, 'height': 720})
+        # 2x retina — high-res for Figma import
+        page = await browser.new_page(
+            viewport={'width': 1280, 'height': 720},
+            device_scale_factor=2
+        )
+
         await page.goto(f'file://{abs_path}', wait_until='networkidle')
         await page.wait_for_timeout(2000)
 
-        await page.evaluate('''() => {
-            // Reset html/body to fill page with no margin
-            document.documentElement.style.cssText = "width:100%;height:auto;overflow:visible;background:#fff;margin:0;padding:0";
-            document.body.style.cssText = "width:100%;height:auto;overflow:visible;background:#fff;margin:0;padding:0";
+        n = await page.evaluate('document.querySelectorAll(".slide").length')
 
-            // Reset viewport/stage to flow layout, full width
-            const vp = document.getElementById("viewport");
-            const st = document.getElementById("stage");
-            if (vp) vp.style.cssText = "position:static;display:block;width:100%;height:auto";
-            if (st) st.style.cssText = "position:static;width:100%;height:auto;overflow:visible;transform:none;box-shadow:none;border-radius:0";
-
-            // Force all slides visible, full width/height of page
-            document.querySelectorAll(".slide").forEach(s => {
-                s.style.cssText = "position:relative;inset:auto;opacity:1;pointer-events:auto;width:100%;height:100vh;page-break-after:always;overflow:hidden;display:flex;flex-direction:column";
-            });
-            const slides = document.querySelectorAll(".slide");
-            if (slides.length) slides[slides.length-1].style.pageBreakAfter = "auto";
-
-            // Reveal all data-step fragments
-            document.querySelectorAll("[data-step]").forEach(el => {
-                el.style.opacity = "1";
-                el.style.transform = "none";
-            });
-
-            // Hide navigation elements
-            document.querySelectorAll(".nav-btn, #progress-bar, #key-hint").forEach(n => {
-                n.style.display = "none";
-            });
-        }''')
-
-        await page.pdf(
-            path=pdf_path,
-            width=f'{PAGE_W_MM}mm',
-            height=f'{PAGE_H_MM}mm',
-            margin={'top': '0mm', 'right': '0mm', 'bottom': '0mm', 'left': '0mm'},
-            print_background=True,
-            prefer_css_page_size=False,
-        )
+        imgs = []
+        for i in range(n):
+            await page.evaluate(f'''() => {{
+                const slides = document.querySelectorAll(".slide");
+                slides.forEach((s, idx) => s.classList.toggle("active", idx === {i}));
+                const active = slides[{i}];
+                active.querySelectorAll("[data-step]").forEach(el => {{
+                    el.style.opacity = "1";
+                    el.style.transform = "none";
+                }});
+                document.querySelectorAll(".nav-btn, #progress-bar, #key-hint").forEach(x => x.style.display = "none");
+            }}''')
+            await page.wait_for_timeout(150)
+            img_path = f'/tmp/_pdf_{os.getpid()}_{i:03d}.png'
+            await page.screenshot(path=img_path, full_page=False)
+            imgs.append(img_path)
 
         await browser.close()
 
-        # Verify
-        with open(pdf_path, 'rb') as f:
-            import re
-            content = f.read().decode('latin-1')
-            boxes = re.findall(r'/MediaBox\s*\[\s*([\d.]+)\s+([\d.]+)\s+([\d.]+)\s+([\d.]+)\s*\]', content)
-            if boxes:
-                w, h = float(boxes[0][2]), float(boxes[0][3])
-                ratio = w / h if h else 0
-                print(f'  OK  {basename} → {w:.0f}x{h:.0f}pt (ratio {ratio:.3f})')
-            else:
-                print(f'  OK  {basename} → done')
+        c = canvas.Canvas(pdf_path, pagesize=(PAGE_W, PAGE_H))
+        for idx, img in enumerate(imgs):
+            if idx > 0:
+                c.showPage()
+            c.drawImage(img, 0, 0, width=PAGE_W, height=PAGE_H)
+        c.save()
+
+        for img in imgs:
+            os.remove(img)
+
+        print(f'  OK  {basename} → {n} slides ({PAGE_W:.0f}x{PAGE_H:.0f}pt)')
 
 async def main():
     if len(sys.argv) > 1:
@@ -91,7 +77,7 @@ async def main():
                  if f and 'NIA' not in f and 'jd-html' not in f]
         files.sort()
 
-    print(f'Converting {len(files)} files (native PDF, 16:9)\n')
+    print(f'Converting {len(files)} files\n')
 
     for f in files:
         try:

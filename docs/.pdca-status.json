@@ -1,6 +1,6 @@
 {
   "version": "2.0",
-  "lastUpdated": "2026-04-14T23:54:58.055Z",
+  "lastUpdated": "2026-04-16T09:10:26.983Z",
   "activeFeatures": [
     "tmp",
     "scripts",
@@ -35,9 +35,9 @@
       "documents": {},
       "timestamps": {
         "started": "2026-04-06T03:30:09.653Z",
-        "lastUpdated": "2026-04-14T23:54:58.055Z"
+        "lastUpdated": "2026-04-16T09:10:26.983Z"
       },
-      "lastFile": "/Users/kookjinkim/code/제안서/scripts/check_md_html_sync.py"
+      "lastFile": "/Users/kookjinkim/code/제안서/scripts/html2pdf.py"
     },
     "eval-1-sample1-smartcity": {
       "phase": "do",
@@ -126,7 +126,7 @@
   "session": {
     "startedAt": "2026-03-25T13:12:12.210Z",
     "onboardingCompleted": false,
-    "lastActivity": "2026-04-14T23:54:58.055Z"
+    "lastActivity": "2026-04-16T09:10:26.983Z"
   },
   "history": [
     {
@@ -521,6 +521,66 @@
     },
     {
       "timestamp": "2026-04-14T23:54:58.055Z",
+      "feature": "scripts",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-04-16T08:23:10.403Z",
+      "feature": "scripts",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-04-16T08:28:42.653Z",
+      "feature": "scripts",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-04-16T08:29:28.739Z",
+      "feature": "scripts",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-04-16T08:41:50.578Z",
+      "feature": "scripts",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-04-16T08:50:00.864Z",
+      "feature": "scripts",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-04-16T08:51:40.681Z",
+      "feature": "scripts",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-04-16T08:53:56.835Z",
+      "feature": "scripts",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-04-16T08:59:30.530Z",
+      "feature": "scripts",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-04-16T09:03:23.628Z",
+      "feature": "scripts",
+      "phase": "do",
+      "action": "updated"
+    },
+    {
+      "timestamp": "2026-04-16T09:10:26.983Z",
       "feature": "scripts",
       "phase": "do",
       "action": "updated"

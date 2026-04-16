@@ -62,51 +62,84 @@
 </html>
 ```
 
-### CSS 레이아웃 (16:9 비율 고정)
+### CSS 레이아웃 (16:9 비율 고정, 1280x720)
+
+> **필수**: 슬라이드 뷰포트는 반드시 `1280px x 720px` (16:9)로 고정한다.
 
 ```css
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+:root {
+  --slide-w: 1280px;
+  --slide-h: 720px;
+}
+
 html, body {
   width: 100%; height: 100%;
   overflow: hidden;
-  font-family: 'Noto Sans KR', -apple-system, system-ui, sans-serif;
-  background: #0f172a;
+  font-family: var(--font);
+  background: #e2e8f0;
 }
 
-.presentation {
-  width: 100vw; height: 100vh;
-  position: relative; overflow: hidden;
+#viewport {
+  position: fixed; inset: 0;
+  display: flex; align-items: center; justify-content: center;
 }
 
-.slides {
-  width: 100%; height: 100%;
+#stage {
   position: relative;
+  width: var(--slide-w); height: var(--slide-h);
+  overflow: hidden; transform-origin: center;
+  border-radius: 0.75rem;
+  box-shadow: 0 12px 48px rgba(30,41,59,0.15);
+  background: #fff;
 }
 
 .slide {
-  position: absolute;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.5s ease, transform 0.5s ease;
+  position: absolute; inset: 0;
+  background: #fff;
+  display: flex; flex-direction: column;
+  opacity: 0; pointer-events: none;
+  transition: opacity 0s; overflow: hidden;
 }
+.slide.active { opacity: 1; pointer-events: auto; }
 
-.slide.active {
-  opacity: 1;
-  pointer-events: auto;
-  transform: translateX(0);
+/* 슬라이드 내부 영역: 헤더(.sh) + 콘텐츠(.si) + 푸터(.sf) */
+.sh {
+  position: absolute; top: 0; left: 0; right: 0;
+  height: 44px; padding: 0 32px;
+  display: flex; justify-content: space-between; align-items: center;
+  z-index: 2;
 }
+.si {
+  flex: 1; display: flex; flex-direction: column;
+  padding: 62px 72px 48px;
+}
+/* 푸터: 페이지 번호만 중앙 정렬 */
+.sf {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  height: 36px; padding: 0 32px;
+  display: flex; justify-content: center; align-items: center;
+  z-index: 2;
+}
+.sf .pg {
+  font-size: 0.6875rem; font-weight: 600;
+  font-family: 'SF Mono', Menlo, monospace;
+}
+/* 브랜드/섹션명은 숨기고 페이지 번호만 표시 */
+.sf .brand { display: none; }
+.sf span:last-child { display: none; }
+```
 
-.slide-content {
-  width: min(1200px, 90vw);
-  max-height: 85vh;
-  padding: 2rem 3rem;
+### 뷰포트 스케일링 JS (필수)
+
+```javascript
+function fit() {
+  const s = Math.min(window.innerWidth / 1280, window.innerHeight / 720);
+  document.getElementById('stage').style.transform = 'scale(' + s + ')';
 }
+window.addEventListener('resize', fit);
+fit();
 ```
 
 ### 반응형 스케일링
@@ -682,25 +715,38 @@ toggleFullscreen() {
 
 ---
 
-## 7. 인쇄 지원
+## 7. 인쇄 지원 (16:9 PDF)
+
+> **필수**: `@page` 크기는 반드시 16:9 (338.667mm x 190.5mm)으로 설정한다.
+> `.slide`는 `width:100%; height:100vh`로 페이지를 채운다.
+> `.sf`(푸터)는 `position:static` flex 아이템으로 변환하여 잘림을 방지한다.
 
 ```css
+@page { size: 338.667mm 190.5mm; margin: 0 !important; }
 @media print {
-  .presentation { overflow: visible; height: auto; }
+  * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+  html, body { background: #fff; overflow: visible !important; height: auto !important; width: 100% !important; margin: 0 !important; padding: 0 !important; }
+  #viewport { position: static !important; display: block !important; width: 100% !important; height: auto !important; }
+  #stage { position: static !important; width: 100% !important; height: auto !important; overflow: visible !important; transform: none !important; box-shadow: none !important; border-radius: 0 !important; }
 
   .slide {
-    position: relative !important;
-    opacity: 1 !important;
-    transform: none !important;
-    width: 100% !important;
-    height: auto !important;
-    min-height: 100vh;
-    page-break-after: always;
-    page-break-inside: avoid;
+    position: relative !important; inset: auto !important;
+    opacity: 1 !important; pointer-events: auto !important;
+    width: 100% !important; height: 100vh !important;
+    page-break-after: always !important; break-after: page !important;
+    margin: 0 !important; padding: 0 !important;
+    overflow: hidden !important;
+    display: flex !important; flex-direction: column !important;
   }
+  .slide:last-child { page-break-after: auto !important; }
 
-  .controls, .progress-bar, .notes { display: none !important; }
-  .fragment { opacity: 1 !important; transform: none !important; }
+  /* 헤더/푸터를 flex 아이템으로 변환하여 잘림 방지 */
+  .sh { position: static !important; flex-shrink: 0 !important; height: 44px !important; display: flex !important; width: 100% !important; order: -1 !important; }
+  .si { flex: 1 !important; overflow: hidden !important; }
+  .sf { position: static !important; flex-shrink: 0 !important; height: 36px !important; display: flex !important; justify-content: center !important; align-items: center !important; width: 100% !important; order: 99 !important; }
+
+  .nav-btn, #progress-bar, #key-hint { display: none !important; }
+  [data-step] { opacity: 1 !important; transform: none !important; }
 }
 ```
 
@@ -743,73 +789,55 @@ page.add_style_tag(content="""
 """)
 ```
 
-### ✅ 해결: `page.screenshot()` (스크린 미디어) + Pillow 조립
+### ✅ 해결: `page.screenshot()` (스크린 미디어) + reportlab 조립
+
+> **핵심**: `page.pdf()`가 아닌 슬라이드별 스크린샷 → reportlab PDF 합성.
+> 브라우저에서 보이는 그대로 캡처하므로 footer 잘림, 레이아웃 깨짐 없음.
+> `device_scale_factor=2`로 Figma 임포트 시에도 선명한 해상도 확보.
 
 ```python
-from playwright.sync_api import sync_playwright
-from PIL import Image
-from pathlib import Path
-import tempfile, shutil
+# scripts/html2pdf.py 참조
+import asyncio, os
+from playwright.async_api import async_playwright
+from reportlab.pdfgen import canvas
 
-def slide_html_to_pdf(src: Path, out: Path, width=1280, height=720, scale=2):
-    tmp = Path(tempfile.mkdtemp())
-    pngs = []
-    try:
-        with sync_playwright() as p:
-            browser = p.chromium.launch(
-                executable_path="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
-                headless=True,
-            )
-            ctx = browser.new_context(
-                viewport={"width": width, "height": height},
-                device_scale_factor=scale,  # 2× 캡처로 인쇄 품질 확보
-            )
-            page = ctx.new_page()
-            page.goto(src.resolve().as_uri(), wait_until="networkidle")
-            page.wait_for_timeout(2500)  # 폰트 + JS settle
+PAGE_W, PAGE_H = 960.0, 540.0  # 16:9 in points
 
-            total = page.evaluate("document.querySelectorAll('.slide').length")
-
-            for i in range(total):
-                # 핵심: screen 미디어에서 .active 클래스만 토글 + data-step 모두 visible
-                page.evaluate(
-                    """({i}) => {
-                        const slides = document.querySelectorAll('.slide');
-                        slides.forEach((s, idx) => {
-                            if (idx === i) {
-                                s.classList.add('active');
-                                s.querySelectorAll('[data-step]').forEach(e => {
-                                    e.classList.remove('pre-visible');
-                                    e.classList.add('visible');
-                                });
-                            } else {
-                                s.classList.remove('active');
-                            }
-                        });
-                    }""",
-                    {"i": i},
-                )
-                page.wait_for_timeout(180)
-                # #stage 또는 .slide.active를 element-screenshot으로 캡처
-                el = page.query_selector("#stage") or page.query_selector(".slide.active")
-                png = tmp / f"s{i:03d}.png"
-                el.screenshot(path=str(png))
-                pngs.append(png)
-
-            browser.close()
-
-        # PNG → multi-page PDF (Pillow)
-        # dpi = 96 × scale 로 두면 1280×720 px 이미지가 960×540 pt PDF 페이지로 떨어짐
-        imgs = [Image.open(p).convert("RGB") for p in pngs]
-        imgs[0].save(
-            str(out),
-            save_all=True,
-            append_images=imgs[1:],
-            format="PDF",
-            resolution=float(96 * scale),
+async def convert(html_path):
+    pdf_path = html_path.rsplit('.html', 1)[0] + '.pdf'
+    async with async_playwright() as p:
+        browser = await p.chromium.launch()
+        page = await browser.new_page(
+            viewport={'width': 1280, 'height': 720},
+            device_scale_factor=2  # 2x retina for Figma
         )
-    finally:
-        shutil.rmtree(tmp, ignore_errors=True)
+        await page.goto(f'file://{os.path.abspath(html_path)}', wait_until='networkidle')
+        await page.wait_for_timeout(2000)
+
+        n = await page.evaluate('document.querySelectorAll(".slide").length')
+        imgs = []
+        for i in range(n):
+            await page.evaluate(f'''() => {{
+                const slides = document.querySelectorAll(".slide");
+                slides.forEach((s, idx) => s.classList.toggle("active", idx === {i}));
+                slides[{i}].querySelectorAll("[data-step]").forEach(el => {{
+                    el.style.opacity = "1"; el.style.transform = "none";
+                }});
+                document.querySelectorAll(".nav-btn, #progress-bar, #key-hint")
+                    .forEach(x => x.style.display = "none");
+            }}''')
+            await page.wait_for_timeout(150)
+            img = f'/tmp/_pdf_{i:03d}.png'
+            await page.screenshot(path=img, full_page=False)
+            imgs.append(img)
+        await browser.close()
+
+        c = canvas.Canvas(pdf_path, pagesize=(PAGE_W, PAGE_H))
+        for idx, img in enumerate(imgs):
+            if idx > 0: c.showPage()
+            c.drawImage(img, 0, 0, width=PAGE_W, height=PAGE_H)
+        c.save()
+        for img in imgs: os.remove(img)
 ```
 
 ### 검증 체크리스트
