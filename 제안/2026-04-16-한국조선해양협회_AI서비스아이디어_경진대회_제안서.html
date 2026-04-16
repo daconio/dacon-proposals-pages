@@ -123,10 +123,14 @@ h2.st{font-size:1.75rem;font-weight:800;color:var(--on-surface);letter-spacing:-
 #key-hint{position:fixed;bottom:16px;left:50%;transform:translateX(-50%);color:var(--outline);font-size:.6875rem;z-index:100;opacity:.4}
 @page{size:A4 landscape;margin:0}
 @media print{
-  html,body{background:#fff;overflow:visible!important;height:auto!important;width:auto!important}
+  html,body{background:#fff;overflow:visible!important;height:auto!important;width:auto!important;margin:0!important;padding:0!important}
   #viewport{position:static!important;display:block!important;height:auto!important}
   #stage{position:static!important;width:auto!important;height:auto!important;overflow:visible!important;transform:none!important;box-shadow:none!important;border-radius:0!important}
-  .slide{position:relative!important;inset:auto!important;opacity:1!important;pointer-events:auto!important;width:100vw!important;height:100vh!important;page-break-after:always!important;margin:0!important;overflow:hidden!important}
+  .slide{position:relative!important;inset:auto!important;opacity:1!important;pointer-events:auto!important;width:297mm!important;height:209.9mm!important;page-break-after:always!important;page-break-inside:avoid!important;margin:0!important;overflow:hidden!important;flex-shrink:0!important;box-sizing:border-box!important}
+  .slide:last-child{page-break-after:auto!important}
+  .si{padding:50px 60px 40px!important}
+  .sh{height:38px!important;padding:0 28px!important}
+  .sf{height:30px!important;padding:0 28px!important}
   .nav-btn,#progress-bar,#key-hint{display:none!important}
   [data-step]{opacity:1!important;transform:none!important}
 }

@@ -1,0 +1,993 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>법학전문대학원협의회 x DAKER — AI 법률 경진대회 운영대행 제안서</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  /* DAKER 3-Color System: Blue + Slate + White */
+  --primary:#0053db;--primary-d:#0048c1;--primary-light:#d8e3fb;
+  --on-primary:#f8f7ff;--secondary-container:#d8e3fb;--on-secondary:#475266;
+  --warm:#0053db;--warm-bg:rgba(0,83,219,.06);--warm-light:#d8e3fb;
+  --dark:#2a3439;--on-surface:#2a3439;--on-variant:#566166;
+  --surface:#ffffff;--surface-low:#f0f4f7;--bg:#f7f9fb;
+  --outline:#a9b4b9;--outline-d:rgba(169,180,185,.2);
+  --green:#0053db;--green-bg:rgba(0,83,219,.04);
+  --red:#0053db;--red-bg:rgba(0,83,219,.08);
+  --blue:#0053db;--blue-bg:rgba(0,83,219,.06);
+  --purple:#0053db;--purple-bg:rgba(0,83,219,.04);
+  --font:'Plus Jakarta Sans','Pretendard Variable',Pretendard,-apple-system,system-ui,sans-serif;
+  --mono:'SF Mono',Menlo,Consolas,monospace;
+  --shadow-ambient:0 8px 24px rgba(30,41,59,0.04);
+  --r-sm:.25rem;--r-md:.375rem;--r-lg:.75rem;--r-xl:1rem;
+  --slide-w:1280px;--slide-h:720px;
+}
+html,body{width:100%;height:100%;font-family:var(--font);color:var(--on-surface);background:var(--bg);overflow:hidden;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+#viewport{position:fixed;inset:0;display:flex;align-items:center;justify-content:center}
+#stage{position:relative;width:var(--slide-w);height:var(--slide-h);overflow:hidden;transform-origin:center;border-radius:var(--r-lg);box-shadow:0 12px 48px rgba(30,41,59,0.15);background:var(--surface)}
+.slide{position:absolute;inset:0;background:var(--surface);display:flex;flex-direction:column;opacity:0;pointer-events:none;transition:opacity 0s;overflow:hidden}
+.slide.active{opacity:1;pointer-events:auto}
+.sh{position:absolute;top:0;left:0;right:0;height:44px;padding:0 32px;display:flex;justify-content:space-between;align-items:center;background:rgba(255,255,255,.95);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-bottom:1px solid var(--outline-d);z-index:2}
+.sh-l{font-size:.8125rem;font-weight:700;color:var(--primary);letter-spacing:.06em;text-transform:uppercase}
+.sh span:last-child{font-size:.6875rem;font-weight:700;color:var(--outline);letter-spacing:.08em;text-transform:uppercase}
+.sf{position:absolute;bottom:0;left:0;right:0;height:36px;padding:0 32px;display:flex;justify-content:space-between;align-items:center;background:rgba(255,255,255,.95);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-top:1px solid rgba(148,163,184,.15);z-index:2}
+.sf .pg{font-size:.6875rem;color:var(--on-variant);font-weight:600;font-family:var(--mono)}
+.sf .brand{font-size:.75rem;font-weight:700;color:var(--primary);letter-spacing:.08em}
+.sf span:last-child{font-size:.5625rem;color:var(--outline);letter-spacing:.03em;font-weight:600;text-transform:uppercase}
+.si{flex:1;display:flex;flex-direction:column;padding:62px 72px 48px;position:relative;margin-top:0}
+.tag{display:inline-flex;align-items:center;gap:8px;font-size:.6875rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--primary);margin-bottom:12px}
+.tag::before{content:'';width:24px;height:2.5px;background:var(--primary);border-radius:2px}
+.tag.w,.tag.g,.tag.b,.tag.pp{color:var(--primary)}
+.tag.w::before,.tag.g::before,.tag.b::before,.tag.pp::before{background:var(--primary)}
+h1.st{font-size:2rem;font-weight:800;color:var(--on-surface);letter-spacing:-.02em;line-height:1.2}
+h2.st{font-size:1.75rem;font-weight:800;color:var(--on-surface);letter-spacing:-.02em;line-height:1.2}
+.sub{margin-top:8px;font-size:.875rem;color:var(--on-variant);line-height:1.65}
+.hl{color:var(--primary);font-weight:700}
+.hl-w{color:var(--primary);font-weight:700}
+.hl-g{color:var(--primary);font-weight:700}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.g5{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
+.g6{display:grid;grid-template-columns:repeat(6,1fr);gap:10px}
+.c{background:var(--surface);border:none;border-radius:var(--r-lg);padding:16px;box-shadow:0 0 0 1px var(--outline-d)}
+.c-p{background:var(--primary-light);border:none;box-shadow:none}
+.c-w{background:rgba(0,83,219,.04);border:none;box-shadow:none}
+.c-g{background:var(--surface-low);border:none;box-shadow:none}
+.c-r{background:rgba(0,83,219,.08);border:none;box-shadow:none}
+.c-b{background:rgba(0,83,219,.06);border:none;box-shadow:none}
+.c-pp{background:var(--surface-low);border:none;box-shadow:none}
+.c .c-t{font-size:.8125rem;font-weight:700;color:var(--on-surface);margin-bottom:6px}
+.c .c-dt{font-size:.9375rem;font-weight:800;color:var(--on-surface);margin-bottom:6px;letter-spacing:-.01em}
+.c .c-dd{font-size:.75rem;color:var(--on-variant);line-height:1.6}
+.c ul{list-style:none;margin-top:6px}
+.c ul li{position:relative;padding-left:14px;font-size:.75rem;color:var(--on-variant);line-height:1.7}
+.c ul li::before{content:'';position:absolute;left:0;top:9px;width:5px;height:5px;border-radius:50%;background:var(--primary)}
+.mx{text-align:center;padding:14px 10px;background:var(--surface-low);border-radius:var(--r-lg)}
+.mx .v{font-size:1.5rem;font-weight:800;color:var(--primary);line-height:1;letter-spacing:-.02em}
+.mx .v.w,.mx .v.g,.mx .v.r{color:var(--primary)}
+.mx .l{font-size:.625rem;color:var(--on-variant);margin-top:4px;font-weight:500}
+.tb{width:100%;border-collapse:collapse;font-size:.75rem;margin-top:8px}
+.tb th{background:var(--surface-low);color:var(--on-surface);padding:8px 12px;text-align:left;font-size:.6875rem;font-weight:700;border:none;border-bottom:2px solid var(--primary)}
+.tb td{padding:7px 12px;border:none;border-bottom:1px solid rgba(148,163,184,.15);color:var(--on-variant);vertical-align:top;line-height:1.6}
+.tb tr:last-child td{border-bottom:none}
+.tb td code{font-family:var(--mono);font-size:.6875rem;color:var(--primary);background:var(--primary-light);padding:1px 5px;border-radius:3px}
+.tb tr.hl-row{background:var(--primary-light)}
+.tb tr.hl-row td{color:var(--on-surface);font-weight:600}
+.flow{display:flex;align-items:stretch;gap:0;margin-top:12px}
+.flow-step{flex:1;background:var(--surface);border:1px solid rgba(148,163,184,.2);border-radius:var(--r-lg);padding:12px;position:relative}
+.flow-step.p,.flow-step.b,.flow-step.w,.flow-step.g,.flow-step.r,.flow-step.pp{border-top:3px solid var(--primary)}
+.flow-arr{display:flex;align-items:center;color:var(--outline);font-size:16px;font-weight:800;padding:0 6px}
+.flow-num{font-size:.5625rem;font-weight:800;letter-spacing:.12em;color:var(--primary);margin-bottom:3px}
+.flow-num.b,.flow-num.w,.flow-num.g,.flow-num.r,.flow-num.pp{color:var(--primary)}
+.flow-title{font-size:.8125rem;font-weight:800;color:var(--on-surface);margin-bottom:4px;line-height:1.3}
+.flow-desc{font-size:.6875rem;color:var(--on-variant);line-height:1.55}
+.badge{display:inline-block;padding:2px 8px;border-radius:999px;font-size:.625rem;font-weight:700;letter-spacing:.04em}
+.badge.p,.badge.w,.badge.g,.badge.r,.badge.b{background:var(--secondary-container);color:var(--on-secondary)}
+.slide-sec{padding:0}
+.slide-sec .si{justify-content:center;align-items:center;text-align:center;padding-top:60px;background:linear-gradient(135deg,var(--bg) 0%,var(--primary-light) 100%)}
+.slide-sec .sn{font-size:4.5rem;font-weight:800;color:rgba(30,58,138,.09);line-height:1;margin-bottom:8px;letter-spacing:-.04em}
+.slide-sec h2{font-size:2.25rem;font-weight:800;color:var(--on-surface);letter-spacing:-.02em}
+.slide-sec .sd{font-size:1rem;color:var(--on-variant);margin-top:10px;max-width:720px;line-height:1.65}
+.slide-cover{padding:0}
+.slide-cover .si{justify-content:center;padding:70px 88px;background:linear-gradient(135deg,var(--bg) 0%,var(--primary-light) 100%);margin-top:0}
+.slide-cover .kv{font-size:.8125rem;font-weight:700;color:var(--primary);letter-spacing:.18em;margin-bottom:16px;text-transform:uppercase}
+.slide-cover h1{font-size:2.875rem;font-weight:800;line-height:1.18;letter-spacing:-.02em;color:var(--on-surface)}
+.slide-cover .flowtag{display:flex;gap:6px;margin-top:22px;flex-wrap:wrap;align-items:center}
+.slide-cover .flowtag .chip{background:var(--secondary-container);border:none;color:var(--on-secondary);padding:6px 12px;border-radius:999px;font-size:.75rem;font-weight:700}
+.slide-cover .flowtag .chip.w,.slide-cover .flowtag .chip.g{color:var(--on-secondary)}
+.slide-cover .flowtag .arr{color:var(--outline);font-size:14px;font-weight:800}
+.slide-cover .meta{margin-top:32px;font-size:.8125rem;color:var(--on-variant);line-height:1.9}
+.slide-cover .date{position:absolute;top:28px;right:36px;background:linear-gradient(135deg,var(--primary),var(--primary-d));color:#fff;padding:6px 16px;border-radius:999px;font-size:.6875rem;font-weight:700}
+.slide-end{padding:0}
+.slide-end .si{justify-content:center;align-items:center;text-align:center;background:linear-gradient(135deg,var(--bg) 0%,var(--primary-light) 100%)}
+.slide-end .lg{font-size:2.25rem;font-weight:800;color:var(--primary);letter-spacing:.1em;margin-bottom:24px}
+.slide-end h1{font-size:2rem;font-weight:800;color:var(--on-surface);letter-spacing:-.02em;line-height:1.3}
+.slide-end .ed{font-size:.9375rem;color:var(--on-variant);margin-top:20px;line-height:1.75}
+[data-step]{opacity:0;transform:translateY(12px);transition:opacity .4s ease,transform .4s ease}
+[data-step].visible{opacity:1;transform:none}
+[data-step].pre-visible{opacity:1;transform:none;transition:none}
+.nav-btn{position:fixed;top:50%;transform:translateY(-50%);width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.9);border:none;color:var(--on-variant);cursor:pointer;z-index:100;display:flex;align-items:center;justify-content:center;font-size:18px;box-shadow:var(--shadow-ambient);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);transition:all .2s;user-select:none}
+.nav-btn:hover{color:var(--primary)}
+#nav-prev{left:12px}#nav-next{right:12px}
+#progress-bar{position:fixed;top:0;left:0;height:2px;background:var(--primary);transition:width .4s ease;z-index:100}
+#key-hint{position:fixed;bottom:16px;left:50%;transform:translateX(-50%);color:var(--outline);font-size:.6875rem;z-index:100;opacity:.4}
+@page{size:A4 landscape;margin:0}
+@media print{
+  html,body{background:#fff;overflow:visible!important;height:auto!important;width:auto!important;margin:0!important;padding:0!important}
+  #viewport{position:static!important;display:block!important;height:auto!important}
+  #stage{position:static!important;width:auto!important;height:auto!important;overflow:visible!important;transform:none!important;box-shadow:none!important;border-radius:0!important}
+  .slide{position:relative!important;inset:auto!important;opacity:1!important;pointer-events:auto!important;width:297mm!important;height:209.9mm!important;page-break-after:always!important;page-break-inside:avoid!important;margin:0!important;overflow:hidden!important;flex-shrink:0!important;box-sizing:border-box!important}
+  .slide:last-child{page-break-after:auto!important}
+  .si{padding:50px 60px 40px!important}
+  .sh{height:38px!important;padding:0 28px!important}
+  .sf{height:30px!important;padding:0 28px!important}
+  .nav-btn,#progress-bar,#key-hint{display:none!important}
+  [data-step]{opacity:1!important;transform:none!important}
+}
+</style>
+</head>
+<body>
+
+<div id="progress-bar"></div>
+<button class="nav-btn" id="nav-prev" aria-label="이전">&#9664;</button>
+<button class="nav-btn" id="nav-next" aria-label="다음">&#9654;</button>
+<div id="key-hint">&larr; &rarr; 또는 스페이스로 이동 &middot; F 전체화면</div>
+
+<div id="viewport"><div id="stage">
+
+<!-- ===== S1 COVER ===== -->
+<section class="slide slide-cover active">
+  <div class="si">
+    <span class="date">2026.04.16 / Proposal</span>
+    <div class="kv" data-step="1">&lt; 법학전문대학원협의회 &times; DAKER &gt;</div>
+    <h1 data-step="2">
+      AI 활용 법률 경진대회<br>
+      <span class="hl">운영대행 제안서</span>
+    </h1>
+    <div class="flowtag" data-step="3">
+      <span class="chip">200명 규모</span>
+      <span class="arr">&rarr;</span>
+      <span class="chip w">노트북 200대</span>
+      <span class="arr">&rarr;</span>
+      <span class="chip g">6개 로펌 심사</span>
+      <span class="arr">&rarr;</span>
+      <span class="chip">Expert 심사 포털</span>
+    </div>
+    <div class="meta" data-step="4">
+      제안사: 데이콘(DACON) &middot; 데이커(DAKER)<br>
+      담당자: 김국진 (edgar@dacon.io / 010-4293-1041)
+    </div>
+  </div>
+  <div class="sf"><span class="brand">DACON &middot; DAKER</span><span class="pg">1 / 18</span><span>Cover</span></div>
+</section>
+
+<!-- ===== S2 EXECUTIVE SUMMARY ===== -->
+<section class="slide">
+  <div class="sh"><span class="sh-l">I &mdash; Executive Summary</span><span>Overview</span></div>
+  <div class="si">
+    <div class="tag" data-step="1">제안 개요</div>
+    <h2 class="st" data-step="1">제1회 AI 법률 경진대회, 완벽한 운영대행</h2>
+    <div class="sub" data-step="2">등록 &rarr; 환경 구축 &rarr; 예선/본선 운영 &rarr; 심사 &rarr; 시상 &rarr; 사후처리, <span class="hl">500회+ 대회 운영 노하우</span>로 전 과정 수행</div>
+    <div class="g3" style="margin-top:24px" data-step="3">
+      <div class="c c-p" style="padding:20px">
+        <div class="c-dt">배경</div>
+        <div class="c-dd">법률 AI 도구(LBOX, Super Lawyer, AiLex)가 실무에 확산 &mdash; 법학전문대학원 재학생의 AI 활용 법률 역량 검증이 필요한 시점</div>
+      </div>
+      <div class="c c-w" style="padding:20px">
+        <div class="c-dt">핵심 제안</div>
+        <div class="c-dd">예선(6.24) + 본선(6.26) 2일간 aT센터 200명 규모 오프라인 경진대회의 전 과정 운영대행 &mdash; 노트북 200대, 클라우드 환경, 접수&middot;심사&middot;시상 일체</div>
+      </div>
+      <div class="c c-g" style="padding:20px">
+        <div class="c-dt">기대 효과</div>
+        <div class="c-dd">공정하고 체계적인 대회 운영으로 법학전문대학원의 AI 법률 교육 선도 이미지 구축, 법조계 AI 인재 발굴</div>
+      </div>
+    </div>
+    <div class="g4" style="margin-top:20px" data-step="4">
+      <div class="mx"><div class="v">200명</div><div class="l">참가자 규모</div></div>
+      <div class="mx"><div class="v w">12팀</div><div class="l">본선 진출</div></div>
+      <div class="mx"><div class="v g">2일</div><div class="l">예선 + 본선</div></div>
+      <div class="mx"><div class="v" style="color:var(--primary)">10팀</div><div class="l">시상 (3,100만원)</div></div>
+    </div>
+  </div>
+  <div class="sf"><span class="brand">DACON &middot; DAKER</span><span class="pg">2 / 18</span><span>Summary</span></div>
+</section>
+
+<!-- ===== S3 ABOUT US — Ecosystem ===== -->
+<section class="slide">
+  <div class="sh"><span class="sh-l">II &mdash; About Us</span><span>All-in-One AX Ecosystem</span></div>
+  <div class="si">
+    <div class="tag" data-step="1">데이콘 / 데이커 생태계</div>
+    <h2 class="st" data-step="1">대한민국 최대 AI 생태계</h2>
+    <div class="g3" style="margin-top:18px" data-step="2">
+      <div class="c c-p" style="padding:18px">
+        <div class="c-dt">DACON (dacon.io)</div>
+        <div class="c-t" style="color:var(--primary);font-size:.6875rem;margin-top:4px">AI 알고리즘 특화 플랫폼</div>
+        <ul>
+          <li>실시간 Public/Private 리더보드</li>
+          <li>자동 채점 서버</li>
+          <li>부정행위 탐지(FDS)</li>
+          <li>Jupyter LAB</li>
+        </ul>
+        <div class="badge p" style="margin-top:8px">전공자 &middot; 데이터 사이언티스트</div>
+      </div>
+      <div class="c c-w" style="padding:18px">
+        <div class="c-dt">DAKER (daker.ai)</div>
+        <div class="c-t" style="color:var(--primary);font-size:.6875rem;margin-top:4px">바이브코딩&middot;서비스개발 특화</div>
+        <ul>
+          <li>팀 빌딩&middot;원정대 매칭</li>
+          <li>작전실(War Room) 실시간 협업</li>
+          <li>갤러리&middot;쇼케이스</li>
+          <li>ELO 1v1 피어 평가</li>
+          <li>Expert 심사 포털</li>
+        </ul>
+        <div class="badge w" style="margin-top:8px">기획자 &middot; 비전공자 &middot; 현업</div>
+      </div>
+      <div class="c c-g" style="padding:18px">
+        <div class="c-dt">DASCHOOL</div>
+        <div class="c-t" style="color:var(--primary);font-size:.6875rem;margin-top:4px">AI 실무형 교육 특화</div>
+        <ul>
+          <li>학습 여정 &rarr; 실전 대회 연결</li>
+          <li>구독형 온라인 학습</li>
+          <li>에듀테크 플랫폼</li>
+        </ul>
+        <div class="badge g" style="margin-top:8px">임직원 &middot; 재학생</div>
+      </div>
+    </div>
+    <div class="g4" style="margin-top:18px" data-step="3">
+      <div class="mx"><div class="v">14만+</div><div class="l">AI 전문가 커뮤니티</div></div>
+      <div class="mx"><div class="v w">500+</div><div class="l">누적 대회 운영</div></div>
+      <div class="mx"><div class="v g">103만+</div><div class="l">누적 코드&middot;결과물 제출</div></div>
+      <div class="mx"><div class="v" style="color:var(--primary)">150+</div><div class="l">협력 기업&middot;기관</div></div>
+    </div>
+  </div>
+  <div class="sf"><span class="brand">DACON &middot; DAKER</span><span class="pg">3 / 18</span><span>Ecosystem</span></div>
+</section>
+
+<!-- ===== S4 8가지 대회 유형 ===== -->
+<section class="slide">
+  <div class="sh"><span class="sh-l">II &mdash; About Us</span><span>8 Competition Types</span></div>
+  <div class="si">
+    <div class="tag" data-step="1">8가지 대회 유형</div>
+    <h2 class="st" data-step="1">모든 AI 대회를 커버하는 플랫폼</h2>
+    <div class="g2" style="margin-top:16px;gap:20px">
+      <!-- DACON -->
+      <div data-step="2">
+        <div style="font-size:.6875rem;font-weight:800;color:var(--primary);letter-spacing:.1em;margin-bottom:8px">DACON &mdash; 알고리즘 특화</div>
+        <div class="c c-p" style="margin-bottom:8px;padding:12px">
+          <div style="display:flex;justify-content:space-between;align-items:baseline"><span class="c-t" style="margin:0">1. AI 알고리즘 대회</span><span class="c-dd">토스 NEXT ML (2,500명+)</span></div>
+          <div class="c-dd" style="margin-top:4px">예측 결과 파일(CSV) 제출, 자동 채점 리더보드</div>
+        </div>
+        <div class="c c-p" style="padding:12px">
+          <div style="display:flex;justify-content:space-between;align-items:baseline"><span class="c-t" style="margin:0">2. AI 알고리즘 on 코드 제출</span><span class="c-dd">Samsung AI Challenge (5,000명+)</span></div>
+          <div class="c-dd" style="margin-top:4px">코드 자체를 제출, 서버에서 실행&middot;평가</div>
+        </div>
+        <div style="font-size:.6875rem;font-weight:800;color:var(--primary);letter-spacing:.1em;margin-bottom:8px;margin-top:16px">DAKER &mdash; 서비스개발&middot;해커톤 특화</div>
+        <div class="c" style="margin-bottom:8px;padding:12px">
+          <div style="display:flex;justify-content:space-between;align-items:baseline"><span class="c-t" style="margin:0">3. 프롬프톤</span><span class="c-dd">SW마에스트로</span></div>
+          <div class="c-dd" style="margin-top:4px">AI 프롬프트 엔지니어링 특화 해커톤</div>
+        </div>
+        <div class="c" style="margin-bottom:8px;padding:12px">
+          <div style="display:flex;justify-content:space-between;align-items:baseline"><span class="c-t" style="margin:0">5. 온/오프 하이브리드 해커톤</span><span class="c-dd">KT (1,500명+)</span></div>
+          <div class="c-dd" style="margin-top:4px">온라인 예선 + 오프라인 본선</div>
+        </div>
+        <div class="c" style="margin-bottom:8px;padding:12px">
+          <div style="display:flex;justify-content:space-between;align-items:baseline"><span class="c-t" style="margin:0">6. 해커톤 on 코드 제출</span><span class="c-dd">LG 해커톤 (20,000명+)</span></div>
+          <div class="c-dd" style="margin-top:4px">오프라인 해커톤에서 코드 서버 제출&middot;평가</div>
+        </div>
+        <div class="c" style="padding:12px">
+          <div class="c-t" style="margin:0">7. 온라인 대회 + 시상식 / 8. 비공개 기업 해커톤</div>
+        </div>
+      </div>
+      <!-- 본 제안 유형 -->
+      <div data-step="3">
+        <div style="font-size:.6875rem;font-weight:800;color:var(--primary);letter-spacing:.1em;margin-bottom:8px">본 제안 유형 &mdash; 유형 4 기반 운영대행</div>
+        <div style="border:2px solid var(--primary);border-radius:var(--r-lg);padding:16px;background:linear-gradient(135deg,rgba(30,58,138,.03),rgba(10,142,107,.03))">
+          <div class="c c-w" style="padding:14px;margin-bottom:10px">
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px"><span class="badge w">유형 4</span><span class="c-dt" style="margin:0;font-size:.875rem">AI 서비스&middot;아이디어 공모전</span></div>
+            <ul>
+              <li>AI 도구를 활용한 <strong>법률 의견서</strong> 제출</li>
+              <li>6개 로펌 심사위원 <strong>Expert 심사</strong></li>
+              <li>주최측 제공 노트북 &middot; 통제된 AI 환경</li>
+            </ul>
+          </div>
+          <div style="text-align:center;color:var(--outline);font-size:.625rem;font-weight:600;padding:4px 0">&darr; 대회 특성에 맞게 적용</div>
+          <div class="c c-p" style="padding:14px;text-align:center">
+            <div class="c-dt" style="font-size:.875rem;text-align:center">제1회 법학전문대학원 AI 활용 법률 경진대회</div>
+            <div class="c-dd" style="text-align:center;margin-top:4px">오프라인 예선(6.24) + 본선(6.26) &middot; 200명 &middot; aT센터</div>
+          </div>
+          <div class="c c-g" style="padding:12px;margin-top:10px">
+            <div class="c-t" style="font-size:.75rem">운영대행 범위</div>
+            <ul>
+              <li>홍보&middot;접수&middot;참가자 관리</li>
+              <li>노트북 200대 렌탈&middot;셋업</li>
+              <li>클라우드 환경 구축&middot;보안</li>
+              <li>현장 운영&middot;심사&middot;시상</li>
+              <li>사후 처리(상금&middot;인증서&middot;보고서)</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span class="brand">DACON &middot; DAKER</span><span class="pg">4 / 18</span><span>Competition types</span></div>
+</section>
+
+<!-- ===== S5 핵심 기술 역량 ===== -->
+<section class="slide">
+  <div class="sh"><span class="sh-l">II &mdash; About Us</span><span>Tech Capabilities</span></div>
+  <div class="si">
+    <div class="tag w" data-step="1">핵심 기술 역량</div>
+    <h2 class="st" data-step="1">DAKER 플랫폼 핵심 기능</h2>
+    <div class="g3" style="margin-top:16px" data-step="2">
+      <div class="c c-p" style="padding:14px">
+        <div class="c-t">팀 빌딩</div>
+        <div class="c-dd">AI 기반 역할&middot;스킬 자동 매칭, 일괄 등록(최대 1,000명)</div>
+      </div>
+      <div class="c c-w" style="padding:14px">
+        <div class="c-t">작전실 (War Room)</div>
+        <div class="c-dd">팀별 전용 협업 공간, Yjs 실시간 공동 편집, GitHub 연동</div>
+      </div>
+      <div class="c c-g" style="padding:14px">
+        <div class="c-t">갤러리&middot;쇼케이스</div>
+        <div class="c-dd">MVP 자동 게시, 외부 URL 프리뷰, 포트폴리오 영구 보존</div>
+      </div>
+    </div>
+    <div class="g3" style="margin-top:10px" data-step="3">
+      <div class="c c-b" style="padding:14px">
+        <div class="c-t">ELO 1v1 피어 평가</div>
+        <div class="c-dd">참가팀 MVP 블라인드 1:1 비교, Expert 70% + ELO 30% 결합</div>
+      </div>
+      <div class="c c-pp" style="padding:14px">
+        <div class="c-t">Expert 심사 포털</div>
+        <div class="c-dd">심사위원 개별 배정, 채점표 자동 생성, 가중치 자동 집계</div>
+      </div>
+      <div class="c c-pp" style="padding:14px">
+        <div class="c-t">AI 멘토링</div>
+        <div class="c-dd">24/7 온라인 AI 멘토, Forcing Question 기반 팀 사고 압박</div>
+      </div>
+    </div>
+    <div class="g3" style="margin-top:10px" data-step="4">
+      <div class="c" style="padding:14px">
+        <div class="c-t">부정행위 탐지 (FDS)</div>
+        <div class="c-dd">행동 분석, Data Leakage 탐지, 코드 재현성 전수 검증. 특허 출원 (2025.12)</div>
+      </div>
+      <div class="c" style="padding:14px">
+        <div class="c-t">인증서 자동 발급</div>
+        <div class="c-dd">수상 인증서, 참가 수료증 디지털 자동 발급</div>
+      </div>
+      <div class="c" style="padding:14px">
+        <div class="c-t">Q&amp;A 게시판 &amp; CS</div>
+        <div class="c-dd">카테고리별 공지&middot;Q&amp;A, 주중 24h/주말 48h 이내 응대</div>
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span class="brand">DACON &middot; DAKER</span><span class="pg">5 / 18</span><span>Tech capabilities</span></div>
+</section>
+
+<!-- ===== S6 주요 고객사 ===== -->
+<section class="slide">
+  <div class="sh"><span class="sh-l">II &mdash; About Us</span><span>150+ Clients</span></div>
+  <div class="si">
+    <div class="tag g" data-step="1">주요 고객사 (150개+)</div>
+    <h2 class="st" data-step="1">금융&middot;제조&middot;공공&middot;교육 전 산업 커버</h2>
+    <table class="tb" style="margin-top:14px" data-step="2">
+      <tr><th style="width:90px">분야</th><th>고객사</th></tr>
+      <tr><td><strong>금융</strong></td><td>KB금융지주, NH투자증권, TOSS, KRX, 금융보안원, JB금융지주, Shinhan AI, IBK기업은행, 헥토(Hecto), 미래에셋증권</td></tr>
+      <tr><td><strong>대기업&middot;IT</strong></td><td>삼성전자(SAIT&middot;DS), LG AI연구원, 현대자동차(현대NGV), HD현대, KT, 롯데이노베이트, 헥토(Hecto), 데이터유니버스</td></tr>
+      <tr><td><strong>에너지&middot;제조</strong></td><td>한국에너지기술연구원, 한국전력공사, 한국동서발전, 한국가스공사, GS E&amp;R, 대동그룹</td></tr>
+      <tr><td><strong>공공기관</strong></td><td>재정정보원, K-water, 농수산물유통공사, 수원시, 대구광역시, 파주시, 한국도로공사, 국토교통부</td></tr>
+      <tr><td><strong>연구소</strong></td><td>ETRI, KIST, 극지연구소, 한국원자력연구원, 한국기계연구원, 차세대융합기술원(AICT), 제주테크노파크</td></tr>
+      <tr><td><strong>대학교</strong></td><td>서울대, 성균관대, 중앙대, 한양대, 국민대, 단국대, 수원대, 인하대, 서울시립대, GIST, 강원대, SW중심대학 다수</td></tr>
+      <tr><td><strong>기타</strong></td><td>SW마에스트로(과기정통부), SeSAC, 한국조선해양플랜트협회, 한국프로축구연맹</td></tr>
+    </table>
+  </div>
+  <div class="sf"><span class="brand">DACON &middot; DAKER</span><span class="pg">6 / 18</span><span>Clients</span></div>
+</section>
+
+<!-- ===== S7 SECTION — AI x 법률 실무 ===== -->
+<section class="slide slide-sec">
+  <div class="sh"><span class="sh-l">Section</span><span></span></div>
+  <div class="si">
+    <div class="sn" data-step="1">II-2</div>
+    <h2 data-step="2">AI &times; 법률 실무</h2>
+    <div class="sd" data-step="3">LBOX &middot; Super Lawyer &middot; AiLex &mdash; 법률 AI가 실무 도구로 정착한 지금<br>법학전문대학원 재학생의 AI 활용 역량은 선택이 아닌 필수</div>
+  </div>
+  <div class="sf"><span class="brand">DACON &middot; DAKER</span><span class="pg">7 / 18</span><span>Legal AI</span></div>
+</section>
+
+<!-- ===== S8 AI가 바꾸는 법률 실무 ===== -->
+<section class="slide">
+  <div class="sh"><span class="sh-l">II-2 &mdash; AI &times; Legal</span><span>Market &amp; Comparison</span></div>
+  <div class="si">
+    <div class="g2" style="gap:24px">
+      <div>
+        <div class="tag" data-step="1">국내 법률 AI 서비스</div>
+        <h2 class="st" data-step="1" style="font-size:1.5rem">대회에서 활용하는 AI 도구</h2>
+        <div style="margin-top:14px" data-step="2">
+          <div class="c c-p" style="margin-bottom:8px;padding:12px 16px">
+            <div style="display:flex;justify-content:space-between;align-items:center">
+              <div><span class="c-t" style="margin:0">LBOX</span><div class="c-dd" style="margin-top:2px">판례 검색&middot;분석, AI 법률 비서</div></div>
+              <span class="badge p">공동주최</span>
+            </div>
+          </div>
+          <div class="c c-w" style="margin-bottom:8px;padding:12px 16px">
+            <div style="display:flex;justify-content:space-between;align-items:center">
+              <div><span class="c-t" style="margin:0">Super Lawyer</span><div class="c-dd" style="margin-top:2px">AI 법률 자문, 계약서 분석</div></div>
+              <span class="badge w">공동주최</span>
+            </div>
+          </div>
+          <div class="c c-g" style="margin-bottom:8px;padding:12px 16px">
+            <div style="display:flex;justify-content:space-between;align-items:center">
+              <div><span class="c-t" style="margin:0">AiLex</span><div class="c-dd" style="margin-top:2px">AI 법률 연구 보조, 쟁점 분석</div></div>
+              <span class="badge g">허용 도구</span>
+            </div>
+          </div>
+          <div class="c c-b" style="margin-bottom:8px;padding:12px 16px">
+            <div style="display:flex;justify-content:space-between;align-items:center">
+              <div><span class="c-t" style="margin:0">ChatGPT / Gemini</span><div class="c-dd" style="margin-top:2px">범용 AI &mdash; 논증 보조, 초안 작성</div></div>
+              <span class="badge b">허용 도구</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="tag g" data-step="3">기존 vs AI 활용 법률 업무</div>
+        <h2 class="st" data-step="3" style="font-size:1.5rem">AI가 바꾸는 법률 실무</h2>
+        <table class="tb" style="margin-top:14px" data-step="4">
+          <tr><th>기존 방식</th><th>AI 활용</th><th>효과</th></tr>
+          <tr><td>수작업 판례 검색 (수일~수주)</td><td>AI 판례 검색&middot;분석 (수분)</td><td><strong class="hl">90% 단축</strong></td></tr>
+          <tr><td>선배 경험 의존 논증</td><td>AI 관련 판례&middot;학설 자동 매핑</td><td><strong class="hl">근거 다양화</strong></td></tr>
+          <tr><td>반복적 초안 작성</td><td>AI 초안 &rarr; 인간 검토&middot;수정</td><td><strong class="hl">생산성 3배</strong></td></tr>
+          <tr><td>단일 관점 분석</td><td>AI 다각도 쟁점 동시 탐색</td><td><strong class="hl">분석 심화</strong></td></tr>
+        </table>
+        <div class="c c-p" style="margin-top:14px;padding:12px" data-step="5">
+          <div class="c-t">본 대회의 핵심</div>
+          <div class="c-dd">AI는 <strong>도구</strong>, 인간이 <strong>판단</strong> &mdash; 정답 없는 복잡한 법률 시나리오에서 법률적 추론 + 비판적 사고로 설득력 있는 의견서 완성</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span class="brand">DACON &middot; DAKER</span><span class="pg">8 / 18</span><span>Legal AI market</span></div>
+</section>
+
+<!-- ===== S9 SECTION — 제안 핵심 ===== -->
+<section class="slide slide-sec">
+  <div class="sh"><span class="sh-l">Section</span><span></span></div>
+  <div class="si">
+    <div class="sn" data-step="1">III</div>
+    <h2 data-step="2">제안 핵심<br>운영대행 상세</h2>
+    <div class="sd" data-step="3">제1회 법학전문대학원 AI 활용 법률 경진대회<br>홍보&middot;접수 &rarr; 예선&middot;본선 운영 &rarr; 심사 &rarr; 시상 &rarr; 사후처리</div>
+  </div>
+  <div class="sf"><span class="brand">DACON &middot; DAKER</span><span class="pg">9 / 18</span><span>Core proposal</span></div>
+</section>
+
+<!-- ===== S10 대회 개요 ===== -->
+<section class="slide">
+  <div class="sh"><span class="sh-l">III &mdash; Core Proposal</span><span>Competition Overview</span></div>
+  <div class="si">
+    <div class="tag" data-step="1">대회 개요</div>
+    <h2 class="st" data-step="1">제1회 법학전문대학원 AI 활용 법률 경진대회</h2>
+    <div class="g2" style="margin-top:14px;gap:20px">
+      <div data-step="2">
+        <table class="tb">
+          <tr><td style="font-weight:700;color:var(--on-surface);width:90px">주최</td><td>법학전문대학원협의회</td></tr>
+          <tr><td style="font-weight:700;color:var(--on-surface)">공동주최</td><td>(주)로앤컴퍼니, (주)법률신문사, (주)엘박스</td></tr>
+          <tr><td style="font-weight:700;color:var(--on-surface)">후원</td><td>김&middot;장, 광장, 세종, 율촌, 태평양, 화우, DLG</td></tr>
+          <tr><td style="font-weight:700;color:var(--on-surface)">파트너</td><td>A2D2</td></tr>
+          <tr><td style="font-weight:700;color:var(--on-surface)">운영대행</td><td><strong>데이커(DAKER) &middot; 데이콘(DACON)</strong></td></tr>
+          <tr><td style="font-weight:700;color:var(--on-surface)">일시</td><td>예선 6.24(수) / 본선 6.26(금)</td></tr>
+          <tr><td style="font-weight:700;color:var(--on-surface)">장소</td><td>aT센터 (서울 서초구)</td></tr>
+          <tr><td style="font-weight:700;color:var(--on-surface)">참가 대상</td><td>법학전문대학원 재학생 (2~3인/1팀)</td></tr>
+          <tr><td style="font-weight:700;color:var(--on-surface)">참가 규모</td><td><strong>~200명</strong></td></tr>
+          <tr><td style="font-weight:700;color:var(--on-surface)">접수 마감</td><td>~5.15(금)</td></tr>
+          <tr><td style="font-weight:700;color:var(--on-surface)">허용 AI</td><td>LBOX, Super Lawyer, AiLex, ChatGPT, Gemini</td></tr>
+          <tr><td style="font-weight:700;color:var(--on-surface)">장비</td><td>주최측 제공 노트북만 사용 (개인 장비 실격)</td></tr>
+        </table>
+      </div>
+      <div data-step="3">
+        <div class="c c-p" style="margin-bottom:8px;padding:14px">
+          <div class="c-dt">사전 준비 기간 (5.20~6.23)</div>
+          <ul>
+            <li>Super Lawyer 1개월 무료 접근</li>
+            <li>LBOX Free Plan 제공</li>
+            <li>참가자 AI 도구 사전 학습</li>
+          </ul>
+        </div>
+        <div class="c c-w" style="margin-bottom:8px;padding:14px">
+          <div class="c-dt">문제 형식</div>
+          <div class="c-dd">정답 없는 복잡한 법률 시나리오 &mdash; AI 단독 해결 불가, 법률적 추론 + 비판적 사고 필수</div>
+        </div>
+        <div class="c c-g" style="padding:14px">
+          <div class="c-dt">답안 형식</div>
+          <div class="c-dd">AI 도구를 활용한 <strong>법률 의견서 (Legal Opinion)</strong></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span class="brand">DACON &middot; DAKER</span><span class="pg">10 / 18</span><span>Overview</span></div>
+</section>
+
+<!-- ===== S11 대회 구조 & 진행 방식 ===== -->
+<section class="slide">
+  <div class="sh"><span class="sh-l">III &mdash; Core Proposal</span><span>Structure &amp; Flow</span></div>
+  <div class="si">
+    <div class="tag w" data-step="1">대회 구조 &amp; 진행 방식</div>
+    <h2 class="st" data-step="1">예선 &rarr; 본선 &rarr; 시상</h2>
+    <div class="flow" style="margin-top:18px" data-step="2">
+      <div class="flow-step p" style="padding:14px">
+        <div class="flow-num">예선 6.24(수)</div>
+        <div class="flow-title">6개 로펌 출제</div>
+        <div class="flow-desc">각 로펌 1문제씩 총 6문제, 팀별 랜덤 1문제 배정, 각 로펌이 2팀 선발</div>
+      </div>
+      <div class="flow-arr">&rarr;</div>
+      <div class="flow-step w" style="padding:14px">
+        <div class="flow-num w">12팀 본선 진출</div>
+        <div class="flow-title">예선 결과</div>
+        <div class="flow-desc">6개 로펌 &times; 2팀 = 12팀 본선 진출</div>
+      </div>
+      <div class="flow-arr">&rarr;</div>
+      <div class="flow-step b" style="padding:14px">
+        <div class="flow-num b">본선 6.26(금)</div>
+        <div class="flow-title">공통 1문제</div>
+        <div class="flow-desc">12팀이 공통 문제로 경쟁, 최우수 1팀 + 우수 3팀 선정</div>
+      </div>
+      <div class="flow-arr">&rarr;</div>
+      <div class="flow-step g" style="padding:14px">
+        <div class="flow-num g">시상식</div>
+        <div class="flow-title">총 10팀 시상</div>
+        <div class="flow-desc">최우수 1팀, 우수 3팀, 예선우수 6팀</div>
+      </div>
+    </div>
+    <div class="g2" style="margin-top:20px;gap:16px">
+      <div data-step="3">
+        <div class="tag b">시상 구성 (총 3,100만원)</div>
+        <table class="tb" style="margin-top:8px">
+          <tr><th>구분</th><th>팀 수</th><th>상금</th></tr>
+          <tr class="hl-row"><td><strong>최우수상</strong></td><td>1팀</td><td>400만원</td></tr>
+          <tr><td><strong>우수상</strong></td><td>3팀</td><td>각 300만원</td></tr>
+          <tr><td><strong>예선우수상</strong></td><td>6팀</td><td>각 300만원</td></tr>
+          <tr style="border-top:2px solid var(--primary)"><td><strong>합계</strong></td><td><strong>10팀</strong></td><td><strong>3,100만원</strong></td></tr>
+        </table>
+      </div>
+      <div data-step="4">
+        <div class="tag g">예선일 타임라인(안)</div>
+        <table class="tb" style="margin-top:8px">
+          <tr><th style="width:80px">시간</th><th>내용</th></tr>
+          <tr><td>~09:00</td><td>현장 세팅 (노트북 배치, 환경 점검)</td></tr>
+          <tr><td>09:00~09:30</td><td>참가자 등록&middot;접수</td></tr>
+          <tr><td>09:30~10:00</td><td>오리엔테이션, 주의사항 안내</td></tr>
+          <tr><td>10:00</td><td>문제 배정 (6개 중 랜덤 1문제)</td></tr>
+          <tr><td>10:00~16:00</td><td><strong>법률 의견서 작성 (6시간)</strong></td></tr>
+          <tr><td>16:00~</td><td>답안 제출 &rarr; 6개 로펌별 심사</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span class="brand">DACON &middot; DAKER</span><span class="pg">11 / 18</span><span>Structure</span></div>
+</section>
+
+<!-- ===== S12 DAKER 플랫폼 활용 ===== -->
+<section class="slide">
+  <div class="sh"><span class="sh-l">IV &mdash; Platform</span><span>DAKER for Legal Competition</span></div>
+  <div class="si">
+    <div class="tag" data-step="1">DAKER 플랫폼 활용</div>
+    <h2 class="st" data-step="1">운영대행 전 과정을 DAKER로 관리</h2>
+    <div class="g2" style="margin-top:14px;gap:20px">
+      <div data-step="2">
+        <div style="font-size:.6875rem;font-weight:800;color:var(--primary);letter-spacing:.1em;margin-bottom:8px">1. 홍보 &amp; 접수 관리</div>
+        <div class="c c-p" style="margin-bottom:8px;padding:10px 14px">
+          <div class="c-dd"><strong class="hl">대회 페이지 개설</strong> &mdash; 팀 등록, 참가 동의, 접수 현황 관리</div>
+        </div>
+        <div class="c c-w" style="margin-bottom:8px;padding:10px 14px">
+          <div class="c-dd"><strong class="hl">홍보 디자인</strong> &mdash; 포스터&middot;배너 3식 제작, 법학전문대학원 SNS&middot;커뮤니티 홍보</div>
+        </div>
+        <div class="c c-g" style="margin-bottom:8px;padding:10px 14px">
+          <div class="c-dd"><strong class="hl">참가 심사</strong> &mdash; 재학 여부 확인, 팀 구성(2~3인) 검증</div>
+        </div>
+        <div class="c" style="padding:10px 14px">
+          <div class="c-dd"><strong>사전 알림</strong> &mdash; 접수 확인, 준비 기간 안내, 대회 전 공지 자동 발송</div>
+        </div>
+        <div style="font-size:.6875rem;font-weight:800;color:var(--primary);letter-spacing:.1em;margin-bottom:8px;margin-top:16px">3. 사후 처리</div>
+        <div class="c c-p" style="margin-bottom:8px;padding:10px 14px">
+          <div class="c-dd"><strong class="hl">상금 지급</strong> &mdash; 10팀 상금 분배 처리</div>
+        </div>
+        <div class="c c-w" style="margin-bottom:8px;padding:10px 14px">
+          <div class="c-dd"><strong class="hl">참가 확인서</strong> &mdash; 디지털 참가 확인서 자동 발급</div>
+        </div>
+        <div class="c" style="padding:10px 14px">
+          <div class="c-dd"><strong>운영 보고서</strong> &mdash; 대회 전 과정 운영 리포트 발행</div>
+        </div>
+      </div>
+      <div data-step="3">
+        <div style="font-size:.6875rem;font-weight:800;color:var(--primary);letter-spacing:.1em;margin-bottom:8px">2. 현장 운영 (예선 + 본선)</div>
+        <div class="c c-p" style="margin-bottom:8px;padding:10px 14px">
+          <div class="c-dd"><strong class="hl">접수 데스크</strong> &mdash; 현장 등록, 본인 확인, 좌석 배정</div>
+        </div>
+        <div class="c c-w" style="margin-bottom:8px;padding:10px 14px">
+          <div class="c-dd"><strong class="hl">노트북 200대</strong> &mdash; 렌탈&middot;셋업, 6시간 AI 사용 환경 구축</div>
+        </div>
+        <div class="c c-g" style="margin-bottom:8px;padding:10px 14px">
+          <div class="c-dd"><strong class="hl">클라우드 환경</strong> &mdash; 허용 AI만 접근 가능한 통제 환경 사전 구축</div>
+        </div>
+        <div class="c c-b" style="margin-bottom:8px;padding:10px 14px">
+          <div class="c-dd"><strong style="color:var(--primary);font-weight:700">비품 준비</strong> &mdash; 명찰, 자리배치표, 포토월, X배너</div>
+        </div>
+        <div class="c c-pp" style="margin-bottom:8px;padding:10px 14px">
+          <div class="c-dd"><strong style="color:var(--primary);font-weight:700">장소 세팅</strong> &mdash; 대기실, VIP룸, 휴게 공간 구성</div>
+        </div>
+        <div class="c" style="margin-bottom:8px;padding:10px 14px">
+          <div class="c-dd"><strong>시상 준비</strong> &mdash; 상장, 수상 보드, 꽃다발</div>
+        </div>
+        <div class="c" style="margin-bottom:8px;padding:10px 14px">
+          <div class="c-dd"><strong>촬영</strong> &mdash; 사진 촬영</div>
+        </div>
+        <div class="c" style="padding:10px 14px">
+          <div class="c-dd"><strong>기념품</strong> &mdash; 스타벅스 쿠폰 등 참가 기념품</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span class="brand">DACON &middot; DAKER</span><span class="pg">12 / 18</span><span>Platform</span></div>
+</section>
+
+<!-- ===== S13 노트북 & 클라우드 환경 관리 ===== -->
+<section class="slide">
+  <div class="sh"><span class="sh-l">IV &mdash; Platform</span><span>Laptop &amp; Cloud Environment</span></div>
+  <div class="si">
+    <div class="tag w" data-step="1">노트북 &amp; 클라우드 환경 관리</div>
+    <h2 class="st" data-step="1">200대 노트북, 통제된 AI 접근 환경</h2>
+    <div class="sub" data-step="2">개인 장비 사용 시 실격 &mdash; <span class="hl">주최측 제공 노트북 + 통합 계정</span>으로 공정한 경쟁 환경 보장</div>
+    <div class="g2" style="margin-top:18px;gap:20px">
+      <div data-step="3">
+        <div style="font-size:.6875rem;font-weight:800;color:var(--primary);letter-spacing:.1em;margin-bottom:8px">노트북 관리</div>
+        <div class="c c-p" style="margin-bottom:8px;padding:14px">
+          <div class="c-t">200대 렌탈 &amp; 셋업</div>
+          <ul>
+            <li>노트북 사양 확정 및 렌탈 계약</li>
+            <li>대회 전 사전 셋업 (OS, 브라우저, AI 도구 접근)</li>
+            <li>좌석별 번호 매칭, 참가자-노트북 매핑</li>
+          </ul>
+        </div>
+        <div class="c c-w" style="margin-bottom:8px;padding:14px">
+          <div class="c-t">현장 배포 &amp; 회수</div>
+          <ul>
+            <li>대회 당일 좌석별 노트북 배치</li>
+            <li>전원·네트워크 사전 점검</li>
+            <li>대회 종료 후 일괄 회수·초기화</li>
+          </ul>
+        </div>
+        <div class="c c-g" style="padding:14px">
+          <div class="c-t">장애 대응</div>
+          <ul>
+            <li>예비 노트북 10대+ 확보</li>
+            <li>현장 기술 지원 인력 배치</li>
+            <li>즉각 교체 프로세스</li>
+          </ul>
+        </div>
+      </div>
+      <div data-step="4">
+        <div style="font-size:.6875rem;font-weight:800;color:var(--primary);letter-spacing:.1em;margin-bottom:8px">클라우드 환경</div>
+        <div class="c c-p" style="margin-bottom:8px;padding:14px">
+          <div class="c-t">허용 AI 서비스만 접근 가능</div>
+          <ul>
+            <li>LBOX, Super Lawyer, AiLex, ChatGPT, Gemini</li>
+            <li>허용 외 사이트 접근 차단 (화이트리스트 방식)</li>
+            <li>통합 계정 사전 생성 &amp; 배포</li>
+          </ul>
+        </div>
+        <div class="c c-w" style="margin-bottom:8px;padding:14px">
+          <div class="c-t">보안 &amp; 공정성</div>
+          <ul>
+            <li>외부 저장장치(USB) 사용 차단</li>
+            <li>개인 메일&middot;메신저 접근 차단</li>
+            <li>대회 종료 후 답안 자동 수집</li>
+          </ul>
+        </div>
+        <div class="c c-g" style="padding:14px">
+          <div class="c-t">네트워크 인프라</div>
+          <ul>
+            <li>200대 동시 접속 Wi-Fi 환경 구축</li>
+            <li>백업 네트워크 회선 확보</li>
+            <li>실시간 네트워크 모니터링</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span class="brand">DACON &middot; DAKER</span><span class="pg">13 / 18</span><span>Laptop &amp; cloud</span></div>
+</section>
+
+<!-- ===== S14 Expert 심사 포털 ===== -->
+<section class="slide">
+  <div class="sh"><span class="sh-l">IV &mdash; Platform</span><span>Expert Judging Portal</span></div>
+  <div class="si">
+    <div class="tag" data-step="1">Expert 심사 포털</div>
+    <h2 class="st" data-step="1">6개 로펌 심사위원의 공정하고 효율적인 심사</h2>
+    <div class="g2" style="margin-top:16px;gap:20px">
+      <div data-step="2">
+        <div style="font-size:.6875rem;font-weight:800;color:var(--primary);letter-spacing:.1em;margin-bottom:8px">예선 심사 (6.24)</div>
+        <div class="c c-p" style="padding:14px;margin-bottom:8px">
+          <div class="c-t">6개 로펌별 독립 심사</div>
+          <ul>
+            <li>각 로펌이 자기 문제에 대한 팀 답안 심사</li>
+            <li>로펌별 심사위원에게 해당 팀 답안만 배정</li>
+            <li>각 로펌 2팀 선발 &rarr; 12팀 본선 진출</li>
+          </ul>
+        </div>
+        <div class="c c-w" style="padding:14px;margin-bottom:8px">
+          <div class="c-t">채점표 자동 생성</div>
+          <ul>
+            <li>평가 항목별 가중치 자동 반영</li>
+            <li>심사위원이 노트북에서 실시간 채점</li>
+            <li>채점 현황 실시간 모니터링</li>
+          </ul>
+        </div>
+        <div class="c c-g" style="padding:14px">
+          <div class="c-t">심사위원 초대 &amp; 배정</div>
+          <ul>
+            <li>각 로펌 심사위원에게 개별 초대 링크 발송</li>
+            <li>로펌-문제-팀 자동 매핑</li>
+            <li>이해충돌 방지 자동 체크</li>
+          </ul>
+        </div>
+      </div>
+      <div data-step="3">
+        <div style="font-size:.6875rem;font-weight:800;color:var(--primary);letter-spacing:.1em;margin-bottom:8px">본선 심사 (6.26)</div>
+        <div class="c c-p" style="padding:14px;margin-bottom:8px">
+          <div class="c-t">12팀 통합 심사</div>
+          <ul>
+            <li>공통 문제에 대한 12팀 답안 심사</li>
+            <li>심사위원 패널 구성, 개별 배정</li>
+            <li>최우수 1팀 + 우수 3팀 선정</li>
+          </ul>
+        </div>
+        <div class="c c-w" style="padding:14px;margin-bottom:8px">
+          <div class="c-t">자동 집계 &amp; 정규화</div>
+          <ul>
+            <li>심사위원 성향 차이를 Z-score 정규화</li>
+            <li>가중치 점수 자동 집계, 수작업 오류 0건</li>
+            <li>심사 종료 즉시 최종 순위 확정</li>
+          </ul>
+        </div>
+        <div class="c c-g" style="padding:14px;margin-bottom:8px">
+          <div class="c-t">진행률 모니터링 &amp; 대시보드</div>
+          <ul>
+            <li>심사 진행률 실시간 표시</li>
+            <li>미채점 항목 알림, 지연 즉시 파악</li>
+            <li>운영팀이 전체 현황 한 화면에서 관리</li>
+          </ul>
+        </div>
+        <div class="c c-b" style="padding:14px">
+          <div class="c-t">결과 투명성 &amp; 이의 대응</div>
+          <ul>
+            <li>심사위원별 채점 기록 영구 보존</li>
+            <li>이의 제기 시 근거 데이터 즉시 조회</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span class="brand">DACON &middot; DAKER</span><span class="pg">14 / 18</span><span>Judging portal</span></div>
+</section>
+
+<!-- ===== S15 운영 로드맵 ===== -->
+<section class="slide">
+  <div class="sh"><span class="sh-l">V &mdash; Roadmap</span><span>5-Step Process</span></div>
+  <div class="si">
+    <div class="tag" data-step="1">운영 로드맵</div>
+    <h2 class="st" data-step="1">기획부터 사후처리까지 원스톱 운영</h2>
+    <div class="flow" style="margin-top:18px" data-step="2">
+      <div class="flow-step p" style="padding:14px">
+        <div class="flow-num">STEP 1 &middot; D-60</div>
+        <div class="flow-title">기획 &amp; 준비</div>
+        <div class="flow-desc">운영 계획, 대회 페이지, 노트북&middot;클라우드 사양, 디자인</div>
+      </div>
+      <div class="flow-arr">&rarr;</div>
+      <div class="flow-step w" style="padding:14px">
+        <div class="flow-num w">STEP 2 &middot; ~5.15</div>
+        <div class="flow-title">홍보 &amp; 접수</div>
+        <div class="flow-desc">법학전문대학원 홍보, 접수 관리, 참가 자격 심사</div>
+      </div>
+      <div class="flow-arr">&rarr;</div>
+      <div class="flow-step b" style="padding:14px">
+        <div class="flow-num b">STEP 3 &middot; 5.20~6.23</div>
+        <div class="flow-title">사전 준비</div>
+        <div class="flow-desc">노트북 렌탈, 클라우드 환경, 비품 준비, AI 도구 안내</div>
+      </div>
+      <div class="flow-arr">&rarr;</div>
+      <div class="flow-step g" style="padding:14px">
+        <div class="flow-num g">STEP 4 &middot; 6.24 &amp; 6.26</div>
+        <div class="flow-title">예선&middot;본선</div>
+        <div class="flow-desc">현장 세팅, 접수, 노트북, 심사 포털, 시상식</div>
+      </div>
+      <div class="flow-arr">&rarr;</div>
+      <div class="flow-step pp" style="padding:14px">
+        <div class="flow-num pp">STEP 5 &middot; D+14</div>
+        <div class="flow-title">사후 처리</div>
+        <div class="flow-desc">상금 지급, 참가 확인서, 운영 보고서</div>
+      </div>
+    </div>
+    <div style="margin-top:20px" data-step="3">
+      <div class="tag w">현장 운영 인력(안)</div>
+      <div class="g2" style="margin-top:10px">
+        <div class="c" style="padding:14px">
+          <div class="c-dt" style="font-size:.875rem">예선일 (6.24)</div>
+          <table class="tb" style="margin-top:4px;font-size:.6875rem">
+            <tr><td>PM 1명</td><td>현장 총괄</td></tr>
+            <tr><td>오프라인 운영 3명</td><td>접수&middot;안내&middot;진행</td></tr>
+            <tr><td>기술 지원 2명</td><td>노트북&middot;네트워크 관리</td></tr>
+            <tr><td>사진 촬영 1명</td><td>현장 기록</td></tr>
+            <tr><td>행사 요원 5명</td><td>비품&middot;세팅&middot;안내</td></tr>
+          </table>
+        </div>
+        <div class="c" style="padding:14px">
+          <div class="c-dt" style="font-size:.875rem">본선일 (6.26)</div>
+          <table class="tb" style="margin-top:4px;font-size:.6875rem">
+            <tr><td>PM 1명</td><td>현장 총괄</td></tr>
+            <tr><td>오프라인 운영 2명</td><td>접수&middot;진행</td></tr>
+            <tr><td>기술 지원 1명</td><td>노트북&middot;네트워크</td></tr>
+            <tr><td>사진 촬영 1명</td><td>현장 기록</td></tr>
+            <tr><td>시상 담당 2명</td><td>상장&middot;꽃다발&middot;세팅</td></tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span class="brand">DACON &middot; DAKER</span><span class="pg">15 / 18</span><span>Roadmap</span></div>
+</section>
+
+<!-- ===== S16 오프라인 운영 상세 ===== -->
+<section class="slide">
+  <div class="sh"><span class="sh-l">V &mdash; Roadmap</span><span>Offline Operations Detail</span></div>
+  <div class="si">
+    <div class="tag g" data-step="1">오프라인 운영 상세</div>
+    <h2 class="st" data-step="1">aT센터 현장 세팅 &amp; 운영</h2>
+    <div class="g3" style="margin-top:16px" data-step="2">
+      <div class="c c-p" style="padding:16px">
+        <div class="c-dt">장소 구성</div>
+        <ul>
+          <li>대회장 (200명 좌석 + 노트북)</li>
+          <li>접수 데스크</li>
+          <li>대기실 &amp; 휴게 공간</li>
+          <li>VIP룸 (심사위원&middot;주최측)</li>
+          <li>시상식 무대</li>
+        </ul>
+      </div>
+      <div class="c c-w" style="padding:16px">
+        <div class="c-dt">비품 &amp; 디자인</div>
+        <ul>
+          <li>포스터&middot;배너 디자인 제작</li>
+          <li>X배너 (현장 안내)</li>
+          <li>포토월 (기념 촬영)</li>
+          <li>명찰 &amp; 자리배치표</li>
+          <li>참가자 키트</li>
+        </ul>
+      </div>
+      <div class="c c-g" style="padding:16px">
+        <div class="c-dt">시상 &amp; 기록</div>
+        <ul>
+          <li>상장 제작</li>
+          <li>수상 보드 제작</li>
+          <li>꽃다발 준비</li>
+          <li>사진 촬영</li>
+          <li>기념품 (스타벅스 쿠폰 등)</li>
+        </ul>
+      </div>
+    </div>
+    <div class="g2" style="margin-top:16px;gap:16px" data-step="3">
+      <div class="c c-p" style="padding:14px">
+        <div class="c-dt">IT 인프라 세팅</div>
+        <div class="c-dd">노트북 200대 좌석별 배치, 전원 분배, Wi-Fi AP 설치(200대 동시 접속), 백업 회선 확보, 프린터(필요시)</div>
+      </div>
+      <div class="c c-w" style="padding:14px">
+        <div class="c-dt">운영 동선 관리</div>
+        <div class="c-dd">참가자 입장 &rarr; 접수 &rarr; 좌석 &rarr; 대회 &rarr; 제출 &rarr; 퇴장, 심사위원 별도 동선, VIP 안내</div>
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span class="brand">DACON &middot; DAKER</span><span class="pg">16 / 18</span><span>Offline ops</span></div>
+</section>
+
+<!-- ===== S17 성공 레퍼런스 ===== -->
+<section class="slide">
+  <div class="sh"><span class="sh-l">VI &mdash; References</span><span>Success Cases</span></div>
+  <div class="si">
+    <div class="tag" data-step="1">성공 레퍼런스</div>
+    <h2 class="st" data-step="1">대규모 오프라인&middot;하이브리드 대회 운영 사례</h2>
+    <table class="tb" style="margin-top:16px" data-step="2">
+      <tr><th>대회</th><th>주최</th><th>규모</th><th>성과</th></tr>
+      <tr><td><strong>Samsung AI Challenge</strong></td><td>삼성전자</td><td>5,000명+ (누적)</td><td>반도체 데이터 분석, 대규모 대회</td></tr>
+      <tr><td><strong>LG Aimers 해커톤</strong></td><td>LG AI연구원</td><td>20,000명+ (누적)</td><td>교육+해커톤 연계</td></tr>
+      <tr><td><strong>HD현대 AI Challenge</strong></td><td>HD현대</td><td>1,500명+</td><td>건설기계 오일 분류 AI</td></tr>
+      <tr><td><strong>KT K intelligence 해커톤</strong></td><td>KT</td><td>1,500명+</td><td>온/오프 하이브리드, 상금 5천만원</td></tr>
+      <tr><td><strong>SeSAC 바이브코딩</strong></td><td>서울디지털혁신진흥원</td><td>923명</td><td>완주율 70%+, 비개발자 대상</td></tr>
+      <tr><td><strong>한국에너지기술연구원</strong></td><td>에너지기술연</td><td>2,200명+</td><td>에너지 데이터 기반 AI 모델</td></tr>
+      <tr><td><strong>GS E&amp;R AI 경진대회</strong></td><td>GS E&amp;R</td><td>&mdash;</td><td>에너지 도메인 특화</td></tr>
+      <tr><td><strong>K-water AI 러닝톤</strong></td><td>한국수자원공사</td><td>&mdash;</td><td>학습형 해커톤, 워터 도메인 AI</td></tr>
+    </table>
+    <div class="sub" data-step="3" style="margin-top:12px">대규모 오프라인 행사 운영(접수&middot;장비 관리&middot;심사&middot;시상)과 <strong>Expert 심사 포털</strong> 운영 경험을 다수 보유하고 있습니다.</div>
+  </div>
+  <div class="sf"><span class="brand">DACON &middot; DAKER</span><span class="pg">17 / 18</span><span>References</span></div>
+</section>
+
+<!-- ===== S18 ENDING ===== -->
+<section class="slide slide-end">
+  <div class="sh"><span class="sh-l">CLOSING</span><span>&nbsp;</span></div>
+  <div class="si">
+    <div class="lg" data-step="1">DACON &middot; DAKER</div>
+    <h1 data-step="2">
+      제1회 AI 법률 경진대회의<br>
+      <span class="hl">완벽한 운영 파트너를 제안합니다</span>
+    </h1>
+    <div class="ed" data-step="3">
+      500회+ 대회 운영 노하우 &middot; Expert 심사 포털 &middot; 노트북 200대 &amp; 클라우드 환경<br>
+      <strong class="hl-w">홍보 &rarr; 접수 &rarr; 현장 운영 &rarr; 심사 &rarr; 시상 &rarr; 사후처리, 원스톱 운영대행</strong>
+    </div>
+  </div>
+  <div class="sf"><span class="brand">DACON &middot; DAKER</span><span class="pg">18 / 18</span><span>Thank you</span></div>
+</section>
+
+</div></div>
+
+<script>
+(function(){
+  const stage=document.getElementById('stage');
+  const slides=Array.from(document.querySelectorAll('.slide'));
+  const prev=document.getElementById('nav-prev');
+  const next=document.getElementById('nav-next');
+  const bar=document.getElementById('progress-bar');
+  let idx=Math.max(0,slides.findIndex(s=>s.classList.contains('active')));
+  if(idx<0)idx=0;
+
+  function fit(){
+    const s=Math.min(window.innerWidth/1280,window.innerHeight/720);
+    stage.style.transform='scale('+s+')';
+  }
+  function show(i){
+    idx=Math.max(0,Math.min(slides.length-1,i));
+    slides.forEach((s,k)=>s.classList.toggle('active',k===idx));
+    bar.style.width=((idx+1)/slides.length*100)+'%';
+    const frags=slides[idx].querySelectorAll('[data-step]');
+    frags.forEach((el,k)=>{el.classList.remove('visible');setTimeout(()=>el.classList.add('visible'),70*(k+1))});
+    if(location.hash!=='#s'+(idx+1))history.replaceState(null,'','#s'+(idx+1));
+  }
+  function nav(d){show(idx+d)}
+
+  prev.addEventListener('click',()=>nav(-1));
+  next.addEventListener('click',()=>nav(1));
+
+  document.addEventListener('keydown',e=>{
+    if(e.key==='ArrowRight'||e.key==='PageDown'||e.key===' '){e.preventDefault();nav(1)}
+    else if(e.key==='ArrowLeft'||e.key==='PageUp'){e.preventDefault();nav(-1)}
+    else if(e.key==='Home'){show(0)}
+    else if(e.key==='End'){show(slides.length-1)}
+    else if(e.key==='f'||e.key==='F'){
+      if(!document.fullscreenElement)document.documentElement.requestFullscreen().catch(()=>{});
+      else document.exitFullscreen().catch(()=>{});
+    }
+  });
+
+  let tx=0;
+  document.addEventListener('touchstart',e=>{tx=e.touches[0].clientX},{passive:true});
+  document.addEventListener('touchend',e=>{
+    const dx=e.changedTouches[0].clientX-tx;
+    if(Math.abs(dx)>50)nav(dx<0?1:-1);
+  },{passive:true});
+
+  const h=location.hash.match(/^#s(\d+)$/);
+  if(h){const n=parseInt(h[1],10)-1;if(n>=0&&n<slides.length)idx=n}
+
+  window.addEventListener('resize',fit);
+  fit();show(idx);
+})();
+</script>
+
+</body>
+</html>
