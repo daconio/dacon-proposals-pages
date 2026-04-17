@@ -72,7 +72,59 @@ SKIP_CARD_SYNC=1 git commit -m "..."   # 이번 커밋만 카드 sync 스킵
 git commit --no-verify -m "..."        # 모든 pre-commit 훅 스킵
 ```
 
-## HTML → PDF 변환 (`html_to_pdf.py`)
+## HTML → PDF 2가지 포맷 변환 (`make_pdf.py`)
+
+**A4(landscape/portrait)와 16:9** 2가지 포맷을 **한 번의 슬라이드 캡처로** 동시 생성하는 래퍼입니다.
+대면 배포용 A4 인쇄본과 프레젠테이션용 16:9 파일을 분리 관리할 때 유용합니다.
+
+```bash
+# 기본: 16:9 + A4 landscape 둘 다 생성 (2가지 버전)
+python3 scripts/make_pdf.py 제안/2026-04-17-강원대_부트캠프.html
+
+# 한 포맷만
+python3 scripts/make_pdf.py --format 16x9 제안/foo.html
+python3 scripts/make_pdf.py --format a4   제안/foo.html    # A4 landscape
+python3 scripts/make_pdf.py --format a4p  제안/foo.html    # A4 portrait
+
+# 전부 (16:9 + A4 landscape + A4 portrait)
+python3 scripts/make_pdf.py --format all  제안/foo.html
+
+# 고품질 (scale 3× + 무손실 PNG 임베드 — 최종 납품용)
+python3 scripts/make_pdf.py --hq 제안/foo.html
+```
+
+### 출력 파일명 규칙 (입력 HTML과 같은 폴더)
+
+| 포맷 | 확장자 | PDF 페이지 크기 |
+|---|---|---|
+| **16:9** | `<stem>.pdf` | 960 × 540 pt (= 1280 × 720 px @ 96dpi) |
+| **A4 landscape** | `<stem>.a4.pdf` | 842 × 595 pt (= 297 × 210 mm) |
+| **A4 portrait** | `<stem>.a4p.pdf` | 595 × 842 pt (= 210 × 297 mm) |
+
+### 동작 방식
+
+1. **슬라이드 캡처 1회**: Playwright로 `.slide`를 1280×720 PNG로 한 번만 캡처
+2. **포맷별 PDF 조립**:
+   - 16:9: PNG를 그대로 임베드 → 960×540pt 페이지
+   - A4: 1280×720 PNG를 A4 흰 캔버스(@300dpi)에 **센터 피팅 + 레터박스**로 합성 → img2pdf로 PDF 조립
+
+### 옵션
+
+| 옵션 | 기본값 | 설명 |
+|---|---|---|
+| `--format` (`-f`) | `both` | `16x9` / `a4` / `a4p` / `both`(16x9+a4) / `all`(16x9+a4+a4p) |
+| `--scale N` | 2 | 캡처 device_scale_factor (2=Retina, 3=고해상도) |
+| `--lossless` |  | PNG 무손실 임베드 (`img2pdf` 필요) |
+| `--hq` |  | `--scale 3 + --lossless` 통합 |
+| `--quiet` (`-q`) |  | 진행 메시지 숨김 |
+
+### 의존성 (`html_to_pdf.py`와 동일)
+
+- `playwright`, `Pillow`, `img2pdf`(lossless/hq), `PyPDF2`(선택), Google Chrome
+
+---
+
+## HTML → PDF 변환 (`html_to_pdf.py`) — 16:9 전용
 
 슬라이드 덱(`.slide` 요소 기반) HTML을 정확한 비율의 PDF로 변환합니다.
 
@@ -159,7 +211,8 @@ python3 scripts/check_md_html_sync.py path/to/file.md path/to/file.html
 scripts/
 ├── cards.json             # 카드 단일 소스
 ├── sync_cards.py          # index.html 생성기 + 스캐너 (stdlib only)
-├── html_to_pdf.py         # HTML 슬라이드 → PDF 변환기 (playwright + Pillow)
+├── make_pdf.py            # HTML 슬라이드 → A4 + 16:9 2가지 포맷 동시 생성 (playwright + Pillow + img2pdf)
+├── html_to_pdf.py         # HTML 슬라이드 → 16:9 PDF 단일 변환기 (playwright + Pillow)
 ├── check_md_html_sync.py  # MD ↔ HTML 동기화 검증
 └── README.md              # 이 파일
 

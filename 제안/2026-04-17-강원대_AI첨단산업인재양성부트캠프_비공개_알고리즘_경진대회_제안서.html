@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>2026 강원대학교 AI분야 첨단산업인재양성 부트캠프 — 비공개 알고리즘 경진대회 운영 용역 제안서 · DACON</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" rel="stylesheet" />
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+--p:#1E3A8A;--pd:#162B66;--op:#f8faff;
+--ob:#2a3439;--sf:#ffffff;--sl:#f1f5f9;--sw:#ffffff;
+--os:#0f172a;--osv:#475569;--ov:#94a3b8;
+--sc:#dbe3f4;--osc:#1e3a8a;
+--w:#c2622d;--wb:rgba(194,98,45,0.08);
+--g:#0f766e;--gb:rgba(15,118,110,0.08);
+--f:'Plus Jakarta Sans','Pretendard Variable',Pretendard,-apple-system,system-ui,sans-serif;
+--sa:0 8px 24px rgba(30,41,59,0.04);--gh:1px solid rgba(148,163,184,0.2);
+--rs:0.25rem;--rm:0.375rem;--rl:0.75rem;--rx:1rem;--rf:9999px;
+--sw2:1280px;--sh:720px;
+}
+html,body{width:100%;height:100%;background:#e2e8f0;font-family:var(--f);overflow:hidden;color:var(--os)}
+#viewport{position:fixed;inset:0;display:flex;align-items:center;justify-content:center}
+#stage{position:relative;width:var(--sw2);height:var(--sh);overflow:hidden;transform-origin:center center;border-radius:var(--rl);box-shadow:0 12px 48px rgba(30,41,59,0.15)}
+.slide{position:absolute;inset:0;background:var(--sf);display:flex;flex-direction:column;opacity:0;pointer-events:none;transition:opacity 0s}
+.slide.active{opacity:1;pointer-events:auto}
+.si{flex:1;display:flex;flex-direction:column;padding:62px 72px 48px;position:relative}
+.sh{position:absolute;top:0;left:0;right:0;height:44px;padding:0 32px;display:flex;justify-content:space-between;align-items:center;background:rgba(255,255,255,.95);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-bottom:1px solid rgba(148,163,184,.2)}
+.sh-l{font-size:.8125rem;font-weight:700;color:var(--p);letter-spacing:.06em;text-transform:uppercase}
+.sh-r{font-size:.6875rem;font-weight:700;color:var(--ov);letter-spacing:.08em;text-transform:uppercase}
+.sf{position:absolute;bottom:0;left:0;right:0;padding:10px 32px;display:flex;justify-content:space-between;align-items:center;background:rgba(255,255,255,.95);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-top:1px solid rgba(148,163,184,.15)}
+.sf-logo{display:flex;align-items:center;gap:8px;font-size:.75rem;font-weight:700;color:var(--p)}
+.sf-logo span.dot{color:var(--ov);font-weight:400}
+.sf-logo span.dc{color:var(--p)}
+.sf-pg{font-size:.6875rem;color:var(--osv);font-weight:600}
+.sf-cr{font-size:.5625rem;color:var(--ov);letter-spacing:.03em;font-weight:600}
+.tag{display:inline-flex;align-items:center;gap:8px;font-size:.6875rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--p);margin-bottom:12px}
+.tag::before{content:'';width:24px;height:2.5px;background:var(--p);border-radius:2px}
+.tag-w{color:var(--w)}.tag-w::before{background:var(--w)}
+.tag-g{color:var(--g)}.tag-g::before{background:var(--g)}
+h2.st{font-size:1.875rem;font-weight:800;line-height:1.2;color:var(--os);letter-spacing:-.02em}
+.hl{color:var(--p)}.hl-w{color:var(--w)}.hl-g{color:var(--g)}
+.sub{margin-top:8px;font-size:.875rem;color:var(--osv);line-height:1.65}
+.c{background:var(--sw);border-radius:var(--rl);padding:18px;border:1px solid rgba(148,163,184,.2)}
+.c-b{background:var(--sc);border:none}.c-w{background:var(--wb);border:none}.c-s{background:var(--sl);border:none}.c-g{background:var(--gb);border:none}
+.c-t{font-size:.875rem;font-weight:700;color:var(--os);margin-bottom:6px}
+.c-d{font-size:.75rem;color:var(--osv);line-height:1.6}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+.g4{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:10px}
+.ic{width:34px;height:34px;border-radius:var(--rm);display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:800;margin-bottom:10px;color:#fff;background:var(--p)}
+.ic-w{background:var(--w)}.ic-g{background:var(--g)}
+.bd{display:inline-block;padding:3px 10px;border-radius:var(--rf);font-size:.625rem;font-weight:700;background:var(--sc);color:var(--osc)}
+.bd-w{background:var(--wb);color:var(--w)}
+.bd-g{background:var(--gb);color:var(--g)}
+.tb{width:100%;border-collapse:collapse;font-size:.75rem}
+.tb th{text-align:left;padding:8px 12px;background:var(--sl);color:var(--os);font-weight:700;font-size:.6875rem;border-bottom:2px solid var(--p)}
+.tb td{padding:7px 12px;color:var(--osv);border-bottom:1px solid rgba(148,163,184,.15)}
+.tb tr:last-child td{border-bottom:none}
+.tb-xs{font-size:.6875rem}
+.tb-xs th{padding:6px 10px;font-size:.625rem}
+.tb-xs td{padding:5px 10px}
+.mx{text-align:center;padding:14px 10px;background:var(--sl);border-radius:var(--rl)}
+.mx .v{font-size:1.5rem;font-weight:800;line-height:1;color:var(--p)}
+.mx .l{font-size:.625rem;color:var(--osv);margin-top:4px;font-weight:500}
+.slide-sec .si{justify-content:center;align-items:center;text-align:center;padding-top:60px;background:linear-gradient(135deg,var(--sf) 0%,var(--sc) 100%)}
+.slide-sec .sn{font-size:4.5rem;font-weight:800;color:rgba(30,58,138,.08);line-height:1;margin-bottom:8px}
+.slide-sec h2{font-size:2.25rem;font-weight:800;color:var(--os);letter-spacing:-.02em}
+.slide-sec .sd{font-size:1rem;color:var(--osv);margin-top:10px;max-width:720px}
+.slide-end .si{justify-content:center;align-items:center;text-align:center;background:linear-gradient(135deg,var(--sf) 0%,var(--sc) 100%)}
+.slide-end h1{font-size:2.5rem;font-weight:800;color:var(--os);line-height:1.15;letter-spacing:-.02em}
+.slide-end .end-sub{font-size:1rem;color:var(--osv);margin-top:12px;line-height:1.6}
+.slide-end .end-logo{display:flex;align-items:center;justify-content:center;gap:16px;margin-bottom:28px}
+.cl{font-size:.75rem;font-weight:700;color:var(--p);margin-bottom:8px;letter-spacing:.04em;text-transform:uppercase}
+.cl-w{color:var(--w)}.cl-g{color:var(--g)}
+.ck{list-style:none;display:flex;flex-direction:column;gap:5px}
+.ck li{display:flex;align-items:flex-start;gap:8px;font-size:.75rem;color:var(--osv);line-height:1.55}
+.ck li .i{flex-shrink:0;font-size:.75rem;margin-top:1px;font-weight:700;color:var(--p)}
+.ck-w li .i{color:var(--w)}.ck-g li .i{color:var(--g)}
+.src{font-size:.5625rem;color:var(--ov);position:absolute;bottom:52px;left:72px;right:72px}
+.stage-bar{display:flex;align-items:stretch;gap:0;margin-top:6px;border-radius:var(--rm);overflow:hidden;border:1px solid rgba(148,163,184,.2)}
+.stage-box{flex:1;padding:10px 8px;background:#fff;border-right:1px solid rgba(148,163,184,.2);text-align:center;position:relative}
+.stage-box:last-child{border-right:none}
+.stage-box .num{font-size:.625rem;font-weight:800;color:var(--p);letter-spacing:.06em}
+.stage-box .lb{font-size:.75rem;font-weight:700;color:var(--os);margin-top:2px}
+.stage-box .ds{font-size:.5625rem;color:var(--osv);margin-top:3px;line-height:1.4}
+.stage-box.on{background:var(--sc)}
+.stage-box.on-w{background:var(--wb)}
+.stage-box.on-g{background:var(--gb)}
+.kpi{display:flex;gap:10px}
+.kpi .k{flex:1;background:var(--sl);border-radius:var(--rm);padding:10px;text-align:center}
+.kpi .v{font-size:1.375rem;font-weight:800;color:var(--p);line-height:1}
+.kpi .l{font-size:.5625rem;color:var(--osv);font-weight:600;margin-top:4px}
+.gantt{display:grid;grid-template-columns:90px repeat(7,1fr);gap:4px;margin-top:8px;font-size:.6875rem}
+.gantt .hd{font-weight:700;color:var(--os);text-align:center;padding:6px 4px;background:var(--sl);border-radius:var(--rs)}
+.gantt .lb{font-weight:700;color:var(--os);padding:6px 8px;background:var(--sl);border-radius:var(--rs);display:flex;align-items:center}
+.gantt .bar{padding:8px 4px;border-radius:var(--rs);text-align:center;font-weight:700;font-size:.625rem;color:#fff}
+.gantt .bar-p{background:var(--p)}.gantt .bar-w{background:var(--w)}.gantt .bar-g{background:var(--g)}
+.gantt .empty{background:#fafafa;border-radius:var(--rs)}
+[data-step]{opacity:0;transform:translateY(12px);transition:opacity .4s ease,transform .4s ease}
+[data-step].visible{opacity:1;transform:none}
+[data-step].pre-visible{opacity:1;transform:none;transition:none}
+.nav-btn{position:fixed;top:50%;transform:translateY(-50%);width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.9);border:none;color:var(--osv);cursor:pointer;z-index:100;display:flex;align-items:center;justify-content:center;font-size:18px;transition:all .2s;user-select:none;box-shadow:var(--sa);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px)}
+.nav-btn:hover{color:var(--p)}
+#nav-prev{left:12px}#nav-next{right:12px}
+#progress-bar{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--p),var(--pd));transition:width .4s ease;z-index:100}
+#key-hint{position:fixed;bottom:16px;left:50%;transform:translateX(-50%);color:var(--ov);font-size:.6875rem;z-index:100;opacity:.4}
+@page { size: landscape; margin: 0; }
+@media print {
+  html, body { background: #fff !important; overflow: visible !important; height: auto !important; width: auto !important; margin: 0 !important; padding: 0 !important; }
+  #viewport { position: static !important; display: block !important; height: auto !important; }
+  #stage { position: static !important; width: auto !important; height: auto !important; overflow: visible !important; transform: none !important; box-shadow: none !important; border-radius: 0 !important; }
+  .slide { position: relative !important; inset: auto !important; opacity: 1 !important; pointer-events: auto !important; display: flex !important; flex-direction: column !important; width: 100vw !important; height: 100vh !important; page-break-after: always !important; break-after: page !important; page-break-inside: avoid !important; margin: 0 !important; overflow: hidden !important; }
+  .nav-btn, #progress-bar, #key-hint { display: none !important; }
+  [data-step] { opacity: 1 !important; transform: none !important; }
+}
+</style>
+</head>
+<body>
+<div id="viewport"><div id="stage">
+
+<!-- S1: COVER -->
+<section class="slide active" id="s1">
+  <div class="si" style="justify-content:center;align-items:flex-start;padding-left:88px;background:linear-gradient(135deg,#f8faff 0%,var(--sc) 100%)">
+    <div style="position:absolute;top:22px;right:32px"><span style="display:inline-block;background:linear-gradient(135deg,var(--p),var(--pd));color:#fff;padding:6px 18px;border-radius:var(--rf);font-size:.75rem;font-weight:700">2026</span></div>
+    <div data-step="1" style="display:flex;align-items:center;gap:12px">
+      <span style="font-size:1.375rem;font-weight:800;color:var(--p);letter-spacing:.04em">DACON</span>
+    </div>
+    <div data-step="2" style="margin-top:10px;font-size:.75rem;font-weight:700;color:var(--p);letter-spacing:.12em;text-transform:uppercase">KANGWON NATIONAL UNIV. · AI BOOTCAMP — PRIVATE ALGORITHM CONTEST</div>
+    <h1 data-step="3" style="font-size:2.25rem;font-weight:800;line-height:1.2;letter-spacing:-.02em;color:var(--os);margin-top:10px">
+      강원대 AI분야 첨단산업인재양성 부트캠프<br/><span style="color:var(--p)">비공개 알고리즘 경진대회</span> 운영 용역 제안서
+    </h1>
+    <p data-step="4" style="font-size:.9375rem;color:var(--osv);margin-top:16px;line-height:1.7">
+      강원대학교 AI분야 첨단산업인재양성 부트캠프 사업단장 귀하<br/>
+      부트캠프 재학생 <strong>100명 미만</strong> · 학부·대학원 구분 리더보드 · <strong>총 7주 운영</strong>
+    </p>
+    <div data-step="5" style="display:flex;gap:8px;margin-top:24px;flex-wrap:wrap">
+      <span style="padding:7px 14px;border-radius:var(--rf);background:var(--sc);font-size:.75rem;font-weight:700;color:var(--osc)">비공개(Private) 대회</span>
+      <span style="padding:7px 14px;border-radius:var(--rf);background:var(--wb);font-size:.75rem;font-weight:700;color:var(--w)">학부·대학원 구분 리더보드</span>
+      <span style="padding:7px 14px;border-radius:var(--rf);background:var(--gb);font-size:.75rem;font-weight:700;color:var(--g)">상위 5명 코드 검증</span>
+    </div>
+    <div data-step="6" style="position:absolute;bottom:28px;left:88px;font-size:.75rem;color:var(--osv)">
+      제안사: 데이콘(주)
+    </div>
+    <div style="position:absolute;bottom:20px;right:32px;font-size:.5625rem;color:var(--ov)">COPYRIGHT 2026 DACON</div>
+  </div>
+</section>
+
+<!-- S2: 제안 요약 -->
+<section class="slide" id="s2">
+  <div class="sh"><span class="sh-l">EXECUTIVE SUMMARY</span><span class="sh-r">KNU AI BOOTCAMP 2026</span></div>
+  <div class="si" style="padding-top:60px">
+    <div class="tag">제안 요약</div>
+    <h2 class="st" data-step="1">한 장으로 보는 <span class="hl">본 제안의 핵심</span></h2>
+    <p class="sub" data-step="2">100명 미만 비공개 알고리즘 경진대회 — 설계 3주 + 운영 2주 + 검증 2주 = 총 7주</p>
+    <div class="g2" style="margin-top:14px;flex:1">
+      <div data-step="3">
+        <table class="tb">
+          <thead><tr><th>구분</th><th>내용</th></tr></thead>
+          <tbody>
+            <tr><td style="font-weight:700">사업명</td><td>비공개 알고리즘 경진대회 운영 용역</td></tr>
+            <tr><td style="font-weight:700">발주처</td><td>강원대 AI분야 첨단산업인재양성 부트캠프 사업단</td></tr>
+            <tr><td style="font-weight:700">참여 대상</td><td>부트캠프 소속 재학생 (학부·대학원)</td></tr>
+            <tr><td style="font-weight:700">참여 규모</td><td><strong>100명 미만</strong> · 비공개 대회</td></tr>
+            <tr><td style="font-weight:700">운영 기간</td><td>총 7주 (설계 3 + 운영 2 + 검증 2)</td></tr>
+            <tr><td style="font-weight:700">리더보드</td><td>동일 문제, 학부·대학원 <strong>2개 랭킹 분리</strong></td></tr>
+            <tr><td style="font-weight:700">제안사</td><td>데이콘(주)</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div data-step="4" style="display:flex;flex-direction:column;gap:10px">
+        <div class="cl">본 제안의 4대 전달 가치</div>
+        <div class="c c-b" style="padding:12px 14px"><div class="c-t" style="font-size:.8125rem;color:var(--osc)">01. 13개 세부 업무 × 7주 완주</div><div class="c-d" style="color:var(--osc);opacity:.85">설계 3주 · 운영 2주 · 검증 2주를 단계별 책임 수행</div></div>
+        <div class="c c-w" style="padding:12px 14px"><div class="c-t" style="font-size:.8125rem;color:var(--w)">02. 학부·대학원 구분 리더보드</div><div class="c-d">동일 문제, 별도 랭킹으로 수준별 성취도 측정</div></div>
+        <div class="c c-g" style="padding:12px 14px"><div class="c-t" style="font-size:.8125rem;color:var(--g)">03. 상위 5명 코드 재현 검증</div><div class="c-d">점수 재현·외부 데이터 검사·치팅 최종 판정</div></div>
+        <div class="c c-s" style="padding:12px 14px"><div class="c-t" style="font-size:.8125rem">04. 교육용 Base-Line 교재 배포</div><div class="c-d">하위권도 완주 가능한 학습 도우미 제공</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span class="sf-logo"><span class="dc">DACON</span></span><span class="sf-pg">2</span><span class="sf-cr">COPYRIGHT 2026</span></div>
+</section>
+
+<!-- S3: SECTION I -->
+<section class="slide slide-sec" id="s3">
+  <div class="si">
+    <div class="sn" data-step="1">I</div>
+    <h2 data-step="2">사업 개요</h2>
+    <p class="sd" data-step="3">추진 목적 · 참여 대상 · 비공개 대회 성격에 대한 본 제안의 이해</p>
+  </div>
+  <div class="sf"><span class="sf-logo"><span class="dc">DACON</span></span><span class="sf-pg">3</span><span class="sf-cr">COPYRIGHT 2026</span></div>
+</section>
+
+<!-- S4: 추진 목적 -->
+<section class="slide" id="s4">
+  <div class="sh"><span class="sh-l">I-1 추진 목적</span><span class="sh-r">KNU AI BOOTCAMP</span></div>
+  <div class="si" style="padding-top:60px">
+    <div class="tag">추진 목적에 대한 이해</div>
+    <h2 class="st" data-step="1">부트캠프 학습 → <span class="hl">실전 알고리즘 검증</span>까지</h2>
+    <p class="sub" data-step="2">부트캠프 커리큘럼과 직결되는 실전 문제를 통해 학부·대학원 구분 성취도 측정</p>
+    <table class="tb" style="margin-top:14px" data-step="3">
+      <thead><tr><th style="width:40%">발주처 추진 목적</th><th>본 제안의 실행 방안</th></tr></thead>
+      <tbody>
+        <tr><td>부트캠프 교육과 연계된 <strong>실전 알고리즘 문제</strong> 경험 제공</td><td>사업단 커리큘럼 직결 문제 도메인 설계 (사업단 승인)</td></tr>
+        <tr><td><strong>학부·대학원 구분</strong> 평가로 수준별 성취도 측정</td><td>동일 문제 · 2개 리더보드 병행 운영 (별도 랭킹)</td></tr>
+        <tr><td><strong>공정한 경쟁</strong> 환경 보장</td><td>치팅 실시간 모니터링 + 상위 5명 수작업 코드 검증</td></tr>
+        <tr><td>부트캠프 <strong>교육 효과 극대화</strong></td><td>학생용 Base-Line Code 교재 배포 — 하위권도 완주</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="sf"><span class="sf-logo"><span class="dc">DACON</span></span><span class="sf-pg">4</span><span class="sf-cr">COPYRIGHT 2026</span></div>
+</section>
+
+<!-- S5: 사업 개요 및 준수 사항 -->
+<section class="slide" id="s5">
+  <div class="sh"><span class="sh-l">I-2 사업 개요 준수</span><span class="sh-r">KNU AI BOOTCAMP</span></div>
+  <div class="si" style="padding-top:60px">
+    <div class="tag">사업 개요 및 준수 사항</div>
+    <h2 class="st" data-step="1"><span class="hl">비공개 대회 요구사항</span> 전 항목 준수</h2>
+    <p class="sub" data-step="2">100명 미만 · 학부·대학원 구분 · 7주 · CS 24/48h SLA · 상위 5명 검증</p>
+    <div class="g2" style="margin-top:14px;flex:1">
+      <div data-step="3">
+        <table class="tb">
+          <thead><tr><th>항목</th><th>발주처 요구</th></tr></thead>
+          <tbody>
+            <tr><td>대회 성격</td><td>비공개(Private) 알고리즘 경진대회</td></tr>
+            <tr><td>참여 규모</td><td>100명 미만</td></tr>
+            <tr><td>리더보드</td><td>학부·대학원 구분</td></tr>
+            <tr><td>운영 기간</td><td>총 7주</td></tr>
+            <tr><td>CS SLA</td><td>주중 24h / 주말 48h 이내</td></tr>
+            <tr><td>코드 검증</td><td>상위 5명</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div data-step="4">
+        <table class="tb">
+          <thead><tr><th>본 제안 준수 사항</th></tr></thead>
+          <tbody>
+            <tr><td>초청 링크 · 외부 노출 차단 · 사업단 승인 참가자만</td></tr>
+            <tr><td>학부+대학원 통합 최대 99명 운영 설계</td></tr>
+            <tr><td>동일 문제 · 2개 랭킹 분리 리더보드</td></tr>
+            <tr><td>설계 3주 → 운영 2주 → 검증 2주 (Gantt 제시)</td></tr>
+            <tr><td><strong>주중 24h / 주말 48h</strong> SLA 준수</td></tr>
+            <tr><td>수상자 대상 수작업 코드 재현 검증</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span class="sf-logo"><span class="dc">DACON</span></span><span class="sf-pg">5</span><span class="sf-cr">COPYRIGHT 2026</span></div>
+</section>
+
+<!-- S6: SECTION II -->
+<section class="slide slide-sec" id="s6">
+  <div class="si">
+    <div class="sn" data-step="1">II</div>
+    <h2 data-step="2">대회 운영 절차 (핵심)</h2>
+    <p class="sd" data-step="3">13개 세부 업무 · 3단계(설계·운영·검증) · 총 7주 수행 체계</p>
+  </div>
+  <div class="sf"><span class="sf-logo"><span class="dc">DACON</span></span><span class="sf-pg">6</span><span class="sf-cr">COPYRIGHT 2026</span></div>
+</section>
+
+<!-- S7: 13개 세부 업무 (설계 · 운영) -->
+<section class="slide" id="s7">
+  <div class="sh"><span class="sh-l">II-1 13개 세부 업무 (1/2)</span><span class="sh-r">설계 · 운영</span></div>
+  <div class="si" style="padding-top:56px">
+    <div class="tag">핵심 절차 표 · 설계(①~⑥) + 운영(⑦~⑩)</div>
+    <h2 class="st" data-step="1">제안요청서 기재 <span class="hl">13개 세부 업무 전량 이행</span></h2>
+    <table class="tb tb-xs" style="margin-top:10px" data-step="2">
+      <thead><tr><th style="width:4%">#</th><th style="width:60%">상세 내용</th><th style="width:10%">팀/식</th><th style="width:14%">주(Week)</th><th style="width:12%">단계</th></tr></thead>
+      <tbody>
+        <tr><td><strong>1</strong></td><td>문제 설계 (평가 산식, 난이도, 목표, 형식, 참가자 범위, 절차 등)</td><td>1 식</td><td><strong>3 주</strong></td><td><span class="bd">설계</span></td></tr>
+        <tr><td><strong>2</strong></td><td>Base-Line Code 설계 및 제작</td><td>1 식</td><td>설계 내 병행</td><td><span class="bd">설계</span></td></tr>
+        <tr><td><strong>3</strong></td><td>학생을 위한 교육용 Base-Line Code 교재 배포</td><td>1 식</td><td>설계 내 병행</td><td><span class="bd">설계</span></td></tr>
+        <tr><td><strong>4</strong></td><td>치팅 모니터링 (체계 구축 · 로그 수집 설계)</td><td>1 식</td><td>설계 내 병행</td><td><span class="bd">설계</span></td></tr>
+        <tr><td><strong>5</strong></td><td>경진대회 페이지 제작</td><td>1 식</td><td>설계 내 병행</td><td><span class="bd">설계</span></td></tr>
+        <tr><td><strong>6</strong></td><td>명세 (규칙, 참가동의) 개발 및 제출 테스트</td><td>1 식</td><td>설계 내 병행</td><td><span class="bd">설계</span></td></tr>
+        <tr><td><strong>7</strong></td><td>대회 문의 등 CS 관리 (주중 24시간/주말 48시간 이내)</td><td>1 식</td><td><strong>2 주</strong></td><td><span class="bd bd-w">운영</span></td></tr>
+        <tr><td><strong>8</strong></td><td>리더보드 테스트 (학부·대학원 생 구분)</td><td>1 식</td><td>운영 내 병행</td><td><span class="bd bd-w">운영</span></td></tr>
+        <tr><td><strong>9</strong></td><td>참가자 관리 (개인 및 팀 병합, 커뮤니케이션, 부정 차단)</td><td>1 식</td><td>운영 내 병행</td><td><span class="bd bd-w">운영</span></td></tr>
+        <tr><td><strong>10</strong></td><td>리더보드 (평가 산식, 스코어, 모니터링, 치팅) 관리 및 운영</td><td>1 식</td><td>운영 내 병행</td><td><span class="bd bd-w">운영</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="sf"><span class="sf-logo"><span class="dc">DACON</span></span><span class="sf-pg">7</span><span class="sf-cr">COPYRIGHT 2026</span></div>
+</section>
+
+<!-- S8: 13개 세부 업무 (검증) + 합계 -->
+<section class="slide" id="s8">
+  <div class="sh"><span class="sh-l">II-1 13개 세부 업무 (2/2)</span><span class="sh-r">검증</span></div>
+  <div class="si" style="padding-top:56px">
+    <div class="tag tag-g">핵심 절차 표 · 검증(⑪~⑬) + 단계 합계</div>
+    <h2 class="st" data-step="1">검증 단계 <span class="hl-g">3개 업무 + 7주 합계</span></h2>
+    <table class="tb tb-xs" style="margin-top:10px" data-step="2">
+      <thead><tr><th style="width:4%">#</th><th style="width:60%">상세 내용</th><th style="width:10%">팀/식</th><th style="width:14%">주(Week)</th><th style="width:12%">단계</th></tr></thead>
+      <tbody>
+        <tr><td><strong>11</strong></td><td>코드 치팅 및 오류 검증 (온라인 게시판 대응 포함)</td><td>1 식</td><td><strong>2 주</strong></td><td><span class="bd bd-g">검증</span></td></tr>
+        <tr><td><strong>12</strong></td><td>수상 및 결과 커뮤니케이션 CS 및 공지</td><td>1 식</td><td>검증 내 병행</td><td><span class="bd bd-g">검증</span></td></tr>
+        <tr><td><strong>13</strong></td><td>수상자 대상 코드 검증 (상위 5명)</td><td>1 식</td><td>검증 내 병행</td><td><span class="bd bd-g">검증</span></td></tr>
+      </tbody>
+    </table>
+    <div class="g3" style="margin-top:14px" data-step="3">
+      <div class="mx"><div class="v">3 주</div><div class="l">설계 단계 · 6개 업무</div></div>
+      <div class="mx" style="background:var(--wb)"><div class="v" style="color:var(--w)">2 주</div><div class="l">운영 단계 · 4개 업무</div></div>
+      <div class="mx" style="background:var(--gb)"><div class="v" style="color:var(--g)">2 주</div><div class="l">검증 단계 · 3개 업무</div></div>
+    </div>
+    <div class="c c-s" style="margin-top:12px;padding:10px 14px" data-step="4">
+      <div class="c-d">※ 13개 항목은 <strong>단계별 1식 단위 완결 과업</strong>으로, 각 단계 주(Week) 기간 내 병행·순차 수행. 세부 착수 시점은 사업단 Kick-off에서 최종 확정.</div>
+    </div>
+  </div>
+  <div class="sf"><span class="sf-logo"><span class="dc">DACON</span></span><span class="sf-pg">8</span><span class="sf-cr">COPYRIGHT 2026</span></div>
+</section>
+
+<!-- S9: 7주 Gantt -->
+<section class="slide" id="s9">
+  <div class="sh"><span class="sh-l">II-2 7주 Gantt</span><span class="sh-r">단계별 흐름</span></div>
+  <div class="si" style="padding-top:60px">
+    <div class="tag">7주 Gantt 구조</div>
+    <h2 class="st" data-step="1">설계 3주 → 운영 2주 → <span class="hl-g">검증 2주</span></h2>
+    <p class="sub" data-step="2">주별 단계 배치와 산출물을 시각화 · 각 단계 종료 시점에 완료 보고서 제출</p>
+    <div class="gantt" style="margin-top:16px" data-step="3">
+      <div class="hd">단계</div>
+      <div class="hd">W1</div><div class="hd">W2</div><div class="hd">W3</div>
+      <div class="hd">W4</div><div class="hd">W5</div>
+      <div class="hd">W6</div><div class="hd">W7</div>
+
+      <div class="lb">설계 (①~⑥)</div>
+      <div class="bar bar-p">문제·BL</div><div class="bar bar-p">교재·페이지</div><div class="bar bar-p">명세·QA</div>
+      <div class="empty"></div><div class="empty"></div>
+      <div class="empty"></div><div class="empty"></div>
+
+      <div class="lb">운영 (⑦~⑩)</div>
+      <div class="empty"></div><div class="empty"></div><div class="empty"></div>
+      <div class="bar bar-w">CS · 리더보드</div><div class="bar bar-w">참가자 관리</div>
+      <div class="empty"></div><div class="empty"></div>
+
+      <div class="lb">검증 (⑪~⑬)</div>
+      <div class="empty"></div><div class="empty"></div><div class="empty"></div>
+      <div class="empty"></div><div class="empty"></div>
+      <div class="bar bar-g">치팅·오류 검증</div><div class="bar bar-g">상위 5명 코드 검증</div>
+    </div>
+    <table class="tb" style="margin-top:14px" data-step="4">
+      <thead><tr><th>단계</th><th>기간</th><th>주요 산출물</th></tr></thead>
+      <tbody>
+        <tr><td><span class="bd">설계</span></td><td>W1 ~ W3 (3주)</td><td>문제 정의서 · 평가 산식 · Base-Line · 교재 · 대회 페이지 · 규칙·동의서</td></tr>
+        <tr><td><span class="bd bd-w">운영</span></td><td>W4 ~ W5 (2주)</td><td>CS 로그 · 학부/대학원 리더보드 · 참가자 관리 로그 · 부정 차단 기록</td></tr>
+        <tr><td><span class="bd bd-g">검증</span></td><td>W6 ~ W7 (2주)</td><td>치팅 검증 보고서 · 수상 공지 · 상위 5명 코드 재현 보고서</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="sf"><span class="sf-logo"><span class="dc">DACON</span></span><span class="sf-pg">9</span><span class="sf-cr">COPYRIGHT 2026</span></div>
+</section>
+
+<!-- S10: 세부 업무 ↔ 투입 인력 -->
+<section class="slide" id="s10">
+  <div class="sh"><span class="sh-l">II-3 업무 ↔ 인력 매핑</span><span class="sh-r">책임 소재 명확화</span></div>
+  <div class="si" style="padding-top:60px">
+    <div class="tag">세부 업무 ↔ 투입 인력 매핑</div>
+    <h2 class="st" data-step="1">13개 업무의 <span class="hl">책임자를 사전에 배정</span></h2>
+    <p class="sub" data-step="2">각 업무마다 주 투입 인력과 지원 인력을 명시 — Kick-off 직후 전원 착수 가능</p>
+    <table class="tb" style="margin-top:14px" data-step="3">
+      <thead><tr><th style="width:30%">세부 업무</th><th>주 투입 인력</th><th>지원 인력</th></tr></thead>
+      <tbody>
+        <tr><td>①, ② 문제·Base-Line 설계</td><td><strong>AI 엔지니어 1명</strong></td><td>데이터 사이언티스트 1명</td></tr>
+        <tr><td>③ 교재 제작</td><td><strong>기술 에디터 1명</strong></td><td>AI 엔지니어 검토</td></tr>
+        <tr><td>④, ⑩ 치팅 모니터링·리더보드</td><td><strong>플랫폼 엔지니어 1명</strong></td><td>총괄 PM 감독</td></tr>
+        <tr><td>⑤, ⑥ 대회 페이지·명세</td><td><strong>프론트엔드 엔지니어 1명</strong></td><td>법무·보안 검토</td></tr>
+        <tr><td>⑦, ⑨, ⑫ CS·참가자 관리</td><td><strong>운영 매니저 1명</strong></td><td>PM 일일 점검</td></tr>
+        <tr><td>⑧ 리더보드 테스트</td><td><strong>플랫폼 엔지니어 1명</strong></td><td>QA 1명</td></tr>
+        <tr><td>⑪, ⑬ 코드 검증</td><td><strong>AI 엔지니어 1명</strong></td><td>데이터 사이언티스트 1명</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="sf"><span class="sf-logo"><span class="dc">DACON</span></span><span class="sf-pg">10</span><span class="sf-cr">COPYRIGHT 2026</span></div>
+</section>
+
+<!-- S11: SECTION III -->
+<section class="slide slide-sec" id="s11">
+  <div class="si">
+    <div class="sn" data-step="1">III</div>
+    <h2 data-step="2">설계 단계 상세</h2>
+    <p class="sd" data-step="3">W1 ~ W3 · 3주 · 6개 세부 업무 · 대회의 품질을 결정하는 핵심 단계</p>
+  </div>
+  <div class="sf"><span class="sf-logo"><span class="dc">DACON</span></span><span class="sf-pg">11</span><span class="sf-cr">COPYRIGHT 2026</span></div>
+</section>
+
+<!-- S12: 문제 설계 -->
+<section class="slide" id="s12">
+  <div class="sh"><span class="sh-l">III-1 문제 설계 (업무 ①)</span><span class="sh-r">평가 산식 · 난이도 · 형식</span></div>
+  <div class="si" style="padding-top:60px">
+    <div class="tag">문제 설계</div>
+    <h2 class="st" data-step="1">7주 완주 가능한 <span class="hl">부트캠프 최적 난이도</span></h2>
+    <p class="sub" data-step="2">Public/Private LB 분할로 과적합 방지 · 부트캠프 커리큘럼 진도에 맞춘 난이도 산정</p>
+    <table class="tb" style="margin-top:14px" data-step="3">
+      <thead><tr><th style="width:22%">설계 항목</th><th>본 제안의 접근 방법</th></tr></thead>
+      <tbody>
+        <tr><td><strong>평가 산식</strong></td><td>문제 유형별 표준 지표 (RMSE/F1/AUC/mAP 등) + 리더보드 안정성 위한 소수점 자리 결정</td></tr>
+        <tr><td><strong>난이도</strong></td><td>부트캠프 커리큘럼 진도 기반 산정 — 학부 중위권 제출 가능, 대학원 상위권 최적화 경쟁</td></tr>
+        <tr><td><strong>목표</strong></td><td>부트캠프 핵심 학습 목표 (정형 / CV / NLP 중 사업단 선택) 검증</td></tr>
+        <tr><td><strong>형식</strong></td><td>Submission CSV · 일 N회 제출 한도 · 최종 제출 자동 선택 규칙</td></tr>
+        <tr><td><strong>참가자 범위</strong></td><td>부트캠프 소속 학부+대학원 · 외부 인원 차단 (초청 링크)</td></tr>
+        <tr><td><strong>절차</strong></td><td>등록 → 규칙 동의 → 데이터 다운로드 → 제출 → 리더보드 확인 → 본평가(Private)</td></tr>
+      </tbody>
+    </table>
+    <div class="c c-b" style="margin-top:12px;padding:12px 14px" data-step="4">
+      <div class="c-t" style="color:var(--osc);font-size:.8125rem">Public / Private 리더보드 분할</div>
+      <div class="c-d" style="color:var(--osc);opacity:.9">대회 기간 중: Public LB(~30%) 실시간 공개 · 대회 종료 후: <strong>Private LB(70%)</strong> 공개로 본 순위 확정 — 과적합 방지</div>
+    </div>
+  </div>
+  <div class="sf"><span class="sf-logo"><span class="dc">DACON</span></span><span class="sf-pg">12</span><span class="sf-cr">COPYRIGHT 2026</span></div>
+</section>
+
+<!-- S13: Base-Line + 교재 -->
+<section class="slide" id="s13">
+  <div class="sh"><span class="sh-l">III-2 Base-Line · 교재 (②③)</span><span class="sh-r">하위권 완주 지원</span></div>
+  <div class="si" style="padding-top:60px">
+    <div class="tag">Base-Line Code + 교육용 교재</div>
+    <h2 class="st" data-step="1"><span class="hl">End-to-End 실행 가능한 Base-Line</span> + 해설 교재</h2>
+    <p class="sub" data-step="2">초급 참가자도 따라 실행 가능 · 최적해는 제공하지 않고 학습 힌트만 제공</p>
+    <div class="g2" style="margin-top:14px;flex:1">
+      <div data-step="3">
+        <div class="cl">② Base-Line Code</div>
+        <ul class="ck" style="margin-top:8px">
+          <li><span class="i">●</span><div><strong>제공 형식</strong>: Jupyter Notebook(.ipynb) + Python 스크립트(.py) 병행</div></li>
+          <li><span class="i">●</span><div><strong>포함 구성</strong>: 데이터 로드 → EDA → 전처리 → 기본 모델 학습 → 제출 CSV 생성 E2E</div></li>
+          <li><span class="i">●</span><div><strong>환경 명세</strong>: Python 버전·라이브러리 버전 고정 (requirements.txt) · Colab 실행 링크</div></li>
+          <li><span class="i">●</span><div><strong>성능 기준</strong>: Base-Line 점수를 리더보드 하한선으로 공개 → 참가자 출발점 명확화</div></li>
+        </ul>
+      </div>
+      <div data-step="4">
+        <div class="cl-w" style="font-size:.75rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;margin-bottom:8px">③ 교육용 교재 (PDF + MD)</div>
+        <table class="tb tb-xs" style="margin-top:4px">
+          <thead><tr><th style="width:20%">장</th><th>구성</th></tr></thead>
+          <tbody>
+            <tr><td>1장</td><td>대회 이해 (문제 정의·평가 산식 해석법)</td></tr>
+            <tr><td>2장</td><td>데이터 이해 (컬럼·EDA 예시·데이터 구조)</td></tr>
+            <tr><td>3장</td><td>Base-Line 해설 (라인별 설명, 초급자 수준)</td></tr>
+            <tr><td>4장</td><td>성능 개선 힌트 (방향만, 정답 X)</td></tr>
+            <tr><td>5장</td><td>제출 가이드 · 오류 대처 · FAQ</td></tr>
+          </tbody>
+        </table>
+        <div class="c c-w" style="margin-top:10px;padding:8px 12px">
+          <div class="c-d" style="font-size:.6875rem">※ 교재는 학습 도우미 — 최적해 미제공. 하위권 참가자도 완주 가능하도록 설계.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span class="sf-logo"><span class="dc">DACON</span></span><span class="sf-pg">13</span><span class="sf-cr">COPYRIGHT 2026</span></div>
+</section>
+
+<!-- S14: 치팅 모니터링 + 대회 페이지 -->
+<section class="slide" id="s14">
+  <div class="sh"><span class="sh-l">III-3 모니터링 · 페이지 (④⑤)</span><span class="sh-r">비공개 대회 전용 운영</span></div>
+  <div class="si" style="padding-top:60px">
+    <div class="tag">④ 치팅 모니터링 + ⑤ 경진대회 페이지</div>
+    <h2 class="st" data-step="1">설계 단계에 <span class="hl">운영·검증 인프라를 선 구축</span></h2>
+    <p class="sub" data-step="2">로그 수집 체계 선제 설계 + 초청 링크 기반 비공개 페이지로 외부 유입 차단</p>
+    <div class="g2" style="margin-top:14px;flex:1">
+      <div data-step="3">
+        <div class="cl">④ 치팅 모니터링 체계</div>
+        <table class="tb tb-xs" style="margin-top:8px">
+          <thead><tr><th>모니터링 항목</th><th>구현 방식</th></tr></thead>
+          <tbody>
+            <tr><td>제출 패턴 이상 탐지</td><td>동일 IP/디바이스/단기 다계정 제출</td></tr>
+            <tr><td>점수 급상승 플래그</td><td>비정상 상승 자동 알림 → 검토 큐</td></tr>
+            <tr><td>계정 중복 탐지</td><td>이메일·디바이스 지문·세션 ID 교차</td></tr>
+            <tr><td>외부 데이터 유입 의심</td><td>Public LB 이론 상한 근접 시 플래그</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div data-step="4">
+        <div class="cl-w" style="font-size:.75rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;margin-bottom:8px">⑤ 대회 페이지 (비공개 전용)</div>
+        <table class="tb tb-xs" style="margin-top:8px">
+          <thead><tr><th>탭</th><th>내용</th></tr></thead>
+          <tbody>
+            <tr><td>대회 소개</td><td>배경·목표·일정·학부/대학원 리더보드 안내</td></tr>
+            <tr><td>데이터</td><td>다운로드·컬럼 설명·라이선스</td></tr>
+            <tr><td>제출</td><td>제출 인터페이스·로그·일일 한도</td></tr>
+            <tr><td><strong>리더보드</strong></td><td><strong>학부/대학원 구분</strong> Public/Private 뷰</td></tr>
+            <tr><td>토론</td><td>Q&amp;A 게시판 (24/48h SLA)</td></tr>
+            <tr><td>규칙·동의</td><td>대회 규칙·참가 동의서 원문</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span class="sf-logo"><span class="dc">DACON</span></span><span class="sf-pg">14</span><span class="sf-cr">COPYRIGHT 2026</span></div>
+</section>
+
+<!-- S15: 명세 + 제출 테스트 -->
+<section class="slide" id="s15">
+  <div class="sh"><span class="sh-l">III-4 명세 · 제출 테스트 (⑥)</span><span class="sh-r">오픈 전 리허설</span></div>
+  <div class="si" style="padding-top:60px">
+    <div class="tag">⑥ 명세 개발 및 제출 테스트</div>
+    <h2 class="st" data-step="1">대회 오픈 전 <span class="hl">End-to-End 리허설</span>로 이슈 선제 제거</h2>
+    <p class="sub" data-step="2">규칙·동의서 명세 + 내부 QA 계정 5개로 전 경로 검증</p>
+    <div class="g2" style="margin-top:14px;flex:1">
+      <div data-step="3">
+        <div class="cl">대회 규칙 명세</div>
+        <ul class="ck" style="margin-top:8px">
+          <li><span class="i">●</span><div>제출 횟수 / 팀 구성 / 외부 데이터 · 사전 학습 모델 허용 범위</div></li>
+          <li><span class="i">●</span><div>수상자 의무 / 상금 지급 조건 / 부정행위 제재 절차</div></li>
+          <li><span class="i">●</span><div>평가 산식·Public/Private 전환 시점·이의 제기 절차</div></li>
+        </ul>
+        <div class="cl" style="margin-top:14px">참가 동의서</div>
+        <ul class="ck" style="margin-top:6px">
+          <li><span class="i">●</span><div>개인정보 수집·결과물 저작권·연구 목적 활용·제재 조항</div></li>
+          <li><span class="i">●</span><div>학부/대학원 <strong>소속 구분</strong> 필수 체크 (변경 불가)</div></li>
+        </ul>
+      </div>
+      <div data-step="4">
+        <div class="cl-w" style="font-size:.75rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;margin-bottom:8px">제출 테스트 (오픈 전 48h 내)</div>
+        <div class="stage-bar">
+          <div class="stage-box on"><div class="num">TEST 1</div><div class="lb">제출 경로</div><div class="ds">QA 계정 5개 × E2E 제출</div></div>
+          <div class="stage-box on-w"><div class="num">TEST 2</div><div class="lb">채점·LB</div><div class="ds">자동 채점·리더보드 반영 확인</div></div>
+          <div class="stage-box on-g"><div class="num">TEST 3</div><div class="lb">구분 검증</div><div class="ds">학부/대학원 탭 분리 확인</div></div>
+        </div>
+        <div class="c c-s" style="margin-top:10px;padding:10px 14px">
+          <div class="c-t" style="font-size:.8125rem">검출 대상</div>
+          <div class="c-d" style="font-size:.6875rem">이상 제출 · 오채점 · 리더보드 미갱신 · 동의서 누락 · 권한 오류</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span class="sf-logo"><span class="dc">DACON</span></span><span class="sf-pg">15</span><span class="sf-cr">COPYRIGHT 2026</span></div>
+</section>
+
+<!-- S16: SECTION IV -->
+<section class="slide slide-sec" id="s16">
+  <div class="si">
+    <div class="sn" data-step="1">IV</div>
+    <h2 data-step="2">운영 단계 상세</h2>
+    <p class="sd" data-step="3">W4 ~ W5 · 2주 · CS 24/48h SLA · 학부·대학원 리더보드 실시간 운영</p>
+  </div>
+  <div class="sf"><span class="sf-logo"><span class="dc">DACON</span></span><span class="sf-pg">16</span><span class="sf-cr">COPYRIGHT 2026</span></div>
+</section>
+
+<!-- S17: CS + 리더보드 학부/대학원 구분 -->
+<section class="slide" id="s17">
+  <div class="sh"><span class="sh-l">IV-1 CS · 리더보드 (⑦⑧)</span><span class="sh-r">24/48h SLA · 구분 운영</span></div>
+  <div class="si" style="padding-top:60px">
+    <div class="tag tag-w">⑦ CS 관리 + ⑧ 리더보드 테스트</div>
+    <h2 class="st" data-step="1"><span class="hl-w">학부·대학원 구분</span>을 리더보드 UI에 직접 반영</h2>
+    <p class="sub" data-step="2">동일 문제·동일 제출 규칙, 2개 랭킹 탭 분리 표시 · 사업단 명부로 소속 교차 검증</p>
+    <div class="g2" style="margin-top:14px;flex:1">
+      <div data-step="3">
+        <div class="cl-w" style="font-size:.75rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;margin-bottom:8px">⑦ CS 채널 및 SLA</div>
+        <table class="tb tb-xs">
+          <thead><tr><th>채널</th><th>응답 SLA</th></tr></thead>
+          <tbody>
+            <tr><td>대회 페이지 Q&amp;A 게시판</td><td><strong>주중 24h / 주말 48h</strong></td></tr>
+            <tr><td>이메일 (운영팀 전용)</td><td>동일</td></tr>
+            <tr><td>카카오톡 오픈채팅 (선택)</td><td>동일</td></tr>
+          </tbody>
+        </table>
+        <div class="c c-w" style="margin-top:10px;padding:10px 14px">
+          <div class="c-t" style="color:var(--w);font-size:.8125rem">FAQ 선제 배포 + 티켓 Tracker</div>
+          <div class="c-d" style="font-size:.6875rem">오픈 시 FAQ 20선 게시 · 전 문의 티켓화로 누락 방지 · 월별 집계 결과보고서 포함</div>
+        </div>
+      </div>
+      <div data-step="4">
+        <div class="cl" style="font-size:.75rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;margin-bottom:8px">⑧ 리더보드 — 학부·대학원 구분</div>
+        <ul class="ck" style="margin-top:4px">
+          <li><span class="i">●</span><div>등록 시 <strong>소속 구분</strong> 필수 (학부/대학원, 변경 불가)</div></li>
+          <li><span class="i">●</span><div>사업단 <strong>소속 명부 교차 검증</strong></div></li>
+          <li><span class="i">●</span><div>리더보드 UI 탭: <strong>전체 / 학부 / 대학원</strong> 3개 분리</div></li>
+          <li><span class="i">●</span><div>수상자 추출 — 각 리더보드 상위 N명 자동 산출</div></li>
+        </ul>
+        <div class="c c-s" style="margin-top:10px;padding:10px 14px">
+          <div class="c-t" style="font-size:.8125rem">테스트 시나리오</div>
+          <div class="c-d" style="font-size:.6875rem">학부 5계정 × 대학원 5계정 교차 제출 · 점수 타이·제출시각 정렬 검증 · 취소·재제출 실시간 갱신</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span class="sf-logo"><span class="dc">DACON</span></span><span class="sf-pg">17</span><span class="sf-cr">COPYRIGHT 2026</span></div>
+</section>
+
+<!-- S18: 참가자 관리 + 리더보드 운영 -->
+<section class="slide" id="s18">
+  <div class="sh"><span class="sh-l">IV-2 참가자·리더보드 (⑨⑩)</span><span class="sh-r">실시간 운영</span></div>
+  <div class="si" style="padding-top:60px">
+    <div class="tag tag-w">⑨ 참가자 관리 + ⑩ 리더보드 운영</div>
+    <h2 class="st" data-step="1">치팅 실시간 감시와 <span class="hl-w">3단계 부정 차단</span></h2>
+    <p class="sub" data-step="2">설계 단계 구축 로그 × 상시 알림 → 의심 사례는 검증 단계로 이관</p>
+    <div class="g2" style="margin-top:14px;flex:1">
+      <div data-step="3">
+        <div class="cl-w" style="font-size:.75rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;margin-bottom:8px">⑨ 참가자 관리</div>
+        <table class="tb tb-xs">
+          <thead><tr><th>영역</th><th>본 제안</th></tr></thead>
+          <tbody>
+            <tr><td>개인 / 팀 병합</td><td>팀 구성 가이드·병합 요청 폼·중복 차단</td></tr>
+            <tr><td>커뮤니케이션</td><td>공지 이메일·페이지 배너·운영팀 메시지</td></tr>
+            <tr><td><strong>부정 차단</strong></td><td>로그 실시간 검토 · <strong>경고 → 정지 → 자격 박탈 3단계</strong></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div data-step="4">
+        <div class="cl" style="font-size:.75rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;margin-bottom:8px">⑩ 리더보드 운영 4요소</div>
+        <div class="g2" style="gap:8px">
+          <div class="c c-s" style="padding:10px 12px"><div class="c-t" style="font-size:.75rem">평가 산식 실행</div><div class="c-d" style="font-size:.625rem">서버사이드 자동 채점</div></div>
+          <div class="c c-s" style="padding:10px 12px"><div class="c-t" style="font-size:.75rem">스코어 관리</div><div class="c-d" style="font-size:.625rem">부동소수점·소수점 N자리</div></div>
+          <div class="c c-s" style="padding:10px 12px"><div class="c-t" style="font-size:.75rem">모니터링</div><div class="c-d" style="font-size:.625rem">일일 Top10·변동성 Top5 리포트</div></div>
+          <div class="c c-s" style="padding:10px 12px"><div class="c-t" style="font-size:.75rem">치팅 감시</div><div class="c-d" style="font-size:.625rem">플래그 알림 → 검증 단계 이관</div></div>
+        </div>
+        <div class="c c-b" style="margin-top:10px;padding:10px 14px">
+          <div class="c-d" style="color:var(--osc);font-size:.6875rem">※ 상위 10팀 + 변동성 Top 5 자동 리포트 → <strong>일일 사업단 공유</strong></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span class="sf-logo"><span class="dc">DACON</span></span><span class="sf-pg">18</span><span class="sf-cr">COPYRIGHT 2026</span></div>
+</section>
+
+<!-- S19: SECTION V -->
+<section class="slide slide-sec" id="s19">
+  <div class="si">
+    <div class="sn" data-step="1">V</div>
+    <h2 data-step="2">검증 단계 상세</h2>
+    <p class="sd" data-step="3">W6 ~ W7 · 2주 · 치팅·오류 검증 + 수상 공지 + 상위 5명 코드 재현</p>
+  </div>
+  <div class="sf"><span class="sf-logo"><span class="dc">DACON</span></span><span class="sf-pg">19</span><span class="sf-cr">COPYRIGHT 2026</span></div>
+</section>
+
+<!-- S20: 코드 치팅 검증 + 수상 CS -->
+<section class="slide" id="s20">
+  <div class="sh"><span class="sh-l">V-1 치팅·수상 CS (⑪⑫)</span><span class="sh-r">Private LB 확정</span></div>
+  <div class="si" style="padding-top:60px">
+    <div class="tag tag-g">⑪ 치팅·오류 검증 + ⑫ 수상 커뮤니케이션</div>
+    <h2 class="st" data-step="1">게시판 이슈 <span class="hl-g">전량 회신 완료</span> 후 Private LB 확정</h2>
+    <p class="sub" data-step="2">의심 플래그 재검토 · 채점 로직 재실행 · 수상자 대상 비공개 통보 및 공식 공지</p>
+    <div class="g2" style="margin-top:14px;flex:1">
+      <div data-step="3">
+        <div class="cl-g" style="font-size:.75rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;margin-bottom:8px">⑪ 치팅 및 오류 검증</div>
+        <table class="tb tb-xs">
+          <thead><tr><th style="width:35%">검증 항목</th><th>방법</th></tr></thead>
+          <tbody>
+            <tr><td>온라인 게시판 이슈</td><td>대회 종료 시점까지 전량 회신 완료</td></tr>
+            <tr><td>치팅 로그 종합 검토</td><td>누적 플래그 재검토 · 수상 후보 스크리닝</td></tr>
+            <tr><td>오류 검증</td><td>채점 로직 재실행 · 무결성 · Private LB 산출</td></tr>
+            <tr><td>제출 로그 감사</td><td>의심 계정의 IP·시각·디바이스 재분석</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div data-step="4">
+        <div class="cl-g" style="font-size:.75rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;margin-bottom:8px">⑫ 수상 커뮤니케이션</div>
+        <div class="stage-bar">
+          <div class="stage-box on-g"><div class="num">1</div><div class="lb">내정 통보</div><div class="ds">상위 5명 비공개 메일 · 검증 안내</div></div>
+          <div class="stage-box on-g"><div class="num">2</div><div class="lb">공식 공지</div><div class="ds">검증 통과자 페이지·사업단 홈</div></div>
+          <div class="stage-box on-g"><div class="num">3</div><div class="lb">수상 CS</div><div class="ds">상금·상장 문의 응대 (24/48h)</div></div>
+          <div class="stage-box on-g"><div class="num">4</div><div class="lb">종료 공지</div><div class="ds">전체 순위·Private LB·감사 메시지</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span class="sf-logo"><span class="dc">DACON</span></span><span class="sf-pg">20</span><span class="sf-cr">COPYRIGHT 2026</span></div>
+</section>
+
+<!-- S21: 상위 5명 코드 검증 -->
+<section class="slide" id="s21">
+  <div class="sh"><span class="sh-l">V-2 상위 5명 코드 검증 (⑬)</span><span class="sh-r">공정성의 마지막 관문</span></div>
+  <div class="si" style="padding-top:60px">
+    <div class="tag tag-g">⑬ 수상자 대상 코드 검증 — 상위 5명</div>
+    <h2 class="st" data-step="1">점수 재현 · <span class="hl-g">외부 데이터 검사</span> · 치팅 최종 판정</h2>
+    <p class="sub" data-step="2">6단계 검증 프로세스 · 3가지 결과 시나리오별 조치 프로토콜 사전 합의</p>
+    <table class="tb" style="margin-top:14px" data-step="3">
+      <thead><tr><th style="width:22%">검증 단계</th><th>내용</th></tr></thead>
+      <tbody>
+        <tr><td><strong>① 코드 제출 요청</strong></td><td>상위 5명에게 최종 점수 재현 가능한 전체 코드 + requirements 요청 (기한 7일)</td></tr>
+        <tr><td><strong>② 환경 재현</strong></td><td>데이콘 내부 환경 (동일 Python·라이브러리 버전)에서 실행</td></tr>
+        <tr><td><strong>③ 점수 재현 확인</strong></td><td>Public·Private LB 동일 점수 재현 (허용 오차 내)</td></tr>
+        <tr><td><strong>④ 외부 데이터·사전학습 규칙 준수</strong></td><td>규칙 명시 허용 범위 내 외부 자원 사용 검토</td></tr>
+        <tr><td><strong>⑤ 치팅 최종 판정</strong></td><td>재현 실패·외부 데이터·규칙 위반 시 사업단 협의 → 수상 취소·순위 조정</td></tr>
+        <tr><td><strong>⑥ 검증 보고서</strong></td><td>5명 각각 개별 재현 보고서 + 증빙 로그 제출</td></tr>
+      </tbody>
+    </table>
+    <div class="g3" style="margin-top:12px" data-step="4">
+      <div class="c c-g" style="padding:10px 12px"><div class="c-t" style="color:var(--g);font-size:.75rem">시나리오 A · 전원 통과</div><div class="c-d" style="font-size:.625rem">예정 순위 그대로 시상</div></div>
+      <div class="c c-w" style="padding:10px 12px"><div class="c-t" style="color:var(--w);font-size:.75rem">시나리오 B · 일부 실패</div><div class="c-d" style="font-size:.625rem">탈락·차순위 승격·재검증</div></div>
+      <div class="c c-b" style="padding:10px 12px"><div class="c-t" style="color:var(--osc);font-size:.75rem">시나리오 C · 대규모 이상</div><div class="c-d" style="color:var(--osc);font-size:.625rem">사업단 긴급 협의·조정 프로토콜 가동</div></div>
+    </div>
+  </div>
+  <div class="sf"><span class="sf-logo"><span class="dc">DACON</span></span><span class="sf-pg">21</span><span class="sf-cr">COPYRIGHT 2026</span></div>
+</section>
+
+<!-- S22: SECTION VI -->
+<section class="slide slide-sec" id="s22">
+  <div class="si">
+    <div class="sn" data-step="1">VI</div>
+    <h2 data-step="2">수행사 역량 및 실적</h2>
+    <p class="sd" data-step="3">DACON — 누적 500+ 알고리즘 경진대회 운영 · 투입 인력 체계</p>
+  </div>
+  <div class="sf"><span class="sf-logo"><span class="dc">DACON</span></span><span class="sf-pg">22</span><span class="sf-cr">COPYRIGHT 2026</span></div>
+</section>
+
+<!-- S23: DACON 실적 + 투입 체계 -->
+<section class="slide" id="s23">
+  <div class="sh"><span class="sh-l">VI-1 DACON 실적 · 투입 체계</span><span class="sh-r">KNU AI BOOTCAMP</span></div>
+  <div class="si" style="padding-top:60px">
+    <div class="tag">DACON 실적 및 투입 체계</div>
+    <h2 class="st" data-step="1">누적 <span class="hl">500+ 대회 운영</span> · 플랫폼 기반 안정 운영</h2>
+    <p class="sub" data-step="2">국내 1위 알고리즘 경진대회 플랫폼의 실전 노하우 그대로 강원대에 적용</p>
+    <div class="kpi" style="margin-top:14px" data-step="3">
+      <div class="k"><div class="v">25억+</div><div class="l">누적 상금 (KRW)</div></div>
+      <div class="k"><div class="v">1M+</div><div class="l">누적 제출 수</div></div>
+      <div class="k"><div class="v">236,666</div><div class="l">누적 팀 참여</div></div>
+      <div class="k"><div class="v">140K+</div><div class="l">회원 수</div></div>
+      <div class="k"><div class="v">500+</div><div class="l">누적 대회 개최</div></div>
+    </div>
+    <div class="g2" style="margin-top:14px;flex:1">
+      <div data-step="4">
+        <div class="cl">비공개 대회 대표 실적</div>
+        <div class="c c-b" style="padding:10px 14px;margin-top:8px"><div class="c-t" style="color:var(--osc);font-size:.75rem">대학·교육기관</div><div class="c-d" style="color:var(--osc);font-size:.625rem;opacity:.9">단국대·중앙대·성균관대·서울시립대·인하대·강원대 외 20여 개</div></div>
+        <div class="c c-w" style="padding:10px 14px;margin-top:6px"><div class="c-t" style="color:var(--w);font-size:.75rem">공공·기업 비공개</div><div class="c-d" style="font-size:.625rem">과기정통부·금융보안원·한국수자원공사·한국가스공사·한국원자력연구원·ETRI·LG AI연구원·현대차·HD현대·KB금융·NH투자·TOSS</div></div>
+      </div>
+      <div data-step="5">
+        <div class="cl-g" style="font-size:.75rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;margin-bottom:8px">본 용역 투입 체계</div>
+        <table class="tb tb-xs">
+          <thead><tr><th>역할</th><th>인원</th><th>담당</th></tr></thead>
+          <tbody>
+            <tr><td>총괄 PM</td><td>1</td><td>발주처 접점·주간 보고</td></tr>
+            <tr><td>AI 엔지니어</td><td>1</td><td>①② ⑬ 설계·검증</td></tr>
+            <tr><td>기술 에디터</td><td>1</td><td>③ 교재 제작</td></tr>
+            <tr><td>플랫폼 엔지니어</td><td>1</td><td>④⑧⑩ 모니터링·리더보드</td></tr>
+            <tr><td>프론트엔드 엔지니어</td><td>1</td><td>⑤⑥ 페이지·명세</td></tr>
+            <tr><td>운영 매니저</td><td>1</td><td>⑦⑨⑫ CS·공지</td></tr>
+            <tr><td>데이터 사이언티스트</td><td>1</td><td>리뷰·검증 보조</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span class="sf-logo"><span class="dc">DACON</span></span><span class="sf-pg">23</span><span class="sf-cr">COPYRIGHT 2026</span></div>
+</section>
+
+<!-- S24: SECTION VII -->
+<section class="slide slide-sec" id="s24">
+  <div class="si">
+    <div class="sn" data-step="1">VII</div>
+    <h2 data-step="2">기대효과 및 결과보고</h2>
+    <p class="sd" data-step="3">정량 KPI · 정성적 가치 · 단계별 보고 및 산출물 귀속 계획</p>
+  </div>
+  <div class="sf"><span class="sf-logo"><span class="dc">DACON</span></span><span class="sf-pg">24</span><span class="sf-cr">COPYRIGHT 2026</span></div>
+</section>
+
+<!-- S25: KPI + 결과보고 -->
+<section class="slide" id="s25">
+  <div class="sh"><span class="sh-l">VII KPI · 결과보고</span><span class="sh-r">20일 내 최종본</span></div>
+  <div class="si" style="padding-top:60px">
+    <div class="tag">정량 KPI + 결과보고 계획</div>
+    <h2 class="st" data-step="1">수치 목표 명시 + <span class="hl">20일 내 최종보고서</span> 제출</h2>
+    <p class="sub" data-step="2">주간 보고 · 단계 완료 보고 · 최종 결과보고서 3단 체계</p>
+    <div class="g2" style="margin-top:14px;flex:1">
+      <div data-step="3">
+        <table class="tb tb-xs">
+          <thead><tr><th>KPI</th><th>목표치</th><th>측정</th></tr></thead>
+          <tbody>
+            <tr><td>참여 규모</td><td><strong>100명 미만</strong></td><td>등록자 집계</td></tr>
+            <tr><td>리더보드 구분 정확도</td><td>100%</td><td>명부 교차 검증</td></tr>
+            <tr><td>CS SLA 준수율</td><td><strong>24h/48h 100%</strong></td><td>티켓 타임스탬프</td></tr>
+            <tr><td>Base-Line 이상 제출률</td><td>70%+</td><td>제출 로그</td></tr>
+            <tr><td>상위 5명 재현률</td><td>100% 또는 조정</td><td>검증 보고서</td></tr>
+            <tr><td>치팅 차단</td><td>0건 목표</td><td>모니터링 로그</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div data-step="4">
+        <div class="cl-g" style="font-size:.75rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;margin-bottom:8px">결과보고 계획</div>
+        <ul class="ck ck-g" style="margin-top:4px">
+          <li><span class="i">●</span><div><strong>주간 운영 보고</strong>: 총괄 PM · 7주 × 7회</div></li>
+          <li><span class="i">●</span><div><strong>단계별 완료 보고</strong>: 설계·운영·검증 종료 시</div></li>
+          <li><span class="i">●</span><div><strong>최종 결과보고서</strong>: 대회 종료 후 <strong>20일 이내</strong></div></li>
+          <li><span class="i">●</span><div>포함: 명단·리더보드·CS 로그·치팅 보고서·5명 재현 보고서·설문 분석</div></li>
+        </ul>
+        <div class="c c-b" style="margin-top:10px;padding:10px 14px">
+          <div class="c-t" style="color:var(--osc);font-size:.8125rem">산출물 귀속</div>
+          <div class="c-d" style="color:var(--osc);font-size:.6875rem">문제·데이터·Base-Line·교재·페이지·로그·검증 보고서 <strong>전량 발주처 귀속</strong></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span class="sf-logo"><span class="dc">DACON</span></span><span class="sf-pg">25</span><span class="sf-cr">COPYRIGHT 2026</span></div>
+</section>
+
+<!-- S26: ENDING -->
+<section class="slide slide-end" id="s26">
+  <div class="si">
+    <div class="end-logo" data-step="1">
+      <span style="font-size:2.25rem;font-weight:800;color:var(--p);letter-spacing:.04em">DACON</span>
+    </div>
+    <h1 data-step="2">강원대 AI 부트캠프 <span style="color:var(--p)">비공개 알고리즘 경진대회</span><br/>책임지고 운영하겠습니다</h1>
+    <p class="end-sub" data-step="3">
+      100명 미만 · 학부·대학원 구분 · 7주 · 상위 5명 코드 검증까지<br/>
+      <strong>13개 세부 업무 전량을 책임지고</strong> 수행합니다
+    </p>
+    <div data-step="4" style="margin-top:28px;display:flex;gap:12px">
+      <a href="https://dacon.io" target="_blank" style="padding:10px 24px;border-radius:var(--rm);background:linear-gradient(135deg,var(--p),var(--pd));color:#fff;font-size:.875rem;font-weight:700;text-decoration:none">dacon.io</a>
+    </div>
+    <div data-step="5" style="margin-top:22px;font-size:.8125rem;color:var(--osv);line-height:1.7">
+      데이콘(주)<br/>
+      담당: edgar@dacon.io &middot; 010-6338-1041
+    </div>
+  </div>
+  <div class="sf"><span class="sf-logo"><span class="dc">DACON</span></span><span class="sf-pg">26</span><span class="sf-cr">COPYRIGHT 2026 DACON</span></div>
+</section>
+
+</div></div>
+<button class="nav-btn" id="nav-prev">&#8249;</button>
+<button class="nav-btn" id="nav-next">&#8250;</button>
+<div id="progress-bar" style="width:0%"></div>
+<div id="key-hint">Arrow keys or click to navigate</div>
+<script>
+(function(){
+const slides=document.querySelectorAll('.slide'),total=slides.length;let cur=0;
+function maxStep(s){let m=0;s.querySelectorAll('[data-step]').forEach(e=>{const v=+e.dataset.step;if(v>m)m=v});return m}
+let step=0;
+function show(idx,dir){slides.forEach(s=>s.classList.remove('active'));slides[idx].classList.add('active');step=0;const els=slides[idx].querySelectorAll('[data-step]');els.forEach(e=>{e.classList.remove('visible','pre-visible')});if(dir==='back'){step=maxStep(slides[idx]);els.forEach(e=>e.classList.add('pre-visible'))}document.getElementById('progress-bar').style.width=((idx+1)/total*100)+'%'}
+function next(){const ms=maxStep(slides[cur]);if(step<ms){step++;slides[cur].querySelectorAll('[data-step]').forEach(e=>{if(+e.dataset.step<=step)e.classList.add('visible')});return}if(cur<total-1){cur++;show(cur,'fwd')}}
+function prev(){if(step>0){slides[cur].querySelectorAll('[data-step]').forEach(e=>{if(+e.dataset.step===step){e.classList.remove('visible','pre-visible')}});step--;return}if(cur>0){cur--;show(cur,'back')}}
+document.getElementById('nav-next').onclick=next;document.getElementById('nav-prev').onclick=prev;
+document.addEventListener('keydown',e=>{if(e.key==='ArrowRight'||e.key===' '||e.key==='Enter')next();else if(e.key==='ArrowLeft'||e.key==='Backspace')prev()});
+let tx=0;document.addEventListener('touchstart',e=>{tx=e.changedTouches[0].screenX});document.addEventListener('touchend',e=>{const dx=e.changedTouches[0].screenX-tx;if(dx<-50)next();else if(dx>50)prev()});
+function fit(){const vw=window.innerWidth,vh=window.innerHeight;const s=Math.min(vw/1280,vh/720,1);document.getElementById('stage').style.transform='scale('+s+')'}
+window.addEventListener('resize',fit);fit();show(0,'fwd')
+slides[0].querySelectorAll('[data-step]').forEach(e => { e.classList.add('pre-visible'); });
+})();
+</script>
+</body>
+</html>
