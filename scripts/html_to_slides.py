@@ -284,11 +284,89 @@ def build_requests_for_slide(
         }
     })
 
-    # Layout margins (EMU).
-    margin_x = int(0.6 * EMU_PER_INCH)
-    margin_top = int(0.45 * EMU_PER_INCH)
+    # Layout margins (EMU). Compact for 16:9 widescreen readability.
+    margin_x = int(0.5 * EMU_PER_INCH)
+    margin_top = int(0.25 * EMU_PER_INCH)
+    margin_bottom = int(0.3 * EMU_PER_INCH)
     content_x = margin_x
     content_w = page_w - 2 * margin_x
+
+    # Common helper: add header/footer (page number, section label) to any slide.
+    def add_header_footer():
+        reqs = []
+        # Left header label (e.g., "II-1 13개 세부 업무 1/2")
+        if sd["header_left"]:
+            hdr_l_id = _oid("slide", idx, "hdrL")
+            reqs.append(_textbox(
+                hdr_l_id, slide_id,
+                margin_x, int(0.1 * EMU_PER_INCH),
+                int(content_w * 0.6), int(0.18 * EMU_PER_INCH),
+            ))
+            reqs.append(_insert_text(hdr_l_id, sd["header_left"].upper()))
+            reqs.append(_style_all(hdr_l_id, {
+                "fontFamily": "Noto Sans KR",
+                "fontSize": {"magnitude": 8, "unit": "PT"},
+                "bold": True,
+                "foregroundColor": {"opaqueColor": {"rgbColor": BRAND_PRIMARY}},
+            }))
+        # Right header label (e.g., "KNU AI BOOTCAMP 2026")
+        if sd["header_right"]:
+            hdr_r_id = _oid("slide", idx, "hdrR")
+            right_x = page_w - margin_x - int(content_w * 0.35)
+            reqs.append(_textbox(
+                hdr_r_id, slide_id,
+                right_x, int(0.1 * EMU_PER_INCH),
+                int(content_w * 0.35), int(0.18 * EMU_PER_INCH),
+            ))
+            reqs.append(_insert_text(hdr_r_id, sd["header_right"].upper()))
+            reqs.append(_style_all(hdr_r_id, {
+                "fontFamily": "Noto Sans KR",
+                "fontSize": {"magnitude": 7, "unit": "PT"},
+                "bold": True,
+                "foregroundColor": {"opaqueColor": {"rgbColor": TEXT_MUTED}},
+            }))
+            reqs.append(_paragraph_style_all(hdr_r_id, {"alignment": "END"}))
+        # Footer logo + page number + copyright
+        foot_logo_id = _oid("slide", idx, "ftL")
+        reqs.append(_textbox(
+            foot_logo_id, slide_id,
+            margin_x, page_h - int(0.25 * EMU_PER_INCH),
+            int(content_w * 0.3), int(0.18 * EMU_PER_INCH),
+        ))
+        reqs.append(_insert_text(foot_logo_id, "DACON"))
+        reqs.append(_style_all(foot_logo_id, {
+            "fontFamily": "Noto Sans KR",
+            "fontSize": {"magnitude": 7, "unit": "PT"},
+            "bold": True,
+            "foregroundColor": {"opaqueColor": {"rgbColor": BRAND_PRIMARY}},
+        }))
+        if sd["page"]:
+            pg_id = _oid("slide", idx, "pg")
+            reqs.append(_textbox(
+                pg_id, slide_id,
+                (page_w - int(0.3 * EMU_PER_INCH)) // 2, page_h - int(0.25 * EMU_PER_INCH),
+                int(0.3 * EMU_PER_INCH), int(0.18 * EMU_PER_INCH),
+            ))
+            reqs.append(_insert_text(pg_id, sd["page"]))
+            reqs.append(_style_all(pg_id, {
+                "fontSize": {"magnitude": 7, "unit": "PT"},
+                "bold": True,
+                "foregroundColor": {"opaqueColor": {"rgbColor": TEXT_MUTED}},
+            }))
+            reqs.append(_paragraph_style_all(pg_id, {"alignment": "CENTER"}))
+        foot_cr_id = _oid("slide", idx, "ftR")
+        reqs.append(_textbox(
+            foot_cr_id, slide_id,
+            page_w - margin_x - int(content_w * 0.3), page_h - int(0.25 * EMU_PER_INCH),
+            int(content_w * 0.3), int(0.18 * EMU_PER_INCH),
+        ))
+        reqs.append(_insert_text(foot_cr_id, "COPYRIGHT 2026"))
+        reqs.append(_style_all(foot_cr_id, {
+            "fontSize": {"magnitude": 6, "unit": "PT"},
+            "foregroundColor": {"opaqueColor": {"rgbColor": TEXT_MUTED}},
+        }))
+        reqs.append(_paragraph_style_all(foot_cr_id, {"alignment": "END"}))
+        return reqs
 
     # Cover / End slide: centered title + subtitle.
     if sd["type"] in ("cover", "end"):
@@ -296,14 +374,14 @@ def build_requests_for_slide(
         subtitle_text = sd["subtitle"]
 
         title_id = _oid("slide", idx, "title")
-        title_h = int(1.4 * EMU_PER_INCH)
-        title_y = (page_h - title_h) // 2 - int(0.4 * EMU_PER_INCH)
+        title_h = int(1.2 * EMU_PER_INCH)
+        title_y = (page_h - title_h) // 2 - int(0.3 * EMU_PER_INCH)
         requests.append(_textbox(title_id, slide_id, content_x, title_y, content_w, title_h))
         if title_text:
             requests.append(_insert_text(title_id, title_text))
             requests.append(_style_all(title_id, {
                 "fontFamily": "Noto Sans KR",
-                "fontSize": {"magnitude": 36, "unit": "PT"},
+                "fontSize": {"magnitude": 24, "unit": "PT"},
                 "bold": True,
                 "foregroundColor": {"opaqueColor": {"rgbColor": TEXT_DARK}},
             }))
@@ -312,53 +390,40 @@ def build_requests_for_slide(
         if subtitle_text:
             sub_id = _oid("slide", idx, "subtitle")
             sub_y = title_y + title_h + int(0.1 * EMU_PER_INCH)
-            requests.append(_textbox(sub_id, slide_id, content_x, sub_y, content_w, int(1.0 * EMU_PER_INCH)))
+            requests.append(_textbox(sub_id, slide_id, content_x, sub_y, content_w, int(0.8 * EMU_PER_INCH)))
             requests.append(_insert_text(sub_id, subtitle_text))
             requests.append(_style_all(sub_id, {
                 "fontFamily": "Noto Sans KR",
-                "fontSize": {"magnitude": 14, "unit": "PT"},
+                "fontSize": {"magnitude": 11, "unit": "PT"},
                 "foregroundColor": {"opaqueColor": {"rgbColor": TEXT_MUTED}},
             }))
             requests.append(_paragraph_style_all(sub_id, {"alignment": "CENTER"}))
 
-        # Page number footer.
-        if sd["page"]:
-            pg_id = _oid("slide", idx, "pg")
-            requests.append(_textbox(
-                pg_id, slide_id,
-                page_w - int(0.6 * EMU_PER_INCH) - int(0.4 * EMU_PER_INCH),
-                page_h - int(0.35 * EMU_PER_INCH),
-                int(0.4 * EMU_PER_INCH), int(0.25 * EMU_PER_INCH),
-            ))
-            requests.append(_insert_text(pg_id, sd["page"]))
-            requests.append(_style_all(pg_id, {
-                "fontSize": {"magnitude": 9, "unit": "PT"},
-                "foregroundColor": {"opaqueColor": {"rgbColor": TEXT_MUTED}},
-            }))
+        requests.extend(add_header_footer())
         return requests
 
     # Section divider: large roman numeral + title below.
     if sd["type"] == "section":
         if sd["section_number"]:
             num_id = _oid("slide", idx, "num")
-            num_y = int(1.6 * EMU_PER_INCH)
-            requests.append(_textbox(num_id, slide_id, content_x, num_y, content_w, int(1.6 * EMU_PER_INCH)))
+            num_y = int(1.2 * EMU_PER_INCH)
+            requests.append(_textbox(num_id, slide_id, content_x, num_y, content_w, int(1.3 * EMU_PER_INCH)))
             requests.append(_insert_text(num_id, sd["section_number"]))
             requests.append(_style_all(num_id, {
                 "fontFamily": "Noto Sans KR",
-                "fontSize": {"magnitude": 72, "unit": "PT"},
+                "fontSize": {"magnitude": 54, "unit": "PT"},
                 "bold": True,
                 "foregroundColor": {"opaqueColor": {"rgbColor": BRAND_PRIMARY}},
             }))
             requests.append(_paragraph_style_all(num_id, {"alignment": "CENTER"}))
 
         title_id = _oid("slide", idx, "title")
-        title_y = int(3.4 * EMU_PER_INCH)
-        requests.append(_textbox(title_id, slide_id, content_x, title_y, content_w, int(0.9 * EMU_PER_INCH)))
+        title_y = int(2.8 * EMU_PER_INCH)
+        requests.append(_textbox(title_id, slide_id, content_x, title_y, content_w, int(0.7 * EMU_PER_INCH)))
         requests.append(_insert_text(title_id, sd["title"] or ""))
         requests.append(_style_all(title_id, {
             "fontFamily": "Noto Sans KR",
-            "fontSize": {"magnitude": 28, "unit": "PT"},
+            "fontSize": {"magnitude": 22, "unit": "PT"},
             "bold": True,
             "foregroundColor": {"opaqueColor": {"rgbColor": TEXT_DARK}},
         }))
@@ -366,66 +431,58 @@ def build_requests_for_slide(
 
         if sd["subtitle"]:
             sub_id = _oid("slide", idx, "subtitle")
-            requests.append(_textbox(sub_id, slide_id, content_x, title_y + int(0.9 * EMU_PER_INCH),
-                                    content_w, int(0.8 * EMU_PER_INCH)))
+            requests.append(_textbox(sub_id, slide_id, content_x, title_y + int(0.7 * EMU_PER_INCH),
+                                    content_w, int(0.6 * EMU_PER_INCH)))
             requests.append(_insert_text(sub_id, sd["subtitle"]))
             requests.append(_style_all(sub_id, {
                 "fontFamily": "Noto Sans KR",
-                "fontSize": {"magnitude": 13, "unit": "PT"},
+                "fontSize": {"magnitude": 10, "unit": "PT"},
                 "foregroundColor": {"opaqueColor": {"rgbColor": TEXT_MUTED}},
             }))
             requests.append(_paragraph_style_all(sub_id, {"alignment": "CENTER"}))
+
+        requests.extend(add_header_footer())
         return requests
 
-    # Content slide — vertical stack of: header label, title, subtitle, body (tables+lists+cards).
-    cursor_y = margin_top
-
-    if sd["header_left"]:
-        hdr_id = _oid("slide", idx, "hdr")
-        requests.append(_textbox(hdr_id, slide_id, content_x, cursor_y, content_w, int(0.25 * EMU_PER_INCH)))
-        requests.append(_insert_text(hdr_id, sd["header_left"]))
-        requests.append(_style_all(hdr_id, {
-            "fontFamily": "Noto Sans KR",
-            "fontSize": {"magnitude": 9, "unit": "PT"},
-            "bold": True,
-            "foregroundColor": {"opaqueColor": {"rgbColor": BRAND_PRIMARY}},
-        }))
-        cursor_y += int(0.3 * EMU_PER_INCH)
+    # Content slide — vertical stack of: tag, title, subtitle, body (tables+lists+cards).
+    # Header/footer handled by add_header_footer at the end.
+    # Leave room at top for header bar (~0.28in) and bottom for footer (~0.28in).
+    cursor_y = int(0.35 * EMU_PER_INCH)
 
     if sd["tag"]:
         tag_id = _oid("slide", idx, "tag")
-        requests.append(_textbox(tag_id, slide_id, content_x, cursor_y, content_w, int(0.22 * EMU_PER_INCH)))
+        requests.append(_textbox(tag_id, slide_id, content_x, cursor_y, content_w, int(0.2 * EMU_PER_INCH)))
         requests.append(_insert_text(tag_id, sd["tag"]))
         requests.append(_style_all(tag_id, {
             "fontFamily": "Noto Sans KR",
-            "fontSize": {"magnitude": 9, "unit": "PT"},
+            "fontSize": {"magnitude": 8, "unit": "PT"},
             "bold": True,
             "foregroundColor": {"opaqueColor": {"rgbColor": BRAND_WARM}},
         }))
-        cursor_y += int(0.28 * EMU_PER_INCH)
+        cursor_y += int(0.22 * EMU_PER_INCH)
 
     if sd["title"]:
         t_id = _oid("slide", idx, "title")
-        requests.append(_textbox(t_id, slide_id, content_x, cursor_y, content_w, int(0.7 * EMU_PER_INCH)))
+        requests.append(_textbox(t_id, slide_id, content_x, cursor_y, content_w, int(0.55 * EMU_PER_INCH)))
         requests.append(_insert_text(t_id, sd["title"]))
         requests.append(_style_all(t_id, {
             "fontFamily": "Noto Sans KR",
-            "fontSize": {"magnitude": 22, "unit": "PT"},
+            "fontSize": {"magnitude": 18, "unit": "PT"},
             "bold": True,
             "foregroundColor": {"opaqueColor": {"rgbColor": TEXT_DARK}},
         }))
-        cursor_y += int(0.75 * EMU_PER_INCH)
+        cursor_y += int(0.55 * EMU_PER_INCH)
 
     if sd["subtitle"]:
         s_id = _oid("slide", idx, "subtitle")
-        requests.append(_textbox(s_id, slide_id, content_x, cursor_y, content_w, int(0.5 * EMU_PER_INCH)))
+        requests.append(_textbox(s_id, slide_id, content_x, cursor_y, content_w, int(0.35 * EMU_PER_INCH)))
         requests.append(_insert_text(s_id, sd["subtitle"]))
         requests.append(_style_all(s_id, {
             "fontFamily": "Noto Sans KR",
-            "fontSize": {"magnitude": 12, "unit": "PT"},
+            "fontSize": {"magnitude": 10, "unit": "PT"},
             "foregroundColor": {"opaqueColor": {"rgbColor": TEXT_MUTED}},
         }))
-        cursor_y += int(0.55 * EMU_PER_INCH)
+        cursor_y += int(0.4 * EMU_PER_INCH)
 
     # Tables
     for ti, tbl in enumerate(sd["tables"]):
@@ -436,10 +493,10 @@ def build_requests_for_slide(
         if n_cols == 0 or n_rows == 0:
             continue
         tbl_id = _oid("slide", idx, f"tbl{ti}")
-        row_h = int(0.35 * EMU_PER_INCH)
+        row_h = int(0.25 * EMU_PER_INCH)
         tbl_h = row_h * n_rows
-        # Clamp so we don't overflow.
-        available = page_h - cursor_y - int(0.5 * EMU_PER_INCH)
+        # Clamp so we don't overflow — leave footer room.
+        available = page_h - cursor_y - margin_bottom - int(0.15 * EMU_PER_INCH)
         if tbl_h > available:
             tbl_h = available
         requests.append({
@@ -475,7 +532,7 @@ def build_requests_for_slide(
                     "textRange": {"type": "ALL"},
                     "style": {
                         "fontFamily": "Noto Sans KR",
-                        "fontSize": {"magnitude": 10, "unit": "PT"},
+                        "fontSize": {"magnitude": 8, "unit": "PT"},
                         "bold": bold,
                         "foregroundColor": {"opaqueColor": {"rgbColor": TEXT_DARK if bold else TEXT_MUTED}},
                     },
@@ -498,48 +555,36 @@ def build_requests_for_slide(
         if not items:
             continue
         list_id = _oid("slide", idx, f"list{li_idx}")
-        list_h = int(max(0.5, 0.35 * len(items)) * EMU_PER_INCH)
-        if cursor_y + list_h > page_h - int(0.5 * EMU_PER_INCH):
+        list_h = int(max(0.4, 0.22 * len(items)) * EMU_PER_INCH)
+        if cursor_y + list_h > page_h - margin_bottom - int(0.1 * EMU_PER_INCH):
             break  # skip if overflow
         requests.append(_textbox(list_id, slide_id, content_x, cursor_y, content_w, list_h))
         requests.append(_insert_text(list_id, "\n".join(items)))
         requests.append(_style_all(list_id, {
             "fontFamily": "Noto Sans KR",
-            "fontSize": {"magnitude": 11, "unit": "PT"},
-            "foregroundColor": {"opaqueColor": {"rgbColor": TEXT_MUTED}},
-        }))
-        requests.append(_bullets(list_id))
-        cursor_y += list_h + int(0.2 * EMU_PER_INCH)
-
-    # Cards as compact text (title — description per line)
-    card_lines = [f"{c['title']} — {c['description']}".strip(" —") for c in sd["cards"] if c.get("title") or c.get("description")]
-    if card_lines and cursor_y < page_h - int(0.8 * EMU_PER_INCH):
-        card_id = _oid("slide", idx, "cards")
-        card_h = int(max(0.5, 0.3 * len(card_lines)) * EMU_PER_INCH)
-        if cursor_y + card_h > page_h - int(0.5 * EMU_PER_INCH):
-            card_h = page_h - cursor_y - int(0.5 * EMU_PER_INCH)
-        requests.append(_textbox(card_id, slide_id, content_x, cursor_y, content_w, card_h))
-        requests.append(_insert_text(card_id, "\n".join(card_lines)))
-        requests.append(_style_all(card_id, {
-            "fontFamily": "Noto Sans KR",
-            "fontSize": {"magnitude": 10, "unit": "PT"},
-            "foregroundColor": {"opaqueColor": {"rgbColor": TEXT_DARK}},
-        }))
-
-    # Page number footer
-    if sd["page"]:
-        pg_id = _oid("slide", idx, "pg")
-        requests.append(_textbox(
-            pg_id, slide_id,
-            page_w - int(0.9 * EMU_PER_INCH), page_h - int(0.3 * EMU_PER_INCH),
-            int(0.4 * EMU_PER_INCH), int(0.2 * EMU_PER_INCH),
-        ))
-        requests.append(_insert_text(pg_id, sd["page"]))
-        requests.append(_style_all(pg_id, {
             "fontSize": {"magnitude": 9, "unit": "PT"},
             "foregroundColor": {"opaqueColor": {"rgbColor": TEXT_MUTED}},
         }))
+        requests.append(_bullets(list_id))
+        cursor_y += list_h + int(0.1 * EMU_PER_INCH)
 
+    # Cards as compact text (title — description per line)
+    card_lines = [f"{c['title']} — {c['description']}".strip(" —") for c in sd["cards"] if c.get("title") or c.get("description")]
+    if card_lines and cursor_y < page_h - margin_bottom - int(0.2 * EMU_PER_INCH):
+        card_id = _oid("slide", idx, "cards")
+        card_h = int(max(0.4, 0.22 * len(card_lines)) * EMU_PER_INCH)
+        if cursor_y + card_h > page_h - margin_bottom - int(0.1 * EMU_PER_INCH):
+            card_h = page_h - cursor_y - margin_bottom - int(0.1 * EMU_PER_INCH)
+        if card_h > int(0.2 * EMU_PER_INCH):
+            requests.append(_textbox(card_id, slide_id, content_x, cursor_y, content_w, card_h))
+            requests.append(_insert_text(card_id, "\n".join(card_lines)))
+            requests.append(_style_all(card_id, {
+                "fontFamily": "Noto Sans KR",
+                "fontSize": {"magnitude": 8, "unit": "PT"},
+                "foregroundColor": {"opaqueColor": {"rgbColor": TEXT_DARK}},
+            }))
+
+    requests.extend(add_header_footer())
     return requests
 
 
