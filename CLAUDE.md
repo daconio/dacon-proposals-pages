@@ -19,7 +19,9 @@ File naming convention: `YYYY-MM-DD-{대상}_{주제}.{md,html,pdf}`
 
 All HTML presentations are **single-file, self-contained slide decks** (no external dependencies beyond Google Fonts). Key patterns:
 
-- **Viewport scaling**: A `#viewport` + `#stage` container with fixed dimensions (`--slide-w: 1280px; --slide-h: 720px`) scaled via `transform: scale()` to fit the browser window
+- **Default stage size = A4 landscape**: `--sw2: 1280px; --sh: 905px` (ratio ≈ 1.414, matches 297×210 mm). New proposals must use this size so the A4 PDF output is native (no letterbox). Legacy decks may use `--sh: 720px` (16:9 = 1.778); `scripts/make_pdf.py` auto-detects stage size and letterboxes as needed.
+- **Viewport scaling**: A `#viewport` + `#stage` container with fixed dimensions scaled via `transform: scale()` to fit the browser window. The fit() JS function divisor (`vh/905`) must match `--sh`.
+- **Print CSS**: `@page { size: A4 landscape; margin: 0; }` — required for direct browser print to match the stage geometry.
 - **Slide transitions**: `.slide` elements positioned absolutely; `.slide.active` controls visibility. Navigation via `show(idx, dir)` or `showSlide(n)` function
 - **Fragment animations**: `[data-step]` attributes for incremental reveals within a slide, toggled between `pre-visible` and `visible` classes
 - **Navigation**: Arrow keys, touch swipe, and optional on-screen nav buttons (`#nav-prev`, `#nav-next`)

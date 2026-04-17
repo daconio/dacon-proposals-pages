@@ -62,9 +62,12 @@ ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from html_to_pdf import find_chrome  # noqa: E402
 
-# Fixed slide capture geometry — matches the slide deck CSS (--sw2 / --sh).
+# Default slide capture geometry — matches the slide deck CSS (--sw2 / --sh).
+# Current project default is **A4 landscape** (1280 × 905, ratio ≈ 1.414).
+# Legacy decks use 16:9 (1280 × 720). Actual size is auto-detected from #stage
+# at capture time, so both formats work without manual override.
 CAPTURE_W = 1280
-CAPTURE_H = 720
+CAPTURE_H = 905
 
 # A4 dimensions in millimeters (portrait, width × height).
 A4_W_MM = 210
@@ -78,10 +81,13 @@ A4_DPI = 300
 # Slide capture (shared across all output formats)
 # ─────────────────────────────────────────────────────────────
 
-def capture_slides(src: Path, tmpdir: Path, scale: int, quiet: bool) -> list[Path]:
-    """Render each .slide to its own PNG at 1280×720 × scale.
+def capture_slides(src: Path, tmpdir: Path, scale: int, quiet: bool) -> tuple[list[Path], int, int]:
+    """Render each .slide to its own PNG.
 
-    Returns ordered list of PNG paths. Raises on fatal errors.
+    Capture dimensions are auto-detected from the #stage bounding box —
+    works for both A4-landscape (1280×905) and legacy 16:9 (1280×720) decks.
+
+    Returns (ordered PNG paths, detected_width_px, detected_height_px).
     """
     try:
         from playwright.sync_api import sync_playwright
@@ -99,13 +105,34 @@ def capture_slides(src: Path, tmpdir: Path, scale: int, quiet: bool) -> list[Pat
     png_paths: list[Path] = []
     with sync_playwright() as p:
         browser = p.chromium.launch(executable_path=chrome, headless=True)
+        # Initial viewport uses project default — will be resized once #stage
+        # bounding box is measured from the CSS variables --sw2 / --sh.
         ctx = browser.new_context(
             viewport={"width": CAPTURE_W, "height": CAPTURE_H},
             device_scale_factor=scale,
         )
         page = ctx.new_page()
         page.goto(src.as_uri(), wait_until="networkidle")
-        page.wait_for_timeout(2500)
+        page.wait_for_timeout(500)  # initial layout settle
+
+        # Auto-detect stage dimensions from computed style, then resize viewport
+        # to match — prevents scale() transform from distorting the screenshot.
+        dims = page.evaluate("""() => {
+            const s = document.getElementById('stage');
+            if (!s) return null;
+            const cs = getComputedStyle(s);
+            return { w: parseFloat(cs.width), h: parseFloat(cs.height) };
+        }""")
+        if dims and dims.get("w") and dims.get("h"):
+            det_w = int(round(dims["w"]))
+            det_h = int(round(dims["h"]))
+        else:
+            det_w, det_h = CAPTURE_W, CAPTURE_H
+        if (det_w, det_h) != (CAPTURE_W, CAPTURE_H):
+            page.set_viewport_size({"width": det_w, "height": det_h})
+            page.wait_for_timeout(200)
+        log(f"  stage: {det_w}×{det_h}px (auto-detected)")
+        page.wait_for_timeout(2000)  # font + JS settle
 
         # Hide navigation UI in screen-media capture.
         page.add_style_tag(
@@ -161,11 +188,11 @@ def capture_slides(src: Path, tmpdir: Path, scale: int, quiet: bool) -> list[Pat
 
         browser.close()
 
-    return png_paths
+    return png_paths, det_w, det_h
 
 
 # ─────────────────────────────────────────────────────────────
-# PDF assemblers — 16:9 (native) and A4 (letterbox)
+# PDF assemblers — A4 (native) and 16:9 (letterbox)
 # ─────────────────────────────────────────────────────────────
 
 def _assemble_pdf(
@@ -218,62 +245,64 @@ def _assemble_pdf(
         )
 
 
-def make_16x9_pdf(
+def _page_size_pt(fmt: str) -> tuple[float, float]:
+    """Return PDF page size in points for a given output format."""
+    if fmt == "16x9":
+        # 1280 × 720 px → 960 × 540 pt (13.333 × 7.5 in)
+        return (1280 * 72 / 96, 720 * 72 / 96)
+    if fmt == "a4":
+        return (A4_H_MM * 72 / 25.4, A4_W_MM * 72 / 25.4)  # 297×210 mm
+    if fmt == "a4p":
+        return (A4_W_MM * 72 / 25.4, A4_H_MM * 72 / 25.4)  # 210×297 mm
+    raise ValueError(f"Unknown format: {fmt}")
+
+
+def make_fit_pdf(
     png_paths: list[Path],
     out: Path,
-    scale: int,
+    fmt: str,
     lossless: bool,
     quiet: bool,
 ) -> None:
-    """16:9 PDF — captured 1280×720 PNG embedded as-is, page = 960×540 pt."""
-    from PIL import Image
+    """Assemble PNGs into a PDF of the target format.
 
-    log = (lambda *a, **k: None) if quiet else print
-    log(f"  assembling 16:9 PDF ({len(png_paths)} pages)")
-
-    images = [Image.open(p).convert("RGB") for p in png_paths]
-    page_size_pt = (CAPTURE_W * 72 / 96, CAPTURE_H * 72 / 96)  # 960 × 540 pt
-    _assemble_pdf(images, out, page_size_pt, dpi_for_jpeg=96 * scale, lossless=lossless)
-
-
-def make_a4_pdf(
-    png_paths: list[Path],
-    out: Path,
-    orientation: str,
-    scale: int,
-    lossless: bool,
-    quiet: bool,
-) -> None:
-    """A4 PDF — each 16:9 PNG letterboxed onto a white A4 canvas (center-fit).
-
-    * orientation='landscape'  → 297 mm × 210 mm  (wide 16:9 fits near page width)
-    * orientation='portrait'   → 210 mm × 297 mm  (16:9 fits page width, tall letterbox)
+    If captured aspect matches the target page aspect (within tolerance),
+    embed PNGs directly (native). Otherwise, center-fit each PNG onto a
+    white canvas at 300 DPI and assemble (letterbox).
     """
     from PIL import Image
 
     log = (lambda *a, **k: None) if quiet else print
 
-    mm_to_px = A4_DPI / 25.4
-    if orientation == "landscape":
-        page_w_px = int(A4_H_MM * mm_to_px)  # 297 mm wide
-        page_h_px = int(A4_W_MM * mm_to_px)  # 210 mm tall
-        page_size_pt = (A4_H_MM * 72 / 25.4, A4_W_MM * 72 / 25.4)  # ~842 × 595 pt
-    elif orientation == "portrait":
-        page_w_px = int(A4_W_MM * mm_to_px)
-        page_h_px = int(A4_H_MM * mm_to_px)
-        page_size_pt = (A4_W_MM * 72 / 25.4, A4_H_MM * 72 / 25.4)  # ~595 × 842 pt
-    else:
-        raise ValueError(f"Unknown A4 orientation: {orientation}")
+    page_size_pt = _page_size_pt(fmt)
+    page_aspect = page_size_pt[0] / page_size_pt[1]
 
-    log(f"  assembling A4 {orientation} PDF ({len(png_paths)} pages, {page_w_px}×{page_h_px}px @ {A4_DPI}dpi)")
+    first = Image.open(png_paths[0])
+    iw, ih = first.size
+    img_aspect = iw / ih
+
+    # Native embed if aspect matches within 0.5% tolerance.
+    native = abs(img_aspect - page_aspect) / page_aspect < 0.005
+
+    if native:
+        log(f"  assembling {fmt} PDF — native ({len(png_paths)} pages, PNG {iw}×{ih})")
+        images = [Image.open(p).convert("RGB") for p in png_paths]
+        dpi = int(round(iw * 72 / page_size_pt[0]))
+        _assemble_pdf(images, out, page_size_pt, dpi_for_jpeg=dpi, lossless=lossless)
+        return
+
+    # Letterbox path — composite onto white canvas at 300 DPI.
+    page_w_px = int(round(page_size_pt[0] * A4_DPI / 72))
+    page_h_px = int(round(page_size_pt[1] * A4_DPI / 72))
+    log(f"  assembling {fmt} PDF — letterbox ({len(png_paths)} pages, canvas {page_w_px}×{page_h_px}px @ {A4_DPI}dpi)")
 
     pages = []
     for png in png_paths:
         img = Image.open(png).convert("RGB")
-        iw, ih = img.size
-        fit = min(page_w_px / iw, page_h_px / ih)
-        new_w = max(1, int(iw * fit))
-        new_h = max(1, int(ih * fit))
+        iw2, ih2 = img.size
+        fit = min(page_w_px / iw2, page_h_px / ih2)
+        new_w = max(1, int(round(iw2 * fit)))
+        new_h = max(1, int(round(ih2 * fit)))
         scaled = img.resize((new_w, new_h), Image.LANCZOS)
         page = Image.new("RGB", (page_w_px, page_h_px), (255, 255, 255))
         page.paste(scaled, ((page_w_px - new_w) // 2, (page_h_px - new_h) // 2))
@@ -359,16 +388,11 @@ def main() -> int:
 
             tmpdir = Path(tempfile.mkdtemp(prefix="make_pdf_"))
             try:
-                png_paths = capture_slides(src, tmpdir, args.scale, args.quiet)
+                png_paths, _det_w, _det_h = capture_slides(src, tmpdir, args.scale, args.quiet)
 
                 for fmt in fmts:
                     out = output_path_for(src, fmt)
-                    if fmt == "16x9":
-                        make_16x9_pdf(png_paths, out, args.scale, args.lossless, args.quiet)
-                    elif fmt == "a4":
-                        make_a4_pdf(png_paths, out, "landscape", args.scale, args.lossless, args.quiet)
-                    elif fmt == "a4p":
-                        make_a4_pdf(png_paths, out, "portrait", args.scale, args.lossless, args.quiet)
+                    make_fit_pdf(png_paths, out, fmt, args.lossless, args.quiet)
                     rel_out = out.relative_to(ROOT) if out.is_relative_to(ROOT) else out
                     log(f"✓ {fmt:5s} → {rel_out} ({out.stat().st_size:,} bytes)")
             finally:
