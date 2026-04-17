@@ -1,0 +1,1951 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>「K-water맞춤형 학습형 해커톤(AI 러닝톤) 운영 용역」 제안서 슬라이드</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  /* Grayscale Tone System — High Contrast */
+  --primary:#000000;--primary-d:#000000;--primary-light:#e5e5e5;
+  --warm:#333333;--warm-bg:rgba(0,0,0,.05);
+  --dark:#333333;--on-surface:#000000;--on-variant:#555555;
+  --surface:#ffffff;--surface-low:#f3f3f3;--outline:#999999;--outline-d:rgba(0,0,0,.12);
+  --sec:#e5e5e5;--on-sec:#000000;
+  --green:#333333;--green-bg:rgba(0,0,0,.03);
+  --font:'Plus Jakarta Sans','Pretendard Variable',Pretendard,-apple-system,system-ui,sans-serif;
+  --shadow:0 8px 24px rgba(0,0,0,.04);
+  --r-sm:.25rem;--r-md:.375rem;--r-lg:.75rem;
+  --slide-w:1280px;--slide-h:720px;
+}
+html,body{width:100%;height:100%;font-family:var(--font);color:var(--on-surface);background:#e8e8e8;overflow:hidden;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+#viewport{position:fixed;inset:0;display:flex;align-items:center;justify-content:center}
+#stage{position:relative;width:var(--slide-w);height:var(--slide-h);overflow:hidden;transform-origin:center;border-radius:var(--r-lg);box-shadow:0 12px 48px rgba(30,41,59,.15);background:var(--surface)}
+
+.slide{position:absolute;inset:0;background:var(--surface);display:flex;flex-direction:column;opacity:0;pointer-events:none;transition:opacity 0s;overflow:hidden}
+.slide.active{opacity:1;pointer-events:auto}
+
+.sh{position:absolute;top:0;left:0;right:0;height:44px;padding:0 32px;display:flex;justify-content:space-between;align-items:center;background:rgba(255,255,255,.95);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-bottom:1px solid var(--outline-d);z-index:2}
+.sh-l{font-size:.8125rem;font-weight:700;color:var(--primary);letter-spacing:.06em;text-transform:uppercase}
+.sh span:last-child{font-size:.6875rem;font-weight:700;color:var(--outline);letter-spacing:.08em;text-transform:uppercase}
+.sf{position:absolute;bottom:0;left:0;right:0;height:36px;padding:0 32px;display:flex;justify-content:center;align-items:center;background:rgba(255,255,255,.95);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-top:1px solid rgba(148,163,184,.15);z-index:2}
+.sf .brand{display:none}
+.sf .pg{font-size:.6875rem;color:var(--on-variant);font-weight:600;font-family:'SF Mono',Menlo,monospace}
+.sf span:last-child{display:none}
+.sf span:last-child{font-size:.5625rem;color:var(--outline);letter-spacing:.03em;font-weight:600;text-transform:uppercase}
+
+.si{flex:1;display:flex;flex-direction:column;padding:62px 72px 48px;position:relative}
+
+.tag{display:inline-flex;align-items:center;gap:8px;font-size:.6875rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--primary);margin-bottom:12px}
+.tag::before{content:'';width:24px;height:2.5px;background:var(--primary);border-radius:2px}
+.tag.w{color:var(--warm)}.tag.w::before{background:var(--warm)}
+h1.st{font-size:2rem;font-weight:800;color:var(--on-surface);letter-spacing:-.02em;line-height:1.2}
+h2.st{font-size:1.75rem;font-weight:800;color:var(--on-surface);letter-spacing:-.02em;line-height:1.22}
+.sub{margin-top:8px;font-size:.875rem;color:var(--on-variant);line-height:1.65}
+.hl{color:var(--primary);font-weight:700}
+.hl-w{color:var(--warm);font-weight:700}
+
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+.g4{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:10px}
+.c{background:var(--surface);border:1px solid rgba(148,163,184,.2);border-radius:var(--r-lg);padding:16px}
+.c-p{background:var(--sec);border:none}
+.c-w{background:var(--warm-bg);border:none}
+.c-g{background:var(--green-bg);border:none}
+.c-d{background:#444;color:#fff;border:none}
+.c-d .c-t{color:#fff}.c-d .c-dd{color:#e0e0e0}
+.c-d ul li{color:#e0e0e0!important}.c-d strong{color:#fff}
+.c .c-t{font-size:.875rem;font-weight:700;color:var(--on-surface);margin-bottom:6px}
+.c .c-dt{font-size:.9375rem;font-weight:800;color:var(--on-surface);margin-bottom:6px;letter-spacing:-.01em}
+.c .c-dd{font-size:.75rem;color:var(--on-variant);line-height:1.6}
+.c ul{list-style:none;margin-top:6px}
+.c ul li{position:relative;padding-left:14px;font-size:.75rem;color:var(--on-variant);line-height:1.7}
+.c ul li::before{content:'';position:absolute;left:0;top:9px;width:5px;height:5px;border-radius:50%;background:var(--primary)}
+.c-w ul li::before{background:var(--warm)}
+.c-g ul li::before{background:var(--green)}
+.c-d ul li::before{background:#fff}
+
+.mx{text-align:center;padding:14px 10px;background:var(--surface-low);border-radius:var(--r-lg)}
+.mx .v{font-size:1.5rem;font-weight:800;color:var(--primary);line-height:1;letter-spacing:-.02em}
+.mx .v.w{color:var(--warm)}.mx .v.g{color:var(--green)}
+.mx .l{font-size:.625rem;color:var(--on-variant);margin-top:4px;font-weight:500}
+
+.tb{width:100%;border-collapse:collapse;font-size:.75rem;margin-top:8px}
+.tb th{background:var(--surface-low);color:var(--on-surface);padding:8px 12px;text-align:left;font-size:.6875rem;font-weight:700;border:none;border-bottom:2px solid var(--primary)}
+.tb td{padding:7px 12px;border:none;border-bottom:1px solid rgba(148,163,184,.15);color:var(--on-variant);vertical-align:top;line-height:1.6}
+.tb tr:last-child td{border-bottom:none}
+
+.ui{background:#fff;border:1px solid rgba(148,163,184,.25);border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--shadow)}
+.ui-bar{background:var(--surface-low);padding:6px 10px;display:flex;align-items:center;gap:5px;border-bottom:1px solid rgba(148,163,184,.15)}
+.ui-dot{width:8px;height:8px;border-radius:50%}
+.ui-dot.r{background:#999}.ui-dot.y{background:#bbb}.ui-dot.g{background:#ddd}
+.ui-url{margin-left:10px;font-size:.625rem;color:var(--on-variant);font-family:'SF Mono',Menlo,monospace}
+.ui-body{padding:10px 12px}
+.ui-cap{font-size:.625rem;color:var(--on-variant);font-style:italic;text-align:center;margin-top:4px}
+
+pre.flow{background:var(--surface-low);border-left:3px solid var(--primary);padding:12px 14px;font-family:'SF Mono',Menlo,monospace;font-size:.6875rem;color:var(--on-surface);line-height:1.65;border-radius:var(--r-sm);margin:8px 0;white-space:pre;overflow:auto}
+
+.stepper{display:flex;gap:8px;margin:10px 0;align-items:stretch}
+.step{flex:1;background:var(--surface-low);border-radius:var(--r-md);padding:12px 14px;border-left:3px solid var(--primary);font-size:.75rem}
+.step .n{font-size:.625rem;color:var(--warm);font-weight:800;letter-spacing:.06em}
+.step .t{font-size:.875rem;font-weight:700;color:var(--on-surface);margin:3px 0}
+.step .d{font-size:.6875rem;color:var(--on-variant);line-height:1.5}
+
+.slide-sec{padding:0}
+.slide-sec .si{justify-content:center;align-items:center;text-align:center;padding-top:60px;background:linear-gradient(135deg,var(--surface) 0%,var(--sec) 100%)}
+.slide-sec .sn{font-size:4.5rem;font-weight:800;color:rgba(30,58,138,.09);line-height:1;margin-bottom:8px;letter-spacing:-.04em}
+.slide-sec h2{font-size:2.25rem;font-weight:800;color:var(--on-surface);letter-spacing:-.02em}
+.slide-sec .sd{font-size:1rem;color:var(--on-variant);margin-top:10px;max-width:720px;line-height:1.65}
+
+.slide-cover{padding:0}
+.slide-cover .si{justify-content:center;padding:70px 88px;background:linear-gradient(135deg,var(--surface) 0%,var(--sec) 100%)}
+.slide-cover .kv{font-size:.8125rem;font-weight:700;color:var(--warm);letter-spacing:.18em;margin-bottom:16px;text-transform:uppercase}
+.slide-cover h1{font-size:2.75rem;font-weight:800;line-height:1.18;letter-spacing:-.02em;color:var(--on-surface)}
+.slide-cover .meta{margin-top:28px;font-size:.8125rem;color:var(--on-variant);line-height:1.9}
+.slide-cover .date{position:absolute;top:28px;right:36px;background:linear-gradient(135deg,var(--primary),var(--primary-d));color:#fff;padding:6px 16px;border-radius:999px;font-size:.6875rem;font-weight:700}
+.slide-cover .rule{width:160px;height:3px;background:var(--primary);border-radius:999px;margin:14px 0}
+
+.slide-end{padding:0}
+.slide-end .si{justify-content:center;align-items:center;text-align:center;background:linear-gradient(135deg,var(--surface) 0%,var(--sec) 100%)}
+.slide-end .lg{font-size:2.25rem;font-weight:800;color:var(--primary);letter-spacing:.1em;margin-bottom:24px}
+.slide-end h1{font-size:2rem;font-weight:800;color:var(--on-surface);letter-spacing:-.02em;line-height:1.22}
+.slide-end .ed{font-size:.9375rem;color:var(--on-variant);margin-top:18px;line-height:1.75}
+
+.g5{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+.c-patent{background:linear-gradient(135deg,#555 0%,#333 100%);color:#fff;border:none;position:relative;box-shadow:0 8px 24px rgba(0,0,0,.15)}
+.c-patent .c-t{color:#fff}
+.c-patent ul li{color:rgba(255,255,255,.92)}
+.c-patent ul li::before{background:#ccc}
+.c-patent .patent-badge{position:absolute;top:12px;right:12px;background:#fff;color:var(--warm);font-size:.5625rem;font-weight:800;padding:3px 10px;border-radius:999px;letter-spacing:.06em}
+.mini-card{padding:10px 8px;text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;min-height:110px}
+.mini-card .mini-ico{font-size:1.5rem;line-height:1;margin-bottom:6px}
+.mini-card .mini-t{font-size:.8125rem;font-weight:800;color:var(--on-surface);margin-bottom:4px;letter-spacing:-.01em}
+.mini-card .mini-d{font-size:.6875rem;color:var(--on-variant);line-height:1.4}
+.mini-card.mini-alert{background:var(--warm-bg);border:1.5px solid var(--warm)}
+.mini-card.mini-alert .mini-t{color:var(--warm)}
+.scope-flow{display:flex;align-items:stretch;gap:6px;margin-top:10px;padding:2px 0}
+.scope-phase{display:flex;flex-direction:column;flex:1;min-width:0}
+.scope-phase-label{font-size:.6875rem;color:var(--warm);font-weight:800;letter-spacing:.04em;text-align:center;margin-bottom:8px;padding:4px 0;border-bottom:1.5px dashed var(--warm);white-space:nowrap}
+.scope-parallel{display:flex;flex-direction:column;gap:6px;flex:1}
+.scope-parallel .scope-box{flex:1}
+.scope-phase > .scope-box{flex:1}
+.scope-box{background:var(--surface);border:2px solid var(--primary);border-radius:var(--r-lg);padding:10px 12px;display:flex;flex-direction:column;justify-content:center;align-items:center;box-shadow:var(--shadow);text-align:center}
+.scope-box .scope-tag{display:inline-block;font-size:.75rem;font-weight:800;color:#fff;background:var(--primary);padding:2px 12px;border-radius:999px;margin-bottom:6px;letter-spacing:.02em}
+.scope-box .scope-name{font-size:.9375rem;font-weight:800;color:var(--on-surface);letter-spacing:-.01em;line-height:1.2}
+.scope-box .scope-sub{font-size:.6875rem;color:var(--on-variant);margin-top:4px;line-height:1.4}
+.scope-a{border-color:var(--primary);background:linear-gradient(135deg,#fff 0%,var(--sec) 100%)}
+.scope-b{border-color:#666;background:linear-gradient(135deg,#fff 0%,#f0f0f0 100%)}
+.scope-b .scope-tag{background:#666}
+.scope-c{border-color:#888;background:linear-gradient(135deg,#fff 0%,#f5f5f5 100%)}
+.scope-c .scope-tag{background:#888}
+.scope-d{border-color:#444;background:linear-gradient(135deg,#555,#333);color:#fff}
+.scope-d .scope-tag{background:rgba(255,255,255,.25);color:#fff}
+.scope-d .scope-name{color:#fff}
+.scope-d .scope-sub{color:#bbb}
+.scope-conn{display:flex;flex-direction:column;align-items:center;justify-content:center;min-width:82px;flex:0 0 auto;padding-top:34px}
+.scope-conn-label{font-size:.6875rem;color:var(--primary);font-weight:700;text-align:center;line-height:1.3;margin-bottom:4px;white-space:nowrap}
+.scope-conn-arrow{font-size:1.375rem;color:var(--primary);font-weight:800;line-height:1}
+.toc-title{font-size:1.375rem;font-weight:800;text-align:center;letter-spacing:1rem;color:var(--primary);margin:-6px 0 16px;padding-left:1rem;padding-bottom:80px}
+.toc-title::before,.toc-title::after{content:'—';display:inline-block;color:var(--outline);margin:0 14px;font-weight:400;letter-spacing:0;vertical-align:middle;opacity:.5}
+.toc-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px 36px}
+.toc{list-style:none;margin:0;padding:0}
+.toc li{display:flex;align-items:baseline;padding:3.5px 0;line-height:1.35;color:var(--on-surface)}
+.toc li .lbl{flex-shrink:0;white-space:nowrap}
+.toc li .dots{flex:1;margin:0 8px;border-bottom:1.5px dotted var(--outline);position:relative;bottom:4px;min-width:12px}
+.toc li .pg{flex-shrink:0;font-weight:700;color:var(--primary);min-width:24px;text-align:right;font-family:'SF Mono',Menlo,monospace;font-size:.8125rem}
+.toc li.toc-i{font-size:1rem;font-weight:800;color:var(--primary);padding:10px 0 5px;margin-top:4px;border-bottom:1px solid var(--outline-d)}
+.toc li.toc-i:first-child{padding-top:0;margin-top:0}
+.toc li.toc-i .lbl{letter-spacing:-.01em}
+.toc li.toc-ii{padding-left:18px;font-size:.875rem;font-weight:700}
+.toc li.toc-iii{padding-left:36px;font-size:.8125rem;color:var(--on-variant);font-weight:500}
+.toc li.toc-iii .lbl{color:var(--on-variant)}
+.toc li.toc-iii .pg{color:var(--on-variant);font-weight:600}
+.ph-badge{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;background:var(--warm-bg);color:var(--warm);border-radius:999px;font-size:.6875rem;font-weight:700;letter-spacing:.04em;margin-bottom:10px}
+.ph-note{margin-top:10px;padding:10px 14px;background:var(--surface-low);border-left:3px solid var(--warm);border-radius:var(--r-sm);font-size:.6875rem;color:var(--on-variant);font-style:italic;line-height:1.6}
+
+.img-ph{border:2px dashed var(--outline);border-radius:var(--r-lg);background:var(--surface-low);padding:20px;text-align:center;color:var(--on-variant);font-size:.8125rem;font-weight:600;min-height:160px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px}
+.img-ph .ph-ico{font-size:1.75rem;opacity:.5}
+.img-ph .ph-txt{color:var(--warm);font-weight:700;font-size:.75rem}
+.img-ph .ph-sub{font-size:.6875rem;color:var(--on-variant);font-weight:400;line-height:1.5;margin-top:4px}
+
+.orgchart{background:var(--surface-low);padding:18px;border-radius:var(--r-lg);font-family:'SF Mono',Menlo,monospace;font-size:.6875rem;color:var(--on-surface);line-height:1.6;white-space:pre;overflow:auto;text-align:center}
+
+[data-step]{opacity:0;transform:translateY(10px);transition:opacity .4s ease,transform .4s ease}
+[data-step].visible{opacity:1;transform:none}
+
+.nav-btn{position:fixed;top:50%;transform:translateY(-50%);width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.9);border:none;color:var(--on-variant);cursor:pointer;z-index:100;display:flex;align-items:center;justify-content:center;font-size:18px;box-shadow:var(--shadow);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);transition:all .2s;user-select:none}
+.nav-btn:hover{color:var(--primary)}
+#nav-prev{left:12px}#nav-next{right:12px}
+#progress-bar{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--primary),var(--primary-d));transition:width .4s ease;z-index:100}
+#key-hint{position:fixed;bottom:16px;left:50%;transform:translateX(-50%);color:var(--outline);font-size:.6875rem;z-index:100;opacity:.4}
+
+@page{size:338.667mm 190.5mm;margin:0!important}
+@media print{
+  *{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important;color-adjust:exact!important}
+  html,body{background:#fff;overflow:visible!important;height:auto!important;width:100%!important;margin:0!important;padding:0!important}
+  #viewport{position:static!important;display:block!important;height:auto!important;width:100%!important}
+  #stage{position:static!important;width:100%!important;height:auto!important;overflow:visible!important;transform:none!important;box-shadow:none!important;border-radius:0!important}
+  .slide{position:relative!important;inset:auto!important;opacity:1!important;pointer-events:auto!important;width:100%!important;height:100vh!important;page-break-after:always!important;break-after:page!important;margin:0!important;padding:0!important;overflow:hidden!important;display:flex!important;flex-direction:column!important}
+  .slide:last-child{page-break-after:auto!important;break-after:auto!important}
+  .sh{position:static!important;flex-shrink:0!important;height:44px!important;display:flex!important;width:100%!important;order:-1!important}
+  .si{flex:1!important;overflow:hidden!important}
+  .sf{position:static!important;flex-shrink:0!important;height:36px!important;display:flex!important;justify-content:center!important;align-items:center!important;width:100%!important;order:99!important}
+  .nav-btn,#progress-bar,#key-hint{display:none!important}
+  [data-step]{opacity:1!important;transform:none!important}
+}
+</style>
+</head>
+<body>
+
+<div id="progress-bar"></div>
+<button class="nav-btn" id="nav-prev" aria-label="이전">&#9664;</button>
+<button class="nav-btn" id="nav-next" aria-label="다음">&#9654;</button>
+<div id="key-hint">← → Space · F 전체화면</div>
+
+<div id="viewport"><div id="stage">
+
+<!-- ============================================================ -->
+<!-- S1. 커버                                                      -->
+<!-- ============================================================ -->
+<section class="slide slide-cover active">
+  <div class="si">
+    <span class="date">2026년 · 한국수자원공사 인재개발원</span>
+    <div class="kv" data-step="1">&lt; K-water AI 러닝톤 제안서 &gt;</div>
+    <div class="rule" data-step="2"></div>
+    <h1 data-step="3">
+      「K-water맞춤형 학습형 해커톤<br>
+      <span class="hl">(AI 러닝톤)</span> 운영 용역」 제안서
+    </h1>
+    <div class="rule" data-step="4"></div>
+    <div class="meta" data-step="5">
+      과업기간 약 60일 (2026. 4 ~ 2026. 6) · 규모 약 30팀 90여명<br>
+      2026. 4. · 제안기관 : <span style="color:var(--warm);font-weight:700">○ ○ ○ (블라인드)</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- S2. 목차                                                      -->
+<!-- ============================================================ -->
+<section class="slide">
+  <div class="sh"><span class="sh-l">목 차</span><span>제안서 본문</span></div>
+  <div class="si">
+    <h2 class="toc-title">목 차</h2>
+
+    <div class="toc-grid">
+      <!-- 좌측 컬럼: Ⅰ · Ⅱ -->
+      <ul class="toc">
+        <li class="toc-i"><span class="lbl">Ⅰ. 과업의 이해</span></li>
+        <li class="toc-ii"><span class="lbl">1. 과업목표 및 추진 목적</span><span class="dots"></span><span class="pg">3</span></li>
+        <li class="toc-ii"><span class="lbl">2. 과업범위</span><span class="dots"></span><span class="pg">4</span></li>
+        <li class="toc-iii"><span class="lbl">가. 러닝톤 운영</span><span class="dots"></span><span class="pg">5</span></li>
+        <li class="toc-iii"><span class="lbl">나. 온라인 멘토링</span><span class="dots"></span><span class="pg">6</span></li>
+        <li class="toc-iii"><span class="lbl">다. 러닝톤 현장 운영</span><span class="dots"></span><span class="pg">7</span></li>
+        <li class="toc-iii"><span class="lbl">라. 성과 관리</span><span class="dots"></span><span class="pg">8</span></li>
+
+        <li class="toc-i"><span class="lbl">Ⅱ. 과업관리 계획</span></li>
+        <li class="toc-ii"><span class="lbl">1. 공정별 일정계획</span><span class="dots"></span><span class="pg">9</span></li>
+        <li class="toc-ii"><span class="lbl">2. 투입인력 현황</span><span class="dots"></span><span class="pg">10</span></li>
+        <li class="toc-iii"><span class="lbl">가. 사업수행 조직</span><span class="dots"></span><span class="pg">10</span></li>
+        <li class="toc-iii"><span class="lbl">나. 전문인력 현황</span><span class="dots"></span><span class="pg">11</span></li>
+        <li class="toc-iii"><span class="lbl">다. 멘토단 구성인력 현황</span><span class="dots"></span><span class="pg">12</span></li>
+      </ul>
+
+      <!-- 우측 컬럼: Ⅲ -->
+      <ul class="toc">
+        <li class="toc-i"><span class="lbl">Ⅲ. 과업추진 방향</span></li>
+        <li class="toc-ii"><span class="lbl">1. 본 제안 특징 및 차별성</span><span class="dots"></span><span class="pg">13</span></li>
+        <li class="toc-iii"><span class="lbl">가. 플랫폼 기술</span><span class="dots"></span><span class="pg">13-14</span></li>
+        <li class="toc-iii"><span class="lbl">나. 온오프라인 연계 노하우</span><span class="dots"></span><span class="pg">15</span></li>
+        <li class="toc-iii"><span class="lbl">다. 전문적인 멘토링 Pool · 캘린더 스케줄링</span><span class="dots"></span><span class="pg">16-17</span></li>
+        <li class="toc-ii"><span class="lbl">2. 기대효과</span><span class="dots"></span><span class="pg">18</span></li>
+        <li class="toc-ii"><span class="lbl">3. 상세 운영 방안</span><span class="dots"></span><span class="pg">19</span></li>
+        <li class="toc-iii"><span class="lbl">가. 홍보</span><span class="dots"></span><span class="pg">19</span></li>
+        <li class="toc-iii"><span class="lbl">나. 온라인 경진대회 운영</span><span class="dots"></span><span class="pg">20</span></li>
+        <li class="toc-iii"><span class="lbl">다. AI × 휴먼 멘토링 · E2E 프로세스</span><span class="dots"></span><span class="pg">21-23</span></li>
+        <li class="toc-iii"><span class="lbl">라. 오프라인 대회 운영</span><span class="dots"></span><span class="pg">24-26</span></li>
+        <li class="toc-iii"><span class="lbl">마. 발표평가 및 시상식 운영</span><span class="dots"></span><span class="pg">27</span></li>
+        <li class="toc-iii"><span class="lbl">바. 성과 관리 방안</span><span class="dots"></span><span class="pg">28-29</span></li>
+      </ul>
+    </div>
+  </div>
+  <div class="sf"><span class="brand">K-WATER · AI 러닝톤</span><span class="pg">02 / 30</span><span>목차</span></div>
+</section>
+
+<!-- ============================================================ -->
+<!-- S3. Ⅰ-1. 과업목표 · 추진 목적                                 -->
+<!-- ============================================================ -->
+<section class="slide">
+  <div class="sh"><span class="sh-l">Ⅰ-1. 과업목표 및 추진 목적</span><span>Ⅰ. 과업의 이해</span></div>
+  <div class="si">
+    <div class="tag">과업목표 · 추진 목적</div>
+    <h2 class="st">비전공자도 완주할 수 있는 <span class="hl">학습형 해커톤(러닝톤)</span> 설계·운영</h2>
+
+    <div class="c c-p" style="margin-top:12px">
+      <div class="c-t">●  과업목표 (한 줄 정의)</div>
+      <div class="c-dd" style="font-size:.8125rem;color:var(--on-surface);line-height:1.65">
+        &ldquo;K-water 임직원이 <strong class="hl">생성형 AI로 실제 업무를 바꿔보는 경험</strong>을,
+        <strong class="hl-w">비전공자도 완주할 수 있는 학습형 해커톤</strong>으로 설계·운영한다.&rdquo;
+      </div>
+    </div>
+
+    <div class="g2" style="margin-top:12px">
+      <div class="c">
+        <div class="c-t">과업 정체성 · 3층 목표</div>
+        <table class="tb" style="font-size:.6875rem;margin-top:2px">
+          <tbody>
+            <tr><td style="width:28%"><strong>본 과업</strong></td><td><strong class="hl">학습(Learn) + 해커톤(Hackathon) = 러닝톤</strong> 운영 용역</td></tr>
+            <tr><td><strong>1차 목표</strong></td><td>K-water 맞춤형 생성형 AI 교육 연계 · 실전 역량 내재화</td></tr>
+            <tr><td><strong>2차 목표</strong></td><td>약 30팀 90명 규모 아이디어 발굴·프로토타입 완성</td></tr>
+            <tr><td><strong>3차 목표</strong></td><td>우수 산출물의 업무 적용 파일럿 및 전사 확산 기반</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="c c-w">
+        <div class="c-t">●  추진 목적 (과업지시서 Ⅰ·Ⅱ 연계)</div>
+        <ul>
+          <li><strong>AI First 전환의 현장 체화</strong> — 전 임직원의 실무로 안착</li>
+          <li><strong>업무 밀착형 역량 강화</strong> — 바이브코딩·문서 자동화·RAG</li>
+          <li><strong>비전공자 포용</strong> — 코드 없이 시작 2-Track 커리큘럼</li>
+          <li><strong>사내 과제 발굴·연계</strong> — 현업 페인포인트 → 대회 과제</li>
+          <li><strong>지속가능한 학습 문화</strong> — 지식 자산 축적</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span class="brand">K-WATER · AI 러닝톤</span><span class="pg">03 / 30</span><span>Ⅰ-1</span></div>
+</section>
+
+<!-- ============================================================ -->
+<!-- S4. Ⅰ-2. 과업범위 개요                                        -->
+<!-- ============================================================ -->
+<section class="slide">
+  <div class="sh"><span class="sh-l">Ⅰ-2. 과업범위</span><span>Ⅰ. 과업의 이해</span></div>
+  <div class="si">
+    <div class="tag">과업범위 개요</div>
+    <h2 class="st"><span class="hl">4대 과업범위</span> — 60일 운영 파이프라인으로 유기적으로 연결</h2>
+
+    <table class="tb" style="margin-top:12px">
+      <thead>
+        <tr><th style="width:6%">#</th><th style="width:22%">범위</th><th>핵심 산출</th><th style="width:12%">상세</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>가</strong></td><td><strong class="hl">러닝톤 운영</strong></td><td>종합 기획서 · 공고 · 참가 신청 · 팀 빌딩 · 일정 운영</td><td>p.5</td></tr>
+        <tr><td><strong>나</strong></td><td><strong class="hl">온라인 멘토링</strong></td><td>멘토단 구성 · 매칭 · 세션 이력 · 교육 콘텐츠 제공</td><td>p.6</td></tr>
+        <tr><td><strong>다</strong></td><td><strong class="hl">러닝톤 현장 운영</strong></td><td>본선 1박 2일 설치 · 운영 · 철거 · 안전 관리</td><td>p.7</td></tr>
+        <tr><td><strong>라</strong></td><td><strong class="hl">성과 관리</strong></td><td>KPI 측정 · 설문 · 결과 보고서 · 확산 방안</td><td>p.8</td></tr>
+      </tbody>
+    </table>
+
+    <div class="c c-p" style="margin-top:14px">
+      <div class="c-t">●  범위 간 연계 구조 — 60일 파이프라인</div>
+
+      <div class="scope-flow">
+        <!-- Phase 1: 가 + 나 (병행) -->
+        <div class="scope-phase">
+          <div class="scope-phase-label">1단계 · 4월 말~6월 초 온라인 예선</div>
+          <div class="scope-parallel">
+            <div class="scope-box scope-a">
+              <span class="scope-tag">가</span>
+              <div class="scope-name">러닝톤 운영</div>
+              <div class="scope-sub">대회 기획, 홍보 및 모집, 팀빌딩</div>
+            </div>
+            <div class="scope-box scope-b">
+              <span class="scope-tag">나</span>
+              <div class="scope-name">온라인 멘토링</div>
+              <div class="scope-sub">멘토 1:≤3 · 팀당 2회 · 교육</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Connector 1 -->
+        <div class="scope-conn">
+          <div class="scope-conn-label">상위 30팀<br>선발</div>
+          <div class="scope-conn-arrow">▶</div>
+        </div>
+
+        <!-- Phase 2: 다 (본선) -->
+        <div class="scope-phase">
+          <div class="scope-phase-label">2단계 · 6월 11~12일</div>
+          <div class="scope-box scope-c">
+            <span class="scope-tag">다</span>
+            <div class="scope-name">러닝톤 현장 운영</div>
+            <div class="scope-sub">1박 2일 본선 · 무대·부스·안전</div>
+          </div>
+        </div>
+
+        <!-- Connector 2 -->
+        <div class="scope-conn">
+          <div class="scope-conn-label">측정 · 보고<br>· 확산</div>
+          <div class="scope-conn-arrow">▶</div>
+        </div>
+
+        <!-- Phase 3: 라 (사후) -->
+        <div class="scope-phase">
+          <div class="scope-phase-label">3단계 · 6월 말 ~</div>
+          <div class="scope-box scope-d">
+            <span class="scope-tag">라</span>
+            <div class="scope-name">성과 관리</div>
+            <div class="scope-sub">KPI · 확산 · 지속가능성</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="c-dd" style="margin-top:8px">과업범위는 개별 독립이 아닌 <strong>60일 운영 파이프라인</strong>으로 유기적으로 연결됩니다. <strong class="hl">1단계의 가·나가 병행</strong>되며 온라인 예선을 구성하고, 그 결과(상위 30팀)가 <strong class="hl">2단계 본선</strong>으로 이어져 <strong class="hl">3단계 사후 성과 관리</strong>로 완성됩니다.</div>
+    </div>
+  </div>
+  <div class="sf"><span class="brand">K-WATER · AI 러닝톤</span><span class="pg">04 / 30</span><span>Ⅰ-2 과업범위</span></div>
+</section>
+
+<!-- ============================================================ -->
+<!-- S5. Ⅰ-2. 과업범위 ① 러닝톤 운영                               -->
+<!-- ============================================================ -->
+<section class="slide">
+  <div class="sh"><span class="sh-l">Ⅰ-2-가. 러닝톤 운영</span><span>Ⅰ. 과업의 이해</span></div>
+  <div class="si">
+    <div class="tag">과업범위 · 러닝톤 운영</div>
+    <h2 class="st">대회 <span class="hl">기획·플랫폼 제작</span>부터 <span class="hl">모집·예선·하이브리드 평가·본선·사후관리</span>까지 <span class="hl-w">전 과정 턴키 수행</span></h2>
+
+    <div class="g2" style="margin-top:12px">
+      <div class="c">
+        <div class="c-t">●  대회 전 주기 6단계</div>
+        <table class="tb" style="font-size:.6875rem;margin-top:2px;table-layout:fixed">
+          <thead><tr><th style="width:28%;white-space:nowrap">단계</th><th style="width:46%">활동</th><th style="width:26%;white-space:nowrap">산출물</th></tr></thead>
+          <tbody>
+            <tr><td style="white-space:nowrap"><strong>1. 종합 기획</strong></td><td style="white-space:nowrap">컨셉·규모·일정·과제 풀 설계</td><td style="white-space:nowrap">운영 기획서</td></tr>
+            <tr><td style="white-space:nowrap"><strong>2. 공고·신청</strong></td><td style="white-space:nowrap">사내 공고·랜딩·팀 빌딩</td><td style="white-space:nowrap">참가 신청 DB</td></tr>
+            <tr><td style="white-space:nowrap"><strong>3. 온라인 예선</strong></td><td style="white-space:nowrap">아이디어 제출·상호평가·심사</td><td style="white-space:nowrap">예선 리더보드</td></tr>
+            <tr><td style="white-space:nowrap"><strong>4. 본선 진출팀</strong></td><td style="white-space:nowrap">상위 30팀 선발·과제 확정</td><td style="white-space:nowrap">본선 명단</td></tr>
+            <tr><td style="white-space:nowrap"><strong>5. 본선 운영</strong></td><td style="white-space:nowrap">현장 진행·발표·시상 (Ⅰ-2-다)</td><td style="white-space:nowrap">본선 결과물</td></tr>
+            <tr><td style="white-space:nowrap"><strong>6. 사후 관리</strong></td><td style="white-space:nowrap">결과 보고·데이터 이관 (Ⅰ-2-라)</td><td style="white-space:nowrap">최종보고서</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="c c-p">
+        <div class="c-t">●  통합 운영 플랫폼 (웹·설치 불필요)</div>
+        <ul>
+          <li><strong>참가·팀 관리</strong> — 셀프 가입·팀 빌딩·병합</li>
+          <li><strong>과제 제출·버전 관리</strong> — 드래그&amp;드롭·버전 이력</li>
+          <li><strong>심사 기준 설정·점수 입력·자동 집계</strong></li>
+          <li><strong>실시간 리더보드</strong> — ELO + 심사 + 직원 투표 통합</li>
+          <li><strong>공지·자료·알림</strong> · 일정 캘린더 · Q&amp;A 게시판</li>
+        </ul>
+        <div class="c-t" style="margin-top:10px">●  운영 KPI</div>
+        <ul>
+          <li>참가 신청 전환율 <strong class="hl">≥ 25%</strong></li>
+          <li>본선 진출팀 <strong class="hl">30팀</strong> 확보</li>
+          <li>완주율 <strong class="hl">≥ 85%</strong></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span class="brand">K-WATER · AI 러닝톤</span><span class="pg">05 / 30</span><span>Ⅰ-2-가 러닝톤 운영</span></div>
+</section>
+
+<!-- ============================================================ -->
+<!-- S6. Ⅰ-2. 과업범위 ② 온라인 멘토링                             -->
+<!-- ============================================================ -->
+<section class="slide">
+  <div class="sh"><span class="sh-l">Ⅰ-2-나. 온라인 멘토링</span><span>Ⅰ. 과업의 이해</span></div>
+  <div class="si">
+    <div class="tag">과업범위 · 온라인 멘토링</div>
+    <h2 class="st"><span class="hl">전문가와 AI의 하이브리드형 멘토링</span>으로 러닝톤을 <span class="hl-w">끝까지 지원</span>합니다</h2>
+
+    <!-- 운영 방식 4 카드 -->
+    <div class="g4" style="margin-top:14px">
+      <div class="c c-p">
+        <div class="c-t">●  정기 세션</div>
+        <div class="c-dd" style="font-size:.8125rem;color:var(--on-surface);font-weight:700;line-height:1.3;margin-top:2px">팀당 <span class="hl">2회</span></div>
+        <div class="c-dd" style="margin-top:4px">화상·플랫폼 통합 · 모든 팀 공통 보장</div>
+      </div>
+      <div class="c c-w">
+        <div class="c-t">●  수시 세션</div>
+        <div class="c-dd" style="font-size:.8125rem;color:var(--on-surface);font-weight:700;line-height:1.3;margin-top:2px">AI 멘토 <span class="hl-w">24/7</span></div>
+        <div class="c-dd" style="margin-top:4px">플랫폼 Q&amp;A · 야간·주말 공백 제거</div>
+      </div>
+      <div class="c c-g">
+        <div class="c-t">●  현장 세션</div>
+        <div class="c-dd" style="font-size:.8125rem;color:var(--on-surface);font-weight:700;line-height:1.3;margin-top:2px">본선 <span style="color:var(--green)">1박 2일</span></div>
+        <div class="c-dd" style="margin-top:4px">사람 멘토 현장 상주 · 중간 점검·구현 지원</div>
+      </div>
+      <div class="c c-d">
+        <div class="c-t" style="color:#fff">●  4단계 코칭 역할</div>
+        <div class="c-dd" style="font-size:.75rem;color:#fff;font-weight:700;line-height:1.3;margin-top:2px">정의 → 설계 → 구현 → 고도화</div>
+        <div class="c-dd" style="margin-top:4px;color:#e0e0e0">과제 정의부터 결과 고도화까지 4단계</div>
+      </div>
+    </div>
+
+    <!-- 하단 2-col: 멘토단 구성 + 교육 콘텐츠 -->
+    <div class="g2" style="margin-top:10px">
+      <div class="c">
+        <div class="c-t">●  멘토단 구성 (과업지시서 충족)</div>
+        <table class="tb" style="font-size:.6875rem;margin-top:2px;table-layout:fixed">
+          <tbody>
+            <tr><td style="width:28%;white-space:nowrap"><strong>멘토 자격</strong></td><td>생성형 AI 프로젝트 · 컨설팅·교육 · 업무 개선 중 <strong class="hl-w">2개 이상 충족</strong></td></tr>
+            <tr><td style="white-space:nowrap"><strong>분야 구성</strong></td><td>LLM · 바이브코딩 · 데이터 · 자동화 · UX <strong>5축</strong></td></tr>
+            <tr><td style="white-space:nowrap"><strong>평균 경력</strong></td><td>8년 이상</td></tr>
+            <tr><td style="white-space:nowrap"><strong>배치 기준</strong></td><td><strong class="hl">1인당 최대 3팀</strong> (과업지시서 준수)</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="c c-p">
+        <div class="c-t">●  K-water 맞춤 4-모듈 커리큘럼</div>
+        <table class="tb" style="font-size:.6875rem;margin-top:2px;table-layout:fixed">
+          <thead><tr><th style="width:16%;white-space:nowrap">모듈</th><th>주제</th><th style="width:18%;white-space:nowrap">분량</th></tr></thead>
+          <tbody>
+            <tr><td style="white-space:nowrap"><strong>M1</strong></td><td style="white-space:nowrap">생성형 AI 입문</td><td style="white-space:nowrap">60분</td></tr>
+            <tr><td style="white-space:nowrap"><strong>M2</strong></td><td style="white-space:nowrap">바이브코딩 (기업용 AI 서비스)</td><td style="white-space:nowrap">120분</td></tr>
+            <tr><td style="white-space:nowrap"><strong>M3</strong></td><td style="white-space:nowrap">업무 자동화 (RAG·요약)</td><td style="white-space:nowrap">90분</td></tr>
+            <tr><td style="white-space:nowrap"><strong>M4</strong></td><td style="white-space:nowrap">아이디어톤 가이드</td><td style="white-space:nowrap">30분</td></tr>
+          </tbody>
+        </table>
+        <div class="c-dd" style="margin-top:6px;font-size:.6875rem">진도·체류시간·퀴즈 <strong>자동 집계</strong> · 북마크·이어보기 · <strong class="hl">수료증 자동 발급</strong></div>
+      </div>
+    </div>
+
+    <!-- KPI 스트립 -->
+    <div class="c c-w" style="margin-top:10px;padding:10px 16px">
+      <div style="display:flex;align-items:center;gap:16px;font-size:.75rem;color:var(--on-surface);font-weight:700;flex-wrap:wrap">
+        <span style="color:var(--warm);font-weight:800;letter-spacing:.04em">●  멘토링 KPI</span>
+        <span>멘토링 만족도 <strong class="hl-w">4.3 / 5.0 이상</strong></span>
+        <span>·</span>
+        <span>수료율 <strong class="hl-w">90% 이상</strong></span>
+        <span>·</span>
+        <span>AI 역량 향상 <strong class="hl-w">+30%p</strong></span>
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span class="brand">K-WATER · AI 러닝톤</span><span class="pg">06 / 30</span><span>Ⅰ-2-나 온라인 멘토링</span></div>
+</section>
+
+<!-- ============================================================ -->
+<!-- S7. Ⅰ-2. 과업범위 ③ 러닝톤 현장 운영                          -->
+<!-- ============================================================ -->
+<section class="slide">
+  <div class="sh"><span class="sh-l">Ⅰ-2-다. 러닝톤 현장 운영</span><span>Ⅰ. 과업의 이해</span></div>
+  <div class="si">
+    <div class="tag">과업범위 · 현장 운영</div>
+    <h2 class="st"><span class="hl">본선 1박 2일 현장</span>을 설치부터 정시 시상까지 <span class="hl-w">무사고로 완성</span></h2>
+
+    <!-- 1박 2일 본선 운영 (전폭) -->
+    <div class="c" style="margin-top:12px;padding:12px 16px">
+      <div class="c-t">●  1박 2일 본선 운영 (6월 11~12일)</div>
+      <table class="tb" style="font-size:.6875rem;margin-top:2px;table-layout:fixed">
+        <thead><tr><th style="width:14%;white-space:nowrap">구분</th><th>주요 활동</th></tr></thead>
+        <tbody>
+          <tr><td style="white-space:nowrap"><strong>1일차 오전</strong></td><td>개회식 · 오리엔테이션 · 과제 브리핑</td></tr>
+          <tr><td style="white-space:nowrap"><strong>1일차 오후</strong></td><td>집중 구현 · 중간 멘토링 (사람 + AI)</td></tr>
+          <tr><td style="white-space:nowrap"><strong>1일차 야간</strong></td><td>야간 작업 (희망팀) · AI 멘토 24/7</td></tr>
+          <tr><td style="white-space:nowrap"><strong>2일차 오전</strong></td><td>최종 구현, 제출 마감, 심사위원 및 참가자 상호투표</td></tr>
+          <tr><td style="white-space:nowrap"><strong>2일차 오후</strong></td><td>결선 발표 평가 · 시상식</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- 현장 구성 5-카드 -->
+    <div style="margin-top:10px">
+      <div style="font-size:.8125rem;font-weight:700;color:var(--on-surface);margin-bottom:6px">●  현장 구성 (과업지시서 Ⅲ.2)</div>
+      <div class="g5">
+        <div class="c c-p mini-card">
+          <div class="mini-ico">—</div>
+          <div class="mini-t">무대</div>
+          <div class="mini-d">발표·시상<br>발주기관 제공 + 부족분 추가</div>
+        </div>
+        <div class="c c-p mini-card">
+          <div class="mini-ico">—</div>
+          <div class="mini-t">개발 공간</div>
+          <div class="mini-d">팀별 부스 30개<br>전기·통신</div>
+        </div>
+        <div class="c c-p mini-card">
+          <div class="mini-ico">—</div>
+          <div class="mini-t">편의시설</div>
+          <div class="mini-d">휴게 공간 · 다과<br>발주처 협의</div>
+        </div>
+        <div class="c mini-card mini-alert">
+          <div class="mini-ico">● </div>
+          <div class="mini-t">안전</div>
+          <div class="mini-d">방재 책임자 · AED<br>의료 · 단체보험</div>
+        </div>
+        <div class="c mini-card mini-alert">
+          <div class="mini-ico">—</div>
+          <div class="mini-t">위생 (하계)</div>
+          <div class="mini-d">HACCP 식자재<br>2시간 소진 원칙</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 돌발 대응 + KPI -->
+    <div class="g2" style="margin-top:10px">
+      <div class="c c-d" style="padding:10px 14px">
+        <div class="c-t" style="color:#fff">●  돌발 대응</div>
+        <div style="display:flex;gap:8px;margin-top:6px">
+          <div style="flex:1;background:rgba(255,255,255,.15);border-radius:var(--r-md);padding:8px 10px">
+            <div style="font-size:.75rem;font-weight:700;color:#fff">5분 내 현장 조치</div>
+            <div style="font-size:.625rem;color:#e0e0e0;margin-top:2px">PM · 발주처 에스컬레이션</div>
+          </div>
+          <div style="flex:1;background:rgba(255,255,255,.15);border-radius:var(--r-md);padding:8px 10px">
+            <div style="font-size:.75rem;font-weight:700;color:#fff">추천 인력 우선</div>
+            <div style="font-size:.625rem;color:#e0e0e0;margin-top:2px">발주기관 추천 인력 우선 고려</div>
+          </div>
+        </div>
+      </div>
+      <div class="c c-w" style="padding:10px 14px;display:flex;flex-direction:column;justify-content:center">
+        <div class="c-t">●  현장 운영 KPI</div>
+        <div class="c-dd" style="font-size:.75rem;line-height:1.8">만족도 <strong class="hl-w">4.5/5.0 이상</strong> · 과제 제출율 <strong class="hl-w">≥ 95%</strong> · 시상식 <strong class="hl-w">정시 진행</strong></div>
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span class="brand">K-WATER · AI 러닝톤</span><span class="pg">07 / 30</span><span>Ⅰ-2-다 현장 운영</span></div>
+</section>
+
+<!-- ============================================================ -->
+<!-- S8. Ⅰ-2. 과업범위 ④ 성과 관리                                 -->
+<!-- ============================================================ -->
+<section class="slide">
+  <div class="sh"><span class="sh-l">Ⅰ-2-라. 성과 관리</span><span>Ⅰ. 과업의 이해</span></div>
+  <div class="si">
+    <div class="tag">과업범위 · 성과 관리</div>
+    <h2 class="st">러닝톤 성과를 <span class="hl">정량지표와 정성지표</span>로 <span class="hl-w">이중 측정</span></h2>
+
+    <!-- 정량 + 정성 2-card -->
+    <div class="g2" style="margin-top:12px">
+      <div class="c c-p">
+        <div class="c-t">●  정량지표 — 수치로 측정 가능</div>
+        <ul style="margin-top:4px">
+          <li><strong>리커트척도 만족도</strong> — 5점 척도 평균 <strong class="hl">4.5 이상</strong></li>
+          <li><strong>참여자 수</strong> — 본선 <strong class="hl">30팀 90명</strong> 확보 · 신청 전환율 25%+</li>
+          <li><strong>과제 제출율</strong> — 본선 제출 <strong class="hl">95% 이상</strong></li>
+          <li><strong>완주율 · 수료율</strong> — 완주 85%+ · 수료 90%+</li>
+          <li><strong>프로토타입 건수</strong> — 본선 산출물 <strong class="hl">30건 이상</strong></li>
+        </ul>
+      </div>
+      <div class="c c-w">
+        <div class="c-t">●  정성지표 — 현장의 목소리 · 질적 평가</div>
+        <ul style="margin-top:4px">
+          <li><strong>멘토링 만족도 조사</strong> — 팀별 개방형 피드백 + 리커트 병행</li>
+          <li><strong>교육효과 조사</strong> — 사전·사후 역량 자가진단 비교</li>
+          <li><strong>추천·재참여 의향 조사</strong> — 차기 기수 참여·동료 추천 의사</li>
+          <li><strong>업무 적용 인터뷰</strong> — 본선 +4주 현업 적용성 추적</li>
+          <li><strong>개방형 피드백</strong> — 대회 개선점 · 차기 기수 제안</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 측정 체계 + 차별화 제안 -->
+    <div class="g2" style="margin-top:10px">
+      <div class="c">
+        <div class="c-t">●  측정 체계 — 3시점 타임라인</div>
+        <table class="tb" style="font-size:.6875rem;margin-top:2px;table-layout:fixed">
+          <thead><tr><th style="width:34%;white-space:nowrap">시점</th><th>방법</th></tr></thead>
+          <tbody>
+            <tr><td style="white-space:nowrap"><strong>사전 (Baseline)</strong></td><td style="white-space:nowrap">역량 자기진단 설문 · 사내 인지도</td></tr>
+            <tr><td style="white-space:nowrap"><strong>진행 중 (월간)</strong></td><td style="white-space:nowrap">플랫폼 자동 집계 · 중간 설문</td></tr>
+            <tr><td style="white-space:nowrap"><strong>사후 (+2주)</strong></td><td style="white-space:nowrap">만족도·추천의향 설문 · 멘토 심층면담</td></tr>
+            <tr><td style="white-space:nowrap"><strong>사후 (+4주)</strong></td><td style="white-space:nowrap">업무 적용 인터뷰 · 케이스 스터디</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="c c-g">
+        <div class="c-t" style="color:var(--green);display:flex;align-items:center;gap:6px">●  측정 차별화 제안 <span style="color:var(--on-variant);font-weight:600;font-size:.75rem">— 당사 제안 추가 요소</span></div>
+        <ul style="margin-top:4px">
+          <li><strong style="color:var(--green)">Baseline 사전 설문</strong> — 대회 전 역량 자기진단으로 <strong>변화량 측정</strong></li>
+          <li><strong style="color:var(--green)">3중 교차 검증</strong> — 참가자 주관 + 심사자 객관 + 현업 적용성</li>
+          <li><strong style="color:var(--green)">+4주 업무 적용 추적</strong> — 단발 이벤트 아닌 <strong>실제 도입 여부</strong> 확인</li>
+          <li><strong style="color:var(--green)">이상 패턴 자동 필터</strong> — 부정 응답·중복 IP·시간 편향 자동 제거</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="c-dd" style="margin-top:8px;font-size:.6875rem;font-style:italic;text-align:center;color:var(--on-variant)">산출물(최종보고서 5부 제본)·확산 4단계·지속가능성 상세는 <strong>Ⅲ-3-바 성과 관리 방안</strong>에서 구체화</div>
+  </div>
+  <div class="sf"><span class="brand">K-WATER · AI 러닝톤</span><span class="pg">08 / 30</span><span>Ⅰ-2-라 성과 관리</span></div>
+</section>
+
+<!-- ============================================================ -->
+<!-- S9. Ⅱ-1. 공정별 일정계획                                      -->
+<!-- ============================================================ -->
+<section class="slide">
+  <div class="sh"><span class="sh-l">Ⅱ-1. 공정별 일정계획</span><span>Ⅱ. 과업관리 계획</span></div>
+  <div class="si">
+    <div class="tag">공정별 일정 · 약 9주</div>
+    <h2 class="st"><span class="hl">약 9주 일정</span>을 <span class="hl">마일스톤 6단계</span>와 <span class="hl-w">리스크 6축 관리</span>로 차질 없이 완수</h2>
+
+    <table class="tb" style="margin-top:12px">
+      <thead>
+        <tr><th style="width:24%">공정</th><th style="width:10%">4월</th><th style="width:10%">5월</th><th style="width:10%">6월</th><th>비고</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>대회 기획</strong></td><td><strong class="hl">■</strong></td><td></td><td></td><td>4월 <strong>4째주</strong></td></tr>
+        <tr><td><strong>홍보 및 참가자 모집</strong></td><td></td><td><strong class="hl">■■</strong></td><td></td><td>5월 <strong>1~2째주</strong></td></tr>
+        <tr><td><strong>온라인 예선 및 멘토링</strong></td><td></td><td style="color:var(--outline)">▫▫</td><td><strong class="hl">■</strong></td><td>5월 3째주 ~ 6월 1째주 · <strong>팀당 2회</strong></td></tr>
+        <tr><td><strong>온라인 예선 평가</strong></td><td></td><td></td><td><strong class="hl">■</strong></td><td>6월 <strong>1째주</strong></td></tr>
+        <tr><td><strong>오프라인 본선</strong></td><td></td><td></td><td><strong class="hl-w">■</strong></td><td>6월 <strong>11~12일</strong> · <strong>1박 2일</strong></td></tr>
+        <tr><td><strong>발표평가 및 시상식</strong></td><td></td><td></td><td><strong class="hl-w">■</strong></td><td>6월 <strong>12일</strong> (본선 둘째날)</td></tr>
+        <tr><td><strong>결과 보고서</strong></td><td></td><td></td><td><strong class="hl-w">■</strong></td><td>6월 <strong>4째주 이내</strong></td></tr>
+      </tbody>
+    </table>
+
+    <div class="g2" style="margin-top:12px">
+      <div class="c">
+        <div class="c-t">●  주요 마일스톤</div>
+        <table class="tb" style="font-size:.6875rem;margin-top:2px">
+          <tbody>
+            <tr><td><strong>M1. 착수·기획</strong></td><td>킥오프 · 보안각서</td></tr>
+            <tr><td><strong>M2. 홍보·모집</strong></td><td>공고·설명회·포스터</td></tr>
+            <tr><td><strong>M3. 예선+교육</strong></td><td>아이디어·멘토링 2회·교재</td></tr>
+            <tr><td><strong>M4. 본선 확정</strong></td><td>상위 30팀 선발</td></tr>
+            <tr><td><strong>M5. 본선 운영</strong></td><td>1박 2일 · 발표평가 · 시상</td></tr>
+            <tr><td><strong>M6. 결과 보고</strong></td><td>최종보고서 5부 제본</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="c c-w">
+        <div class="c-t">●  리스크 6축 · 대응</div>
+        <ul>
+          <li><strong>참여 저조</strong> — 단계별 홍보(전사 공지 → 부서 설명회 → 신청 독려) · 부서별 참여 목표 · 조기 신청 혜택</li>
+          <li><strong>일정 지연</strong> — 주간 점검 회의 · 일일 진행 점검 · 여유 일정 5% 확보</li>
+          <li><strong>기술 이슈</strong> — 서버 자동 확장 · 24시간 비상 대기 · 장애 시 이중화 전환</li>
+          <li><strong>비전공자 이탈</strong> — 비전공자·경험자 분리 커리큘럼 · 24시간 AI 멘토 · 사람 멘토 1인당 3팀</li>
+          <li><strong>품질 편차</strong> — 멘토 4단계 역할 · 평가 기준표 공개 · 중간 점검</li>
+          <li><strong>안전사고</strong> — 방재 책임자 상주 · 응급 의료 지원 · 단체보험</li>
+        </ul>
+      </div>
+    </div>
+    <div class="ph-note">홍보·예선·멘토링이 동시 병행되는 5월 3째주 ~ 6월 1째주 구간이 <strong>운영 피크</strong>. 전담 인력 100% 투입.</div>
+  </div>
+  <div class="sf"><span class="brand">K-WATER · AI 러닝톤</span><span class="pg">09 / 30</span><span>Ⅱ-1</span></div>
+</section>
+
+<!-- ============================================================ -->
+<!-- S10. Ⅱ-2. 투입인력 — 조직도                                   -->
+<!-- ============================================================ -->
+<section class="slide">
+  <div class="sh"><span class="sh-l">Ⅱ-2-가. 사업수행 조직</span><span>Ⅱ. 과업관리 계획</span></div>
+  <div class="si">
+    <div class="tag">사업수행 조직도</div>
+    <h2 class="st">본 과업을 <span class="hl">9명 내외 전담 조직</span>이 책임 수행</h2>
+
+    <div style="margin-top:12px">
+      <div class="img-ph" style="min-height:360px;padding:36px">
+        <div class="ph-ico" style="font-size:2.5rem">—</div>
+        <div class="ph-txt" style="font-size:.9375rem">[이미지 placeholder]</div>
+        <div class="ph-sub">조직도 이미지 삽입 예정 · 확정 후 교체</div>
+      </div>
+    </div>
+
+    <div class="g3" style="margin-top:12px">
+      <div class="c c-w">
+        <div class="c-t">구성 원칙</div>
+        <ul>
+          <li><strong>전원 본 과업 전담</strong></li>
+          <li>타 과업 겸직 없음</li>
+          <li><strong>하도급 없음</strong> (발주처 사전 승인)</li>
+        </ul>
+      </div>
+      <div class="c c-w">
+        <div class="c-t">현장 배치</div>
+        <ul>
+          <li>본선 1박 2일 <strong>전원 상주</strong></li>
+          <li>현장 매니저 및 추가 투입인력 확보</li>
+          <li>약 <strong>9명 내외</strong></li>
+        </ul>
+      </div>
+      <div class="c c-w">
+        <div class="c-t">의사결정 체계</div>
+        <ul>
+          <li><strong>일일 Stand-up</strong> (15분)</li>
+          <li><strong>주간 Sync</strong> (60분, PM+PL+발주처)</li>
+          <li><strong>월간 보고</strong> — 발주처 정기 보고</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span class="brand">K-WATER · AI 러닝톤</span><span class="pg">10 / 30</span><span>Ⅱ-2-가 사업수행 조직</span></div>
+</section>
+
+<!-- ============================================================ -->
+<!-- S11. Ⅱ-2. 투입인력 — 전문인력                                 -->
+<!-- ============================================================ -->
+<section class="slide">
+  <div class="sh"><span class="sh-l">Ⅱ-2-나. 전문인력 현황</span><span>Ⅱ. 과업관리 계획</span></div>
+  <div class="si">
+    <div class="tag">전문인력 명단</div>
+    <h2 class="st">전문인력 <span class="hl">9명</span> 현황 · 전원 전담 <strong class="hl-w">100%</strong> 참여</h2>
+
+    <div class="ph-badge">●  표 placeholder — 확정 후 교체 · 인력명 <code>***</code> 블라인드</div>
+
+    <table class="tb" style="margin-top:6px;font-size:.6875rem">
+      <thead>
+        <tr><th style="width:5%">No</th><th style="width:10%">직위</th><th style="width:10%">성명</th><th style="width:18%">경력</th><th style="width:18%">자격사항</th><th>역할</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>1</td><td><strong>매니저</strong></td><td>***</td><td>경력 5년 3개월</td><td></td><td><strong class="hl">사업총괄</strong></td></tr>
+        <tr><td>2</td><td><strong>팀장</strong></td><td>***</td><td>경력 4년 1개월</td><td></td><td>대회 기획</td></tr>
+        <tr><td>3</td><td>매니저</td><td>***</td><td>경력 2년 2개월</td><td></td><td>대회 운영</td></tr>
+        <tr><td>4</td><td>매니저</td><td>***</td><td>경력 2년</td><td>빅데이터분석기사</td><td>대회 운영</td></tr>
+        <tr><td>5</td><td>매니저</td><td>***</td><td>경력 11년 4개월</td><td></td><td>멘토링 운영/행정</td></tr>
+        <tr><td>6</td><td>매니저</td><td>***</td><td>경력 3년 8개월</td><td></td><td>멘토링 운영</td></tr>
+        <tr><td>7</td><td><strong>이사</strong></td><td>***</td><td>경력 27년 6개월</td><td></td><td>플랫폼 기획 및 검수</td></tr>
+        <tr><td>8</td><td>매니저</td><td>***</td><td>경력 26년 5개월</td><td>정보처리기사</td><td>플랫폼 개발 및 모니터링</td></tr>
+        <tr><td>9</td><td>매니저</td><td>***</td><td>경력 1년 1개월</td><td>정보처리기사</td><td>플랫폼 개발 및 모니터링</td></tr>
+      </tbody>
+    </table>
+
+    <div class="c c-p" style="margin-top:10px">
+      <div class="c-t">●  자격 요건 · 교체 원칙</div>
+      <div class="c-dd">정보처리기사·AI 관련 자격 · 공공기관 대회 운영 실적 · 생성형 AI 활용 실무 경험 · 인력 교체 시 발주처 <strong>사전 승인</strong> 원칙 · 인력별 상세 이력서·자격증 사본은 별첨 제출</div>
+    </div>
+  </div>
+  <div class="sf"><span class="brand">K-WATER · AI 러닝톤</span><span class="pg">11 / 30</span><span>Ⅱ-2-나 전문인력 현황</span></div>
+</section>
+
+<!-- ============================================================ -->
+<!-- S12. Ⅱ-2. 투입인력 — 멘토단                                   -->
+<!-- ============================================================ -->
+<section class="slide">
+  <div class="sh"><span class="sh-l">Ⅱ-2-다. 멘토단 구성인력 현황</span><span>Ⅱ. 과업관리 계획</span></div>
+  <div class="si">
+    <div class="tag">멘토단 구성</div>
+    <h2 class="st"><span class="hl">문제 정의부터 결과 도출까지</span> <span class="hl-w">전 과정을 실질 지원</span>하는 멘토단</h2>
+
+    <div class="ph-badge">●  표 placeholder — 확정 후 교체 · 인력명 <code>***</code> 블라인드</div>
+
+    <table class="tb" style="margin-top:6px;font-size:.625rem">
+      <thead>
+        <tr><th style="width:6%">이름</th><th style="width:11%">전공/분야</th><th style="width:20%">주요 프로젝트</th><th style="width:18%">생성형 AI 실적</th><th style="width:18%">교육/컨설팅</th><th style="width:10%">직장명</th><th>비고</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>***</td><td><strong>인공지능·빅데이터</strong></td><td>***** 사내 빅데이터 플랫폼<br>서비스 운영 총괄</td><td>AI기반 증권 서비스<br>기획·개발</td><td></td><td>**증권</td><td>재직증명 유</td></tr>
+        <tr><td>***</td><td><strong>인공지능·빅데이터</strong></td><td>**** AI Studio ·<br>사내 생성형 AI 에이전트<br>리서치</td><td>AI 에이전트<br>평가 도구 개발</td><td></td><td>** Ds</td><td>재직증명 요청중<br>(보안사유 즉시 전달 불가)</td></tr>
+        <tr><td>***</td><td><strong>인공지능·빅데이터</strong></td><td>****** HR LLM<br>종합솔루션</td><td>** 그룹 AI통합관리 플랫폼<br>기획·개발(바이브코딩)</td><td>***학교 **대학<br>디지털헬스케어 부트캠프<br>강의</td><td>전)****</td><td>자격득실확인서</td></tr>
+        <tr><td>***</td><td><strong>인공지능·빅데이터</strong></td><td>LLM기반 수술 예측 비교연구 ·<br>의료거대언어모델 개발<br>및 고도화</td><td>검사영역<br>AI 에이전트 개발</td><td></td><td>*****병원<br>***연구원</td><td>근무확인서 유</td></tr>
+        <tr><td>***</td><td><strong>인공지능·빅데이터</strong></td><td>산업통상자원부 주관<br>온디바이스 AI 기반<br>모빌리티 디바이스 기술 개발</td><td></td><td>***그룹/**** 공동 주관<br>기업 재직자 대상<br>AI 부트캠프</td><td>**** 산업<br>R&amp;D연구원</td><td>대학원생 /<br>전년도 현대자동차그룹<br>재직자 대상 부트캠프<br>메인 강사</td></tr>
+      </tbody>
+    </table>
+
+    <div class="g2" style="margin-top:10px">
+      <div class="c c-p">
+        <div class="c-t">●  멘토 자격 요건 (2개 이상 충족 필수)</div>
+        <ul>
+          <li>① 생성형 AI 관련 프로젝트 수행 경험</li>
+          <li>② 기업·공공기관 컨설팅·교육 이력</li>
+          <li>③ AI를 활용한 업무 개선·자동화 실무 경험</li>
+        </ul>
+      </div>
+      <div class="c c-w">
+        <div class="c-t">●  멘토 제출 서류</div>
+        <ul>
+          <li>이력서 · 주요 프로젝트·역할 정리서</li>
+          <li>생성형 AI 실적 증빙</li>
+          <li>교육·컨설팅 경험 증빙 · 관련 자격 사본</li>
+        </ul>
+      </div>
+    </div>
+    <div class="ph-note"><strong>운영 원칙</strong> — 1인당 최대 3팀 절대 준수 · 분야 5축 균형 배치 · 정기 2회 + 수시 + 본선 현장 상주 · AI 멘토 리포트 인수인계</div>
+  </div>
+  <div class="sf"><span class="brand">K-WATER · AI 러닝톤</span><span class="pg">12 / 30</span><span>Ⅱ-2-다 멘토단</span></div>
+</section>
+
+<!-- ============================================================ -->
+<!-- S13. Ⅲ-1. 차별성 ① 플랫폼 기술                                -->
+<!-- ============================================================ -->
+<section class="slide">
+  <div class="sh"><span class="sh-l">Ⅲ-1-가. 플랫폼 기술</span><span>Ⅲ. 과업추진 방향 · 차별성</span></div>
+  <div class="si">
+    <div class="tag">차별성 · 플랫폼 기술</div>
+    <h2 class="st"><span class="hl">러닝톤 전 과정을 지원</span>하는 <span class="hl-w">K-water 전용 플랫폼 페이지</span></h2>
+
+    <table class="tb" style="margin-top:12px;table-layout:fixed">
+      <thead><tr><th style="width:18%;white-space:nowrap">영역</th><th>제공 기능 (풀어 설명)</th></tr></thead>
+      <tbody>
+        <tr><td style="white-space:nowrap"><strong class="hl">학습 관리</strong></td><td>참가자의 <strong>학습 진도·퀴즈 성적·체류시간</strong>을 플랫폼이 자동 기록하고, 기준 달성 시 <strong>수료증이 자동 발급</strong>됩니다</td></tr>
+        <tr><td style="white-space:nowrap"><strong class="hl">대회 운영</strong></td><td><strong>참가 신청·팀 구성·과제 제출·심사 점수 집계</strong>까지 대회에 필요한 모든 작업을 <strong>한 플랫폼에서 일괄 처리</strong>합니다</td></tr>
+        <tr><td style="white-space:nowrap"><strong class="hl">리더보드</strong></td><td>참가자끼리의 <strong>상호평가·심사위원 점수·직원 투표</strong>를 합산한 실시간 순위를 <strong>대형 스크린에 바로 송출</strong>합니다</td></tr>
+        <tr><td style="white-space:nowrap"><strong class="hl">멘토링</strong></td><td><strong>24시간 AI 멘토</strong>가 항상 대기하고, 사람 멘토의 세션 기록과 자동 리포트까지 한 곳에서 관리합니다</td></tr>
+        <tr><td style="white-space:nowrap"><strong class="hl">운영 지원</strong></td><td><strong>공지사항·자료실·푸시 알림·일정 달력·Q&amp;A 게시판</strong> 등 대회 운영에 꼭 필요한 기본 기능을 모두 제공합니다</td></tr>
+      </tbody>
+    </table>
+
+    <div class="g2" style="margin-top:12px">
+      <div class="c c-p">
+        <div class="c-t">●  보안 · 안정성</div>
+        <ul>
+          <li>동시접속 <strong>3배 이상</strong> — 서버 자동 확장 (300→900명)</li>
+          <li>가용성 <strong>99%+</strong> · 이중화 · 장애 시 자동 전환</li>
+          <li>장애 <strong>10분 이내 대응</strong> — 24시간 비상 대기</li>
+          <li>통신 암호화 · 웹 보안 표준 준수 · 취약점 점검</li>
+          <li>개인정보 암호화 · 일일 백업 · <strong class="hl">데이터 K-water 귀속</strong></li>
+        </ul>
+      </div>
+      <!-- ●  부정행위 탐지 시스템 (특허) — 갈색 그라데이션 강조 -->
+      <div class="c c-patent">
+        <div class="patent-badge">●  특허 출원</div>
+        <div class="c-t">●  부정행위 탐지 시스템 <span style="font-size:.6875rem;font-weight:600;color:rgba(255,255,255,.85)">(특허 출원)</span></div>
+        <ul>
+          <li>출원일 <strong style="color:#fff">2025.12.10</strong> · 출원번호 10-2025-0195277</li>
+          <li>중복 제출 · 동일 IP · 외부 코드 복제 자동 탐지</li>
+          <li>AI 대리 생성 탐지 · 봇 투표 이상 패턴</li>
+          <li><strong style="color:#ccc">공공기관 경진대회 공정성</strong> 확보 핵심 자산</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span class="brand">K-WATER · AI 러닝톤</span><span class="pg">13 / 30</span><span>Ⅲ-1-가 플랫폼 기술</span></div>
+</section>
+
+<!-- ============================================================ -->
+<!-- S14. Ⅲ-1-가. 플랫폼 기술 (보완) — DAKER 핵심 기능 상세        -->
+<!-- ============================================================ -->
+<section class="slide">
+  <div class="sh"><span class="sh-l">Ⅲ-1-가. 플랫폼 기술 (보완)</span><span>Ⅲ. 과업추진 방향 · 차별성</span></div>
+  <div class="si">
+    <div class="tag">DAKER 핵심 기능 상세</div>
+    <h2 class="st">러닝톤 <span class="hl">전 과정을 단일 플랫폼</span>에서 운영</h2>
+    <div class="sub">접수 &rarr; 팀 빌딩 &rarr; 학습 &rarr; 협업 &rarr; 제출 &rarr; 심사 &rarr; 시상까지 All-in-One</div>
+
+    <div class="g3" style="margin-top:14px" data-step="1">
+      <div class="c c-p" style="padding:12px">
+        <div class="c-t">● 팀 빌딩 (원정대)</div>
+        <ul>
+          <li>AI 기반 역할·스킬 자동 매칭</li>
+          <li>일괄 등록 최대 1,000명</li>
+          <li>그룹/팀/역할 관리</li>
+        </ul>
+      </div>
+      <div class="c c-p" style="padding:12px">
+        <div class="c-t">● 작전실 (War Room)</div>
+        <ul>
+          <li>팀별 전용 협업 공간</li>
+          <li>Yjs 실시간 공동 편집</li>
+          <li>GitHub 연동 · 멀티 커서</li>
+        </ul>
+      </div>
+      <div class="c c-p" style="padding:12px">
+        <div class="c-t">● 갤러리 · 쇼케이스</div>
+        <ul>
+          <li>MVP 결과물 자동 게시</li>
+          <li>외부 URL 리다이렉트 + 스크린샷</li>
+          <li>포트폴리오 영구 보존</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="g3" style="margin-top:8px" data-step="2">
+      <div class="c" style="padding:12px">
+        <div class="c-t">● ELO 1v1 피어 평가</div>
+        <ul>
+          <li>참가팀 MVP 블라인드 1:1 비교</li>
+          <li>전문가 심사 70% + ELO 30% 결합</li>
+          <li>조작 방지 알고리즘</li>
+        </ul>
+      </div>
+      <div class="c" style="padding:12px">
+        <div class="c-t">● Expert 심사 포털</div>
+        <ul>
+          <li>심사위원 개별 배정 · 초대 링크</li>
+          <li>채점표 자동 생성 · 가중치 집계</li>
+          <li>병렬 부스 심사 · 진행률 모니터링</li>
+        </ul>
+      </div>
+      <div class="c" style="padding:12px">
+        <div class="c-t">● AI 멘토링 (Office Hours)</div>
+        <ul>
+          <li>24/7 AI 멘토 상시 대기</li>
+          <li>6대 Forcing Question 기반</li>
+          <li>체크포인트별 자동 리포트</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="g4" style="margin-top:8px" data-step="3">
+      <div class="c c-w" style="padding:10px">
+        <div class="c-t" style="font-size:.75rem">● DAKER Learning</div>
+        <div class="c-dd">교재 &rarr; 코스 &rarr; 트랙 3계층 학습. 퀴즈·프롬프트·플래시카드 5종 콘텐츠</div>
+      </div>
+      <div class="c c-w" style="padding:10px">
+        <div class="c-t" style="font-size:.75rem">● 인증서 자동 발급</div>
+        <div class="c-dd">수상 인증서 · 참가 수료증 디지털 자동 발급, 템플릿 커스터마이징</div>
+      </div>
+      <div class="c c-w" style="padding:10px">
+        <div class="c-t" style="font-size:.75rem">● Q&amp;A · 공지 · CS</div>
+        <div class="c-dd">카테고리별 공지·Q&amp;A 게시판, 주중 24h / 주말 48h 이내 응대</div>
+      </div>
+      <div class="c c-w" style="padding:10px">
+        <div class="c-t" style="font-size:.75rem">● 만족도 설문 · 리포트</div>
+        <div class="c-dd">자동 발송 및 집계, 결과 보고서 자동 생성 및 다운로드</div>
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span class="brand">K-WATER · AI 러닝톤</span><span class="pg">14 / 30</span><span>Ⅲ-1-가 플랫폼 기능 상세</span></div>
+</section>
+
+<!-- ============================================================ -->
+<!-- S15. Ⅲ-1. 차별성 ② 온오프라인 연계                            -->
+<!-- ============================================================ -->
+<section class="slide">
+  <div class="sh"><span class="sh-l">Ⅲ-1-나. 온오프라인 연계 노하우</span><span>Ⅲ. 과업추진 방향 · 차별성</span></div>
+  <div class="si">
+    <div class="tag">차별성 · 300건+ 대회 운영 노하우</div>
+    <h2 class="st"><span class="hl">300건 이상의 경진대회 운영 노하우</span>로 온라인·오프라인을 <span class="hl-w">촘촘히 연결한 매끄러운 통합 경험</span></h2>
+
+    <!-- 가로형 파이프라인 다이어그램 -->
+    <div style="display:flex;align-items:stretch;gap:8px;margin-top:14px">
+      <!-- 온라인 예선 -->
+      <div class="c c-p" style="flex:1;padding:14px 16px;border-left:4px solid var(--primary)">
+        <div style="font-size:.625rem;font-weight:800;color:var(--primary);letter-spacing:.1em;margin-bottom:4px">1단계 · 5월~6월 초 온라인 (약 3주)</div>
+        <div class="c-t" style="font-size:1rem">— 온라인 예선</div>
+        <ul style="margin-top:4px">
+          <li>아이디어 공모</li>
+          <li>멘토링</li>
+          <li>심사위원 기획안 ELO 심사</li>
+          <li>실시간 리더보드 운영</li>
+        </ul>
+      </div>
+
+      <!-- 전이 연결 -->
+      <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;min-width:130px;padding:8px 4px">
+        <div style="font-size:.5625rem;font-weight:800;color:var(--warm);letter-spacing:.08em;margin-bottom:6px;text-align:center">전환</div>
+        <div style="background:var(--warm);color:#fff;padding:5px 14px;border-radius:999px;font-size:.75rem;font-weight:800;white-space:nowrap;box-shadow:0 4px 12px rgba(194,98,45,.25)">상위 30팀 선발</div>
+        <div style="font-size:1.75rem;color:var(--warm);font-weight:800;line-height:1;margin:6px 0">▶</div>
+        <div style="font-size:.625rem;color:var(--on-variant);text-align:center;line-height:1.4;font-weight:600">예선 리더보드<br>데이터 이관</div>
+      </div>
+
+      <!-- 오프라인 본선 -->
+      <div class="c c-w" style="flex:1;padding:14px 16px;border-left:4px solid var(--warm)">
+        <div style="font-size:.625rem;font-weight:800;color:var(--warm);letter-spacing:.1em;margin-bottom:4px">2단계 · 6월 11~12일 오프라인 (1박 2일)</div>
+        <div class="c-t" style="font-size:1rem">●  오프라인 본선</div>
+        <ul style="margin-top:4px">
+          <li>현장 구현 (집중 개발 · 멘토링)</li>
+          <li>참가팀간 상호투표</li>
+          <li>최종 발표평가 · 시상식</li>
+          <li><strong>대형 스크린 실시간 리더보드</strong></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 최종 산출 스트립 -->
+    <div class="c c-g" style="margin-top:8px;padding:8px 14px;text-align:center">
+      <div style="font-size:.75rem;color:var(--on-surface);font-weight:700">●  통합 산출물 — <strong class="hl">본선 시드 배정</strong> · <strong class="hl">과제 풀 확정</strong> · <strong style="color:var(--green)">프로토타입 30건+</strong> · <strong style="color:var(--green)">최종 산출물 아카이빙</strong></div>
+    </div>
+
+    <div class="g2" style="margin-top:10px">
+      <div class="c">
+        <div class="c-t">●  실행 경험 (부문 · 블라인드)</div>
+        <ul>
+          <li><strong>공공·에너지·금융·제조</strong> 다수 온오프라인 연계 대회 운영</li>
+          <li>기획→플랫폼→현장→사후분석 <strong>턴키 수행</strong></li>
+          <li>무대·부스 30+ 팀 동시 운영</li>
+          <li>심사·투표·시상 <strong>실시간 집계</strong> 노하우</li>
+        </ul>
+      </div>
+      <div class="c c-w">
+        <div class="c-t">●  K-water 적용 포인트</div>
+        <ul>
+          <li>온라인에서 뽑은 아이디어를 <strong>본선 해커톤의 실제 과제로 그대로 활용</strong></li>
+          <li>예선 순위 결과를 <strong>본선 조 편성·발표 순서</strong>에 자동 반영</li>
+          <li>심사 점수 · 투표 · 상호평가를 합친 <strong>종합 순위를 현장 대형 스크린에 실시간 표시</strong></li>
+          <li>시상 종료 직후 <strong>최종 결과를 자동 저장</strong>해 보고서 근거로 활용</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="c c-p" style="margin-top:10px;border-left:4px solid var(--primary)">
+      <div class="c-t" style="color:var(--primary)">●  연계가 가장 어려운 3가지 — 당사 해결책</div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:6px">
+        <div style="font-size:.6875rem;line-height:1.5"><strong class="hl">① 데이터 일관성</strong><br><span style="color:var(--on-variant)">단일 플랫폼·단일 DB로 원천 통일</span></div>
+        <div style="font-size:.6875rem;line-height:1.5"><strong class="hl">② 참가자 UX</strong><br><span style="color:var(--on-variant)">예선·본선 동일 로그인·동일 UI</span></div>
+        <div style="font-size:.6875rem;line-height:1.5"><strong class="hl">③ 심사 신뢰</strong><br><span style="color:var(--on-variant)">특허 기반 부정행위 자동 탐지 (Ⅲ-1-가)</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span class="brand">K-WATER · AI 러닝톤</span><span class="pg">15 / 30</span><span>Ⅲ-1-나 온오프라인 연계</span></div>
+</section>
+
+<!-- ============================================================ -->
+<!-- S15. Ⅲ-1. 차별성 ③ 멘토링 Pool                                -->
+<!-- ============================================================ -->
+<section class="slide">
+  <div class="sh"><span class="sh-l">Ⅲ-1-다. 전문적인 멘토링 Pool</span><span>Ⅲ. 과업추진 방향 · 차별성</span></div>
+  <div class="si">
+    <div class="tag">차별성 · 이중 멘토링 구조</div>
+    <h2 class="st"><span class="hl">AI Office Hours</span>와 <span class="hl-w">휴먼 멘토 예약</span>의 이중 구조로 팀의 <span class="hl">사고와 실행</span>을 동시에 끌어올림</h2>
+
+    <div class="c c-p" style="margin-top:12px">
+      <div class="c-t">●  + ●  이중 멘토링 역할 분담</div>
+      <table class="tb" style="font-size:.6875rem;margin-top:2px">
+        <thead><tr><th style="width:14%">구분</th><th>AI 멘토링 (Office Hours)</th><th>휴먼 멘토 예약 (Mentor Booking)</th></tr></thead>
+        <tbody>
+          <tr><td><strong>목적</strong></td><td><strong class="hl">24/7 Forcing Question</strong>으로 팀 사고 압박</td><td>전문가 1:1 집중 미팅 운영</td></tr>
+          <tr><td><strong>트리거</strong></td><td>참가자가 <strong>언제든</strong> 채팅 진입</td><td>팀장 예약/제안 → 멘토 확정</td></tr>
+          <tr><td><strong>컨텍스트</strong></td><td>팀 스킬·프로필 + 해커톤 평가기준 <strong>스냅샷 자동 주입</strong></td><td>해커톤 기간·모드·장소 설정</td></tr>
+          <tr><td><strong>산출물</strong></td><td>체크포인트 기반 <strong>리포트 자동 생성</strong></td><td>미팅 후 구조화 리포트 (요약/피드백/액션아이템)</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="g2" style="margin-top:10px">
+      <div class="c">
+        <div class="c-t">●  AI 멘토 — 6대 Forcing Question × 4 Checkpoint</div>
+        <table class="tb" style="font-size:.6875rem;margin-top:2px">
+          <tbody>
+            <tr><td style="width:16%"><strong>CP1 탐색</strong></td><td>Q1 수요의 실재 → Q2 현재 대안 → Q3 구체적 타겟</td></tr>
+            <tr><td><strong>CP2 기획</strong></td><td>Q2 현재 대안 → Q4 <strong class="hl">최소 검증 단위</strong></td></tr>
+            <tr><td><strong>CP3 개발</strong></td><td>Q4 최소 검증 단위 → Q5 관찰과 의외성</td></tr>
+            <tr><td><strong>CP4 발표</strong></td><td>Q5 관찰과 의외성 → Q6 <strong class="hl">3년 적합성</strong></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="c c-w">
+        <div class="c-t">●  안전 · 가드레일</div>
+        <ul>
+          <li><strong>3단 제어</strong> — 해커톤 모드 · 팀별 플래그 · Office Hours</li>
+          <li><strong>안전·비용</strong> — 일일 토큰 한도 · Rate Limit · 타임아웃</li>
+          <li><strong>개인정보</strong> — 8단계 필수 동의 · 서버 게이트 · 학습 미사용</li>
+          <li>대화 <strong>90일 익명화</strong> · 리포트 1년 후 통계만</li>
+        </ul>
+      </div>
+    </div>
+    <div class="ph-note"><strong>핵심 가치 6축</strong> — ① 맥락 주입(Context-Aware) ② 강한 질문(Forcing Question) ③ 캘린더 기반 상호 스케줄링 ④ 자율 협상(Hybrid Booking) ⑤ 책임성(쿼터·노쇼·cutoff 정책) ⑥ 리포트 자동화 → 운영팀 사후분석 자산</div>
+  </div>
+  <div class="sf"><span class="brand">K-WATER · AI 러닝톤</span><span class="pg">16 / 30</span><span>Ⅲ-1-다 멘토링 Pool</span></div>
+</section>
+
+<!-- ============================================================ -->
+<!-- S15-B. 캘린더 기반 상호 스케줄링 (핵심 UX)                      -->
+<!-- ============================================================ -->
+<section class="slide">
+  <div class="sh"><span class="sh-l">Ⅲ-1-다. 캘린더 기반 상호 스케줄링</span><span>Ⅲ. 과업추진 방향 · 차별성</span></div>
+  <div class="si">
+    <div class="tag">차별성 · 캘린더 상호 스케줄링</div>
+    <h2 class="st">멘토와 팀장이 <span class="hl">동일한 주간 캘린더 뷰</span>를 공유 — <span class="hl-w">&ldquo;언제 가능하세요?&rdquo; 왕복 제거</span></h2>
+
+    <!-- WeeklySlotGrid 시각 목업 -->
+    <div class="ui" style="margin-top:12px">
+      <div class="ui-bar"><div class="ui-dot r"></div><div class="ui-dot y"></div><div class="ui-dot g"></div><span class="ui-url">k-water-learningthon.daker.io/mentor/calendar</span></div>
+      <div class="ui-body" style="padding:14px 16px">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+          <div style="font-size:.8125rem;font-weight:800;color:var(--primary)">WeeklySlotGrid — 주간 캘린더 공통 뷰</div>
+          <div style="display:flex;gap:6px">
+            <span style="display:inline-flex;align-items:center;gap:4px;font-size:.5625rem;color:var(--on-variant)"><span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:var(--primary)"></span> 오픈 슬롯</span>
+            <span style="display:inline-flex;align-items:center;gap:4px;font-size:.5625rem;color:var(--on-variant)"><span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:var(--warm)"></span> 내 팀 예약</span>
+            <span style="display:inline-flex;align-items:center;gap:4px;font-size:.5625rem;color:var(--on-variant)"><span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:var(--outline)"></span> Busy (타 팀)</span>
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:48px repeat(7,1fr);gap:2px;font-size:.5625rem;text-align:center">
+          <div style="font-weight:700;color:var(--on-variant)"></div>
+          <div style="font-weight:700;color:var(--primary);padding:4px 0">월</div><div style="font-weight:700;color:var(--primary);padding:4px 0">화</div><div style="font-weight:700;color:var(--primary);padding:4px 0">수</div><div style="font-weight:700;color:var(--primary);padding:4px 0">목</div><div style="font-weight:700;color:var(--primary);padding:4px 0">금</div><div style="font-weight:700;color:var(--outline);padding:4px 0">토</div><div style="font-weight:700;color:var(--outline);padding:4px 0">일</div>
+          <div style="font-size:.5rem;color:var(--on-variant);padding:6px 0">10:00</div><div style="background:var(--primary);color:#fff;border-radius:3px;padding:4px 2px;font-weight:600">멘토A<br>60분</div><div style="background:var(--surface-low);border-radius:3px;padding:4px 2px">—</div><div style="background:var(--primary);color:#fff;border-radius:3px;padding:4px 2px;font-weight:600">멘토A<br>30분</div><div style="background:var(--outline);color:#fff;border-radius:3px;padding:4px 2px">busy</div><div style="background:var(--surface-low);border-radius:3px;padding:4px 2px">—</div><div style="background:var(--surface-low);border-radius:3px;padding:4px 2px">—</div><div style="background:var(--surface-low);border-radius:3px;padding:4px 2px">—</div>
+          <div style="font-size:.5rem;color:var(--on-variant);padding:6px 0">14:00</div><div style="background:var(--surface-low);border-radius:3px;padding:4px 2px">—</div><div style="background:var(--warm);color:#fff;border-radius:3px;padding:4px 2px;font-weight:600">내 팀<br>예약됨</div><div style="background:var(--surface-low);border-radius:3px;padding:4px 2px">—</div><div style="background:var(--primary);color:#fff;border-radius:3px;padding:4px 2px;font-weight:600">멘토A<br>60분</div><div style="background:var(--surface-low);border-radius:3px;padding:4px 2px">—</div><div style="background:var(--surface-low);border-radius:3px;padding:4px 2px">—</div><div style="background:var(--surface-low);border-radius:3px;padding:4px 2px">—</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 멘토 측 vs 팀장 측 -->
+    <div class="g2" style="margin-top:10px">
+      <div class="c c-p">
+        <div class="c-t">●  멘토 측 (Producer)</div>
+        <ul>
+          <li>주간 그리드에서 <strong class="hl">드래그로 N개 슬롯</strong> 프리뷰 → 일괄 생성</li>
+          <li>모드(<strong>online/offline</strong>) · 공개범위(<strong>assigned/public</strong>) 지정</li>
+          <li>리스트 뷰에서 개별 편집·삭제 (예약된 슬롯은 장소·링크만)</li>
+        </ul>
+      </div>
+      <div class="c c-w">
+        <div class="c-t">● — 팀장 측 (Consumer)</div>
+        <ul>
+          <li><strong>오픈 슬롯 클릭</strong> → 모드/장소/링크 확인 → <strong class="hl-w">즉시 예약</strong></li>
+          <li><strong>빈 셀 클릭</strong> → ProposalDialog → <strong class="hl-w">슬롯 밖 시간 제안</strong></li>
+          <li>타 팀 예약은 <strong>busy 마스킹</strong>만 노출 (프라이버시 보호)</li>
+        </ul>
+      </div>
+    </div>
+    <div class="ph-note"><strong>설계 의미</strong> — 슬롯(즉시확정) + 제안(협상)이 같은 캘린더 위에서 동작 → UX 분리 부담 없음 · 드래그 기반 대량 생성으로 <strong>멘토 운영 피로 최소화</strong></div>
+  </div>
+  <div class="sf"><span class="brand">K-WATER · AI 러닝톤</span><span class="pg">17 / 30</span><span>Ⅲ-1-다 캘린더 스케줄링</span></div>
+</section>
+
+<!-- ============================================================ -->
+<!-- S16. Ⅲ-2. 기대효과                                            -->
+<!-- ============================================================ -->
+<section class="slide">
+  <div class="sh"><span class="sh-l">Ⅲ-2. 기대효과</span><span>Ⅲ. 과업추진 방향</span></div>
+  <div class="si">
+    <div class="tag">기대효과</div>
+    <h2 class="st"><span class="hl">조직 역량·업무 적용·문화 확산</span>이 <span class="hl-w">대회 후까지</span> 단계별로 실현</h2>
+
+    <div class="g3" style="margin-top:28px;gap:16px">
+      <!-- 발주처 -->
+      <div class="c c-p" style="padding:22px 20px;display:flex;flex-direction:column">
+        <div style="font-size:2.25rem;text-align:center;line-height:1;margin-bottom:6px">● </div>
+        <div style="font-size:1.0625rem;font-weight:800;color:var(--primary);text-align:center;margin-bottom:14px;letter-spacing:-.01em">발주처 관점 가치</div>
+        <ul style="margin-top:0">
+          <li style="font-size:.8125rem;padding-left:16px;line-height:1.7;margin-top:6px">실무 전환 가능한 <strong>검증된 프로토타입</strong></li>
+          <li style="font-size:.8125rem;padding-left:16px;line-height:1.7;margin-top:6px">비전공자 포용 → 저변 확대 · 전환 저항감 완화</li>
+          <li style="font-size:.8125rem;padding-left:16px;line-height:1.7;margin-top:6px">교재·프롬프트·우수작 → <strong>K-water 지식 자산</strong></li>
+          <li style="font-size:.8125rem;padding-left:16px;line-height:1.7;margin-top:6px">데이터 소유권 <strong>K-water 귀속</strong></li>
+          <li style="font-size:.8125rem;padding-left:16px;line-height:1.7;margin-top:6px">파일럿→확산 <strong>4단계 로드맵 내장</strong></li>
+        </ul>
+      </div>
+      <!-- 참가자 -->
+      <div class="c c-w" style="padding:22px 20px;display:flex;flex-direction:column">
+        <div style="font-size:2.25rem;text-align:center;line-height:1;margin-bottom:6px">● </div>
+        <div style="font-size:1.0625rem;font-weight:800;color:var(--warm);text-align:center;margin-bottom:14px;letter-spacing:-.01em">참가자 관점 가치</div>
+        <ul style="margin-top:0">
+          <li style="font-size:.8125rem;padding-left:16px;line-height:1.7;margin-top:6px">&ldquo;AI로 내 업무를 바꿔본&rdquo; 성공 경험</li>
+          <li style="font-size:.8125rem;padding-left:16px;line-height:1.7;margin-top:6px">동료와 함께 <strong>프로토타입 완성</strong> 실전 경험</li>
+          <li style="font-size:.8125rem;padding-left:16px;line-height:1.7;margin-top:6px">하이브리드 코칭으로 <strong>학습 격차 해소</strong></li>
+          <li style="font-size:.8125rem;padding-left:16px;line-height:1.7;margin-top:6px">수료증·리더보드 실적 <strong>개인 포트폴리오</strong></li>
+        </ul>
+      </div>
+      <!-- 사회적 -->
+      <div class="c c-g" style="padding:22px 20px;display:flex;flex-direction:column">
+        <div style="font-size:2.25rem;text-align:center;line-height:1;margin-bottom:6px">● </div>
+        <div style="font-size:1.0625rem;font-weight:800;color:var(--green);text-align:center;margin-bottom:14px;letter-spacing:-.01em">사회적 가치</div>
+        <ul style="margin-top:0">
+          <li style="font-size:.8125rem;padding-left:16px;line-height:1.7;margin-top:6px">공공부문 생성형 AI <strong>선도 사례</strong></li>
+          <li style="font-size:.8125rem;padding-left:16px;line-height:1.7;margin-top:6px">대국민 서비스 품질 제고 기반</li>
+          <li style="font-size:.8125rem;padding-left:16px;line-height:1.7;margin-top:6px">특허 기반 <strong>공정한 대회 운영</strong> 확산</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span class="brand">K-WATER · AI 러닝톤</span><span class="pg">18 / 30</span><span>Ⅲ-2</span></div>
+</section>
+
+<!-- ============================================================ -->
+<!-- S17. Ⅲ-3-① 홍보 (placeholder)                                -->
+<!-- ============================================================ -->
+<section class="slide">
+  <div class="sh"><span class="sh-l">Ⅲ-3-가. 홍보</span><span>Ⅲ. 과업추진 방향 · 상세 운영</span></div>
+  <div class="si">
+    <div class="tag w">상세 운영 · 홍보</div>
+    <h2 class="st"><span class="hl">전사 공지 → 부서 설명회 → 신청 독려</span> 3단계 홍보로 <span class="hl-w">전 임직원의 자발적 참여 유도</span></h2>
+    <div class="ph-badge">●  상세 내용 추후 보완 예정 — 본 슬라이드는 구조 placeholder</div>
+
+    <table class="tb" style="margin-top:8px">
+      <thead>
+        <tr><th style="width:20%">단계</th><th style="width:12%">시점</th><th>채널 · 활동</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>1. 전사 인지</strong></td><td>D-30</td><td>사내 포털·사보·그룹메일·웹자보 · <strong>사내 게시판 · K-water SNS 플랫폼</strong>(썸네일·포스터 게재)</td></tr>
+        <tr><td><strong>2. 부서 설명회</strong></td><td>D-20</td><td>필요 시 온라인 설명회 운영 · 얼리버드 인센티브 · 포스터 게재 등 추가 홍보</td></tr>
+        <tr><td><strong>3. 현장 동기부여</strong></td><td>D-7</td><td>부서장 독려 · 리마인더</td></tr>
+      </tbody>
+    </table>
+
+    <div class="g2" style="margin-top:10px">
+      <!-- 좌측 컬럼: 산출물·채널 + 홍보 KPI + 보완 예정 노트 -->
+      <div>
+        <div class="c c-p">
+          <div class="c-t">●  산출물 · 채널 (초안 골격)</div>
+          <ul>
+            <li><strong>썸네일 · 홍보 포스터 · 웹자보 디자인</strong> 제작</li>
+            <li><strong>사내 게시판 · K-water SNS 플랫폼</strong> 등 온라인 채널 게재</li>
+            <li>부서별 설명회 자료 (슬라이드 · 영상)</li>
+            <li>참가 신청 랜딩 페이지 (플랫폼 연계)</li>
+            <li>사내 메신저 · 그룹메일 · 뉴스레터 템플릿</li>
+          </ul>
+        </div>
+        <div class="c c-w" style="margin-top:10px">
+          <div class="c-t">●  홍보 KPI (초안)</div>
+          <ul>
+            <li>전사 인지율 <strong class="hl-w">≥ 95%</strong></li>
+            <li>신청 전환율 <strong class="hl-w">≥ 25%</strong></li>
+            <li>목표 참가팀 <strong class="hl-w">30팀</strong> 확보</li>
+            <li>부서별 참여 균형 (편중 방지)</li>
+          </ul>
+        </div>
+        <div class="ph-note">이 섹션은 발주처와 협의 후 상세 내용 보완 예정 — 홍보 채널 · 타겟 세그먼트 · KPI · 크리에이티브 레퍼런스 등</div>
+      </div>
+      <!-- 우측 컬럼: 추후 사진 삽입 예정 (빈 공간 유지) -->
+      <div></div>
+    </div>
+  </div>
+  <div class="sf"><span class="brand">K-WATER · AI 러닝톤</span><span class="pg">19 / 30</span><span>Ⅲ-3-가 홍보</span></div>
+</section>
+
+<!-- ============================================================ -->
+<!-- S18. Ⅲ-3-② 온라인 경진대회 (placeholder)                     -->
+<!-- ============================================================ -->
+<section class="slide">
+  <div class="sh"><span class="sh-l">Ⅲ-3-나. 온라인 경진대회 운영</span><span>Ⅲ. 과업추진 방향 · 상세 운영</span></div>
+  <div class="si">
+    <div class="tag">상세 운영 · 온라인 경진대회</div>
+    <h2 class="st"><span class="hl">모집 → 멘토링 → 기획서 제출 → ELO 서면평가</span>의 4단계로 <span class="hl-w">본선 30팀을 공정 선정</span></h2>
+
+    <!-- 4단계 프로세스 가로 플로우 -->
+    <div style="display:flex;align-items:stretch;gap:6px;margin-top:14px">
+      <!-- STEP 1 -->
+      <div class="c c-p" style="flex:1;padding:12px 12px;border-left:4px solid var(--primary);display:flex;flex-direction:column">
+        <div style="font-size:.5625rem;font-weight:800;color:var(--primary);letter-spacing:.1em;margin-bottom:4px">1단계 · 5월 1~2째주 모집</div>
+        <div style="font-size:.9375rem;font-weight:800;color:var(--on-surface);margin-bottom:6px;letter-spacing:-.01em">●  참가자 모집</div>
+        <ul style="margin:0">
+          <li style="font-size:.6875rem"><strong>3인 1팀</strong> 구성</li>
+          <li style="font-size:.6875rem">아이디어 <strong>1줄</strong> 제출</li>
+          <li style="font-size:.6875rem">사내 공지 · 랜딩 페이지</li>
+        </ul>
+      </div>
+
+      <div style="display:flex;align-items:center;justify-content:center;min-width:28px;font-size:1.375rem;color:var(--primary);font-weight:800">▶</div>
+
+      <!-- STEP 2 -->
+      <div class="c c-p" style="flex:1;padding:12px 12px;border-left:4px solid var(--primary);display:flex;flex-direction:column">
+        <div style="font-size:.5625rem;font-weight:800;color:var(--primary);letter-spacing:.1em;margin-bottom:4px">2단계 · 멘토링 기간</div>
+        <div style="font-size:.9375rem;font-weight:800;color:var(--on-surface);margin-bottom:6px;letter-spacing:-.01em">●  아이디어 고도화</div>
+        <ul style="margin:0">
+          <li style="font-size:.6875rem">제출 아이디어 기반 <strong>멘토링</strong></li>
+          <li style="font-size:.6875rem">1줄 아이디어 → <strong>기획서로 고도화</strong></li>
+          <li style="font-size:.6875rem">AI 멘토 + 사람 멘토 병행</li>
+        </ul>
+      </div>
+
+      <div style="display:flex;align-items:center;justify-content:center;min-width:28px;font-size:1.375rem;color:var(--warm);font-weight:800">▶</div>
+
+      <!-- STEP 3 -->
+      <div class="c c-w" style="flex:1;padding:12px 12px;border-left:4px solid var(--warm);display:flex;flex-direction:column">
+        <div style="font-size:.5625rem;font-weight:800;color:var(--warm);letter-spacing:.1em;margin-bottom:4px">3단계 · 5월 3째주~6월 1째주</div>
+        <div style="font-size:.9375rem;font-weight:800;color:var(--on-surface);margin-bottom:6px;letter-spacing:-.01em">●  기획서 제출</div>
+        <ul style="margin:0">
+          <li style="font-size:.6875rem"><strong>제안사 플랫폼</strong>에 기획서 업로드</li>
+          <li style="font-size:.6875rem">제출 이력 · 버전 관리</li>
+          <li style="font-size:.6875rem">실시간 접수 현황 표시</li>
+        </ul>
+      </div>
+
+      <div style="display:flex;align-items:center;justify-content:center;min-width:28px;font-size:1.375rem;color:var(--warm);font-weight:800">▶</div>
+
+      <!-- STEP 4 -->
+      <div class="c c-w" style="flex:1;padding:12px 12px;border-left:4px solid var(--warm);display:flex;flex-direction:column;position:relative">
+        <div style="font-size:.5625rem;font-weight:800;color:var(--warm);letter-spacing:.1em;margin-bottom:4px">4단계 · 6월 1째주 평가</div>
+        <div style="font-size:.9375rem;font-weight:800;color:var(--on-surface);margin-bottom:6px;letter-spacing:-.01em">●  본선 30팀 선정</div>
+        <ul style="margin:0">
+          <li style="font-size:.6875rem">전문 심사위원 <strong>ELO 서면평가</strong></li>
+          <li style="font-size:.6875rem">1:1 비교 → 순위 자동 수렴</li>
+          <li style="font-size:.6875rem"><strong class="hl-w">상위 30팀</strong> 본선 진출</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 하단 2-col: ELO 서면평가 설명 + 플랫폼 기능 -->
+    <div class="g2" style="margin-top:10px">
+      <div class="c c-g">
+        <div class="c-t" style="color:var(--green)">●  ELO 서면평가란?</div>
+        <div class="c-dd" style="font-size:.75rem;line-height:1.6">전문 심사위원이 <strong>기획서 두 개를 1:1로 비교</strong>하며 "어느 쪽이 더 우수한가"를 반복 선택하는 방식입니다. 자동 매칭·점수 수렴으로 <strong style="color:var(--green)">상대적 순위가 정확히 확정</strong>되며, 단순 점수 입력보다 <strong style="color:var(--green)">심사 편향이 크게 줄어듭니다</strong>.</div>
+      </div>
+      <div class="c">
+        <div class="c-t">●  플랫폼 지원 기능</div>
+        <ul>
+          <li>공고 · 참가 · <strong>3인 1팀 팀빌딩</strong></li>
+          <li>아이디어·기획서 <strong>제출·버전 관리</strong></li>
+          <li>심사위원 <strong>ELO 1:1 비교 인터페이스</strong></li>
+          <li>실시간 접수·심사 현황 대시보드</li>
+          <li><strong>부정행위 자동 탐지</strong> (특허 기술 · Ⅲ-1-가)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span class="brand">K-WATER · AI 러닝톤</span><span class="pg">20 / 30</span><span>Ⅲ-3-나 온라인 경진대회</span></div>
+</section>
+
+<!-- ============================================================ -->
+<!-- S19. Ⅲ-3-③ AI 멘토링 Office Hours                            -->
+<!-- ============================================================ -->
+<section class="slide">
+  <div class="sh"><span class="sh-l">Ⅲ-3-다. AI 멘토링 — Office Hours</span><span>Ⅲ. 과업추진 방향 · 상세 운영</span></div>
+  <div class="si">
+    <div class="tag w">상세 운영 · AI 멘토링 Office Hours</div>
+    <h2 class="st">VC 오피스아워 스타일 <span class="hl">6대 Forcing Question</span>으로 팀의 <span class="hl-w">가설을 실전 검증</span></h2>
+
+    <!-- 6대 Forcing Question -->
+    <div class="c c-p" style="margin-top:10px">
+      <div class="c-t">●  6대 Forcing Question — 팀의 사고를 압박하는 핵심 질문 체계</div>
+      <table class="tb" style="font-size:.6875rem;margin-top:2px">
+        <thead><tr><th style="width:6%">#</th><th style="width:22%">영문</th><th style="width:22%">한국어</th><th>의도</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Q1</strong></td><td>Demand Reality</td><td><strong class="hl">수요의 실재</strong></td><td>누가 실제로 원하는가</td></tr>
+          <tr><td><strong>Q2</strong></td><td>Status Quo</td><td><strong class="hl">현재 대안·비용</strong></td><td>지금은 어떻게 해결 중인가</td></tr>
+          <tr><td><strong>Q3</strong></td><td>Desperate Specificity</td><td><strong class="hl">구체적 타겟</strong></td><td>누가 &ldquo;절박하게&rdquo; 필요한가</td></tr>
+          <tr><td><strong>Q4</strong></td><td>Narrowest Wedge</td><td><strong class="hl-w">최소 검증 단위</strong></td><td>가장 좁게 증명할 범위는</td></tr>
+          <tr><td><strong>Q5</strong></td><td>Observation &amp; Surprise</td><td><strong class="hl">관찰과 의외성</strong></td><td>관찰로 얻은 비상식 발견은</td></tr>
+          <tr><td><strong>Q6</strong></td><td>Future-Fit</td><td><strong class="hl-w">3년 적합성</strong></td><td>3년 뒤에도 유효한가</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="g2" style="margin-top:10px">
+      <!-- 스테이지 라우팅 -->
+      <div class="c">
+        <div class="c-t">●  스테이지 라우팅 — 체크포인트별 질문 흐름</div>
+        <table class="tb" style="font-size:.6875rem;margin-top:2px">
+          <thead><tr><th style="width:24%">체크포인트</th><th style="width:20%">단계</th><th>허용 질문</th></tr></thead>
+          <tbody>
+            <tr><td><strong>CP1</strong></td><td>탐색</td><td><strong class="hl">Q1 → Q2 → Q3</strong></td></tr>
+            <tr><td><strong>CP2</strong></td><td>기획</td><td><strong class="hl">Q2 → Q4</strong></td></tr>
+            <tr><td><strong>CP3</strong></td><td>개발</td><td><strong class="hl">Q4 → Q5</strong></td></tr>
+            <tr><td><strong>CP4</strong></td><td>발표</td><td><strong class="hl">Q5 → Q6</strong></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <!-- 톤 + 컨텍스트 스냅샷 + 품질 규칙 -->
+      <div class="c c-w">
+        <div class="c-t">●  톤 선택 · 컨텍스트 스냅샷 · 대화 품질 규칙</div>
+        <table class="tb" style="font-size:.6875rem;margin-top:2px">
+          <thead><tr><th style="width:28%">톤</th><th>특성</th><th style="width:26%">적용 대상</th></tr></thead>
+          <tbody>
+            <tr><td><strong class="hl-w">yc-hard</strong> (기본)</td><td>직설 · Red flag 즉시 지적</td><td>K-water 러닝톤 (성인)</td></tr>
+            <tr><td><strong>yc-soft</strong></td><td>Forcing Q 유지 + 칭찬↑ + 경어</td><td>기업 교육형</td></tr>
+            <tr><td><strong>coach</strong></td><td>푸시백 최소 · 선택지 제시</td><td>입문자·청소년</td></tr>
+          </tbody>
+        </table>
+        <div class="c-dd" style="margin-top:6px"><strong>컨텍스트 스냅샷</strong> — 세션 생성 시 <strong class="hl-w">팀원 닉네임·스킬·평가기준·이전 리포트</strong> 자동 주입</div>
+        <div class="c-dd" style="margin-top:3px"><strong>대화 품질 규칙</strong> — 첫 응답에 팀원+스킬+평가기준 <strong class="hl-w">필수 인용</strong> · 1응답 = 1주질문 · Escape Hatch(거부 시 2개만 묻고 요약) · 시그널 2 미만 시 Builder Mode 폴백</div>
+      </div>
+    </div>
+    <div class="ph-note"><strong>AI × 휴먼 연결</strong> — AI가 도출한 &ldquo;최소 검증 단위(Q4)&rdquo;를 휴먼 멘토 미팅 주제로 제안 · 휴먼 리포트의 액션아이템을 AI 다음 세션 컨텍스트로 활용 → <strong>단일 리포트 스트림</strong>으로 팀 성장 궤적 추적</div>
+  </div>
+  <div class="sf"><span class="brand">K-WATER · AI 러닝톤</span><span class="pg">21 / 30</span><span>Ⅲ-3-다 AI 멘토링</span></div>
+</section>
+
+<!-- ============================================================ -->
+<!-- S20. Ⅲ-3-다. 휴먼 멘토 예약 시스템 (Mentor Booking)           -->
+<!-- ============================================================ -->
+<section class="slide">
+  <div class="sh"><span class="sh-l">Ⅲ-3-다. 휴먼 멘토 예약 시스템</span><span>Ⅲ. 과업추진 방향 · 상세 운영</span></div>
+  <div class="si">
+    <div class="tag w">상세 운영 · 휴먼 멘토 예약</div>
+    <h2 class="st"><span class="hl">즉시 예약 + 시간 제안</span>의 하이브리드 협상으로 <span class="hl-w">멘토 1:1 미팅을 시스템화</span></h2>
+
+    <!-- 하이브리드 예약 방식 -->
+    <div class="g2" style="margin-top:10px">
+      <div class="c c-p">
+        <div class="c-t">●  즉시 예약 — 오픈 슬롯 클릭 즉시 확정</div>
+        <ul>
+          <li>멘토가 <strong>주간 그리드(7일 x 30분)</strong>에서 드래그로 N개 슬롯 일괄 오픈</li>
+          <li>팀장이 오픈 슬롯 클릭 → <strong class="hl">즉시 확정</strong> (슬롯당 1팀)</li>
+          <li>동시성 안전: <code>SELECT FOR UPDATE</code> → 409 충돌 시 자동 refetch</li>
+        </ul>
+      </div>
+      <div class="c c-w">
+        <div class="c-t">●  시간 제안 — 슬롯 밖 유연 협상</div>
+        <ul>
+          <li>팀장이 <strong>슬롯 밖 시간 제안</strong> → 멘토 승인 시 슬롯+예약 <strong class="hl-w">원자적 생성</strong></li>
+          <li>멘토 거절·만료 시 팀 즉시 알림</li>
+          <li>빠른 운영(즉시)과 유연한 조율(제안)을 <strong>동시 제공</strong></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 쿼터·노쇼 + 알림 + 리포트 -->
+    <div class="g3" style="margin-top:10px">
+      <div class="c">
+        <div class="c-t">●  쿼터 &amp; 노쇼 정책</div>
+        <ul>
+          <li>팀당 <strong class="hl">누적 한도</strong> 설정 (분 단위)</li>
+          <li>취소 = 쿼터 <strong>회복</strong> · 노쇼 = <strong class="hl-w">미회복</strong></li>
+          <li>취소 마감(기본 60분 전) 이후 취소 = 노쇼 처리</li>
+          <li>잔여 쿼터 <strong>배지 상시 노출</strong></li>
+        </ul>
+      </div>
+      <div class="c c-g">
+        <div class="c-t">●  알림 5종 (in-app + 이메일)</div>
+        <ul>
+          <li><strong>예약 생성</strong> — 팀+멘토 양측 알림</li>
+          <li><strong>예약 취소</strong> — 사유·쿼터 변동 안내</li>
+          <li><strong>30분 전 리마인더</strong> — 자동 발송</li>
+          <li><strong>제안 제출</strong> — 멘토에게 알림</li>
+          <li><strong>제안 응답</strong> — 팀에게 결과 알림</li>
+        </ul>
+      </div>
+      <div class="c c-p">
+        <div class="c-t">●  미팅 후 리포트</div>
+        <ul>
+          <li><strong>summary</strong> — 논의 요약</li>
+          <li><strong>feedback</strong> — 팀에 대한 피드백</li>
+          <li><strong>actionItems</strong> — 다음 액션 아이템</li>
+          <li>AI·휴먼 리포트 <strong class="hl">단일 뷰</strong>로 통합</li>
+          <li>→ AI 멘토가 액션아이템을 다음 세션 맥락으로 활용</li>
+        </ul>
+      </div>
+    </div>
+    <div class="ph-note"><strong>3자 역할 분리</strong> — 관리자(정책 설정) · 멘토(슬롯 오픈·리포트 작성) · 팀장(예약·제안·리포트 열람) · 팀원(열람 전용) → 운영 리스크 최소화</div>
+  </div>
+  <div class="sf"><span class="brand">K-WATER · AI 러닝톤</span><span class="pg">22 / 30</span><span>Ⅲ-3-다 멘토 예약</span></div>
+</section>
+
+<!-- ============================================================ -->
+<!-- S20-B. AI × 휴먼 멘토링 연결 고리 + End-to-End 프로세스          -->
+<!-- ============================================================ -->
+<section class="slide">
+  <div class="sh"><span class="sh-l">Ⅲ-3-다. AI × 휴먼 멘토링 연결 · E2E 프로세스</span><span>Ⅲ. 과업추진 방향 · 상세 운영</span></div>
+  <div class="si">
+    <div class="tag w">상세 운영 · AI × 휴먼 연결 프로세스</div>
+    <h2 class="st"><span class="hl">AI 리포트 → 휴먼 미팅 → 액션아이템</span>이 <span class="hl-w">단일 스트림</span>으로 순환하는 멘토링</h2>
+
+    <!-- E2E 프로세스 흐름 -->
+    <div class="stepper" style="margin-top:12px">
+      <div class="step" style="border-left-color:var(--primary)">
+        <div class="n">STEP 1</div>
+        <div class="t">AI Office Hours</div>
+        <div class="d">팀 채팅 진입 → 컨텍스트 스냅샷 자동 주입 → 6대 Forcing Question으로 가설 검증</div>
+      </div>
+      <div class="step" style="border-left-color:var(--warm)">
+        <div class="n">STEP 2</div>
+        <div class="t">AI 리포트 생성</div>
+        <div class="d">세션 종료 시 구조화 리포트 자동 생성 → 체크포인트별 진척 기록</div>
+      </div>
+      <div class="step" style="border-left-color:var(--green)">
+        <div class="n">STEP 3</div>
+        <div class="t">휴먼 멘토 미팅</div>
+        <div class="d">AI가 도출한 Q4(최소 검증 단위)를 미팅 주제로 제안 → 도메인 전문가 검증</div>
+      </div>
+      <div class="step" style="border-left-color:var(--primary)">
+        <div class="n">STEP 4</div>
+        <div class="t">순환 반영</div>
+        <div class="d">휴먼 리포트의 액션아이템 → AI 다음 세션 컨텍스트로 자동 활용</div>
+      </div>
+    </div>
+
+    <!-- 리포트 통합 + 캘린더 UI 상태 -->
+    <div class="g2" style="margin-top:10px">
+      <div class="c c-p">
+        <div class="c-t">●  단일 리포트 스트림 — AI · 휴먼 통합 뷰</div>
+        <table class="tb" style="font-size:.6875rem;margin-top:2px">
+          <thead><tr><th style="width:28%">리포트 종류</th><th>내용</th><th style="width:22%">생성 주체</th></tr></thead>
+          <tbody>
+            <tr><td><strong class="hl">AI 체크포인트</strong></td><td>Forcing Q 대화 로그 + 요약 + 다음 Q 안내</td><td>AI 자동 생성</td></tr>
+            <tr><td><strong class="hl-w">휴먼 미팅</strong></td><td>논의 요약 · 피드백 · 액션아이템</td><td>멘토 수동 작성</td></tr>
+          </tbody>
+        </table>
+        <div class="c-dd" style="margin-top:6px"><code>mentoring_sessions</code> 테이블에서 <strong>kind='ai'|'human'</strong>으로 구분 → 팀 성장 궤적을 시간순 <strong class="hl">단일 타임라인</strong>으로 추적</div>
+      </div>
+      <div class="c c-w">
+        <div class="c-t">●  캘린더 UI 상태 가시화</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:6px">
+          <div style="display:flex;align-items:center;gap:6px;font-size:.6875rem"><span style="display:inline-block;width:28px;height:14px;border-radius:3px;background:var(--primary)"></span> <strong>confirmed</strong> — solid</div>
+          <div style="display:flex;align-items:center;gap:6px;font-size:.6875rem"><span style="display:inline-block;width:28px;height:14px;border-radius:3px;background:rgba(30,58,138,.2)"></span> <strong>pending</strong> — tint</div>
+          <div style="display:flex;align-items:center;gap:6px;font-size:.6875rem"><span style="display:inline-block;width:28px;height:14px;border-radius:3px;background:var(--outline)"></span> <strong>canceled</strong> — muted</div>
+          <div style="display:flex;align-items:center;gap:6px;font-size:.6875rem"><span style="display:inline-block;width:28px;height:14px;border-radius:3px;border:2px solid var(--warm);background:transparent"></span> <strong>no_show</strong> — outline</div>
+        </div>
+        <ul style="margin-top:8px">
+          <li><strong class="hl-w">QuotaBadge</strong> — 잔여 시간 ≤30분 시 경고 톤 자동 전환</li>
+          <li>슬롯 경쟁 실패 시 <strong>409 → 토스트 + 자동 새로고침</strong></li>
+          <li>cutoff 지난 예약은 <strong>&ldquo;노쇼 위험&rdquo; 시각 단서</strong> 표시</li>
+        </ul>
+      </div>
+    </div>
+    <div class="ph-note"><strong>설계 원칙</strong> — ① 컨텍스트 우선: AI든 휴먼이든 팀·평가기준을 먼저 본다 ② No Overengineering: 그룹 멘토링·외부 캘린더·멀티 TZ 1차 제외 ③ 어뷰즈 방지: 노쇼 쿼터 미회복 · 취소 슬롯 재오픈 금지</div>
+  </div>
+  <div class="sf"><span class="brand">K-WATER · AI 러닝톤</span><span class="pg">23 / 30</span><span>Ⅲ-3-다 AI×휴먼 연결</span></div>
+</section>
+
+<!-- ============================================================ -->
+<!-- S21. Ⅲ-3-④ 오프라인 대회 (placeholder)                       -->
+<!-- ============================================================ -->
+<section class="slide">
+  <div class="sh"><span class="sh-l">Ⅲ-3-라. 오프라인 대회 운영</span><span>Ⅲ. 과업추진 방향 · 상세 운영</span></div>
+  <div class="si">
+    <div class="tag w">상세 운영 · 오프라인 대회 운영</div>
+    <h2 class="st"><span class="hl">운영매뉴얼 기반 철저한 사전 준비</span>로 본선 1박 2일을 <span class="hl-w">빈틈없이 실행</span></h2>
+    <!-- ●  운영매뉴얼 (중심 앵커) -->
+    <div class="c c-p" style="margin-top:14px;padding:14px 18px;border-left:4px solid var(--primary)">
+      <div style="display:flex;align-items:center;gap:12px">
+        <div style="font-size:2rem;line-height:1">● </div>
+        <div>
+          <div style="font-size:1.0625rem;font-weight:800;color:var(--primary);letter-spacing:-.01em">운영매뉴얼 제작</div>
+          <div style="font-size:.75rem;color:var(--on-variant);margin-top:2px">본선 1박 2일 전 과정을 표준화한 <strong>운영의 기준 문서</strong></div>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:12px">
+        <div style="background:#fff;border-radius:var(--r-sm);padding:10px 12px;font-size:.6875rem;line-height:1.5">
+          <strong class="hl">●  대회 기획</strong><br><span style="color:var(--on-variant)">일정 · 규모 · 과제 · 심사 기준</span>
+        </div>
+        <div style="background:#fff;border-radius:var(--r-sm);padding:10px 12px;font-size:.6875rem;line-height:1.5">
+          <strong class="hl">●  현장 운영 절차</strong><br><span style="color:var(--on-variant)">무대 · 부스 · 안전 · 위생 · 긴급 대응</span>
+        </div>
+        <div style="background:#fff;border-radius:var(--r-sm);padding:10px 12px;font-size:.6875rem;line-height:1.5">
+          <strong class="hl">●  역할별 R&amp;R</strong><br><span style="color:var(--on-variant)">운영팀 · 멘토 · 심사위원 · 발주처</span>
+        </div>
+        <div style="background:#fff;border-radius:var(--r-sm);padding:10px 12px;font-size:.6875rem;line-height:1.5">
+          <strong class="hl">●  타임테이블</strong><br><span style="color:var(--on-variant)">1박 2일 분 단위 일정</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2-col: 발주기관 소통 | 체크리스트 개발 -->
+    <div class="g2" style="margin-top:10px">
+      <div class="c c-w">
+        <div class="c-t">●  발주기관과 매뉴얼 기반 소통</div>
+        <ul>
+          <li>매뉴얼 초안 공유 → <strong>발주기관 검토·승인</strong></li>
+          <li>주차별 운영 미팅에서 <strong>매뉴얼 기반 진행 점검</strong></li>
+          <li>변경 사항 즉시 반영 · <strong>버전 이력 관리</strong></li>
+          <li>매뉴얼을 <strong class="hl-w">단일 공식 기준 문서</strong>로 운용</li>
+        </ul>
+      </div>
+      <div class="c c-g">
+        <div class="c-t" style="color:var(--green)">●  본선 준비 체크리스트 개발</div>
+        <ul>
+          <li>매뉴얼 기반 <strong style="color:var(--green)">D-7 · D-1 · D+0 단계별 체크리스트</strong></li>
+          <li>무대 · 부스 · 장비 · 인력 · 식음료 <strong>전수 점검</strong></li>
+          <li>완료율 실시간 공유 → <strong style="color:var(--green)">준비 상태 가시화</strong></li>
+          <li>이상 발견 시 매뉴얼 내 <strong>대응 절차 즉시 참조</strong></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span class="brand">K-WATER · AI 러닝톤</span><span class="pg">24 / 30</span><span>Ⅲ-3-라 오프라인 대회</span></div>
+</section>
+
+<!-- ============================================================ -->
+<!-- S22. Ⅲ-3-라. 본선 첫째날                                      -->
+<!-- ============================================================ -->
+<section class="slide">
+  <div class="sh"><span class="sh-l">Ⅲ-3-라. 본선 첫째날</span><span>Ⅲ. 과업추진 방향 · 상세 운영</span></div>
+  <div class="si">
+    <div class="tag w">상세 운영 · 본선 첫째날</div>
+    <h2 class="st">본선 1일차: <span class="hl">프로토타입 구현 집중 개발</span> · <span class="hl-w">현장 멘토링 · 제출 지원</span></h2>
+
+    <!-- ●  1일차 목표 -->
+    <div class="c c-p" style="margin-top:14px;padding:14px 18px;border-left:4px solid var(--primary)">
+      <div class="c-t" style="color:var(--primary)">●  1일차 목표</div>
+      <div class="c-dd" style="font-size:.8125rem;color:var(--on-surface);line-height:1.65">
+        30개 팀이 <strong>오프라인 현장에 모여 종일 개발</strong>하며, 예선 당시 제출한 <strong class="hl">기획안을 실제 동작하는 프로토타입으로 변환</strong>합니다.
+        간단한 <strong class="hl">발표자료도 함께 제작</strong>해 <strong class="hl-w">대회 페이지에 제출</strong>하는 것이 목표입니다.
+      </div>
+    </div>
+
+    <!-- 3-card: 종일 개발 · 현장 멘토링 · 제출 지원 -->
+    <div class="g3" style="margin-top:12px">
+      <div class="c c-p" style="padding:16px;display:flex;flex-direction:column">
+        <div style="font-size:2rem;text-align:center;line-height:1;margin-bottom:4px">—</div>
+        <div style="font-size:1rem;font-weight:800;color:var(--primary);text-align:center;margin-bottom:8px">종일 개발</div>
+        <ul style="margin-top:0">
+          <li style="font-size:.75rem;line-height:1.6">30개 팀 <strong>오프라인 현장 집결</strong></li>
+          <li style="font-size:.75rem;line-height:1.6">예선 기획안 → <strong>실제 동작 프로토타입</strong> 변환</li>
+          <li style="font-size:.75rem;line-height:1.6">간단한 <strong>발표자료 함께 제작</strong></li>
+        </ul>
+      </div>
+      <div class="c c-w" style="padding:16px;display:flex;flex-direction:column">
+        <div style="font-size:2rem;text-align:center;line-height:1;margin-bottom:4px">● </div>
+        <div style="font-size:1rem;font-weight:800;color:var(--warm);text-align:center;margin-bottom:8px">현장 멘토링</div>
+        <ul style="margin-top:0">
+          <li style="font-size:.75rem;line-height:1.6"><strong>특정 시간 내 멘토 상주</strong></li>
+          <li style="font-size:.75rem;line-height:1.6">개발 시 필요한 지원 <strong>즉시 제공</strong></li>
+          <li style="font-size:.75rem;line-height:1.6">기술·구현 이슈 코칭</li>
+        </ul>
+      </div>
+      <div class="c c-g" style="padding:16px;display:flex;flex-direction:column">
+        <div style="font-size:2rem;text-align:center;line-height:1;margin-bottom:4px">● </div>
+        <div style="font-size:1rem;font-weight:800;color:var(--green);text-align:center;margin-bottom:8px">제출 지원</div>
+        <ul style="margin-top:0">
+          <li style="font-size:.75rem;line-height:1.6"><strong>제안사 인력 현장 지원</strong></li>
+          <li style="font-size:.75rem;line-height:1.6">모든 팀의 <strong>대회 페이지 제출 보장</strong></li>
+          <li style="font-size:.75rem;line-height:1.6">제출 문제 <strong>즉시 해결</strong></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 1일차 최종 제출물 요약 스트립 -->
+    <div class="c c-p" style="margin-top:10px;padding:10px 16px;text-align:center;border:2px solid var(--primary)">
+      <div style="font-size:.8125rem;color:var(--on-surface);font-weight:700">●  1일차 최종 제출물 — <strong class="hl">프로토타입</strong> + <strong class="hl">발표자료</strong>를 <strong class="hl-w">대회 페이지에 업로드</strong></div>
+    </div>
+  </div>
+  <div class="sf"><span class="brand">K-WATER · AI 러닝톤</span><span class="pg">25 / 30</span><span>Ⅲ-3-라 본선 첫째날</span></div>
+</section>
+
+<!-- ============================================================ -->
+<!-- S24. Ⅲ-3-라. 본선 첫째날 (제목만 · 본문 보완 예정)            -->
+<!-- ============================================================ -->
+<section class="slide">
+  <div class="sh"><span class="sh-l">Ⅲ-3-라. 본선 첫째날</span><span>Ⅲ. 과업추진 방향 · 상세 운영</span></div>
+  <div class="si">
+    <div class="tag w">상세 운영 · 본선 첫째날</div>
+    <h2 class="st">본선 1일차: <span class="hl">프로토타입 구현 집중 개발</span> · <span class="hl-w">현장 멘토링 · 제출 지원</span></h2>
+    <!-- 제목 하단 비워둠 (추후 보완) -->
+  </div>
+  <div class="sf"><span class="brand">K-WATER · AI 러닝톤</span><span class="pg">26 / 30</span><span>Ⅲ-3-라 본선 첫째날</span></div>
+</section>
+
+<!-- ============================================================ -->
+<!-- S25. Ⅲ-3-마 발표평가 및 시상식 (본선 둘째날)                 -->
+<!-- ============================================================ -->
+<section class="slide">
+  <div class="sh"><span class="sh-l">Ⅲ-3-마. 발표평가 및 시상식 운영</span><span>Ⅲ. 과업추진 방향 · 상세 운영</span></div>
+  <div class="si">
+    <div class="tag w">상세 운영 · 발표평가 및 시상식</div>
+    <h2 class="st">본선 2일차: <span class="hl">최종 발표평가 · 시상식 운영</span> · <span class="hl-w">실시간 리더보드 송출</span></h2>
+
+    <!-- 2일차 4단계 타임라인 -->
+    <div style="display:flex;align-items:stretch;gap:6px;margin-top:14px">
+      <!-- 1단계: 결과물 업로드 -->
+      <div class="c c-p" style="flex:1;padding:12px;border-left:4px solid var(--primary);display:flex;flex-direction:column">
+        <div style="font-size:.5625rem;font-weight:800;color:var(--primary);letter-spacing:.1em;margin-bottom:4px">~ 오전 10시</div>
+        <div style="font-size:.9375rem;font-weight:800;color:var(--on-surface);margin-bottom:6px">●  결과물 업로드</div>
+        <ul style="margin:0">
+          <li style="font-size:.6875rem">30개 팀 전원</li>
+          <li style="font-size:.6875rem"><strong>프로토타입 + 발표자료</strong> 대회 페이지 업로드</li>
+        </ul>
+      </div>
+
+      <div style="display:flex;align-items:center;justify-content:center;min-width:20px;font-size:1.25rem;color:var(--primary);font-weight:800">▶</div>
+
+      <!-- 2단계: 상호투표 + 심사 -->
+      <div class="c c-p" style="flex:1;padding:12px;border-left:4px solid var(--primary);display:flex;flex-direction:column">
+        <div style="font-size:.5625rem;font-weight:800;color:var(--primary);letter-spacing:.1em;margin-bottom:4px">일정 시간 · 상호투표</div>
+        <div style="font-size:.9375rem;font-weight:800;color:var(--on-surface);margin-bottom:6px">●  상호투표 + 심사</div>
+        <ul style="margin:0">
+          <li style="font-size:.6875rem">참가팀이 서로의 결과물 관람·투표</li>
+          <li style="font-size:.6875rem">심사위원 평가 병행</li>
+          <li style="font-size:.6875rem">합산 → <strong class="hl">상위 6팀 선발</strong></li>
+        </ul>
+      </div>
+
+      <div style="display:flex;align-items:center;justify-content:center;min-width:20px;font-size:1.25rem;color:var(--warm);font-weight:800">▶</div>
+
+      <!-- 3단계: 6팀 발표 -->
+      <div class="c c-w" style="flex:1;padding:12px;border-left:4px solid var(--warm);display:flex;flex-direction:column">
+        <div style="font-size:.5625rem;font-weight:800;color:var(--warm);letter-spacing:.1em;margin-bottom:4px">오후 · 발표평가</div>
+        <div style="font-size:.9375rem;font-weight:800;color:var(--on-surface);margin-bottom:6px">— 상위 6팀 발표</div>
+        <ul style="margin:0">
+          <li style="font-size:.6875rem">팀당 <strong>각 15분</strong> 발표</li>
+          <li style="font-size:.6875rem">대형 스크린 <strong>실시간 리더보드</strong></li>
+          <li style="font-size:.6875rem">최종 점수 집계</li>
+        </ul>
+      </div>
+
+      <div style="display:flex;align-items:center;justify-content:center;min-width:20px;font-size:1.25rem;color:var(--green);font-weight:800">▶</div>
+
+      <!-- 4단계: 시상식 -->
+      <div class="c c-g" style="flex:1;padding:12px;border-left:4px solid var(--green);display:flex;flex-direction:column">
+        <div style="font-size:.5625rem;font-weight:800;color:var(--green);letter-spacing:.1em;margin-bottom:4px">마지막 · 시상</div>
+        <div style="font-size:.9375rem;font-weight:800;color:var(--on-surface);margin-bottom:6px">●  시상식</div>
+        <ul style="margin:0">
+          <li style="font-size:.6875rem">수상 · 축사 · 단체 촬영</li>
+          <li style="font-size:.6875rem">대상 · 최우수 · 우수 · 장려 · 특별상</li>
+          <li style="font-size:.6875rem">폐회</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ●  중간 경품 이벤트 제안 (하단 고정 · 상단 공간은 사진 삽입 예정) -->
+    <div class="c c-w" style="margin-top:auto;padding:14px 18px;border-left:4px solid var(--warm)">
+      <div style="display:flex;align-items:center;gap:10px">
+        <div style="font-size:1.75rem;line-height:1">● </div>
+        <div>
+          <div style="font-size:1rem;font-weight:800;color:var(--warm);letter-spacing:-.01em">&ldquo;대상팀 예측 투표 경품 이벤트&rdquo; (제안)</div>
+          <div style="font-size:.6875rem;color:var(--on-variant);margin-top:2px">30개 팀 전원이 시상식 끝까지 자리를 지키도록 유도하는 장치</div>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:10px">
+        <div style="background:#fff;border-radius:var(--r-sm);padding:10px 12px;font-size:.6875rem;line-height:1.5">
+          <strong class="hl-w">① 예측 투표</strong><br><span style="color:var(--on-variant)">상위 6팀 발표 시작 직전, 전 참가자가 &ldquo;대상은 어느 팀?&rdquo; 예측 투표</span>
+        </div>
+        <div style="background:#fff;border-radius:var(--r-sm);padding:10px 12px;font-size:.6875rem;line-height:1.5">
+          <strong class="hl-w">② 집중 몰입</strong><br><span style="color:var(--on-variant)">예측 근거 확보를 위해 6팀 발표를 <strong>모두가 집중 관람</strong></span>
+        </div>
+        <div style="background:#fff;border-radius:var(--r-sm);padding:10px 12px;font-size:.6875rem;line-height:1.5">
+          <strong class="hl-w">③ 적중자 경품</strong><br><span style="color:var(--on-variant)">시상식 직후 예측 적중자 중 <strong>랜덤 추첨 경품</strong> 수여</span>
+        </div>
+      </div>
+      <div style="margin-top:8px;font-size:.6875rem;color:var(--on-variant);font-style:italic">기대 효과 — 30팀 전원 <strong>발표 집중도 상승</strong> · <strong>시상식 끝까지 자리 유지</strong> · 참가자 간 커뮤니티·대화 촉진 · 경품 품목·규모는 발주처 협의</div>
+    </div>
+  </div>
+  <div class="sf"><span class="brand">K-WATER · AI 러닝톤</span><span class="pg">27 / 30</span><span>Ⅲ-3-마 발표·시상</span></div>
+</section>
+
+<!-- ============================================================ -->
+<!-- S22. Ⅲ-3-⑥ 성과 관리 — KPI · 측정 체계                      -->
+<!-- ============================================================ -->
+<section class="slide">
+  <div class="sh"><span class="sh-l">Ⅲ-3-바. 성과 관리 방안 ① KPI · 측정 체계</span><span>Ⅲ. 과업추진 방향 · 상세 운영</span></div>
+  <div class="si">
+    <div class="tag">성과 관리 · KPI · 측정 체계</div>
+    <h2 class="st">러닝톤 성과를 <span class="hl">정량·정성 지표</span>로 <span class="hl-w">본선 전후 전 주기</span> 수집·분석</h2>
+
+    <!-- 정량지표 상세 표 -->
+    <div class="c c-p" style="margin-top:12px;padding:12px 16px">
+      <div class="c-t">●  정량지표 — 측정 가능한 수치 데이터 (세부)</div>
+      <table class="tb" style="font-size:.6875rem;margin-top:2px;table-layout:fixed">
+        <thead>
+          <tr>
+            <th style="width:22%;white-space:nowrap">지표</th>
+            <th style="width:20%;white-space:nowrap">목표치</th>
+            <th style="width:30%">측정 방법</th>
+            <th style="width:28%;white-space:nowrap">수집 시점</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td style="white-space:nowrap"><strong>리커트척도 만족도</strong></td><td style="white-space:nowrap">5점 평균 <strong class="hl">4.5 이상</strong></td><td style="white-space:nowrap">5점 척도 사전·사후 설문</td><td style="white-space:nowrap">본선 직후 · +2주</td></tr>
+          <tr><td style="white-space:nowrap"><strong>참여자 수</strong></td><td style="white-space:nowrap">본선 <strong class="hl">30팀 90명</strong></td><td style="white-space:nowrap">플랫폼 자동 집계</td><td style="white-space:nowrap">모집 종료 · 본선 시작</td></tr>
+          <tr><td style="white-space:nowrap"><strong>과제 제출율</strong></td><td style="white-space:nowrap">95% 이상</td><td style="white-space:nowrap">플랫폼 제출 로그 집계</td><td style="white-space:nowrap">본선 마감 시점</td></tr>
+          <tr><td style="white-space:nowrap"><strong>완주율 · 수료율</strong></td><td style="white-space:nowrap">완주 85%+ · 수료 90%+</td><td style="white-space:nowrap">학습 이력 자동 집계</td><td style="white-space:nowrap">본선 종료 시점</td></tr>
+          <tr><td style="white-space:nowrap"><strong>프로토타입 건수</strong></td><td style="white-space:nowrap">본선 산출 <strong class="hl">30건 이상</strong></td><td style="white-space:nowrap">본선 제출물 전수 집계</td><td style="white-space:nowrap">본선 마감 시점</td></tr>
+          <tr><td style="white-space:nowrap"><strong>신청 전환율</strong></td><td style="white-space:nowrap">전사 25% 이상</td><td style="white-space:nowrap">(신청 인원 / 전 임직원) × 100</td><td style="white-space:nowrap">모집 종료 시점</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- 정성지표 + 측정 차별화·분석·보고 체계 -->
+    <div class="g2" style="margin-top:10px">
+      <div class="c c-w" style="padding:12px 14px">
+        <div class="c-t">●  정성지표 — 현장의 목소리 · 질적 평가 (세부)</div>
+        <table class="tb" style="font-size:.6875rem;margin-top:2px;table-layout:fixed">
+          <thead>
+            <tr>
+              <th style="width:38%;white-space:nowrap">지표</th>
+              <th>대상 · 방법 · 시점</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td style="white-space:nowrap"><strong>멘토링 만족도 조사</strong></td><td>참가팀 전수 · 개방형+리커트 · +2주</td></tr>
+            <tr><td style="white-space:nowrap"><strong>교육효과 조사</strong></td><td>참가자 전수 · 사전·사후 비교 · 본선 직후</td></tr>
+            <tr><td style="white-space:nowrap"><strong>추천·재참여 의향</strong></td><td>참가자 전수 · 리커트 · +2주</td></tr>
+            <tr><td style="white-space:nowrap"><strong>업무 적용 인터뷰</strong></td><td>상위팀 대상 · 1:1 면담 · +4주</td></tr>
+            <tr><td style="white-space:nowrap"><strong>개방형 피드백</strong></td><td>참가자·멘토 전원 · 자유 서술 · +2주</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="c c-g" style="padding:12px 14px">
+        <div class="c-t" style="color:var(--green)">●  측정 차별화 · 분석·보고 체계</div>
+        <ul>
+          <li><strong style="color:var(--green)">Baseline 사전 설문</strong> — 대회 전 역량 자기진단으로 <strong>변화량 측정</strong> 근거 확보</li>
+          <li><strong style="color:var(--green)">3중 교차 검증</strong> — 참가자 주관 + 심사자 객관 + 현업 적용성</li>
+          <li><strong style="color:var(--green)">+4주 업무 적용 추적</strong> — 단발 이벤트 아닌 <strong>실제 도입 확인</strong></li>
+          <li><strong style="color:var(--green)">이상 패턴 자동 필터</strong> — 부정 응답·중복 IP·시간 편향 (특허 기반)</li>
+          <li><strong style="color:var(--green)">보고 체계</strong> — 월간 대시보드 + 본선 직후 중간 보고 + <strong>6월 4째주 이내 최종보고서 5부 제본</strong></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="ph-note">참조 — Ⅰ-2-라 과업범위 성과 관리(p.8) 연계 · 제안요청서 Ⅱ. 과업 범위 · 과업지시서 Ⅳ. 성과품</div>
+  </div>
+  <div class="sf"><span class="brand">K-WATER · AI 러닝톤</span><span class="pg">28 / 30</span><span>Ⅲ-3-바 성과 관리 · KPI</span></div>
+</section>
+
+<!-- ============================================================ -->
+<!-- S23. Ⅲ-3-⑥ 성과 관리 — 확산 · 지속가능성 · 산출물            -->
+<!-- ============================================================ -->
+<section class="slide">
+  <div class="sh"><span class="sh-l">Ⅲ-3-바. 성과 관리 방안 ② 확산 · 지속가능성 · 산출물</span><span>Ⅲ. 과업추진 방향 · 상세 운영</span></div>
+  <div class="si">
+    <div class="tag">성과 관리 · 확산 · 지속가능성</div>
+    <h2 class="st">대회 종료 후에도 <span class="hl">우수작을 업무로 확산</span>시키고 <span class="hl-w">K-water 지식 자산으로 축적</span></h2>
+
+    <div class="c c-p" style="margin-top:12px">
+      <div class="c-t">●  우수작 확산 4단계</div>
+      <table class="tb" style="font-size:.6875rem;margin-top:2px">
+        <thead><tr><th style="width:18%">단계</th><th>내용</th><th style="width:22%">주관</th></tr></thead>
+        <tbody>
+          <tr><td><strong>① 심층 검토</strong></td><td>상위작 업무 적용성 평가 · 현업 인터뷰</td><td>운영사 + K-water</td></tr>
+          <tr><td><strong>② 파일럿 기획</strong></td><td>대상 부서 선정 · 스코프·리소스 정의</td><td><strong class="hl">K-water 주도</strong></td></tr>
+          <tr><td><strong>③ 도입 지원</strong></td><td>플랫폼·데이터 이관 · 필요 시 추가 자문</td><td>운영사 자문</td></tr>
+          <tr><td><strong>④ 전사 확산</strong></td><td>성공 사례 공유 · 차기 대회 개선안 반영</td><td><strong class="hl">K-water 주도</strong></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="g3" style="margin-top:10px">
+      <div class="c c-w">
+        <div class="c-t">●  지속가능성 5축</div>
+        <ul>
+          <li><strong>콘텐츠 자산화</strong> — 교재·프롬프트 지식베이스</li>
+          <li><strong>멘토 네트워크</strong> — 상시 자문단 전환 옵션</li>
+          <li><strong>플랫폼 이관</strong> — 데이터·노하우 전수</li>
+          <li><strong>차기 대회 고도화</strong> — 제안서 동봉</li>
+          <li><strong>사내 커뮤니티</strong> — 수료생 학습 공동체</li>
+        </ul>
+      </div>
+      <div class="c c-g">
+        <div class="c-t">●  산출물 (과업지시서 Ⅳ)</div>
+        <ul>
+          <li><strong>최종보고서 본+요약본 5부 제본</strong> (6월 4째주 이내)</li>
+          <li>운영계획서 · 교육 커리큘럼 · 교안</li>
+          <li>만족도·교육효과 분석 보고서</li>
+          <li>대회 데이터·산출물 일체 <strong class="hl">K-water 귀속</strong></li>
+        </ul>
+      </div>
+      <div class="c c-d">
+        <div class="c-t" style="color:#fff">●  지식 이관 체크리스트</div>
+        <ul>
+          <li>참가자 데이터·제출물 아카이빙 · 인계</li>
+          <li>멘토 리포트·학습 로그 정리</li>
+          <li>교재·프롬프트 버전 관리 · 권한 이관</li>
+          <li>운영 SOP 문서화 · 인수인계 자료</li>
+          <li>자체 보관분 <strong>폐기 인증서</strong> 발급</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span class="brand">K-WATER · AI 러닝톤</span><span class="pg">29 / 30</span><span>Ⅲ-3-바 성과 관리 · 확산</span></div>
+</section>
+
+<!-- ============================================================ -->
+<!-- S26. 클로징 — 마치며                                            -->
+<!-- ============================================================ -->
+<section class="slide slide-end">
+  <div class="sh"><span class="sh-l">마치며</span><span>감사합니다</span></div>
+  <div class="si">
+    <div class="lg" data-step="1">K-WATER · AI 러닝톤</div>
+    <h1 data-step="2">
+      <span class="hl">배움이 업무로 이어지는 러닝톤</span>,<br>
+      K-water의 <span class="hl-w">성공적 개최</span>를 약속드립니다.
+    </h1>
+    <div class="ed" data-step="3">
+      홍보·모집 → 온라인 예선·멘토링 → 본선 1박 2일 → 성과 확산까지<br>
+      <strong class="hl">전 과정을 책임지는 파트너</strong>가 되어<br>
+      <strong class="hl-w">K-water AI 러닝톤의 성공적 운영</strong>을 약속드립니다.
+    </div>
+  </div>
+  <div class="sf"><span class="brand">K-WATER · AI 러닝톤</span><span class="pg">30 / 30</span><span>감사합니다</span></div>
+</section>
+
+</div></div>
+
+<script>
+(function(){
+  const stage=document.getElementById('stage');
+  const slides=Array.from(document.querySelectorAll('.slide'));
+  const prev=document.getElementById('nav-prev');
+  const next=document.getElementById('nav-next');
+  const bar=document.getElementById('progress-bar');
+  let idx=Math.max(0,slides.findIndex(s=>s.classList.contains('active')));
+  if(idx<0)idx=0;
+  function fit(){
+    const s=Math.min(window.innerWidth/1280,window.innerHeight/720);
+    stage.style.transform='scale('+s+')';
+  }
+  function show(i){
+    idx=Math.max(0,Math.min(slides.length-1,i));
+    slides.forEach((s,k)=>s.classList.toggle('active',k===idx));
+    bar.style.width=((idx+1)/slides.length*100)+'%';
+    const frags=slides[idx].querySelectorAll('[data-step]');
+    frags.forEach((el,k)=>{el.classList.remove('visible');setTimeout(()=>el.classList.add('visible'),70*(k+1))});
+    if(location.hash!=='#s'+(idx+1))history.replaceState(null,'','#s'+(idx+1));
+  }
+  function nav(d){show(idx+d)}
+  prev.addEventListener('click',()=>nav(-1));
+  next.addEventListener('click',()=>nav(1));
+  document.addEventListener('keydown',e=>{
+    if(e.key==='ArrowRight'||e.key==='PageDown'||e.key===' '){e.preventDefault();nav(1)}
+    else if(e.key==='ArrowLeft'||e.key==='PageUp'){e.preventDefault();nav(-1)}
+    else if(e.key==='Home'){show(0)}
+    else if(e.key==='End'){show(slides.length-1)}
+    else if(e.key==='f'||e.key==='F'){if(!document.fullscreenElement)document.documentElement.requestFullscreen().catch(()=>{});else document.exitFullscreen().catch(()=>{});}
+  });
+  let tx=0;
+  document.addEventListener('touchstart',e=>{tx=e.touches[0].clientX},{passive:true});
+  document.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-tx;if(Math.abs(dx)>50)nav(dx<0?1:-1)},{passive:true});
+  const h=location.hash.match(/^#s(\d+)$/);
+  if(h){const n=parseInt(h[1],10)-1;if(n>=0&&n<slides.length)idx=n}
+  window.addEventListener('resize',fit);
+  fit();show(idx);
+})();
+</script>
+
+</body>
+</html>

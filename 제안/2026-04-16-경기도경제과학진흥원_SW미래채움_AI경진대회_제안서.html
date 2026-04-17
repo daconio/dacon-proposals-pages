@@ -1,0 +1,1262 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>경기도경제과학진흥원 SW미래채움 AI 경진대회 제안서 — DACON · DAKER</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --primary:#0053db;--primary-d:#0048c1;--primary-light:#d8e3fb;
+  --on-primary:#f8f7ff;--secondary-container:#d8e3fb;--on-secondary:#475266;
+  --warm:#0053db;--warm-bg:rgba(0,83,219,.06);--warm-light:#d8e3fb;
+  --dark:#2a3439;--on-surface:#2a3439;--on-variant:#566166;
+  --surface:#ffffff;--surface-low:#f0f4f7;--bg:#f7f9fb;
+  --outline:#a9b4b9;--outline-d:rgba(169,180,185,.2);
+  --green:#0053db;--green-bg:rgba(0,83,219,.04);
+  --red:#0053db;--red-bg:rgba(0,83,219,.08);
+  --blue:#0053db;--blue-bg:rgba(0,83,219,.06);
+  --purple:#0053db;--purple-bg:rgba(0,83,219,.04);
+  --font:'Plus Jakarta Sans','Pretendard Variable',Pretendard,-apple-system,system-ui,sans-serif;
+  --mono:'SF Mono',Menlo,Consolas,monospace;
+  --shadow-ambient:0 8px 24px rgba(30,41,59,0.04);
+  --r-sm:.25rem;--r-md:.375rem;--r-lg:.75rem;--r-xl:1rem;
+  --slide-w:1280px;--slide-h:720px;
+}
+html,body{width:100%;height:100%;font-family:var(--font);color:var(--on-surface);background:var(--bg);overflow:hidden;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+#viewport{position:fixed;inset:0;display:flex;align-items:center;justify-content:center}
+#stage{position:relative;width:var(--slide-w);height:var(--slide-h);overflow:hidden;transform-origin:center;border-radius:var(--r-lg);box-shadow:0 12px 48px rgba(30,41,59,0.15);background:var(--surface)}
+.slide{position:absolute;inset:0;background:var(--surface);display:flex;flex-direction:column;opacity:0;pointer-events:none;transition:opacity 0s;overflow:hidden}
+.slide.active{opacity:1;pointer-events:auto}
+.sh{position:absolute;top:0;left:0;right:0;height:44px;padding:0 32px;display:flex;justify-content:space-between;align-items:center;background:rgba(255,255,255,.95);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-bottom:1px solid var(--outline-d);z-index:2}
+.sh-l{font-size:.8125rem;font-weight:700;color:var(--primary);letter-spacing:.06em;text-transform:uppercase}
+.sh span:last-child{font-size:.6875rem;font-weight:700;color:var(--outline);letter-spacing:.08em;text-transform:uppercase}
+.sf{position:absolute;bottom:0;left:0;right:0;height:36px;padding:0 32px;display:flex;justify-content:space-between;align-items:center;background:rgba(255,255,255,.95);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-top:1px solid rgba(148,163,184,.15);z-index:2}
+.sf .pg{font-size:.6875rem;color:var(--on-variant);font-weight:600;font-family:var(--mono)}
+.sf .brand{font-size:.75rem;font-weight:700;color:var(--primary);letter-spacing:.08em}
+.sf span:last-child{font-size:.5625rem;color:var(--outline);letter-spacing:.03em;font-weight:600;text-transform:uppercase}
+.si{flex:1;display:flex;flex-direction:column;padding:62px 72px 48px;position:relative;margin-top:0}
+.tag{display:inline-flex;align-items:center;gap:8px;font-size:.6875rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--primary);margin-bottom:12px}
+.tag::before{content:'';width:24px;height:2.5px;background:var(--primary);border-radius:2px}
+.tag.w,.tag.g,.tag.b,.tag.pp{color:var(--primary)}
+.tag.w::before,.tag.g::before,.tag.b::before,.tag.pp::before{background:var(--primary)}
+h1.st{font-size:2rem;font-weight:800;color:var(--on-surface);letter-spacing:-.02em;line-height:1.2}
+h2.st{font-size:1.75rem;font-weight:800;color:var(--on-surface);letter-spacing:-.02em;line-height:1.2}
+.sub{margin-top:8px;font-size:.875rem;color:var(--on-variant);line-height:1.65}
+.hl{color:var(--primary);font-weight:700}
+.hl-w{color:var(--primary);font-weight:700}
+.hl-g{color:var(--primary);font-weight:700}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.g5{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
+.g6{display:grid;grid-template-columns:repeat(6,1fr);gap:10px}
+.c{background:var(--surface);border:none;border-radius:var(--r-lg);padding:16px;box-shadow:0 0 0 1px var(--outline-d)}
+.c-p{background:var(--primary-light);border:none;box-shadow:none}
+.c-w{background:rgba(0,83,219,.04);border:none;box-shadow:none}
+.c-g{background:var(--surface-low);border:none;box-shadow:none}
+.c-r{background:rgba(0,83,219,.08);border:none;box-shadow:none}
+.c-b{background:rgba(0,83,219,.06);border:none;box-shadow:none}
+.c-pp{background:var(--surface-low);border:none;box-shadow:none}
+.c .c-t{font-size:.8125rem;font-weight:700;color:var(--on-surface);margin-bottom:6px}
+.c .c-dt{font-size:.9375rem;font-weight:800;color:var(--on-surface);margin-bottom:6px;letter-spacing:-.01em}
+.c .c-dd{font-size:.75rem;color:var(--on-variant);line-height:1.6}
+.c ul{list-style:none;margin-top:6px}
+.c ul li{position:relative;padding-left:14px;font-size:.75rem;color:var(--on-variant);line-height:1.7}
+.c ul li::before{content:'';position:absolute;left:0;top:9px;width:5px;height:5px;border-radius:50%;background:var(--primary)}
+.mx{text-align:center;padding:14px 10px;background:var(--surface-low);border-radius:var(--r-lg)}
+.mx .v{font-size:1.5rem;font-weight:800;color:var(--primary);line-height:1;letter-spacing:-.02em}
+.mx .v.w,.mx .v.g,.mx .v.r{color:var(--primary)}
+.mx .l{font-size:.625rem;color:var(--on-variant);margin-top:4px;font-weight:500}
+.tb{width:100%;border-collapse:collapse;font-size:.75rem;margin-top:8px}
+.tb th{background:var(--surface-low);color:var(--on-surface);padding:8px 12px;text-align:left;font-size:.6875rem;font-weight:700;border:none;border-bottom:2px solid var(--primary)}
+.tb td{padding:7px 12px;border:none;border-bottom:1px solid rgba(148,163,184,.15);color:var(--on-variant);vertical-align:top;line-height:1.6}
+.tb tr:last-child td{border-bottom:none}
+.tb td code{font-family:var(--mono);font-size:.6875rem;color:var(--primary);background:var(--primary-light);padding:1px 5px;border-radius:3px}
+.tb tr.hl-row{background:var(--primary-light)}
+.tb tr.hl-row td{color:var(--on-surface);font-weight:600}
+.flow{display:flex;align-items:stretch;gap:0;margin-top:12px}
+.flow-step{flex:1;background:var(--surface);border:1px solid rgba(148,163,184,.2);border-radius:var(--r-lg);padding:12px;position:relative}
+.flow-step.p,.flow-step.b,.flow-step.w,.flow-step.g,.flow-step.r,.flow-step.pp{border-top:3px solid var(--primary)}
+.flow-arr{display:flex;align-items:center;color:var(--outline);font-size:16px;font-weight:800;padding:0 6px}
+.flow-num{font-size:.5625rem;font-weight:800;letter-spacing:.12em;color:var(--primary);margin-bottom:3px}
+.flow-title{font-size:.8125rem;font-weight:800;color:var(--on-surface);margin-bottom:4px;line-height:1.3}
+.flow-desc{font-size:.6875rem;color:var(--on-variant);line-height:1.55}
+.badge{display:inline-block;padding:2px 8px;border-radius:999px;font-size:.625rem;font-weight:700;letter-spacing:.04em}
+.badge.p,.badge.w,.badge.g,.badge.r,.badge.b{background:var(--secondary-container);color:var(--on-secondary)}
+.slide-sec{padding:0}
+.slide-sec .si{justify-content:center;align-items:center;text-align:center;padding-top:60px;background:linear-gradient(135deg,var(--bg) 0%,var(--primary-light) 100%)}
+.slide-sec .sn{font-size:4.5rem;font-weight:800;color:rgba(30,58,138,.09);line-height:1;margin-bottom:8px;letter-spacing:-.04em}
+.slide-sec h2{font-size:2.25rem;font-weight:800;color:var(--on-surface);letter-spacing:-.02em}
+.slide-sec .sd{font-size:1rem;color:var(--on-variant);margin-top:10px;max-width:720px;line-height:1.65}
+.slide-cover{padding:0}
+.slide-cover .si{justify-content:center;padding:70px 88px;background:linear-gradient(135deg,var(--bg) 0%,var(--primary-light) 100%);margin-top:0}
+.slide-cover .kv{font-size:.8125rem;font-weight:700;color:var(--primary);letter-spacing:.18em;margin-bottom:16px;text-transform:uppercase}
+.slide-cover h1{font-size:2.875rem;font-weight:800;line-height:1.18;letter-spacing:-.02em;color:var(--on-surface)}
+.slide-cover .flowtag{display:flex;gap:6px;margin-top:22px;flex-wrap:wrap;align-items:center}
+.slide-cover .flowtag .chip{background:var(--secondary-container);border:none;color:var(--on-secondary);padding:6px 12px;border-radius:999px;font-size:.75rem;font-weight:700}
+.slide-cover .flowtag .arr{color:var(--outline);font-size:14px;font-weight:800}
+.slide-cover .meta{margin-top:32px;font-size:.8125rem;color:var(--on-variant);line-height:1.9}
+.slide-cover .date{position:absolute;top:28px;right:36px;background:linear-gradient(135deg,var(--primary),var(--primary-d));color:#fff;padding:6px 16px;border-radius:999px;font-size:.6875rem;font-weight:700}
+.slide-end{padding:0}
+.slide-end .si{justify-content:center;align-items:center;text-align:center;background:linear-gradient(135deg,var(--bg) 0%,var(--primary-light) 100%)}
+.slide-end .lg{font-size:2.25rem;font-weight:800;color:var(--primary);letter-spacing:.1em;margin-bottom:24px}
+.slide-end h1{font-size:2rem;font-weight:800;color:var(--on-surface);letter-spacing:-.02em;line-height:1.3}
+.slide-end .ed{font-size:.9375rem;color:var(--on-variant);margin-top:20px;line-height:1.75}
+[data-step]{opacity:0;transform:translateY(12px);transition:opacity .4s ease,transform .4s ease}
+[data-step].visible{opacity:1;transform:none}
+[data-step].pre-visible{opacity:1;transform:none;transition:none}
+.nav-btn{position:fixed;top:50%;transform:translateY(-50%);width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.9);border:none;color:var(--on-variant);cursor:pointer;z-index:100;display:flex;align-items:center;justify-content:center;font-size:18px;box-shadow:var(--shadow-ambient);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);transition:all .2s;user-select:none}
+.nav-btn:hover{color:var(--primary)}
+#nav-prev{left:12px}#nav-next{right:12px}
+#progress-bar{position:fixed;top:0;left:0;height:2px;background:var(--primary);transition:width .4s ease;z-index:100}
+#key-hint{position:fixed;bottom:16px;left:50%;transform:translateX(-50%);color:var(--outline);font-size:.6875rem;z-index:100;opacity:.4}
+@page{size:338.667mm 190.5mm;margin:0}
+@media print{
+  html,body{background:#fff;overflow:visible!important;height:auto!important;width:auto!important;margin:0!important;padding:0!important}
+  #viewport{position:static!important;display:block!important;height:auto!important}
+  #stage{position:static!important;width:auto!important;height:auto!important;overflow:visible!important;transform:none!important;box-shadow:none!important;border-radius:0!important}
+  .slide{position:relative!important;inset:auto!important;opacity:1!important;pointer-events:auto!important;width:100%!important;height:209.9mm!important;page-break-after:always!important;page-break-inside:avoid!important;margin:0!important;overflow:hidden!important;flex-shrink:0!important;box-sizing:border-box!important}
+  .slide:last-child{page-break-after:auto!important}
+  .si{padding:50px 60px 40px!important}
+  .sh{height:38px!important;padding:0 28px!important}
+  .sf{height:30px!important;padding:0 28px!important}
+  .nav-btn,#progress-bar,#key-hint{display:none!important}
+  [data-step]{opacity:1!important;transform:none!important}
+}
+</style>
+</head>
+<body>
+<div id="progress-bar"></div>
+<button class="nav-btn" id="nav-prev">&#8592;</button>
+<button class="nav-btn" id="nav-next">&#8594;</button>
+<div id="viewport">
+<div id="stage">
+
+<!-- ==================== S1: COVER ==================== -->
+<section class="slide slide-cover active">
+  <div class="si">
+    <span class="date">2026.04.16 / Proposal</span>
+    <div class="kv" data-step="1">&lt; &#44221;&#44592;&#46020;&#44221;&#51228;&#44284;&#54617;&#51652;&#55141;&#50896; &times; DAKER &gt;</div>
+    <h1 data-step="2">
+      SW&#48120;&#47000;&#52292;&#50880;<br>
+      <span class="hl">&#44256;&#46321;&#54617;&#49373; AI &#44221;&#51652;&#45824;&#54924;</span>
+    </h1>
+    <div class="flowtag" data-step="3">
+      <span class="chip">&#50500;&#51060;&#46356;&#50612;&#53668;</span>
+      <span class="arr">&rarr;</span>
+      <span class="chip w">&#45936;&#51060;&#53552;&#53668;</span>
+      <span class="arr">&rarr;</span>
+      <span class="chip g">AI&#49436;&#48708;&#49828;&#53668;</span>
+      <span class="arr">&rarr;</span>
+      <span class="chip">7&#44060; &#45824;&#54617; &#47704;&#53664;&#47553;</span>
+    </div>
+    <div class="meta" data-step="4">
+      &#51228;&#50504;&#49324;: &#45936;&#51060;&#53080;(DACON) &middot; &#45936;&#51060;&#52964;(DAKER)<br>
+      &#45812;&#45817;&#51088;: &#44608;&#44397;&#51652; (edgar@dacon.io / 010-4293-1041)
+    </div>
+  </div>
+  <div class="sf"><span class="brand">DACON &middot; DAKER</span><span class="pg">1 / 30</span><span>Cover</span></div>
+</section>
+
+<!-- ==================== S2: EXECUTIVE SUMMARY ==================== -->
+<section class="slide">
+  <div class="sh"><span class="sh-l">I &mdash; Executive Summary</span><span>Overview</span></div>
+  <div class="si">
+    <div class="tag" data-step="1">&#51228;&#50504; &#44060;&#50836;</div>
+    <h2 class="st" data-step="1">&#54617;&#49845; &rarr; &#49892;&#51204; &rarr; &#54217;&#44032; &rarr; &#51088;&#49328;&#54868;</h2>
+    <div class="sub" data-step="2">&#45800;&#49692;&#54620; &#51068;&#54924;&#49457; &#44277;&#47784;&#51204;&#51060; &#50500;&#45772; <span class="hl">3&#53944;&#47001; &#53685;&#54633; AI &#44221;&#51652;&#45824;&#54924;</span>&#47196; SW&#48120;&#47000;&#52292;&#50880; &#49324;&#50629;&#51032; &#52712;&#51648;&#47484; &#44396;&#54788;&#54633;&#45768;&#45796;</div>
+    <div class="g3" style="margin-top:20px" data-step="3">
+      <div class="c c-p" style="padding:20px">
+        <div class="c-dt">&#46020;&#51077; &#48176;&#44221;</div>
+        <div class="c-dd">SW&#48120;&#47000;&#52292;&#50880; &#49324;&#50629;&#51032; &#51068;&#54872;&#51004;&#47196; &#44256;&#46321;&#54617;&#49373; AI &#50669;&#47049; &#48176;&#50577;, 7&#44060; &#45824;&#54617; &#50672;&#44228; &#47704;&#53664;&#47553; &#54532;&#47196;&#44536;&#47016;</div>
+      </div>
+      <div class="c c-w" style="padding:20px">
+        <div class="c-dt">&#54645;&#49900; &#51228;&#50504;</div>
+        <div class="c-dd">DAKER &#54540;&#47019;&#54268; &#44592;&#48152; 3&#53944;&#47001;(&#50500;&#51060;&#46356;&#50612;&#53668;&#183;&#45936;&#51060;&#53552;&#53668;&#183;AI&#49436;&#48708;&#49828;&#53668;) &#53685;&#54633; &#44221;&#51652;&#45824;&#54924;</div>
+      </div>
+      <div class="c c-g" style="padding:20px">
+        <div class="c-dt">&#44592;&#45824; &#54952;&#44284;</div>
+        <div class="c-dd">&#44221;&#44592;&#46020; AI &#51064;&#51116; &#49373;&#53468;&#44228; &#44396;&#52629;, &#45824;&#54617;-&#44256;&#44368; &#50672;&#44228; &#47784;&#45944; &#54869;&#47549;</div>
+      </div>
+    </div>
+    <div class="g5" style="margin-top:18px" data-step="4">
+      <div class="mx"><div class="v">500+</div><div class="l">&#50696;&#49345; &#52280;&#44032;&#51088;</div></div>
+      <div class="mx"><div class="v w">150</div><div class="l">&#52280;&#44032; &#54016;</div></div>
+      <div class="mx"><div class="v g">3</div><div class="l">&#53944;&#47001;</div></div>
+      <div class="mx"><div class="v">7</div><div class="l">&#50672;&#44228; &#45824;&#54617;</div></div>
+      <div class="mx"><div class="v" style="color:var(--primary)">42+</div><div class="l">&#45824;&#54617;&#49373; &#47704;&#53664;</div></div>
+    </div>
+  </div>
+  <div class="sf"><span class="brand">DACON &middot; DAKER</span><span class="pg">2 / 30</span><span>Summary</span></div>
+</section>
+
+<!-- ==================== S3: SECTION — ABOUT US ==================== -->
+<section class="slide slide-sec">
+  <div class="sh"><span class="sh-l">Section</span><span></span></div>
+  <div class="si">
+    <div class="sn" data-step="1">II</div>
+    <h2 data-step="2">ABOUT US<br>DACON &middot; DAKER</h2>
+    <div class="sd" data-step="3">&#45824;&#54620;&#48124;&#44397; &#52572;&#45824; AI &#44221;&#51652;&#45824;&#54924; &#54540;&#47019;&#54268; &#45936;&#51060;&#53080;&#44284;<br>&#54617;&#49845;&#54805; &#54644;&#52964;&#53668; &#54540;&#47019;&#54268; &#45936;&#51060;&#52964;&#47484; &#49548;&#44060;&#54633;&#45768;&#45796;</div>
+  </div>
+  <div class="sf"><span class="brand">DACON &middot; DAKER</span><span class="pg">3 / 30</span><span>About us</span></div>
+</section>
+
+<!-- ==================== S4: DACON ECOSYSTEM ==================== -->
+<section class="slide">
+  <div class="sh"><span class="sh-l">II &mdash; About Us</span><span>DACON</span></div>
+  <div class="si">
+    <div class="tag" data-step="1">&#54924;&#49324; &#44060;&#50836;</div>
+    <h2 class="st" data-step="1">&#45936;&#51060;&#53080;(DACON) &mdash; 14&#47564; AI &#52964;&#48036;&#45768;&#54000;</h2>
+    <div class="sub" data-step="2">2018&#45380;&#48512;&#53552; &#44592;&#50629;&#183;&#44277;&#44277;&#44592;&#44288;&#44284; &#54632;&#44760; &#45936;&#51060;&#53552; &#49324;&#51060;&#50616;&#49828;&#183;AI &#44221;&#51652;&#45824;&#54924;&#47484; &#50868;&#50689;&#54644;&#50728; &#45824;&#54620;&#48124;&#44397; &#52572;&#45824; AI &#54540;&#47019;&#54268;</div>
+    <div class="g4" style="margin-top:20px" data-step="3">
+      <div class="mx"><div class="v">14&#47564;+</div><div class="l">AI &#52964;&#48036;&#45768;&#54000; &#54924;&#50896;</div></div>
+      <div class="mx"><div class="v w">180+</div><div class="l">&#45572;&#51201; &#44221;&#51652;&#45824;&#54924;</div></div>
+      <div class="mx"><div class="v g">80,000+</div><div class="l">&#45572;&#51201; &#52280;&#44032; &#54016;</div></div>
+      <div class="mx"><div class="v">60+</div><div class="l">&#44592;&#50629;&#183;&#44277;&#44277; &#54028;&#53944;&#45320;</div></div>
+    </div>
+    <div class="g2" style="margin-top:20px" data-step="4">
+      <div class="c c-p" style="padding:18px">
+        <div class="c-dt">&#50868;&#50689; &#50669;&#47049;</div>
+        <ul>
+          <li>&#45936;&#51060;&#53552; &#49324;&#51060;&#50616;&#49828; &#44221;&#51652;&#45824;&#54924; &#44592;&#54925;&#183;&#50868;&#50689; &#51204;&#47928;</li>
+          <li>&#44592;&#50629;&#183;&#44277;&#44277;&#44592;&#44288; &#47582;&#52644;&#54805; AI &#54644;&#52964;&#53668; &#49444;&#44228;</li>
+          <li>&#54617;&#49845; &#53080;&#53584;&#52768; &#51228;&#51089; &#48143; &#44368;&#51116; &#44060;&#48156;</li>
+        </ul>
+      </div>
+      <div class="c c-w" style="padding:18px">
+        <div class="c-dt">&#54532;&#47196;&#47784;&#49496; &#50669;&#47049;</div>
+        <ul>
+          <li>14&#47564; &#54924;&#50896; &#45824;&#49345; &#53440;&#44191;&#54021; &#54856;&#48372; (&#48176;&#45320;&#183;&#54392;&#49884;&#183;&#45684;&#49828;&#47112;&#53552;)</li>
+          <li>&#44592;&#50629;&#183;&#45824;&#54617;&#183;&#44277;&#44277;&#44592;&#44288; &#54801;&#50629; &#52292;&#45328; &#45348;&#53944;&#50892;&#53356;</li>
+          <li>SNS&#183;&#48652;&#47196;&#44536;&#183;&#50976;&#53916;&#48652; &#53364;&#47532;&#50640;&#51060;&#53552; &#45348;&#53944;&#50892;&#53356;</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span class="brand">DACON &middot; DAKER</span><span class="pg">4 / 30</span><span>DACON</span></div>
+</section>
+
+<!-- ==================== S5: DAKER PLATFORM ==================== -->
+<section class="slide">
+  <div class="sh"><span class="sh-l">II &mdash; About Us</span><span>DAKER</span></div>
+  <div class="si">
+    <div class="tag" data-step="1">&#54540;&#47019;&#54268; &#49548;&#44060;</div>
+    <h2 class="st" data-step="1">&#45936;&#51060;&#52964;(DAKER) &mdash; &#54617;&#49845;&#54805; &#54644;&#52964;&#53668; &#54540;&#47019;&#54268;</h2>
+    <div class="sub" data-step="2">180&#54924; &#51060;&#49345;&#51032; &#44221;&#51652;&#45824;&#54924; &#50868;&#50689; &#44221;&#54744;&#51012; &#51665;&#50557;&#54620; <span class="hl">&#54617;&#49845;&#183;&#54016;&#48716;&#46377;&#183;&#45824;&#54924;&#183;&#47704;&#53664;&#47553;&#183;&#49900;&#49324; &#53685;&#54633; &#54540;&#47019;&#54268;</span></div>
+    <div class="g3" style="margin-top:16px" data-step="3">
+      <div class="c c-p" style="padding:14px">
+        <div class="c-t">&#54016;&#48716;&#46377; (GROUP)</div>
+        <div class="c-dd">AI &#49828;&#53420;&#183;&#50669;&#54624; &#47588;&#52845;, 1,000&#47749; &#51068;&#44292; &#46321;&#47197;, &#45824;&#54617;&#48324;&#183;&#53944;&#47001;&#48324; &#44536;&#47353; &#44288;&#47532;</div>
+      </div>
+      <div class="c c-w" style="padding:14px">
+        <div class="c-t">&#54617;&#49845; (LEARN)</div>
+        <div class="c-dd">3&#45800;&#44228; &#44396;&#51312;(&#44368;&#51116;&rarr;&#53076;&#49828;&rarr;&#53944;&#47001;), 5&#51333; &#53080;&#53584;&#52768;(&#53080;&#53584;&#52768;&#183;&#53300;&#51592;&#183;&#54532;&#47212;&#54532;&#53944;&#183;PDF&#183;&#54540;&#47000;&#49884;&#52852;&#46300;)</div>
+      </div>
+      <div class="c c-g" style="padding:14px">
+        <div class="c-t">&#51089;&#51204;&#49892; (WAR ROOM)</div>
+        <div class="c-dd">&#54016; &#51204;&#50857; &#54801;&#50629; &#44277;&#44036;, &#47704;&#53664;&#47553; &#47196;&#44536; &#51088;&#46041; &#51200;&#51109;, &#44288;&#47532;&#51088; &#47784;&#45768;&#53552;&#47553;</div>
+      </div>
+    </div>
+    <div class="g3" style="margin-top:10px" data-step="4">
+      <div class="c c-b" style="padding:14px">
+        <div class="c-t">AI &#47704;&#53664;&#47553;</div>
+        <div class="c-dd">24&#49884;&#44036; AI Office Hours, Forcing Questions 6&#45800;&#44228; &#54532;&#47112;&#51076;&#50892;&#53356;</div>
+      </div>
+      <div class="c c-r" style="padding:14px">
+        <div class="c-t">&#45824;&#54924; &#50868;&#50689; (HACK)</div>
+        <div class="c-dd">&#51228;&#52636; &#54252;&#53560;, &#47336;&#48652;&#47533; &#48660;&#46972;&#51064;&#46300; &#49900;&#49324;, ELO &#50500;&#47112;&#45208;, &#49892;&#49884;&#44036; &#47532;&#45908;&#48372;&#46300;</div>
+      </div>
+      <div class="c c-pp" style="padding:14px">
+        <div class="c-t">&#44040;&#47084;&#47532; &amp; &#44172;&#51060;&#48120;&#54588;&#52992;&#51060;&#49496;</div>
+        <div class="c-dd">MVP &#51088;&#46041; &#44172;&#49884;, &#54252;&#53944;&#54260;&#47532;&#50724; &#51088;&#49328;&#54868;, 7&#51333; &#48176;&#51648;, &#47532;&#45908;&#48372;&#46300;</div>
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span class="brand">DACON &middot; DAKER</span><span class="pg">5 / 30</span><span>DAKER</span></div>
+</section>
+
+<!-- ==================== S6: SECTION — 3 TRACKS ==================== -->
+<section class="slide slide-sec">
+  <div class="sh"><span class="sh-l">Section</span><span></span></div>
+  <div class="si">
+    <div class="sn" data-step="1">III</div>
+    <h2 data-step="2">3&#53944;&#47001; &#44221;&#51652;&#45824;&#54924;<br>&#49444;&#44228;</h2>
+    <div class="sd" data-step="3">&#50500;&#51060;&#46356;&#50612;&#53668; &middot; &#45936;&#51060;&#53552;&#53668; &middot; AI&#49436;&#48708;&#49828;&#53668;(&#48148;&#51060;&#48652;&#53076;&#46377;)<br>3&#44060; &#53944;&#47001;&#51004;&#47196; &#45796;&#50577;&#54620; AI &#50669;&#47049;&#51012; &#44221;&#54744;&#54633;&#45768;&#45796;</div>
+  </div>
+  <div class="sf"><span class="brand">DACON &middot; DAKER</span><span class="pg">6 / 30</span><span>Tracks</span></div>
+</section>
+
+<!-- ==================== S7: 3-TRACK OVERVIEW ==================== -->
+<section class="slide">
+  <div class="sh"><span class="sh-l">III &mdash; 3&#53944;&#47001; &#49444;&#44228;</span><span>Overview</span></div>
+  <div class="si">
+    <div class="tag" data-step="1">&#53944;&#47001; &#44396;&#49457;</div>
+    <h2 class="st" data-step="1">&#45212;&#51060;&#46020;&#48324; 3&#53944;&#47001; &mdash; &#47784;&#46160;&#47484; &#50948;&#54620; AI &#44221;&#51652;&#45824;&#54924;</h2>
+    <div class="g3" style="margin-top:20px" data-step="2">
+      <div class="c c-p" style="padding:20px">
+        <div class="badge p" style="margin-bottom:10px">&#9733;&#9734;&#9734; &#44592;&#54925; &#51473;&#49900;</div>
+        <div class="c-dt">Track A &mdash; &#50500;&#51060;&#46356;&#50612;&#53668;</div>
+        <div class="c-dd" style="margin-top:8px">
+          <strong>&#51452;&#51228;:</strong> &#50864;&#47532; &#46041;&#45348;&#47484; &#48148;&#44984;&#45716; AI &#49436;&#48708;&#49828; &#50500;&#51060;&#46356;&#50612;<br>
+          <strong>&#49328;&#52636;&#47932;:</strong> &#44592;&#54925;&#49436;(PPT) + &#48156;&#54364; &#50689;&#49345;<br>
+          <strong>&#54016; &#44396;&#49457;:</strong> 2~4&#51064;
+        </div>
+      </div>
+      <div class="c c-w" style="padding:20px">
+        <div class="badge w" style="margin-bottom:10px">&#9733;&#9733;&#9734; &#48516;&#49437; &#51473;&#49900;</div>
+        <div class="c-dt">Track B &mdash; &#45936;&#51060;&#53552;&#53668;</div>
+        <div class="c-dd" style="margin-top:8px">
+          <strong>&#51452;&#51228;:</strong> &#44277;&#44277; &#45936;&#51060;&#53552;&#47196; &#48156;&#44204;&#54616;&#45716; &#44221;&#44592;&#46020; &#51064;&#49324;&#51060;&#53944;<br>
+          <strong>&#49328;&#52636;&#47932;:</strong> &#48516;&#49437; &#45432;&#53944;&#48513; + &#47532;&#45908;&#48372;&#46300; &#51216;&#49688;<br>
+          <strong>&#54016; &#44396;&#49457;:</strong> 1~3&#51064;
+        </div>
+      </div>
+      <div class="c c-g" style="padding:20px">
+        <div class="badge g" style="margin-bottom:10px">&#9733;&#9733;&#9733; &#44060;&#48156; &#51473;&#49900;</div>
+        <div class="c-dt">Track C &mdash; AI&#49436;&#48708;&#49828;&#53668;</div>
+        <div class="c-dd" style="margin-top:8px">
+          <strong>&#51452;&#51228;:</strong> AI&#47196; &#47564;&#46300;&#45716; &#50864;&#47532; &#54617;&#44368;/&#46041;&#45348; &#49436;&#48708;&#49828;<br>
+          <strong>&#49328;&#52636;&#47932;:</strong> &#49892;&#51228; &#51089;&#46041; &#50937; &#49436;&#48708;&#49828;(MVP)<br>
+          <strong>&#54016; &#44396;&#49457;:</strong> 2~4&#51064;
+        </div>
+      </div>
+    </div>
+    <div class="flow" data-step="3">
+      <div class="flow-step p">
+        <div class="flow-num">STEP 1</div>
+        <div class="flow-title">&#54617;&#49845;</div>
+        <div class="flow-desc">DAKER &#53944;&#47001; &#47084;&#45789;</div>
+      </div>
+      <div class="flow-arr">&rarr;</div>
+      <div class="flow-step w">
+        <div class="flow-num">STEP 2</div>
+        <div class="flow-title">&#47704;&#53664;&#47553;</div>
+        <div class="flow-desc">&#45824;&#54617;&#49373; + AI &#47704;&#53664;</div>
+      </div>
+      <div class="flow-arr">&rarr;</div>
+      <div class="flow-step g">
+        <div class="flow-num">STEP 3</div>
+        <div class="flow-title">&#45824;&#54617; &#50696;&#49440;</div>
+        <div class="flow-desc">7&#44060; &#45824;&#54617; &#50868;&#50689;</div>
+      </div>
+      <div class="flow-arr">&rarr;</div>
+      <div class="flow-step b">
+        <div class="flow-num">STEP 4</div>
+        <div class="flow-title">&#48376;&#49440;</div>
+        <div class="flow-desc">&#50728;&#46972;&#51064; &#49900;&#49324;</div>
+      </div>
+      <div class="flow-arr">&rarr;</div>
+      <div class="flow-step p">
+        <div class="flow-num">STEP 5</div>
+        <div class="flow-title">&#44208;&#49440;</div>
+        <div class="flow-desc">&#50724;&#54532;&#46972;&#51064; PT</div>
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span class="brand">DACON &middot; DAKER</span><span class="pg">7 / 30</span><span>3 Tracks</span></div>
+</section>
+
+<!-- ==================== S8: TRACK A — IDEATHON ==================== -->
+<section class="slide">
+  <div class="sh"><span class="sh-l">III &mdash; Track A</span><span>&#50500;&#51060;&#46356;&#50612;&#53668;</span></div>
+  <div class="si">
+    <div class="tag" data-step="1">Track A</div>
+    <h2 class="st" data-step="1">&#50500;&#51060;&#46356;&#50612;&#53668; &mdash; &#50864;&#47532; &#46041;&#45348;&#47484; &#48148;&#44984;&#45716; AI &#49436;&#48708;&#49828;</h2>
+    <div class="g2" style="margin-top:16px;gap:20px">
+      <div data-step="2">
+        <table class="tb">
+          <tr><td style="font-weight:700;color:var(--on-surface);width:90px">&#52280;&#44032; &#45824;&#49345;</td><td>&#44221;&#44592;&#46020; &#45236; &#44256;&#46321;&#54617;&#49373; (2~4&#51064; &#54016;)</td></tr>
+          <tr><td style="font-weight:700;color:var(--on-surface)">&#54645;&#49900; &#51656;&#47928;</td><td>&#45236;&#44032; &#49324;&#45716; &#51648;&#50669;&#50640;&#49436; AI&#47196; &#54644;&#44208;&#54624; &#49688; &#51080;&#45716; &#47928;&#51228;&#45716;?</td></tr>
+          <tr><td style="font-weight:700;color:var(--on-surface)">&#49328;&#52636;&#47932;</td><td>&#44592;&#54925;&#49436;(PPT) + &#48156;&#54364; &#50689;&#49345;</td></tr>
+          <tr><td style="font-weight:700;color:var(--on-surface)">&#45212;&#51060;&#46020;</td><td>&#9733;&#9734;&#9734; (&#44592;&#54925; &#51473;&#49900;, &#53076;&#46377; &#48520;&#54596;&#50836;)</td></tr>
+        </table>
+        <div class="c c-p" style="padding:14px;margin-top:12px">
+          <div class="c-t">DAKER &#54876;&#50857; &#44592;&#45733;</div>
+          <ul>
+            <li>&#44536;&#47353; &#54016;&#48716;&#46377; &mdash; &#54617;&#44368;&#183;&#44288;&#49900;&#49324; &#44592;&#48152; &#54016; &#47588;&#52845;</li>
+            <li>&#53944;&#47001; &#47084;&#45789; &mdash; AI &#44592;&#52488; + &#49436;&#48708;&#49828; &#44592;&#54925; &#48169;&#48277;&#47200;</li>
+            <li>AI &#47704;&#53664;&#47553; &mdash; Forcing Questions&#47196; &#50500;&#51060;&#46356;&#50612; &#44396;&#52404;&#54868;</li>
+            <li>&#51228;&#52636; &#54252;&#53560; &mdash; PPT + &#50689;&#49345; &#50629;&#47196;&#46300;</li>
+          </ul>
+        </div>
+      </div>
+      <div data-step="3">
+        <div class="c c-w" style="padding:14px;margin-bottom:10px">
+          <div class="c-dt">&#54217;&#44032; &#44592;&#51456;</div>
+        </div>
+        <table class="tb" style="margin-top:0">
+          <tr><th>&#54637;&#47785;</th><th>&#48176;&#51216;</th><th>&#49444;&#47749;</th></tr>
+          <tr><td style="font-weight:600">&#47928;&#51228; &#51221;&#51032;</td><td>25%</td><td>&#47928;&#51228;&#51032; &#44396;&#52404;&#49457;&#44284; &#54788;&#49892;&#49457;</td></tr>
+          <tr><td style="font-weight:600">&#52285;&#51032;&#49457;</td><td>25%</td><td>AI &#54876;&#50857; &#50500;&#51060;&#46356;&#50612;&#51032; &#46021;&#52285;&#49457;</td></tr>
+          <tr><td style="font-weight:600">&#49892;&#54788; &#44032;&#45733;&#49457;</td><td>25%</td><td>&#44592;&#49696;&#51201;&#183;&#44221;&#51228;&#51201; &#53440;&#45817;&#49457;</td></tr>
+          <tr><td style="font-weight:600">&#48156;&#54364; &#50669;&#47049;</td><td>25%</td><td>PT &#44396;&#49457;&#47141; &#48143; &#51204;&#45804;&#47141;</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span class="brand">DACON &middot; DAKER</span><span class="pg">8 / 30</span><span>Ideathon</span></div>
+</section>
+
+<!-- ==================== S9: TRACK B — DATATHON ==================== -->
+<section class="slide">
+  <div class="sh"><span class="sh-l">III &mdash; Track B</span><span>&#45936;&#51060;&#53552;&#53668;</span></div>
+  <div class="si">
+    <div class="tag w" data-step="1">Track B</div>
+    <h2 class="st" data-step="1">&#45936;&#51060;&#53552;&#53668; &mdash; &#44277;&#44277; &#45936;&#51060;&#53552;&#47196; &#48156;&#44204;&#54616;&#45716; &#44221;&#44592;&#46020;</h2>
+    <div class="g2" style="margin-top:16px;gap:20px">
+      <div data-step="2">
+        <table class="tb">
+          <tr><td style="font-weight:700;color:var(--on-surface);width:90px">&#52280;&#44032; &#45824;&#49345;</td><td>&#44221;&#44592;&#46020; &#45236; &#44256;&#46321;&#54617;&#49373; (1~3&#51064; &#54016;)</td></tr>
+          <tr><td style="font-weight:700;color:var(--on-surface)">&#45936;&#51060;&#53552;&#49483;</td><td>&#44221;&#44592;&#46020; &#44277;&#44277;&#45936;&#51060;&#53552; (&#44368;&#53685;&#183;&#54872;&#44221;&#183;&#48373;&#51648; &#46321;)</td></tr>
+          <tr><td style="font-weight:700;color:var(--on-surface)">&#49328;&#52636;&#47932;</td><td>&#48516;&#49437; &#45432;&#53944;&#48513; + &#47532;&#45908;&#48372;&#46300; &#51216;&#49688;</td></tr>
+          <tr><td style="font-weight:700;color:var(--on-surface)">&#45212;&#51060;&#46020;</td><td>&#9733;&#9733;&#9734; (&#48516;&#49437; &#51473;&#49900;)</td></tr>
+        </table>
+        <div class="c c-w" style="padding:14px;margin-top:12px">
+          <div class="c-t">DAKER &#54876;&#50857; &#44592;&#45733;</div>
+          <ul>
+            <li>&#53944;&#47001; &#47084;&#45789; &mdash; Python &#44592;&#52488; &rarr; pandas &rarr; &#49884;&#44033;&#54868; &rarr; &#47784;&#45944;&#47553;</li>
+            <li>&#49892;&#49884;&#44036; &#47532;&#45908;&#48372;&#46300; &mdash; &#51088;&#46041; &#52292;&#51216;, &#49892;&#49884;&#44036; &#49692;&#50948; &#44081;&#49888;</li>
+            <li>AI &#47704;&#53664;&#47553; &mdash; &#45936;&#51060;&#53552; &#51204;&#52376;&#47532;&#183;&#54588;&#52376; &#50644;&#51648;&#45768;&#50612;&#47553; &#44032;&#51060;&#46300;</li>
+            <li>&#48512;&#51221;&#54665;&#50948; &#53456;&#51648; &mdash; &#46041;&#51068; IP&#183;&#53076;&#46300; &#50976;&#49324;&#46020; &#44160;&#49324;</li>
+          </ul>
+        </div>
+      </div>
+      <div data-step="3">
+        <div class="c c-p" style="padding:14px;margin-bottom:10px">
+          <div class="c-dt">&#54217;&#44032; &#44592;&#51456;</div>
+        </div>
+        <table class="tb" style="margin-top:0">
+          <tr><th>&#54637;&#47785;</th><th>&#48176;&#51216;</th><th>&#49444;&#47749;</th></tr>
+          <tr><td style="font-weight:600">&#47532;&#45908;&#48372;&#46300; &#51216;&#49688;</td><td>40%</td><td>&#47784;&#45944; &#50696;&#52769; &#51221;&#54869;&#46020; (&#51088;&#46041; &#52292;&#51216;)</td></tr>
+          <tr><td style="font-weight:600">&#48516;&#49437; &#44284;&#51221;</td><td>30%</td><td>EDA&#183;&#51204;&#52376;&#47532;&#183;&#54588;&#52376; &#50644;&#51648;&#45768;&#50612;&#47553;</td></tr>
+          <tr><td style="font-weight:600">&#51064;&#49324;&#51060;&#53944;</td><td>20%</td><td>&#45936;&#51060;&#53552;&#50640;&#49436; &#48156;&#44204;&#54620; &#53685;&#52272;</td></tr>
+          <tr><td style="font-weight:600">&#48156;&#54364;</td><td>10%</td><td>&#44208;&#49440; PT (&#44208;&#49440; &#51652;&#52636;&#54016;)</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span class="brand">DACON &middot; DAKER</span><span class="pg">9 / 30</span><span>Datathon</span></div>
+</section>
+
+<!-- ==================== S10: TRACK C — AI SERVICE (VIBE CODING) ==================== -->
+<section class="slide">
+  <div class="sh"><span class="sh-l">III &mdash; Track C</span><span>AI&#49436;&#48708;&#49828;&#53668;</span></div>
+  <div class="si">
+    <div class="tag g" data-step="1">Track C &mdash; &#48148;&#51060;&#48652;&#53076;&#46377;</div>
+    <h2 class="st" data-step="1">AI&#49436;&#48708;&#49828;&#53668; &mdash; &#51088;&#50672;&#50612;&#47196; &#47564;&#46300;&#45716; &#50937; &#49436;&#48708;&#49828;</h2>
+    <div class="sub" data-step="2">&#53076;&#46377; &#44221;&#54744; &#50630;&#51060;&#46020; <span class="hl">&#48148;&#51060;&#48652;&#53076;&#46377;</span>&#51004;&#47196; &#49892;&#51228; &#51089;&#46041;&#54616;&#45716; MVP&#47484; &#47564;&#46317;&#45768;&#45796;</div>
+    <div class="g2" style="margin-top:14px;gap:20px">
+      <div data-step="3">
+        <table class="tb">
+          <tr><td style="font-weight:700;color:var(--on-surface);width:90px">&#52280;&#44032; &#45824;&#49345;</td><td>&#44221;&#44592;&#46020; &#45236; &#44256;&#46321;&#54617;&#49373; (2~4&#51064; &#54016;)</td></tr>
+          <tr><td style="font-weight:700;color:var(--on-surface)">&#51452;&#51228;</td><td>AI&#47196; &#47564;&#46300;&#45716; &#50864;&#47532; &#54617;&#44368; / &#50864;&#47532; &#46041;&#45348; &#49436;&#48708;&#49828;</td></tr>
+          <tr><td style="font-weight:700;color:var(--on-surface)">&#49328;&#52636;&#47932;</td><td>&#49892;&#51228; &#51089;&#46041; &#50937; &#49436;&#48708;&#49828;(MVP) + &#44592;&#54925;&#49436;</td></tr>
+          <tr><td style="font-weight:700;color:var(--on-surface)">&#53076;&#46377; &#44221;&#54744;</td><td><strong>&#48520;&#54596;&#50836;</strong> &mdash; &#48148;&#51060;&#48652;&#53076;&#46377;&#51004;&#47196; &#44060;&#48156;</td></tr>
+        </table>
+        <div class="c c-g" style="padding:14px;margin-top:10px">
+          <div class="c-t">DAKER &#54876;&#50857; &#44592;&#45733;</div>
+          <ul>
+            <li>&#53944;&#47001; &#47084;&#45789; &mdash; &#48148;&#51060;&#48652;&#53076;&#46377; &#44592;&#52488; &rarr; &#54532;&#47212;&#54532;&#53944; &#49444;&#44228; &rarr; MVP &#44060;&#48156;</li>
+            <li>&#51089;&#51204;&#49892; &mdash; &#54016; &#54801;&#50629;, &#53076;&#46300;&#183;&#47553;&#53356; &#44277;&#50976;, &#47704;&#53664;&#47553; &#47196;&#44536;</li>
+            <li>ELO 1:1 &#50500;&#47112;&#45208; &mdash; &#52280;&#44032;&#54016; &#44036; &#48660;&#46972;&#51064;&#46300; &#49345;&#54840; &#54217;&#44032; (20%)</li>
+            <li>&#44040;&#47084;&#47532; &mdash; MVP &#51088;&#46041; &#44172;&#49884;, &#54252;&#53944;&#54260;&#47532;&#50724; &#51088;&#49328;&#54868;</li>
+          </ul>
+        </div>
+      </div>
+      <div data-step="4">
+        <div class="c c-p" style="padding:14px;margin-bottom:10px">
+          <div class="c-dt">&#54217;&#44032; &#44592;&#51456;</div>
+        </div>
+        <table class="tb" style="margin-top:0">
+          <tr><th>&#54637;&#47785;</th><th>&#48176;&#51216;</th><th>&#49444;&#47749;</th></tr>
+          <tr><td style="font-weight:600">&#49436;&#48708;&#49828; &#50756;&#49457;&#46020;</td><td>30%</td><td>MVP &#51089;&#46041;, UX/UI &#54408;&#51656;</td></tr>
+          <tr><td style="font-weight:600">&#47928;&#51228; &#54644;&#44208;&#47141;</td><td>25%</td><td>&#49892;&#51228; &#47928;&#51228; &#54644;&#44208; &#50668;&#48512;</td></tr>
+          <tr><td style="font-weight:600">&#44592;&#49696; &#54876;&#50857;</td><td>25%</td><td>AI&#183;&#48148;&#51060;&#48652;&#53076;&#46377; &#46020;&#44396; &#54876;&#50857;</td></tr>
+          <tr><td style="font-weight:600">ELO &#49345;&#54840; &#54217;&#44032;</td><td>20%</td><td>&#52280;&#44032;&#54016; &#44036; &#48660;&#46972;&#51064;&#46300; &#48708;&#44368;</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span class="brand">DACON &middot; DAKER</span><span class="pg">10 / 30</span><span>Vibe Coding</span></div>
+</section>
+
+<!-- ==================== S11: SECTION — DAKER PLATFORM ==================== -->
+<section class="slide slide-sec">
+  <div class="sh"><span class="sh-l">Section</span><span></span></div>
+  <div class="si">
+    <div class="sn" data-step="1">IV</div>
+    <h2 data-step="2">DAKER &#54540;&#47019;&#54268;<br>&#44592;&#45733; &#49345;&#49464;</h2>
+    <div class="sd" data-step="3">&#54016;&#48716;&#46377;&#48512;&#53552; &#54617;&#49845;&#183;&#47704;&#53664;&#47553;&#183;&#51228;&#52636;&#183;&#49900;&#49324;&#183;&#44208;&#44284; &#48372;&#44256;&#44620;&#51648;<br>&#51204; &#44284;&#51221;&#51012; &#51088;&#46041;&#54868;&#54616;&#45716; &#53685;&#54633; &#54540;&#47019;&#54268;</div>
+  </div>
+  <div class="sf"><span class="brand">DACON &middot; DAKER</span><span class="pg">11 / 30</span><span>Platform</span></div>
+</section>
+
+<!-- ==================== S12: TEAM BUILDING ==================== -->
+<section class="slide">
+  <div class="sh"><span class="sh-l">IV &mdash; DAKER Platform</span><span>&#54016;&#48716;&#46377;</span></div>
+  <div class="si">
+    <div class="tag" data-step="1">GROUP TEAM</div>
+    <h2 class="st" data-step="1">&#54016;&#48716;&#46377; &mdash; 7&#44060; &#45824;&#54617; &times; 3&#53944;&#47001; &#51088;&#46041; &#44536;&#47353; &#44288;&#47532;</h2>
+    <div class="g3" style="margin-top:18px" data-step="2">
+      <div class="c c-p" style="padding:16px">
+        <div class="c-dt">AI &#49828;&#53420;&#183;&#50669;&#54624; &#47588;&#52845;</div>
+        <div class="c-dd">&#54617;&#49373; &#54532;&#47196;&#54596; &#44592;&#48152; &#52572;&#51201; &#54016; &#51088;&#46041; &#44396;&#49457;, &#50669;&#54624;(&#44592;&#54925;&#183;&#44060;&#48156;&#183;&#48156;&#54364;) &#51088;&#46041; &#48176;&#51221;</div>
+      </div>
+      <div class="c c-w" style="padding:16px">
+        <div class="c-dt">&#45824;&#54617;&#48324;&#183;&#53944;&#47001;&#48324; &#44536;&#47353;</div>
+        <div class="c-dd">7&#44060; &#45824;&#54617; &times; 3&#53944;&#47001; = 21&#44060; &#44536;&#47353; &#51088;&#46041; &#49373;&#49457;, &#46021;&#47549;&#51201; &#50868;&#50689; + &#53685;&#54633; &#44288;&#47532;</div>
+      </div>
+      <div class="c c-g" style="padding:16px">
+        <div class="c-dt">&#51068;&#44292; &#46321;&#47197;</div>
+        <div class="c-dd">CSV &#50629;&#47196;&#46300;&#47196; &#52572;&#45824; 1,000&#47749; &#51068;&#44292; &#46321;&#47197;, &#54016; &#48176;&#51221;&#44620;&#51648; &#51088;&#46041; &#52376;&#47532;</div>
+      </div>
+    </div>
+    <div class="g3" style="margin-top:10px" data-step="3">
+      <div class="c c-b" style="padding:16px">
+        <div class="c-dt">&#54016; &#45824;&#49884;&#48372;&#46300;</div>
+        <div class="c-dd">&#47704;&#48260; &#54532;&#47196;&#54596;, &#51652;&#54665;&#47456;, &#47704;&#53664;&#47553; &#51060;&#47141; &#54620;&#45576;&#50640; &#54869;&#51064;</div>
+      </div>
+      <div class="c c-r" style="padding:16px">
+        <div class="c-dt">&#44536;&#47353; &#52292;&#54021;&#183;&#44277;&#51648;</div>
+        <div class="c-dd">&#54016; &#45236; &#49892;&#49884;&#44036; &#49548;&#53685;, &#50868;&#50689; &#44277;&#51648; &#51088;&#46041; &#51204;&#45804;</div>
+      </div>
+      <div class="c c-pp" style="padding:16px">
+        <div class="c-dt">&#51088;&#46041; &#47532;&#47560;&#51064;&#45908;</div>
+        <div class="c-dd">&#47560;&#44048;&#51068;&#183;&#47704;&#53664;&#47553; &#51068;&#51221;&#183;&#51228;&#52636; &#44592;&#54620; &#51088;&#46041; &#50508;&#47548;</div>
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span class="brand">DACON &middot; DAKER</span><span class="pg">12 / 30</span><span>Team</span></div>
+</section>
+
+<!-- ==================== S13: TRACK LEARNING ==================== -->
+<section class="slide">
+  <div class="sh"><span class="sh-l">IV &mdash; DAKER Platform</span><span>&#54617;&#49845;</span></div>
+  <div class="si">
+    <div class="tag" data-step="1">TRACK LEARNING</div>
+    <h2 class="st" data-step="1">&#53944;&#47001;&#48324; &#47582;&#52644; &#54617;&#49845; &#52964;&#47532;&#53304;&#47100;</h2>
+    <div class="g3" style="margin-top:16px" data-step="2">
+      <div class="c c-p" style="padding:14px">
+        <div class="c-dt">Track A &#50500;&#51060;&#46356;&#50612;&#53668;</div>
+        <ul>
+          <li>Step 1: AI&#46976; &#47924;&#50631;&#51064;&#44032; (&#53080;&#53584;&#52768;+&#53300;&#51592;)</li>
+          <li>Step 2: &#47928;&#51228; &#48156;&#44204;&#44284; &#51221;&#51032; (&#54532;&#47212;&#54532;&#53944;)</li>
+          <li>Step 3: &#49436;&#48708;&#49828; &#44592;&#54925; &#48169;&#48277;&#47200; (PDF)</li>
+          <li>Step 4: &#49444;&#46301;&#47141; &#51080;&#45716; PT (&#53080;&#53584;&#52768;+&#53300;&#51592;)</li>
+        </ul>
+      </div>
+      <div class="c c-w" style="padding:14px">
+        <div class="c-dt">Track B &#45936;&#51060;&#53552;&#53668;</div>
+        <ul>
+          <li>Step 1: Python &#44592;&#52488;&#50752; &#45936;&#51060;&#53552; &#53440;&#51077; (&#53300;&#51592;)</li>
+          <li>Step 2: pandas&#47196; &#45936;&#51060;&#53552; &#45796;&#47336;&#44592; (&#54532;&#47212;&#54532;&#53944;)</li>
+          <li>Step 3: &#45936;&#51060;&#53552; &#49884;&#44033;&#54868; (PDF+&#49892;&#49845;)</li>
+          <li>Step 4: &#47672;&#49888;&#47084;&#45789; &#44592;&#52488; (&#53080;&#53584;&#52768;+&#53300;&#51592;)</li>
+        </ul>
+      </div>
+      <div class="c c-g" style="padding:14px">
+        <div class="c-dt">Track C AI&#49436;&#48708;&#49828;&#53668;</div>
+        <ul>
+          <li>Step 1: &#48148;&#51060;&#48652;&#53076;&#46377; &#51060;&#54644; (&#53080;&#53584;&#52768;+&#53300;&#51592;)</li>
+          <li>Step 2: &#54532;&#47212;&#54532;&#53944; &#50644;&#51648;&#45768;&#50612;&#47553; (&#49892;&#49845;)</li>
+          <li>Step 3: AI&#50752; &#50937; &#49436;&#48708;&#49828; &#47564;&#46308;&#44592; (&#54532;&#47212;&#54532;&#53944;)</li>
+          <li>Step 4: MVP &#48176;&#54252;&#50752; &#53580;&#49828;&#53944; (PDF)</li>
+        </ul>
+      </div>
+    </div>
+    <div class="g2" style="margin-top:14px" data-step="3">
+      <div class="c c-b" style="padding:14px">
+        <div class="c-dt">5&#51333; &#53080;&#53584;&#52768; &#53440;&#51077;</div>
+        <div class="c-dd">&#53080;&#53584;&#52768;(&#53581;&#49828;&#53944;) &middot; &#53300;&#51592;(&#51060;&#54644;&#46020; &#52769;&#51221;) &middot; &#54532;&#47212;&#54532;&#53944;(&#49892;&#49845;) &middot; PDF(&#44368;&#51116;) &middot; &#54540;&#47000;&#49884;&#52852;&#46300;(&#50516;&#44592;)</div>
+      </div>
+      <div class="c c-r" style="padding:14px">
+        <div class="c-dt">&#52404;&#53356;&#54252;&#51064;&#53944; &#52628;&#51201;</div>
+        <div class="c-dd">&#45800;&#44228;&#48324; &#54617;&#49845; &#50756;&#47308; &#50668;&#48512; &#51088;&#46041; &#52628;&#51201;, &#48120;&#50756;&#47308; &#54617;&#49373; &#47532;&#47560;&#51064;&#45908; &#51088;&#46041; &#48156;&#49569;</div>
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span class="brand">DACON &middot; DAKER</span><span class="pg">13 / 30</span><span>Learning</span></div>
+</section>
+
+<!-- ==================== S14: WAR ROOM ==================== -->
+<section class="slide">
+  <div class="sh"><span class="sh-l">IV &mdash; DAKER Platform</span><span>&#51089;&#51204;&#49892;</span></div>
+  <div class="si">
+    <div class="tag" data-step="1">WAR ROOM</div>
+    <h2 class="st" data-step="1">&#51089;&#51204;&#49892; &mdash; &#54016; &#51204;&#50857; &#54801;&#50629; &#44277;&#44036;</h2>
+    <div class="sub" data-step="2">&#54016;&#48324; &#46021;&#47549; &#44277;&#44036;&#50640;&#49436; &#44592;&#54925;&#183;&#44060;&#48156;&#183;&#47704;&#53664;&#47553;&#51012; &#53685;&#54633;&#51201;&#51004;&#47196; &#44288;&#47532;&#54633;&#45768;&#45796;</div>
+    <div class="g2" style="margin-top:18px;gap:20px">
+      <div data-step="3">
+        <div class="g2" style="gap:10px">
+          <div class="c c-p" style="padding:14px">
+            <div class="c-t">&#54016; &#51204;&#50857; &#44277;&#44036;</div>
+            <div class="c-dd">&#54016;&#48324; &#46021;&#47549; &#54801;&#50629; &#44277;&#44036;<br>&#50808;&#48512; &#51217;&#44540; &#52264;&#45800;</div>
+          </div>
+          <div class="c c-w" style="padding:14px">
+            <div class="c-t">&#49892;&#49884;&#44036; &#44277;&#46041; &#54200;&#51665;</div>
+            <div class="c-dd">&#44592;&#54925;&#49436;&#183;&#53076;&#46300;&#183;&#47928;&#49436;<br>&#46041;&#49884; &#51089;&#50629;</div>
+          </div>
+          <div class="c c-g" style="padding:14px">
+            <div class="c-t">&#51088;&#47308; &#44277;&#50976;</div>
+            <div class="c-dd">&#54028;&#51068;&#183;&#47553;&#53356;&#183;&#51060;&#48120;&#51648;<br>&#50629;&#47196;&#46300;, &#48260;&#51204; &#44288;&#47532;</div>
+          </div>
+          <div class="c c-b" style="padding:14px">
+            <div class="c-t">&#47196;&#44536; &#51088;&#46041; &#51200;&#51109;</div>
+            <div class="c-dd">&#47784;&#46304; &#54876;&#46041;&#183;&#47704;&#53664;&#47553;<br>&#51060;&#47141; &#51088;&#46041; &#44592;&#47197;</div>
+          </div>
+        </div>
+      </div>
+      <div data-step="4">
+        <div class="c c-r" style="padding:18px">
+          <div class="c-dt">&#47704;&#53664; &#51217;&#44540;</div>
+          <div class="c-dd" style="margin-top:6px">&#45812;&#45817; &#47704;&#53664;&#47564; &#51077;&#51109; &#44032;&#45733;, &#54588;&#46300;&#48177; &#51649;&#51217; &#51089;&#49457;. &#44256;&#46321;&#54617;&#49373; &#54016;&#51032; &#51652;&#54665; &#49345;&#54889;&#51012; &#47704;&#53664;&#44032; &#49892;&#49884;&#44036;&#51004;&#47196; &#54028;&#50501;&#54633;&#45768;&#45796;.</div>
+        </div>
+        <div class="c c-pp" style="padding:18px;margin-top:10px">
+          <div class="c-dt">&#44288;&#47532;&#51088; &#47784;&#45768;&#53552;&#47553;</div>
+          <div class="c-dd" style="margin-top:6px">&#50868;&#50689;&#51652;&#51060; &#51204; &#54016; &#54876;&#46041; &#54788;&#54889; &#49892;&#49884;&#44036; &#54869;&#51064;. &#54876;&#46041; &#51200;&#51312; &#54016; &#51088;&#46041; &#44048;&#51648;&#183;&#50508;&#47548;.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span class="brand">DACON &middot; DAKER</span><span class="pg">14 / 30</span><span>War Room</span></div>
+</section>
+
+<!-- ==================== S15: AI MENTORING ==================== -->
+<section class="slide">
+  <div class="sh"><span class="sh-l">IV &mdash; DAKER Platform</span><span>AI &#47704;&#53664;&#47553;</span></div>
+  <div class="si">
+    <div class="tag" data-step="1">AI OFFICE HOURS</div>
+    <h2 class="st" data-step="1">AI &#47704;&#53664;&#47553; &mdash; 24&#49884;&#44036; Forcing Questions</h2>
+    <div class="sub" data-step="2">6&#44032;&#51648; &#54645;&#49900; &#51656;&#47928;&#51004;&#47196; &#44256;&#46321;&#54617;&#49373;&#51032; &#50500;&#51060;&#46356;&#50612;&#47484; <span class="hl">&#44396;&#52404;&#51201;&#51064; &#49892;&#54665; &#44228;&#54925;</span>&#51004;&#47196; &#48148;&#44985;&#45768;&#45796;</div>
+    <div class="g3" style="margin-top:14px" data-step="3">
+      <div class="c c-p" style="padding:12px">
+        <div class="c-t">Q1 &#49688;&#50836; &#54788;&#49892;&#49457;</div>
+        <div class="c-dd">&#51060; &#47928;&#51228;&#47484; &#51221;&#47568; &#44202;&#45716; &#49324;&#46988;&#51060; &#51080;&#45208;?</div>
+      </div>
+      <div class="c c-w" style="padding:12px">
+        <div class="c-t">Q2 &#54788;&#51116; &#49345;&#53468;</div>
+        <div class="c-dd">&#51648;&#44552;&#51008; &#51060; &#47928;&#51228;&#47484; &#50612;&#46523;&#44172; &#54644;&#44208;&#54616;&#45208;?</div>
+      </div>
+      <div class="c c-g" style="padding:12px">
+        <div class="c-t">Q3 &#51208;&#48149;&#54620; &#44396;&#52404;&#49457;</div>
+        <div class="c-dd">&#44032;&#51109; &#50500;&#54536; &#49324;&#46988;&#51008; &#45572;&#44396;&#51064;&#44032;?</div>
+      </div>
+    </div>
+    <div class="g3" style="margin-top:8px" data-step="4">
+      <div class="c c-b" style="padding:12px">
+        <div class="c-t">Q4 &#44032;&#51109; &#51339;&#51008; &#49400;&#44592;</div>
+        <div class="c-dd">&#44032;&#51109; &#51089;&#51008; MVP&#45716; &#47924;&#50631;&#51064;&#44032;?</div>
+      </div>
+      <div class="c c-r" style="padding:12px">
+        <div class="c-t">Q5 &#44288;&#52272;&#44284; &#45440;&#46972;&#50880;</div>
+        <div class="c-dd">&#51649;&#51217; &#44288;&#52272;&#54616;&#45768; &#47924;&#50631;&#51060; &#45804;&#46988;&#45208;?</div>
+      </div>
+      <div class="c c-pp" style="padding:12px">
+        <div class="c-t">Q6 &#48120;&#47000; &#51201;&#54633;&#49457;</div>
+        <div class="c-dd">3&#45380; &#54980;&#50640;&#46020; &#51032;&#48120; &#51080;&#45716; &#49436;&#48708;&#49828;&#51064;&#44032;?</div>
+      </div>
+    </div>
+    <div class="g2" style="margin-top:12px" data-step="5">
+      <div class="c c-p" style="padding:14px">
+        <div class="c-dt">24&#49884;&#44036; &#50868;&#50689;</div>
+        <div class="c-dd">&#49900;&#50556;&#183;&#51452;&#47568;&#50640;&#46020; AI Office Hours&#47196; &#47704;&#53664;&#47553; &#44277;&#48177; &#51228;&#47196;. &#45824;&#54617;&#49373; &#47704;&#53664;&#47553;&#51032; &#48372;&#51312; &#50669;&#54624;.</div>
+      </div>
+      <div class="c c-w" style="padding:14px">
+        <div class="c-dt">&#47704;&#53664;&#47553; &#47196;&#44536; &#51088;&#46041; &#52629;&#51201;</div>
+        <div class="c-dd">AI &#47704;&#53664;&#47553; &#49464;&#49496; &#50836;&#50557;&#183;&#54588;&#46300;&#48177;&#183;&#50529;&#49496; &#50500;&#51060;&#53596; &#51088;&#46041; &#51200;&#51109;, &#44208;&#44284; &#48372;&#44256;&#49436; &#53685;&#54633;.</div>
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span class="brand">DACON &middot; DAKER</span><span class="pg">15 / 30</span><span>AI Mentor</span></div>
+</section>
+
+<!-- ==================== S16: UNIVERSITY MENTOR MATCHING ==================== -->
+<section class="slide">
+  <div class="sh"><span class="sh-l">IV &mdash; DAKER Platform</span><span>&#45824;&#54617;&#49373; &#47704;&#53664;</span></div>
+  <div class="si">
+    <div class="tag" data-step="1">&#45824;&#54617; &#50672;&#44228; &#47704;&#53664;&#47553;</div>
+    <h2 class="st" data-step="1">7&#44060; &#45824;&#54617; &#45824;&#54617;&#49373; &#47704;&#53664; &#47588;&#52845; &#49884;&#49828;&#53596;</h2>
+    <div class="g2" style="margin-top:16px;gap:20px">
+      <div data-step="2">
+        <table class="tb">
+          <tr><td style="font-weight:700;color:var(--on-surface);width:100px">&#52280;&#50668; &#45824;&#54617;</td><td>&#44221;&#44592;&#46020; &#45236; 7&#44060; &#45824;&#54617; (SW&#183;AI&#183;&#45936;&#51060;&#53552; &#44288;&#47144; &#54617;&#44284;)</td></tr>
+          <tr><td style="font-weight:700;color:var(--on-surface)">&#47704;&#53664; &#44508;&#47784;</td><td>&#45824;&#54617;&#45817; 5~7&#47749;, &#52509; <strong>35~49&#47749;</strong></td></tr>
+          <tr><td style="font-weight:700;color:var(--on-surface)">&#47704;&#53664;&#47553; &#48169;&#49885;</td><td>&#50728;&#46972;&#51064;(DAKER 1:1 &#50696;&#50557;) + &#50724;&#54532;&#46972;&#51064;(&#45824;&#54617; &#50696;&#49440; &#54788;&#51109;)</td></tr>
+          <tr><td style="font-weight:700;color:var(--on-surface)">&#47704;&#53664;&#47553; &#54943;&#49688;</td><td>&#54016;&#45817; <strong>4&#54924;</strong> (2&#51452; &#44036;&#44201;, &#50696;&#49440; &#44592;&#44036; &#51473;)</td></tr>
+        </table>
+        <div class="g2" style="margin-top:14px;gap:8px">
+          <div class="mx"><div class="v">150</div><div class="l">&#50696;&#49345; &#52280;&#44032;&#54016;</div></div>
+          <div class="mx"><div class="v w">42</div><div class="l">&#47704;&#53664; (&#54217;&#44512;)</div></div>
+          <div class="mx"><div class="v g">600</div><div class="l">&#52509; &#47704;&#53664;&#47553; &#49464;&#49496;</div></div>
+          <div class="mx"><div class="v">3.6</div><div class="l">&#47704;&#53664;&#45817; &#45812;&#45817;&#54016;</div></div>
+        </div>
+      </div>
+      <div data-step="3">
+        <div class="c c-p" style="padding:14px;margin-bottom:10px">
+          <div class="c-dt">DAKER &#47704;&#53664; &#44288;&#47532; &#44592;&#45733;</div>
+        </div>
+        <div class="c c-w" style="padding:12px;margin-bottom:8px">
+          <div class="c-t">&#52888;&#47536;&#45908; &#49836;&#47215; &#44288;&#47532;</div>
+          <div class="c-dd">&#47704;&#53664;&#48324; &#44032;&#50857; &#49884;&#44036; &#46321;&#47197;, &#44256;&#46321;&#54617;&#49373; &#54016; 1:1 &#50696;&#50557;</div>
+        </div>
+        <div class="c c-g" style="padding:12px;margin-bottom:8px">
+          <div class="c-t">&#54616;&#51060;&#48652;&#47532;&#46300; &#50696;&#50557;</div>
+          <div class="c-dd">&#50728;&#46972;&#51064;(&#54868;&#49345;) / &#50724;&#54532;&#46972;&#51064;(&#45824;&#54617; &#48169;&#47928;) &#49440;&#53469;</div>
+        </div>
+        <div class="c c-b" style="padding:12px;margin-bottom:8px">
+          <div class="c-t">&#47704;&#53664;&#47553; &#47196;&#44536; &#51088;&#46041; &#51200;&#51109;</div>
+          <div class="c-dd">&#49464;&#49496; &#50836;&#50557;&#183;&#54588;&#46300;&#48177;&#183;&#50529;&#49496; &#50500;&#51060;&#53596; &#51088;&#46041; &#44592;&#47197;</div>
+        </div>
+        <div class="c c-r" style="padding:12px">
+          <div class="c-t">&#50868;&#50689;&#51088; &#45824;&#49884;&#48372;&#46300;</div>
+          <div class="c-dd">&#47704;&#53664;&#47553; &#51652;&#54665;&#47456;, &#54016;&#48324; &#52280;&#50668; &#54788;&#54889; &#49892;&#49884;&#44036; &#47784;&#45768;&#53552;&#47553;</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span class="brand">DACON &middot; DAKER</span><span class="pg">16 / 30</span><span>Mentoring</span></div>
+</section>
+
+<!-- ==================== S17: SUBMISSION & JUDGING ==================== -->
+<section class="slide">
+  <div class="sh"><span class="sh-l">IV &mdash; DAKER Platform</span><span>&#51228;&#52636; &amp; &#49900;&#49324;</span></div>
+  <div class="si">
+    <div class="tag" data-step="1">HACK &amp; JUDGE</div>
+    <h2 class="st" data-step="1">&#51228;&#52636;&#183;&#49900;&#49324; &mdash; &#53944;&#47001;&#48324; &#51088;&#46041; &#48516;&#44592; &amp; &#53685;&#54633; &#49900;&#49324;</h2>
+    <div class="g2" style="margin-top:16px;gap:20px">
+      <div data-step="2">
+        <div class="c c-p" style="padding:14px;margin-bottom:10px">
+          <div class="c-dt">&#51228;&#52636; &#54252;&#53560;</div>
+          <ul>
+            <li>&#53944;&#47001;&#48324; &#51228;&#52636; &#50577;&#49885; &#51088;&#46041; &#48516;&#44592;</li>
+            <li>Track A: PPT + &#48156;&#54364; &#50689;&#49345;</li>
+            <li>Track B: &#48516;&#49437; &#45432;&#53944;&#48513;</li>
+            <li>Track C: MVP URL + &#49548;&#49828;&#53076;&#46300; + &#44592;&#54925;&#49436;</li>
+            <li>&#54028;&#51068; &#54805;&#49885;&#183;&#50857;&#47049;&#183;&#54596;&#49688; &#54637;&#47785; &#49892;&#49884;&#44036; &#52404;&#53356;</li>
+          </ul>
+        </div>
+        <div class="c c-w" style="padding:14px">
+          <div class="c-dt">&#48512;&#51221;&#54665;&#50948; &#53456;&#51648;</div>
+          <ul>
+            <li>&#51473;&#48373; &#51228;&#52636; &#44048;&#51648;</li>
+            <li>&#46041;&#51068; IP &#51228;&#52636; &#44048;&#51648;</li>
+            <li>&#53076;&#46300; &#54364;&#51208; &#51088;&#46041; &#44160;&#49324;</li>
+            <li>&#50868;&#50689;&#51088; &#51592;&#49884; &#50508;&#47548;</li>
+          </ul>
+        </div>
+      </div>
+      <div data-step="3">
+        <div class="c c-g" style="padding:14px;margin-bottom:10px">
+          <div class="c-dt">&#51204;&#47928;&#44032; &#49900;&#49324; &#54252;&#53560;</div>
+          <ul>
+            <li>&#49900;&#49324;&#50948;&#50896; 6~7&#51064; &#44060;&#48324; &#48176;&#48516;</li>
+            <li>&#47336;&#48652;&#47533; &#44592;&#48152; &#48660;&#46972;&#51064;&#46300; &#49900;&#49324;</li>
+            <li>&#44032;&#51473; &#51216;&#49688; &#51088;&#46041; &#51665;&#44228;</li>
+            <li>&#49900;&#49324; &#51652;&#54665;&#47456; &#49892;&#49884;&#44036; &#47784;&#45768;&#53552;&#47553;</li>
+          </ul>
+        </div>
+        <div class="c c-b" style="padding:14px;margin-bottom:10px">
+          <div class="c-dt">ELO 1:1 &#50500;&#47112;&#45208;</div>
+          <ul>
+            <li>&#52280;&#44032;&#54016; &#44036; &#48660;&#46972;&#51064;&#46300; 1:1 &#48708;&#44368;</li>
+            <li>&#51088;&#46041; &#47588;&#52845; &amp; &#51216;&#49688; &#49688;&#47156;</li>
+            <li>Track C &#54217;&#44032;&#51032; 20% &#48152;&#50689;</li>
+          </ul>
+        </div>
+        <div class="c c-r" style="padding:14px">
+          <div class="c-dt">&#49892;&#49884;&#44036; &#47532;&#45908;&#48372;&#46300;</div>
+          <div class="c-dd">Track B &#45936;&#51060;&#53552;&#53668; &#51088;&#46041; &#52292;&#51216;, &#49892;&#49884;&#44036; &#49692;&#50948; &#44081;&#49888;</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span class="brand">DACON &middot; DAKER</span><span class="pg">17 / 30</span><span>Judging</span></div>
+</section>
+
+<!-- ==================== S18: GALLERY & GAMIFICATION ==================== -->
+<section class="slide">
+  <div class="sh"><span class="sh-l">IV &mdash; DAKER Platform</span><span>&#44040;&#47084;&#47532; &amp; &#44172;&#51076;</span></div>
+  <div class="si">
+    <div class="tag" data-step="1">SHOWCASE &amp; GAMIFICATION</div>
+    <h2 class="st" data-step="1">&#44040;&#47084;&#47532; &amp; &#44172;&#51060;&#48120;&#54588;&#52992;&#51060;&#49496;</h2>
+    <div class="g2" style="margin-top:16px;gap:20px">
+      <div data-step="2">
+        <div class="c c-p" style="padding:16px;margin-bottom:10px">
+          <div class="c-dt">&#44040;&#47084;&#47532; / &#49660;&#52992;&#51060;&#49828;</div>
+          <ul>
+            <li>MVP &#51088;&#46041; &#44172;&#49884; &mdash; &#51228;&#52636; &#50756;&#47308; &#49884; &#51088;&#46041; &#46321;&#47197;</li>
+            <li>&#49828;&#53356;&#47536;&#49399; &#48120;&#47532;&#48372;&#44592; &mdash; &#50808;&#48512; URL &#51088;&#46041; &#52897;&#52376;</li>
+            <li>&#54252;&#53944;&#54260;&#47532;&#50724; &#51088;&#49328;&#54868; &mdash; &#50689;&#44396; &#48372;&#51316;, &#45824;&#51077; &#54876;&#50857;</li>
+            <li>&#50808;&#48512; &#44277;&#50976; &mdash; &#44256;&#50976; URL, SNS &#51076;&#48288;&#46300;</li>
+          </ul>
+        </div>
+        <div class="c c-w" style="padding:16px">
+          <div class="c-dt">&#44256;&#46321;&#54617;&#49373; &#54252;&#53944;&#54260;&#47532;&#50724;</div>
+          <div class="c-dd">&#45824;&#54924; &#44208;&#44284;&#47932;&#51060; &#50689;&#44396; &#54252;&#53944;&#54260;&#47532;&#50724;&#47196; &#45224;&#50500; &#45824;&#54617; &#51652;&#54617; &#49884; &#54876;&#50857; &#44032;&#45733;. &#49892;&#51656;&#51201;&#51064; AI &#54532;&#47196;&#51229;&#53944; &#44221;&#54744;&#51012; &#51613;&#47749;&#54633;&#45768;&#45796;.</div>
+        </div>
+      </div>
+      <div data-step="3">
+        <div class="c c-g" style="padding:16px;margin-bottom:10px">
+          <div class="c-dt">&#44172;&#51060;&#48120;&#54588;&#52992;&#51060;&#49496; &#50836;&#49548;</div>
+        </div>
+        <div class="g2" style="gap:8px">
+          <div class="c c-b" style="padding:12px">
+            <div class="c-t">7&#51333; &#48176;&#51648;</div>
+            <div class="c-dd">&#54617;&#49845;&#183;&#54016; &#44592;&#50668;&#183;&#47704;&#53664;&#47553;&#183;&#51228;&#52636;&#183;&#49900;&#49324; &#52280;&#50668; &#46321;</div>
+          </div>
+          <div class="c c-r" style="padding:12px">
+            <div class="c-t">4&#45800;&#44228; &#54000;&#50612;</div>
+            <div class="c-dd">&#48652;&#47200;&#51592; &rarr; &#49892;&#48260; &rarr; &#44264;&#46300; &rarr; &#54540;&#47000;&#54000;&#45336;</div>
+          </div>
+          <div class="c c-p" style="padding:12px">
+            <div class="c-t">&#49828;&#53944;&#47533; &amp; &#52308;&#47536;&#51648;</div>
+            <div class="c-dd">&#50672;&#49549; &#54617;&#49845;&#51068;&#49688; &#44592;&#47197;, &#51068;&#51068;/&#51452;&#44036; &#48120;&#49496;</div>
+          </div>
+          <div class="c c-w" style="padding:12px">
+            <div class="c-t">&#47532;&#45908;&#48372;&#46300; &amp; &#54876;&#46041; &#47553;</div>
+            <div class="c-dd">&#53944;&#47001;&#183;&#45824;&#54617;&#183;&#51333;&#54633; &#49692;&#50948;, 3&#44060; &#47553; &#49884;&#44033;&#54868;</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span class="brand">DACON &middot; DAKER</span><span class="pg">18 / 30</span><span>Gallery</span></div>
+</section>
+
+<!-- ==================== S19: SECTION — OPERATIONS ==================== -->
+<section class="slide slide-sec">
+  <div class="sh"><span class="sh-l">Section</span><span></span></div>
+  <div class="si">
+    <div class="sn" data-step="1">V</div>
+    <h2 data-step="2">&#50868;&#50689; &#44228;&#54925;</h2>
+    <div class="sd" data-step="3">&#45824;&#54617; &#50696;&#49440; &rarr; &#48376;&#49440; &rarr; &#44208;&#49440; 3&#45800;&#44228; &#44396;&#51312;&#50752;<br>&#49345;&#49464; &#50868;&#50689; &#47196;&#46300;&#47605;&#51012; &#49548;&#44060;&#54633;&#45768;&#45796;</div>
+  </div>
+  <div class="sf"><span class="brand">DACON &middot; DAKER</span><span class="pg">19 / 30</span><span>Operations</span></div>
+</section>
+
+<!-- ==================== S20: 3-STAGE STRUCTURE ==================== -->
+<section class="slide">
+  <div class="sh"><span class="sh-l">V &mdash; &#50868;&#50689; &#44228;&#54925;</span><span>3&#45800;&#44228; &#44396;&#51312;</span></div>
+  <div class="si">
+    <div class="tag" data-step="1">&#45824;&#54924; &#44396;&#51312;</div>
+    <h2 class="st" data-step="1">&#45824;&#54617; &#50696;&#49440; &rarr; &#48376;&#49440; &rarr; &#44208;&#49440;</h2>
+    <div class="flow" style="margin-top:20px" data-step="2">
+      <div class="flow-step p" style="padding:16px">
+        <div class="flow-num">STAGE 1</div>
+        <div class="flow-title">&#45824;&#54617; &#50696;&#49440;</div>
+        <div class="flow-desc">7&#44060; &#45824;&#54617; (&#50728;/&#50724;&#54532;&#46972;&#51064;)<br>4&#51452;&#44036;<br>&#54617;&#49845; + &#47704;&#53664;&#47553; + 1&#52264; &#51228;&#52636;<br>&#45824;&#54617;&#48324; &#49345;&#50948; &#54016; &#49440;&#48156;</div>
+      </div>
+      <div class="flow-arr">&rarr;</div>
+      <div class="flow-step w" style="padding:16px">
+        <div class="flow-num">STAGE 2</div>
+        <div class="flow-title">&#48376;&#49440;</div>
+        <div class="flow-desc">&#50728;&#46972;&#51064; (DAKER)<br>2&#51452;&#44036;<br>&#49328;&#52636;&#47932; &#44256;&#46020;&#54868; + &#50728;&#46972;&#51064; &#49900;&#49324;<br>&#53944;&#47001;&#48324; &#49345;&#50948; 10&#54016;</div>
+      </div>
+      <div class="flow-arr">&rarr;</div>
+      <div class="flow-step g" style="padding:16px">
+        <div class="flow-num">STAGE 3</div>
+        <div class="flow-title">&#44208;&#49440;</div>
+        <div class="flow-desc">&#50724;&#54532;&#46972;&#51064; (&#44221;&#44592;&#46020;)<br>1&#51068;<br>&#46972;&#51060;&#48652; PT + &#54788;&#51109; &#49900;&#49324;<br>&#52572;&#51333; &#49688;&#49345;&#54016; &#49440;&#51221;</div>
+      </div>
+    </div>
+    <div class="g3" style="margin-top:18px" data-step="3">
+      <div class="c c-p" style="padding:14px">
+        <div class="c-dt">&#50696;&#49440; &#54217;&#44032;</div>
+        <div class="c-dd">&#47704;&#53664; &#54217;&#44032;(30%) + AI &#51088;&#46041; &#54217;&#44032;(30%) + &#51204;&#47928;&#44032; &#49900;&#49324;(40%)</div>
+      </div>
+      <div class="c c-w" style="padding:14px">
+        <div class="c-dt">&#48376;&#49440; &#54217;&#44032;</div>
+        <div class="c-dd">&#51204;&#47928;&#44032; &#49900;&#49324; &#54252;&#53560;(&#47336;&#48652;&#47533; &#48660;&#46972;&#51064;&#46300;) + ELO &#49345;&#54840; &#54217;&#44032;</div>
+      </div>
+      <div class="c c-g" style="padding:14px">
+        <div class="c-dt">&#44208;&#49440; &#54217;&#44032;</div>
+        <div class="c-dd">&#54788;&#51109; &#49900;&#49324;&#50948;&#50896;&#45800;(&#54617;&#44228;&#183;&#49328;&#50629;&#44228;&#183;&#44277;&#44277;&#44592;&#44288;)</div>
+      </div>
+    </div>
+    <div class="g4" style="margin-top:14px" data-step="4">
+      <div class="mx"><div class="v">140~210</div><div class="l">&#50696;&#49440; &#52280;&#44032;&#54016;</div></div>
+      <div class="mx"><div class="v w">60~100</div><div class="l">&#48376;&#49440; &#51652;&#52636;</div></div>
+      <div class="mx"><div class="v g">30</div><div class="l">&#44208;&#49440; &#51652;&#52636;</div></div>
+      <div class="mx"><div class="v">1&#51068;</div><div class="l">&#50724;&#54532;&#46972;&#51064; &#44208;&#49440;</div></div>
+    </div>
+  </div>
+  <div class="sf"><span class="brand">DACON &middot; DAKER</span><span class="pg">20 / 30</span><span>Structure</span></div>
+</section>
+
+<!-- ==================== S21: PROMOTION ==================== -->
+<section class="slide">
+  <div class="sh"><span class="sh-l">V &mdash; &#50868;&#50689; &#44228;&#54925;</span><span>&#54532;&#47196;&#47784;&#49496;</span></div>
+  <div class="si">
+    <div class="tag" data-step="1">&#54532;&#47196;&#47784;&#49496; &amp; &#47784;&#51665;</div>
+    <h2 class="st" data-step="1">&#45796;&#52292;&#45328; &#54532;&#47196;&#47784;&#49496;&#51004;&#47196; 500+ &#52280;&#44032;&#51088; &#54869;&#48372;</h2>
+    <div class="g2" style="margin-top:16px;gap:20px">
+      <div data-step="2">
+        <div class="c c-p" style="padding:14px;margin-bottom:10px">
+          <div class="c-dt">DACON 14&#47564; &#52964;&#48036;&#45768;&#54000;</div>
+          <div class="c-dd">&#47700;&#51064; &#48176;&#45320;&#183;&#54392;&#49884; &#50508;&#47548;&#183;&#45684;&#49828;&#47112;&#53552;&#47196; &#44221;&#44592;&#46020; &#44256;&#46321;&#54617;&#49373; &#53440;&#44191; &#45765;&#52636;</div>
+        </div>
+        <div class="c c-w" style="padding:14px;margin-bottom:10px">
+          <div class="c-dt">7&#44060; &#50672;&#44228; &#45824;&#54617;</div>
+          <div class="c-dd">&#45824;&#54617; &#45236; &#54252;&#49828;&#53552;&#183;&#54617;&#44284; &#44277;&#51648;&#183;&#46041;&#50500;&#47532; &#52292;&#45328; &#54856;&#48372;</div>
+        </div>
+        <div class="c c-g" style="padding:14px">
+          <div class="c-dt">&#44221;&#44592;&#46020; &#44368;&#50977;&#52397; &#50672;&#44228;</div>
+          <div class="c-dd">&#44221;&#44592;&#46020; &#45236; &#44256;&#46321;&#54617;&#44368; &#44277;&#47928;&#183;&#54617;&#44368; &#54856;&#54168;&#51060;&#51648; &#44172;&#49884;</div>
+        </div>
+      </div>
+      <div data-step="3">
+        <div class="c c-b" style="padding:14px;margin-bottom:10px">
+          <div class="c-dt">SNS &#52888;&#54168;&#51064;</div>
+          <div class="c-dd">&#51064;&#49828;&#53440;&#44536;&#47016;&#183;&#50976;&#53916;&#48652; &#49399;&#54268; &#53080;&#53584;&#52768;, &#52280;&#44032; &#54980;&#44592; &#49884;&#47532;&#51592;</div>
+        </div>
+        <div class="c c-r" style="padding:14px;margin-bottom:10px">
+          <div class="c-dt">&#44221;&#44592;&#46020;&#44221;&#51228;&#44284;&#54617;&#51652;&#55141;&#50896;</div>
+          <div class="c-dd">&#51652;&#55141;&#50896; &#54856;&#54168;&#51060;&#51648;&#183;&#48372;&#46020;&#51088;&#47308;&#183;&#50616;&#47200; &#44592;&#44256;</div>
+        </div>
+        <div class="c c-pp" style="padding:14px">
+          <div class="c-dt">DAKER &#51088;&#46041;&#54868;</div>
+          <div class="c-dd">&#51217;&#49688; &#54869;&#51064; &#51060;&#47700;&#51068;&#183;SMS &#51088;&#46041; &#48156;&#49569;, &#51068;&#51221; &#50504;&#45236; &#51088;&#46041;&#54868;</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span class="brand">DACON &middot; DAKER</span><span class="pg">21 / 30</span><span>Promotion</span></div>
+</section>
+
+<!-- ==================== S22: ROADMAP ==================== -->
+<section class="slide">
+  <div class="sh"><span class="sh-l">V &mdash; &#50868;&#50689; &#44228;&#54925;</span><span>&#47196;&#46300;&#47605;</span></div>
+  <div class="si">
+    <div class="tag" data-step="1">&#50868;&#50689; &#47196;&#46300;&#47605;</div>
+    <h2 class="st" data-step="1">12&#51452; &#50868;&#50689; &#53440;&#51076;&#46972;&#51064;</h2>
+    <table class="tb" style="margin-top:18px" data-step="2">
+      <tr><th style="width:70px">&#51452;&#52264;</th><th style="width:120px">&#45800;&#44228;</th><th>&#51452;&#50836; &#54876;&#46041;</th></tr>
+      <tr class="hl-row"><td>W1~W2</td><td><span class="badge p">&#44592;&#54925;</span></td><td>&#53944;&#47001; &#54869;&#51221;, &#54617;&#49845; &#53080;&#53584;&#52768; &#51228;&#51089;, &#45824;&#54617; &#54801;&#51032;, &#49900;&#49324;&#50948;&#50896; &#49453;&#50808;</td></tr>
+      <tr><td>W3~W4</td><td><span class="badge w">&#54856;&#48372;&#183;&#47784;&#51665;</span></td><td>DACON&#183;&#45824;&#54617;&#183;&#44368;&#50977;&#52397; &#54856;&#48372;, &#52280;&#44032; &#51217;&#49688;, &#47704;&#53664; &#47784;&#51665;&#183;&#44368;&#50977;</td></tr>
+      <tr class="hl-row"><td>W5~W8</td><td><span class="badge g">&#45824;&#54617; &#50696;&#49440;</span></td><td>7&#44060; &#45824;&#54617; &#54617;&#49845;+&#47704;&#53664;&#47553;+1&#52264; &#51228;&#52636;, &#50696;&#49440; &#49900;&#49324;</td></tr>
+      <tr><td>W9~W10</td><td><span class="badge b">&#48376;&#49440;</span></td><td>&#49328;&#52636;&#47932; &#44256;&#46020;&#54868;, &#52628;&#44032; &#47704;&#53664;&#47553; 2&#54924;, &#50728;&#46972;&#51064; &#49900;&#49324;</td></tr>
+      <tr class="hl-row"><td>W11</td><td><span class="badge r">&#44208;&#49440;</span></td><td>&#50724;&#54532;&#46972;&#51064; PT &#48156;&#54364;, &#54788;&#51109; &#49900;&#49324;, &#49884;&#49345;&#49885;</td></tr>
+      <tr><td>W12</td><td><span class="badge p">&#44208;&#44284;</span></td><td>&#44208;&#44284; &#48372;&#44256;&#49436; &#51088;&#46041; &#49373;&#49457;, &#51064;&#51613;&#49436; &#48156;&#44553;, &#44040;&#47084;&#47532; &#44277;&#44060;</td></tr>
+    </table>
+    <div class="flow" style="margin-top:18px" data-step="3">
+      <div class="flow-step p"><div class="flow-num">W1~2</div><div class="flow-title">&#44592;&#54925;</div></div>
+      <div class="flow-arr">&rarr;</div>
+      <div class="flow-step w"><div class="flow-num">W3~4</div><div class="flow-title">&#54856;&#48372;</div></div>
+      <div class="flow-arr">&rarr;</div>
+      <div class="flow-step g"><div class="flow-num">W5~8</div><div class="flow-title">&#50696;&#49440;</div></div>
+      <div class="flow-arr">&rarr;</div>
+      <div class="flow-step b"><div class="flow-num">W9~10</div><div class="flow-title">&#48376;&#49440;</div></div>
+      <div class="flow-arr">&rarr;</div>
+      <div class="flow-step r"><div class="flow-num">W11</div><div class="flow-title">&#44208;&#49440;</div></div>
+      <div class="flow-arr">&rarr;</div>
+      <div class="flow-step p"><div class="flow-num">W12</div><div class="flow-title">&#44208;&#44284;</div></div>
+    </div>
+  </div>
+  <div class="sf"><span class="brand">DACON &middot; DAKER</span><span class="pg">22 / 30</span><span>Roadmap</span></div>
+</section>
+
+<!-- ==================== S23: SECTION — IMPACT ==================== -->
+<section class="slide slide-sec">
+  <div class="sh"><span class="sh-l">Section</span><span></span></div>
+  <div class="si">
+    <div class="sn" data-step="1">VI</div>
+    <h2 data-step="2">&#44592;&#45824;&#54952;&#44284; &amp;<br>&#49457;&#44277; &#47112;&#54140;&#47088;&#49828;</h2>
+    <div class="sd" data-step="3">KPI &#49457;&#44284; &#51648;&#54364;, &#44592;&#45824;&#54952;&#44284;, &#49457;&#44277; &#49324;&#47168;&#47484; &#49548;&#44060;&#54633;&#45768;&#45796;</div>
+  </div>
+  <div class="sf"><span class="brand">DACON &middot; DAKER</span><span class="pg">23 / 30</span><span>Impact</span></div>
+</section>
+
+<!-- ==================== S24: KPI ==================== -->
+<section class="slide">
+  <div class="sh"><span class="sh-l">VI &mdash; &#44592;&#45824;&#54952;&#44284;</span><span>KPI</span></div>
+  <div class="si">
+    <div class="tag" data-step="1">&#49457;&#44284; &#51648;&#54364;</div>
+    <h2 class="st" data-step="1">KPI &amp; &#44592;&#45824;&#54952;&#44284;</h2>
+    <div class="g2" style="margin-top:16px;gap:20px">
+      <div data-step="2">
+        <table class="tb">
+          <tr><th>KPI</th><th>&#47785;&#54364;&#52824;</th></tr>
+          <tr><td style="font-weight:600">&#52509; &#52280;&#44032;&#51088; &#49688;</td><td>500&#47749; &#51060;&#49345;</td></tr>
+          <tr><td style="font-weight:600">&#52280;&#44032; &#54016; &#49688;</td><td>150&#54016; &#51060;&#49345;</td></tr>
+          <tr><td style="font-weight:600">&#54617;&#49845; &#50756;&#47308;&#50984;</td><td>70% &#51060;&#49345;</td></tr>
+          <tr><td style="font-weight:600">&#47704;&#53664;&#47553; &#52280;&#50668;&#50984;</td><td>85% &#51060;&#49345;</td></tr>
+          <tr><td style="font-weight:600">&#52280;&#44032;&#51088; &#47564;&#51313;&#46020;</td><td>4.2/5.0 &#51060;&#49345;</td></tr>
+          <tr><td style="font-weight:600">MVP &#49328;&#52636;&#47932; (Track C)</td><td>30&#44060; &#51060;&#49345;</td></tr>
+          <tr><td style="font-weight:600">&#45824;&#54617; &#50672;&#44228; &#47704;&#53664;</td><td>42&#47749; &#51060;&#49345;</td></tr>
+        </table>
+      </div>
+      <div data-step="3">
+        <div class="c c-p" style="padding:14px;margin-bottom:8px">
+          <div class="c-t">&#52280;&#44032; &#54617;&#49373;</div>
+          <div class="c-dd">AI &#44592;&#52488; &#50669;&#47049; &#49845;&#46301;, &#49892;&#51204; &#54532;&#47196;&#51229;&#53944; &#44221;&#54744;, &#54252;&#53944;&#54260;&#47532;&#50724; &#54869;&#48372;</div>
+        </div>
+        <div class="c c-w" style="padding:14px;margin-bottom:8px">
+          <div class="c-t">&#45824;&#54617;&#49373; &#47704;&#53664;</div>
+          <div class="c-dd">&#47532;&#45908;&#49901;&#183;&#44368;&#50977; &#50669;&#47049; &#44053;&#54868;, &#49328;&#54617; &#54532;&#47196;&#51229;&#53944; &#44221;&#54744;</div>
+        </div>
+        <div class="c c-g" style="padding:14px;margin-bottom:8px">
+          <div class="c-t">&#50672;&#44228; &#45824;&#54617;</div>
+          <div class="c-dd">&#51648;&#50669; &#44256;&#46321;&#54617;&#49373; &#50976;&#51077;, SW&#183;AI &#54617;&#44284; &#48652;&#47004;&#46377;</div>
+        </div>
+        <div class="c c-b" style="padding:14px;margin-bottom:8px">
+          <div class="c-t">&#44221;&#44592;&#46020;&#44221;&#51228;&#44284;&#54617;&#51652;&#55141;&#50896;</div>
+          <div class="c-dd">SW&#48120;&#47000;&#52292;&#50880; &#49324;&#50629; &#49457;&#44284; &#44032;&#49884;&#54868;, AI &#51064;&#51116; &#49373;&#53468;&#44228;</div>
+        </div>
+        <div class="c c-r" style="padding:14px">
+          <div class="c-t">&#44221;&#44592;&#46020;</div>
+          <div class="c-dd">&#51648;&#50669; SW &#51064;&#51116; &#51200;&#48320; &#54869;&#45824;, &#44368;&#50977;-&#45824;&#54617;-&#49328;&#50629; &#50672;&#44228;</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span class="brand">DACON &middot; DAKER</span><span class="pg">24 / 30</span><span>KPI</span></div>
+</section>
+
+<!-- ==================== S25: REFERENCES ==================== -->
+<section class="slide">
+  <div class="sh"><span class="sh-l">VI &mdash; &#44592;&#45824;&#54952;&#44284;</span><span>&#47112;&#54140;&#47088;&#49828;</span></div>
+  <div class="si">
+    <div class="tag" data-step="1">&#49457;&#44277; &#47112;&#54140;&#47088;&#49828;</div>
+    <h2 class="st" data-step="1">DAKER &#54540;&#47019;&#54268; &#50868;&#50689; &#49892;&#51201;</h2>
+    <table class="tb" style="margin-top:18px" data-step="2">
+      <tr><th>&#45824;&#54924;&#47749;</th><th>&#51452;&#52572;</th><th>&#44508;&#47784;</th><th>DAKER &#44592;&#45733;</th></tr>
+      <tr><td style="font-weight:600">GS E&amp;R AI &#44221;&#51652;&#45824;&#54924;</td><td>GS E&amp;R</td><td>200+</td><td>&#54016;&#48716;&#46377;&#183;&#54617;&#49845;&#183;&#49900;&#49324;&#183;&#44040;&#47084;&#47532;</td></tr>
+      <tr><td style="font-weight:600">&#44552;&#50997;&#48372;&#50504;&#50896; AI Challenge</td><td>&#44552;&#50997;&#48372;&#50504;&#50896;</td><td>300+</td><td>&#47532;&#45908;&#48372;&#46300;&#183;ELO&#183;&#51204;&#47928;&#44032; &#49900;&#49324;</td></tr>
+      <tr><td style="font-weight:600">K-water AI &#47084;&#45789;&#53668;</td><td>K-water</td><td>150+</td><td>&#54617;&#49845;&#183;&#47704;&#53664;&#47553;&#183;&#54644;&#52964;&#53668; &#53685;&#54633;</td></tr>
+      <tr><td style="font-weight:600">&#45800;&#44397;&#45824;&#54617;&#44368; AI &#45824;&#54924;</td><td>&#45800;&#44397;&#45824;&#54617;&#44368;</td><td>250+</td><td>&#45824;&#54617; &#50672;&#44228;&#183;&#53944;&#47001; &#47084;&#45789;</td></tr>
+      <tr><td style="font-weight:600">&#44053;&#50896;&#45824;&#54617;&#44368; X+AI &#54532;&#47196;&#51229;&#53944;</td><td>&#44053;&#50896;&#45824;&#54617;&#44368;</td><td>250&#47749;, 65&#54016;</td><td>&#47704;&#53664;&#47553; 4&#54924;&#52264;&#183;&#44208;&#44284; &#48372;&#44256; &#51088;&#46041;&#54868;</td></tr>
+    </table>
+    <div class="g3" style="margin-top:20px" data-step="3">
+      <div class="c c-p" style="padding:16px;text-align:center">
+        <div class="c-dt">&#45572;&#51201; &#52280;&#44032;&#51088;</div>
+        <div style="font-size:1.75rem;font-weight:800;color:var(--primary);margin-top:6px">80,000+</div>
+      </div>
+      <div class="c c-w" style="padding:16px;text-align:center">
+        <div class="c-dt">&#45572;&#51201; &#45824;&#54924;</div>
+        <div style="font-size:1.75rem;font-weight:800;color:var(--primary);margin-top:6px">180+</div>
+      </div>
+      <div class="c c-g" style="padding:16px;text-align:center">
+        <div class="c-dt">&#54028;&#53944;&#45320; &#44592;&#44288;</div>
+        <div style="font-size:1.75rem;font-weight:800;color:var(--primary);margin-top:6px">60+</div>
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span class="brand">DACON &middot; DAKER</span><span class="pg">25 / 30</span><span>References</span></div>
+</section>
+
+<!-- ==================== S26: AUTOMATION ==================== -->
+<section class="slide">
+  <div class="sh"><span class="sh-l">VI &mdash; &#44592;&#45824;&#54952;&#44284;</span><span>&#51088;&#46041;&#54868;</span></div>
+  <div class="si">
+    <div class="tag" data-step="1">&#51088;&#46041;&#54868;</div>
+    <h2 class="st" data-step="1">&#44208;&#44284; &#48372;&#44256; &#51088;&#46041;&#54868; &amp; &#50868;&#50689; &#54952;&#50984;</h2>
+    <div class="g2" style="margin-top:16px;gap:20px">
+      <div data-step="2">
+        <div class="c c-p" style="padding:16px;margin-bottom:10px">
+          <div class="c-dt">1-&#53364;&#47533; &#44208;&#44284; &#48372;&#44256;&#49436;</div>
+          <ul>
+            <li>&#52280;&#44032;&#51088; &#47785;&#47197; &#51088;&#46041; &#52636;&#47141;</li>
+            <li>&#47704;&#53664;&#47553; &#51060;&#47141; &#51088;&#46041; &#51665;&#44228;</li>
+            <li>&#49900;&#49324; &#44208;&#44284; &#51088;&#46041; &#53685;&#54633;</li>
+            <li>&#49328;&#52636;&#47932; &#47785;&#47197; &#51088;&#46041; &#49373;&#49457;</li>
+          </ul>
+        </div>
+        <div class="c c-w" style="padding:16px">
+          <div class="c-dt">&#51064;&#51613;&#49436; &#51088;&#46041; &#48156;&#44553;</div>
+          <ul>
+            <li>&#52280;&#44032; &#51064;&#51613;&#49436; &#46356;&#51648;&#53560; &#51088;&#46041; &#49373;&#49457;</li>
+            <li>&#49688;&#49345; &#51064;&#51613;&#49436; &#46356;&#51088;&#51064; &#51088;&#46041; &#51201;&#50857;</li>
+            <li>&#45824;&#47049; &#48156;&#49569; (&#51060;&#47700;&#51068;&#183;SMS)</li>
+          </ul>
+        </div>
+      </div>
+      <div data-step="3">
+        <div class="c c-g" style="padding:16px;margin-bottom:10px">
+          <div class="c-dt">&#50868;&#50689; &#51064;&#47141; &#52572;&#51201;&#54868;</div>
+        </div>
+        <table class="tb" style="margin-top:0">
+          <tr><th>&#50669;&#54624;</th><th>&#51064;&#50896;</th><th>&#45812;&#45817;</th></tr>
+          <tr><td style="font-weight:600">PM</td><td>1&#47749;</td><td>&#51204;&#52404; &#52509;&#44292;, &#51652;&#55141;&#50896; &#52964;&#48036;&#45768;&#52992;&#51060;&#49496;</td></tr>
+          <tr><td style="font-weight:600">&#50868;&#50689; &#47588;&#45768;&#51200;</td><td>2&#47749;</td><td>&#45824;&#54617; &#50696;&#49440; &#53076;&#46356;&#45348;&#51060;&#49496;, CS</td></tr>
+          <tr><td style="font-weight:600">&#53080;&#53584;&#52768; &#44592;&#54925;</td><td>1&#47749;</td><td>3&#53944;&#47001; &#54617;&#49845; &#53080;&#53584;&#52768; &#51228;&#51089;</td></tr>
+          <tr><td style="font-weight:600">&#44592;&#49696; &#51648;&#50896;</td><td>1&#47749;</td><td>DAKER &#54540;&#47019;&#54268; &#49444;&#51221;&#183;&#50868;&#50689;</td></tr>
+          <tr><td style="font-weight:600">&#46356;&#51088;&#51060;&#45320;</td><td>0.5&#47749;</td><td>&#54856;&#48372;&#47932;&#183;&#51064;&#51613;&#49436;&#183;&#54788;&#51109; &#49884;&#44033;&#47932;</td></tr>
+          <tr><td style="font-weight:600">&#44208;&#49440; &#54788;&#51109;</td><td>2&#47749;</td><td>&#50724;&#54532;&#46972;&#51064; &#44208;&#49440; &#54665;&#49324; &#51652;&#54665;</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span class="brand">DACON &middot; DAKER</span><span class="pg">26 / 30</span><span>Automation</span></div>
+</section>
+
+<!-- ==================== S27: SECTION — NEXT STEPS ==================== -->
+<section class="slide slide-sec">
+  <div class="sh"><span class="sh-l">Section</span><span></span></div>
+  <div class="si">
+    <div class="sn" data-step="1">VII</div>
+    <h2 data-step="2">Next Steps</h2>
+    <div class="sd" data-step="3">&#44221;&#44592;&#46020;&#44221;&#51228;&#44284;&#54617;&#51652;&#55141;&#50896;&#44284; &#54632;&#44760;<br>SW&#48120;&#47000;&#52292;&#50880; AI &#44221;&#51652;&#45824;&#54924;&#47484; &#49457;&#44277;&#51201;&#51004;&#47196; &#47564;&#46308;&#50612;&#44032;&#44192;&#49845;&#45768;&#45796;</div>
+  </div>
+  <div class="sf"><span class="brand">DACON &middot; DAKER</span><span class="pg">27 / 30</span><span>Next</span></div>
+</section>
+
+<!-- ==================== S28: NEXT STEPS DETAIL ==================== -->
+<section class="slide">
+  <div class="sh"><span class="sh-l">VII &mdash; Next Steps</span><span>&#54980;&#49549; &#45800;&#44228;</span></div>
+  <div class="si">
+    <div class="tag" data-step="1">&#54980;&#49549; &#45800;&#44228;</div>
+    <h2 class="st" data-step="1">&#49345;&#45812; &#54980; &#52265;&#49688;&#44620;&#51648; 4&#45800;&#44228;</h2>
+    <div class="flow" style="margin-top:24px" data-step="2">
+      <div class="flow-step p" style="padding:18px">
+        <div class="flow-num">STEP 1</div>
+        <div class="flow-title">&#49324;&#50629; &#48276;&#50948; &#54801;&#51032;</div>
+        <div class="flow-desc">4&#50900; &#51473;<br>&#53944;&#47001; &#51452;&#51228; &#54869;&#51221;<br>&#50672;&#44228; &#45824;&#54617; &#49440;&#51221;<br>&#49900;&#49324;&#50948;&#50896; &#54400; &#44396;&#49457;</div>
+      </div>
+      <div class="flow-arr">&rarr;</div>
+      <div class="flow-step w" style="padding:18px">
+        <div class="flow-num">STEP 2</div>
+        <div class="flow-title">&#49345;&#49464; &#44228;&#54925; &#49688;&#47549;</div>
+        <div class="flow-desc">5&#50900; &#52488;<br>&#50868;&#50689; &#44228;&#54925; &#54869;&#51221;<br>&#54617;&#49845; &#53080;&#53584;&#52768; &#51228;&#51089; &#52265;&#49688;<br>&#47704;&#53664; &#47784;&#51665; &#44592;&#51456; &#51221;&#47532;</div>
+      </div>
+      <div class="flow-arr">&rarr;</div>
+      <div class="flow-step g" style="padding:18px">
+        <div class="flow-num">STEP 3</div>
+        <div class="flow-title">&#54540;&#47019;&#54268; &#49464;&#54021;</div>
+        <div class="flow-desc">5&#50900; &#51473;<br>DAKER &#54540;&#47019;&#54268; &#49464;&#54021;<br>&#47704;&#53664; &#47784;&#51665;&#183;&#44368;&#50977;<br>&#54856;&#48372; &#51088;&#47308; &#51228;&#51089;</div>
+      </div>
+      <div class="flow-arr">&rarr;</div>
+      <div class="flow-step b" style="padding:18px">
+        <div class="flow-num">STEP 4</div>
+        <div class="flow-title">&#45824;&#54924; &#50868;&#50689;</div>
+        <div class="flow-desc">6&#50900;~<br>&#54856;&#48372;&#183;&#47784;&#51665; &rarr; &#50696;&#49440;<br>&rarr; &#48376;&#49440; &rarr; &#44208;&#49440;<br>12&#51452; &#54400; &#50868;&#50689;</div>
+      </div>
+    </div>
+    <div class="g2" style="margin-top:28px" data-step="3">
+      <div class="c c-p" style="padding:18px">
+        <div class="c-dt">&#45812;&#45817;&#51088; &#50672;&#46973;&#52376;</div>
+        <div class="c-dd" style="margin-top:8px;line-height:2">
+          &#45812;&#45817;&#51088;: &#44608;&#44397;&#51652;<br>
+          &#51060;&#47700;&#51068;: edgar@dacon.io<br>
+          &#50672;&#46973;&#52376;: 010-4293-1041
+        </div>
+      </div>
+      <div class="c c-w" style="padding:18px">
+        <div class="c-dt">&#54801;&#51032; &#49324;&#54637;</div>
+        <div class="c-dd" style="margin-top:8px">&#49324;&#50629; &#48276;&#50948;&#183;&#50696;&#49328;&#183;&#51068;&#51221; &#46321; &#49345;&#49464; &#49324;&#54637;&#51008; &#54801;&#51032;&#47484; &#53685;&#54644; &#51312;&#50984;&#54616;&#44192;&#49845;&#45768;&#45796;. &#54200;&#54616;&#49888; &#49884;&#44036;&#50640; &#50672;&#46973; &#48512;&#53441;&#46300;&#47549;&#45768;&#45796;.</div>
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span class="brand">DACON &middot; DAKER</span><span class="pg">28 / 30</span><span>Next Steps</span></div>
+</section>
+
+<!-- ==================== S29: DAKER FULL FEATURE MAP ==================== -->
+<section class="slide">
+  <div class="sh"><span class="sh-l">Appendix</span><span>&#44592;&#45733; &#47605;</span></div>
+  <div class="si">
+    <div class="tag" data-step="1">DAKER FEATURE MAP</div>
+    <h2 class="st" data-step="1">DAKER &#54540;&#47019;&#54268; &#51204;&#52404; &#44592;&#45733; &#47605;</h2>
+    <div class="g4" style="margin-top:14px;gap:8px" data-step="2">
+      <div class="c c-p" style="padding:10px"><div class="c-t">&#54016;&#48716;&#46377;</div><div class="c-dd">AI &#47588;&#52845;, &#51068;&#44292;&#46321;&#47197;, &#44536;&#47353;&#44288;&#47532;, &#50669;&#54624;&#48176;&#51221;</div></div>
+      <div class="c c-w" style="padding:10px"><div class="c-t">&#54016; &#45824;&#49884;&#48372;&#46300;</div><div class="c-dd">&#51652;&#54665;&#47456;, &#47704;&#53664;&#47553;&#51060;&#47141;, &#47704;&#48260;&#54532;&#47196;&#54596;</div></div>
+      <div class="c c-g" style="padding:10px"><div class="c-t">&#44536;&#47353; &#52292;&#54021;</div><div class="c-dd">&#49892;&#49884;&#44036; &#49548;&#53685;, &#44277;&#51648;&#51204;&#45804;, &#47532;&#47560;&#51064;&#45908;</div></div>
+      <div class="c c-b" style="padding:10px"><div class="c-t">&#53944;&#47001; &#47084;&#45789;</div><div class="c-dd">3&#45800;&#44228;&#44396;&#51312;, 5&#51333;&#53080;&#53584;&#52768;, &#52404;&#53356;&#54252;&#51064;&#53944;</div></div>
+    </div>
+    <div class="g4" style="margin-top:6px;gap:8px" data-step="3">
+      <div class="c c-r" style="padding:10px"><div class="c-t">&#51089;&#51204;&#49892;</div><div class="c-dd">&#54801;&#50629;&#44277;&#44036;, &#44277;&#46041;&#54200;&#51665;, &#51088;&#47308;&#44277;&#50976;, &#47196;&#44536;</div></div>
+      <div class="c c-pp" style="padding:10px"><div class="c-t">AI &#47704;&#53664;&#47553;</div><div class="c-dd">24h Office Hours, Forcing Questions 6&#45800;&#44228;</div></div>
+      <div class="c c-p" style="padding:10px"><div class="c-t">&#47704;&#53664; &#50696;&#50557;</div><div class="c-dd">&#52888;&#47536;&#45908;&#49836;&#47215;, &#54616;&#51060;&#48652;&#47532;&#46300;, &#47196;&#44536;&#51200;&#51109;</div></div>
+      <div class="c c-w" style="padding:10px"><div class="c-t">&#51228;&#52636; &#54252;&#53560;</div><div class="c-dd">&#53944;&#47001;&#48324;&#50577;&#49885;, &#51088;&#46041;&#44160;&#51613;, &#48260;&#51204;&#44288;&#47532;</div></div>
+    </div>
+    <div class="g4" style="margin-top:6px;gap:8px" data-step="4">
+      <div class="c c-g" style="padding:10px"><div class="c-t">&#47532;&#45908;&#48372;&#46300;</div><div class="c-dd">&#51088;&#46041;&#52292;&#51216;, &#49892;&#49884;&#44036;&#49692;&#50948;, &#44277;&#49885;&#51201;&#50857;</div></div>
+      <div class="c c-b" style="padding:10px"><div class="c-t">ELO &#50500;&#47112;&#45208;</div><div class="c-dd">&#48660;&#46972;&#51064;&#46300;1:1, &#51088;&#46041;&#47588;&#52845;, &#51216;&#49688;&#49688;&#47156;</div></div>
+      <div class="c c-r" style="padding:10px"><div class="c-t">&#51204;&#47928;&#44032; &#49900;&#49324;</div><div class="c-dd">&#51088;&#46041;&#48176;&#48516;, &#47336;&#48652;&#47533;, &#44032;&#51473;&#51665;&#44228;, &#47784;&#45768;&#53552;&#47553;</div></div>
+      <div class="c c-pp" style="padding:10px"><div class="c-t">&#48512;&#51221;&#54665;&#50948; &#53456;&#51648;</div><div class="c-dd">&#51473;&#48373;IP, &#53076;&#46300;&#54364;&#51208;, &#50868;&#50689;&#51088;&#50508;&#47548;</div></div>
+    </div>
+    <div class="g4" style="margin-top:6px;gap:8px" data-step="5">
+      <div class="c c-p" style="padding:10px"><div class="c-t">&#44040;&#47084;&#47532;</div><div class="c-dd">MVP&#51088;&#46041;&#44172;&#49884;, &#49828;&#53356;&#47536;&#49399;, &#54252;&#53944;&#54260;&#47532;&#50724;</div></div>
+      <div class="c c-w" style="padding:10px"><div class="c-t">&#44172;&#51060;&#48120;&#54588;&#52992;&#51060;&#49496;</div><div class="c-dd">7&#48176;&#51648;, 4&#54000;&#50612;, &#49828;&#53944;&#47533;, &#54876;&#46041;&#47553;</div></div>
+      <div class="c c-g" style="padding:10px"><div class="c-t">&#45824;&#47049; &#50508;&#47548;</div><div class="c-dd">&#51060;&#47700;&#51068;&#183;SMS &#51068;&#44292;, CS&#51088;&#46041;&#51025;&#45813;</div></div>
+      <div class="c c-b" style="padding:10px"><div class="c-t">&#51064;&#51613;&#49436; &amp; &#48372;&#44256;</div><div class="c-dd">&#51088;&#46041;&#48156;&#44553;, 1-&#53364;&#47533;&#48372;&#44256;&#49436;, &#44208;&#44284;&#53685;&#54633;</div></div>
+    </div>
+  </div>
+  <div class="sf"><span class="brand">DACON &middot; DAKER</span><span class="pg">29 / 30</span><span>Feature Map</span></div>
+</section>
+
+<!-- ==================== S30: END ==================== -->
+<section class="slide slide-end">
+  <div class="si">
+    <div class="lg" data-step="1">DACON &middot; DAKER</div>
+    <h1 data-step="2">&#44048;&#49324;&#54633;&#45768;&#45796;</h1>
+    <div class="ed" data-step="3">
+      &#44221;&#44592;&#46020;&#44221;&#51228;&#44284;&#54617;&#51652;&#55141;&#50896;&#44284; &#54632;&#44760;<br>
+      SW&#48120;&#47000;&#52292;&#50880; &#44256;&#46321;&#54617;&#49373; AI &#44221;&#51652;&#45824;&#54924;&#47484;<br>
+      &#49457;&#44277;&#51201;&#51004;&#47196; &#47564;&#46308;&#50612;&#44032;&#44192;&#49845;&#45768;&#45796;
+    </div>
+    <div style="margin-top:32px;font-size:.875rem;color:var(--on-variant);line-height:2" data-step="4">
+      &#45812;&#45817;&#51088;: &#44608;&#44397;&#51652; &middot; edgar@dacon.io &middot; 010-4293-1041
+    </div>
+  </div>
+  <div class="sf"><span class="brand">DACON &middot; DAKER</span><span class="pg">30 / 30</span><span>Thank you</span></div>
+</section>
+
+</div><!-- /stage -->
+</div><!-- /viewport -->
+<div id="key-hint">&#8592; &#8594; or swipe &middot; F fullscreen</div>
+<script>
+(function(){
+  const stage=document.getElementById('stage');
+  const slides=Array.from(document.querySelectorAll('.slide'));
+  const prev=document.getElementById('nav-prev');
+  const next=document.getElementById('nav-next');
+  const bar=document.getElementById('progress-bar');
+  let idx=Math.max(0,slides.findIndex(s=>s.classList.contains('active')));
+  if(idx<0)idx=0;
+
+  function fit(){
+    const s=Math.min(window.innerWidth/1280,window.innerHeight/720);
+    stage.style.transform='scale('+s+')';
+  }
+  function show(i){
+    idx=Math.max(0,Math.min(slides.length-1,i));
+    slides.forEach((s,k)=>s.classList.toggle('active',k===idx));
+    bar.style.width=((idx+1)/slides.length*100)+'%';
+    const frags=slides[idx].querySelectorAll('[data-step]');
+    frags.forEach((el,k)=>{el.classList.remove('visible');setTimeout(()=>el.classList.add('visible'),70*(k+1))});
+    if(location.hash!=='#s'+(idx+1))history.replaceState(null,'','#s'+(idx+1));
+  }
+  function nav(d){show(idx+d)}
+
+  prev.addEventListener('click',()=>nav(-1));
+  next.addEventListener('click',()=>nav(1));
+
+  document.addEventListener('keydown',e=>{
+    if(e.key==='ArrowRight'||e.key==='PageDown'||e.key===' '){e.preventDefault();nav(1)}
+    else if(e.key==='ArrowLeft'||e.key==='PageUp'){e.preventDefault();nav(-1)}
+    else if(e.key==='Home'){show(0)}
+    else if(e.key==='End'){show(slides.length-1)}
+    else if(e.key==='f'||e.key==='F'){
+      if(!document.fullscreenElement)document.documentElement.requestFullscreen().catch(()=>{});
+      else document.exitFullscreen().catch(()=>{});
+    }
+  });
+
+  let tx=0;
+  document.addEventListener('touchstart',e=>{tx=e.touches[0].clientX},{passive:true});
+  document.addEventListener('touchend',e=>{
+    const dx=e.changedTouches[0].clientX-tx;
+    if(Math.abs(dx)>50)nav(dx<0?1:-1);
+  },{passive:true});
+
+  const h=location.hash.match(/^#s(\d+)$/);
+  if(h){const n=parseInt(h[1],10)-1;if(n>=0&&n<slides.length)idx=n}
+
+  window.addEventListener('resize',fit);
+  fit();show(idx);
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>2026년 X+AI·SW 융합 프로젝트 운영 제안서</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --primary: #0053db;
+  --primary-dim: #0048c1;
+  --on-primary: #f8f7ff;
+  --on-background: #2a3439;
+  --surface: #f7f9fb;
+  --surface-low: #f0f4f7;
+  --surface-lowest: #ffffff;
+  --on-surface: #2a3439;
+  --on-surface-variant: #566166;
+  --outline-variant: #a9b4b9;
+  --secondary-container: #d8e3fb;
+  --on-secondary-container: #475266;
+  --accent-warm: #c2622d;
+  --accent-warm-bg: rgba(194,98,45,0.06);
+  --green: #10b981;
+  --green-bg: rgba(16,185,129,0.06);
+  --font: 'Plus Jakarta Sans', -apple-system, sans-serif;
+  --shadow-ambient: 0 8px 24px rgba(30,41,59,0.04);
+  --r-md: 0.375rem;
+  --r-lg: 0.75rem;
+  --r-full: 9999px;
+  --slide-w: 1280px;
+  --slide-h: 720px;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  background: var(--surface-low);
+  font-family: var(--font);
+  overflow: hidden;
+  color: var(--on-surface);
+}
+
+#viewport {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#stage {
+  position: relative;
+  width: var(--slide-w);
+  height: var(--slide-h);
+  overflow: hidden;
+  transform-origin: center center;
+  border-radius: var(--r-lg);
+  box-shadow: 0 12px 48px rgba(30,41,59,0.1);
+}
+
+.slide {
+  position: absolute;
+  inset: 0;
+  background: var(--surface);
+  display: flex;
+  flex-direction: column;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0s;
+}
+.slide.active { opacity: 1; pointer-events: auto; }
+
+.si {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 64px 72px 52px;
+  position: relative;
+}
+
+.sh {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding: 18px 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--surface-low);
+}
+
+.sh-l {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  color: var(--on-surface-variant);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.sf {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 12px 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--surface-low);
+}
+
+.sf-logo {
+  font-size: 0.875rem;
+  font-weight: 800;
+  color: var(--primary);
+  letter-spacing: 0.04em;
+}
+
+.sf-pg {
+  font-size: 0.6875rem;
+  color: var(--on-surface-variant);
+  font-weight: 600;
+}
+
+.sf-cr {
+  font-size: 0.5625rem;
+  color: var(--outline-variant);
+  letter-spacing: 0.03em;
+  font-weight: 600;
+}
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--primary);
+  margin-bottom: 14px;
+}
+.tag::before {
+  content: '';
+  width: 24px;
+  height: 2.5px;
+  background: var(--primary);
+  border-radius: 2px;
+}
+.tag-w { color: var(--accent-warm); }
+.tag-w::before { background: var(--accent-warm); }
+.tag-g { color: var(--green); }
+.tag-g::before { background: var(--green); }
+
+h1.cover-title {
+  font-size: 2.6rem;
+  font-weight: 900;
+  line-height: 1.18;
+  letter-spacing: -0.02em;
+  color: var(--on-surface);
+}
+
+h2.st {
+  font-size: 2rem;
+  font-weight: 800;
+  line-height: 1.2;
+  color: var(--on-surface);
+  letter-spacing: -0.02em;
+}
+
+.hl { color: var(--primary); }
+.hl-w { color: var(--accent-warm); }
+.hl-g { color: var(--green); }
+
+.sub {
+  margin-top: 10px;
+  font-size: 0.9375rem;
+  color: var(--on-surface-variant);
+  line-height: 1.7;
+}
+
+.c {
+  background: var(--surface-lowest);
+  border-radius: var(--r-lg);
+  padding: 20px;
+}
+.c-surf { background: var(--surface-low); }
+.c-blue { background: var(--secondary-container); }
+.c-warm { background: var(--accent-warm-bg); }
+.c-green { background: var(--green-bg); }
+
+.c-t {
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: var(--on-surface);
+  margin-bottom: 6px;
+}
+
+.c-d {
+  font-size: 0.8125rem;
+  color: var(--on-surface-variant);
+  line-height: 1.65;
+}
+
+.g2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.g3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+.g4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+
+.mx {
+  text-align: center;
+  padding: 16px 10px;
+  background: var(--surface-low);
+  border-radius: var(--r-lg);
+}
+.mx .v {
+  font-size: 1.75rem;
+  font-weight: 800;
+  line-height: 1;
+  color: var(--primary);
+}
+.mx .l {
+  font-size: 0.6875rem;
+  color: var(--on-surface-variant);
+  margin-top: 6px;
+  font-weight: 500;
+}
+
+.tb {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9375rem;
+}
+.tb th {
+  text-align: left;
+  padding: 12px 14px;
+  background: var(--surface-low);
+  color: var(--on-surface);
+  font-weight: 700;
+  font-size: 0.8125rem;
+}
+.tb td {
+  padding: 12px 14px;
+  color: var(--on-surface-variant);
+}
+.tb tr:nth-child(even) td { background: var(--surface-low); }
+.tb .row-hl td {
+  background: var(--secondary-container);
+  color: var(--on-secondary-container);
+  font-weight: 600;
+}
+
+.bd {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: var(--r-full);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  background: var(--secondary-container);
+  color: var(--on-secondary-container);
+}
+.bd-w { background: var(--accent-warm-bg); color: var(--accent-warm); }
+.bd-g { background: var(--green-bg); color: var(--green); }
+
+.ck {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.ck li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 0.8125rem;
+  color: var(--on-surface-variant);
+  line-height: 1.6;
+}
+.ck li .i {
+  flex-shrink: 0;
+  font-size: 0.8125rem;
+  margin-top: 2px;
+  font-weight: 700;
+  color: var(--primary);
+}
+
+.sl {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.sl li {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-size: 0.8125rem;
+  color: var(--on-surface-variant);
+  line-height: 1.6;
+}
+.sl li .sn2 {
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--primary);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.6875rem;
+  font-weight: 800;
+  margin-top: 1px;
+}
+
+[data-step] {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 0.45s ease, transform 0.45s ease;
+}
+[data-step].visible {
+  opacity: 1;
+  transform: none;
+}
+[data-step].pre-visible {
+  opacity: 1;
+  transform: none;
+  transition: none;
+}
+
+.nav-btn {
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(247,249,251,0.85);
+  border: none;
+  color: var(--on-surface-variant);
+  cursor: pointer;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  transition: all 0.2s;
+  user-select: none;
+  box-shadow: var(--shadow-ambient);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+}
+.nav-btn:hover { color: var(--primary); }
+#nav-prev { left: 12px; }
+#nav-next { right: 12px; }
+
+#progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--primary), var(--primary-dim));
+  transition: width 0.4s ease;
+  z-index: 100;
+}
+
+#key-hint {
+  position: fixed;
+  bottom: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: var(--outline-variant);
+  font-size: 0.6875rem;
+  z-index: 100;
+  opacity: 0.4;
+}
+
+@page { size: landscape; margin: 0; }
+@media print {
+  html, body {
+    background: #fff !important;
+    overflow: visible !important;
+    height: auto !important;
+    width: auto !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+  #viewport {
+    position: static !important;
+    display: block !important;
+    height: auto !important;
+  }
+  #stage {
+    position: static !important;
+    width: auto !important;
+    height: auto !important;
+    overflow: visible !important;
+    transform: none !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+  }
+  .slide {
+    position: relative !important;
+    inset: auto !important;
+    opacity: 1 !important;
+    pointer-events: auto !important;
+    display: flex !important;
+    flex-direction: column !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    page-break-after: always !important;
+    break-after: page !important;
+    page-break-inside: avoid !important;
+    margin: 0 !important;
+    overflow: hidden !important;
+  }
+  .nav-btn, #progress-bar, #key-hint { display: none !important; }
+  [data-step] { opacity: 1 !important; transform: none !important; }
+}
+</style>
+</head>
+<body>
+<div id="progress-bar"></div>
+<button class="nav-btn" id="nav-prev" aria-label="이전 슬라이드">‹</button>
+<button class="nav-btn" id="nav-next" aria-label="다음 슬라이드">›</button>
+<div id="key-hint">← → 키 또는 Space로 이동</div>
+
+<div id="viewport">
+<div id="stage">
+
+<section class="slide active" id="s1">
+  <div class="si" style="justify-content: center; align-items: flex-start; padding-left: 88px; background: linear-gradient(135deg, var(--surface) 0%, var(--secondary-container) 100%);">
+    <div style="position: absolute; top: 22px; right: 32px;">
+      <span style="display: inline-block; background: linear-gradient(135deg, var(--primary), var(--primary-dim)); color: var(--on-primary); padding: 6px 18px; border-radius: var(--r-full); font-size: 0.75rem; font-weight: 600;">2026.04</span>
+    </div>
+    <div data-step="1" style="display: flex; align-items: center; gap: 10px;">
+      <span style="font-size: 0.6875rem; font-weight: 700; color: var(--on-surface-variant); letter-spacing: 0.05em;">데이콘(DACON) → 강원대학교 SW중심대학사업단</span>
+    </div>
+    <h1 class="cover-title" data-step="2" style="margin-top: 14px;">
+      2026년 <span class="hl">X+AI·SW</span><br/>융합 프로젝트 운영 제안서
+    </h1>
+    <p data-step="3" style="font-size: 1rem; color: var(--on-surface-variant); margin-top: 16px; line-height: 1.7;">
+      학생 프로젝트 경험 설계부터 멘토링, 평가, 본선, 결과보고까지<br/>
+      <strong>통합 운영 파트너 관점</strong>으로 제안합니다
+    </p>
+    <div data-step="4" style="display: flex; gap: 10px; margin-top: 28px;">
+      <span class="bd">PROJECT OPERATION</span>
+      <span class="bd-w">MENTORING</span>
+      <span class="bd-g">FINAL SHOWCASE</span>
+    </div>
+    <div style="position: absolute; bottom: 20px; right: 32px; font-size: 0.5625rem; color: var(--outline-variant);">COPYRIGHT 2026 DACON</div>
+  </div>
+</section>
+
+<section class="slide" id="s2">
+  <div class="sh"><span class="sh-l">EXECUTIVE SUMMARY</span></div>
+  <div class="si" style="padding-top: 60px;">
+    <div class="tag">PROPOSAL POINT</div>
+    <h2 class="st" data-step="1">이번 사업의 핵심은 <span class="hl">행사 운영</span>이 아니라<br/><span class="hl">학생의 프로젝트 경험 설계</span>입니다</h2>
+    <p class="sub" data-step="2">데이콘은 학생 경험, 운영 완성도, 성과 가시화를 하나의 구조로 설계합니다</p>
+
+    <div class="g3" style="margin-top: 18px;">
+      <div data-step="3" class="c c-surf">
+        <div class="c-t">학생 경험</div>
+        <div class="c-d">멘토링, 제출, 평가, 발표까지 참가자가 헷갈리지 않는 운영 동선 설계</div>
+      </div>
+      <div data-step="4" class="c c-blue">
+        <div class="c-t">운영 완성도</div>
+        <div class="c-d">PM 중심 일정 관리와 멘토·심사·행사 운영을 하나의 실행 체계로 통합</div>
+      </div>
+      <div data-step="5" class="c c-green">
+        <div class="c-t">성과 가시화</div>
+        <div class="c-d">본선, 사진, 증빙자료, 결과보고서까지 사업단이 바로 활용 가능한 형태로 정리</div>
+      </div>
+    </div>
+
+    <div data-step="6" style="margin-top: 18px; padding: 12px 16px; background: var(--accent-warm-bg); border-left: 3px solid var(--accent-warm); border-radius: var(--r-md);">
+      <span style="font-size: 0.875rem; font-weight: 700; color: var(--accent-warm);">제안 방향 — </span>
+      <span style="font-size: 0.875rem; color: var(--on-surface);">단순 대행이 아니라 <strong>프로젝트 운영 전 주기를 책임지는 통합 파트너</strong>로 접근합니다</span>
+    </div>
+  </div>
+  <div class="sf"><span class="sf-logo">DACON</span><span class="sf-pg">2</span><span class="sf-cr">COPYRIGHT 2026 DACON</span></div>
+</section>
+
+<section class="slide" id="s3">
+  <div class="sh"><span class="sh-l">I. PROJECT UNDERSTANDING</span></div>
+  <div class="si" style="padding-top: 60px;">
+    <div class="tag">UNDERSTANDING</div>
+    <h2 class="st" data-step="1">사업 <span class="hl">핵심 조건</span> 및 운영 전제</h2>
+    <p class="sub" data-step="2">사업 목적과 과업 범위를 명확히 이해하고, 강원대학교 일정에 맞춰 안정적으로 수행합니다</p>
+    <div class="g2" style="margin-top: 16px;">
+      <div data-step="3">
+        <table class="tb" style="font-size: 0.8125rem;">
+          <tbody>
+            <tr><td><strong>사업명</strong></td><td>2026년 X+AI·SW 융합 프로젝트</td></tr>
+            <tr><td><strong>대상</strong></td><td>강원대학교 재학생</td></tr>
+            <tr><td><strong>규모</strong></td><td>약 250명, 약 65팀</td></tr>
+            <tr><td><strong>기간</strong></td><td>계약일 ~ 2026.07.31</td></tr>
+            <tr><td><strong>예산</strong></td><td>99,000,000원(VAT 포함) 이내</td></tr>
+            <tr class="row-hl"><td><strong>운영 범위</strong></td><td>멘토링, 중간점검, 결과물 제출, 예선, 본선, 특강, 결과보고</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div data-step="4" class="c c-surf" style="padding: 16px;">
+        <div class="c-t">사업의 본질</div>
+        <ul class="ck" style="margin-top: 8px;">
+          <li><span class="i">·</span> 다양한 전공의 학생이 AI·SW를 활용해 문제 해결형 프로젝트 수행</li>
+          <li><span class="i">·</span> 단발 이벤트가 아니라 멘토링과 중간점검을 통한 성장형 프로그램</li>
+          <li><span class="i">·</span> 본선 발표와 시상, 결과보고를 통해 사업 성과를 명확히 남겨야 하는 구조</li>
+          <li><span class="i">·</span> 참가자 모집은 사업단이 수행, 운영사는 이후 전 과정을 책임 수행</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span class="sf-logo">DACON</span><span class="sf-pg">3</span><span class="sf-cr">COPYRIGHT 2026 DACON</span></div>
+</section>
+
+<section class="slide" id="s4">
+  <div class="sh"><span class="sh-l">II. WHY DACON</span></div>
+  <div class="si" style="padding-top: 60px;">
+    <div class="tag">WHY US</div>
+    <h2 class="st" data-step="1">왜 <span class="hl">데이콘</span>인가 — 운영과 성과를 함께 설계하는 구조</h2>
+    <p class="sub" data-step="2">플랫폼과 운영을 분리하지 않아 제출, 안내, 평가, 결과 정리의 마찰 비용을 줄입니다</p>
+
+    <div data-step="3">
+      <table class="tb" style="margin-top: 14px; font-size: 0.8125rem;">
+        <thead><tr><th style="width: 28%;">운영 관점</th><th style="width: 32%;">일반 행사형 운영</th><th style="width: 40%; background: var(--secondary-container); color: var(--on-secondary-container);">데이콘 제안 방식</th></tr></thead>
+        <tbody>
+          <tr><td style="font-weight: 700;">프로젝트 동선</td><td>멘토링, 제출, 평가가 분절됨</td><td style="background: var(--secondary-container); color: var(--on-secondary-container); font-weight: 600;">운영 전 주기를 하나의 리듬으로 설계</td></tr>
+          <tr><td style="font-weight: 700;">참가자 경험</td><td>공지·문의·제출 흐름이 복잡해질 수 있음</td><td style="background: var(--secondary-container); color: var(--on-secondary-container); font-weight: 600;">단계별 안내와 운영 표준화로 이탈 최소화</td></tr>
+          <tr><td style="font-weight: 700;">평가 운영</td><td>심사 과정과 결과 정리가 수작업 중심</td><td style="background: var(--secondary-container); color: var(--on-secondary-container); font-weight: 600;">평가표, 결과 정리, 후속 안내까지 일관 운영</td></tr>
+          <tr><td style="font-weight: 700;">성과 산출물</td><td>행사 종료 후 자료 취합 부담 증가</td><td style="background: var(--secondary-container); color: var(--on-secondary-container); font-weight: 600;">증빙과 결과보고를 전제한 운영 구조</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="sf"><span class="sf-logo">DACON</span><span class="sf-pg">4</span><span class="sf-cr">COPYRIGHT 2026 DACON</span></div>
+</section>
+
+<section class="slide" id="s5">
+  <div class="sh"><span class="sh-l">III. OPERATION STRATEGY</span></div>
+  <div class="si" style="padding-top: 60px;">
+    <div class="tag">STRATEGY</div>
+    <h2 class="st" data-step="1">운영 <span class="hl">핵심 전략</span> — 학생 경험, PM 관리, 결과 패키지</h2>
+    <p class="sub" data-step="2">학생에게는 명확한 경험을, 사업단에는 안정적 실행과 선명한 성과를 제공합니다</p>
+
+    <div class="g3" style="margin-top: 18px;">
+      <div data-step="3" class="c c-surf">
+        <div class="c-t">학생이 헷갈리지 않는 운영</div>
+        <div class="c-d">단계별 공지 구조화, 문의 대응 표준화, 제출 마감 리스크 최소화</div>
+      </div>
+      <div data-step="4" class="c c-blue">
+        <div class="c-t">PM 중심 안정 실행</div>
+        <div class="c-d">주간 점검 체계, 멘토·심사 일정 조율, 현장 변수 대응력 확보</div>
+      </div>
+      <div data-step="5" class="c c-warm">
+        <div class="c-t">결과가 남는 운영</div>
+        <div class="c-d">증빙자료 확보, 만족도 조사·분석, 결과보고서 패키지화</div>
+      </div>
+    </div>
+
+    <div data-step="6" style="margin-top: 18px;">
+      <div class="g4">
+        <div class="mx"><div class="v">250명</div><div class="l">최대 참여 인원</div></div>
+        <div class="mx"><div class="v">65팀</div><div class="l">예상 팀 규모</div></div>
+        <div class="mx"><div class="v">11팀</div><div class="l">본선 진출</div></div>
+        <div class="mx"><div class="v">7백만원</div><div class="l">총 시상금</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span class="sf-logo">DACON</span><span class="sf-pg">5</span><span class="sf-cr">COPYRIGHT 2026 DACON</span></div>
+</section>
+
+<section class="slide" id="s6">
+  <div class="sh"><span class="sh-l">IV. PROJECT FRAMEWORK</span></div>
+  <div class="si" style="padding-top: 60px;">
+    <div class="tag">FRAMEWORK</div>
+    <h2 class="st" data-step="1">멘토링에서 본선까지 <span class="hl">끊기지 않는 6단계 운영</span></h2>
+    <p class="sub" data-step="2">단계가 분리되지 않도록 하나의 운영 리듬으로 설계합니다</p>
+
+    <div data-step="3" style="margin-top: 18px;">
+      <ul class="sl">
+        <li><span class="sn2">1</span><span><strong>프로젝트 활동 및 멘토링</strong><br/>월 2회 이상 전문가 멘토링으로 문제 정의부터 발표 준비까지 단계별 피드백 제공</span></li>
+        <li><span class="sn2">2</span><span><strong>중간점검</strong><br/>팀별 진행 수준과 완성도 점검, 이후 보완 방향과 발표 준비 과제 정리</span></li>
+        <li><span class="sn2">3</span><span><strong>최종 결과물 제출</strong><br/>결과보고서, PPT, 프로토타입 접수 체계 운영 및 제출 누락 방지</span></li>
+        <li><span class="sn2">4</span><span><strong>예선 평가</strong><br/>전문 심사위원 섭외 및 평가표 운영, 본선 진출 11팀 선정</span></li>
+        <li><span class="sn2">5</span><span><strong>본선 발표 및 시상</strong><br/>등록, 특강, 발표 심사, 시상식, 사진 촬영까지 통합 운영</span></li>
+        <li><span class="sn2">6</span><span><strong>결과보고</strong><br/>증빙, 만족도 조사, 현장 사진, 심사 자료를 사업단 제출 기준에 맞춰 패키지화</span></li>
+      </ul>
+    </div>
+  </div>
+  <div class="sf"><span class="sf-logo">DACON</span><span class="sf-pg">6</span><span class="sf-cr">COPYRIGHT 2026 DACON</span></div>
+</section>
+
+<section class="slide" id="s7">
+  <div class="sh"><span class="sh-l">V. EXECUTION PLAN</span></div>
+  <div class="si" style="padding-top: 60px;">
+    <div class="tag tag-w">EXECUTION</div>
+    <h2 class="st" data-step="1">세부 <span class="hl-w">실행 방안</span> — 조직, 멘토링, 평가, 본선</h2>
+    <p class="sub" data-step="2">역할이 분명한 팀과 단계별 설계로 실행 품질을 확보합니다</p>
+
+    <div class="g2" style="margin-top: 16px;">
+      <div data-step="3" class="c c-surf">
+        <div class="c-t">운영 조직</div>
+        <ul class="ck" style="margin-top: 8px;">
+          <li><span class="i">·</span> 총괄 PM 1인 — 일정, 예산, 사업단 커뮤니케이션, 리스크 총괄</li>
+          <li><span class="i">·</span> 운영진 — 참가자 응대, 제출 관리, 행사 운영, 자료 취합</li>
+          <li><span class="i">·</span> 멘토단 / 심사위원단 / 특강 연사 — 승인 프로세스에 맞춰 구성</li>
+        </ul>
+      </div>
+      <div data-step="4" class="c c-blue">
+        <div class="c-t">운영 포인트</div>
+        <ul class="ck" style="margin-top: 8px;">
+          <li><span class="i">·</span> 멘토링은 질의응답이 아니라 결과물 완성도 향상 중심으로 설계</li>
+          <li><span class="i">·</span> 예선은 일관된 서류평가, 본선은 발표와 질의응답 기반 종합평가</li>
+          <li><span class="i">·</span> 본선은 성과를 보여주는 무대로 설계하고 현장 경험 품질을 함께 관리</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span class="sf-logo">DACON</span><span class="sf-pg">7</span><span class="sf-cr">COPYRIGHT 2026 DACON</span></div>
+</section>
+
+<section class="slide" id="s8">
+  <div class="sh"><span class="sh-l">VI. TIMELINE & BUDGET</span></div>
+  <div class="si" style="padding-top: 60px;">
+    <div class="tag tag-g">PLAN</div>
+    <h2 class="st" data-step="1">일정 및 <span class="hl-g">예산 정합성</span></h2>
+    <p class="sub" data-step="2">사업단 일정에 맞춰 실행하며, 예산 범위 내에서 과업 전체 수행이 가능합니다</p>
+
+    <div class="g2" style="margin-top: 16px;">
+      <div data-step="3">
+        <table class="tb" style="font-size: 0.8125rem;">
+          <thead><tr><th style="width: 30%;">구분</th><th style="width: 30%;">기간</th><th style="width: 40%;">주요 내용</th></tr></thead>
+          <tbody>
+            <tr><td style="font-weight: 700;">참가자 모집</td><td>3.23 ~ 4.3</td><td>사업단 주관 모집</td></tr>
+            <tr><td style="font-weight: 700;">프로젝트 활동 및 멘토링</td><td>계약 후 ~ 6.30</td><td>팀별 멘토링, 문의 대응, 운영 관리</td></tr>
+            <tr><td style="font-weight: 700;">중간점검</td><td>5.18 ~ 5.22</td><td>수행현황 점검 및 개선 방향 제시</td></tr>
+            <tr><td style="font-weight: 700;">결과물 제출</td><td>6.29 ~ 7.1</td><td>PPT, 결과보고서, 프로토타입 접수</td></tr>
+            <tr><td style="font-weight: 700;">예선 / 본선</td><td>7.6 / 7.8 예정</td><td>평가, 특강, 시상식 운영</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div data-step="4">
+        <div class="g2" style="grid-template-columns: 1fr 1fr;">
+          <div class="mx"><div class="v">99,000,000원</div><div class="l">발주 예산</div></div>
+          <div class="mx"><div class="v">98,868,588원</div><div class="l">제안 금액</div></div>
+        </div>
+        <div class="c c-warm" style="margin-top: 14px;">
+          <div class="c-t" style="color: var(--accent-warm);">주요 예산 구성</div>
+          <div class="c-d">플랫폼 및 대회 운영비, PM 및 운영 인력, 멘토링 및 중간점검, 예선·본선 심사위원, 특강 및 현장 운영물, 시상금 및 참여 독려 항목</div>
+        </div>
+        <div class="c c-surf" style="margin-top: 14px;">
+          <div class="c-t">정합성 요약</div>
+          <div class="c-d">단순 행사비가 아니라 프로젝트 운영 전 주기를 포함하는 구조로, 예산 범위 내에서 멘토링 품질과 결과보고 체계를 함께 확보할 수 있습니다.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span class="sf-logo">DACON</span><span class="sf-pg">8</span><span class="sf-cr">COPYRIGHT 2026 DACON</span></div>
+</section>
+
+<section class="slide" id="s9">
+  <div class="sh"><span class="sh-l">VII. IMPACT</span></div>
+  <div class="si" style="padding-top: 60px;">
+    <div class="tag">IMPACT</div>
+    <h2 class="st" data-step="1">학생에게는 <span class="hl">성장 경험</span>을, 사업단에는 <span class="hl">선명한 성과</span>를 남깁니다</h2>
+    <p class="sub" data-step="2">학생, 사업단, 학교 전체가 체감할 수 있는 결과를 설계합니다</p>
+
+    <div class="g3" style="margin-top: 18px;">
+      <div data-step="3" class="c c-surf">
+        <div class="c-t">학생</div>
+        <div class="c-d">실전형 프로젝트 경험, 협업과 발표 역량 강화, 프로토타입 완성도 향상</div>
+      </div>
+      <div data-step="4" class="c c-blue">
+        <div class="c-t">사업단</div>
+        <div class="c-d">성과의 가시화, 우수 프로젝트 발굴, 운영 품질과 결과자료의 동시 확보</div>
+      </div>
+      <div data-step="5" class="c c-green">
+        <div class="c-t">학교</div>
+        <div class="c-d">융합교육 사례 확산, 브랜드형 프로그램 구축, 대내외 홍보 자산 확보</div>
+      </div>
+    </div>
+  </div>
+  <div class="sf"><span class="sf-logo">DACON</span><span class="sf-pg">9</span><span class="sf-cr">COPYRIGHT 2026 DACON</span></div>
+</section>
+
+<section class="slide" id="s10">
+  <div class="si" style="justify-content: center; align-items: center; text-align: center; background: linear-gradient(135deg, var(--surface) 0%, var(--secondary-container) 100%);">
+    <div style="font-size: 2.625rem; font-weight: 800; color: var(--primary); letter-spacing: 0.06em; margin-bottom: 36px;">DACON</div>
+    <h1 style="font-size: 3rem; font-weight: 800; color: var(--on-surface); line-height: 1.15; letter-spacing: -0.02em;" data-step="1">
+      이번 사업을 <span class="hl">통합 운영 파트너</span>의 관점으로 수행하겠습니다
+    </h1>
+    <p style="font-size: 1.125rem; color: var(--on-surface-variant); margin-top: 14px; line-height: 1.7;" data-step="2">
+      플랫폼 역량, 멘토링 설계, 평가 운영, 현장 완성도를 결합해<br/>
+      강원대학교 2026년 X+AI·SW 융합 프로젝트를 목적에 가장 부합하는 방식으로 실행하겠습니다.
+    </p>
+    <div style="position: absolute; bottom: 20px; right: 32px; font-size: 0.5625rem; color: var(--outline-variant);">COPYRIGHT 2026 DACON</div>
+  </div>
+</section>
+
+</div>
+</div>
+
+<script>
+const slides = Array.from(document.querySelectorAll('.slide'));
+const stage = document.getElementById('stage');
+const progressBar = document.getElementById('progress-bar');
+const prevBtn = document.getElementById('nav-prev');
+const nextBtn = document.getElementById('nav-next');
+let currentSlide = 0;
+let currentStep = 0;
+
+function fitStage() {
+  const vw = window.innerWidth;
+  const vh = window.innerHeight;
+  const scale = Math.min(vw / 1280, vh / 720);
+  stage.style.transform = `scale(${scale})`;
+}
+
+function getSteps(slide) {
+  return Array.from(slide.querySelectorAll('[data-step]')).sort((a, b) => Number(a.dataset.step) - Number(b.dataset.step));
+}
+
+function updateProgress() {
+  const progress = ((currentSlide + 1) / slides.length) * 100;
+  progressBar.style.width = `${progress}%`;
+}
+
+function showSlide(index) {
+  currentSlide = Math.max(0, Math.min(index, slides.length - 1));
+  currentStep = 0;
+  slides.forEach((slide, i) => {
+    slide.classList.toggle('active', i === currentSlide);
+    const steps = getSteps(slide);
+    steps.forEach(step => {
+      step.classList.remove('visible', 'pre-visible');
+    });
+  });
+  updateProgress();
+  revealUntil(currentStep);
+}
+
+function revealUntil(stepIndex) {
+  const slide = slides[currentSlide];
+  const steps = getSteps(slide);
+  steps.forEach((step, index) => {
+    step.classList.remove('visible', 'pre-visible');
+    if (index < stepIndex) step.classList.add('pre-visible');
+    if (index === stepIndex) step.classList.add('visible');
+  });
+}
+
+function nextAction() {
+  const steps = getSteps(slides[currentSlide]);
+  if (currentStep < steps.length - 1) {
+    currentStep += 1;
+    revealUntil(currentStep);
+  } else if (currentSlide < slides.length - 1) {
+    showSlide(currentSlide + 1);
+  }
+}
+
+function prevAction() {
+  if (currentStep > 0) {
+    currentStep -= 1;
+    revealUntil(currentStep);
+  } else if (currentSlide > 0) {
+    showSlide(currentSlide - 1);
+    const prevSteps = getSteps(slides[currentSlide]);
+    currentStep = Math.max(prevSteps.length - 1, 0);
+    revealUntil(currentStep);
+  }
+}
+
+window.addEventListener('keydown', (event) => {
+  if (['ArrowRight', 'PageDown', ' '].includes(event.key)) {
+    event.preventDefault();
+    nextAction();
+  }
+  if (['ArrowLeft', 'PageUp'].includes(event.key)) {
+    event.preventDefault();
+    prevAction();
+  }
+  if (event.key === 'Home') showSlide(0);
+  if (event.key === 'End') showSlide(slides.length - 1);
+});
+
+prevBtn.addEventListener('click', prevAction);
+nextBtn.addEventListener('click', nextAction);
+window.addEventListener('resize', fitStage);
+
+fitStage();
+showSlide(0);
+</script>
+</body>
+</html>
