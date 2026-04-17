@@ -180,9 +180,158 @@ def extract_slides(html_path: Path) -> list[dict[str, Any]]:
                 metrics.append({"value": _text(v), "label": _text(l)})
         slide["metrics"] = metrics
 
+        # Detect "visual boxes" — elements whose styling can't be recreated
+        # faithfully in native Slides. If present and --boxes-as-images is on,
+        # the slide body is rasterized to a single PNG.
+        box_selectors = ".c, .kpi, .stage-bar, .step-row, .flow-row, .gantt, .mx"
+        slide["has_boxes"] = section.select_one(box_selectors) is not None
+        # Body image URL — populated later by capture_box_bodies() if enabled.
+        slide["body_image_url"] = ""
+
         slides.append(slide)
 
     return slides
+
+
+# ─────────────────────────────────────────────────────────────
+# 1b. Box-as-image — Playwright body capture + Drive upload
+# ─────────────────────────────────────────────────────────────
+
+def capture_box_bodies(
+    html_path: Path,
+    slides_data: list[dict[str, Any]],
+    tmp_dir: Path,
+    quiet: bool,
+) -> None:
+    """For each slide with has_boxes=True, screenshot its body region to PNG.
+
+    Paths are stored in slide["_body_png_path"] for later Drive upload.
+    The body region = the full .slide section minus .sh (header) and .sf (footer),
+    i.e. the .si area. This preserves all card/metric/gantt/etc. visuals in a
+    single editable-as-image chunk.
+    """
+    try:
+        from playwright.sync_api import sync_playwright
+    except ImportError:
+        sys.stderr.write("❌ playwright not installed. Run: pip install playwright\n")
+        sys.exit(2)
+
+    # Reuse Chrome detection from html_to_pdf.
+    import shutil
+    chrome_paths = [
+        "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+        "/Applications/Google Chrome Canary.app/Contents/MacOS/Google Chrome Canary",
+        shutil.which("google-chrome") or "", shutil.which("chromium") or "",
+    ]
+    chrome = next((p for p in chrome_paths if p and Path(p).exists()), None)
+    if not chrome:
+        sys.stderr.write("❌ Google Chrome not found.\n")
+        sys.exit(2)
+
+    log = (lambda *a, **k: None) if quiet else print
+    targets = [i for i, s in enumerate(slides_data) if s.get("has_boxes")]
+    if not targets:
+        log("  no slides with boxes — skipping capture")
+        return
+
+    log(f"  capturing box bodies for {len(targets)} slides...")
+
+    with sync_playwright() as p:
+        browser = p.chromium.launch(executable_path=chrome, headless=True)
+        # Use a large-enough viewport; stage size is auto-detected below.
+        ctx = browser.new_context(viewport={"width": 1280, "height": 905}, device_scale_factor=2)
+        page = ctx.new_page()
+        page.goto(html_path.as_uri(), wait_until="networkidle")
+        page.wait_for_timeout(500)
+
+        dims = page.evaluate("""() => {
+            const s = document.getElementById('stage');
+            if (!s) return null;
+            const cs = getComputedStyle(s);
+            return { w: parseFloat(cs.width), h: parseFloat(cs.height) };
+        }""")
+        if dims and dims.get("w") and dims.get("h"):
+            page.set_viewport_size({"width": int(dims["w"]), "height": int(dims["h"])})
+            page.wait_for_timeout(200)
+        page.wait_for_timeout(1500)  # font settle
+
+        # Hide navigation UI.
+        page.add_style_tag(content="""
+            #key-hint, .nav-btn, #progress-bar { display: none !important; }
+        """)
+
+        for i in targets:
+            # Activate the target slide via its class manipulation (same as make_pdf.py).
+            page.evaluate(
+                """({i}) => {
+                    const slides = document.querySelectorAll('.slide');
+                    slides.forEach((s, idx) => {
+                        if (idx === i) {
+                            s.classList.add('active');
+                            s.querySelectorAll('[data-step]').forEach(e => {
+                                e.classList.remove('pre-visible');
+                                e.classList.add('visible');
+                            });
+                        } else {
+                            s.classList.remove('active');
+                        }
+                    });
+                }""",
+                {"i": i},
+            )
+            page.wait_for_timeout(200)
+            # Screenshot the .si region of the active slide (excludes .sh/.sf).
+            si = page.query_selector(".slide.active .si")
+            if si is None:
+                # Fallback to full stage
+                si = page.query_selector("#stage")
+            if si is None:
+                continue
+            png_path = tmp_dir / f"body_{i:03d}.png"
+            si.screenshot(path=str(png_path), omit_background=False)
+            slides_data[i]["_body_png_path"] = str(png_path)
+            if not quiet and ((i + 1) % 5 == 0 or i + 1 == len(slides_data)):
+                log(f"    captured body {i + 1}/{len(slides_data)}")
+
+        browser.close()
+
+
+def upload_images_to_drive(
+    slides_data: list[dict[str, Any]],
+    drive_svc,
+    quiet: bool,
+) -> list[str]:
+    """Upload captured body PNGs to Drive (publicly readable). Sets body_image_url.
+
+    Returns list of uploaded Drive file IDs so caller can clean up later.
+    """
+    from googleapiclient.http import MediaFileUpload
+
+    log = (lambda *a, **k: None) if quiet else print
+    uploaded_ids: list[str] = []
+
+    for i, sd in enumerate(slides_data):
+        path = sd.get("_body_png_path", "")
+        if not path:
+            continue
+        media = MediaFileUpload(path, mimetype="image/png", resumable=False)
+        file = drive_svc.files().create(
+            body={"name": f"slide_{i:03d}_body.png", "mimeType": "image/png"},
+            media_body=media,
+            fields="id",
+        ).execute()
+        fid = file["id"]
+        # Make publicly readable so Slides API can fetch it.
+        drive_svc.permissions().create(
+            fileId=fid,
+            body={"role": "reader", "type": "anyone"},
+        ).execute()
+        sd["body_image_url"] = f"https://drive.google.com/uc?id={fid}"
+        uploaded_ids.append(fid)
+        if not quiet and ((i + 1) % 5 == 0 or i == len(slides_data) - 1):
+            log(f"    uploaded image {i + 1}/{len(slides_data)}")
+
+    return uploaded_ids
 
 
 # ─────────────────────────────────────────────────────────────
@@ -484,6 +633,34 @@ def build_requests_for_slide(
         }))
         cursor_y += int(0.4 * EMU_PER_INCH)
 
+    # If this slide has a body image (rasterized boxes), insert it and
+    # skip native rendering of tables/lists/cards — they're inside the image.
+    if sd.get("body_image_url"):
+        img_id = _oid("slide", idx, "bodyimg")
+        # Fill the remaining area down to just above the footer.
+        img_h = page_h - cursor_y - margin_bottom - int(0.05 * EMU_PER_INCH)
+        if img_h > int(0.5 * EMU_PER_INCH):
+            requests.append({
+                "createImage": {
+                    "objectId": img_id,
+                    "url": sd["body_image_url"],
+                    "elementProperties": {
+                        "pageObjectId": slide_id,
+                        "size": {
+                            "width": {"magnitude": content_w, "unit": "EMU"},
+                            "height": {"magnitude": img_h, "unit": "EMU"},
+                        },
+                        "transform": {
+                            "scaleX": 1, "scaleY": 1,
+                            "translateX": content_x, "translateY": cursor_y,
+                            "unit": "EMU",
+                        },
+                    },
+                }
+            })
+        requests.extend(add_header_footer())
+        return requests
+
     # Tables
     for ti, tbl in enumerate(sd["tables"]):
         header = tbl["header"]
@@ -650,8 +827,16 @@ def upload_to_slides(
     page_size_key: str,
     share_email: str | None,
     quiet: bool,
+    html_path: Path | None = None,
+    boxes_as_images: bool = False,
 ) -> tuple[str, str]:
-    """Create a Google Slides presentation. Returns (presentation_id, url)."""
+    """Create a Google Slides presentation. Returns (presentation_id, url).
+
+    When boxes_as_images=True and html_path is given, slides containing
+    visual box-like elements get their body region rasterized to PNG and
+    inserted as an editable-as-image chunk (preserves cards/metrics/Gantt
+    styling faithfully).
+    """
     try:
         from googleapiclient.discovery import build
         from googleapiclient.errors import HttpError
@@ -664,6 +849,17 @@ def upload_to_slides(
 
     slides_svc = build("slides", "v1", credentials=creds)
     drive_svc = build("drive", "v3", credentials=creds)
+
+    # Capture + upload body PNGs for slides with boxes.
+    drive_cleanup_ids: list[str] = []
+    tmp_dir: Path | None = None
+    if boxes_as_images and html_path:
+        import tempfile
+        tmp_dir = Path(tempfile.mkdtemp(prefix="box_img_"))
+        log(f"→ Capturing box-body images (temp: {tmp_dir})")
+        capture_box_bodies(html_path.resolve(), slides_data, tmp_dir, quiet)
+        log("→ Uploading body images to Drive...")
+        drive_cleanup_ids = upload_images_to_drive(slides_data, drive_svc, quiet)
 
     log(f"→ Creating presentation: {title!r}")
     pres = slides_svc.presentations().create(body={"title": title}).execute()
@@ -708,6 +904,18 @@ def upload_to_slides(
         except HttpError as e:
             sys.stderr.write(f"⚠️  share failed: {e}\n")
 
+    # Clean up temporary Drive files (Slides already cached the images).
+    if drive_cleanup_ids:
+        log(f"  cleaning up {len(drive_cleanup_ids)} temp Drive files...")
+        for fid in drive_cleanup_ids:
+            try:
+                drive_svc.files().delete(fileId=fid).execute()
+            except Exception as e:
+                sys.stderr.write(f"⚠️  cleanup failed for {fid}: {e}\n")
+    if tmp_dir and tmp_dir.exists():
+        import shutil as _sh
+        _sh.rmtree(tmp_dir, ignore_errors=True)
+
     url = f"https://docs.google.com/presentation/d/{pres_id}/edit"
     return pres_id, url
 
@@ -726,6 +934,10 @@ def main() -> int:
     parser.add_argument("--page-size", choices=list(PAGE_SIZES_EMU.keys()), default="16x9",
                         help="슬라이드 페이지 비율 (기본 16x9)")
     parser.add_argument("--share", metavar="EMAIL", help="완성 후 writer 권한 공유할 이메일")
+    parser.add_argument("--boxes-as-images", action="store_true",
+                        help="박스(카드/메트릭/KPI/단계바/Gantt 등)가 있는 슬라이드는 본문을 "
+                             "PNG로 캡처해 이미지로 삽입 — 시각 스타일 보존. "
+                             "Playwright + Google Chrome 필요.")
     parser.add_argument("--dry-run", action="store_true",
                         help="Google API 호출 없이 추출 JSON만 stdout에 출력")
     parser.add_argument("--quiet", "-q", action="store_true")
@@ -753,6 +965,8 @@ def main() -> int:
         page_size_key=args.page_size,
         share_email=args.share,
         quiet=args.quiet,
+        html_path=src if args.boxes_as_images else None,
+        boxes_as_images=args.boxes_as_images,
     )
     log(f"✓ Slides created: {url}")
     return 0

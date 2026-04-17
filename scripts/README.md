@@ -174,8 +174,22 @@ python3 scripts/html_to_slides.py --title "강원대 제안서" --share edgar@da
 | `--title TEXT` | 입력 파일 stem | Google Slides 제목 |
 | `--page-size` | `16x9` | `16x9` / `a4` (A4 landscape) |
 | `--share EMAIL` |  | 완성 후 writer 권한으로 해당 이메일에 공유 |
+| `--boxes-as-images` |  | **박스(카드·메트릭·KPI·단계바·Gantt 등)가 있는 슬라이드는 본문을 PNG로 캡처해 이미지로 삽입** → 시각 스타일 보존. Playwright + Chrome 필요. |
 | `--dry-run` |  | API 호출 없이 추출 JSON만 stdout |
 | `--quiet`, `-q` |  | 진행 메시지 숨김 |
+
+### `--boxes-as-images` 동작 원리
+
+CSS로 그려진 복잡한 카드/메트릭/Gantt 등은 Slides API로 100% 재현이 어렵습니다.
+이 플래그를 켜면:
+
+1. `.c` / `.kpi` / `.stage-bar` / `.step-row` / `.flow-row` / `.gantt` / `.mx` 중 하나라도 있는 슬라이드 자동 감지
+2. Playwright로 해당 슬라이드의 **`.si` 본문 영역**(헤더·푸터 제외)을 PNG로 캡처
+3. 임시로 Google Drive에 업로드 → 공개 링크로 Slides API `createImage` 호출
+4. 이미지 삽입 완료 후 임시 Drive 파일 자동 삭제 (Slides가 내부 복제본 보관)
+
+**편집 가능 영역 유지** — 제목·부제·헤더 라벨·페이지 번호는 네이티브 텍스트 그대로.
+**희생되는 것** — 박스 슬라이드의 표는 이미지 안에 포함되어 편집 불가. 순수 표/리스트만 있는 슬라이드는 영향 없음.
 
 ### 추출 대상 (Tier 1-2)
 
