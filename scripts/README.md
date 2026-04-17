@@ -72,6 +72,67 @@ SKIP_CARD_SYNC=1 git commit -m "..."   # 이번 커밋만 카드 sync 스킵
 git commit --no-verify -m "..."        # 모든 pre-commit 훅 스킵
 ```
 
+## Markdown → Google Slides 네이티브 업로드 (`md_to_slides.py`)
+
+제안서 **MD(마크다운)** 문서를 **편집 가능한 Google Slides**로 업로드합니다.
+HTML 덱 없이 MD만 있어도 그대로 프레젠테이션으로 변환 가능.
+
+```bash
+# 기본 업로드 (최초 1회 브라우저 OAuth)
+python3 scripts/md_to_slides.py 제안/foo.md
+
+# 제목·브랜드 라벨·공유 이메일 지정
+python3 scripts/md_to_slides.py \
+  --title "강원대 제안서" \
+  --brand "KNU AI BOOTCAMP 2026" \
+  --share edgar@dacon.io \
+  "제안/2026-04-17-강원대_…_제안서.md"
+
+# 드라이런 (구조만 확인, API 호출 없음)
+python3 scripts/md_to_slides.py --dry-run 제안/foo.md > slides.json
+```
+
+### 매핑 규칙
+
+| MD 원본 | → Slides |
+|---|---|
+| `# 제목` (H1) | 커버 슬라이드 (제목 + 서문 첫 단락) |
+| `## I. 사업 개요` (H2 + 로마숫자) | 섹션 구분 슬라이드 (로마 숫자 + 제목) |
+| `## 제안 요약` (H2 기타) | 컨텐츠 슬라이드 |
+| `### 1. 추진 목적` (H3) | 컨텐츠 슬라이드 (헤더 라벨 자동 생성: `I-1`, `II-3` 등) |
+| `#### …` (H4+) | 현재 슬라이드에 본문으로 병합 |
+| 첫 문단 (표·리스트 이전) | 슬라이드 부제 |
+| Markdown 표 (`\|…\|`) | 네이티브 Slides 표 |
+| `- 항목` / `* 항목` | 네이티브 불릿 |
+| `**강조**: 설명` | 카드 블록 (요약) |
+
+### 옵션
+
+| 옵션 | 기본값 | 설명 |
+|---|---|---|
+| `--title TEXT` | 입력 파일 stem | Google Slides 제목 |
+| `--brand TEXT` | `DACON` | 우측 헤더에 표기할 라벨 |
+| `--page-size` | `16x9` | `16x9` / `a4` |
+| `--share EMAIL` |  | writer 권한으로 공유 |
+| `--dry-run` |  | API 호출 없이 JSON만 |
+| `--quiet`, `-q` |  | 조용 모드 |
+
+### 인증 · 의존성
+
+`html_to_slides.py`와 credentials 공유 (`~/.config/dacon-slides/credentials.json`).
+최초 설정 방법은 아래 `html_to_slides.py` 섹션 참조.
+
+### html_to_slides.py와 차이점
+
+| 구분 | `html_to_slides.py` | `md_to_slides.py` |
+|---|---|---|
+| 입력 | 슬라이드 덱 HTML (`.slide` 섹션) | 제안서 MD (H1/H2/H3 위계) |
+| 슬라이드 단위 | HTML의 `<section class="slide">` 1개당 1 슬라이드 | MD의 H1/H2/H3 1개당 1 슬라이드 (H4+는 병합) |
+| 시각 스타일 | 원본 CSS에서 최대한 대응 (헤더·태그·부제) | MD는 스타일 정보 없음 → 고정 브랜드 색 적용 |
+| 용도 | 이미 완성된 슬라이드 덱을 Slides로 이관 | 제안서 초안(문서형)만으로 Slides 생성 |
+
+---
+
 ## HTML → Google Slides 네이티브 업로드 (`html_to_slides.py`)
 
 슬라이드 덱 HTML에서 **제목·부제·표·리스트·카드**를 추출해 **편집 가능한 Google Slides**로 업로드합니다.
@@ -273,6 +334,7 @@ python3 scripts/check_md_html_sync.py path/to/file.md path/to/file.html
 scripts/
 ├── cards.json             # 카드 단일 소스
 ├── sync_cards.py          # index.html 생성기 + 스캐너 (stdlib only)
+├── md_to_slides.py        # MD 제안서 → Google Slides 네이티브 업로드 (H1/H2/H3 위계 기반)
 ├── html_to_slides.py      # HTML 슬라이드 → Google Slides 네이티브 업로드 (bs4 + Slides API)
 ├── make_pdf.py            # HTML 슬라이드 → A4 + 16:9 2가지 포맷 동시 생성 (playwright + Pillow + img2pdf)
 ├── html_to_pdf.py         # HTML 슬라이드 → 16:9 PDF 단일 변환기 (playwright + Pillow)
