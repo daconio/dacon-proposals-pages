@@ -72,6 +72,68 @@ SKIP_CARD_SYNC=1 git commit -m "..."   # 이번 커밋만 카드 sync 스킵
 git commit --no-verify -m "..."        # 모든 pre-commit 훅 스킵
 ```
 
+## HTML → Google Slides 네이티브 업로드 (`html_to_slides.py`)
+
+슬라이드 덱 HTML에서 **제목·부제·표·리스트·카드**를 추출해 **편집 가능한 Google Slides**로 업로드합니다.
+시각 요소(그라디언트·아이콘·커스텀 카드 스타일)는 생략 — 텍스트/표 중심의 Tier 1-2 재현.
+
+```bash
+# Dry-run: API 호출 없이 추출 JSON만 stdout으로
+python3 scripts/html_to_slides.py --dry-run 제안/foo.html > slides.json
+
+# 실제 업로드 (최초 1회 브라우저 OAuth 동의창 뜸)
+python3 scripts/html_to_slides.py 제안/foo.html
+
+# 옵션: 제목·공유 이메일·페이지 비율
+python3 scripts/html_to_slides.py --title "강원대 제안서" --share edgar@dacon.io \
+    --page-size a4 제안/foo.html
+```
+
+### 최초 설정 (한 번만)
+
+1. [GCP 콘솔](https://console.cloud.google.com/) 접속 → 프로젝트 생성 (기존 프로젝트 사용 가능)
+2. **API 활성화**: `Google Slides API` + `Google Drive API`
+3. **OAuth 클라이언트 생성**:
+   - `APIs & Services → Credentials → Create Credentials → OAuth client ID`
+   - Application type: **Desktop app**
+   - 생성된 클라이언트의 **JSON 다운로드**
+4. JSON을 `~/.config/dacon-slides/credentials.json` 으로 저장
+5. pip 의존성 설치:
+   ```bash
+   pip3 install google-api-python-client google-auth-oauthlib google-auth-httplib2 beautifulsoup4
+   ```
+6. 첫 실행 시 브라우저 동의창 → 승인 → 토큰은 `~/.config/dacon-slides/token.json` 에 자동 캐시
+
+`DACON_SLIDES_DIR` 환경변수로 credentials/token 저장 경로 커스터마이징 가능.
+
+### 옵션
+
+| 옵션 | 기본값 | 설명 |
+|---|---|---|
+| `--title TEXT` | 입력 파일 stem | Google Slides 제목 |
+| `--page-size` | `16x9` | `16x9` / `a4` (A4 landscape) |
+| `--share EMAIL` |  | 완성 후 writer 권한으로 해당 이메일에 공유 |
+| `--dry-run` |  | API 호출 없이 추출 JSON만 stdout |
+| `--quiet`, `-q` |  | 진행 메시지 숨김 |
+
+### 추출 대상 (Tier 1-2)
+
+- 슬라이드 타입 자동 분류: `cover` / `section` / `content` / `end`
+- 헤더 라벨(`.sh-l`), 태그(`.tag`), 제목(`h2.st`), 부제(`.sub`/`.sd`)
+- 표(`<table>`) → 네이티브 Slides 표 (편집 가능)
+- 불릿 리스트(`ul.ck`) → 네이티브 불릿 텍스트
+- 카드(`.c-t` + `.c-d`) → 압축 텍스트 ("제목 — 설명" 형식)
+- 메트릭(`.mx`, `.kpi .k`) → 추출되지만 v1에선 렌더 생략
+- 페이지 번호(`.sf-pg`) → 우하단 작은 텍스트
+
+### 한계 및 권장 워크플로우
+
+* 복잡한 CSS 시각 효과(그라디언트, 아이콘, 라운드 카드, 스텝 애니메이션)는 **재현하지 않음**
+* 시각 완벽 보존이 필요하면: `make_pdf.py`로 PDF/PNG 추출 → Slides에 이미지로 삽입하는 방식이 더 적합
+* 이 스크립트는 **Slides에서 텍스트·표를 직접 편집해야 할 때** 유용 (협업 리뷰·번역·금액 삽입 등)
+
+---
+
 ## HTML → PDF 2가지 포맷 변환 (`make_pdf.py`)
 
 **A4(landscape/portrait)와 16:9** 2가지 포맷을 **한 번의 슬라이드 캡처로** 동시 생성하는 래퍼입니다.
@@ -211,6 +273,7 @@ python3 scripts/check_md_html_sync.py path/to/file.md path/to/file.html
 scripts/
 ├── cards.json             # 카드 단일 소스
 ├── sync_cards.py          # index.html 생성기 + 스캐너 (stdlib only)
+├── html_to_slides.py      # HTML 슬라이드 → Google Slides 네이티브 업로드 (bs4 + Slides API)
 ├── make_pdf.py            # HTML 슬라이드 → A4 + 16:9 2가지 포맷 동시 생성 (playwright + Pillow + img2pdf)
 ├── html_to_pdf.py         # HTML 슬라이드 → 16:9 PDF 단일 변환기 (playwright + Pillow)
 ├── check_md_html_sync.py  # MD ↔ HTML 동기화 검증
