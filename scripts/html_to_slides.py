@@ -296,6 +296,154 @@ def capture_box_bodies(
         browser.close()
 
 
+def capture_full_slides(
+    html_path: Path,
+    slides_data: list[dict[str, Any]],
+    tmp_dir: Path,
+    quiet: bool,
+) -> None:
+    """Capture ENTIRE #stage (full slide incl. header/footer) for every slide.
+
+    Used by --all-as-images to produce one full PNG per slide for embedding
+    as a single fullscreen image in the resulting Google Slides.
+    """
+    try:
+        from playwright.sync_api import sync_playwright
+    except ImportError:
+        sys.stderr.write("❌ playwright not installed. Run: pip install playwright\n")
+        sys.exit(2)
+
+    import shutil
+    chrome_paths = [
+        "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+        "/Applications/Google Chrome Canary.app/Contents/MacOS/Google Chrome Canary",
+        shutil.which("google-chrome") or "", shutil.which("chromium") or "",
+    ]
+    chrome = next((p for p in chrome_paths if p and Path(p).exists()), None)
+    if not chrome:
+        sys.stderr.write("❌ Google Chrome not found.\n")
+        sys.exit(2)
+
+    log = (lambda *a, **k: None) if quiet else print
+    log(f"  capturing full slides for {len(slides_data)} slides...")
+
+    with sync_playwright() as p:
+        browser = p.chromium.launch(executable_path=chrome, headless=True)
+        ctx = browser.new_context(viewport={"width": 1280, "height": 905}, device_scale_factor=3)
+        page = ctx.new_page()
+        page.goto(html_path.as_uri(), wait_until="networkidle")
+        page.wait_for_timeout(500)
+
+        dims = page.evaluate("""() => {
+            const s = document.getElementById('stage');
+            if (!s) return null;
+            const cs = getComputedStyle(s);
+            return { w: parseFloat(cs.width), h: parseFloat(cs.height) };
+        }""")
+        if dims and dims.get("w") and dims.get("h"):
+            page.set_viewport_size({"width": int(dims["w"]), "height": int(dims["h"])})
+            slides_data_stage_w = int(dims["w"])
+            slides_data_stage_h = int(dims["h"])
+            page.wait_for_timeout(200)
+        else:
+            slides_data_stage_w, slides_data_stage_h = 1280, 905
+        page.wait_for_timeout(1500)
+
+        page.add_style_tag(content="""
+            #key-hint, .nav-btn, #progress-bar { display: none !important; }
+        """)
+
+        # Store stage dims on each slide for aspect-preserving layout.
+        for sd in slides_data:
+            sd["_stage_w"] = slides_data_stage_w
+            sd["_stage_h"] = slides_data_stage_h
+
+        for i in range(len(slides_data)):
+            page.evaluate(
+                """({i}) => {
+                    const slides = document.querySelectorAll('.slide');
+                    slides.forEach((s, idx) => {
+                        if (idx === i) {
+                            s.classList.add('active');
+                            s.querySelectorAll('[data-step]').forEach(e => {
+                                e.classList.remove('pre-visible');
+                                e.classList.add('visible');
+                            });
+                        } else {
+                            s.classList.remove('active');
+                        }
+                    });
+                }""",
+                {"i": i},
+            )
+            page.wait_for_timeout(200)
+            stage = page.query_selector("#stage")
+            if stage is None:
+                continue
+            png_path = tmp_dir / f"full_{i:03d}.png"
+            stage.screenshot(path=str(png_path), omit_background=False)
+            slides_data[i]["_body_png_path"] = str(png_path)
+            if not quiet and ((i + 1) % 5 == 0 or i + 1 == len(slides_data)):
+                log(f"    captured {i + 1}/{len(slides_data)}")
+
+        browser.close()
+
+
+def build_full_image_slide(
+    sd: dict[str, Any],
+    idx: int,
+    page_w: int,
+    page_h: int,
+) -> list[dict]:
+    """Build a Slides page that contains ONLY one full image (all-as-images mode).
+
+    Image is aspect-preserved and centered; letterbox white bars fill mismatch.
+    """
+    slide_id = _oid("slide", idx)
+    requests: list[dict] = [{
+        "createSlide": {
+            "objectId": slide_id,
+            "insertionIndex": idx,
+            "slideLayoutReference": {"predefinedLayout": "BLANK"},
+        }
+    }]
+    if not sd.get("body_image_url"):
+        return requests
+
+    stage_w = sd.get("_stage_w") or 1280
+    stage_h = sd.get("_stage_h") or 905
+    stage_ratio = stage_w / stage_h
+    page_ratio = page_w / page_h
+
+    if abs(page_ratio - stage_ratio) < 0.005:
+        img_w, img_h, tx, ty = page_w, page_h, 0, 0
+    elif page_ratio > stage_ratio:
+        img_h = page_h
+        img_w = int(round(page_h * stage_ratio))
+        tx = (page_w - img_w) // 2
+        ty = 0
+    else:
+        img_w = page_w
+        img_h = int(round(page_w / stage_ratio))
+        tx = 0
+        ty = (page_h - img_h) // 2
+
+    requests.append({
+        "createImage": {
+            "objectId": _oid("slide", idx, "img"),
+            "url": sd["body_image_url"],
+            "elementProperties": {
+                "pageObjectId": slide_id,
+                "size": {"width": {"magnitude": img_w, "unit": "EMU"},
+                         "height": {"magnitude": img_h, "unit": "EMU"}},
+                "transform": {"scaleX": 1, "scaleY": 1,
+                              "translateX": tx, "translateY": ty, "unit": "EMU"},
+            },
+        }
+    })
+    return requests
+
+
 def upload_images_to_drive(
     slides_data: list[dict[str, Any]],
     drive_svc,
@@ -829,6 +977,7 @@ def upload_to_slides(
     quiet: bool,
     html_path: Path | None = None,
     boxes_as_images: bool = False,
+    all_as_images: bool = False,
 ) -> tuple[str, str]:
     """Create a Google Slides presentation. Returns (presentation_id, url).
 
@@ -853,7 +1002,14 @@ def upload_to_slides(
     # Capture + upload body PNGs for slides with boxes.
     drive_cleanup_ids: list[str] = []
     tmp_dir: Path | None = None
-    if boxes_as_images and html_path:
+    if all_as_images and html_path:
+        import tempfile
+        tmp_dir = Path(tempfile.mkdtemp(prefix="full_img_"))
+        log(f"→ Capturing full-slide images (temp: {tmp_dir})")
+        capture_full_slides(html_path.resolve(), slides_data, tmp_dir, quiet)
+        log("→ Uploading full-slide images to Drive...")
+        drive_cleanup_ids = upload_images_to_drive(slides_data, drive_svc, quiet)
+    elif boxes_as_images and html_path:
         import tempfile
         tmp_dir = Path(tempfile.mkdtemp(prefix="box_img_"))
         log(f"→ Capturing box-body images (temp: {tmp_dir})")
@@ -875,7 +1031,10 @@ def upload_to_slides(
     BATCH_LIMIT = 50  # requests per batch call
     all_requests: list[dict] = []
     for i, sd in enumerate(slides_data):
-        all_requests.extend(build_requests_for_slide(sd, i, page_w, page_h))
+        if all_as_images:
+            all_requests.extend(build_full_image_slide(sd, i, page_w, page_h))
+        else:
+            all_requests.extend(build_requests_for_slide(sd, i, page_w, page_h))
 
     # Drop default slide after all new slides exist (index 0 created slides have insertionIndex 0..N)
     all_requests.append({"deleteObject": {"objectId": default_slide_id}})
@@ -938,6 +1097,10 @@ def main() -> int:
                         help="박스(카드/메트릭/KPI/단계바/Gantt 등)가 있는 슬라이드는 본문을 "
                              "PNG로 캡처해 이미지로 삽입 — 시각 스타일 보존. "
                              "Playwright + Google Chrome 필요.")
+    parser.add_argument("--all-as-images", action="store_true",
+                        help="전 슬라이드 #stage 전체를 PNG로 캡처해 풀페이지 이미지로 삽입. "
+                             "편집 불가이지만 시각 완벽 보존. "
+                             "--page-size a4와 함께 쓰면 원본(1280x905) 비율과 정확히 매치.")
     parser.add_argument("--dry-run", action="store_true",
                         help="Google API 호출 없이 추출 JSON만 stdout에 출력")
     parser.add_argument("--quiet", "-q", action="store_true")
@@ -965,8 +1128,9 @@ def main() -> int:
         page_size_key=args.page_size,
         share_email=args.share,
         quiet=args.quiet,
-        html_path=src if args.boxes_as_images else None,
+        html_path=src if (args.boxes_as_images or args.all_as_images) else None,
         boxes_as_images=args.boxes_as_images,
+        all_as_images=args.all_as_images,
     )
     log(f"✓ Slides created: {url}")
     return 0

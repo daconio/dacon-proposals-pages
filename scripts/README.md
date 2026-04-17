@@ -174,9 +174,32 @@ python3 scripts/html_to_slides.py --title "강원대 제안서" --share edgar@da
 | `--title TEXT` | 입력 파일 stem | Google Slides 제목 |
 | `--page-size` | `16x9` | `16x9` / `a4` (A4 landscape) |
 | `--share EMAIL` |  | 완성 후 writer 권한으로 해당 이메일에 공유 |
-| `--boxes-as-images` |  | **박스(카드·메트릭·KPI·단계바·Gantt 등)가 있는 슬라이드는 본문을 PNG로 캡처해 이미지로 삽입** → 시각 스타일 보존. Playwright + Chrome 필요. |
+| `--boxes-as-images` |  | **박스가 있는 슬라이드만** 본문을 PNG 이미지로 삽입 (하이브리드) |
+| `--all-as-images` |  | **전 슬라이드**를 풀페이지 PNG 이미지로 삽입 (시각 완벽·편집 불가, `--page-size a4` 권장) |
 | `--dry-run` |  | API 호출 없이 추출 JSON만 stdout |
 | `--quiet`, `-q` |  | 진행 메시지 숨김 |
+
+### 3가지 이미지 모드 비교
+
+| 모드 | 시각 보존 | 편집성 | 요청 수 | 용도 |
+|---|---|---|---|---|
+| 기본 (네이티브) | 약함 (그라디언트·카드 스타일 손실) | 전체 편집 가능 | 많음 (~1300) | 협업 편집 / 텍스트 수정 |
+| `--boxes-as-images` | 박스 영역만 보존 | 제목·부제·표·리스트 편집 가능 | 중간 (~1000) | 박스 스타일 보존하며 일부 편집 |
+| `--all-as-images` + `--page-size a4` | **완벽 보존** | 편집 불가 | 적음 (~50) | 발표·공유·고정 납품본 |
+
+### `--all-as-images` 동작 원리
+
+```bash
+python3 scripts/html_to_slides.py --all-as-images --page-size a4 \
+  --share edgar@dacon.io 제안/foo.html
+```
+
+1. Playwright로 모든 슬라이드의 `#stage` 전체를 3× 해상도 PNG로 캡처
+2. Drive에 임시 업로드 → 공개 권한 부여
+3. Slides API `createImage`로 각 페이지에 풀페이지 이미지 삽입 (아스펙트 보존·중앙 정렬)
+4. Slides 내부 복제 완료 후 임시 Drive 파일 자동 삭제
+
+`--page-size a4`와 함께 쓰면 1280×905 원본과 A4 landscape 비율(1.414)이 정확히 매치되어 레터박스 없이 꽉 차게 삽입됩니다.
 
 ### `--boxes-as-images` 동작 원리
 
