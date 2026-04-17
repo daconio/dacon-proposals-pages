@@ -627,32 +627,7 @@ def upload_to_slides(
 
     page_w, page_h = PAGE_SIZES_EMU[page_size_key]
 
-    # Update page size (must be done before creating slides).
-    slides_svc.presentations().batchUpdate(
-        presentationId=pres_id,
-        body={
-            "requests": [{
-                "updatePageProperties": {
-                    "objectId": pres["slides"][0]["objectId"],
-                    "pageProperties": {},
-                    "fields": "pageBackgroundFill",
-                }
-            }]
-        },
-    ).execute()
-    # Set presentation page size via properties API
-    slides_svc.presentations().batchUpdate(
-        presentationId=pres_id,
-        body={"requests": [{
-            "updatePageProperties": {
-                "objectId": pres["slides"][0]["objectId"],
-                "pageProperties": {"pageBackgroundFill": {"solidFill": {"color": {"rgbColor": {"red": 1, "green": 1, "blue": 1}}}}},
-                "fields": "pageBackgroundFill",
-            }
-        }]},
-    ).execute()
-
-    # Delete the default slide last (after ours are created).
+    # Default slide id — will be deleted after our slides are created.
     default_slide_id = pres["slides"][0]["objectId"]
 
     # Batch requests in reasonable chunks (Slides API limits batch size).
