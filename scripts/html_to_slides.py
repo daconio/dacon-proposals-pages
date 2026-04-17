@@ -301,11 +301,19 @@ def capture_full_slides(
     slides_data: list[dict[str, Any]],
     tmp_dir: Path,
     quiet: bool,
+    stage_w: int = 1280,
+    stage_h: int = 720,
 ) -> None:
     """Capture ENTIRE #stage (full slide incl. header/footer) for every slide.
 
     Used by --all-as-images to produce one full PNG per slide for embedding
     as a single fullscreen image in the resulting Google Slides.
+
+    stage_w/stage_h: force the HTML stage to this size before capture so the
+    resulting PNG exactly matches the Slides page aspect (Google Slides defaults
+    to 16:9 = 1280×720 px and does not accept custom pageSize via API). HTML
+    content designed for a different aspect (e.g. A4 landscape 1280×905) may
+    clip at the bottom/sides — rendering overflow:hidden.
     """
     try:
         from playwright.sync_api import sync_playwright
@@ -325,38 +333,27 @@ def capture_full_slides(
         sys.exit(2)
 
     log = (lambda *a, **k: None) if quiet else print
-    log(f"  capturing full slides for {len(slides_data)} slides...")
+    log(f"  capturing full slides for {len(slides_data)} slides at {stage_w}×{stage_h}px...")
 
     with sync_playwright() as p:
         browser = p.chromium.launch(executable_path=chrome, headless=True)
-        ctx = browser.new_context(viewport={"width": 1280, "height": 905}, device_scale_factor=3)
+        ctx = browser.new_context(viewport={"width": stage_w, "height": stage_h}, device_scale_factor=3)
         page = ctx.new_page()
         page.goto(html_path.as_uri(), wait_until="networkidle")
         page.wait_for_timeout(500)
 
-        dims = page.evaluate("""() => {
-            const s = document.getElementById('stage');
-            if (!s) return null;
-            const cs = getComputedStyle(s);
-            return { w: parseFloat(cs.width), h: parseFloat(cs.height) };
-        }""")
-        if dims and dims.get("w") and dims.get("h"):
-            page.set_viewport_size({"width": int(dims["w"]), "height": int(dims["h"])})
-            slides_data_stage_w = int(dims["w"])
-            slides_data_stage_h = int(dims["h"])
-            page.wait_for_timeout(200)
-        else:
-            slides_data_stage_w, slides_data_stage_h = 1280, 905
-        page.wait_for_timeout(1500)
-
-        page.add_style_tag(content="""
-            #key-hint, .nav-btn, #progress-bar { display: none !important; }
+        # Force stage to requested dimensions for Slides aspect match.
+        page.add_style_tag(content=f"""
+            #key-hint, .nav-btn, #progress-bar {{ display: none !important; }}
+            #stage {{ width: {stage_w}px !important; height: {stage_h}px !important; }}
         """)
+        page.set_viewport_size({"width": stage_w, "height": stage_h})
+        page.wait_for_timeout(1500)
 
         # Store stage dims on each slide for aspect-preserving layout.
         for sd in slides_data:
-            sd["_stage_w"] = slides_data_stage_w
-            sd["_stage_h"] = slides_data_stage_h
+            sd["_stage_w"] = stage_w
+            sd["_stage_h"] = stage_h
 
         for i in range(len(slides_data)):
             page.evaluate(
@@ -999,14 +996,41 @@ def upload_to_slides(
     slides_svc = build("slides", "v1", credentials=creds)
     drive_svc = build("drive", "v3", credentials=creds)
 
-    # Capture + upload body PNGs for slides with boxes.
+    # Create the presentation FIRST so we know the actual Slides page size
+    # (Google Slides API ignores requested pageSize — always creates 16:9).
+    log(f"→ Creating presentation: {title!r}")
+    page_w_req, page_h_req = PAGE_SIZES_EMU[page_size_key]
+    create_body = {
+        "title": title,
+        "pageSize": {
+            "width": {"magnitude": page_w_req, "unit": "EMU"},
+            "height": {"magnitude": page_h_req, "unit": "EMU"},
+        },
+    }
+    pres = slides_svc.presentations().create(body=create_body).execute()
+    pres_id = pres["presentationId"]
+    actual = pres.get("pageSize", {})
+    page_w = int(actual.get("width", {}).get("magnitude", page_w_req))
+    page_h = int(actual.get("height", {}).get("magnitude", page_h_req))
+    if (page_w, page_h) != (page_w_req, page_h_req):
+        log(f"  ⚠️  requested {page_w_req}×{page_h_req} EMU but Slides created "
+            f"{page_w}×{page_h} — capture & layout will adapt to actual.")
+    log(f"  id: {pres_id}  page: {page_w}×{page_h} EMU ({page_w/914400:.2f}×{page_h/914400:.2f} in)")
+
+    # Capture + upload images, using the actual Slides page aspect so the
+    # final images fill the slide edge-to-edge (no letterbox).
     drive_cleanup_ids: list[str] = []
     tmp_dir: Path | None = None
     if all_as_images and html_path:
         import tempfile
         tmp_dir = Path(tempfile.mkdtemp(prefix="full_img_"))
-        log(f"→ Capturing full-slide images (temp: {tmp_dir})")
-        capture_full_slides(html_path.resolve(), slides_data, tmp_dir, quiet)
+        # Pick capture size matching actual page aspect. Keep width=1280,
+        # compute height from Slides page ratio → no letterbox.
+        capture_w = 1280
+        capture_h = int(round(capture_w * page_h / page_w))
+        log(f"→ Capturing full-slide images at {capture_w}×{capture_h} (matches Slides aspect)")
+        capture_full_slides(html_path.resolve(), slides_data, tmp_dir, quiet,
+                            stage_w=capture_w, stage_h=capture_h)
         log("→ Uploading full-slide images to Drive...")
         drive_cleanup_ids = upload_images_to_drive(slides_data, drive_svc, quiet)
     elif boxes_as_images and html_path:
@@ -1016,13 +1040,6 @@ def upload_to_slides(
         capture_box_bodies(html_path.resolve(), slides_data, tmp_dir, quiet)
         log("→ Uploading body images to Drive...")
         drive_cleanup_ids = upload_images_to_drive(slides_data, drive_svc, quiet)
-
-    log(f"→ Creating presentation: {title!r}")
-    pres = slides_svc.presentations().create(body={"title": title}).execute()
-    pres_id = pres["presentationId"]
-    log(f"  id: {pres_id}")
-
-    page_w, page_h = PAGE_SIZES_EMU[page_size_key]
 
     # Default slide id — will be deleted after our slides are created.
     default_slide_id = pres["slides"][0]["objectId"]
