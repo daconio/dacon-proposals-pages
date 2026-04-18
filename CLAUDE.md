@@ -15,6 +15,26 @@ Each proposal follows a **Markdown-first workflow**:
 
 File naming convention: `YYYY-MM-DD-{대상}_{주제}.{md,html,pdf}`
 
+### Folder structure for `제안/` (2026-04-18 이후)
+
+`제안/` 폴더는 파일 유형별로 분리한다:
+
+```
+제안/
+├── md/          # 제안서 Markdown 원본
+├── html/        # 제안서 슬라이드 HTML (cards.json scan 대상)
+├── *.pdf        # (선택) 배포용 PDF — 루트에 그대로 두거나 원본 디렉토리 참고
+└── <케이스별 하위폴더>/  # 예: 20260416_법학전문대학원협의회/ 같은 RFP 원본 묶음
+```
+
+**생성 규칙 (이 리포에서 제안서를 만들 때 항상 적용)**:
+- 새 `.md` 제안서 → **`제안/md/`** 에 저장 (예: `제안/md/2026-05-01-X_제안서.md`)
+- 새 `.html` 슬라이드 → **`제안/html/`** 에 저장 (cards.json scan 자동 등록 경로)
+- MD와 HTML은 **동일 base name** 유지 (하위폴더만 다름)
+- 기존 `scripts/check_md_html_sync.py` 의 PAIRS 딕셔너리는 새 경로로 관리
+
+`docs/plans/` 는 **상황형 브리핑 슬라이드·기획안** (RFP 없는 내부 덱) 용도로 계속 사용한다.
+
 ## HTML Slide Architecture
 
 All HTML presentations are **single-file, self-contained slide decks** (no external dependencies beyond Google Fonts). Key patterns:

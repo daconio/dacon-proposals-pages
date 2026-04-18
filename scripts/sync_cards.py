@@ -224,7 +224,8 @@ _TOKEN_RULES = [
 
 # Directory → (color fallback when section doesn't set one)
 _DIR_COLOR = {
-    "제안": "blue",
+    "제안": "blue",          # legacy path (before MD/HTML split)
+    "제안/html": "blue",
     "내부": "blue",
     "전략": "warm",
     "docs/plans": "dark",
@@ -273,6 +274,8 @@ def _infer_metadata(rel_path: str) -> tuple[str, dict]:
     if directory == "docs/plans" and section == "제안서":
         section = "슬라이드"
         badge = "슬라이드"
+    # 제안/html/ keeps 제안서 default unless filename says otherwise
+    # (handled above by _TOKEN_RULES)
 
     color = _DIR_COLOR.get(directory, "blue")
     icon = _first_icon_char(title)
