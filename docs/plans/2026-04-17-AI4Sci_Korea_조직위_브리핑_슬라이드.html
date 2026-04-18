@@ -1,0 +1,844 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<title>AI4Sci Korea 2026 × DAKER — 조직위 브리핑</title>
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --p:#1E3A8A; --p2:#1E40AF; --pp:#EEF2FF;
+    --s:#C2622D; --s2:#A1501F; --sp:#FEF3EC;
+    --a:#0F172A; --a2:#334155; --ap:#F1F5F9;
+    --ink:#0F172A; --muted:#64748B; --line:#E2E8F0; --soft:#F8FAFC;
+    --slide-w:1280px; --slide-h:720px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:#E2E8F0;font-family:'Noto Sans KR','Inter',sans-serif;color:var(--ink);overflow:hidden}
+  #viewport{position:fixed;inset:0;display:flex;align-items:center;justify-content:center}
+  #stage{position:relative;width:var(--slide-w);height:var(--slide-h);transform-origin:center center;background:#fff;box-shadow:0 30px 80px rgba(15,23,42,.25)}
+  .slide{position:absolute;inset:0;background:#fff;opacity:0;transition:opacity .25s ease;pointer-events:none;overflow:hidden}
+  .slide.active{opacity:1;pointer-events:auto}
+
+  /* Section header */
+  .sh{position:absolute;top:0;left:0;right:0;padding:24px 56px 16px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line)}
+  .sh-label{font-family:'Inter';font-size:11px;letter-spacing:.18em;color:var(--p);font-weight:700;text-transform:uppercase}
+  .sh-badge{font-family:'Inter';font-size:10px;letter-spacing:.14em;color:var(--muted);font-weight:500;padding:4px 10px;border:1px solid var(--line);border-radius:999px;text-transform:uppercase}
+
+  /* Slide inner */
+  .si{position:absolute;top:72px;left:0;right:0;bottom:56px;padding:28px 56px 16px;overflow:hidden}
+
+  /* Footer */
+  .sf{position:absolute;bottom:0;left:0;right:0;height:48px;padding:0 56px;display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--line);font-family:'Inter';font-size:10.5px;color:var(--muted);letter-spacing:.08em}
+  .sf .page{font-weight:600;color:var(--a2)}
+
+  /* Tag */
+  .tag{display:inline-flex;align-items:center;gap:10px;font-family:'Inter';font-size:10.5px;letter-spacing:.22em;color:var(--p);font-weight:700;text-transform:uppercase;margin-bottom:14px}
+  .tag::before{content:"";width:24px;height:2px;background:var(--p)}
+  .tag-s{color:var(--s)} .tag-s::before{background:var(--s)}
+  .tag-a{color:var(--a)} .tag-a::before{background:var(--a)}
+
+  /* Titles */
+  h1.st{margin:0 0 8px;font-size:2.25rem;font-weight:800;letter-spacing:-.01em;line-height:1.22;color:var(--a)}
+  h2.st{margin:0 0 8px;font-size:1.85rem;font-weight:800;letter-spacing:-.01em;line-height:1.25;color:var(--a)}
+  h3.st{margin:0 0 6px;font-size:1.3rem;font-weight:700;color:var(--a)}
+  .sub{color:var(--muted);font-size:.95rem;line-height:1.55;margin-bottom:14px}
+
+  /* Cards */
+  .card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px 20px}
+  .card-p{background:var(--pp);border-color:#DBEAFE}
+  .card-s{background:var(--sp);border-color:#FCE9D5}
+  .card-a{background:var(--ap);border-color:#E2E8F0}
+  .c-t{font-size:.78rem;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;font-weight:700;margin-bottom:6px}
+  .c-h{font-size:1.02rem;font-weight:700;color:var(--a);margin-bottom:8px;line-height:1.35}
+  .c-b{font-size:.84rem;color:var(--a2);line-height:1.6}
+
+  /* Grids */
+  .g2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+  .g4{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+
+  /* Icon circle */
+  .ic{width:34px;height:34px;border-radius:999px;display:inline-flex;align-items:center;justify-content:center;font-family:'Inter';font-weight:800;font-size:.82rem;letter-spacing:.04em}
+  .ic-p{background:var(--p);color:#fff} .ic-s{background:var(--s);color:#fff} .ic-a{background:var(--a);color:#fff}
+  .ic-pp{background:var(--pp);color:var(--p)} .ic-sp{background:var(--sp);color:var(--s)}
+
+  /* Badge */
+  .bd{display:inline-block;font-family:'Inter';font-size:10px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;padding:4px 10px;border-radius:999px}
+  .bd-p{background:var(--pp);color:var(--p)} .bd-s{background:var(--sp);color:var(--s)} .bd-a{background:var(--ap);color:var(--a)}
+
+  /* Metric */
+  .mx{background:var(--soft);border:1px solid var(--line);border-radius:14px;padding:14px 16px}
+  .mx .val{font-family:'Inter';font-size:1.85rem;font-weight:800;color:var(--p);letter-spacing:-.02em;line-height:1}
+  .mx .lbl{font-size:.78rem;color:var(--muted);margin-top:6px;font-weight:500}
+
+  /* Info table */
+  .tb{width:100%;border-collapse:collapse;font-size:.82rem}
+  .tb th{background:var(--ap);color:var(--a);font-weight:700;text-align:left;padding:9px 12px;border-bottom:1px solid var(--line);font-size:.76rem;letter-spacing:.05em;text-transform:uppercase}
+  .tb td{padding:10px 12px;border-bottom:1px solid var(--line);color:var(--a2);vertical-align:top}
+  .tb tr:last-child td{border-bottom:none}
+
+  /* Check list */
+  .ck{list-style:none;padding:0;margin:0}
+  .ck li{position:relative;padding:6px 0 6px 22px;font-size:.88rem;color:var(--a2);line-height:1.5}
+  .ck li::before{content:"";position:absolute;left:0;top:12px;width:10px;height:10px;border:2px solid var(--p);border-right:none;border-top:none;transform:rotate(-45deg)}
+  .ck-s li::before{border-color:var(--s)}
+
+  /* Flow */
+  .flow{display:flex;align-items:stretch;gap:8px;width:100%}
+  .flow-box{flex:1;background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px 14px;position:relative}
+  .flow-arrow{width:18px;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:1rem}
+
+  /* Section divider */
+  .divider{background:var(--a);color:#fff;position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;padding:0 80px}
+  .divider .num{font-family:'Inter';font-size:8rem;font-weight:800;opacity:.08;letter-spacing:-.04em;position:absolute;top:80px;left:80px}
+  .divider .tag-w{color:rgba(255,255,255,.6)} .divider .tag-w::before{background:rgba(255,255,255,.6)}
+  .divider h2{font-size:3rem;font-weight:800;color:#fff;margin:0;letter-spacing:-.02em;line-height:1.1}
+  .divider .sub{color:rgba(255,255,255,.7);font-size:1.05rem;max-width:780px;margin-top:16px}
+
+  /* Cover */
+  .cover{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;padding:0 88px;background:linear-gradient(135deg,#F8FAFC 0%,#EEF2FF 100%)}
+  .cover .brand{font-family:'Inter';font-weight:800;font-size:.82rem;letter-spacing:.28em;color:var(--p);margin-bottom:36px}
+  .cover h1{font-size:3.2rem;font-weight:800;line-height:1.1;color:var(--a);margin:0 0 14px;letter-spacing:-.02em}
+  .cover .hl{color:var(--s)}
+  .cover .lead{font-size:1.05rem;color:var(--a2);max-width:820px;line-height:1.6}
+  .cover .meta{position:absolute;left:88px;bottom:64px;display:flex;gap:28px;font-size:.85rem;color:var(--muted);font-family:'Inter';letter-spacing:.04em}
+  .cover .meta b{display:block;color:var(--a);font-weight:700;margin-bottom:3px;letter-spacing:.06em;text-transform:uppercase;font-size:.72rem}
+
+  /* Ending */
+  .ending{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 88px;background:#fff}
+  .ending .mark{font-family:'Inter';font-weight:800;font-size:2.4rem;color:var(--p);letter-spacing:.02em;margin-bottom:28px}
+  .ending .msg{font-size:1.55rem;font-weight:700;color:var(--a);text-align:center;max-width:900px;line-height:1.35}
+  .ending .note{color:var(--muted);font-size:.95rem;margin-top:14px;text-align:center;max-width:640px}
+  .ending .cbox{margin-top:44px;display:flex;gap:28px;font-size:.85rem;color:var(--a2)}
+  .ending .cbox b{display:block;color:var(--a);font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;font-weight:700;margin-bottom:4px}
+
+  /* UI mockup */
+  .ui-mock{background:#fff;border:1px solid #e5e7eb;border-radius:12px;overflow:hidden;box-shadow:0 4px 16px rgba(15,23,42,.06);font-family:'Noto Sans KR',sans-serif}
+  .ui-bar{background:#F3F4F6;padding:8px 12px;display:flex;align-items:center;gap:6px;border-bottom:1px solid #E5E7EB}
+  .ui-dot{width:9px;height:9px;border-radius:50%}
+  .ui-url{margin-left:12px;font-family:'Inter';font-size:10.5px;color:#64748B}
+  .ui-body{padding:14px}
+
+  /* Nav & progress */
+  .nav{position:fixed;top:50%;transform:translateY(-50%);z-index:10;background:rgba(255,255,255,.85);border:1px solid var(--line);border-radius:999px;width:42px;height:42px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--a);font-family:'Inter';font-size:1.1rem;font-weight:700;user-select:none;backdrop-filter:blur(6px)}
+  .nav:hover{background:#fff;border-color:var(--p);color:var(--p)}
+  .nav.prev{left:20px} .nav.next{right:20px}
+  .bar{position:fixed;bottom:0;left:0;height:3px;background:var(--p);z-index:10;transition:width .25s ease}
+
+  @page{size:1280px 720px;margin:0}
+  @media print{
+    html,body{background:#fff}
+    #viewport{position:static}
+    #stage{transform:none !important;box-shadow:none;width:1280px;height:720px}
+    .slide{position:relative;opacity:1 !important;page-break-after:always;break-after:page;width:1280px;height:720px}
+    .nav,.bar{display:none}
+  }
+</style>
+</head>
+<body>
+
+<div id="viewport"><div id="stage">
+
+<!-- 01 Cover -->
+<section class="slide active">
+  <div class="cover">
+    <div class="brand">DACON · DAKER</div>
+    <h1>AI4Sci Korea 2026 × DAKER<br/>조직위 <span class="hl">브리핑</span></h1>
+    <div class="lead">두 Pillar를 세분화한 <b>6개 연구자 트랙</b>과, DAKER 플랫폼의 <b>실제 구현 화면</b>으로 완성하는 온라인 경진대회 + 온사이트 해커톤 통합 운영안.</div>
+    <div class="meta">
+      <div><b>Date</b>2026.04.17</div>
+      <div><b>Event</b>AI4Sci Korea 2026 · 09.28–10.01</div>
+      <div><b>Venue</b>Seoul Dragon City · Grand Ballroom Halla</div>
+      <div><b>Issuer</b>DACON · DAKER</div>
+    </div>
+  </div>
+</section>
+
+<!-- 02 Section 01: Understanding -->
+<section class="slide">
+  <div class="divider">
+    <div class="num">01</div>
+    <div class="tag tag-w">Chapter · Overview</div>
+    <h2>행사 이해 & 2 Pillars × 3 Tracks</h2>
+    <div class="sub">조직위가 공지한 두 Pillar를 그대로 유지하면서 각 Pillar에 3개 트랙 — 총 6개 트랙을 배치합니다.</div>
+  </div>
+</section>
+
+<!-- 03 Event Overview -->
+<section class="slide">
+  <div class="sh"><div class="sh-label">01 · Event Overview</div><div class="sh-badge">Strictly Confidential</div></div>
+  <div class="si">
+    <div class="tag">Event Summary</div>
+    <h2 class="st">AI4Sci Korea 2026 — International Conference on AI for Science</h2>
+    <div class="sub">From Autonomous Research Agents to ML-Driven Scientific Discovery</div>
+
+    <div class="g4" style="margin-top:8px">
+      <div class="mx"><div class="val">09.28–10.01</div><div class="lbl">Dates (Mon–Thu, 2026)</div></div>
+      <div class="mx"><div class="val">Seoul</div><div class="lbl">Dragon City · Grand Ballroom Halla</div></div>
+      <div class="mx"><div class="val">MSIT</div><div class="lbl">Supported by 과학기술정보통신부</div></div>
+      <div class="mx"><div class="val">2+6</div><div class="lbl">Pillars × Tracks (제안)</div></div>
+    </div>
+
+    <div class="g2" style="margin-top:14px">
+      <div class="card card-p">
+        <div class="c-t">Co-Chairs</div>
+        <div class="c-h">Prof. 임경태 (KAIST) · Prof. 석차옥 (SNU)</div>
+        <div class="c-b">Math Track Chair — Prof. 김재경 (KAIST)<br/>Committee — 김우연 · 손창윤 · 안성수 · 유용균(AI Friends 회장) · 최예지</div>
+      </div>
+      <div class="card card-s">
+        <div class="c-t">Organized · Hosted</div>
+        <div class="c-h">AI Friends · Korean Science AI Forum</div>
+        <div class="c-b">부속 프로그램: Data Challenge (Kaggle-style), Policy Forum<br/>Keynote 주제: AI for Biology · AI for Chemistry · AI for Materials · AI Agents for Research</div>
+      </div>
+    </div>
+  </div>
+  <div class="sf"><div>AI4Sci Korea 2026 × DAKER</div><div class="page">03 / 22</div><div>© 2026 DACON · DAKER</div></div>
+</section>
+
+<!-- 04 Two Pillars verbatim -->
+<section class="slide">
+  <div class="sh"><div class="sh-label">01 · Two Pillars</div><div class="sh-badge">Strictly Confidential</div></div>
+  <div class="si">
+    <div class="tag">Organizer's Two Pillars</div>
+    <h2 class="st">조직위가 정의한 두 Pillar — 원문 그대로 계승</h2>
+
+    <div class="g2" style="margin-top:14px">
+      <div class="card card-p">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px"><span class="ic ic-p">P1</span><div class="c-h" style="margin:0">AI Agents for Research</div></div>
+        <div class="c-b" style="font-style:italic;border-left:3px solid var(--p);padding-left:12px;margin-bottom:12px">"From AI-powered research assistants to fully autonomous scientific agents — exploring how systems like AlphaEvolve are transforming the research process itself."</div>
+        <div class="c-t">본 제안 3개 트랙</div>
+        <ul class="ck">
+          <li><b>P1-A</b> Autonomous Research Agent</li>
+          <li><b>P1-B</b> AI Research Copilot</li>
+          <li><b>P1-C</b> AI for Math &amp; Formal Reasoning</li>
+        </ul>
+      </div>
+      <div class="card card-s">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px"><span class="ic ic-s">P2</span><div class="c-h" style="margin:0">ML for Domain Science</div></div>
+        <div class="c-b" style="font-style:italic;border-left:3px solid var(--s);padding-left:12px;margin-bottom:12px">"Applying data-driven and machine learning approaches to specific scientific domains — from AlphaFold in biology to materials discovery and beyond."</div>
+        <div class="c-t">본 제안 3개 트랙 (Keynote 주제와 1:1 정합)</div>
+        <ul class="ck ck-s">
+          <li><b>P2-A</b> AI for Biology</li>
+          <li><b>P2-B</b> AI for Chemistry</li>
+          <li><b>P2-C</b> AI for Materials Science</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="sf"><div>AI4Sci Korea 2026 × DAKER</div><div class="page">04 / 22</div><div>© 2026 DACON · DAKER</div></div>
+</section>
+
+<!-- 05 6-track matrix -->
+<section class="slide">
+  <div class="sh"><div class="sh-label">01 · Track Matrix</div><div class="sh-badge">Strictly Confidential</div></div>
+  <div class="si">
+    <div class="tag">Key Chart · 6 Tracks at a Glance</div>
+    <h2 class="st">2 Pillars × 3 Tracks = 6개 연구자 경진 트랙</h2>
+    <div class="sub">모든 트랙이 <b>① 온라인 경진대회(7–9월) + ② 온사이트 해커톤(9.28–10.01)</b> 이중 포맷.</div>
+
+    <table class="tb" style="margin-top:10px">
+      <thead>
+        <tr><th style="width:8%">#</th><th style="width:22%">트랙</th><th style="width:22%">대표 참고 시스템</th><th style="width:24%">온라인 경진</th><th style="width:24%">온사이트 해커톤</th></tr>
+      </thead>
+      <tbody>
+        <tr style="background:var(--pp)"><td colspan="5" style="color:var(--p);font-weight:700;font-size:.78rem;letter-spacing:.1em;text-transform:uppercase">Pillar 1 · AI Agents for Research</td></tr>
+        <tr><td><span class="bd bd-p">P1-A</span></td><td>Autonomous Research Agent</td><td>AlphaEvolve · AI Scientist v2</td><td>ScienceAgentBench 리더보드</td><td>Mystery Problem 48h + ELO Arena</td></tr>
+        <tr><td><span class="bd bd-p">P1-B</span></td><td>AI Research Copilot</td><td>AI Co-Scientist · Deep Research</td><td>가설·문헌 정합성</td><td>Research Proposal 라이브 발표</td></tr>
+        <tr><td><span class="bd bd-p">P1-C</span></td><td>AI for Math &amp; Formal Reasoning</td><td>AlphaProof · miniF2F</td><td>Lean verifier 자동 채점</td><td>Live Proof Battle</td></tr>
+        <tr style="background:var(--sp)"><td colspan="5" style="color:var(--s);font-weight:700;font-size:.78rem;letter-spacing:.1em;text-transform:uppercase">Pillar 2 · ML for Domain Science</td></tr>
+        <tr><td><span class="bd bd-s">P2-A</span></td><td>AI for Biology</td><td>AlphaFold 3 · BELKA · ESM</td><td>결합 친화도 · 분자 생성</td><td>Hidden Target 48h + 웻랩 후보</td></tr>
+        <tr><td><span class="bd bd-s">P2-B</span></td><td>AI for Chemistry</td><td>USPTO · RSGPT SOTA</td><td>Top-K + 합성 가능성</td><td>Hidden Reaction 48h</td></tr>
+        <tr><td><span class="bd bd-s">P2-C</span></td><td>AI for Materials Science</td><td>GNoME · MatterGen</td><td>Forward + Inverse 듀얼 리더보드</td><td>Target Property 24h + DFT 검증</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="sf"><div>AI4Sci Korea 2026 × DAKER</div><div class="page">05 / 22</div><div>© 2026 DACON · DAKER</div></div>
+</section>
+
+<!-- 06 Section 02: Pillar 1 -->
+<section class="slide">
+  <div class="divider" style="background:var(--p)">
+    <div class="num">02</div>
+    <div class="tag tag-w">Chapter · Pillar 1</div>
+    <h2>AI Agents for Research</h2>
+    <div class="sub">AI-powered research assistants → fully autonomous scientific agents. 3개 트랙으로 패러다임 전체를 커버합니다.</div>
+  </div>
+</section>
+
+<!-- 07 P1-A -->
+<section class="slide">
+  <div class="sh"><div class="sh-label">02 · P1-A Autonomous Agent</div><div class="sh-badge">Strictly Confidential</div></div>
+  <div class="si">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:4px"><span class="bd bd-p">P1-A</span><span class="c-t" style="margin:0">Pillar 1 · AI Agents for Research</span></div>
+    <h2 class="st">Autonomous Research Agent Challenge</h2>
+    <div class="sub">가설 생성 → 실험 계획 → 실행 → 해석까지 <b>연구 전 과정을 자율 수행</b>하는 에이전트 경진.</div>
+
+    <div class="g2" style="margin-top:10px">
+      <div class="card">
+        <div class="c-t">온라인 경진대회 (7~8월 말)</div>
+        <ul class="ck">
+          <li>ScienceAgentBench · MLAgentBench · DiscoveryBench 혼합 과제</li>
+          <li>Dockerized Sandbox · 토큰·실행시간 예산 고정</li>
+          <li>성공률 · 오류 복구율 · 비용 효율 자동 채점</li>
+        </ul>
+      </div>
+      <div class="card card-p">
+        <div class="c-t">온사이트 해커톤 (9.28–10.01)</div>
+        <ul class="ck">
+          <li>D-Day Mystery Problem 공개 → <b>48h 자율 해결</b></li>
+          <li>동일 API 예산 · GPU 자원 배분</li>
+          <li>ELO 1v1 Arena · 결선 발표 10분 + Q&amp;A</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="g4" style="margin-top:12px">
+      <div class="mx"><div class="val">40%</div><div class="lbl">자동 벤치마크</div></div>
+      <div class="mx"><div class="val">30%</div><div class="lbl">전문가 심사</div></div>
+      <div class="mx"><div class="val">15%</div><div class="lbl">재현성·로그 품질</div></div>
+      <div class="mx"><div class="val">15%</div><div class="lbl">ELO Arena</div></div>
+    </div>
+  </div>
+  <div class="sf"><div>AI4Sci Korea 2026 × DAKER</div><div class="page">07 / 22</div><div>© 2026 DACON · DAKER</div></div>
+</section>
+
+<!-- 08 P1-B -->
+<section class="slide">
+  <div class="sh"><div class="sh-label">02 · P1-B Research Copilot</div><div class="sh-badge">Strictly Confidential</div></div>
+  <div class="si">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:4px"><span class="bd bd-p">P1-B</span><span class="c-t" style="margin:0">Pillar 1 · AI Agents for Research</span></div>
+    <h2 class="st">AI Research Copilot Challenge</h2>
+    <div class="sub">Google AI Co-Scientist · Deep Research 계열. <b>연구자 + AI 협업</b>으로 가설·문헌 근거·실험설계를 산출하는 Copilot 경진.</div>
+
+    <div class="g2" style="margin-top:10px">
+      <div class="card">
+        <div class="c-t">온라인 경진대회</div>
+        <ul class="ck">
+          <li>공개 논문 코퍼스 + <b>Hidden Research Question</b></li>
+          <li>인용 정합성 · Novelty Score · Coverage 지표</li>
+          <li>Hallucination 자동 플래그 (FDS)</li>
+        </ul>
+      </div>
+      <div class="card card-p">
+        <div class="c-t">온사이트 해커톤</div>
+        <ul class="ck">
+          <li>도메인 전문가 <b>30분 즉석 브리핑</b></li>
+          <li>팀은 <b>90분 내 Research Proposal 초안</b> 생성</li>
+          <li>30분 발표 + 15분 라이브 Q&amp;A 심사</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="g4" style="margin-top:12px">
+      <div class="mx"><div class="val">25%</div><div class="lbl">인용 정합성</div></div>
+      <div class="mx"><div class="val">25%</div><div class="lbl">Novelty · Hypothesis</div></div>
+      <div class="mx"><div class="val">25%</div><div class="lbl">연구설계 타당성</div></div>
+      <div class="mx"><div class="val">25%</div><div class="lbl">온사이트 발표</div></div>
+    </div>
+  </div>
+  <div class="sf"><div>AI4Sci Korea 2026 × DAKER</div><div class="page">08 / 22</div><div>© 2026 DACON · DAKER</div></div>
+</section>
+
+<!-- 09 P1-C -->
+<section class="slide">
+  <div class="sh"><div class="sh-label">02 · P1-C Math &amp; Reasoning</div><div class="sh-badge">Strictly Confidential</div></div>
+  <div class="si">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:4px"><span class="bd bd-p">P1-C</span><span class="c-t" style="margin:0">Pillar 1 · AI Agents for Research</span></div>
+    <h2 class="st">AI for Math &amp; Formal Reasoning Challenge</h2>
+    <div class="sub">Math Track Chair <b>김재경 교수(KAIST)</b> 직접 연계. AlphaProof가 2024 IMO 은메달을 달성한 바로 그 무대를 한국에서 확장.</div>
+
+    <div class="g3" style="margin-top:10px">
+      <div class="card">
+        <div class="c-t">Sub-Track A</div>
+        <div class="c-h">Formal Math</div>
+        <div class="c-b">miniF2F · ProofNet Lean/Isabelle 증명. <b>Lean verifier 자동 채점</b>.</div>
+      </div>
+      <div class="card">
+        <div class="c-t">Sub-Track B</div>
+        <div class="c-h">Olympiad-Style</div>
+        <div class="c-b">IMO · KMO · Putnam 수준 증명 서술. KAIST 수리과학과 루브릭 심사.</div>
+      </div>
+      <div class="card">
+        <div class="c-t">Sub-Track C</div>
+        <div class="c-h">Scientific Reasoning</div>
+        <div class="c-b">GPQA · SciBench 다단계 추론. 정확도 + Reasoning Faithfulness.</div>
+      </div>
+    </div>
+
+    <div class="card card-p" style="margin-top:12px">
+      <div class="c-t">온사이트 Live Proof Battle</div>
+      <div class="c-b">결선 팀에 <b>미공개 문제 1시간 내 증명 제출</b>. Math Track Chair 주재 루브릭 심사 + 수상작 증명본 공개 · Paper-pitch 세션.</div>
+    </div>
+  </div>
+  <div class="sf"><div>AI4Sci Korea 2026 × DAKER</div><div class="page">09 / 22</div><div>© 2026 DACON · DAKER</div></div>
+</section>
+
+<!-- 10 Section 03: Pillar 2 -->
+<section class="slide">
+  <div class="divider" style="background:var(--s)">
+    <div class="num">03</div>
+    <div class="tag tag-w">Chapter · Pillar 2</div>
+    <h2>ML for Domain Science</h2>
+    <div class="sub">조직위가 공지한 Keynote 주제 — AI for Biology · Chemistry · Materials Science — 와 1:1 정합되는 3개 트랙.</div>
+  </div>
+</section>
+
+<!-- 11 P2-A Biology -->
+<section class="slide">
+  <div class="sh"><div class="sh-label">03 · P2-A AI for Biology</div><div class="sh-badge">Strictly Confidential</div></div>
+  <div class="si">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:4px"><span class="bd bd-s">P2-A</span><span class="c-t" style="margin:0">Pillar 2 · ML for Domain Science</span></div>
+    <h2 class="st">AI for Biology Challenge</h2>
+    <div class="sub">석차옥 Co-Chair(SeokLab GalaxyWEB) · 김우연 조직위원(BInD · R-DM) 직접 연계. AF3 이후 <b>Hidden Target 설계</b>가 경쟁 중심.</div>
+
+    <table class="tb" style="margin-top:10px">
+      <thead><tr><th>과제</th><th>설명</th><th>대표 데이터</th></tr></thead>
+      <tbody>
+        <tr><td><b>A.</b> Protein-Ligand Binding</td><td>단백질-리간드 pKd/pKi 예측</td><td>PDBBind · BindingDB · DAVIS · KIBA</td></tr>
+        <tr><td><b>B.</b> Antibody CDR Design</td><td>항체-항원 결합 부위 예측·설계</td><td>SAbDab + 주최 Hidden</td></tr>
+        <tr><td><b>C.</b> De novo Small Molecule</td><td>Hidden Target용 신규 분자 생성</td><td>ChEMBL + 주최 Hidden Target</td></tr>
+      </tbody>
+    </table>
+
+    <div class="g2" style="margin-top:12px">
+      <div class="card"><div class="c-t">온라인 경진대회</div><div class="c-b">DACON 코드 제출 · Public/Private 분할 · Jupyter LAB · FDS 누수 탐지 · DeepPurpose/TorchDrug/ESM 베이스라인</div></div>
+      <div class="card card-s"><div class="c-t">온사이트 해커톤</div><div class="c-b">Hidden Target 공개 → <b>48h 분자 후보 제안</b> · Top-K → <b>웻랩 검증 후보 선정 세션</b> (조직위 지정 연구실 협의 시)</div></div>
+    </div>
+  </div>
+  <div class="sf"><div>AI4Sci Korea 2026 × DAKER</div><div class="page">11 / 22</div><div>© 2026 DACON · DAKER</div></div>
+</section>
+
+<!-- 12 P2-B Chemistry -->
+<section class="slide">
+  <div class="sh"><div class="sh-label">03 · P2-B AI for Chemistry</div><div class="sh-badge">Strictly Confidential</div></div>
+  <div class="si">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:4px"><span class="bd bd-s">P2-B</span><span class="c-t" style="margin:0">Pillar 2 · ML for Domain Science</span></div>
+    <h2 class="st">AI for Chemistry Challenge</h2>
+    <div class="sub">USPTO Top-K 포화(2025 RSGPT Top-1 77%) → <b>합성 가능성 · 촉매 최적화</b> 중심 재설계. 석차옥·김우연·손창윤 교수 연계.</div>
+
+    <div class="g3" style="margin-top:10px">
+      <div class="card"><div class="c-t">Sub-A</div><div class="c-h">Forward Reaction</div><div class="c-b">반응물·조건 → 생성물 예측. USPTO-MIT · Pistachio.</div></div>
+      <div class="card"><div class="c-t">Sub-B</div><div class="c-h">Retrosynthesis</div><div class="c-b">타겟 분자 → 합성 경로 역추론 + SCScore/SA-Score.</div></div>
+      <div class="card"><div class="c-t">Sub-C</div><div class="c-h">Yield &amp; Condition</div><div class="c-b">Buchwald · Suzuki 계열 수율·조건 최적화.</div></div>
+    </div>
+
+    <div class="g2" style="margin-top:12px">
+      <div class="card"><div class="c-t">평가 방식</div><div class="c-b"><b>Top-1/5/10 Accuracy</b> · Round-trip Accuracy · 합성 가능성 · <b>화학자 블라인드 루브릭</b></div></div>
+      <div class="card card-s"><div class="c-t">온사이트 Blind Chemist Panel</div><div class="c-b">Hidden Reaction Mystery → 48h 합성 경로 제안 → 유기·무기·촉매 화학자 <b>6~7인 블라인드 평가</b></div></div>
+    </div>
+  </div>
+  <div class="sf"><div>AI4Sci Korea 2026 × DAKER</div><div class="page">12 / 22</div><div>© 2026 DACON · DAKER</div></div>
+</section>
+
+<!-- 13 P2-C Materials -->
+<section class="slide">
+  <div class="sh"><div class="sh-label">03 · P2-C AI for Materials</div><div class="sh-badge">Strictly Confidential</div></div>
+  <div class="si">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:4px"><span class="bd bd-s">P2-C</span><span class="c-t" style="margin:0">Pillar 2 · ML for Domain Science</span></div>
+    <h2 class="st">AI for Materials Science Challenge</h2>
+    <div class="sub">손창윤 SNU · 안성수 KAIST SPML 연계. Matbench Discovery F1 0.93 포화 → <b>Forward + Inverse 듀얼 트랙</b>.</div>
+
+    <div class="g3" style="margin-top:10px">
+      <div class="card card-p"><div class="c-t">Forward</div><div class="c-h">Property Prediction</div><div class="c-b">결정 구조 → 밴드갭 · 형성에너지 · 탄성계수 MAE 경쟁</div></div>
+      <div class="card card-s"><div class="c-t">Inverse</div><div class="c-h">Generation</div><div class="c-b">목표 특성(예: 밴드갭 2.0 eV ± 0.2) → 후보 구조 N개 생성</div></div>
+      <div class="card"><div class="c-t">Synthesis</div><div class="c-h">Feasibility</div><div class="c-b">생성 후보의 합성 가능성 · DFT 검증 통과율</div></div>
+    </div>
+
+    <div class="g2" style="margin-top:12px">
+      <div class="card"><div class="c-t">온라인 경진대회</div><div class="c-b">Materials Project · OQMD · JARVIS-DFT · Alexandria + <b>Hidden 소재 조성</b> (KIST/KRICT 협의 시)</div></div>
+      <div class="card"><div class="c-t">온사이트 해커톤</div><div class="c-b">Target Property 공개 → <b>24h 구조 생성</b> → DFT 검증 (상위 N) → 합성 가능성 정당화 발표</div></div>
+    </div>
+  </div>
+  <div class="sf"><div>AI4Sci Korea 2026 × DAKER</div><div class="page">13 / 22</div><div>© 2026 DACON · DAKER</div></div>
+</section>
+
+<!-- 14 Section 04: DAKER operations -->
+<section class="slide">
+  <div class="divider">
+    <div class="num">04</div>
+    <div class="tag tag-w">Chapter · Platform</div>
+    <h2>DAKER 플랫폼 완전 활용</h2>
+    <div class="sub">조직위 4대 운영 요건 100% 매핑 + 실제 구현 화면으로 검증. 외부 이미지 없이 순수 HTML 목업으로 작동 중인 기능만 소개합니다.</div>
+  </div>
+</section>
+
+<!-- 15 DAKER 4 requirements mapping -->
+<section class="slide">
+  <div class="sh"><div class="sh-label">04 · Requirements Mapping</div><div class="sh-badge">Strictly Confidential</div></div>
+  <div class="si">
+    <div class="tag">Organizer's 4 Requirements × DAKER</div>
+    <h2 class="st">조직위 운영 요건 → DAKER 로컬 구현 페이지 100% 매핑</h2>
+
+    <div class="g2" style="margin-top:10px">
+      <div class="card card-p">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px"><span class="ic ic-p">01</span><div class="c-h" style="margin:0">공모전 접수·서류</div></div>
+        <div class="c-b"><b>hackathon-detail.tsx</b> · <b>hackathon-submission/</b> — 참가신청·동의·파일/링크 업로드 · 버전 관리</div>
+      </div>
+      <div class="card card-p">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px"><span class="ic ic-p">02</span><div class="c-h" style="margin:0">MVP/에이전트 쇼케이스</div></div>
+        <div class="c-b"><b>hackathon-elo-arena.tsx</b> · <b>public/leaderboard.tsx</b> — 1:1 비교 ELO · 리더보드 · 통합/공개 랭킹</div>
+      </div>
+      <div class="card card-s">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px"><span class="ic ic-s">03</span><div class="c-h" style="margin:0">심사위원 전용 채점</div></div>
+        <div class="c-b"><b>expert-portal/</b> · <b>scoring-sheets/</b> · <b>evaluator-invite.tsx</b> — 심사 시트 · 초대 링크 · 전문가 프로필</div>
+      </div>
+      <div class="card card-s">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px"><span class="ic ic-s">04</span><div class="c-h" style="margin:0">Q&amp;A · CS · 공지</div></div>
+        <div class="c-b"><b>community/</b> · <b>qa-list.tsx</b> · <b>announcements.tsx</b> — 대회 전용 Q&amp;A · 공지사항 · 커뮤니티</div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:12px">
+      <div class="c-t">공통 협업·운영 페이지</div>
+      <div class="c-b"><b>raids/</b> · <b>warroom-detail.tsx</b> (팀 워룸) · <b>events.tsx</b> (일정) · <b>surveys-list.tsx</b> (설문) · <b>dashboard.tsx</b> (참가자 대시보드) · <b>admin/</b> (관리자 콘솔) · <b>github-rankings.tsx</b> (GitHub 활동 랭킹)</div>
+    </div>
+  </div>
+  <div class="sf"><div>AI4Sci Korea 2026 × DAKER</div><div class="page">15 / 22</div><div>© 2026 DACON · DAKER</div></div>
+</section>
+
+<!-- 16 DAKER UI Mock: hackathon-detail -->
+<section class="slide">
+  <div class="sh"><div class="sh-label">04 · UI Mock · hackathon-detail.tsx</div><div class="sh-badge">Strictly Confidential</div></div>
+  <div class="si">
+    <div class="tag">UI Preview</div>
+    <h2 class="st">대회 상세 페이지 — 참가신청 · 일정 · 규칙 · 리더보드 탭</h2>
+
+    <div class="ui-mock" style="margin-top:10px">
+      <div class="ui-bar">
+        <span class="ui-dot" style="background:#EF4444"></span>
+        <span class="ui-dot" style="background:#F59E0B"></span>
+        <span class="ui-dot" style="background:#10B981"></span>
+        <span class="ui-url">daker.ai / hackathons / ai4sci-korea-2026-p1-a</span>
+      </div>
+      <div class="ui-body" style="padding:16px 18px">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
+          <div style="display:flex;align-items:center;gap:8px"><span class="bd bd-p">P1-A</span><span class="bd bd-a">진행중</span></div>
+          <div style="font-family:Inter;font-size:11px;color:#64748B">D-42 · 제출 340건 · 참가 52팀</div>
+        </div>
+        <div style="font-size:1.05rem;font-weight:800;color:#0F172A;margin-bottom:4px">Autonomous Research Agent Challenge</div>
+        <div style="font-size:.78rem;color:#64748B;margin-bottom:12px">AI4Sci Korea 2026 · Pillar 1 Data Challenge · 2026.07.15–09.28</div>
+
+        <div style="display:flex;gap:2px;border-bottom:1px solid #E5E7EB;margin-bottom:10px">
+          <div style="padding:8px 14px;font-size:.78rem;font-weight:700;color:#1E3A8A;border-bottom:2px solid #1E3A8A">개요</div>
+          <div style="padding:8px 14px;font-size:.78rem;color:#64748B">일정</div>
+          <div style="padding:8px 14px;font-size:.78rem;color:#64748B">규칙</div>
+          <div style="padding:8px 14px;font-size:.78rem;color:#64748B">리더보드</div>
+          <div style="padding:8px 14px;font-size:.78rem;color:#64748B">제출</div>
+          <div style="padding:8px 14px;font-size:.78rem;color:#64748B">Q&amp;A</div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1.6fr 1fr;gap:14px">
+          <div>
+            <div style="background:#F8FAFC;border:1px solid #E5E7EB;border-radius:8px;padding:10px 12px;font-size:.78rem;color:#334155;line-height:1.5">ScienceAgentBench·MLAgentBench·DiscoveryBench 기반 102+ 과학 과제를 자율 에이전트로 해결. <b>Docker Sandbox</b> 내 Python 환경, 토큰·실행시간 예산 고정. Hidden Problem은 Day 1 15:45에 공개됩니다.</div>
+            <div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap">
+              <span class="bd bd-p">Sandbox · Docker</span>
+              <span class="bd bd-a">재현성 Vault</span>
+              <span class="bd bd-a">FDS 적용</span>
+              <span class="bd bd-s">MSIT 후원</span>
+            </div>
+          </div>
+          <div style="background:#EEF2FF;border:1px solid #DBEAFE;border-radius:10px;padding:12px 14px">
+            <div style="font-size:.7rem;color:#1E3A8A;letter-spacing:.14em;text-transform:uppercase;font-weight:700;margin-bottom:8px">Key Dates</div>
+            <div style="font-size:.78rem;color:#0F172A;line-height:1.8">
+              07.15 &nbsp; Data 공개<br/>
+              08.31 &nbsp; 온라인 예선 마감<br/>
+              09.15 &nbsp; 결선 팀 발표<br/>
+              09.28–10.01 &nbsp; 온사이트
+            </div>
+            <button style="margin-top:12px;width:100%;background:#1E3A8A;color:#fff;border:none;padding:9px 0;border-radius:8px;font-weight:700;font-size:.8rem;cursor:pointer">참가 신청</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="sf"><div>AI4Sci Korea 2026 × DAKER</div><div class="page">16 / 22</div><div>© 2026 DACON · DAKER</div></div>
+</section>
+
+<!-- 17 DAKER UI Mock: leaderboard -->
+<section class="slide">
+  <div class="sh"><div class="sh-label">04 · UI Mock · leaderboard.tsx</div><div class="sh-badge">Strictly Confidential</div></div>
+  <div class="si">
+    <div class="tag">UI Preview</div>
+    <h2 class="st">실시간 리더보드 — Public / Private 분할 · 재현성 배지</h2>
+
+    <div class="ui-mock" style="margin-top:10px">
+      <div class="ui-bar">
+        <span class="ui-dot" style="background:#EF4444"></span>
+        <span class="ui-dot" style="background:#F59E0B"></span>
+        <span class="ui-dot" style="background:#10B981"></span>
+        <span class="ui-url">daker.ai / hackathons / ai4sci-korea-2026-p2-a / leaderboard</span>
+      </div>
+      <div class="ui-body">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+          <div style="display:flex;align-items:center;gap:8px"><span class="bd bd-s">P2-A</span><span style="font-weight:700;font-size:.95rem;color:#0F172A">AI for Biology · Public Leaderboard</span></div>
+          <div style="display:flex;gap:6px"><span class="bd bd-a">Public 30%</span><span class="bd bd-p">Private 70% · 잠김</span></div>
+        </div>
+        <table class="tb" style="font-size:.8rem">
+          <thead>
+            <tr><th style="width:7%">#</th><th>팀</th><th style="width:14%">점수 (Pearson)</th><th style="width:14%">제출</th><th style="width:14%">재현성</th><th style="width:10%">변동</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><b style="color:#C2622D">1</b></td><td>SeokLab-α</td><td><b>0.8721</b></td><td>47</td><td><span class="bd bd-p">Verified</span></td><td>+2</td></tr>
+            <tr><td>2</td><td>ESM-Meta-Kr</td><td>0.8654</td><td>52</td><td><span class="bd bd-p">Verified</span></td><td>-1</td></tr>
+            <tr><td>3</td><td>BInD-Kim-Lab</td><td>0.8611</td><td>38</td><td><span class="bd bd-p">Verified</span></td><td>0</td></tr>
+            <tr><td>4</td><td>Molecule-Forge</td><td>0.8502</td><td>41</td><td><span class="bd bd-a">Pending</span></td><td>+5</td></tr>
+            <tr><td>5</td><td>ProteinFold-SNU</td><td>0.8488</td><td>29</td><td><span class="bd bd-p">Verified</span></td><td>-2</td></tr>
+            <tr><td>6</td><td>Drug-Agent-Labs</td><td>0.8451</td><td>33</td><td><span class="bd bd-p">Verified</span></td><td>+1</td></tr>
+            <tr><td>7</td><td>KAIST-Chem-AI</td><td>0.8422</td><td>24</td><td><span class="bd bd-a">Pending</span></td><td>+3</td></tr>
+          </tbody>
+        </table>
+        <div style="display:flex;gap:8px;margin-top:10px;font-family:Inter;font-size:10.5px;color:#64748B">
+          <span>⟳ 15초마다 자동 갱신</span>
+          <span>· FDS: Label Leakage 탐지 · Private 마감 D-2 Freeze</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="sf"><div>AI4Sci Korea 2026 × DAKER</div><div class="page">17 / 22</div><div>© 2026 DACON · DAKER</div></div>
+</section>
+
+<!-- 18 DAKER UI Mock: ELO arena -->
+<section class="slide">
+  <div class="sh"><div class="sh-label">04 · UI Mock · hackathon-elo-arena.tsx</div><div class="sh-badge">Strictly Confidential</div></div>
+  <div class="si">
+    <div class="tag">UI Preview</div>
+    <h2 class="st">ELO 아레나 — 블라인드 1:1 비교 (P1-A · P2-C 결선 보조)</h2>
+
+    <div class="ui-mock" style="margin-top:10px">
+      <div class="ui-bar">
+        <span class="ui-dot" style="background:#EF4444"></span>
+        <span class="ui-dot" style="background:#F59E0B"></span>
+        <span class="ui-dot" style="background:#10B981"></span>
+        <span class="ui-url">daker.ai / hackathons / ai4sci-korea-2026-p1-a / elo-arena</span>
+      </div>
+      <div class="ui-body">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+          <div style="font-weight:700;font-size:.95rem;color:#0F172A">Blind Arena · Round 12 / 30</div>
+          <div style="font-family:Inter;font-size:11px;color:#64748B">심사자 · Prof. Reviewer (Committee)</div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 56px 1fr;gap:12px;align-items:stretch">
+          <div style="background:#EEF2FF;border:2px solid #DBEAFE;border-radius:10px;padding:14px">
+            <div style="font-family:Inter;font-size:10px;color:#1E3A8A;letter-spacing:.14em;text-transform:uppercase;font-weight:800;margin-bottom:6px">Agent A</div>
+            <div style="font-size:.82rem;color:#334155;line-height:1.55">Hypothesis: "리간드 X의 결합 친화도는 리간드 Y 대비 2.3배 높다." 실험 계획: 5-step 재분석 후 Mann-Whitney 검정 적용. 결과 해석: <b>p = 0.012</b>, 가설 부분 지지.</div>
+            <div style="margin-top:10px;font-family:Inter;font-size:11px;color:#64748B">Trace · 1,842 steps · 재현성 ✔</div>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px"><div style="font-family:Inter;font-size:.8rem;font-weight:800;color:#C2622D">VS</div><div style="font-family:Inter;font-size:10px;color:#64748B">ELO Δ ±24</div></div>
+          <div style="background:#FEF3EC;border:2px solid #FCE9D5;border-radius:10px;padding:14px">
+            <div style="font-family:Inter;font-size:10px;color:#C2622D;letter-spacing:.14em;text-transform:uppercase;font-weight:800;margin-bottom:6px">Agent B</div>
+            <div style="font-size:.82rem;color:#334155;line-height:1.55">Hypothesis: "X의 구조적 유사도가 핵심 변수." 실험 계획: 2-step baseline + bootstrap 1,000회. 결과 해석: 유사도 0.78 이상에서 <b>r = 0.64</b>, 유의미.</div>
+            <div style="margin-top:10px;font-family:Inter;font-size:11px;color:#64748B">Trace · 964 steps · 재현성 ✔</div>
+          </div>
+        </div>
+        <div style="display:flex;gap:8px;justify-content:center;margin-top:14px">
+          <button style="background:#1E3A8A;color:#fff;border:none;padding:9px 20px;border-radius:8px;font-weight:700;font-size:.8rem;cursor:pointer">A 선택</button>
+          <button style="background:#F8FAFC;color:#334155;border:1px solid #E5E7EB;padding:9px 20px;border-radius:8px;font-weight:700;font-size:.8rem;cursor:pointer">동률</button>
+          <button style="background:#C2622D;color:#fff;border:none;padding:9px 20px;border-radius:8px;font-weight:700;font-size:.8rem;cursor:pointer">B 선택</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="sf"><div>AI4Sci Korea 2026 × DAKER</div><div class="page">18 / 22</div><div>© 2026 DACON · DAKER</div></div>
+</section>
+
+<!-- 19 DAKER UI Mock: scoring sheets + warroom -->
+<section class="slide">
+  <div class="sh"><div class="sh-label">04 · UI Mock · scoring-sheets &amp; warroom</div><div class="sh-badge">Strictly Confidential</div></div>
+  <div class="si">
+    <div class="tag">UI Preview</div>
+    <h2 class="st">심사 시트 + 팀 워룸 — 전문가 채점 · 팀 협업 공간</h2>
+
+    <div class="g2" style="margin-top:10px">
+      <!-- Scoring Sheet -->
+      <div class="ui-mock">
+        <div class="ui-bar">
+          <span class="ui-dot" style="background:#EF4444"></span>
+          <span class="ui-dot" style="background:#F59E0B"></span>
+          <span class="ui-dot" style="background:#10B981"></span>
+          <span class="ui-url">daker.ai / scoring-sheets / p2-b-finals</span>
+        </div>
+        <div class="ui-body" style="padding:14px">
+          <div style="font-weight:700;font-size:.85rem;color:#0F172A;margin-bottom:6px">Blind Review · P2-B · 팀 #17</div>
+          <div style="font-family:Inter;font-size:10.5px;color:#64748B;margin-bottom:10px">심사자 · Chemist 03 · 가중치 자동 적용</div>
+          <table style="width:100%;font-size:.76rem;border-collapse:collapse">
+            <tr style="border-bottom:1px solid #E5E7EB"><td style="padding:6px 0;color:#334155">Top-K 합리성</td><td style="text-align:right;font-weight:700;color:#1E3A8A">8 / 10</td></tr>
+            <tr style="border-bottom:1px solid #E5E7EB"><td style="padding:6px 0;color:#334155">합성 가능성</td><td style="text-align:right;font-weight:700;color:#1E3A8A">7 / 10</td></tr>
+            <tr style="border-bottom:1px solid #E5E7EB"><td style="padding:6px 0;color:#334155">역합성 경로 우아성</td><td style="text-align:right;font-weight:700;color:#1E3A8A">9 / 10</td></tr>
+            <tr><td style="padding:6px 0;color:#334155">재현성 명세</td><td style="text-align:right;font-weight:700;color:#1E3A8A">10 / 10</td></tr>
+          </table>
+          <div style="margin-top:10px;background:#F8FAFC;border:1px solid #E5E7EB;border-radius:8px;padding:8px 10px;font-size:.76rem;color:#64748B"><b style="color:#0F172A">집계</b> &nbsp; 평균 8.3 · 블라인드 유지 · 저장됨</div>
+        </div>
+      </div>
+
+      <!-- Warroom -->
+      <div class="ui-mock">
+        <div class="ui-bar">
+          <span class="ui-dot" style="background:#EF4444"></span>
+          <span class="ui-dot" style="background:#F59E0B"></span>
+          <span class="ui-dot" style="background:#10B981"></span>
+          <span class="ui-url">daker.ai / warroom / team-protein-forge</span>
+        </div>
+        <div class="ui-body" style="padding:14px">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+            <div style="font-weight:700;font-size:.85rem;color:#0F172A">Team · Protein-Forge · War Room</div>
+            <span class="bd bd-p">P2-A</span>
+          </div>
+          <div style="display:flex;gap:-6px;margin-bottom:10px">
+            <div style="width:24px;height:24px;border-radius:999px;background:#1E3A8A;color:#fff;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;border:2px solid #fff">JS</div>
+            <div style="width:24px;height:24px;border-radius:999px;background:#C2622D;color:#fff;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;border:2px solid #fff;margin-left:-6px">HM</div>
+            <div style="width:24px;height:24px;border-radius:999px;background:#334155;color:#fff;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;border:2px solid #fff;margin-left:-6px">YK</div>
+            <div style="width:24px;height:24px;border-radius:999px;background:#64748B;color:#fff;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;border:2px solid #fff;margin-left:-6px">+2</div>
+            <div style="margin-left:10px;font-family:Inter;font-size:10.5px;color:#64748B;align-self:center">5명 활동 중</div>
+          </div>
+          <div style="background:#F8FAFC;border:1px solid #E5E7EB;border-radius:8px;padding:8px 10px;font-size:.76rem;color:#334155;margin-bottom:6px"><b>[JS]</b> Hidden target 구조 분석 완료. fold confidence 0.82.</div>
+          <div style="background:#EEF2FF;border:1px solid #DBEAFE;border-radius:8px;padding:8px 10px;font-size:.76rem;color:#334155;margin-bottom:6px"><b>[HM]</b> Top-20 후보 분자 생성. Tanimoto &lt; 0.35 유지.</div>
+          <div style="background:#F8FAFC;border:1px solid #E5E7EB;border-radius:8px;padding:8px 10px;font-size:.76rem;color:#334155"><b>[Mentor · AI Friends]</b> SA-Score 체크하셨나요? Top-5만 제출 권장.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="sf"><div>AI4Sci Korea 2026 × DAKER</div><div class="page">19 / 22</div><div>© 2026 DACON · DAKER</div></div>
+</section>
+
+<!-- 20 Roadmap -->
+<section class="slide">
+  <div class="sh"><div class="sh-label">04 · Roadmap</div><div class="sh-badge">Strictly Confidential</div></div>
+  <div class="si">
+    <div class="tag">2026 Q3–Q4 Timeline</div>
+    <h2 class="st">운영 로드맵 — 7월 오픈 → 10월 결과 발표</h2>
+
+    <div class="flow" style="margin-top:18px">
+      <div class="flow-box" style="background:var(--pp);border-color:#DBEAFE">
+        <div class="c-t" style="color:var(--p)">07월</div>
+        <div class="c-h" style="font-size:.92rem">Pre-Launch</div>
+        <div class="c-b" style="font-size:.78rem">데이터 공개 · 베이스라인 · Call for Participation</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-box">
+        <div class="c-t">08월</div>
+        <div class="c-h" style="font-size:.92rem">Online 예선 가속</div>
+        <div class="c-b" style="font-size:.78rem">일일 리더보드 · 멘토 Office Hours · 중간 webinar</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-box">
+        <div class="c-t">09월 초중순</div>
+        <div class="c-h" style="font-size:.92rem">Freeze &amp; Shortlist</div>
+        <div class="c-b" style="font-size:.78rem">Private 잠금 · 재현성 검증 · 결선 팀 선발</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-box" style="background:var(--sp);border-color:#FCE9D5">
+        <div class="c-t" style="color:var(--s)">09.28–10.01</div>
+        <div class="c-h" style="font-size:.92rem">Grand Ballroom</div>
+        <div class="c-b" style="font-size:.78rem">6트랙 병렬 해커톤 · ELO Arena · 수상</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-box">
+        <div class="c-t">10월</div>
+        <div class="c-h" style="font-size:.92rem">Proceedings</div>
+        <div class="c-b" style="font-size:.78rem">결과 보고 · Tech Report · Paperswithcode 공개</div>
+      </div>
+    </div>
+
+    <div class="g3" style="margin-top:18px">
+      <div class="card"><div class="c-t">Online Phase</div><div class="c-b">DACON/DAKER 리더보드 · Jupyter LAB · FDS · 24/7 AI 멘토 · 한·영 CS SLA</div></div>
+      <div class="card"><div class="c-t">Onsite Phase</div><div class="c-b">6 Track Rooms · Main Arena Demo Stage · Expert Review Booth · ELO Arena</div></div>
+      <div class="card"><div class="c-t">Post-Event</div><div class="c-b">증서 자동 발급 · 결과보고서 (한/영) · 우수작 Proceedings · Benchmark Export</div></div>
+    </div>
+  </div>
+  <div class="sf"><div>AI4Sci Korea 2026 × DAKER</div><div class="page">20 / 22</div><div>© 2026 DACON · DAKER</div></div>
+</section>
+
+<!-- 21 Onsite Agenda + KPI -->
+<section class="slide">
+  <div class="sh"><div class="sh-label">04 · Onsite Agenda &amp; KPI</div><div class="sh-badge">Strictly Confidential</div></div>
+  <div class="si">
+    <div class="tag">4 Days at Seoul Dragon City</div>
+    <h2 class="st">온사이트 해커톤 · 4일 아젠다 &amp; 정량 KPI</h2>
+
+    <table class="tb" style="margin-top:10px">
+      <thead><tr><th style="width:18%">Day</th><th>조직위 세션</th><th>본 제안 경진·해커톤</th></tr></thead>
+      <tbody>
+        <tr><td><b>09.28 Mon</b></td><td>Opening · Keynote (Autonomous AI Agents)</td><td>Finalist Orientation · <b>Mystery Problem/Target 공개</b> 15:45 · Welcome Reception</td></tr>
+        <tr><td><b>09.29 Tue</b></td><td>Keynote (AI for Biology / Chemistry)</td><td>Pillar 2 Hidden Test 공개 · <b>P1-A ELO · P1-C Live Proof</b> Round 1</td></tr>
+        <tr><td><b>09.30 Wed</b></td><td>Keynote (AI for Materials Science)</td><td>Expert 심사 본격화 · <b>P1-B Research Proposal 라이브</b> · Scientific Storytelling Workshop</td></tr>
+        <tr><td><b>10.01 Thu</b></td><td>Keynote Closing</td><td>Finalist Presentations · <b>Awards Ceremony</b> · Demo Fair &amp; Paper-pitch</td></tr>
+      </tbody>
+    </table>
+
+    <div class="g4" style="margin-top:14px">
+      <div class="mx"><div class="val">6</div><div class="lbl">Tracks (2 × 3)</div></div>
+      <div class="mx"><div class="val">300+</div><div class="lbl">참가 팀 목표</div></div>
+      <div class="mx"><div class="val">1,000+</div><div class="lbl">참가 연구자</div></div>
+      <div class="mx"><div class="val">36</div><div class="lbl">온사이트 결선 팀</div></div>
+    </div>
+  </div>
+  <div class="sf"><div>AI4Sci Korea 2026 × DAKER</div><div class="page">21 / 22</div><div>© 2026 DACON · DAKER</div></div>
+</section>
+
+<!-- 22 Ending -->
+<section class="slide">
+  <div class="ending">
+    <div class="mark">DACON · DAKER</div>
+    <div class="msg">조직위는 학술 비전에 집중하고,<br/>대회 운영은 DAKER가 책임집니다.</div>
+    <div class="note">6개 트랙 · 2 Pillars · DAKER 실제 구현 화면으로 완성하는 AI4Sci Korea 2026 공식 Data Challenge 파트너 제안.</div>
+    <div class="cbox">
+      <div><b>Contact</b>김국진 · DACON · DAKER 대표</div>
+      <div><b>Email</b>edgar@dacon.io</div>
+      <div><b>Phone</b>010-4293-1041</div>
+      <div><b>Platforms</b>dacon.io · daker.ai · daschool.io</div>
+    </div>
+  </div>
+</section>
+
+</div></div>
+
+<div class="nav prev no-capture" data-capture="hide" onclick="go(-1)">‹</div>
+<div class="nav next no-capture" data-capture="hide" onclick="go(1)">›</div>
+<div class="bar no-capture" id="bar" data-capture="hide"></div>
+
+<script>
+  const slides = [...document.querySelectorAll('.slide')];
+  let idx = 0;
+
+  function fit(){
+    const vw = innerWidth, vh = innerHeight;
+    const s = Math.min(vw/1280, vh/720) * 0.94;
+    document.getElementById('stage').style.transform = 'scale('+s+')';
+  }
+  window.addEventListener('resize', fit);
+  fit();
+
+  function show(n){
+    idx = Math.max(0, Math.min(slides.length-1, n));
+    slides.forEach((s,i)=>s.classList.toggle('active', i===idx));
+    document.getElementById('bar').style.width = ((idx+1)/slides.length*100)+'%';
+    history.replaceState(null,'','#slide-'+(idx+1));
+  }
+  function go(d){ show(idx+d); }
+
+  addEventListener('keydown', e=>{
+    if(e.key==='ArrowRight'||e.key==='PageDown'||e.key===' ') { e.preventDefault(); go(1); }
+    else if(e.key==='ArrowLeft'||e.key==='PageUp') { e.preventDefault(); go(-1); }
+    else if(e.key==='Home') show(0);
+    else if(e.key==='End') show(slides.length-1);
+    else if(e.key==='f'||e.key==='F'){ if(!document.fullscreenElement) document.documentElement.requestFullscreen(); else document.exitFullscreen(); }
+  });
+
+  let sx=null;
+  addEventListener('touchstart', e=>{ sx = e.touches[0].clientX; }, {passive:true});
+  addEventListener('touchend', e=>{
+    if(sx==null) return;
+    const dx = e.changedTouches[0].clientX - sx;
+    if(Math.abs(dx)>40) go(dx<0?1:-1);
+    sx=null;
+  }, {passive:true});
+
+  // Hash routing on load
+  const m = /^#slide-(\d+)$/.exec(location.hash);
+  if(m) show(parseInt(m[1],10)-1);
+  else show(0);
+</script>
+
+</body>
+</html>

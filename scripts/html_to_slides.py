@@ -244,6 +244,18 @@ def capture_box_bodies(
         page.goto(html_path.as_uri(), wait_until="networkidle")
         page.wait_for_timeout(500)
 
+        # Hide viewer-only chrome before measuring / capturing boxes too.
+        page.add_style_tag(content="""
+            #key-hint, #kbd-hint, .kbd-hint,
+            .nav, .nav-btn, .nav-prev, .nav-next, .slide-nav, .navigation,
+            .bar, #progress-bar, .progress-bar, .progress,
+            .controls, .slide-controls, .hotkeys,
+            .no-capture, [data-capture="hide"] {
+                display: none !important;
+                visibility: hidden !important;
+            }
+        """)
+
         dims = page.evaluate("""() => {
             const s = document.getElementById('stage');
             if (!s) return null;
@@ -343,8 +355,19 @@ def capture_full_slides(
         page.wait_for_timeout(500)
 
         # Force stage to requested dimensions for Slides aspect match.
+        # Hide anything that is viewer-only chrome (nav buttons, progress bars,
+        # key hints) so it does not get baked into the captured PNG. Convention:
+        # any element with class `.no-capture` or attribute `data-capture="hide"`
+        # is also hidden — authors should use these on custom chrome.
         page.add_style_tag(content=f"""
-            #key-hint, .nav-btn, #progress-bar {{ display: none !important; }}
+            #key-hint, #kbd-hint, .kbd-hint,
+            .nav, .nav-btn, .nav-prev, .nav-next, .slide-nav, .navigation,
+            .bar, #progress-bar, .progress-bar, .progress,
+            .controls, .slide-controls, .hotkeys,
+            .no-capture, [data-capture="hide"] {{
+                display: none !important;
+                visibility: hidden !important;
+            }}
             #stage {{ width: {stage_w}px !important; height: {stage_h}px !important; }}
         """)
         page.set_viewport_size({"width": stage_w, "height": stage_h})
