@@ -152,7 +152,8 @@ def cmd_sync(manifest: dict, check: bool = False) -> int:
     return 0
 
 
-def cmd_scan(manifest: dict) -> int:
+def _find_missing(manifest: dict) -> list[str]:
+    """Return list of 'dir/file.html' paths present on disk but not in cards.json."""
     scan_cfg = manifest.get("scan", {})
     dirs = scan_cfg.get("directories", [])
     ignore_patterns = scan_cfg.get("ignore_patterns", [])
@@ -177,11 +178,14 @@ def cmd_scan(manifest: dict) -> int:
                 continue
             if any(pat in name for pat in ignore_nfc):
                 continue
-            # Only include files matching YYYY-MM-DD-* or YYYYMMDD_* naming
             if not re.match(r"^(\d{4}-\d{2}-\d{2}-|\d{8}_)", name):
                 continue
             missing.append(rel)
+    return missing
 
+
+def cmd_scan(manifest: dict) -> int:
+    missing = _find_missing(manifest)
     if not missing:
         print("✓ No unregistered proposal HTMLs found")
         return 0
@@ -193,25 +197,160 @@ def cmd_scan(manifest: dict) -> int:
     print("  If these should appear on the landing page, add entries to")
     print("  scripts/cards.json, then run: python3 scripts/sync_cards.py")
     print("  If they should NOT, add a substring to `scan.ignore_patterns`.")
+    print("  Or run: python3 scripts/sync_cards.py --autoregister (auto-add).")
     return 1  # non-zero so pre-commit hook can surface it
+
+
+# ---------- Autoregister logic ---------------------------------------------
+#
+# Heuristics translate a filename like "제안/2026-04-17-foo_bar_제안서.html"
+# into a card entry. Authors can always edit cards.json afterwards.
+
+# Token in filename → (section title, badge)
+# Tested in order; first match wins.
+_TOKEN_RULES = [
+    ("소개서", "소개서", "소개서"),
+    ("전략서", "전략서", "전략서"),
+    ("Pilot", "전략서", "전략서"),
+    ("전략", "전략서", "전략서"),
+    ("리서치", "리서치", "리서치"),
+    ("research", "리서치", "리서치"),
+    ("리포트", "리서치", "리서치"),
+    ("브리핑", "슬라이드", "슬라이드"),
+    ("슬라이드", "슬라이드", "슬라이드"),
+    ("소개", "슬라이드", "슬라이드"),
+    ("제안서", "제안서", "NEW"),
+]
+
+# Directory → (color fallback when section doesn't set one)
+_DIR_COLOR = {
+    "제안": "blue",
+    "내부": "blue",
+    "전략": "warm",
+    "docs/plans": "dark",
+}
+
+
+def _clean_title(stem: str) -> str:
+    """Remove date prefix, underscores, trailing descriptors."""
+    s = re.sub(r"^(\d{4}-\d{2}-\d{2}-|\d{8}_)", "", stem)
+    s = s.replace("_", " ").strip()
+    return s
+
+
+def _first_icon_char(title: str) -> str:
+    for ch in title:
+        if ch.isalnum() or ("\uac00" <= ch <= "\ud7a3"):
+            return ch.upper() if ch.isascii() else ch
+    return "?"
+
+
+def _infer_metadata(rel_path: str) -> tuple[str, dict]:
+    """Given 'dir/file.html', return (section_title, card_dict)."""
+    p = Path(rel_path)
+    directory = "/".join(p.parts[:-1])
+    stem = p.stem
+
+    # Date
+    m = re.match(r"^(\d{4})-(\d{2})-(\d{2})-", stem)
+    if m:
+        date = f"{m.group(1)}.{m.group(2)}.{m.group(3)}"
+    else:
+        m2 = re.match(r"^(\d{4})(\d{2})(\d{2})_", stem)
+        date = f"{m2.group(1)}.{m2.group(2)}.{m2.group(3)}" if m2 else ""
+
+    title = _clean_title(stem)
+
+    # Section + badge by filename tokens
+    section = "제안서"
+    badge = "NEW"
+    for token, sect, bdg in _TOKEN_RULES:
+        if token in stem:
+            section = sect
+            badge = bdg
+            break
+    # docs/plans/ defaults to 슬라이드 if no stronger signal
+    if directory == "docs/plans" and section == "제안서":
+        section = "슬라이드"
+        badge = "슬라이드"
+
+    color = _DIR_COLOR.get(directory, "blue")
+    icon = _first_icon_char(title)
+
+    card = {
+        "href": rel_path,
+        "title": title,
+        "date": date,
+        "icon": icon,
+        "color": color,
+        "badge": badge,
+    }
+    return section, card
+
+
+def cmd_autoregister(manifest: dict) -> int:
+    """Append each unregistered HTML to the appropriate section in cards.json.
+
+    New cards are inserted at the TOP of the section so the landing page shows
+    newest first. The updated manifest is written back to disk, then
+    index.html is re-synced.
+    """
+    missing = _find_missing(manifest)
+    if not missing:
+        # Still make sure index.html is in sync.
+        return cmd_sync(manifest, check=False)
+
+    # Ensure every known section exists; create if missing.
+    existing_titles = [s.get("title") for s in manifest.get("sections", [])]
+    added: list[tuple[str, str]] = []
+    for rel in missing:
+        section_title, card = _infer_metadata(rel)
+        target = None
+        for sect in manifest["sections"]:
+            if sect.get("title") == section_title:
+                target = sect
+                break
+        if target is None:
+            target = {"title": section_title, "cards": []}
+            manifest["sections"].append(target)
+            existing_titles.append(section_title)
+        target.setdefault("cards", []).insert(0, card)
+        added.append((rel, section_title))
+
+    # Persist manifest (preserve 2-space indent, sort_keys=False to keep order).
+    MANIFEST_PATH.write_text(
+        json.dumps(manifest, indent=2, ensure_ascii=False) + "\n",
+        encoding="utf-8",
+    )
+
+    print(f"✨ Auto-registered {len(added)} HTML(s) to scripts/cards.json:")
+    for rel, sect in added:
+        print(f"    · [{sect}] {rel}")
+
+    # Re-sync index.html
+    return cmd_sync(manifest, check=False)
 
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--check", action="store_true", help="Check only, do not write")
     parser.add_argument("--scan", action="store_true", help="Scan for unregistered files")
+    parser.add_argument("--autoregister", action="store_true",
+                        help="Auto-add unregistered HTMLs to cards.json with inferred defaults")
     parser.add_argument("--all", action="store_true", help="Sync + Scan")
     args = parser.parse_args()
 
     manifest = load_manifest()
 
-    if args.scan and not (args.all):
+    if args.autoregister:
+        return cmd_autoregister(manifest)
+
+    if args.scan and not args.all:
         return cmd_scan(manifest)
 
     rc = cmd_sync(manifest, check=args.check)
     if args.all:
         scan_rc = cmd_scan(manifest)
-        # Scan warnings should not block a successful sync in --all mode
         return rc if rc != 0 else 0 if scan_rc == 0 else 0
     return rc
 

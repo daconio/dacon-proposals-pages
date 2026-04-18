@@ -281,6 +281,14 @@
       "title": "슬라이드",
       "cards": [
         {
+          "href": "docs/plans/2026-04-17-AI4Sci_Korea_조직위_브리핑_슬라이드.html",
+          "title": "AI4Sci Korea 조직위 브리핑 슬라이드",
+          "date": "2026.04.17",
+          "icon": "A",
+          "color": "dark",
+          "badge": "슬라이드"
+        },
+        {
           "href": "전략/2026-04-16-DAKER_멘토링시스템_개념_기능_프로세스.html",
           "title": "DAKER 멘토링 시스템 — 개념·기능·프로세스",
           "date": "2026.04.16",
@@ -352,7 +360,8 @@
     "directories": [
       "제안",
       "내부",
-      "전략"
+      "전략",
+      "docs/plans"
     ],
     "ignore_patterns": [
       "0000-00-00-",
