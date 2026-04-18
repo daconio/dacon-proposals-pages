@@ -1,0 +1,26 @@
+# macOS
+.DS_Store
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# bkit session / memory state (per-user, not for sharing)
+.bkit/
+docs/.bkit-memory.json
+docs/.pdca-status.json
+
+# Editor / OS
+*.swp
+*.swo
+Thumbs.db
+
+# Node (reserved — repo is static today, guards future tooling)
+node_modules/
+
+# Environment
+.env
+.env.local
+.env.*.local
